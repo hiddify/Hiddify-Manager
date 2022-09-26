@@ -24,7 +24,7 @@ runcmd:
   - cd /opt/
   - git clone https://github.com/alexbers/mtprotoproxy 
   - cd  mtprotoproxy
-  - cd  sed -i 's/00000000000000000000000000000001/751F2F753854422EA4C5FDDB8314F068/g' config.py
+  - sed -i 's/00000000000000000000000000000001/751F2F753854422EA4C5FDDB8314F068/g' config.py
   - echo 'TLS_DOMAIN = "www.googleapis.com"'>> config.py
   - docker-compose up -d
 power_state:
