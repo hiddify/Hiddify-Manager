@@ -1,0 +1,11 @@
+[Unit]
+Description=gost
+
+
+[Service]
+Type=forking    
+ExecStart=/opt/gost -L=http+tls://:443
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
