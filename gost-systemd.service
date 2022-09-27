@@ -4,7 +4,7 @@ Description=gost
 
 [Service]
 Type=forking    
-ExecStart=/opt/gost -L=http+tls://:443
+ExecStart=/opt/gost/gost -L=http+tls://:443
 Restart=on-failure
 
 [Install]
