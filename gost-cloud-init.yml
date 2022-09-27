@@ -19,6 +19,7 @@ runcmd:
   - mv gost* gost
   - chmod +x gost
   - wget https://raw.githubusercontent.com/hiddify/config/main/gost-systemd.service -O gost.service
+  - sudo mv gost.service /etc/systemd/system/
   - sudo systemctl enable gost.service
   - sudo systemctl start gost.service
 power_state:
