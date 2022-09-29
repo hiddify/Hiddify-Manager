@@ -6,7 +6,7 @@ import urllib.request
 external_ip = urllib.request.urlopen('https://ident.me').read().decode('utf8')
 
 print(external_ip)
-usersecret='751F2F753854422EA4C5FDDB8314F068'
+usersecret='00000000000000000000000000000001'
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
