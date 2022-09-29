@@ -12,7 +12,7 @@ proxies:
     port: "443"
     tls: true
     skip-cert-verify: true
-    sni: google.com
+    sni: www.google.com
     username: usersecret
     password: 1
 
