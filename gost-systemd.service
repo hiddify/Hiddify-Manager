@@ -5,7 +5,7 @@ Wants=network-online.target
 
 [Service]
 Type=forking    
-ExecStart=/opt/gost/gost -L=http+tls://user:pass@:443?probe_resist=web:https://google.com:443 
+ExecStart=/opt/gost/gost -L=http+tls://user:pass@:443?probe_resist=web:www.google.com:80 
 Restart=on-failure
 
 [Install]
