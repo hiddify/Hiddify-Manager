@@ -24,8 +24,8 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
 httpd = HTTPServer(('0.0.0.0', 80), SimpleHTTPRequestHandler)
 
-httpd.socket = ssl.wrap_socket (httpd.socket,
-        keyfile="/opt/gost/key.pem",
-        certfile='/opt/gost/cert.pem', server_side=True)
+#httpd.socket = ssl.wrap_socket (httpd.socket,
+#        keyfile="/opt/gost/key.pem",
+#        certfile='/opt/gost/cert.pem', server_side=True)
 
 httpd.serve_forever()
