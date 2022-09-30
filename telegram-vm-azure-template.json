@@ -2,6 +2,15 @@
 	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
 	"contentVersion": "1.0.0.0",
 	"parameters": {
+		"location": {
+			"type": "string",
+			"defaultValue": "centralindia"
+		},
+		"telegramToken": {
+			"type": "string",
+			"minLength": 32,
+			"maxLength": 32,
+		},
 		"adminUsername": {
 			"type": "string",
 			"metadata": {
@@ -23,6 +32,7 @@
 	},
 	"variables": {
 		"storageAccountName": "[concat(uniquestring(resourceGroup().id),'storage')]",
+		"domain": "[parameters('dnsNameForPublicIP'), '.', resourceGroup().location, '.cloudapp.azure.com']",
 		"imagePublisher": "Canonical",
 		"imageOffer": "UbuntuServer",
 		"OSDiskName": "telegram-vhd",
@@ -47,7 +57,7 @@
 			"type": "Microsoft.Storage/storageAccounts",
 			"name": "[variables('storageAccountName')]",
 			"apiVersion": "[variables('apiVersion')]",
-			"location": "[resourceGroup().location]",
+			"location": "[parameters('location')]",
 			"properties": {
 				"accountType": "[variables('storageAccountType')]"
 			}
@@ -56,7 +66,7 @@
 			"apiVersion": "[variables('apiVersion')]",
 			"type": "Microsoft.Network/publicIPAddresses",
 			"name": "[variables('publicIPAddressName')]",
-			"location": "[resourceGroup().location]",
+			"location": "[parameters('location')]",
 			"properties": {
 				"publicIPAllocationMethod": "[variables('publicIPAddressType')]",
 				"dnsSettings": {
@@ -148,7 +158,7 @@
 					{
 						"name": "default-allow-443-UDP",
 						"properties": {
-							"priority": 1200,
+							"priority": 1300,
 							"sourceAddressPrefix": "*",
 							"protocol": "UDP",
 							"destinationPortRange": "443",
@@ -174,7 +184,7 @@
 					{
 						"name": "default-allow-http",
 						"properties": {
-							"priority": 1200,
+							"priority": 1400,
 							"sourceAddressPrefix": "*",
 							"protocol": "TCP",
 							"destinationPortRange": "80",
@@ -201,8 +211,8 @@
 				"typeHandlerVersion": "2.0",
 				"autoUpgradeMinorVersion": true,
 				"settings": {
-					"fileUris": "[split('https://raw.githubusercontent.com/theonemule/simple-openvpn-server/master/openvpn.sh', ' ')]",
-					"commandToExecute": "[concat('bash openvpn.sh --host=', parameters('dnsNameForPublicIP'), '.', resourceGroup().location, '.cloudapp.azure.com --adminpassword=', parameters('adminPassword'))]"
+					"fileUris": "[split('https://raw.githubusercontent.com/hiddify/config/main/setup_telegram.sh', ' ')]",
+					"commandToExecute": "[concat('bash setup_telegram.sh ', parameters('telegramToken'))]"
 				}
 			}
 		},
@@ -254,7 +264,7 @@
 	"outputs": {
 		"httpSite": {
 			"type": "string",
-			"value": "[concat('Browse to: ', parameters('dnsNameForPublicIP'), '.', resourceGroup().location, '.cloudapp.azure.com and logon with u:admin p:', parameters('adminPassword'))]"
+			"value": "[concat('Telegram Proxy Link: https://t.me/proxy?server=', variables('domain'),&port=443&secret=ee', parameters('telegramToken'),'7777772e676f6f676c652e636f6d')]"
 		}
 	}
 }
