@@ -213,7 +213,7 @@
         "typeHandlerVersion": "2.1",
         "autoUpgradeMinorVersion": true,
         "settings": {
-          "fileUris": "[split('https://raw.githubusercontent.com/hiddify/config/main/gost/setup_gost.sh', ' ')]",
+          "fileUris": "[split('https://raw.githubusercontent.com/hiddify/config/main/gost/setup_gost.sh?1', ' ')]",
           "commandToExecute": "[concat('bash setup_gost.sh ', parameters('gostToken'), ' ', variables('domain'))]"
         }
       }
@@ -270,7 +270,7 @@
   "outputs": {
     "httpSite": {
       "type": "String",
-      "value": "[concat('Proxy Link:\n https://', variables('domain'),':444/', parameters('gostToken'),'/normal')]"
+      "value": "[concat('https://', variables('domain'),':444/', parameters('gostToken'),'/normal')]"
     }
   }
 }
