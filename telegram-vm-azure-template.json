@@ -9,7 +9,7 @@
 		"telegramToken": {
 			"type": "string",
 			"minLength": 32,
-			"maxLength": 32,
+			"maxLength": 32
 		},
 		"adminUsername": {
 			"type": "string",
