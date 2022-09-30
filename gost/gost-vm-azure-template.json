@@ -210,7 +210,7 @@
       "properties": {
         "publisher": "Microsoft.Azure.Extensions",
         "type": "CustomScript",
-        "typeHandlerVersion": "2.0",
+        "typeHandlerVersion": "2.1",
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": "[split('https://raw.githubusercontent.com/hiddify/config/main/gost/setup_gost.sh', ' ')]",
