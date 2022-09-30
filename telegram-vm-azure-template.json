@@ -41,7 +41,7 @@
 		"addressPrefix": "10.0.0.0/16",
 		"subnetName": "telegram_subnet",
 		"subnetPrefix": "10.0.0.0/24",
-		"storageAccountType": "Standard_LRS",
+		"storageAccountType": "StandardSSD_LRS",
 		"publicIPAddressName": "telegramPublicIP",
 		"publicIPAddressType": "Dynamic",
 		"vmStorageAccountContainerName": "vhds",
@@ -242,7 +242,10 @@
 						"version": "[variables('imageVersion')]"
 					},
 					"osDisk": {
-						"createOption": "FromImage"
+						"createOption": "FromImage",
+						"managedDisk": {
+            						"storageAccountType": "[variables('storageAccountType')]"
+            					}
 					}
 				},
 				"networkProfile": {
