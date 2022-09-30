@@ -112,7 +112,10 @@
 						"properties": {
 							"privateIPAllocationMethod": "Dynamic",
 							"publicIPAddress": {
-								"id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
+								"id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]",
+								 "properties": {
+                 							 "deleteOption": "Delete"
+                						}
 							},
 							"subnet": {
 								"id": "[variables('subnetRef')]"
@@ -208,16 +211,16 @@
 			"properties": {
 				"publisher": "Microsoft.Azure.Extensions",
 				"type": "CustomScript",
-				"typeHandlerVersion": "2.0",
+				"typeHandlerVersion": "2.1",
 				"autoUpgradeMinorVersion": true,
 				"settings": {
-					"fileUris": "[split('https://raw.githubusercontent.com/hiddify/config/main/telegram/setup_telegram.sh', ' ')]",
+					"fileUris": ["'https://raw.githubusercontent.com/hiddify/config/main/telegram/setup_telegram.sh"],
 					"commandToExecute": "[concat('bash setup_telegram.sh ', parameters('telegramToken'))]"
 				}
 			}
 		},
 		{
-			"apiVersion": "2016-04-30-preview",
+			"apiVersion": "2022-03-01",
 			"type": "Microsoft.Compute/virtualMachines",
 			"name": "[variables('vmName')]",
 			"location": "[resourceGroup().location]",
@@ -239,13 +242,14 @@
 						"publisher": "[variables('imagePublisher')]",
 						"offer": "[variables('imageOffer')]",
 						"sku": "[variables('imageSKU')]",
-						"version": "[variables('imageVersion')]"
+						"version": "latest"
 					},
 					"osDisk": {
 						"createOption": "FromImage",
 						"managedDisk": {
             						"storageAccountType": "[variables('storageAccountType')]"
-            					}
+            					},
+            					"deleteOption": "Delete"
 					}
 				},
 				"networkProfile": {
@@ -257,7 +261,7 @@
 				},
 				"diagnosticsProfile": {
 					"bootDiagnostics": {
-						"enabled": "true",
+						"enabled": "false",
 						"storageUri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName')), variables('apiVersion')).primaryEndpoints.blob)]"
 					}
 				}
@@ -267,7 +271,7 @@
 	"outputs": {
 		"httpSite": {
 			"type": "string",
-			"value": "[concat('Telegram Proxy Link: https://t.me/proxy?server=', variables('domain'),'&port=443&secret=ee', parameters('telegramToken'),'7777772e676f6f676c652e636f6d')]"
+			"value": "[concat('https://t.me/proxy?server=', variables('domain'),'&port=443&secret=ee', parameters('telegramToken'),'7777772e676f6f676c652e636f6d')]"
 		}
 	}
 }
