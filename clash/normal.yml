@@ -20,7 +20,7 @@ rule-providers:
   iran:
     type: http
     behavior: classical
-    url: "https://serverip:444/usersecret/iran-sites.yml"
+    url: "https://serverip:444/usersecret/iran-sites"
     path: ./ruleset/iran.yaml
     interval: 432000
 rules:
