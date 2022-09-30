@@ -36,12 +36,11 @@
     "imageOffer": "0001-com-ubuntu-server-focal",
     "OSDiskName": "gost-vhd",
     "imageSKU": "20_04-lts-gen2",
-    "imageVersion": "20.04.202010140",
     "nicName": "gostNic",
     "addressPrefix": "10.0.0.0/16",
     "subnetName": "gost_subnet",
     "subnetPrefix": "10.0.0.0/24",
-    "storageAccountType": "StandardSSD_LRS",
+    "storageAccountType": "Standard_LRS",
     "publicIPAddressName": "gostPublicIP",
     "publicIPAddressType": "Dynamic",
     "vmStorageAccountContainerName": "vhds",
@@ -112,7 +111,10 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]",
+                "properties": {
+                  "deleteOption": "Delete"
+                }
               },
               "subnet": {
                 "id": "[variables('subnetRef')]"
@@ -218,7 +220,7 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines",
-      "apiVersion": "2016-04-30-preview",
+      "apiVersion": "2022-03-01",
       "name": "[variables('vmName')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
@@ -239,13 +241,14 @@
             "publisher": "[variables('imagePublisher')]",
             "offer": "[variables('imageOffer')]",
             "sku": "[variables('imageSKU')]",
-            "version": "[variables('imageVersion')]"
+            "version": "latest"
           },
           "osDisk": {
-            "createOption": "FromImage",
+            "createOption": "fromImage",
             "managedDisk": {
               "storageAccountType": "[variables('storageAccountType')]"
-            }
+            },
+            "deleteOption": "Delete"
           }
         },
         "networkProfile": {
@@ -267,7 +270,7 @@
   "outputs": {
     "httpSite": {
       "type": "String",
-      "value": "[concat('gost Proxy Link: https://', variables('domain'),':444/', parameters('gostToken'))]"
+      "value": "[concat('Proxy Link:\n https://', variables('domain'),':444/', parameters('gostToken'),'/normal')]"
     }
   }
 }
