@@ -1,7 +1,4 @@
-apt update
-apt install -y  apt-transport-https ca-certificates curl wget gnupg-agent software-properties-common git nginx 
-apt install -y certbot
-apt install -y python3-certbot-nginx
+apk install apt-transport-https ca-certificates curl wget gnupg-agent software-properties-common git nginx certbot python3-certbot-nginx
 mkdir -p /opt/gost
 cd /opt/gost
 wget https://github.com/ginuerzh/gost/releases/download/v2.11.4/gost-linux-amd64-2.11.4.gz
@@ -12,7 +9,7 @@ wget https://raw.githubusercontent.com/hiddify/config/main/gost/gost.service
 wget https://raw.githubusercontent.com/hiddify/config/main/gost/nginx.conf
 
 rm /etc/nginx/site-available/default
-ls -s $(pwd)/nginx.conf /etc/nginx/site-available/default 
+ln -s $(pwd)/nginx.conf /etc/nginx/site-available/default 
 
 if [[ "$1" ]]; then
 	sed -i "s/nginxusersecret/$1/g" nginx.conf
