@@ -9,7 +9,10 @@
 		"telegramToken": {
 			"type": "string",
 			"minLength": 32,
-			"maxLength": 32
+			"maxLength": 32,
+			"metadata": {
+				"description": "Please provide the token for the telegram."
+			}
 		},
 		"adminUsername": {
 			"type": "string",
@@ -32,7 +35,7 @@
 	},
 	"variables": {
 		"storageAccountName": "[concat(uniquestring(resourceGroup().id),'storage')]",
-		"domain": "[parameters('dnsNameForPublicIP'), '.', resourceGroup().location, '.cloudapp.azure.com']",
+		"domain": "[concat(parameters('dnsNameForPublicIP'), '.', resourceGroup().location, '.cloudapp.azure.com')]",
 		"imagePublisher": "Canonical",
 		"imageOffer": "UbuntuServer",
 		"OSDiskName": "telegram-vhd",
