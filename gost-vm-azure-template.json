@@ -1,275 +1,273 @@
 {
-	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.0",
-	"parameters": {
-		"gostToken": {
-			"type": "string",
-			"minLength": 32,
-			"maxLength": 32,
-			"metadata": {
-				"description": "Please provide the token for the gost."
-			}
-		},
-		"adminUsername": {
-			"type": "string",
-			"metadata": {
-				"description": "Please provide a username for the Virtual Machine."
-			}
-		},
-		"adminPassword": {
-			"type": "securestring",
-			"metadata": {
-				"description": "Please provide a secure password for the Virtual Machine. (at least 15 charachter)"
-			}
-		},
-		"dnsNameForPublicIP": {
-			"type": "string",
-			"metadata": {
-				"description": "Unique DNS Name (more than 5 charachters) for the Public IP used to access the Virtual Machine easily."
-			}
-		}
-	},
-	"variables": {
-		"storageAccountName": "[concat(uniquestring(resourceGroup().id),'storage')]",
-		"domain": "[concat(parameters('dnsNameForPublicIP'), '.', resourceGroup().location, '.cloudapp.azure.com')]",
-		"imagePublisher": "Canonical",
-		"imageOffer": "0001-com-ubuntu-server-focal",
-		"OSDiskName": "gost-vhd",
-		"imageSKU": "20_04-lts-gen2",
-		"imageVersion": "20.04.202010140",
-		"nicName": "gostNic",
-		"addressPrefix": "10.0.0.0/16",
-		"subnetName": "gost_subnet",
-		"subnetPrefix": "10.0.0.0/24",
-		"storageAccountType": "Standard_LRS",
-		"publicIPAddressName": "gostPublicIP",
-		"publicIPAddressType": "Dynamic",
-		"vmStorageAccountContainerName": "vhds",
-		"vmName": "gostVM",
-		"vmSize": "Standard_B1ls",
-		"virtualNetworkName": "gostVNET",
-		"vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
-		"subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
-		"apiVersion": "2015-06-15"
-	},
-	"resources": [
-		{
-			"type": "Microsoft.Storage/storageAccounts",
-			"name": "[variables('storageAccountName')]",
-			"apiVersion": "[variables('apiVersion')]",
-			"location": "[resourceGroup().location]",
-			"properties": {
-				"accountType": "[variables('storageAccountType')]"
-			}
-		},
-		{
-			"apiVersion": "[variables('apiVersion')]",
-			"type": "Microsoft.Network/publicIPAddresses",
-			"name": "[variables('publicIPAddressName')]",
-			"location": "[resourceGroup().location]",
-			"properties": {
-				"publicIPAllocationMethod": "[variables('publicIPAddressType')]",
-				"dnsSettings": {
-					"domainNameLabel": "[parameters('dnsNameForPublicIP')]"
-				}
-			}
-		},
-		{
-			"apiVersion": "[variables('apiVersion')]",
-			"type": "Microsoft.Network/virtualNetworks",
-			"name": "[variables('virtualNetworkName')]",
-			"location": "[resourceGroup().location]",
-			"properties": {
-				"addressSpace": {
-					"addressPrefixes": [
-						"[variables('addressPrefix')]"
-					]
-				},
-				"subnets": [
-					{
-						"name": "[variables('subnetName')]",
-						"properties": {
-							"addressPrefix": "[variables('subnetPrefix')]"
-						}
-					}
-				]
-			}
-		},
-		{
-			"apiVersion": "[variables('apiVersion')]",
-			"type": "Microsoft.Network/networkInterfaces",
-			"name": "[variables('nicName')]",
-			"location": "[resourceGroup().location]",
-			"dependsOn": [
-				"[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]",
-				"[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
-				"[concat('Microsoft.Network/networkSecurityGroups/', 'gost-nsg')]"
-			],
-			"properties": {
-				"ipConfigurations": [
-					{
-						"name": "ipconfig1",
-						"properties": {
-							"privateIPAllocationMethod": "Dynamic",
-							"publicIPAddress": {
-								"id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
-							},
-							"subnet": {
-								"id": "[variables('subnetRef')]"
-							}
-						}
-					}
-				],
-				"deleteOption": "delete"
-			}
-		},
-		{
-			"name": "['gost-nsg']",
-			"type": "Microsoft.Network/networkSecurityGroups",
-			"apiVersion": "2016-09-01",
-			"location": "[resourceGroup().location]",
-			"properties": {
-				"securityRules": [
-					{
-						"name": "default-allow-ssh",
-						"properties": {
-							"priority": 1000,
-							"sourceAddressPrefix": "*",
-							"protocol": "TCP",
-							"destinationPortRange": "22",
-							"access": "Allow",
-							"direction": "Inbound",
-							"sourcePortRange": "*",
-							"destinationAddressPrefix": "*"
-						}
-					},
-					{
-						"name": "default-allow-444",
-						"properties": {
-							"priority": 1100,
-							"sourceAddressPrefix": "*",
-							"protocol": "TCP",
-							"destinationPortRange": "444",
-							"access": "Allow",
-							"direction": "Inbound",
-							"sourcePortRange": "*",
-							"destinationAddressPrefix": "*"
-						}
-					},
-					{
-						"name": "default-allow-443-UDP",
-						"properties": {
-							"priority": 1300,
-							"sourceAddressPrefix": "*",
-							"protocol": "UDP",
-							"destinationPortRange": "443",
-							"access": "Allow",
-							"direction": "Inbound",
-							"sourcePortRange": "*",
-							"destinationAddressPrefix": "*"
-						}
-					},
-					{
-						"name": "default-allow-https",
-						"properties": {
-							"priority": 1200,
-							"sourceAddressPrefix": "*",
-							"protocol": "TCP",
-							"destinationPortRange": "443",
-							"access": "Allow",
-							"direction": "Inbound",
-							"sourcePortRange": "*",
-							"destinationAddressPrefix": "*"
-						}
-					},
-					{
-						"name": "default-allow-http",
-						"properties": {
-							"priority": 1400,
-							"sourceAddressPrefix": "*",
-							"protocol": "TCP",
-							"destinationPortRange": "80",
-							"access": "Allow",
-							"direction": "Inbound",
-							"sourcePortRange": "*",
-							"destinationAddressPrefix": "*"
-						}
-					}
-				]
-			}
-		},
-		{
-			"type": "Microsoft.Compute/virtualMachines/extensions",
-			"name": "[concat(variables('vmName'),'/', 'gost-setup')]",
-			"apiVersion": "['2015-06-15']",
-			"location": "[resourceGroup().location]",
-			"dependsOn": [
-				"[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]"
-			],
-			"properties": {
-				"publisher": "Microsoft.Azure.Extensions",
-				"type": "CustomScript",
-				"typeHandlerVersion": "2.0",
-				"autoUpgradeMinorVersion": true,
-				"settings": {
-					"fileUris": "[split('https://raw.githubusercontent.com/hiddify/config/main/setup_gost.sh', ' ')]",
-					"commandToExecute": "[concat('bash setup_gost.sh ', parameters('gostToken'), ' ', variables('domain'))]"
-				}
-			}
-		},
-		{
-			"apiVersion": "2016-04-30-preview",
-			"type": "Microsoft.Compute/virtualMachines",
-			"name": "[variables('vmName')]",
-			"location": "[resourceGroup().location]",
-			"dependsOn": [
-				"[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
-				"[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
-			],
-			"properties": {
-				"hardwareProfile": {
-					"vmSize": "[variables('vmSize')]"
-				},
-				"osProfile": {
-					"computerName": "[variables('vmName')]",
-					"adminUsername": "[parameters('adminUsername')]",
-					"adminPassword": "[parameters('adminPassword')]"
-				},
-				"storageProfile": {
-					"imageReference": {
-						"publisher": "[variables('imagePublisher')]",
-						"offer": "[variables('imageOffer')]",
-						"sku": "[variables('imageSKU')]",
-						"version": "[variables('imageVersion')]"
-					},
-					"osDisk": {
-						"createOption": "FromImage",
-						 "managedDisk": {
-                            "storageAccountType": "[variables('storageAccountType')]"
-                        },
-                        "deleteOption": "delete"
-					}
-				},
-				"networkProfile": {
-					"networkInterfaces": [
-						{
-							"id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName'))]"
-						}
-					]
-				},
-				"diagnosticsProfile": {
-					"bootDiagnostics": {
-						"enabled": "true",
-						"storageUri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName')), variables('apiVersion')).primaryEndpoints.blob)]"
-					}
-				}
-			}
-		}
-	],
-	"outputs": {
-		"httpSite": {
-			"type": "string",
-			"value": "[concat('gost Proxy Link: https://', variables('domain'),':444/', parameters('gostToken'))]"
-		}
-	}
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "gostToken": {
+      "minLength": 32,
+      "maxLength": 32,
+      "type": "String",
+      "metadata": {
+        "description": "Please provide the token for the gost."
+      }
+    },
+    "adminUsername": {
+      "type": "String",
+      "metadata": {
+        "description": "Please provide a username for the Virtual Machine."
+      }
+    },
+    "adminPassword": {
+      "type": "SecureString",
+      "metadata": {
+        "description": "Please provide a secure password for the Virtual Machine. (at least 15 charachter)"
+      }
+    },
+    "dnsNameForPublicIP": {
+      "type": "String",
+      "metadata": {
+        "description": "Unique DNS Name (more than 5 charachters) for the Public IP used to access the Virtual Machine easily."
+      }
+    }
+  },
+  "variables": {
+    "storageAccountName": "[concat(uniquestring(resourceGroup().id),'storage')]",
+    "domain": "[concat(parameters('dnsNameForPublicIP'), '.', resourceGroup().location, '.cloudapp.azure.com')]",
+    "imagePublisher": "Canonical",
+    "imageOffer": "0001-com-ubuntu-server-focal",
+    "OSDiskName": "gost-vhd",
+    "imageSKU": "20_04-lts-gen2",
+    "imageVersion": "20.04.202010140",
+    "nicName": "gostNic",
+    "addressPrefix": "10.0.0.0/16",
+    "subnetName": "gost_subnet",
+    "subnetPrefix": "10.0.0.0/24",
+    "storageAccountType": "StandardSSD_LRS",
+    "publicIPAddressName": "gostPublicIP",
+    "publicIPAddressType": "Dynamic",
+    "vmStorageAccountContainerName": "vhds",
+    "vmName": "gostVM",
+    "vmSize": "Standard_B1ls",
+    "virtualNetworkName": "gostVNET",
+    "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
+    "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
+    "apiVersion": "2015-06-15"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "[variables('apiVersion')]",
+      "name": "[variables('storageAccountName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "accountType": "[variables('storageAccountType')]"
+      }
+    },
+    {
+      "type": "Microsoft.Network/publicIPAddresses",
+      "apiVersion": "[variables('apiVersion')]",
+      "name": "[variables('publicIPAddressName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "publicIPAllocationMethod": "[variables('publicIPAddressType')]",
+        "dnsSettings": {
+          "domainNameLabel": "[parameters('dnsNameForPublicIP')]"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+      "apiVersion": "[variables('apiVersion')]",
+      "name": "[variables('virtualNetworkName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('addressPrefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[variables('subnetName')]",
+            "properties": {
+              "addressPrefix": "[variables('subnetPrefix')]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Network/networkInterfaces",
+      "apiVersion": "[variables('apiVersion')]",
+      "name": "[variables('nicName')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]",
+        "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
+        "[concat('Microsoft.Network/networkSecurityGroups/', 'gost-nsg')]"
+      ],
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
+              },
+              "subnet": {
+                "id": "[variables('subnetRef')]"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "apiVersion": "2016-09-01",
+      "name": "['gost-nsg']",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "securityRules": [
+          {
+            "name": "default-allow-ssh",
+            "properties": {
+              "priority": 1000,
+              "sourceAddressPrefix": "*",
+              "protocol": "TCP",
+              "destinationPortRange": "22",
+              "access": "Allow",
+              "direction": "Inbound",
+              "sourcePortRange": "*",
+              "destinationAddressPrefix": "*"
+            }
+          },
+          {
+            "name": "default-allow-444",
+            "properties": {
+              "priority": 1100,
+              "sourceAddressPrefix": "*",
+              "protocol": "TCP",
+              "destinationPortRange": "444",
+              "access": "Allow",
+              "direction": "Inbound",
+              "sourcePortRange": "*",
+              "destinationAddressPrefix": "*"
+            }
+          },
+          {
+            "name": "default-allow-443-UDP",
+            "properties": {
+              "priority": 1300,
+              "sourceAddressPrefix": "*",
+              "protocol": "UDP",
+              "destinationPortRange": "443",
+              "access": "Allow",
+              "direction": "Inbound",
+              "sourcePortRange": "*",
+              "destinationAddressPrefix": "*"
+            }
+          },
+          {
+            "name": "default-allow-https",
+            "properties": {
+              "priority": 1200,
+              "sourceAddressPrefix": "*",
+              "protocol": "TCP",
+              "destinationPortRange": "443",
+              "access": "Allow",
+              "direction": "Inbound",
+              "sourcePortRange": "*",
+              "destinationAddressPrefix": "*"
+            }
+          },
+          {
+            "name": "default-allow-http",
+            "properties": {
+              "priority": 1400,
+              "sourceAddressPrefix": "*",
+              "protocol": "TCP",
+              "destinationPortRange": "80",
+              "access": "Allow",
+              "direction": "Inbound",
+              "sourcePortRange": "*",
+              "destinationAddressPrefix": "*"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "apiVersion": "['2015-06-15']",
+      "name": "[concat(variables('vmName'),'/', 'gost-setup')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]"
+      ],
+      "properties": {
+        "publisher": "Microsoft.Azure.Extensions",
+        "type": "CustomScript",
+        "typeHandlerVersion": "2.0",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "fileUris": "[split('https://raw.githubusercontent.com/hiddify/config/main/setup_gost.sh', ' ')]",
+          "commandToExecute": "[concat('bash setup_gost.sh ', parameters('gostToken'), ' ', variables('domain'))]"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines",
+      "apiVersion": "2016-04-30-preview",
+      "name": "[variables('vmName')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
+        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
+      ],
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[variables('vmSize')]"
+        },
+        "osProfile": {
+          "computerName": "[variables('vmName')]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "adminPassword": "[parameters('adminPassword')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "[variables('imagePublisher')]",
+            "offer": "[variables('imageOffer')]",
+            "sku": "[variables('imageSKU')]",
+            "version": "[variables('imageVersion')]"
+          },
+          "osDisk": {
+            "createOption": "FromImage",
+            "managedDisk": {
+              "storageAccountType": "[variables('storageAccountType')]"
+            }
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName'))]"
+            }
+          ]
+        },
+        "diagnosticsProfile": {
+          "bootDiagnostics": {
+            "enabled": "true",
+            "storageUri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName')), variables('apiVersion')).primaryEndpoints.blob)]"
+          }
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "httpSite": {
+      "type": "String",
+      "value": "[concat('gost Proxy Link: https://', variables('domain'),':444/', parameters('gostToken'))]"
+    }
+  }
 }
