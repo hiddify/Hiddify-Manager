@@ -22,10 +22,12 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
                 self.wfile.write(clash)
 
 
-httpd = HTTPServer(('0.0.0.0', 80), SimpleHTTPRequestHandler)
+httpd = HTTPServer(('0.0.0.0', 444), SimpleHTTPRequestHandler)
 
-#httpd.socket = ssl.wrap_socket (httpd.socket,
-#        keyfile="/opt/gost/key.pem",
-#        certfile='/opt/gost/cert.pem', server_side=True)
+with open('domain','r') as f:
+    domain=f.read()
+httpd.socket = ssl.wrap_socket (httpd.socket,
+        keyfile=f"/etc/letsencrypt/live/{domain}/privkey.pem",
+        certfile=f'/etc/letsencrypt/live/{domain}/cert.pem', server_side=True)
 
 httpd.serve_forever()
