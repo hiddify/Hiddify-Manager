@@ -16,7 +16,8 @@ fi
 
 if [[ "$2" ]]; then
 domain=$2
-
+echo $domain>domain
+certbot certonly --standalone --register-unsafely-without-email -d $domain --non-interactive --agree-tos
 fi
 openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 3650 -nodes -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=www.google.com"
 sudo mv gost.service /etc/systemd/system/
