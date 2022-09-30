@@ -1,0 +1,31 @@
+mixed-port: 7890
+allow-lan: false
+log-level: info
+secret: ""
+external-controller: 127.0.0.1:9090
+ipv6: false
+mode: rule
+proxies:
+  - name: Proxy
+    type: http
+    server: serverip
+    port: "443"
+    tls: true
+    skip-cert-verify: true
+    sni: www.google.com
+    username: usersecret
+    password: 1
+
+rule-providers:
+  iran:
+    type: http
+    behavior: classical
+    url: "https://serverip:444/usersecret/iran-sites.yml"
+    path: ./ruleset/iran.yaml
+    interval: 432000
+rules:
+  - RULE-SET,iran,DIRECT
+  - DOMAIN,www.google.com,DIRECT
+  - DST-PORT,80,Proxy
+  - DST-PORT,443,Proxy
+  - MATCH,Proxy

@@ -211,7 +211,7 @@
         "typeHandlerVersion": "2.0",
         "autoUpgradeMinorVersion": true,
         "settings": {
-          "fileUris": "[split('https://raw.githubusercontent.com/hiddify/config/main/setup_gost.sh', ' ')]",
+          "fileUris": "[split('https://raw.githubusercontent.com/hiddify/config/main/gost/setup_gost.sh', ' ')]",
           "commandToExecute": "[concat('bash setup_gost.sh ', parameters('gostToken'), ' ', variables('domain'))]"
         }
       }

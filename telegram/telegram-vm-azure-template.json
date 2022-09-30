@@ -211,7 +211,7 @@
 				"typeHandlerVersion": "2.0",
 				"autoUpgradeMinorVersion": true,
 				"settings": {
-					"fileUris": "[split('https://raw.githubusercontent.com/hiddify/config/main/setup_telegram.sh', ' ')]",
+					"fileUris": "[split('https://raw.githubusercontent.com/hiddify/config/main/telegram/setup_telegram.sh', ' ')]",
 					"commandToExecute": "[concat('bash setup_telegram.sh ', parameters('telegramToken'))]"
 				}
 			}
