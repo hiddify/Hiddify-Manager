@@ -41,7 +41,7 @@
 		"addressPrefix": "10.0.0.0/16",
 		"subnetName": "telegram_subnet",
 		"subnetPrefix": "10.0.0.0/24",
-		"storageAccountType": "StandardSSD_LRS",
+		"storageAccountType": "Standard_LRS",
 		"publicIPAddressName": "telegramPublicIP",
 		"publicIPAddressType": "Dynamic",
 		"vmStorageAccountContainerName": "vhds",
