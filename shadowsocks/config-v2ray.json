@@ -1,7 +1,7 @@
 {
     "server":"0.0.0.0",
     "server_port":448,
-    "password":"usersecret",
+    "password":"defaultusersecret",
     "timeout":300,
     "plugin":"/opt/shadowsocks/v2ray-plugin_linux_amd64",
     "plugin_opts":"server;path=/",
