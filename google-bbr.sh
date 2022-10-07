@@ -366,6 +366,6 @@ echo
 echo " URL: https://teddysun.com/489.html"
 echo "----------------------------------------"
 echo
-echo "Installing Google BBR TCP congestion control algorithm
+echo "Installing Google BBR TCP congestion control algorithm"
 
 install_bbr 2>&1 | tee ${cur_dir}/install_bbr.log
