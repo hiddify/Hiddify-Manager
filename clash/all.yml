@@ -17,6 +17,4 @@ proxies:
     password: 1
 
 rules:
-  - DST-PORT,80,Proxy
-  - DST-PORT,443,Proxy
   - MATCH,Proxy
