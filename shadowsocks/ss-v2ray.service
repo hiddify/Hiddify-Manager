@@ -1,0 +1,12 @@
+[Unit]
+Description=ss-server v2ray
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=ss-server -c /opt/shadowsocks/config-v2ray.json
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
