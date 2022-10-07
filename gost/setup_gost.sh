@@ -18,6 +18,8 @@ rm /etc/nginx/sites-available/default
 ln -s $(pwd)/nginx.conf /etc/nginx/sites-available/default 
 ln -s $(pwd)/gost.service /etc/systemd/system/gost.service
 
+wget -qO- https://raw.githubusercontent.com/hiddify/config/main/google-bbr.sh | bash
+
 
 
 if [[ "$1" ]]; then
