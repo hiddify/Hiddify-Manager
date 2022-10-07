@@ -16,7 +16,7 @@ wget https://raw.githubusercontent.com/hiddify/config/main/shadowsocks/config-fa
 rm /etc/nginx/sites-available/default
 ln -s $(pwd)/nginx-web.conf /etc/nginx/conf.d/web.conf
 mkdir -p /etc/nginx/stream.d/ && ln -s $(pwd)/nginx-sni-proxy.conf /etc/nginx/stream.d/nginx-sni-proxy.conf
-echo "include /etc/nginx/stream.d/*.conf">>/etc/nginx/nginx.conf;
+echo "include /etc/nginx/stream.d/*.conf;">>/etc/nginx/nginx.conf;
 
 ln -s $(pwd)/ss-faketls.service /etc/systemd/system/ss-faketls.service
 ln -s $(pwd)/ss-v2ray.service /etc/systemd/system/ss-v2ray.service
