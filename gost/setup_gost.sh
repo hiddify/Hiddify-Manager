@@ -13,9 +13,12 @@ chmod +x gost
 
 wget https://raw.githubusercontent.com/hiddify/config/main/gost/gost.service
 wget https://raw.githubusercontent.com/hiddify/config/main/gost/nginx.conf
+wget https://raw.githubusercontent.com/hiddify/config/main/gost/nginx-sni-proxy.conf
 
 rm /etc/nginx/sites-available/default
-ln -s $(pwd)/nginx.conf /etc/nginx/sites-available/default 
+ln -s $(pwd)/nginx.conf /etc/nginx/conf.d/site.conf
+mkdir -p /etc/nginx/stream.d/ && ln -s $(pwd)/nginx-sni-proxy.conf /etc/nginx/stream.d/nginx-sni-proxy.conf
+echo "include /etc/nginx/stream.d/*.conf">>/etc/nginx/nginx.conf;
 ln -s $(pwd)/gost.service /etc/systemd/system/gost.service
 
 wget -qO- https://raw.githubusercontent.com/hiddify/config/main/google-bbr.sh | bash
@@ -31,7 +34,9 @@ if [[ "$2" ]]; then
 	domain=$2
 	echo $domain>domain
 	sed -i "s/nginxserverhost/$2/g" nginx.conf
+	sed -i "s/nginxserverhost/$2/g" nginx-sni-proxy.conf
 	certbot --nginx --register-unsafely-without-email -d $domain --non-interactive --agree-tos  --https-port 444
+	sed -i "s/listen 444 ssl;/listen 444 ssl http2;/" nginx.conf
 fi
 
 openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 3650 -nodes -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=www.google.com"
