@@ -1,9 +1,0 @@
-{
-    "server":"0.0.0.0",
-    "server_port":445,
-    "password":"usersecret",
-    "timeout":300,
-    "plugin":"obfs-server",
-    "plugin_opts":"obfs=tls;failover=www.google.com:443",
-    "method":"chacha20-ietf-poly1305"
-}
