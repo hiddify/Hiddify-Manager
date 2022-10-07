@@ -8,31 +8,25 @@
 		"type": "String",
 		"metadata": {
 		  "description": "Please provide the token for the shadowsocks."
-		},
-		"defaultValue": "[replace(newGuid(),'-','')]"
-		
+		}
 	  },
 	  "adminUsername": {
 		"type": "String",
 		"metadata": {
 		  "description": "Please provide a username for the Virtual Machine."
-		},
-		"defaultValue": "[uniqueString(resourceGroup().id)]"
-		
+		}
 	  },
 	  "adminPassword": {
 		"type": "SecureString",
 		"metadata": {
 		  "description": "Please provide a secure password for the Virtual Machine. (at least 15 charachter)"
-		},
-		"defaultValue": "[concat(uniqueString(resourceGroup().id),'A!')]"
+		}
 	  },
 	  "dnsNameForPublicIP": {
 		"type": "String",
 		"metadata": {
 		  "description": "Unique DNS Name (more than 5 charachters) for the Public IP used to access the Virtual Machine easily."
-		},
-		"defaultValue": "[uniqueString(newGuid())]"
+		}
 	  }
 	},
 	"variables": {
