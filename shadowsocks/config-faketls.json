@@ -1,7 +1,7 @@
 {
     "server":"0.0.0.0",
-    "server_port":445,
-    "password":"usersecret",
+    "server_port":447,
+    "password":"defaultusersecret",
     "timeout":300,
     "plugin":"obfs-server",
     "plugin_opts":"obfs=tls;failover=www.google.com:443",
