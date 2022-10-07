@@ -3,7 +3,7 @@
     "server_port":448,
     "password":"usersecret",
     "timeout":300,
-    "plugin":"v2ray-plugin_linux_amd64",
+    "plugin":"/opt/shadowsocks/v2ray-plugin_linux_amd64",
     "plugin_opts":"server;path=/",
     "method":"chacha20-ietf-poly1305"
 }
