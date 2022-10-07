@@ -16,6 +16,7 @@ wget https://raw.githubusercontent.com/hiddify/config/main/gost/nginx.conf
 wget https://raw.githubusercontent.com/hiddify/config/main/gost/nginx-sni-proxy.conf
 
 rm /etc/nginx/sites-available/default
+rm /etc/nginx/sites-enabled/default
 ln -s $(pwd)/nginx.conf /etc/nginx/conf.d/site.conf
 mkdir -p /etc/nginx/stream.d/ && ln -s $(pwd)/nginx-sni-proxy.conf /etc/nginx/stream.d/nginx-sni-proxy.conf
 echo "include /etc/nginx/stream.d/*.conf">>/etc/nginx/nginx.conf;
