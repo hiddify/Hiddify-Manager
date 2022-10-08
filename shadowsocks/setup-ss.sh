@@ -39,6 +39,7 @@ if [[ "$2" ]]; then
 	sed -i "s/defaultserverhost/$2/g" nginx-sni-proxy.conf
 	certbot --nginx --register-unsafely-without-email -d $domain --non-interactive --agree-tos  --https-port 444
 	sed -i "s/listen 444 ssl;/listen 444 ssl http2;/" nginx.conf
+	echo "https://$domain/$1/">use-link
 fi
 
 systemctl enable ss-v2ray.service
@@ -47,3 +48,4 @@ systemctl start ss-v2ray.service
 systemctl start ss-faketls.service
 
 systemctl restart nginx
+
