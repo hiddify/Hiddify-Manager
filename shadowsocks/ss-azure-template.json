@@ -270,7 +270,7 @@
 	"outputs": {
 	  "httpSite": {
 		"type": "String",
-		"value": "[concat('https://', variables('domain'),'/', parameters('shadowsocksToken'),'/help')]"
+		"value": "[concat('https://', variables('domain'),'/', parameters('shadowsocksToken'),'/')]"
 	  }
 	}
   }
