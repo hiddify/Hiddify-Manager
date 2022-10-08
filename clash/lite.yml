@@ -7,14 +7,15 @@ ipv6: false
 mode: rule
 proxies:
   - name: Proxy1
-    type: http
-    server: serverip
+    type: ss
+    server: eln3.centralindia.cloudapp.azure.com
     port: "443"
-    tls: true
-    skip-cert-verify: true
-    sni: www.google.com
-    username: usersecret
-    password: 1
+    cipher: chacha20-ietf-poly1305
+    password: "0196ebb872f1d60eacfbd7e562425813"
+    plugin: obfs
+    plugin-opts:
+      mode: tls # or http
+      host: www.google.com
    
 proxy-groups:
    - name: Proxy
