@@ -10,7 +10,7 @@ sed -i 's/$name {/$name { mail.google.com 127.0.0.1:449;/g' /opt/shadowsocks/ngi
 
 
 
-
+reboot
 
 
 
