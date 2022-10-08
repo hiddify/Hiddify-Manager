@@ -271,7 +271,7 @@
 	"outputs": {
 		"httpSite": {
 			"type": "string",
-			"value": "[concat('https://t.me/proxy?server=', variables('domain'),'&port=443&secret=ee', parameters('telegramToken'),'7777772e676f6f676c652e636f6d')]"
+			"value": "[concat('https://t.me/proxy?server=', variables('domain'),'&port=443&secret=ee', parameters('telegramToken'),'6d61696c2e676f6f676c652e636f6d')]"
 		}
 	}
 }
