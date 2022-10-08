@@ -12,6 +12,7 @@ wget https://raw.githubusercontent.com/hiddify/config/main/shadowsocks/nginx-web
 wget https://raw.githubusercontent.com/hiddify/config/main/shadowsocks/nginx-sni-proxy.conf
 wget https://raw.githubusercontent.com/hiddify/config/main/shadowsocks/config-v2ray.json
 wget https://raw.githubusercontent.com/hiddify/config/main/shadowsocks/config-faketls.json
+wget https://raw.githubusercontent.com/hiddify/config/main/shadowsocks/sysctl.conf
 
 rm /etc/nginx/sites-available/default
 rm /etc/nginx/sites-enabled/default
@@ -22,6 +23,8 @@ echo "include /etc/nginx/stream.d/*.conf;">>/etc/nginx/nginx.conf;
 
 ln -s $(pwd)/ss-faketls.service /etc/systemd/system/ss-faketls.service
 ln -s $(pwd)/ss-v2ray.service /etc/systemd/system/ss-v2ray.service
+ln -s $(pwd)/sysctl.conf /etc/sysctl.d/ss-opt.conf
+sysctl --system
 
 wget -qO- https://raw.githubusercontent.com/hiddify/config/main/google-bbr.sh | bash
 
