@@ -8,10 +8,10 @@ mode: rule
 proxies:
   - name: Proxy1
     type: ss
-    server: eln3.centralindia.cloudapp.azure.com
+    server: serverip
     port: "443"
     cipher: chacha20-ietf-poly1305
-    password: "0196ebb872f1d60eacfbd7e562425813"
+    password: "usersecret"
     plugin: obfs
     plugin-opts:
       mode: tls # or http
