@@ -38,7 +38,7 @@ if [[ "$2" ]]; then
 	sed -i "s/defaultserverhost/$2/g" nginx-web.conf
 	sed -i "s/defaultserverhost/$2/g" nginx-sni-proxy.conf
 	certbot --nginx --register-unsafely-without-email -d $domain --non-interactive --agree-tos  --https-port 444
-	sed -i "s/listen 444 ssl;/listen 444 ssl http2;/" nginx.conf
+	sed -i "s/listen 444 ssl;/listen 444 ssl http2;/" nginx-web.conf
 	echo "https://$domain/$1/">use-link
 fi
 
