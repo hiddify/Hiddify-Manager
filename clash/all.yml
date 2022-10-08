@@ -21,7 +21,10 @@ proxy-groups:
    - name: Proxy
      proxies:
        - Proxy1
-     type: select
+       - DIRECT
+     type: fallback
+     url: 'http://www.gstatic.com/generate_204'
+     interval: 300
 
 rules:
   - MATCH,Proxy
