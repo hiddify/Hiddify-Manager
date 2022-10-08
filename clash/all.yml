@@ -13,6 +13,7 @@ proxies:
     cipher: chacha20-ietf-poly1305
     password: "usersecret"
     plugin: obfs
+    udp: true
     plugin-opts:
       mode: tls # or http
       host: www.google.com
