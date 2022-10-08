@@ -7,14 +7,15 @@ ipv6: false
 mode: rule
 proxies:
   - name: Proxy1
-    type: http
+    type: ss
     server: serverip
     port: "443"
-    tls: true
-    skip-cert-verify: true
-    sni: www.google.com
-    username: usersecret
-    password: 1
+    cipher: chacha20-ietf-poly1305
+    password: "usersecret"
+    plugin: obfs
+    plugin-opts:
+      mode: tls # or http
+      host: www.google.com
    
 proxy-groups:
    - name: Proxy
