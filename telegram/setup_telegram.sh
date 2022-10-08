@@ -12,3 +12,5 @@ wget -qO- https://raw.githubusercontent.com/hiddify/config/main/google-bbr.sh | 
 ln -s  $(pwd)/mtproxy.service /etc/systemd/system/
 systemctl enable mtproxy.service
 systemctl start mtproxy.service
+
+echo "https://t.me/proxy?server=$domain&port=443&secret=ee$16d61696c2e676f6f676c652e636f6d">use-link
