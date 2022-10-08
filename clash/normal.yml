@@ -12,6 +12,7 @@ proxies:
     port: "443"
     cipher: chacha20-ietf-poly1305
     password: "usersecret"
+    udp: true
     plugin: obfs
     plugin-opts:
       mode: tls # or http
