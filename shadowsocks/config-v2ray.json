@@ -4,6 +4,6 @@
     "password":"defaultusersecret",
     "timeout":300,
     "plugin":"/opt/shadowsocks/v2ray-plugin_linux_amd64",
-    "plugin_opts":"server;path=/",
+    "plugin_opts":"server;path=/;loglevel=none",
     "method":"chacha20-ietf-poly1305"
 }
