@@ -56,6 +56,7 @@ rules:
   - RULE-SET,blocked,Proxy
   - RULE-SET,open,DIRECT
   - RULE-SET,ads,REJECT
+  - DOMAIN-SUFFIX,serverip,Proxy
   - MATCH,DIRECT
 
 dns:
