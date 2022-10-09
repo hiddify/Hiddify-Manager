@@ -1,0 +1,15 @@
+payload:
+  - DOMAIN-KEYWORD,instagram 
+  - DOMAIN-KEYWORD,whatsapp
+  - DOMAIN-KEYWORD,facebook
+  - DOMAIN-SUFFIX,cdninstagram.com
+  - DOMAIN-SUFFIX,instagram.com
+  - DOMAIN-SUFFIX,instanthq.com
+  - DOMAIN-SUFFIX,instanthq.com
+  - DOMAIN-SUFFIX,whatsapp.com
+  - DOMAIN-SUFFIX,whatsapp.net
+  - DST-PORT,5222 #whatspp call
+  - DST-PORT,5223 #whatspp call
+  - DST-PORT,5228 #whatspp call
+  - DST-PORT,5242 #whatspp call
+  - DST-PORT,3478 #whatspp call
