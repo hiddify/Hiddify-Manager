@@ -14,6 +14,9 @@ payload:
   - DST-PORT,5228 #whatspp call
   - DST-PORT,5242 #whatspp call
   - DST-PORT,3478 #whatspp call
+  - PROCESS-NAME,com.whatsapp
+  - PROCESS-NAME,com.instagram.android
+  - PROCESS-NAME,com.facebook.katana
   - DOMAIN-SUFFIX,play.googleapis.com #Google Play
   - DOMAIN-SUFFIX,play-fe.googleapis.com #Google Play
   - DOMAIN-SUFFIX,googleapis.com #Google Play
@@ -21,6 +24,7 @@ payload:
   - DOMAIN-SUFFIX,gvt1.com #Google Play
   - DOMAIN-SUFFIX,app-measurement.com #Google Play
   - DOMAIN-SUFFIX,gstatic.com #Google Play
+  
   
 
   - IP-CIDR,31.13.0.0/16  #meta ip ranges {
