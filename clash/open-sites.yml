@@ -3,4 +3,5 @@ payload:
   - DOMAIN-SUFFIX,notifications-pa.googleapis.com #Google Push Notifications
   - DOMAIN-SUFFIX,tasks-pa.googleapis.com #Google Push Notifications
   - DOMAIN-SUFFIX,pubsub.googleapis.com #Google Push Notifications
+  - DOMAIN-SUFFIX,anydesk.com
   
