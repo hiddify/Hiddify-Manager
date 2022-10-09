@@ -18,6 +18,9 @@ payload:
   - DOMAIN-SUFFIX,play-fe.googleapis.com #Google Play
   - DOMAIN-SUFFIX,googleapis.com #Google Play
   - DOMAIN-SUFFIX,apis.google.com #Google Play
+  - DOMAIN-SUFFIX,gvt1.com #Google Play
+  - DOMAIN-SUFFIX,app-measurement.com #Google Play
+  - DOMAIN-SUFFIX,gstatic.com #Google Play
   
 
   - IP-CIDR,31.13.0.0/16  #meta ip ranges {
