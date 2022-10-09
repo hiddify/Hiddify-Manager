@@ -9,21 +9,25 @@ payload:
   - DOMAIN-SUFFIX,whatsapp.com
   - DOMAIN-SUFFIX,whatsapp.net
   - DOMAIN-SUFFIX,wa.me
-  - DST-PORT,5222
-  - DST-PORT,5223
-  - DST-PORT,5228
-  - DST-PORT,5242
-  - DST-PORT,3478
-  - DOMAIN-SUFFIX,play.googleapis.com
-  - DOMAIN-SUFFIX,play-fe.googleapis.com
-  - IP-CIDR,31.13.0.0/16
+  - DST-PORT,5222 #whatspp call
+  - DST-PORT,5223 #whatspp call
+  - DST-PORT,5228 #whatspp call
+  - DST-PORT,5242 #whatspp call
+  - DST-PORT,3478 #whatspp call
+  - DOMAIN-SUFFIX,play.googleapis.com #Google Play
+  - DOMAIN-SUFFIX,play-fe.googleapis.com #Google Play
+  
+
+  - IP-CIDR,31.13.0.0/16  #meta ip ranges {
   - IP-CIDR,66.220.0.0/16
   - IP-CIDR,69.63.0.0/16
   - IP-CIDR,69.171.0.0/16
   - IP-CIDR,74.119.76.0/22
   - IP-CIDR,173.252.0.0/16
-  - IP-CIDR,204.15.20.0/22
-  - IP-CIDR,157.240.0.0/16
+  - IP-CIDR,204.15.20.0/22    #}
+
+
+  - IP-CIDR,157.240.0.0/16 #whatsapp ip range {
   - IP-CIDR,209.95.0.0/16
   - IP-CIDR,208.43.0.0/16
   - IP-CIDR,192.155.0.0/16
@@ -36,4 +40,4 @@ payload:
   - IP-CIDR,64.233.0.0/16
   - IP-CIDR,50.22.0.0/16
   - IP-CIDR,50.23.0.0/16
-  - IP-CIDR,50.97.0.0/16
+  - IP-CIDR,50.97.0.0/16 #}
