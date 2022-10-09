@@ -1,0 +1,55 @@
+payload:
+#Blocked Site IPs 
+  - IP-CIDR,10.10.34.0/24,Proxy
+# Telegram
+  - DOMAIN-SUFFIX,t.me 
+  - DOMAIN-SUFFIX,tdesktop.com 
+  - DOMAIN-SUFFIX,telegra.ph 
+  - DOMAIN-SUFFIX,telegram.me 
+  - DOMAIN-SUFFIX,telegram.org 
+  - IP-CIDR,91.108.4.0/22
+  - IP-CIDR,91.108.8.0/22 
+  - IP-CIDR,91.108.12.0/22 
+  - IP-CIDR,91.108.16.0/22 
+  - IP-CIDR,91.108.56.0/22 
+  - IP-CIDR,149.154.160.0/20 
+  - DST-PORT,1400  # voice call
+  
+  # Facebook
+  - DOMAIN-KEYWORD,facebook
+  - DOMAIN-SUFFIX,fbcdn.net
+  - DOMAIN-SUFFIX,fb.com
+  - DOMAIN-SUFFIX,fb.net
+  - DOMAIN-SUFFIX,fb.audio
+  - DOMAIN-SUFFIX,facebook-dns.com
+  - DOMAIN-SUFFIX,fb.gg
+  - DOMAIN-SUFFIX,fb.me
+  - DOMAIN-SUFFIX,fb.watch
+  - DOMAIN-SUFFIX,fbe2e.com
+  - DOMAIN-SUFFIX,fbinfra.net
+  - DOMAIN-SUFFIX,fbwat.ch
+
+#Youtube
+  - DOMAIN-SUFFIX,youtube.com
+  - DOMAIN-SUFFIX,yt.com
+  - DOMAIN-KEYWORD,youtube
+  - DOMAIN,youtubei.googleapis.com
+  #- DOMAIN-SUFFIX,googlevideo.com
+  - DOMAIN-SUFFIX,youtu.be
+  - DOMAIN-SUFFIX,ytimg.com
+   
+# Well-known sites 
+  - DOMAIN-SUFFIX,bbc.com
+  - DOMAIN-SUFFIX,bbcpersian.com
+  - DOMAIN-SUFFIX,bbc.co.uk
+  - DOMAIN-SUFFIX,bbc.net.uk
+  - DOMAIN-SUFFIX,bbcfmt.hs.llnwd.net
+  - DOMAIN-SUFFIX,bbci.co
+  - DOMAIN-SUFFIX,bbci.co.uk
+  - DOMAIN-SUFFIX,radiofarda.com
+  - DOMAIN-SUFFIX,manototv.com
+  - DOMAIN-SUFFIX,iranintl.com
+  - DOMAIN-SUFFIX,voanews.com
+  - DOMAIN-SUFFIX,gooya.com
+
+
