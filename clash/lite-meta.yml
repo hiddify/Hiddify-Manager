@@ -8,10 +8,10 @@ mode: rule
 proxies:
   - name: Proxy1
     type: ss
-    server: ads2.nofi.eu.org
+    server: serverip
     port: "443"
     cipher: chacha20-ietf-poly1305
-    password: "8d0b0458e1134247d8caf3d480129411"
+    password: "usersecret"
     udp: true
     plugin: obfs
     plugin-opts:
@@ -23,37 +23,38 @@ proxy-groups:
      proxies:
        - Proxy1
      type: select
+rule-providers:
+  iran:
+    type: http
+    behavior: classical
+    url: "https://serverip/usersecret/clash/iran-sites.yml"
+    path: ./ruleset/iran.yaml
+    interval: 432000
+    
+  blocked:
+    type: http
+    behavior: classical
+    url: "https://serverip/usersecret/clash/blocked-sites.yml"
+    path: ./ruleset/blocked.yaml
+    interval: 432000
 
+  tmpblocked:
+    type: http
+    behavior: classical
+    url: "https://serverip/usersecret/clash/tmp-blocked-sites.yml"
+    path: ./ruleset/tmpblocked.yaml
+    interval: 432000
+  open:
+    type: http
+    behavior: classical
+    url: "https://serverip/usersecret/clash/open-sites.yml"
+    path: ./ruleset/open.yaml
+    interval: 432000    
 rules:
-  - IP-CIDR,10.10.34.0/24,Proxy
-  - DOMAIN-SUFFIX,t.me,Proxy #telegram
-  - DOMAIN-SUFFIX,tdesktop.com,Proxy #telegram
-  - DOMAIN-SUFFIX,telegra.ph,Proxy #telegram
-  - DOMAIN-SUFFIX,telegram.me,Proxy #telegram
-  - DOMAIN-SUFFIX,telegram.org,Proxy #telegram
-  - IP-CIDR,91.108.4.0/22,Proxy,no-resolve #telegram
-  - IP-CIDR,91.108.8.0/22,Proxy,no-resolve #telegram
-  - IP-CIDR,91.108.12.0/22,Proxy,no-resolve #telegram
-  - IP-CIDR,91.108.16.0/22,Proxy,no-resolve #telegram
-  - IP-CIDR,91.108.56.0/22,Proxy,no-resolve #telegram
-  - IP-CIDR,149.154.160.0/20,Proxy,no-resolve #telegram
-  - DOMAIN-KEYWORD,instagram,Proxy 
-  - DOMAIN-KEYWORD,whatsapp,Proxy
-  - DOMAIN-KEYWORD,facebook,Proxy
-  - DOMAIN-SUFFIX,cdninstagram.com,Proxy
-  - DOMAIN-SUFFIX,instagram.com,Proxy
-  - DOMAIN-SUFFIX,instanthq.com,Proxy
-  - DOMAIN-SUFFIX,instanthq.com,Proxy
-  - DOMAIN-SUFFIX,whatsapp.com,Proxy
-  - DOMAIN-SUFFIX,whatsapp.net,Proxy
-  - DST-PORT,5222,Proxy #whatspp
-  - DST-PORT,5223,Proxy #whatspp
-  - DST-PORT,5228,Proxy #whatspp
-  - DST-PORT,5242,Proxy #whatspp
-  - DST-PORT,3478,Proxy #whatspp
-  - DST-PORT,1400,Proxy #telegram
-
-  - DOMAIN-SUFFIX,anydesk.com,DIRECT
+  - RULE-SET,iran,DIRECT
+  - RULE-SET,tmpblocked,Proxy
+  - RULE-SET,blocked,Proxy
+  - RULE-SET,open,DIRECT
   - MATCH,DIRECT
 
 dns:
