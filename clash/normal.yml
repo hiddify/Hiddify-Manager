@@ -54,12 +54,19 @@ rule-providers:
     behavior: classical
     url: "https://serverip/usersecret/clash/open-sites.yml"
     path: ./ruleset/open.yaml
-    interval: 432000    
+    interval: 432000   
+  ads:
+    type: http
+    behavior: classical
+    url: "https://serverip/usersecret/clash/ads-sites.yml"
+    path: ./ruleset/ads.yaml
+    interval: 432000   
 rules:
   - RULE-SET,iran,DIRECT
   - RULE-SET,tmpblocked,Proxy
   - RULE-SET,blocked,Proxy
   - RULE-SET,open,DIRECT
+  - RULE-SET,ads,REJECT
   - MATCH,Proxy
 
 dns:
