@@ -1,0 +1,3 @@
+payload:
+  - DOMAIN-SUFFIX,pubsub.googleapis.com #Google Push Notifications
+  
