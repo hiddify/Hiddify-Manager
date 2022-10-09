@@ -37,7 +37,9 @@ payload:
   #- DOMAIN-SUFFIX,googlevideo.com
   - DOMAIN-SUFFIX,youtu.be
   - DOMAIN-SUFFIX,ytimg.com
-   
+  - PROCESS-NAME,com.google.android.youtube
+  - PROCESS-NAME,com.vanced.android.youtube
+
 # Well-known sites 
   - DOMAIN-SUFFIX,bbc.com
   - DOMAIN-SUFFIX,bbcpersian.com
