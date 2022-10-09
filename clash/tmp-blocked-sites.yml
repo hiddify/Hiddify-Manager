@@ -17,17 +17,17 @@ payload:
   - DOMAIN-SUFFIX,play.googleapis.com #Google Play
   - DOMAIN-SUFFIX,play-fe.googleapis.com #Google Play
   
-  #meta ip ranges {
-  - IP-CIDR,31.13.0.0/16
+
+  - IP-CIDR,31.13.0.0/16  #meta ip ranges {
   - IP-CIDR,66.220.0.0/16
   - IP-CIDR,69.63.0.0/16
   - IP-CIDR,69.171.0.0/16
   - IP-CIDR,74.119.76.0/22
   - IP-CIDR,173.252.0.0/16
-  - IP-CIDR,204.15.20.0/22    
-#}
-#whatsapp ip range {
-  - IP-CIDR,157.240.0.0/16
+  - IP-CIDR,204.15.20.0/22    #}
+
+
+  - IP-CIDR,157.240.0.0/16 #whatsapp ip range {
   - IP-CIDR,209.95.0.0/16
   - IP-CIDR,208.43.0.0/16
   - IP-CIDR,192.155.0.0/16
@@ -40,7 +40,7 @@ payload:
   - IP-CIDR,64.233.0.0/16
   - IP-CIDR,50.22.0.0/16
   - IP-CIDR,50.23.0.0/16
-  - IP-CIDR,50.97.0.0/16
-}
+  - IP-CIDR,50.97.0.0/16 #}
+
 
  
