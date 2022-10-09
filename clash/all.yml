@@ -55,4 +55,5 @@ rules:
   - DST-PORT,5242,Proxy #whatspp
   - DST-PORT,3478,Proxy #whatspp
   - DST-PORT,1400,Proxy #telegram
+  - DOMAIN-SUFFIX,anydesk.com,DIRECT
   - MATCH,Proxy
