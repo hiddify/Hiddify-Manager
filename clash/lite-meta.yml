@@ -24,13 +24,7 @@ proxy-groups:
        - Proxy1
      type: select
 rule-providers:
-  iran:
-    type: http
-    behavior: classical
-    url: "https://serverip/usersecret/clash/iran-sites.yml"
-    path: ./ruleset/iran.yaml
-    interval: 432000
-    
+
   blocked:
     type: http
     behavior: classical
@@ -58,7 +52,6 @@ rule-providers:
     path: ./ruleset/ads.yaml
     interval: 432000   
 rules:
-  - RULE-SET,iran,DIRECT
   - RULE-SET,tmpblocked,Proxy
   - RULE-SET,blocked,Proxy
   - RULE-SET,open,DIRECT
