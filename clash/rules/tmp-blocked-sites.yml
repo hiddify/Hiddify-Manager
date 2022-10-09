@@ -16,6 +16,8 @@ payload:
   - DST-PORT,3478 #whatspp call
   - DOMAIN-SUFFIX,play.googleapis.com #Google Play
   - DOMAIN-SUFFIX,play-fe.googleapis.com #Google Play
+  - DOMAIN-SUFFIX,googleapis.com #Google Play
+  - DOMAIN-SUFFIX,apis.google.com #Google Play
   
 
   - IP-CIDR,31.13.0.0/16  #meta ip ranges {
