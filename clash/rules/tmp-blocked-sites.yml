@@ -17,6 +17,7 @@ payload:
   - PROCESS-NAME,com.whatsapp
   - PROCESS-NAME,com.instagram.android
   - PROCESS-NAME,com.facebook.katana
+  - PROCESS-NAME,com.facebook.services  
   - DOMAIN-SUFFIX,play.googleapis.com #Google Play
   - DOMAIN-SUFFIX,play-fe.googleapis.com #Google Play
   - DOMAIN-SUFFIX,googleapis.com #Google Play
