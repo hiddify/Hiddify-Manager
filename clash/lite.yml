@@ -38,5 +38,5 @@ rules:
   - IP-CIDR,91.108.56.0/22,Proxy,no-resolve #telegram
   - IP-CIDR,149.154.160.0/20,Proxy,no-resolve #telegram
   - DST-PORT,1400,Proxy #telegram
-
+  - DOMAIN-SUFFIX,anydesk.com,DIRECT
   - MATCH,DIRECT
