@@ -27,6 +27,12 @@ proxy-groups:
      url: 'http://www.gstatic.com/generate_204'
      interval: 300
 
+  ads:
+    type: http
+    behavior: classical
+    url: "https://serverip/usersecret/clash/ads-sites.yml"
+    path: ./ruleset/ads.yaml
+    interval: 432000   
 rules:
   - IP-CIDR,10.10.34.0/24,Proxy
   - DOMAIN-SUFFIX,t.me,Proxy #telegram
@@ -56,4 +62,5 @@ rules:
   - DST-PORT,3478,Proxy #whatspp
   - DST-PORT,1400,Proxy #telegram
   - DOMAIN-SUFFIX,anydesk.com,DIRECT
+  - RULE-SET,ads,REJECT
   - MATCH,Proxy
