@@ -30,7 +30,7 @@ proxy-groups:
   ads:
     type: http
     behavior: classical
-    url: "https://serverip/usersecret/clash/rules/ads-sites.yml"
+    url: "https://proxyproviderip/usersecret/clash/rules/ads-sites.yml"
     path: ./ruleset/ads.yaml
     interval: 432000   
 rules:
