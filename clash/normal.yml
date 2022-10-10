@@ -32,33 +32,33 @@ rule-providers:
   iran:
     type: http
     behavior: classical
-    url: "https://serverip/usersecret/clash/rules/iran-sites.yml"
+    url: "https://proxyproviderip/usersecret/clash/rules/iran-sites.yml"
     path: ./ruleset/iran.yaml
     interval: 432000
     
   blocked:
     type: http
     behavior: classical
-    url: "https://serverip/usersecret/clash/rules/blocked-sites.yml"
+    url: "https://proxyproviderip/usersecret/clash/rules/blocked-sites.yml"
     path: ./ruleset/blocked.yaml
     interval: 432000
 
   tmpblocked:
     type: http
     behavior: classical
-    url: "https://serverip/usersecret/clash/rules/tmp-blocked-sites.yml"
+    url: "https://proxyproviderip/usersecret/clash/rules/tmp-blocked-sites.yml"
     path: ./ruleset/tmpblocked.yaml
     interval: 432000
   open:
     type: http
     behavior: classical
-    url: "https://serverip/usersecret/clash/rules/open-sites.yml"
+    url: "https://proxyproviderip/usersecret/clash/rules/open-sites.yml"
     path: ./ruleset/open.yaml
     interval: 432000   
   ads:
     type: http
     behavior: classical
-    url: "https://serverip/usersecret/clash/rules/ads-sites.yml"
+    url: "https://proxyproviderip/usersecret/clash/rules/ads-sites.yml"
     path: ./ruleset/ads.yaml
     interval: 432000   
 rules:
