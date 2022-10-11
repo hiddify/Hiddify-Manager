@@ -6,27 +6,52 @@ external-controller: 127.0.0.1:9090
 ipv6: false
 mode: rule
 proxies:
-  - name: Proxy1
+
+  - name: P1
     type: ss
     server: serverip
     port: "443"
     cipher: chacha20-ietf-poly1305
     password: "usersecret"
-    plugin: obfs
     udp: true
+    plugin: obfs
     plugin-opts:
       mode: tls # or http
       host: www.google.com
    
+  - name: "P2"
+    type: ss
+    server: proxyproviderip
+    port: 443
+    cipher: chacha20-ietf-poly1305
+    password: "usersecret"
+    plugin: v2ray-plugin
+    plugin-opts:
+      mode: websocket # no QUIC now
+      tls: true # wss
+      skip-cert-verify: true
+      host: proxyproviderip
+      path: "/usersecret/v2ray/"
+      #mux: true
+      # headers:
+      #   custom: value
 proxy-groups:
-   - name: Proxy
+   - name: Autom
      proxies:
-       - Proxy1
+       - P1
+       - P2 
+     type: url-test
+     url: 'https://www.facebook.com/'
+     interval: 300
+
+   - name: P
+     proxies:
+       - Autom
        - DIRECT
      type: fallback
      url: 'http://www.gstatic.com/generate_204'
      interval: 300
-
+     
   ads:
     type: http
     behavior: classical
@@ -34,33 +59,33 @@ proxy-groups:
     path: ./ruleset/ads.yaml
     interval: 432000   
 rules:
-  - IP-CIDR,10.10.34.0/24,Proxy
-  - DOMAIN-SUFFIX,t.me,Proxy #telegram
-  - DOMAIN-SUFFIX,tdesktop.com,Proxy #telegram
-  - DOMAIN-SUFFIX,telegra.ph,Proxy #telegram
-  - DOMAIN-SUFFIX,telegram.me,Proxy #telegram
-  - DOMAIN-SUFFIX,telegram.org,Proxy #telegram
-  - IP-CIDR,91.108.4.0/22,Proxy,no-resolve #telegram
-  - IP-CIDR,91.108.8.0/22,Proxy,no-resolve #telegram
-  - IP-CIDR,91.108.12.0/22,Proxy,no-resolve #telegram
-  - IP-CIDR,91.108.16.0/22,Proxy,no-resolve #telegram
-  - IP-CIDR,91.108.56.0/22,Proxy,no-resolve #telegram
-  - IP-CIDR,149.154.160.0/20,Proxy,no-resolve #telegram
-  - DOMAIN-KEYWORD,instagram,Proxy 
-  - DOMAIN-KEYWORD,whatsapp,Proxy
-  - DOMAIN-KEYWORD,facebook,Proxy
-  - DOMAIN-SUFFIX,cdninstagram.com,Proxy
-  - DOMAIN-SUFFIX,instagram.com,Proxy
-  - DOMAIN-SUFFIX,instanthq.com,Proxy
-  - DOMAIN-SUFFIX,instanthq.com,Proxy
-  - DOMAIN-SUFFIX,whatsapp.com,Proxy
-  - DOMAIN-SUFFIX,whatsapp.net,Proxy
-  - DST-PORT,5222,Proxy #whatspp
-  - DST-PORT,5223,Proxy #whatspp
-  - DST-PORT,5228,Proxy #whatspp
-  - DST-PORT,5242,Proxy #whatspp
-  - DST-PORT,3478,Proxy #whatspp
-  - DST-PORT,1400,Proxy #telegram
+  - IP-CIDR,10.10.34.0/24,P
+  - DOMAIN-SUFFIX,t.me,P #tele gram
+  - DOMAIN-SUFFIX,tdesktop.com,P #tele gram
+  - DOMAIN-SUFFIX,telegra.ph,P #tele gram
+  - DOMAIN-SUFFIX,telegram.me,P #tele gram
+  - DOMAIN-SUFFIX,telegram.org,P #tele gram
+  - IP-CIDR,91.108.4.0/22,P,no-resolve #tele gram
+  - IP-CIDR,91.108.8.0/22,P,no-resolve #tele gram
+  - IP-CIDR,91.108.12.0/22,P,no-resolve #tele gram
+  - IP-CIDR,91.108.16.0/22,P,no-resolve #tele gram
+  - IP-CIDR,91.108.56.0/22,P,no-resolve #tele gram
+  - IP-CIDR,149.154.160.0/20,P,no-resolve #tele gram
+  - DOMAIN-KEYWORD,instagram,P 
+  - DOMAIN-KEYWORD,whatsapp,P
+  - DOMAIN-KEYWORD,facebook,P
+  - DOMAIN-SUFFIX,cdninstagram.com,P
+  - DOMAIN-SUFFIX,instagram.com,P
+  - DOMAIN-SUFFIX,instanthq.com,P
+  - DOMAIN-SUFFIX,instanthq.com,P
+  - DOMAIN-SUFFIX,whatsapp.com,P
+  - DOMAIN-SUFFIX,whatsapp.net,P
+  - DST-PORT,5222,P #whatspp
+  - DST-PORT,5223,P #whatspp
+  - DST-PORT,5228,P #whatspp
+  - DST-PORT,5242,P #whatspp
+  - DST-PORT,3478,P #whatspp
+  - DST-PORT,1400,P #tele gram
   - DOMAIN-SUFFIX,anydesk.com,DIRECT
   - RULE-SET,ads,REJECT
   - MATCH,Proxy
