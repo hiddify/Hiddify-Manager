@@ -83,8 +83,8 @@ rule-providers:
 rules:
   - RULE-SET,tmpblocked,P
   - RULE-SET,blocked,P
-  - RULE-SET,open,DIRECT
   - RULE-SET,ads,REJECT
+  - RULE-SET,open,DIRECT
   - DOMAIN-SUFFIX,proxyproviderip,P
   - MATCH,DIRECT
 
