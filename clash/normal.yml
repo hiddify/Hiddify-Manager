@@ -46,7 +46,8 @@ proxy-groups:
 
    - name: P
      proxies:
-       - Autom
+       - P2
+       - P1
        - DIRECT
      type: fallback
      url: 'http://www.gstatic.com/generate_204'
