@@ -6,7 +6,8 @@ external-controller: 127.0.0.1:9090
 ipv6: false
 mode: rule
 proxies:
-  - name: Proxy1
+
+  - name: P1
     type: ss
     server: serverip
     port: "443"
@@ -17,11 +18,35 @@ proxies:
     plugin-opts:
       mode: tls # or http
       host: www.google.com
-      
+   
+  - name: "P2"
+    type: ss
+    server: proxyproviderip
+    port: 443
+    cipher: chacha20-ietf-poly1305
+    password: "usersecret"
+    plugin: v2ray-plugin
+    plugin-opts:
+      mode: websocket # no QUIC now
+      tls: true # wss
+      skip-cert-verify: true
+      host: proxyproviderip
+      path: "/usersecret/v2ray/"
+      #mux: true
+      # headers:
+      #   custom: value
 proxy-groups:
-   - name: Proxy
+   - name: Autom
      proxies:
-       - Proxy1
+       - P1
+       - P2 
+     type: url-test
+     url: 'https://www.facebook.com/'
+     interval: 300
+
+   - name: P
+     proxies:
+       - Autom
        - DIRECT
      type: fallback
      url: 'http://www.gstatic.com/generate_204'
@@ -62,12 +87,12 @@ rule-providers:
     path: ./ruleset/ads.yaml
     interval: 432000   
 rules:
-  - RULE-SET,iran,DIRECT
-  - RULE-SET,tmpblocked,Proxy
-  - RULE-SET,blocked,Proxy
-  - RULE-SET,open,DIRECT
+  - RULE-SET,tmpblocked,P
+  - RULE-SET,blocked,P
   - RULE-SET,ads,REJECT
-  - MATCH,Proxy
+  - RULE-SET,iran,DIRECT
+  - RULE-SET,open,DIRECT
+  - MATCH,P
 
 dns:
   enable: true
