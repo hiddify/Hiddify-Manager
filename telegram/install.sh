@@ -1,3 +1,5 @@
+echo "telegram proxy install.sh $*"
+
 apt install -y python3 python3-uvloop python3-cryptography python3-socks libcap2-bin ca-certificates curl wget gnupg-agent software-properties-common
 useradd --no-create-home -s /usr/sbin/nologin tgproxy
 
