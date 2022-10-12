@@ -5,7 +5,7 @@ DOMAIN=$2
 IP=$(curl -Lso- https://api.ipify.org);
 echo $IP
 
-apt-get install -y apt-transport-https ca-certificates git curl wget gnupg-agent software-properties-common git nginx certbot python3-certbot-nginx
+apt-get install -y nginx certbot python3-certbot-nginx
 
 
 rm /etc/nginx/sites-available/default
