@@ -10,14 +10,16 @@ git clone https://github.com/hiddify/hiddify-config
 cd hiddify-config
 
 
-cd common/ && bash install.sh $USER_SECRET $DOMAIN && cd ..
-cd nginx/ && bash install.sh $USER_SECRET $DOMAIN && cd ..
-
+function install() {
+        cd $1 && bash install.sh $USER_SECRET $DOMAIN && cd ..
+}
+install common
+install nginx
 if [[ $MODE == *'telegram'* ]]; then
-  cd telegram/ && bash install.sh $USER_SECRET $DOMAIN && cd ..
+  install telegram
 fi
 if $MODE == *'shadowsocks'*; then
-  cd shadowsocks/; bash install.sh $USER_SECRET $DOMAIN && cd ..
+   install shadowsocks
 fi
 
 echo "please open the following link in the browser for client setup"
