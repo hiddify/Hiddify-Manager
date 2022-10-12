@@ -14,8 +14,8 @@ mkdir -p /etc/nginx/stream.d/
 ln -s $(pwd)/sni-proxy.conf /etc/nginx/stream.d/sni-proxy.conf
 ln -s $(pwd)/signal.conf /etc/nginx/stream.d/signal.conf
 
-if ! grep -Fxq "include /etc/nginx/stream.d/*.conf;" /etc/nginx/nginx.conf; then
-  echo "include /etc/nginx/stream.d/*.conf;">>/etc/nginx/nginx.conf;
+if ! grep -Fxq "stream{include /etc/nginx/stream.d/*.conf;}" /etc/nginx/nginx.conf; then
+  echo "stream{include /etc/nginx/stream.d/*.conf;}">>/etc/nginx/nginx.conf;
 fi
 
 sed -i "s/defaultusersecret/$USER_SECRET/g" web.conf
