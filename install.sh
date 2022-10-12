@@ -19,3 +19,6 @@ fi
 if $MODE == *'shadowsocks'*; then
   cd shadowsocks/; bash install.sh $USER_SECRET $DOMAIN && cd ..
 fi
+
+echo "please open the following link in the browser for client setup"
+cat nginx/use-link
