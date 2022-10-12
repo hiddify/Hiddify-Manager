@@ -1,6 +1,6 @@
 # config
 
-[Visit here for one click setup](https://hiddify.github.io/setup-proxy-one-click.html)
+[Visit here for one click setup with full instruction](https://hiddify.github.io/setup-proxy-one-click.html)
 
 
 # Telegram
