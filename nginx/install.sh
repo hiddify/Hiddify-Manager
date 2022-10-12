@@ -1,3 +1,5 @@
+echo "nginx install.sh $*"
+
 USER_SECRET=$1
 DOMAIN=$2
 IP=$(curl -Lso- https://api.ipify.org);
