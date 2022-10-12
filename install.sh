@@ -2,6 +2,7 @@ USER_SECRET=$1
 DOMAIN=$2
 MODE="${3:-telegram-shadowsocks}"
 
+apt update
 apt install -y git
 
 cd /opt/
