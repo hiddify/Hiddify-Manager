@@ -15,4 +15,6 @@ ln -s  $(pwd)/mtproxy.service /etc/systemd/system/
 systemctl enable mtproxy.service
 systemctl start mtproxy.service
 
-echo "https://t.me/proxy?server=$2&port=443&secret=ee$16d61696c2e676f6f676c652e636f6d">use-link
+IP=$(curl -Lso- https://api.ipify.org);
+
+echo "https://t.me/proxy?server=$IP&port=443&secret=ee$16d61696c2e676f6f676c652e636f6d">use-link
