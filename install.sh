@@ -9,13 +9,13 @@ cd /opt/
 git clone https://github.com/hiddify/hiddify-config
 cd hiddify-config
 
+
+cd common/ && bash install.sh $USER_SECRET $DOMAIN && cd ..
+cd nginx/ && bash install.sh $USER_SECRET $DOMAIN && cd ..
+
 if [[ $MODE == *'telegram'* ]]; then
-  cd telegram/install.sh 
-  bash install.sh $USER_SECRET $DOMAIN
+  cd telegram/ && bash install.sh $USER_SECRET $DOMAIN && cd ..
 fi
 if $MODE == *'shadowsocks'*; then
-  cd shadowsocks/install.sh
-  bash install.sh $USER_SECRET $DOMAIN
+  cd shadowsocks/; bash install.sh $USER_SECRET $DOMAIN && cd ..
 fi
-
-
