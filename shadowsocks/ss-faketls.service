@@ -5,7 +5,7 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-ExecStart=ss-server -c /opt/shadowsocks/config-faketls.json
+ExecStart=ss-server -c /opt/hiddify-config/shadowsocks/config-faketls.json
 Restart=on-failure
 
 [Install]
