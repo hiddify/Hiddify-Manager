@@ -1,6 +1,4 @@
 apt-get install -y apt-transport-https ca-certificates curl wget gnupg-agent software-properties-common git shadowsocks-libev simple-obfs
-mkdir -p /opt/shadowsocks
-cd /opt/shadowsocks
 
 wget https://github.com/shadowsocks/v2ray-plugin/releases/download/v1.3.2/v2ray-plugin-linux-amd64-v1.3.2.tar.gz
 tar xvzf v2ray-plugin-linux-amd64*
