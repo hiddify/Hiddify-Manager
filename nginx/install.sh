@@ -20,8 +20,7 @@ if ! grep -Fxq "stream{include /etc/nginx/stream.d/*.conf;}" /etc/nginx/nginx.co
   echo "stream{include /etc/nginx/stream.d/*.conf;}">>/etc/nginx/nginx.conf;
 fi
 
-sed -i "s/defaultusersecret/$USER_SECRET/g" web.conf
-sed -i "s/defaultserverip/$IP/g" web.conf
+sed -i "s/defaultusersecret/$USER_SECRET/g" common.conf
 sed -i "s/defaultusersecret/$USER_SECRET/g" replace.conf
 sed -i "s/defaultserverip/$IP/g" replace.conf
 
