@@ -21,7 +21,7 @@ install nginx
 if [[ $MODE == *'telegram'* ]]; then
   install telegram
 fi
-if $MODE == *'shadowsocks'*; then
+if [[ $MODE == *'shadowsocks'* ]]; then
    install shadowsocks
 fi
 
