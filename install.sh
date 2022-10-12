@@ -11,7 +11,10 @@ cd hiddify-config
 
 
 function install() {
-        cd $1 && bash install.sh $USER_SECRET $DOMAIN && cd ..
+        echo "==========================================================="
+        echo "===install $1 $USER_SECRET $DOMAIN"
+        echo "==========================================================="        
+        pushd $1; bash install.sh $USER_SECRET $DOMAIN; popd 
 }
 install common
 install nginx
