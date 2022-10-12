@@ -7,6 +7,7 @@ if [[ "$1" ]]; then
 sed -i "s/00000000000000000000000000000001/$1/g" config.py
 fi
 echo 'TLS_DOMAIN = "mail.google.com"'>> config.py
+sed -i 's/PORT = 443/PORT = 449/g' config.py
 
 ln -s  $(pwd)/mtproxy.service /etc/systemd/system/
 systemctl enable mtproxy.service
