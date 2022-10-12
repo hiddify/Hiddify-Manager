@@ -5,8 +5,6 @@ echo $IP
 
 apt-get install -y apt-transport-https ca-certificates git curl wget gnupg-agent software-properties-common git nginx certbot python3-certbot-nginx
 
-mkdir -p /opt/nginx
-cd /opt/nginx
 
 rm /etc/nginx/sites-available/default
 rm /etc/nginx/sites-enabled/default
