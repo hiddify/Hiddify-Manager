@@ -26,7 +26,7 @@ sed -i "s/defaultserverip/$IP/g" replace.conf
 
 sed -i "s/defaultserverhost/$DOMAIN/g" web.conf
 sed -i "s/defaultserverhost/$DOMAIN/g" sni-proxy.conf
-certbot --nginx --register-unsafely-without-email -d $DOMAIN --non-interactive --agree-tos  --https-port 444
+certbot --nginx --register-unsafely-without-email -d $DOMAIN --non-interactive --agree-tos  --https-port 444 --no-redirect
 sed -i "s/listen 444 ssl;/listen 444 ssl http2;/" web.conf
 echo "https://$DOMAIN/$USER_SECRET/">use-link
 
