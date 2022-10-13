@@ -11,7 +11,7 @@ fi
 echo 'TLS_DOMAIN = "mail.google.com"'>> config.py
 sed -i 's/PORT = 443/PORT = 449/g' config.py
 
-ln -s  $(pwd)/mtproxy.service /etc/systemd/system/
+ln -s  $(pwd)/../mtproxy.service /etc/systemd/system/
 systemctl enable mtproxy.service
 systemctl start mtproxy.service
 
