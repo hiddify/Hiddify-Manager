@@ -21,7 +21,7 @@ proxies:
    
   - name: "P2"
     type: ss
-    server: proxyproviderip
+    server: cloudprovider
     port: 443
     cipher: chacha20-ietf-poly1305
     password: "usersecret"
