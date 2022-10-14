@@ -91,4 +91,4 @@ rules:
   - DST-PORT,3478,P #whatspp
   - DST-PORT,1400,P #tele gram
   - DOMAIN-SUFFIX,anydesk.com,DIRECT
-  - MATCH,Proxy
+  - MATCH,P
