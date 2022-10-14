@@ -31,6 +31,8 @@ sed -i "s/defaultserverip/$IP/g" replace.conf
 sed -i "s/defaultserverhost/$DOMAIN/g" web.conf
 sed -i "s/defaultserverhost/$DOMAIN/g" sni-proxy.conf
 
+openssl req -x509 -newkey rsa:2048 -keyout selfsigned.key -out selfsigned.crt -days 3650 -nodes -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=www.google.com"
+
 openssl req -x509 -nodes selfsigned.key -out selfsigned.crt -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=www.google.com"
 
 certbot --nginx --register-unsafely-without-email -d $DOMAIN --non-interactive --agree-tos  --https-port 444 --no-redirect
