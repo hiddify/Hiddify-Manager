@@ -1,6 +1,10 @@
 USER_SECRET=$1
 DOMAIN=$2
-MODE="${3:-telegram-shadowsocks}"
+MODE="${3:-all}"
+CLOUD_PROVIDER=${4:-$2}
+if [[ $MODE == 'all' ]]; then
+        MODE="shadowsocks-telegram-vmess";
+fi
 
 apt update
 apt install -y git
@@ -12,9 +16,9 @@ cd hiddify-config
 
 function install() {
         echo "==========================================================="
-        echo "===install $1 $USER_SECRET $DOMAIN"
+        echo "===install $1 $USER_SECRET $DOMAIN $MODE $CLOUD_PROVIDER" 
         echo "==========================================================="        
-        pushd $1; bash install.sh $USER_SECRET $DOMAIN; popd 
+        pushd $1; bash install.sh $USER_SECRET $DOMAIN $MODE $CLOUD_PROVIDER; popd 
 }
 install common
 install nginx
@@ -24,6 +28,10 @@ fi
 if [[ $MODE == *'shadowsocks'* ]]; then
    install shadowsocks
 fi
+if [[ $MODE == *'vmess'* ]]; then
+   install vmess
+fi
 
-echo "please open the following link in the browser for client setup"
+echo "==========================================================="
+echo "Please open the following link in the browser for client setup"
 cat nginx/use-link
