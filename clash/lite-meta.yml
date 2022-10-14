@@ -20,7 +20,7 @@ proxies:
    
   - name: "P2"
     type: ss
-    server: proxyproviderip
+    server: cloudprovider
     port: 443
     cipher: chacha20-ietf-poly1305
     password: "usersecret"
@@ -37,9 +37,9 @@ proxies:
 proxy-groups:
    - name: Autom
      proxies:
-       - P1
-       - P2 
-     type: url-test
+       - P2
+       - P1 
+     type: fallback
      url: 'https://www.facebook.com/'
      interval: 300
 
