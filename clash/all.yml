@@ -52,7 +52,9 @@ proxy-groups:
      type: fallback
      url: 'http://www.gstatic.com/generate_204'
      interval: 300
-     
+
+
+rule-providers:     
   ads:
     type: http
     behavior: classical
@@ -60,6 +62,7 @@ proxy-groups:
     path: ./ruleset/ads.yaml
     interval: 432000   
 rules:
+  - RULE-SET,ads,REJECT
   - IP-CIDR,10.10.34.0/24,P
   - DOMAIN-SUFFIX,t.me,P #tele gram
   - DOMAIN-SUFFIX,tdesktop.com,P #tele gram
@@ -88,5 +91,4 @@ rules:
   - DST-PORT,3478,P #whatspp
   - DST-PORT,1400,P #tele gram
   - DOMAIN-SUFFIX,anydesk.com,DIRECT
-  - RULE-SET,ads,REJECT
   - MATCH,Proxy
