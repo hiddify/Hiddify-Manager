@@ -30,6 +30,9 @@ sed -i "s/defaultserverip/$IP/g" replace.conf
 
 sed -i "s/defaultserverhost/$DOMAIN/g" web.conf
 sed -i "s/defaultserverhost/$DOMAIN/g" sni-proxy.conf
+
+openssl req -x509 -nodest selfsigned.key -out selfsigned.crt -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=www.google.com"
+
 certbot --nginx --register-unsafely-without-email -d $DOMAIN --non-interactive --agree-tos  --https-port 444 --no-redirect
 sed -i "s/listen 444 ssl;/listen 444 ssl http2;/" web.conf
 echo "https://$DOMAIN/$USER_SECRET/">use-link
