@@ -1,0 +1,28 @@
+{
+  "inbounds": [
+    {
+      "port": 445,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "usersecret",
+            "alterId": 64
+          }
+        ],
+        "disableInsecureEncryption": true
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/"
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom"
+    }
+  ]
+}
