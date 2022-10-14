@@ -4,6 +4,8 @@ USER_SECRET=$1
 DOMAIN=$2
 IP=$(curl -Lso- https://api.ipify.org);
 echo $IP
+guid="${1:0:8}-${1:8:4}-${1:12:4}-${1:16:4}-${1:20:12}"
+cloudprovider=${4:-$DOMAIN}
 
 apt-get install -y nginx certbot python3-certbot-nginx
 
@@ -22,6 +24,8 @@ fi
 
 sed -i "s/defaultusersecret/$USER_SECRET/g" common.conf
 sed -i "s/defaultusersecret/$USER_SECRET/g" replace.conf
+sed -i "s/defaultuserguidsecret/$guid/g" replace.conf
+sed -i "s/defaultcloudprovider/$cloudprovider/g" replace.conf
 sed -i "s/defaultserverip/$IP/g" replace.conf
 
 sed -i "s/defaultserverhost/$DOMAIN/g" web.conf
