@@ -7,15 +7,16 @@
         "clients": [
           {
             "id": "usersecret",
-            "alterId": 64
+            "alterId": 64,
+            "security": "chacha20-poly1305",
+            "level": 0
           }
         ],
-        "disableInsecureEncryption": true
+        "disableInsecureEncryption": false
       },
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "connectionReuse": true,
           "path": "/"
         },
         "security": "none",
