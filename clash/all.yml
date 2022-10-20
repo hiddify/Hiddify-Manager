@@ -7,7 +7,8 @@ ipv6: false
 mode: rule
 proxies:
 
-  - name: P1
+
+  - name: faketls
     type: ss
     server: serverip
     port: "443"
@@ -19,7 +20,7 @@ proxies:
       mode: tls # or http
       host: www.google.com
    
-  - name: "P2"
+  - name: "v2ray"
     type: ss
     server: cloudprovider
     port: 443
@@ -35,24 +36,46 @@ proxies:
       #mux: true
       # headers:
       #   custom: value
+      
+  - name: "vmess"
+    type: vmess
+    server: cloudprovider
+    port: 443
+    uuid: userguidsecret
+    alterId: 0
+    cipher: "chacha20-poly1305"
+    # udp: true
+    tls: true
+    # skip-cert-verify: true
+    # servername: example.com # priority over wss host
+    network: ws
+    ws-opts:
+      path: /usersecret/vmess/
+    #   headers:
+    #     Host: v2ray.com
+    #   max-early-data: 2048
+    #   early-data-header-name: Sec-WebSocket-Protocol
+     
 proxy-groups:
    - name: Autom
      proxies:
-       - P1
-       - P2 
+       - faketls
+       - v2ray
+       - vmess
      type: url-test
      url: 'https://www.facebook.com/'
      interval: 300
 
    - name: P
      proxies:
-       - P2
-       - P1
+       - v2ray
+       - faketls
+       - vmess
        - DIRECT
      type: fallback
      url: 'http://www.gstatic.com/generate_204'
      interval: 300
-
+     
 
 rule-providers:     
   ads:
