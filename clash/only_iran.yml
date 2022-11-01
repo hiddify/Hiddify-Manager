@@ -60,7 +60,7 @@ proxy-groups:
      proxies:
        - v2ray
        - vmess
-       - faketls
+       #- faketls
      type: url-test
      url: 'http://tik.ir'
      interval: 300
@@ -69,7 +69,7 @@ proxy-groups:
      proxies:
        - v2ray
        - vmess
-       - faketls
+       #- faketls
        - DIRECT
      type: fallback
      url: 'http://tik.ir'
