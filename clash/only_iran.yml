@@ -58,9 +58,9 @@ proxies:
 proxy-groups:
    - name: Autom
      proxies:
-       - faketls
        - v2ray
        - vmess
+       - faketls
      type: url-test
      url: 'http://tik.ir'
      interval: 300
@@ -68,8 +68,8 @@ proxy-groups:
    - name: P
      proxies:
        - v2ray
-       - faketls
        - vmess
+       - faketls
        - DIRECT
      type: fallback
      url: 'http://tik.ir'
