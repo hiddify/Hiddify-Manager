@@ -1,0 +1,110 @@
+mixed-port: 7890
+allow-lan: false
+log-level: info
+secret: ""
+external-controller: 127.0.0.1:9090
+ipv6: false
+mode: rule
+proxies:
+
+  - name: faketls
+    type: ss
+    server: serverip
+    port: "443"
+    cipher: chacha20-ietf-poly1305
+    password: "usersecret"
+    udp: true
+    plugin: obfs
+    plugin-opts:
+      mode: tls # or http
+      host: www.google.com
+   
+  - name: "v2ray"
+    type: ss
+    server: cloudprovider
+    port: 443
+    cipher: chacha20-ietf-poly1305
+    password: "usersecret"
+    plugin: v2ray-plugin
+    plugin-opts:
+      mode: websocket # no QUIC now
+      tls: true # wss
+      skip-cert-verify: true
+      host: proxyproviderip
+      path: "/usersecret/v2ray/"
+      #mux: true
+      # headers:
+      #   custom: value
+      
+  - name: "vmess"
+    type: vmess
+    server: cloudprovider
+    port: 443
+    uuid: userguidsecret
+    alterId: 0
+    cipher: "chacha20-poly1305"
+    # udp: true
+    tls: true
+    # skip-cert-verify: true
+    # servername: example.com # priority over wss host
+    network: ws
+    ws-opts:
+      path: /usersecret/vmess/
+    #   headers:
+    #     Host: v2ray.com
+    #   max-early-data: 2048
+    #   early-data-header-name: Sec-WebSocket-Protocol
+     
+proxy-groups:
+   - name: Autom
+     proxies:
+       - faketls
+       - v2ray
+       - vmess
+     type: url-test
+     url: 'http://tik.ir'
+     interval: 300
+
+   - name: P
+     proxies:
+       - v2ray
+       - faketls
+       - vmess
+       - DIRECT
+     type: fallback
+     url: 'http://tik.ir'
+     interval: 300
+     
+
+rule-providers:
+  iran:
+    type: http
+    behavior: classical
+    url: "https://proxyproviderip/usersecret/clash/rules/iran-sites.yml"
+    path: ./ruleset/iran.yaml
+    interval: 432000
+     
+  ads:
+    type: http
+    behavior: classical
+    url: "https://proxyproviderip/usersecret/clash/rules/ads-sites.yml"
+    path: ./ruleset/ads.yaml
+    interval: 432000   
+rules:
+  - RULE-SET,ads,REJECT
+  - RULE-SET,iran,P
+  - MATCH,DIRECT
+
+dns:
+  enable: true
+  listen: 0.0.0.0:53
+  ipv6: false # when the false, response to AAAA questions will be empty
+  default-nameserver:
+    - 178.22.122.100
+    - 185.51.200.2
+  enhanced-mode: fake-ip 
+  fake-ip-range: 10.18.0.1/16 
+  nameserver:
+    - 178.22.122.100
+    - 185.51.200.2
+    #- https://serverip/usersecret/dns/dns-query 
