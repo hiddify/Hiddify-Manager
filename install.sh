@@ -23,8 +23,8 @@ function runsh() {
 
 function do_for_all() {
         cd /opt/$GITHUB_REPOSITORY
-        if [[ $1 == 'run' ]];then
-                check_for_env()
+        if [[ "$1" == "run" ]];then
+                check_for_env
         fi
         bash replace_variables.sh
         runsh $1.sh common
@@ -32,7 +32,7 @@ function do_for_all() {
         if [[ $ENABLE_TELEGRAM == true ]]; then
                 runsh $1.sh telegram
         fi
-        if [[ $ENABLE_SS == true]]; then
+        if [[ $ENABLE_SS == true ]]; then
                 runsh $1.sh shadowsocks
         fi
         if [[ $ENABLE_VMESS == true ]]; then
@@ -43,8 +43,8 @@ function do_for_all() {
 
 function check_for_env() {
         random_secret=$(hexdump -vn16 -e'4/4 "%08X" 1 "\n"' /dev/urandom)
-        replace_empty_env USER_SECRET "please enter 32 char user secret" $random_secret /^([0-9A-F]{32})$/i
-        replace_empty_env DOMAIN "please enter valid domain name to use " "www.example.com" /^([a-z0-9\.]+\.[a-z]{2,})$/i
+        replace_empty_env USER_SECRET "please enter 32 char user secret" $random_secret "/^([0-9A-F]{32})$/i"
+        replace_empty_env DOMAIN "please enter valid domain name to use " "www.example.com" "/^([a-z0-9\.]+\.[a-z]{2,})$/i"
         echo "resolving domain $DOMAIN -> IP= $(dig +short -t $DOMAIN.) ServerIP-> $(curl -Lso- https://api.ipify.org)"
 
 
