@@ -11,8 +11,8 @@ echo 'TLS_DOMAIN = "telegramtlsdomain"'>> config.py.template
 sed -i 's/PORT = 443/PORT = 449/g' config.py.template
 
 ln -s  $(pwd)/../mtproxy.service /etc/systemd/system/
-systemctl enable mtproxy.service
-systemctl start mtproxy.service
+
+
 
 # IP=$(curl -Lso- https://api.ipify.org);
 
