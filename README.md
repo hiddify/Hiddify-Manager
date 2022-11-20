@@ -71,29 +71,16 @@ Same as v2ray
 
 # پیش نیازها:
 - یک vps آماده با ubuntu 20.04 و آی پی مثلا `1.1.1.1`
-- یک دامنه یا زیردامنه (برای مثال: `myservice.hiddify.com`) که رکورد A ی آن به آی پی شما وصل باشد. اگر زیر دامنه ندارید از 
- [این لینک](create-subdomain.html)
-یک زیر دامنه برای خود بسازید
+- یک دامنه یا زیردامنه (برای مثال: `myservice.hiddify.com`) که رکورد A ی آن به آی پی شما وصل باشد. 
+<details markdown="1"><summary>اگر زیر دامنه ندارید، مراحل زیر را انجام دهید</summary>
 
-### مرحله 1: پارامترها
-ابتدا دامنه خود را در بخش زیر قرار دهید. 
-<form class="form-inline">
-  <div class="input-group mb-2 mr-sm-2">
-    <div class="input-group-prepend">
-      <div class="input-group-text">domain</div>
-    </div>
-    <input  type="text" class="form-control" id="userdomain" placeholder="domain" value="myservice.hiddify.com" oninput="handleValueChange()">
-  </div>
-</form>  
-<form class="form-inline">
-  <div class="input-group mb-2 mr-sm-2">
-    <div class="input-group-prepend">
-      <div class="input-group-text">secret</div>
-    </div>
-    <input  type="text" class="form-control" id="usersecret" placeholder="secret" pattern="[0-9a-fA-F]{32}" required minlength="32" maxlength="32"  value="751F2F753854422EA4C5FDDB8314F068" oninput="handleValueChange()">
-  </div>
-</form>  
+1- وارد [این سایت](https://freedns.afraid.org/signup/?plan=starter) و یک یوزر بسازید (لازم نیست که اطلاعاتتان واقعی باشد فقط ایمیل باید درست باشد)
 
+2- ایمیلی که به شما ارسال شده را اکتیو کنید
+
+3- روی [این لینک](https://freedns.afraid.org/subdomain/edit.php?edit_domain_id=1184493) کلیک کنید و آی پی سرور را خود و نام مورد نظر را در آن قرار دهید.
+
+4- زیر دامنه ایجاد شده را کپی کنید.
 
 # Easy Setup (نصب سریع)
 ```
@@ -115,7 +102,6 @@ bash install.sh
 ```
 </details>
 
-[Visit here for one click setup with full instruction](https://hiddify.github.io/setup-proxy-one-click.html)
 
 
 # Telegram

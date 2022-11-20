@@ -32,7 +32,7 @@ function runsh() {
 
 function do_for_all() {
         #cd /opt/$GITHUB_REPOSITORY
-        bash replace_variables.sh
+        bash common/replace_variables.sh
         runsh $1.sh common
         runsh $1.sh nginx
         if [[ $ENABLE_TELEGRAM == true ]]; then
