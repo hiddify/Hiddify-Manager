@@ -9,19 +9,19 @@ for template_file in $(find . -name "*.template"); do
     out_file=${template_file/.template/}
     cp $template_file $out_file
 
-    sed -i "s|defaultusersecret|$USER_SECRET|g" $template_file 
-    sed -i "s|defaultuserguidsecret|$GUID_SECRET|g" $template_file 
-    sed -i "s|defaultcloudprovider|$CLOUD_PROVIDER|g" $template_file 
-    sed -i "s|defaultserverip|$IP|g" $template_file 
-    sed -i "s|defaultserverhost|$ROOT_DOMAIN|g" $template_file 
-    sed -i "s|telegramadtag|$TELEGRAM_AD_TAG|g" $template_file 
-    sed -i "s|telegramtlsdomain|$TELEGRAM_FAKE_TLS_DOMAIN|g" $template_file 
-    sed -i "s|sstlsdomain|$SS_FAKE_TLS_DOMAIN|g" $template_file 
-    sed -i "s|hextelegramdomain|$HEX_TELEGRAM_DOMAIN|g" $template_file 
+    sed -i "s|defaultusersecret|$USER_SECRET|g" $out_file 
+    sed -i "s|defaultuserguidsecret|$GUID_SECRET|g" $out_file 
+    sed -i "s|defaultcloudprovider|$CLOUD_PROVIDER|g" $out_file 
+    sed -i "s|defaultserverip|$IP|g" $out_file 
+    sed -i "s|defaultserverhost|$ROOT_DOMAIN|g" $out_file 
+    sed -i "s|telegramadtag|$TELEGRAM_AD_TAG|g" $out_file 
+    sed -i "s|telegramtlsdomain|$TELEGRAM_FAKE_TLS_DOMAIN|g" $out_file 
+    sed -i "s|sstlsdomain|$SS_FAKE_TLS_DOMAIN|g" $out_file 
+    sed -i "s|hextelegramdomain|$HEX_TELEGRAM_DOMAIN|g" $out_file 
 
-    sed -i "s|GITHUB_REPOSITORY|$GITHUB_REPOSITORY|g" $template_file 
-    sed -i "s|GITHUB_USER|$GITHUB_USER|g" $template_file 
-    sed -i "s|GITHUB_BRANCH|$GITHUB_BRANCH_OR_TAG|g" $template_file 
+    sed -i "s|GITHUB_REPOSITORY|$GITHUB_REPOSITORY|g" $out_file 
+    sed -i "s|GITHUB_USER|$GITHUB_USER|g" $out_file 
+    sed -i "s|GITHUB_BRANCH|$GITHUB_BRANCH_OR_TAG|g" $out_file 
     
     
 
