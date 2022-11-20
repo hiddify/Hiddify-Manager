@@ -63,7 +63,7 @@ location /defaultusersecret/ {
 
   location /defaultusersecret/help/ {
     #for help
-    proxy_pass https://raw.githubusercontent.com/hiddify/hiddify-config/main/web/;
+    proxy_pass https://raw.githubusercontent.com/GITHUB_USER/GITHUB_REPOSITORY/GITHUB_BRANCH_OR_TAG/web/;
     proxy_set_header Accept-Encoding "";
     sub_filter_once off;
     sub_filter_types text/plain text/html;
@@ -74,7 +74,7 @@ location /defaultusersecret/ {
 
   location /defaultusersecret/clash/ {
     #for clash configs
-    proxy_pass https://raw.githubusercontent.com/hiddify/hiddify-config/main/clash/;
+    proxy_pass https://raw.githubusercontent.com/GITHUB_USER/GITHUB_REPOSITORY/GITHUB_BRANCH_OR_TAG/clash/;
     proxy_set_header Accept-Encoding "";
     proxy_set_header Connection "";
     sub_filter_once off;
@@ -90,6 +90,6 @@ location /defaultusersecret/ {
 }
 
 location / {
-  proxy_pass http://www.google.com;
+  proxy_pass http://telegramtlsdomain
 }
 resolver 8.8.8.8;
