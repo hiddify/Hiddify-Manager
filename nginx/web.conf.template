@@ -9,9 +9,9 @@ server {
 
 	listen 80;
 	server_name defaultserverhost;
-  	include /opt/hiddify-config/nginx/common.conf;
+  	include /opt/GITHUB_REPOSITORY/nginx/common.conf;
 	listen 444 ssl http2;
-	ssl_certificate /opt/hiddify-config/nginx/selfsigned.crt; 
-	ssl_certificate_key /opt/hiddify-config/nginx/selfsigned.key;
+	ssl_certificate /opt/GITHUB_REPOSITORY/nginx/selfsigned.crt; 
+	ssl_certificate_key /opt/GITHUB_REPOSITORY/nginx/selfsigned.key;
 	
 }

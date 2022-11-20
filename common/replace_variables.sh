@@ -21,7 +21,7 @@ for template_file in $(find . -name "*.template"); do
 
     sed -i "s|GITHUB_REPOSITORY|$GITHUB_REPOSITORY|g" $out_file 
     sed -i "s|GITHUB_USER|$GITHUB_USER|g" $out_file 
-    sed -i "s|GITHUB_BRANCH|$GITHUB_BRANCH_OR_TAG|g" $out_file 
+    sed -i "s|GITHUB_BRANCH_OR_TAG|$GITHUB_BRANCH_OR_TAG|g" $out_file 
     
     
 

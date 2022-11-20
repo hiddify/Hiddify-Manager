@@ -62,23 +62,21 @@ location /defaultusersecret/ {
 
   location /defaultusersecret/help/ {
     #for help
-    proxy_pass https://raw.githubusercontent.com/GITHUB_USER/GITHUB_REPOSITORY/GITHUB_BRANCH_OR_TAG/web/;
-    proxy_set_header Accept-Encoding "";
-    sub_filter_once off;
+    
+    alias /opt/GITHUB_REPOSITORY/web/;
+    
     sub_filter_types text/plain text/html;
-    # sub_filter    src="/ src="/defaultusersecret/help/;
-    # sub_filter    href="/ href="/defaultusersecret/help/;
-    include /opt/hiddify-config/nginx/replace.conf;
+    include /opt/GITHUB_REPOSITORY/nginx/replace.conf;
+    sub_filter_once off;
   }
 
   location /defaultusersecret/clash/ {
     #for clash configs
-    proxy_pass https://raw.githubusercontent.com/GITHUB_USER/GITHUB_REPOSITORY/GITHUB_BRANCH_OR_TAG/clash/;
-    proxy_set_header Accept-Encoding "";
-    proxy_set_header Connection "";
-    sub_filter_once off;
-    sub_filter_types text/plain;
-    include /opt/hiddify-config/nginx/replace.conf;
+     alias /opt/GITHUB_REPOSITORY/clash/;
+     types { }   default_type "text/plain";
+     sub_filter_types text/plain;
+     include /opt/GITHUB_REPOSITORY/nginx/replace.conf;
+     sub_filter_once off;
   }
   
   location /defaultusersecret/dns/ {
