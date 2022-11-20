@@ -1,7 +1,7 @@
 server {
 	listen 80 ;
 	location / {
-		proxy_pass http://www.google.com;
+		proxy_pass http://telegramtlsdomain;
 	}
 }
 

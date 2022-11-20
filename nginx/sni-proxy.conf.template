@@ -2,9 +2,9 @@
   map $ssl_preread_server_name $name {
           defaultserverhost 127.0.0.1:444; #default tls connection
   #       example.com 127.0.0.1:444 # uncomment this line if you have more domains
-          www.google.com 127.0.0.1:447; #port of shadowsocks obfs-simple
-          mail.google.com 127.0.0.1:449; #port of telegram faketls
-          default www.google.com:443; #forward all others for avoid active detection       
+          sstlsdomain 127.0.0.1:447; #port of shadowsocks obfs-simple
+          telegramtlsdomain 127.0.0.1:449; #port of telegram faketls
+          default telegramtlsdomain:443; #forward all others for avoid active detection       
   }
 
   server {

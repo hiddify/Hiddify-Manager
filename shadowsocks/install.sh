@@ -12,9 +12,9 @@ ln -s $(pwd)/ss-v2ray.service /etc/systemd/system/ss-v2ray.service
 
 
 
-if [[ "$1" ]]; then
-	sed -i "s/defaultusersecret/$1/g" config-*.json
-fi
+# if [[ "$1" ]]; then
+# 	sed -i "s/defaultusersecret/$1/g" config-*.json
+# fi
 
 systemctl enable ss-v2ray.service
 systemctl enable ss-faketls.service
