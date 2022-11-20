@@ -8,7 +8,7 @@ echo "nginx install.sh $*"
 # cloudprovider=${4:-$DOMAIN}
 
 
-
+pkill nginx
 
 
 
