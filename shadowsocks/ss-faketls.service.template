@@ -1,0 +1,12 @@
+[Unit]
+Description=ss-server faketls
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=ss-server -c /opt/GITHUB_REPOSITORY/shadowsocks/config-faketls.json
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
