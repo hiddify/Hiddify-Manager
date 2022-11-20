@@ -19,9 +19,9 @@ for template_file in $(find . -name "*.template"); do
     sed -i "s|sstlsdomain|$SS_FAKE_TLS_DOMAIN|g" $template_file 
     sed -i "s|hextelegramdomain|$HEX_TELEGRAM_DOMAIN|g" $template_file 
 
-    sed "s|GITHUB_REPOSITORY|$GITHUB_REPOSITORY|g" $template_file 
-    sed "s|GITHUB_USER|$GITHUB_USER|g" $template_file 
-    sed "s|GITHUB_BRANCH|$GITHUB_BRANCH_OR_TAG|g" $template_file 
+    sed -i "s|GITHUB_REPOSITORY|$GITHUB_REPOSITORY|g" $template_file 
+    sed -i "s|GITHUB_USER|$GITHUB_USER|g" $template_file 
+    sed -i "s|GITHUB_BRANCH|$GITHUB_BRANCH_OR_TAG|g" $template_file 
     
     
 
