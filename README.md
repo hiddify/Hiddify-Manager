@@ -49,7 +49,9 @@ Same as v2ray
  با استفاده از کلاینت کلش و کانفیگی که درست کردیم میتوانید در 3 مود به اینترنت وصل بشید. 
 
 1-  روش اول فقط سایت فیلترشده را از فیلترشکن عبور دهد.
+
 2- فقط سایت های ایرانی بدون فیلترشکن باز شود (پیشنهادی)
+
 3- تمام سایت ها از فیلترشکن عبور کنند
 
 </details>
@@ -81,7 +83,7 @@ Same as v2ray
 3- روی [این لینک](https://freedns.afraid.org/subdomain/edit.php?edit_domain_id=1184493) کلیک کنید و آی پی سرور را خود و نام مورد نظر را در آن قرار دهید.
 
 4- زیر دامنه ایجاد شده را کپی کنید.
-
+</details>
 # Easy Setup (نصب سریع)
 ```
 sudo bash -c "$(URL=https://raw.githubusercontent.com/hiddify/hiddify-config/v2; curl -Lfo- $URL/config.env $URL/install.sh)"
