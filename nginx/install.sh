@@ -3,7 +3,8 @@ apt-get install -y nginx certbot python3-certbot-nginx
 rm /etc/nginx/sites-available/default
 rm /etc/nginx/sites-enabled/default
 
-openssl req -x509 -nodes selfsigned.key -out selfsigned.crt -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=www.google.com"
+openssl req -x509 -newkey rsa:2048 -keyout selfsigned.key -out selfsigned.crt -days 3650 -nodes -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=www.google.com"
+
 
 sed -i "s/listen 444 ssl;/listen 444 ssl http2;/" web.conf
 
