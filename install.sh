@@ -1,10 +1,11 @@
 #!/bin/sh
-echo "we are going to install :)"
 
+echo "we are going to install :)"
 if [ "$(id -u)" -ne 0 ]; then
         echo 'This script must be run by root' >&2
         exit 1
 fi
+
 
 
 function set_env_if_empty(){
@@ -100,11 +101,13 @@ function replace_empty_env() {
 }
 
 
+
 if [ ! -d "/opt/$GITHUB_REPOSITORY" ];then
         apt update
         apt install -y git
         git clone https://github.com/$GITHUB_USER/$GITHUB_REPOSITORY/  /opt/$GITHUB_REPOSITORY
-        git checkout $GITHUmB_BRANCH_OR_TAG
+        git checkout $GITHUB_BRANCH_OR_TAG
+        cd /opt/$GITHUB_REPOSITORY
 fi 
 
 set_env_if_empty
