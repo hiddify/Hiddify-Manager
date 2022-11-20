@@ -87,9 +87,12 @@ Same as v2ray
 
 # Easy Setup (نصب سریع)
 
+دستور زیر را در ترمینال کپی کنید و اجرا کنید
+
 ```
 sudo bash -c "$(URL=https://raw.githubusercontent.com/hiddify/hiddify-config/v2; curl -Lfo- $URL/config.env $URL/install.sh)"
 ```
+
 <details markdown="1"> <summary>Optional: Advanced Setup (اختیاری: نصب پیشرفته) </summary>
 
 این قسمت برای افراد آشنا با کامپیوتر آماده شده است. میتوانید از آن صرفه نظر کنید.
@@ -122,9 +125,6 @@ sudo bash install.sh
 - سپس روی زیر دامنه دلخواه، آی پی سرور را تنظیم کنید و تیک کلود سرویس  را تنظیم کنید و سپس به جای `myservice.hiddify.com`  زیردامنه جدید خود را تنظیم کنید. لازم است این زیر دامنه با دامنه ای که در بالا انتخاب کرده اید متفاوت باشد.
 - سپس لینک زیر را با تغییر در نامه دامنه در مرورگر جهت مشاهده تنظیمات باز کنید.
 
-```
-       https://myservice.hiddify.com/751F2F753854422EA4C5FDDB8314F068/
-```    
 
 در زیر توضیحات با تصویر نشان داده شده است.
        
@@ -171,7 +171,8 @@ After your domain nameservers changed successfully (depending on the registrar, 
 
 
 
-(توضیحات بخش CDN برگرفته از دوستان FreeInternet)[https://github.com/WeAreMahsaAmini/FreeInternet/tree/main/protocols/shadowsocks-v2ray-tls]
+توضیحات بخش CDN برگرفته از دوستان  
+[FreeInternet](https://github.com/WeAreMahsaAmini/FreeInternet/tree/main/protocols/shadowsocks-v2ray-tls)
        
 
 
