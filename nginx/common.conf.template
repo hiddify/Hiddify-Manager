@@ -28,8 +28,7 @@ location = /defaultusersecret/signal/ {
 
 location /defaultusersecret/ {
   if ($request_uri ~* "/defaultusersecret/redirect/(.*)") {
-    set_unescape_uri $url $1;
-    return 307 $url;
+    return 307 $1;
   }
   location = /defaultusersecret/ {
     return 302 help/index.html;

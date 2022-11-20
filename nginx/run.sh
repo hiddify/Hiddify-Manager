@@ -12,8 +12,8 @@ echo "nginx install.sh $*"
 
 
 
-certbot --nginx --register-unsafely-without-email -d $DOMAIN --non-interactive --agree-tos  --https-port 444 --no-redirect
+certbot --nginx --register-unsafely-without-email -d $ROOT_DOMAIN --non-interactive --agree-tos  --https-port 444 --no-redirect
 
-echo "https://$DOMAIN/$USER_SECRET/">use-link
+echo "https://$ROOT_DOMAIN/$USER_SECRET/">use-link
 
 systemctl restart nginx
