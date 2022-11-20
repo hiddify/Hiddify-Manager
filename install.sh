@@ -1,3 +1,11 @@
+#!/bin/sh
+echo "we are going to install :)"
+
+if [ "$(id -u)" -ne 0 ]; then
+        echo 'This script must be run by root' >&2
+#        exit 1
+fi
+
 
 function set_env_if_empty(){
  for line in $(grep -v '^#' config.env | grep '=');do
@@ -22,10 +30,7 @@ function runsh() {
 }
 
 function do_for_all() {
-        cd /opt/$GITHUB_REPOSITORY
-        if [[ "$1" == "run" ]];then
-                check_for_env
-        fi
+        #cd /opt/$GITHUB_REPOSITORY
         bash replace_variables.sh
         runsh $1.sh common
         runsh $1.sh nginx
@@ -43,11 +48,16 @@ function do_for_all() {
 
 function check_for_env() {
         random_secret=$(hexdump -vn16 -e'4/4 "%08X" 1 "\n"' /dev/urandom)
-        replace_empty_env USER_SECRET "please enter 32 char user secret" $random_secret "/^([0-9A-F]{32})$/i"
-        replace_empty_env DOMAIN "please enter valid domain name to use " "www.example.com" "/^([a-z0-9\.]+\.[a-z]{2,})$/i"
-        echo "resolving domain $DOMAIN -> IP= $(dig +short -t $DOMAIN.) ServerIP-> $(curl -Lso- https://api.ipify.org)"
+        replace_empty_env USER_SECRET "please enter 32 char user secret" $random_secret "^([0-9A-Fa-f]{32})$"
+        replace_empty_env ROOT_DOMAIN "please enter valid domain name to use " "www.example.com" "^([A-Za-z0-9\.]+\.[a-zA-Z]{2,})$"
+        DOMAIN_IP=$(dig +short -t $ROOT_DOMAIN.)
+        SERVER_IP=$(curl -Lso- https://api.ipify.org)
 
-
+        echo "resolving domain $ROOT_DOMAIN -> IP= $DOMAIN_IP ServerIP-> $SERVER_IP"
+        if [[ $SERVER_IP != $DOMAIN_IP ]];then
+                echo "maybe it is an error! make sure that it is correct"
+                sleep 5
+        fi
 
         # replace_empty_env CLOUD_PROVIDER "If you are using a cdn please enter the cdn domain " "" /^([a-z0-9\.]+\.[a-z]{2,})?$/i
 
@@ -58,7 +68,7 @@ function replace_empty_env() {
         DESCRIPTION=$2
         DEFAULT=$3
         REGEX=$4
-        if [[ -z "${$VAR}" ]]; then
+        if [[ -z "${!VAR}" ]]; then
                 
                 echo "$DESCRIPTION"
                 
@@ -72,19 +82,21 @@ function replace_empty_env() {
                 if [[ -z "$RESPONSE" ]]; then
                         RESPONSE=$DEFAULT
                 fi
-                if [[ -z "$REGEX" ]];then
+                
+                if [[ ! -z "$REGEX" ]];then
                         if [[ "$RESPONSE" =~ $REGEX ]];then
                                 sed -i "s|$1=|$1=$RESPONSE|g" config.env 
+                                export $1=$RESPONSE
                         else 
-                                echo "invalid response -> regex= $REGEX"
+                                echo "!!!!!!!!!!!!!!!!!!!!!!"
+                                echo "invalid response $RESPONSE -> regex= $REGEX"
                                 echo "retry:"
-                                replace_empty_env $1 $2 $3 $4
+                                replace_empty_env "$1" "$2" "$3" "$4"
                         fi
 
                 fi
                 
         fi
-        source config.env
 }
 
 
@@ -92,10 +104,14 @@ if [ ! -d "/opt/$GITHUB_REPOSITORY" ];then
         apt update
         apt install -y git
         git clone https://github.com/$GITHUB_USER/$GITHUB_REPOSITORY/  /opt/$GITHUB_REPOSITORY
-        git checkout $GITHUB_BRANCH_OR_TAG
+        git checkout $GITHUmB_BRANCH_OR_TAG
 fi 
 
-set_env_if_empty()
+set_env_if_empty
+
+if [[ -z "$DO_NOT_RUN" || "$DO_NOT_RUN" == false ]];then
+        check_for_env
+fi
 
 if [[ -z "$DO_NOT_INSTALL" || "$DO_NOT_INSTALL" == false  ]];then
         do_for_all install
@@ -103,4 +119,9 @@ fi
 
 if [[ -z "$DO_NOT_RUN" || "$DO_NOT_RUN" == false ]];then
         do_for_all run
+        echo "==========================================================="
+        echo "Thank you for helping Iranians to skip filternet."
+        echo "Please open the following link in the browser for client setup"
+        cat nginx/use-link
 fi
+
