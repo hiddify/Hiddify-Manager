@@ -89,6 +89,6 @@ location /defaultusersecret/ {
 }
 
 location / {
-  proxy_pass http://telegramtlsdomain
+  proxy_pass http://telegramtlsdomain;
 }
 resolver 8.8.8.8;
