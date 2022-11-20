@@ -1,6 +1,6 @@
 #!/bin/sh
-
 echo "we are going to install :)"
+
 if [ "$(id -u)" -ne 0 ]; then
         echo 'This script must be run by root' >&2
         exit 1
@@ -48,6 +48,7 @@ function do_for_all() {
 
 
 function check_for_env() {
+
         random_secret=$(hexdump -vn16 -e'4/4 "%08X" 1 "\n"' /dev/urandom)
         replace_empty_env USER_SECRET "please enter 32 char user secret" $random_secret "^([0-9A-Fa-f]{32})$"
         replace_empty_env ROOT_DOMAIN "please enter valid domain name to use " "www.example.com" "^([A-Za-z0-9\.]+\.[a-zA-Z]{2,})$"
@@ -70,7 +71,8 @@ function replace_empty_env() {
         DEFAULT=$3
         REGEX=$4
         if [[ -z "${!VAR}" ]]; then
-                
+                echo ''
+                echo "============================"
                 echo "$DESCRIPTION"
                 
                 if [[ -z "$DEFAULT" ]]; then
@@ -102,15 +104,9 @@ function replace_empty_env() {
 
 
 
-if [ ! -d "/opt/$GITHUB_REPOSITORY" ];then
-        apt update
-        apt install -y git
-        git clone https://github.com/$GITHUB_USER/$GITHUB_REPOSITORY/  /opt/$GITHUB_REPOSITORY
-        git checkout $GITHUB_BRANCH_OR_TAG
-        cd /opt/$GITHUB_REPOSITORY
-fi 
-
 set_env_if_empty
+
+cd /opt/$GITHUB_REPOSITORY
 
 if [[ -z "$DO_NOT_RUN" || "$DO_NOT_RUN" == false ]];then
         check_for_env
@@ -122,6 +118,8 @@ fi
 
 if [[ -z "$DO_NOT_RUN" || "$DO_NOT_RUN" == false ]];then
         do_for_all run
+        echo ""
+        echo ""
         echo "==========================================================="
         echo "Thank you for helping Iranians to skip filternet."
         echo "Please open the following link in the browser for client setup"
