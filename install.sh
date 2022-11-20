@@ -92,6 +92,7 @@ if [ ! -d "/opt/$GITHUB_REPOSITORY" ];then
         apt update
         apt install -y git
         git clone https://github.com/$GITHUB_USER/$GITHUB_REPOSITORY/  /opt/$GITHUB_REPOSITORY
+        git checkout $GITHUB_BRANCH_OR_TAG
 fi 
 
 set_env_if_empty()
