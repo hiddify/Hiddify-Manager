@@ -338,8 +338,15 @@
                     str = str.replaceAll('proxyproviderip', host);
                     str = str.replaceAll('cloudprovider', cloudprovid);
 
-                    if (str.startsWith('vmess://'))
-                        return "vmess://" + btoa(str.substring("vmess://".length))
+                    if (str.includes('vmess://')){
+                        splt=str.split('vmess%3A%2F%2F')
+                        return "vmess://" + btoa(splt[1])
+                    }
+
+                    if (str.includes('vmess%3A%2F%2F')){
+                        splt=str.split('vmess%3A%2F%2F')
+                        return "vmess://" + btoa(splt[1])
+                    }
                     return str;
                 }
 
