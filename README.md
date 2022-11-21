@@ -100,7 +100,6 @@ sudo bash -c "$(URL=https://raw.githubusercontent.com/hiddify/hiddify-config/mai
 cd /opt/
 git clone https://github.com/hiddify/hiddify-config
 cd hiddify-config
-git checkout v2
 ```
 change the varibales in config.env
 then run 
