@@ -12,8 +12,8 @@ pkill nginx
 
 
 
-certbot --nginx --register-unsafely-without-email -d $ROOT_DOMAIN --non-interactive --agree-tos  --https-port 444 --no-redirect
+certbot --nginx --register-unsafely-without-email -d $MAIN_DOMAIN --non-interactive --agree-tos  --https-port 444 --no-redirect
 
-echo "https://$ROOT_DOMAIN/$USER_SECRET/">use-link
+echo "https://$MAIN_DOMAIN/$USER_SECRET/">use-link
 
 systemctl restart nginx

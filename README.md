@@ -176,8 +176,8 @@ After your domain nameservers changed successfully (depending on the registrar, 
        
 
 
-# اگر از ابرآروان استفاده میکنید
- به جای `CLOUD_PROVIDER` چهارم در فایل `config.env` عبارت `arvancloud.com` را قرار دهید.
+<!-- # اگر از ابرآروان استفاده میکنید
+ به جای `CLOUD_PROVIDER` چهارم در فایل `config.env` عبارت `arvancloud.com` را قرار دهید. -->
 
 
 </details>

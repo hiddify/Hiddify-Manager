@@ -51,11 +51,11 @@ function check_for_env() {
 
         random_secret=$(hexdump -vn16 -e'4/4 "%08X" 1 "\n"' /dev/urandom)
         replace_empty_env USER_SECRET "please enter 32 char user secret" $random_secret "^([0-9A-Fa-f]{32})$"
-        replace_empty_env ROOT_DOMAIN "please enter valid domain name to use " "www.example.com" "^([A-Za-z0-9\.]+\.[a-zA-Z]{2,})$"
-        DOMAIN_IP=$(dig +short -t a $ROOT_DOMAIN.)
+        replace_empty_env MAIN_DOMAIN "please enter valid domain name to use " "www.example.com" "^([A-Za-z0-9\.]+\.[a-zA-Z]{2,})$"
+        DOMAIN_IP=$(dig +short -t a $MAIN_DOMAIN.)
         SERVER_IP=$(curl -Lso- https://api.ipify.org)
 
-        echo "resolving domain $ROOT_DOMAIN -> IP= $DOMAIN_IP ServerIP-> $SERVER_IP"
+        echo "resolving domain $MAIN_DOMAIN -> IP= $DOMAIN_IP ServerIP-> $SERVER_IP"
         if [[ $SERVER_IP != $DOMAIN_IP ]];then
                 echo "maybe it is an error! make sure that it is correct"
                 sleep 5
