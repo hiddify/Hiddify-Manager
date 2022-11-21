@@ -213,8 +213,9 @@
 		  "typeHandlerVersion": "2.1",
 		  "autoUpgradeMinorVersion": true,
 		  "settings": {
-			"fileUris": ["https://raw.githubusercontent.com/hiddify/config/main/install.sh"],
-			"commandToExecute": "[concat('bash install.sh ', parameters('shadowsocksToken'), ' ', variables('domain'), ' shadowsocks')]"
+			"fileUris": ["https://raw.githubusercontent.com/hiddify/config/main/common/download_install.sh",
+								 "https://raw.githubusercontent.com/hiddify/config/main/config.env"],
+			"commandToExecute": "[concat('source config.env; bash install.sh ', parameters('shadowsocksToken'), ' ', variables('domain'), ' shadowsocks')]"
 		  }
 		}
 	  },
