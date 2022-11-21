@@ -3,4 +3,5 @@ sub_filter    userguidsecret defaultuserguidsecret;
 sub_filter    serverip defaultserverip;
 sub_filter    proxyproviderip $host;
 sub_filter    cloudprovider defaultcloudprovider;
-sub_filter    6d61696c2e676f6f676c652e636f6d hextelegramdomain;
+sub_filter    %%HEX_TELEGRAM_DOMAIN%% hextelegramdomain;
+sub_filter    "host: www.google.com" "host: sstlsdomain"
