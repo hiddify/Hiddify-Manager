@@ -1,4 +1,6 @@
 apt-get install -y nginx certbot python3-certbot-nginx
+systemctl stop nginx
+pkill -9 nginx
 
 rm /etc/nginx/sites-available/default
 rm /etc/nginx/sites-enabled/default

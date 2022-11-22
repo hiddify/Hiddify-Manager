@@ -1,4 +1,6 @@
 echo "shadowsocks proxy install.sh $*"
+systemctl stop ss-v2ray.service
+systemctl stop ss-faketls.service
 
 apt-get install -y  shadowsocks-libev simple-obfs
 

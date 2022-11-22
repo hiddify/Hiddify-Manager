@@ -109,6 +109,7 @@ function replace_empty_env() {
 set_env_if_empty
 
 cd /opt/$GITHUB_REPOSITORY
+git pull
 
 if [[ -z "$DO_NOT_RUN" || "$DO_NOT_RUN" == false ]];then
         check_for_env
