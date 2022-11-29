@@ -8,7 +8,7 @@ IP=$(curl -Lso- https://api.ipify.org);
 for template_file in $(find . -name "*.template"); do
     out_file=${template_file/.template/}
     cp $template_file $out_file
-    if [[ $ENABLE_MONITORING == false]];then
+    if [[ "$ENABLE_MONITORING" == "false" ]];then
         sed -i "s|access_log /opt/GITHUB_REPOSITORY/log/nginx.log proxy;|access_log off;|g"
     fi
     sed -i "s|defaultusersecret|$USER_SECRET|g" $out_file 
