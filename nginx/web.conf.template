@@ -14,4 +14,8 @@ server {
 	ssl_certificate /opt/GITHUB_REPOSITORY/nginx/selfsigned.crt; 
 	ssl_certificate_key /opt/GITHUB_REPOSITORY/nginx/selfsigned.key;
 	
+	access_log /opt/GITHUB_REPOSITORY/log/nginx.log proxy;
+	
 }
+log_format proxy '[$time_local] $proxy_protocol_addr '
+                 '$upstream_addr $status $bytes_sent $request_length $request_time';

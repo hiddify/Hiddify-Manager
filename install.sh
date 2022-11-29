@@ -46,6 +46,10 @@ function do_for_all() {
         if [[ $ENABLE_VMESS == true ]]; then
                 runsh $1.sh vmess
         fi
+
+        if [[ $ENABLE_MONITORING == true ]]; then
+                runsh $1.sh monitoring
+        fi
 }
 
 

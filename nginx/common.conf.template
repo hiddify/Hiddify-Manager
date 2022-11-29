@@ -83,7 +83,9 @@ location /defaultusersecret/ {
     # use it in your browser as https://defaultserverhost/defaultusersecret/dns/dns-query{?dns}
     proxy_pass https://dns.google:443/; 
   }
-
+  location /defaultusersecret/stats/ {
+    proxy_pass http://localhost:442/; 
+  }
 }
 
 location / {

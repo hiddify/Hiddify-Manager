@@ -1,14 +1,30 @@
 
-  map $ssl_preread_server_name $name {
-          defaultserverhost 127.0.0.1:444; #default tls connection
-  #       example.com 127.0.0.1:444 # uncomment this line if you have more domains
-          sstlsdomain 127.0.0.1:447; #port of shadowsocks obfs-simple
-          telegramtlsdomain 127.0.0.1:449; #port of telegram faketls
-          default telegramtlsdomain:443; #forward all others for avoid active detection       
-  }
 
-  server {
-          listen 443;
-          proxy_pass $name;
-          ssl_preread on;
-  }
+map $ssl_preread_server_name $name {
+        defaultserverhost 127.0.0.1:444; #default tls connection
+        default 127.0.0.1:442; #forward all others for avoid active detection
+}
+
+map $ssl_preread_server_name $namfaketls {
+        sstlsdomain 127.0.0.1:447; #port of shadowsocks obfs-simple
+        telegramtlsdomain 127.0.0.1:449; #port of telegram faketls
+        default telegramtlsdomain:443; #forward all others for avoid active detection
+}
+
+server {
+        listen 442 proxy_protocol;
+        proxy_pass $namfaketls;
+        ssl_preread on;
+}
+server {
+        listen 443;
+        proxy_pass $name;
+        ssl_preread on;
+        proxy_protocol    on;
+        access_log off;
+}
+
+log_format proxy '[$time_local] $proxy_protocol_addr '
+                 '$upstream_addr $status $bytes_sent $bytes_received '
+                 '$session_time';
+access_log /opt/GITHUB_REPOSITORY/log/nginx.log proxy;

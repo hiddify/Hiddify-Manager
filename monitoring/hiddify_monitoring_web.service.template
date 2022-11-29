@@ -1,0 +1,12 @@
+[Unit]
+Description=hiddify_monitroing
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=python3 /opt/GITHUB_REPOSITORY/monitoring/simple_web.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
