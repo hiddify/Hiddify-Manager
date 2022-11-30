@@ -67,8 +67,8 @@ def hourly(folder,date,json="html"):
         if folder=='users':
             df,unique_users=aggregate_users(df)
 
-            out_json['unique_users']=unique_users
-            out_html+=f"unique_haships={unique_users}"
+            out_json['unique_ips']=unique_users
+            out_html+=f"unique ips={unique_users}<br/>"
             
 
         if json=='json':
@@ -92,7 +92,7 @@ def hourly(folder,date,json="html"):
             
             if folder=='users':
                 df,unique_users=aggregate_users(df)
-                out_html+=f"<h8>{unique_users} unique users</h8>"
+                out_html+=f"<h8>{unique_users} unique ips</h8>"
                 
             out_html+=df.to_html()
 
@@ -102,8 +102,8 @@ def hourly(folder,date,json="html"):
             if folder=='users':
                 total,unique_users=aggregate_users(total)
 
-                out_html_total+=f"<h8>{unique_users} unique users</h8>"
-                out_json['unique_users']=unique_users
+                out_html_total+=f"<h8>{unique_users} unique ips</h8>"
+                out_json['unique_ips']=unique_users
                 
 
             out_html_total+=total.to_html()
