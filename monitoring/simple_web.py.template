@@ -58,7 +58,7 @@ def hourly(folder,date):
             #    df['up/s']=df['upload']/(df['connectiontime']+0.001)//1024
             #    df['dl/s']=df['download']/(df['connectiontime']+0.001)//1024
             if folder=='users':
-                alldf+=f"<h8>{len(df.index)} unique users</h8>"
+                alldf+=f"<h8>{len(df['haship'].unique())} unique users</h8>"
             alldf+=df.to_html()
 
         if total is not None:
@@ -67,7 +67,7 @@ def hourly(folder,date):
             #    total['dl/s']=total['download']/(total['connectiontime']+0.001)//1024
             totaldf=f'<h1>Total {date}</h1>'
             if folder=='users':
-                totaldf+=f"<h8>{len(total.index)} unique users</h8>"
+                totaldf+=f"<h8>{len(total['haship'].unique())} unique users</h8>"
             totaldf+=total.to_html()
             alldf=totaldf+"<h1>Hourly</h1>"+alldf
         return alldf
