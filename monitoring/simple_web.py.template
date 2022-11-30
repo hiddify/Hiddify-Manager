@@ -51,11 +51,9 @@ def daily(folder,json='html'):
 def hourly_redirect(folder,date):
     return redirect(f"{date}/")
 
-@route('/daily/<folder>/<date>-<hour>/')
-@route('/daily/<folder>/<date>-<hour>/<json>')
 @route('/daily/<folder>/<date>/')
 @route('/daily/<folder>/<date>/<json>')
-def hourly(folder,date,hour='all',json="html"):
+def hourly(folder,date,json="html"):
     root=f'{stat_path}/{folder}'
     out_json={}
     out_html=""
@@ -63,13 +61,14 @@ def hourly(folder,date,hour='all',json="html"):
         hourly=datetime.strptime(date,"%Y%m%d-%H")
         
         df=pd.read_csv(f'{root}/{date}.csv',dtype={'haship':'Int64','download':'Int64','upload':'Int64'})
+        df=df.set_index([col for col in df.columns if col in ['status','upstream','haship','asn_name','country_code','province','city']])
         
         if folder=='users':
             unique_users=len(df.reset_index()['haship'].unique())
             out_json['unique_users']=unique_users
             out_html+=f"unique_haships={unique_users}"
             df=df.groupby(['status','upstream']).agg({'haship':'count', 'connection_count': 'sum'}).rename(columns={'haship':'unique_ips'})
-            
+
         if json=='json':
             out_json['details']=df_to_dict(df)
             return out_json
