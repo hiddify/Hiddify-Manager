@@ -6,7 +6,7 @@
       "settings": {
         "clients": [
           {
-            "id": "usersecret",
+            "id": "defaultuserguidsecret",
             "alterId": 64,
             "security": "chacha20-poly1305",
             "level": 0
