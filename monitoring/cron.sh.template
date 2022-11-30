@@ -1,2 +1,3 @@
+#!/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 hiddify_monitoring /opt/GITHUB_REPOSITORY/log/nginx.log /opt/GITHUB_REPOSITORY/log/stats/ 
