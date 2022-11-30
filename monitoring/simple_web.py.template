@@ -1,7 +1,7 @@
 
 
 
-from bottle import route, run, template
+from bottle import route, run, template,redirect
 from datetime import datetime,timedelta
 import pandas as pd
 import os
@@ -9,6 +9,7 @@ import numpy as np
 import json
 stat_path='/opt/GITHUB_REPOSITORY/log/stats/'
 @route('/<json>')
+@route('/')
 def index(json='html'):
     if json=='json':
         return os.listdir(stat_path)
@@ -20,9 +21,10 @@ def index(json='html'):
 
 
 @route('/daily/<folder>/<json>')
+@route('/daily/<folder>/<json>/')
 def daily_json(folder,json='html'):
     return daily(folder,json=json)
-    
+
 @route('/daily/<folder>')
 @route('/daily/<folder>/')
 def daily(folder,json='html'):
@@ -36,8 +38,8 @@ def daily(folder,json='html'):
 
     out="<a href='json'>json</a><table><tr><th>date</th><th>hour</th></tr>"
     for day,hours in date_dic.items():
-        hh=' '.join([f"<a href='{day}-{h}'>{h}</a>" for h in hours])
-        out+=f"<tr><td><a href='{day}'>{day}</a></td><td>{hh}</td></tr>"
+        hh=' '.join([f"<a href='{day}-{h}/'>{h}</a>" for h in hours])
+        out+=f"<tr><td><a href='{day}/'>{day}</a></td><td>{hh}</td></tr>"
     
     out+='</table>'
     
@@ -46,6 +48,10 @@ def daily(folder,json='html'):
 
 
 @route('/daily/<folder>/<date>')
+def hourly_redirect(folder,date):
+    return redirect(f"{date}/")
+
+@route('/daily/<folder>/<date>/')
 @route('/daily/<folder>/<date>/<json>')
 def hourly(folder,date,json="html"):
     root=f'{stat_path}/{folder}'
@@ -60,7 +66,7 @@ def hourly(folder,date,json="html"):
             out_json['unique_users']=len(df['haship'].unique())
             out_html+=f"unique_haships={out_json['unique_users']}"
         if json=='json':
-            out_json['details']=df.to_json()
+            out_json['details']=df.to_dict()
             return out_json
         out_html="<a href='json'>json</a>"+out_html+df.to_html()
         return out_html
@@ -71,8 +77,8 @@ def hourly(folder,date,json="html"):
             if date not in hour:continue
             hour_name=hour.split('.')[0]
             out_html+=f'<h5>{hour_name}</h5><a href="../{hour_name}/json">json</a>'
-            df=pd.read_csv(f'{root}/{hour}')
-            df=df.set_index([col for col in df.columns if col in ['status','upstream','asn_name','country_code','province','city']])
+            df=pd.read_csv(f'{root}/{hour}',dtype={'haship':'Int32'})
+            df=df.set_index([col for col in df.columns if col in ['status','upstream','haship','asn_name','country_code','province','city']])
             if total is None:
                 total=df
             else:
@@ -85,14 +91,15 @@ def hourly(folder,date,json="html"):
 
         if total is not None:
             
-            out_html2=f'<h1>Total {date}</h1> <a href="json">json</a>'
+            out_html_total=f'<h1>Total {date}</h1> <a href="json">json</a>'
             if folder=='users':
-                out_html2+=f"<h8>{len(total['haship'].unique())} unique users</h8>"
+                out_html_total+=f"<h8>{len(total['haship'].unique())} unique users</h8>"
                 out_json['unique_users']=len(total['haship'].unique())
                 total=total.groupby(level=0).agg({'haship':'count', 'connection_count': 'sum'})
-            out_html2+=total.to_html()
-            out_json['details']=total.to_json()
-            out_html=totaldf+"<h1>Hourly</h1>"+out_html
+
+            out_html_total+=total.to_html()
+            out_json['details']=total.to_dict()
+            out_html=out_html_total+"<h1>Hourly</h1>"+out_html
         if json=='json':
             return out_json
         return out_html
