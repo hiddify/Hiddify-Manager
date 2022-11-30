@@ -6,71 +6,96 @@ from datetime import datetime,timedelta
 import pandas as pd
 import os
 import numpy as np
+import json
 stat_path='/opt/GITHUB_REPOSITORY/log/stats/'
-@route('/')
-def index():
+@route('/<json>')
+def index(json='html'):
+    if json=='json':
+        return os.listdir(stat_path)
+
     out=""
     for folder in os.listdir(stat_path):
         out+=f"<a href='daily/{folder}/'>{folder}</a> <br/>"
     return out
 
 
+@route('/daily/<folder>/<json>')
+def daily_json(folder,json='html'):
+    return daily(folder,json=json)
+    
 @route('/daily/<folder>')
 @route('/daily/<folder>/')
-def daily(folder):
+def daily(folder,json='html'):
     root=f'{stat_path}/{folder}'
     datehs=sorted([datetime.strptime(datef.split('.')[0],"%Y%m%d-%H") for datef in os.listdir(root)])
     dates=sorted(np.unique([date.replace(hour=0) for date in datehs]))
     date_dic={day.strftime("%Y%m%d"): {h.strftime("%H"):h for h in datehs if day<=h and h<day+timedelta(days=1)} for day in dates}
+    
+    if json=='json':
+        return {day:{h for h in hours} for day,hours in date_dic.items()}
 
-    out="<table><tr><th>date</th><th>hour</th></tr>"
+    out="<a href='json'>json</a><table><tr><th>date</th><th>hour</th></tr>"
     for day,hours in date_dic.items():
         hh=' '.join([f"<a href='{day}-{h}'>{h}</a>" for h in hours])
         out+=f"<tr><td><a href='{day}'>{day}</a></td><td>{hh}</td></tr>"
+    
     out+='</table>'
+    
+    
     return out
 
 
 @route('/daily/<folder>/<date>')
-@route('/daily/<folder>/<date>/')
-def hourly(folder,date):
+@route('/daily/<folder>/<date>/<json>')
+def hourly(folder,date,json="html"):
     root=f'{stat_path}/{folder}'
+    out_json={}
+    out_html=""
     try:
         hourly=datetime.strptime(date,"%Y%m%d-%H")
         
         df=pd.read_csv(f'{root}/{date}.csv')
+        
         if folder=='users':
-            return df.count().to_html()
-        return df.to_html()
+            out_json['unique_users']=len(df['haship'].unique())
+            out_html+=f"unique_haships={out_json['unique_users']}"
+        if json=='json':
+            out_json['details']=df.to_json()
+            return out_json
+        out_html="<a href='json'>json</a>"+out_html+df.to_html()
+        return out_html
     except:
         alldf=''
         total=None
-        for hour in os.listdir(root):
+        for hour in sorted(os.listdir(root)):
             if date not in hour:continue
-            alldf+=f'<h5>{hour}</h5>'
+            hour_name=hour.split('.')[0]
+            out_html+=f'<h5>{hour_name}</h5><a href="../{hour_name}/json">json</a>'
             df=pd.read_csv(f'{root}/{hour}')
             df=df.set_index([col for col in df.columns if col in ['status','upstream','asn_name','country_code','province','city']])
             if total is None:
                 total=df
             else:
                 total=total.add(df,fill_value=0)
-            #if 'upload' in df.columns:
-            #    df['up/s']=df['upload']/(df['connectiontime']+0.001)//1024
-            #    df['dl/s']=df['download']/(df['connectiontime']+0.001)//1024
+            
             if folder=='users':
-                alldf+=f"<h8>{len(df['haship'].unique())} unique users</h8>"
-            alldf+=df.to_html()
+                out_html+=f"<h8>{len(df['haship'].unique())} unique users</h8>"
+                df=df.groupby(level=0).agg({'haship':'count', 'connection_count': 'sum'})
+            out_html+=df.to_html()
 
         if total is not None:
-            #if 'upload' in total.columns:
-            #    total['up/s']=total['upload']/(total['connectiontime']+0.001)//1024
-            #    total['dl/s']=total['download']/(total['connectiontime']+0.001)//1024
-            totaldf=f'<h1>Total {date}</h1>'
+            
+            out_html2=f'<h1>Total {date}</h1> <a href="json">json</a>'
             if folder=='users':
-                totaldf+=f"<h8>{len(total['haship'].unique())} unique users</h8>"
-            totaldf+=total.to_html()
-            alldf=totaldf+"<h1>Hourly</h1>"+alldf
-        return alldf
+                out_html2+=f"<h8>{len(total['haship'].unique())} unique users</h8>"
+                out_json['unique_users']=len(total['haship'].unique())
+                total=total.groupby(level=0).agg({'haship':'count', 'connection_count': 'sum'})
+            out_html2+=total.to_html()
+            out_json['details']=total.to_json()
+            out_html=totaldf+"<h1>Hourly</h1>"+out_html
+        if json=='json':
+            return out_json
+        return out_html
     
 
 
