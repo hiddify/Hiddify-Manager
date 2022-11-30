@@ -68,6 +68,8 @@ def hourly(folder,date,hour='all',json="html"):
             unique_users=len(df.reset_index()['haship'].unique())
             out_json['unique_users']=unique_users
             out_html+=f"unique_haships={unique_users}"
+            df=df.groupby(['status','upstream']).agg({'haship':'count', 'connection_count': 'sum'}).rename(columns={'haship':'unique_ips'})
+            
         if json=='json':
             out_json['details']=df_to_dict(df)
             return out_json
