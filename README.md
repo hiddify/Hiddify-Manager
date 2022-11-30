@@ -71,6 +71,15 @@ Same as v2ray
 کلیه سورس کدها در [گیت هاب](https://github.com/hiddify/hiddify-config) 
 </details>
 
+<details markdown="1"> <summary>ارائه گزارش مانیتورینگ </summary>
+نمایش میزان مصرف پروکسی و تعداد کاربران،  بر اساس،پروتوکل، شهر و اپراتور اینترنت با حفظ حریم خصوصی کاربران
+
+از طریق لینک زیر میتوانید مشاهده کنید وضعیت سرور رو
+
+`https://yourdomain.com/yoursecret/stats/` 
+
+</details>
+
 # پیش نیازها:
 - یک vps آماده با ubuntu 20.04 و آی پی مثلا `1.1.1.1`
 - یک دامنه یا زیردامنه (برای مثال: `myservice.hiddify.com`) که رکورد A ی آن به آی پی شما وصل باشد. 
