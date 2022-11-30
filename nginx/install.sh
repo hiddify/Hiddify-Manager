@@ -1,6 +1,7 @@
 apt-get install -y nginx certbot python3-certbot-nginx
 systemctl stop nginx
 pkill -9 nginx
+mkdir -p ../log
 
 rm /etc/nginx/sites-available/default
 rm /etc/nginx/sites-enabled/default
@@ -18,3 +19,4 @@ ln -s $(pwd)/signal.conf /etc/nginx/stream.d/signal.conf
 if ! grep -Fxq "stream{include /etc/nginx/stream.d/*.conf;}" /etc/nginx/nginx.conf; then
   echo "stream{include /etc/nginx/stream.d/*.conf;}">>/etc/nginx/nginx.conf;
 fi
+

@@ -84,7 +84,7 @@ location /defaultusersecret/ {
     proxy_pass https://dns.google:443/; 
   }
   location /defaultusersecret/stats/ {
-    proxy_pass http://localhost:442/; 
+    proxy_pass http://localhost:440/; 
   }
 }
 
