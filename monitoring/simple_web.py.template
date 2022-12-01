@@ -32,7 +32,7 @@ def daily(folder,json='html'):
     root=f'{stat_path}/{folder}'
     dates=sorted(os.listdir(root))
     
-    date_dic={day: [h for h in sorted(os.listdir(f'{root}/{day}')) ] for day in dates}
+    date_dic={day: [h.split('.')[0] for h in sorted(os.listdir(f'{root}/{day}')) ] for day in dates}
     
     if json=='json':
         return date_dic
@@ -59,62 +59,66 @@ def hourly(folder,date,json="html"):
     root=f'{stat_path}/{folder}'
     out_json={}
     out_html=""
-    try:
-        hourly=datetime.strptime(date,"%Y%m%d-%H")
-        dated=hourly.strftime("%Y%m%d")
-        h=hourly.strftime("%H")
+    hours=[f'{i:02}' for i in range(24)]
+    if '-' in date:
+        dateobj=datetime.strptime(date,"%Y%m%d-%H")
+        date=dateobj.strftime("%Y%m%d")
+        hours=[dateobj.strftime("%H")]
 
-        df=pd.read_csv(f'{root}/{dated}/{h}.csv',dtype={'haship':'Int64','download':'Int64','upload':'Int64'})
-        df=df.set_index([col for col in df.columns if col in ['status','upstream','haship','asn_name','country_code','province','city']])
+        # df=pd.read_csv(f'{root}/{dated}/{h}.csv',dtype={'haship':'Int64','download':'Int64','upload':'Int64','connection_count':'Int64','unique_ips':'Int64'})
+        # df=df.set_index([col for col in df.columns if col in ['status','upstream','haship','asn_name','country_code','province','city']])
         
-        if 'haship' in df.index.names:
-            df,unique_users=aggregate_users(df)
+        # if 'haship' in df.index.names:
+        #     df,unique_users=aggregate_users(df)
 
-            out_json['unique_ips']=unique_users
-            out_html+=f"unique ips={unique_users}<br/>"
+        #     out_json['unique_ips']=unique_users
+        #     out_html+=f"unique ips={unique_users}<br/>"
             
 
-        if json=='json':
-            out_json['details']=df_to_dict(df)
-            return out_json
-        out_html="<a href='json'>json</a><br/>"+out_html+df.to_html()
-        return out_html
-    except:
-        alldf=''
-        total=None
-        root=f'{root}/{date}'
-        for hour in sorted(os.listdir(root)):
-            # if date not in hour:continue
-            hour_name=hour.split('.')[0]
-            out_html+=f'<h5>{hour_name}</h5><a href="../{hour_name}/json">json</a><br/>'
-            df=pd.read_csv(f'{root}/{hour}',dtype={'haship':'Int64','download':'Int64','upload':'Int64'})
-            df=df.set_index([col for col in df.columns if col in ['status','upstream','haship','asn_name','country_code','province','city']])
-            if total is None:
-                total=df
-            else:
-                total=total.add(df,fill_value=0)
-            
+        # if json=='json':
+        #     out_json['details']=df_to_dict(df)
+        #     return out_json
+        # out_html="<a href='json'>json</a><br/>"+out_html+df.to_html()
+        # return out_html
+    
+    alldf=''
+    total=None
+    root=f'{root}/{date}'
+    for hour in sorted(os.listdir(root)):
+        # if date not in hour:continue
+        hour_name=hour.split('.')[0]
+        if hour_name not in hours:continue
+
+        out_html+=f'<h5>{hour_name}</h5><a href="../{hour_name}/json">json</a><br/>'
+        df=pd.read_csv(f'{root}/{hour}',dtype={'haship':'Int64','download':'Int64','upload':'Int64'})
+        df=df.set_index([col for col in df.columns if col in ['status','upstream','haship','asn_name','country_code','province','city']])
+        if total is None:
+            total=df
+        else:
+            total=total.add(df,fill_value=0)
+        
+        if len(hours)!=1:
             if 'haship' in df.index.names:
                 df,unique_users=aggregate_users(df)
                 out_html+=f"<h8>{unique_users} unique ips</h8>"
-                
+        
             out_html+=df.to_html()
 
-        if total is not None:
+    if total is not None:
+        
+        out_html_total=f'<h1>Total {date}</h1> <a href="json">json</a><br/>'
+        if 'haship' in total.index.names:
+            total,unique_users=aggregate_users(total)
+            out_html_total+=f"<h8>{unique_users} unique ips</h8>"
+            out_json['unique_ips']=unique_users
             
-            out_html_total=f'<h1>Total {date}</h1> <a href="json">json</a><br/>'
-            if 'haship' in total.index.names:
-                total,unique_users=aggregate_users(total)
-                out_html_total+=f"<h8>{unique_users} unique ips</h8>"
-                out_json['unique_ips']=unique_users
-                
 
-            out_html_total+=total.to_html()
-            out_json['details']=df_to_dict(total)
-            out_html=out_html_total+"<h1>Hourly</h1>"+out_html
-        if json=='json':
-            return out_json
-        return out_html
+        out_html_total+=total.to_html()
+        out_json['details']=df_to_dict(total)
+        out_html=out_html_total+("<h1>Hourly</h1>"+out_html if out_html else '')
+    if json=='json':
+        return out_json
+    return out_html
     
 def aggregate_users(df):
     indx=list(df.index.names)
