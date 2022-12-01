@@ -99,7 +99,7 @@ Same as v2ray
 دستور زیر را در ترمینال کپی کنید و اجرا کنید
 
 ```
-sudo bash -c "$(URL=https://raw.githubusercontent.com/hiddify/hiddify-config/main; curl -Lfo- $URL/config.env $URL/common/download_install.sh)"
+sudo bash -c "$(URL=https://raw.githubusercontent.com/hiddify/hiddify-config/main; curl -Lfo- $URL/config.env.default $URL/common/download_install.sh)"
 ```
 
 <details markdown="1"> <summary>Optional: Advanced Setup (اختیاری: نصب پیشرفته) </summary>
