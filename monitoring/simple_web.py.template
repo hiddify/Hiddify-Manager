@@ -97,7 +97,7 @@ def hourly(folder,date,out_type="html",per=''):
         else:
             total=total.add(df,fill_value=0)
         
-        if len(hours)!=1 and out_type!='json'::
+        if len(hours)!=1 and out_type!='json':
             out_html+=f'<h5>time: {date} {hour_name}:00:00 to {hour_name}:59:59</h5><a href="../{date}-{hour_name}/json">json</a><br/>'
             if 'haship' in df.index.names:
                 df,unique_users=aggregate_users(df)
