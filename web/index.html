@@ -345,6 +345,32 @@
 
         </main>
     </div>
+    <div class="modal fade" id="share-qr-code" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">لینک اشتراک برای شبکه های اجتماعی</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <a id='qrcode-link' class="btn btn-success copy-link" href="">کپی لینک</a> 
+                        <a id="share-link-redirect" class="btn btn-success copy-link" href="">کپی لینک جهت اشتراک گذاری</a>
+                    
+                    <div id="qrcode"></div>
+                </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
     <!-- Bootstrap JS bundle -->
     <script src="js/jquery-3.6.1.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
@@ -381,7 +407,7 @@
         }
         w = Math.min(window.innerWidth, window.innerHeight) * .75;
         qrcode = new QRCode(document.getElementById("qrcode"), {width: w,height: w});
-        
+
         function share_click(e) {
             e.preventDefault();
             var link = this.href;
@@ -418,31 +444,7 @@
     </button>
 
 
-    <div class="modal fade" id="share-qr-code" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">لینک اشتراک برای شبکه های اجتماعی</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <center>
-                        <a id='qrcode-link' class="btn btn-success copy-link" href="">کپی لینک</a> 
-                        <a id="share-link-redirect" class="btn btn-success copy-link" href="">کپی لینک جهت اشتراک گذاری</a>
-                    
-                    <div id="qrcode"></div>
-                </center>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    
 
 </body>
 
