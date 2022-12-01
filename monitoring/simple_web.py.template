@@ -30,12 +30,12 @@ def daily_json(folder,json='html'):
 @route('/daily/<folder>/')
 def daily(folder,json='html'):
     root=f'{stat_path}/{folder}'
-    datehs=sorted([datetime.strptime(datef.split('.')[0],"%Y%m%d-%H") for datef in os.listdir(root)])
-    dates=sorted(np.unique([date.replace(hour=0) for date in datehs]))
-    date_dic={day.strftime("%Y%m%d"): {h.strftime("%H"):h for h in datehs if day<=h and h<day+timedelta(days=1)} for day in dates}
+    dates=sorted(os.listdir(root))
+    
+    date_dic={day: [h for h in sorted(os.listdir(f'{root}/{day}')) ] for day in dates}
     
     if json=='json':
-        return {day:{h for h in hours} for day,hours in date_dic.items()}
+        return date_dic
 
     out="<a href='json'>json</a><table><tr><th>date</th><th>hour</th></tr>"
     for day,hours in date_dic.items():
@@ -54,14 +54,17 @@ def hourly_redirect(folder,date):
 
 @route('/daily/<folder>/<date>/')
 @route('/daily/<folder>/<date>/<json>')
+@route('/daily/<folder>/<date>/<json>/')
 def hourly(folder,date,json="html"):
     root=f'{stat_path}/{folder}'
     out_json={}
     out_html=""
     try:
         hourly=datetime.strptime(date,"%Y%m%d-%H")
-        
-        df=pd.read_csv(f'{root}/{date}.csv',dtype={'haship':'Int64','download':'Int64','upload':'Int64'})
+        dated=hourly.strftime("%Y%m%d")
+        h=hourly.strftime("%H")
+
+        df=pd.read_csv(f'{root}/{dated}/{h}.csv',dtype={'haship':'Int64','download':'Int64','upload':'Int64'})
         df=df.set_index([col for col in df.columns if col in ['status','upstream','haship','asn_name','country_code','province','city']])
         
         if folder=='users':
@@ -79,8 +82,9 @@ def hourly(folder,date,json="html"):
     except:
         alldf=''
         total=None
+        root=f'{root}/{date}'
         for hour in sorted(os.listdir(root)):
-            if date not in hour:continue
+            # if date not in hour:continue
             hour_name=hour.split('.')[0]
             out_html+=f'<h5>{hour_name}</h5><a href="../{hour_name}/json">json</a><br/>'
             df=pd.read_csv(f'{root}/{hour}',dtype={'haship':'Int64','download':'Int64','upload':'Int64'})
