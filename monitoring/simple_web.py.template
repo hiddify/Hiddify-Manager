@@ -67,7 +67,7 @@ def hourly(folder,date,json="html"):
         df=pd.read_csv(f'{root}/{dated}/{h}.csv',dtype={'haship':'Int64','download':'Int64','upload':'Int64'})
         df=df.set_index([col for col in df.columns if col in ['status','upstream','haship','asn_name','country_code','province','city']])
         
-        if folder=='users':
+        if 'haship' in df.index.names:
             df,unique_users=aggregate_users(df)
 
             out_json['unique_ips']=unique_users

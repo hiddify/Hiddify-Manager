@@ -9,9 +9,7 @@ fi
 
 
 function set_env_if_empty(){
- for line in $(sed 's/\#.*//g' config.env | grep '=');do
-  
-  
+ for line in $(sed 's/\#.*//g' $1 | grep '=');do  
   IFS=\= read k v <<< $line
   if [[ ! -z $k && -z "${!k}" ]]; then      
       export $k="$v"
@@ -110,7 +108,8 @@ function replace_empty_env() {
 
 
 
-set_env_if_empty
+set_env_if_empty config.env
+set_env_if_empty config.env.default
 
 cd /opt/$GITHUB_REPOSITORY
 git pull
