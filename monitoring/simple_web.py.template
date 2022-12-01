@@ -52,11 +52,11 @@ def daily(folder,json='html'):
 def hourly_redirect(folder,date):
     return redirect(f"{date}/")
 
-@route('/daily/<folder>/<date>/')
-@route('/daily/<folder>/<date>/<json>')
-@route('/daily/<folder>/<date>/<json>/')
-def hourly(folder,date,json="html"):
+@route('/daily/<folder>/<date>/<per>')
+@route('/daily/<folder>/<date>/<per>/')
+def hourly(folder,date,out_type="html",per=''):
     root=f'{stat_path}/{folder}'
+    per=per.split(',')
     out_json={}
     out_html=""
     hours=[f'{i:02}' for i in range(24)]
@@ -90,19 +90,20 @@ def hourly(folder,date,json="html"):
         if hour_name not in hours:continue
 
         
-        df=pd.read_csv(f'{root}/{hour}',dtype={'haship':'Int64','download':'Int64','upload':'Int64'})
+        df=pd.read_csv(f'{root}/{hour}',dtype={'haship':'Int64','download':'Int64','upload':'Int64','connection_count':'Int64','unique_ips':'Int64'})
         df=df.set_index([col for col in df.columns if col in ['status','upstream','haship','asn_name','country_code','province','city']])
         if total is None:
             total=df
         else:
             total=total.add(df,fill_value=0)
         
-        if len(hours)!=1:
+        if len(hours)!=1 and out_type!='json'::
             out_html+=f'<h5>time: {date} {hour_name}:00:00 to {hour_name}:59:59</h5><a href="../{date}-{hour_name}/json">json</a><br/>'
             if 'haship' in df.index.names:
                 df,unique_users=aggregate_users(df)
                 out_html+=f"<h8>{unique_users} unique ips</h8>"
-        
+            if len(per):
+                df=df.groupby(per).sum()
             out_html+=df.to_html()
 
     if total is not None:
@@ -113,13 +114,23 @@ def hourly(folder,date,json="html"):
             out_html_total+=f"<h8>{unique_users} unique ips</h8>"
             out_json['unique_ips']=unique_users
             
-
+        if len(per):
+            total=total.groupby(per).sum()
         out_html_total+=total.to_html()
         out_json['details']=df_to_dict(total)
         out_html=out_html_total+("<h1>Hourly</h1>"+out_html if out_html else '')
-    if json=='json':
+    if out_type=='json':
         return out_json
     return out_html
+
+
+@route('/daily/<folder>/<date>/<per>/json/')
+@route('/daily/<folder>/<date>/<per>/json')
+@route('/daily/<folder>/<date>/json/')
+@route('/daily/<folder>/<date>/json')
+def hourly_json(folder,date,per=''):
+    return hourly(folder,date,out_type='json',per=per)
+
     
 def aggregate_users(df):
     indx=list(df.index.names)
