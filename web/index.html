@@ -364,7 +364,7 @@
                 </center>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                    <button type="button" class="btn btn-secondary close" data-dismiss="modal">بستن</button>
                 </div>
             </div>
         </div>
@@ -430,6 +430,7 @@
             });
             $('a.copy-link').click(copy_click)
             $('a.share-link').click(share_click)
+            $('.close').click(()=>$('.modal').modal('hide'))
         });
         
         
