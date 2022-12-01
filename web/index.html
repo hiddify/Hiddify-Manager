@@ -379,6 +379,9 @@
                 window.prompt("Copy to clipboard: Ctrl+C, Enter", link);
             });
         }
+        w = Math.min(window.innerWidth, window.innerHeight) * .75;
+        qrcode = new QRCode(document.getElementById("qrcode"), {width: w,height: w});
+        
         function share_click(e) {
             e.preventDefault();
             var link = this.href;
@@ -401,11 +404,8 @@
             $('a.copy-link').click(copy_click)
             $('a.share-link').click(share_click)
         });
-        w = Math.min(window.innerWidth, window.innerHeight) * .75;
-        var qrcode = new QRCode(document.getElementById("qrcode"), {
-            width: w,
-            height: w
-        });
+        
+        
 
     </script>
     <button id="scroll-to-top" type="button" class="btn btn-link btn-lg" onclick="scrollToTop();" title="Back to Top"
