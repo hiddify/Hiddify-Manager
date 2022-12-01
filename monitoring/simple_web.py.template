@@ -94,7 +94,7 @@ def hourly(folder,date,json="html"):
             else:
                 total=total.add(df,fill_value=0)
             
-            if folder=='users':
+            if 'haship' in df.index.names:
                 df,unique_users=aggregate_users(df)
                 out_html+=f"<h8>{unique_users} unique ips</h8>"
                 
@@ -103,9 +103,8 @@ def hourly(folder,date,json="html"):
         if total is not None:
             
             out_html_total=f'<h1>Total {date}</h1> <a href="json">json</a><br/>'
-            if folder=='users':
+            if 'haship' in total.index.names:
                 total,unique_users=aggregate_users(total)
-
                 out_html_total+=f"<h8>{unique_users} unique ips</h8>"
                 out_json['unique_ips']=unique_users
                 
@@ -118,9 +117,14 @@ def hourly(folder,date,json="html"):
         return out_html
     
 def aggregate_users(df):
+    indx=list(df.index.names)
+    indx.remove('haship')
+    cols_agg={c:'sum' for c in df.columns}
+    cols_agg['haship']='nunique'
+
     df=df.reset_index()
     unique_users=len(df['haship'].unique())
-    df=df.groupby(['status','upstream']).agg({'haship':'count', 'connection_count': 'sum'}).rename(columns={'haship':'unique_ips'})
+    df=df.groupby(indx).agg(cols_agg).rename(columns={'haship':'unique_ips'})
     return df,unique_users
 
 
