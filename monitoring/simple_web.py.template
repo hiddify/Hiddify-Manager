@@ -89,7 +89,7 @@ def hourly(folder,date,json="html"):
         hour_name=hour.split('.')[0]
         if hour_name not in hours:continue
 
-        out_html+=f'<h5>{hour_name}</h5><a href="../{hour_name}/json">json</a><br/>'
+        
         df=pd.read_csv(f'{root}/{hour}',dtype={'haship':'Int64','download':'Int64','upload':'Int64'})
         df=df.set_index([col for col in df.columns if col in ['status','upstream','haship','asn_name','country_code','province','city']])
         if total is None:
@@ -98,6 +98,7 @@ def hourly(folder,date,json="html"):
             total=total.add(df,fill_value=0)
         
         if len(hours)!=1:
+            out_html+=f'<h5>time: {date} {hour_name}:00:00 to {hour_name}:59:59</h5><a href="../{date}-{hour_name}/json">json</a><br/>'
             if 'haship' in df.index.names:
                 df,unique_users=aggregate_users(df)
                 out_html+=f"<h8>{unique_users} unique ips</h8>"
