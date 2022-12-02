@@ -102,6 +102,14 @@ Same as v2ray
 sudo bash -c "$(URL=https://raw.githubusercontent.com/hiddify/hiddify-config/main; curl -Lfo- $URL/config.env.default $URL/common/download_install.sh)"
 ```
 
+# Update (به روز رسانی)
+دستور زیر را در ترمینال کپی کنید و اجرا کنید
+```
+cd /opt/hiddify-config
+sudo git pull
+sudo bash install.sh
+```
+
 <details markdown="1"> <summary>Optional: Advanced Setup (اختیاری: نصب پیشرفته) </summary>
 
 این قسمت برای افراد آشنا با کامپیوتر آماده شده است. میتوانید از آن صرفه نظر کنید.
