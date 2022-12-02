@@ -62,7 +62,7 @@ Same as v2ray
 </details>
  <details markdown="1"> <summary>صفحات راهنمای کاربران</summary> 
  
- ![صفحه راهنمای کاربران](https://user-images.githubusercontent.com/114227601/196612827-7a39a914-cdfc-408e-aa73-1343bc312f6c.png)
+ ![صفحه راهنمای کاربران](https://user-images.githubusercontent.com/114227601/205199749-a3b93e75-7818-4deb-9924-706aef467f97.png)
 
 
 </details>
@@ -197,6 +197,10 @@ After your domain nameservers changed successfully (depending on the registrar, 
 
 
 </details>
+
+# صفحه راهنمای کاربران
+![صفحه راهنمای کاربران](https://user-images.githubusercontent.com/114227601/205199749-a3b93e75-7818-4deb-9924-706aef467f97.png)
+
 
 # Telegram
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhiddify%2Fconfig%2Fmain%2Ftelegram%2Ftelegram-vm-azure-template.json" target="_blank"><img src="https://aka.ms/deploytoazurebutton"/></a>
