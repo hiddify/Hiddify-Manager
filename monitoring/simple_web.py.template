@@ -9,9 +9,9 @@ import os
 import numpy as np
 import json
 stat_path='/opt/GITHUB_REPOSITORY/log/stats/'
-@route('/<json>')
+
 @route('/')
-def index(json='html'):
+def index(out_type='html'):
     if json=='json':
         return os.listdir(stat_path)
 
@@ -19,28 +19,24 @@ def index(json='html'):
     for folder in os.listdir(stat_path):
         out+=f"<a href='daily/{folder}/'>{folder}</a> <br/>"
     return out
+@route('/json')
+def index_json():
+    return index(out_type='json')
 
 
-@route('/daily/<folder>/<json>/')
-def daily_json(folder,json='html'):
-    return daily(folder,json=json)
-
-@route('/daily/<folder>')
 @route('/daily/<folder>/json')
-@route('/daily/<folder>/<date>')
-@route('/daily/<folder>/<date>/<per>/json')
-@route('/daily/<folder>/<date>/<per>')
-def error(folder='',date=''):
-    return f"this page is moved to <a href='{request.url}/'>{request.url}/</a>"
+def daily_json(folder):
+    return daily(folder,out_type='json')
+
 
 @route('/daily/<folder>/')
-def daily(folder,json='html'):
+def daily(folder,out_type='html'):
     root=f'{stat_path}/{folder}'
     dates=sorted(os.listdir(root))
     
     date_dic={day: [h.split('.')[0] for h in sorted(os.listdir(f'{root}/{day}')) ] for day in dates}
     
-    if json=='json':
+    if out_type=='json':
         return date_dic
 
     out="<a href='json'>json</a><table><tr><th>date</th><th>hour</th></tr>"
@@ -56,16 +52,17 @@ def daily(folder,json='html'):
 
 # def hourly_redirect(folder,date):
 #     return redirect(f"{date}/")
+@route('/daily/<folder>/<date>/json')
+@route('/daily/<folder>/<date>/<per>/json')
+def hourly_json(folder,date,per=''):
+    return hourly(folder,date,out_type='json',per=per)
 
 
+@route('/daily/<folder>/<date>/')
 @route('/daily/<folder>/<date>/<per>/')
 def hourly(folder,date,out_type="html",per=''):
-    if per=='json':
-        per=''
-        out_type='json'
-    tail_slash=request.url.endswith('/')
     root=f'{stat_path}/{folder}'
-    per=per.split(',')
+    per=per.split(',') if len(per) else []
     out_json={}
     out_html=""
     hours=[f'{i:02}' for i in range(24)]
@@ -132,10 +129,13 @@ def hourly(folder,date,out_type="html",per=''):
         return out_json
     return out_html
 
+@route('/daily/<folder>')
+@route('/daily/<folder>/<date>')
+@route('/daily/<folder>/<date>/<per>')
+def error(folder='',date='',per=''):
+    newu=request.url.split('/')[-1]
+    return f"this page is moved to <a href='{newu}/'>{newu}/</a>"
 
-@route('/daily/<folder>/<date>/<per>/json/')
-def hourly_json(folder,date,per=''):
-    return hourly(folder,date,out_type='json',per=per)
 
     
 def aggregate_users(df):
