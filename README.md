@@ -62,6 +62,9 @@ Same as v2ray
 </details>
  <details markdown="1"> <summary>صفحات راهنمای کاربران</summary> 
  
+ با امکان تولید qrcode
+
+ 
  ![صفحه راهنمای کاربران](https://user-images.githubusercontent.com/114227601/205199749-a3b93e75-7818-4deb-9924-706aef467f97.png)
 
 
@@ -199,6 +202,9 @@ After your domain nameservers changed successfully (depending on the registrar, 
 </details>
 
 # صفحه راهنمای کاربران
+
+با امکان تولید qrcode
+
 ![صفحه راهنمای کاربران](https://user-images.githubusercontent.com/114227601/205199749-a3b93e75-7818-4deb-9924-706aef467f97.png)
 
 
