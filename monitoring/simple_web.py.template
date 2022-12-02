@@ -2,7 +2,7 @@
 
 
 
-from bottle import route, run, template,redirect
+from bottle import route, run, template,redirect,request
 from datetime import datetime,timedelta
 import pandas as pd
 import os
@@ -126,7 +126,7 @@ def hourly(folder,date,out_type="html",per=''):
         if len(hours)!=1:
             out_html=f'<h1>Total {date}</h1>{out_html_total}<h1>Hourly</h1>{out_html}' 
         else:
-            out_html=f'<h1>Hour {date} {hour}:00:00 to {hour}:59:59</h1>{out_html_total}'
+            out_html=f'<h1>Hour {date} {hour_name}:00:00 to {hour_name}:59:59</h1>{out_html_total}'
 
     if out_type=='json':
         return out_json
