@@ -21,12 +21,18 @@ def index(json='html'):
     return out
 
 
-@route('/daily/<folder>/<json>')
 @route('/daily/<folder>/<json>/')
 def daily_json(folder,json='html'):
     return daily(folder,json=json)
 
 @route('/daily/<folder>')
+@route('/daily/<folder>/json')
+@route('/daily/<folder>/<date>')
+@route('/daily/<folder>/<date>/<per>/json')
+@route('/daily/<folder>/<date>/<per>')
+def error(folder='',date=''):
+    return f"this page is moved to <a href='{request.url}/'>{request.url}/</a>"
+
 @route('/daily/<folder>/')
 def daily(folder,json='html'):
     root=f'{stat_path}/{folder}'
@@ -48,13 +54,16 @@ def daily(folder,json='html'):
     return out
 
 
-@route('/daily/<folder>/<date>')
-def hourly_redirect(folder,date):
-    return redirect(f"{date}/")
+# def hourly_redirect(folder,date):
+#     return redirect(f"{date}/")
 
-@route('/daily/<folder>/<date>/<per>')
+
 @route('/daily/<folder>/<date>/<per>/')
 def hourly(folder,date,out_type="html",per=''):
+    if per=='json':
+        per=''
+        out_type='json'
+    tail_slash=request.url.endswith('/')
     root=f'{stat_path}/{folder}'
     per=per.split(',')
     out_json={}
@@ -125,9 +134,6 @@ def hourly(folder,date,out_type="html",per=''):
 
 
 @route('/daily/<folder>/<date>/<per>/json/')
-@route('/daily/<folder>/<date>/<per>/json')
-@route('/daily/<folder>/<date>/json/')
-@route('/daily/<folder>/<date>/json')
 def hourly_json(folder,date,per=''):
     return hourly(folder,date,out_type='json',per=per)
 
