@@ -407,7 +407,7 @@
             });
         }
         w = Math.min(window.innerWidth, window.innerHeight) * .75;
-        qrcode = new QRCode(document.getElementById("qrcode"), {width: w,height: w,correctLevel:0});
+        qrcode = new QRCode(document.getElementById("qrcode"), {width: w,height: w,correctLevel:1});
 
         function share_click(e) {
             e.preventDefault();
