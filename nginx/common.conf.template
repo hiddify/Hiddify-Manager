@@ -63,7 +63,7 @@ location = /defaultusersecret/signal/ {
   location /defaultusersecret/help/ { #for help
     return 302 ../;
   }
-.
+
   
 
   location /defaultusersecret/clash/ {
