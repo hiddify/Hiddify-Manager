@@ -63,7 +63,7 @@ location = /defaultusersecret/signal/ {
   location /defaultusersecret/help/ { #for help
     return 302 ../;
   }
-
+.
   
 
   location /defaultusersecret/clash/ {
@@ -81,6 +81,12 @@ location = /defaultusersecret/signal/ {
   }
   location /defaultusersecret/stats/ {
     proxy_pass http://localhost:440/; 
+  }
+  location /defaultusersecret/ { #for help
+    alias /opt/GITHUB_REPOSITORY/web/;
+    sub_filter_types text/plain text/html;
+    include /opt/GITHUB_REPOSITORY/nginx/replace.conf;
+    sub_filter_once off;
   }
 #}
 
