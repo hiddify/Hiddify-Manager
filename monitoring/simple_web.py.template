@@ -90,6 +90,8 @@ def hourly(folder,date,out_type="html",per=''):
     alldf=''
     total=None
     root=f'{root}/{date}'
+    if len(hours)!=1:
+       out_json['hours']={} 
     for hour in sorted(os.listdir(root)):
         # if date not in hour:continue
         hour_name=hour.split('.')[0]
@@ -103,13 +105,16 @@ def hourly(folder,date,out_type="html",per=''):
         else:
             total=total.add(df,fill_value=0)
         
-        if len(hours)!=1 and out_type!='json':
+        if len(hours)!=1:
+            out_json['hours'][hour_name]={}
             out_html+=f'<h5>time: {date} {hour_name}:00:00 to {hour_name}:59:59</h5><a href="../{date}-{hour_name}/json">json</a><br/>'
             if 'haship' in df.index.names:
                 df,unique_users=aggregate_users(df)
                 out_html+=f"<h8>{unique_users} unique ips</h8>"
+                out_json['hours'][hour_name]['unique_ips']=unique_users
             if len(per):
                 df=df.groupby(per).sum()
+            out_json['hours'][hour_name]['details']=df_to_dict(df)
             out_html+=df.to_html()
 
     if total is not None:
