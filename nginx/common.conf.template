@@ -26,8 +26,8 @@ location = /defaultusersecret/signal/ {
     proxy_pass            https://localhost:4433;
 }
 
-location /defaultusersecret/ {
-  if ($request_uri ~* "/defaultusersecret/redirect/(.*)(%3A%2F%2F|://)(.*)") {
+#location /defaultusersecret/ {
+  if ($request_uri ~ "^/defaultusersecret/redirect/(.*)(%3A%2F%2F|://)(.*)$") {
     return 307 $1://$3;
   }
   #location = /defaultusersecret/ {
@@ -64,12 +64,7 @@ location /defaultusersecret/ {
     return 302 ../;
   }
 
-  location /defaultusersecret/ { #for help
-    alias /opt/GITHUB_REPOSITORY/web/;
-    sub_filter_types text/plain text/html;
-    include /opt/GITHUB_REPOSITORY/nginx/replace.conf;
-    sub_filter_once off;
-  }
+  
 
   location /defaultusersecret/clash/ {
     #for clash configs
@@ -87,7 +82,7 @@ location /defaultusersecret/ {
   location /defaultusersecret/stats/ {
     proxy_pass http://localhost:440/; 
   }
-}
+#}
 
 location / {
   proxy_pass http://telegramtlsdomain;
