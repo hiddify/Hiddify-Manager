@@ -113,8 +113,7 @@ def hourly(folder,date,out_type="html",per=''):
             out_html+=df.to_html()
 
     if total is not None:
-        
-        out_html_total=f'<h1>Total {date}</h1> <a href="json">json</a><br/>'
+        out_html_total=f'<a href="json">json</a><br/>'
         if 'haship' in total.index.names:
             total,unique_users=aggregate_users(total)
             out_html_total+=f"<h8>{unique_users} unique ips</h8>"
@@ -124,7 +123,11 @@ def hourly(folder,date,out_type="html",per=''):
             total=total.groupby(per).sum()
         out_html_total+=total.to_html()
         out_json['details']=df_to_dict(total)
-        out_html=out_html_total+("<h1>Hourly</h1>"+out_html if out_html else '')
+        if len(hours)!=1:
+            out_html=f'<h1>Total {date}</h1>{out_html_total}<h1>Hourly</h1>{out_html}' 
+        else:
+            out_html=f'<h1>Hour {date} {hour}:00:00 to {hour}:59:59</h1>{out_html_total}'
+
     if out_type=='json':
         return out_json
     return out_html
