@@ -360,7 +360,7 @@
                         <a id='qrcode-link' class="btn btn-primary copy-link" href="">کپی لینک</a> 
                         <a id="share-link-redirect" class="btn btn-success copy-link" href="">کپی لینک جهت اشتراک گذاری</a>
                     <br/>
-                    <div id="qrcode"></div>
+                    <div id="qrcode" style="margin:10px;"></div>
                 </center>
                 </div>
                 <div class="modal-footer">
@@ -407,12 +407,12 @@
             });
         }
         w = Math.min(window.innerWidth, window.innerHeight) * .75;
-        qrcode = new QRCode(document.getElementById("qrcode"), {width: w,height: w});
+        qrcode = new QRCode(document.getElementById("qrcode"), {width: w,height: w,correctLevel:0});
 
         function share_click(e) {
             e.preventDefault();
             var link = this.href;
-
+            qrcode.clear()
             qrcode.makeCode(link);
             hrefshare = "https://proxyproviderip/usersecret/redirect/" + link.replaceAll('://', '%3A%2F%2F')
             $('#qrcode-link')[0].href = link
