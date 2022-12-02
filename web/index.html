@@ -419,7 +419,7 @@
             hrefshare = "https://proxyproviderip/usersecret/redirect/" + link.replaceAll('://', '%3A%2F%2F')
             $('#qrcode-link')[0].href = link
             $('#share-link-redirect')[0].href = hrefshare
-            if (href.startsWith("http"))
+            if (link.startsWith("http"))
                $('#share-link-redirect').hide()
             else
                $('#share-link-redirect').show()
