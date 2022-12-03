@@ -1,0 +1,3 @@
+service cron reload
+systemctl enable hiddify_monitoring_web.service
+systemctl restart hiddify_monitoring_web.service
