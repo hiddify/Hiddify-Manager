@@ -56,13 +56,7 @@ def daily(folder,out_type='html'):
 @route('/daily/<folder>/<date>/json')
 @route('/daily/<folder>/<date>/<per>/json')
 def hourly_json(folder,date,per=''):
-    return hourly(folder,date,out_type='json',per=per)
-
-
-@route('/range/<folder>/<dates>/json')
-@route('/range/<folder>/<dates>/<per>/json')
-def daily_range(folder,dates='',per=''):
-    return daily_range(folder,dates,out_type='json',per=per)
+    return daily_range(folder,date,out_type='json',per=per)
 
 
 def rel_date(date_in):
@@ -122,11 +116,11 @@ def hourly(folder,date,out_type="html",per=''):
     if len(hours)!=1:
        out_json['hours']={} 
     hours=sorted(os.listdir(root)) if os.path.isdir(root) else []
-    for hour in sorted(os.listdir(root)):
+    for hour in sorted(hours):
         # if date not in hour:continue
         hour_name=hour.split('.')[0]
         if hour_name not in hours:continue
-
+        if not os.path.isfile(f'{root}/{hour}'):continue
         
         df=pd.read_csv(f'{root}/{hour}',dtype={'haship':'Int64','download':'Int64','upload':'Int64','connection_count':'Int64','unique_ips':'Int64'})
         df=df.set_index([col for col in df.columns if col in ['status','upstream','haship','asn_name','country_code','province','city']])
