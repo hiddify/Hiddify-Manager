@@ -60,12 +60,15 @@ def hourly_json(folder,date,per=''):
 
 
 def rel_date(date_in):
+    if '-' in date_in:
+        return date_in
     rel=None
     if date_in.isnumeric():
         rel=abs(int(date_in))
     if type(date_in)==int:
         rel=abs(date_in)
-    if rel is not None:
+    
+    if rel is not None and rel<1000:
         return (date.today()-timedelta(days=rel)).strftime("%Y%m%d")
     
     return date_in
@@ -86,12 +89,12 @@ def daily_range(folder,dates='',out_type="html",per=''):
 
     if out_type=='html':
         out=''
-        for date in dates:
+        for date in final_dates:
             out+=hourly(folder,date,out_type=out_type,per=per)    
         return out
 
     res={}
-    for date in dates:
+    for date in final_dates:
         res[date]=hourly(folder,date,out_type=out_type,per=per)
     
     return res
@@ -115,8 +118,8 @@ def hourly(folder,date,out_type="html",per=''):
     root=f'{root}/{date}'
     if len(hours)!=1:
        out_json['hours']={} 
-    hours=sorted(os.listdir(root)) if os.path.isdir(root) else []
-    for hour in sorted(hours):
+    hours_files=sorted(os.listdir(root)) if os.path.isdir(root) else []
+    for hour in sorted(hours_files):
         # if date not in hour:continue
         hour_name=hour.split('.')[0]
         if hour_name not in hours:continue
