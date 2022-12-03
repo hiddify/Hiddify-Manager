@@ -3,7 +3,7 @@
 
 
 from bottle import route, run, template,redirect,request
-from datetime import datetime,timedelta
+from datetime import datetime,timedelta,date
 import pandas as pd
 import os
 import numpy as np
@@ -40,6 +40,7 @@ def daily(folder,out_type='html'):
         return date_dic
 
     out="<a href='json'>json</a><table><tr><th>date</th><th>hour</th></tr>"
+    out+=f"<tr><td><a href='0/'>today</a></td><td><a href='1/'>yesterday</a> <a href='0:6/'>last 7 days</a> <a href='0:30/'>last 30 days</a></td></tr>"
     for day,hours in date_dic.items():
         hh=' '.join([f"<a href='{day}-{h}/'>{h}</a>" for h in hours])
         out+=f"<tr><td><a href='{day}/'>{day}</a></td><td>{hh}</td></tr>"
@@ -58,8 +59,52 @@ def hourly_json(folder,date,per=''):
     return hourly(folder,date,out_type='json',per=per)
 
 
-@route('/daily/<folder>/<date>/')
-@route('/daily/<folder>/<date>/<per>/')
+@route('/range/<folder>/<dates>/json')
+@route('/range/<folder>/<dates>/<per>/json')
+def daily_range(folder,dates='',per=''):
+    return daily_range(folder,dates,out_type='json',per=per)
+
+
+def rel_date(date_in):.
+    rel=None
+    if date_in.isnumeric():
+        rel=abs(int(date_in))
+    if type(date_in)==int:
+        rel=abs(date_in)
+    if rel is not None:
+        return (date.today()-timedelta(days=rel)).strftime("%Y%m%d")
+    
+    return date_in
+
+@route('/daily/<folder>/<dates>/')
+@route('/daily/<folder>/<dates>/<per>/')
+def daily_range(folder,dates='',out_type="html",per=''):
+
+    dates=dates.split(',') if len(dates) else []
+    final_dates=[]
+    for date in dates:
+        if ':' in date:
+            splt=date.split(':')
+            for i in range(int(splt[0]),int(splt[1])):
+                final_dates.append(rel_date(i))
+        else:
+            final_dates.append(rel_date(date))
+
+    if out_type=='html':
+        out=''
+        for date in dates:
+            out+=hourly(folder,date,out_type=out_type,per)    
+        return out
+
+    res={}
+    for date in dates:
+        res[date]=hourly(folder,date,out_type=out_type,per)
+    
+    return res
+    
+    
+
+
 def hourly(folder,date,out_type="html",per=''):
     root=f'{stat_path}/{folder}'
     per=per.split(',') if len(per) else []
@@ -70,28 +115,13 @@ def hourly(folder,date,out_type="html",per=''):
         dateobj=datetime.strptime(date,"%Y%m%d-%H")
         date=dateobj.strftime("%Y%m%d")
         hours=[dateobj.strftime("%H")]
-
-        # df=pd.read_csv(f'{root}/{dated}/{h}.csv',dtype={'haship':'Int64','download':'Int64','upload':'Int64','connection_count':'Int64','unique_ips':'Int64'})
-        # df=df.set_index([col for col in df.columns if col in ['status','upstream','haship','asn_name','country_code','province','city']])
-        
-        # if 'haship' in df.index.names:
-        #     df,unique_users=aggregate_users(df)
-
-        #     out_json['unique_ips']=unique_users
-        #     out_html+=f"unique ips={unique_users}<br/>"
-            
-
-        # if json=='json':
-        #     out_json['details']=df_to_dict(df)
-        #     return out_json
-        # out_html="<a href='json'>json</a><br/>"+out_html+df.to_html()
-        # return out_html
     
     alldf=''
     total=None
     root=f'{root}/{date}'
     if len(hours)!=1:
        out_json['hours']={} 
+    hours=sorted(os.listdir(root)) if os.path.isdir(root) else []
     for hour in sorted(os.listdir(root)):
         # if date not in hour:continue
         hour_name=hour.split('.')[0]
@@ -118,16 +148,18 @@ def hourly(folder,date,out_type="html",per=''):
             out_html+=df.to_html()
 
     if total is not None:
+        out_json['total']={}
         out_html_total=f'<a href="json">json</a><br/>'
         if 'haship' in total.index.names:
             total,unique_users=aggregate_users(total)
             out_html_total+=f"<h8>{unique_users} unique ips</h8>"
-            out_json['unique_ips']=unique_users
+            out_json['total']['unique_ips']=unique_users
             
         if len(per):
             total=total.groupby(per).sum()
         out_html_total+=total.to_html()
-        out_json['details']=df_to_dict(total)
+        out_json['total']['details']=df_to_dict(total)
+
         if len(hours)!=1:
             out_html=f'<h1>Total {date}</h1>{out_html_total}<h1>Hourly</h1>{out_html}' 
         else:
