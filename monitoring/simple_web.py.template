@@ -60,13 +60,12 @@ def hourly_json(folder,date,per=''):
 
 
 def rel_date(date_in):
-    if '-' in date_in:
-        return date_in
     rel=None
-    if date_in.isnumeric():
-        rel=abs(int(date_in))
     if type(date_in)==int:
         rel=abs(date_in)
+    elif date_in.isnumeric():
+        rel=abs(int(date_in))
+    
     
     if rel is not None and rel<1000:
         return (date.today()-timedelta(days=rel)).strftime("%Y%m%d")
