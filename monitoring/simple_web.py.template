@@ -65,7 +65,7 @@ def daily_range(folder,dates='',per=''):
     return daily_range(folder,dates,out_type='json',per=per)
 
 
-def rel_date(date_in):.
+def rel_date(date_in):
     rel=None
     if date_in.isnumeric():
         rel=abs(int(date_in))
@@ -93,12 +93,12 @@ def daily_range(folder,dates='',out_type="html",per=''):
     if out_type=='html':
         out=''
         for date in dates:
-            out+=hourly(folder,date,out_type=out_type,per)    
+            out+=hourly(folder,date,out_type=out_type,per=per)    
         return out
 
     res={}
     for date in dates:
-        res[date]=hourly(folder,date,out_type=out_type,per)
+        res[date]=hourly(folder,date,out_type=out_type,per=per)
     
     return res
     
