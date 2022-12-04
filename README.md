@@ -1,7 +1,6 @@
 # Hiddify Config
 در این مقاله به شما آموزش میدهیم چگونه یک فیلترشکن اختصاصی مالتی پروتوکل در پورت 443 ایجاد کنید.
 موارد پشتیبانی شده:
-
 <details markdown="1"> <summary>Telegram MTProxy Proxy</summary>
  
  پروکسی ایجاد شده یک پروکسی faketls هست که در صورتی که کلاینت غیر تلگرام به آن متصل شود سایت گوگل را نشان می‌دهد.
@@ -82,6 +81,10 @@ Same as v2ray
 `https://yourdomain.com/yoursecret/stats/` 
 
 </details>
+<details  markdown="1"> <summary>Supported OS: Ubuntu arm64 or amd64</summary>
+It is tested on Ubuntu 20.04 and 22.04
+</details>
+
 
 # پیش نیازها:
 - یک vps آماده با ubuntu 20.04 و آی پی مثلا `1.1.1.1`
