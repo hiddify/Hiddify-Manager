@@ -4,8 +4,9 @@ systemctl stop ss-faketls.service
 
 apt-get install -y  shadowsocks-libev simple-obfs
 
-wget https://github.com/shadowsocks/v2ray-plugin/releases/download/v1.3.2/v2ray-plugin-linux-amd64-v1.3.2.tar.gz
-tar xvzf v2ray-plugin-linux-amd64*
+wget https://github.com/shadowsocks/v2ray-plugin/releases/download/v1.3.2/v2ray-plugin-linux-$(dpkg --print-architecture)-v1.3.2.tar.gz
+tar xvzf v2ray-plugin-linux-*
+mv v2ray-plugin-linux-$(dpkg --print-architecture) v2ray-plugin-linux
 
 
 ln -s $(pwd)/ss-faketls.service /etc/systemd/system/ss-faketls.service
