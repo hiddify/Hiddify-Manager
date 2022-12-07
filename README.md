@@ -85,6 +85,15 @@ Same as v2ray
 It is tested on Ubuntu 20.04 and 22.04
 </details>
 
+<details  markdown="1"> <summary>Auto Up to date (به روز رسانی خودکار)</summary>
+
+به صورت پیش فرض به روزرسانی خودکار فعال است
+جهت غیرفعال کردن آن کد زیر را در `config.env` اضافه کنید
+```
+ENABLE_AUTO_UPDATE=false
+```
+</details>
+
 
 <details  markdown="1"> <summary>code for cloud-init</summary>
 
