@@ -15,7 +15,7 @@ output "lb_proxy_url" {
   
 }
 output "dev" {
-  value = "Made with \u2764 by Hiddify"
+  value = "Made with \u2764 by Hiddify. Please wait for atleast 15 minutes to see the result. If you can see the webpage, it means that everything has been set up :D"
 }
 
 
