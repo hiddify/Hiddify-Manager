@@ -248,6 +248,9 @@ After your domain nameservers changed successfully (depending on the registrar, 
 
 
 # One Click Setup
+
+توجه کنید پس از اجرای دکمه زیر حداقل 5 دقیقه زمان لازم است که به صورت کامل همه کامپوننت ها نصب گردد. پس صبر داشته باشید :) و پس از ده دقیقه لینک تولید شده را آزمایش کنید تا صفحه را مشاهده کنید
+
 Oracle: [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/hiddify/hiddify-config/archive/refs/heads/main.zip)
 
 For Azure: -> Telegram: <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhiddify%2Fconfig%2Fmain%2Ftelegram%2Ftelegram-vm-azure-template.json" target="_blank"><img src="https://aka.ms/deploytoazurebutton"/></a>
