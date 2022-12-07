@@ -11,9 +11,9 @@ echo "nginx install.sh $*"
 pkill nginx
 
 
-
+pkill -9 nginx
 certbot --nginx --register-unsafely-without-email -d $MAIN_DOMAIN --non-interactive --agree-tos  --https-port 444 --no-redirect
-
+pkill -9 nginx
 echo "https://$MAIN_DOMAIN/$USER_SECRET/">use-link
 
 systemctl restart nginx
