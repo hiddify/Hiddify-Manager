@@ -1,0 +1,23 @@
+#cloud-config
+package_upgrade: true
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - wget
+  - gnupg-agent
+  - software-properties-common
+  - git
+
+runcmd:
+  - cd /opt
+  - git clone https://github.com/hiddify/hiddify-config/
+  - cd hiddify-config
+  - echo "USER_SECRET=${guid}" >config.env
+  - echo "MAIN_DOMAIN=${domain}" >>config.env
+  - echo "TELEGRAM_AD_TAG=${telegram_adtag}" >>config.env
+  - bash install.sh
+  - DO_NOT_INSTALL=true bash install.sh
+
+final_message: "The system is finally up, after $UPTIME seconds"
+output: { all: "| tee -a /root/cloud-init-output.log" }
