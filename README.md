@@ -88,17 +88,6 @@ It is tested on Ubuntu 20.04 and 22.04
 
 # پیش نیازها:
 - یک vps آماده با ubuntu 20.04 و آی پی مثلا `1.1.1.1`
-- یک دامنه یا زیردامنه (برای مثال: `myservice.hiddify.com`) که رکورد A ی آن به آی پی شما وصل باشد. 
-<details markdown="1"><summary>اگر زیر دامنه ندارید، مراحل زیر را انجام دهید</summary>
-
-1- وارد [این سایت](https://freedns.afraid.org/signup/?plan=starter) و یک یوزر بسازید (لازم نیست که اطلاعاتتان واقعی باشد فقط ایمیل باید درست باشد)
-
-2- ایمیلی که به شما ارسال شده را اکتیو کنید
-
-3- روی [این لینک](https://freedns.afraid.org/subdomain/edit.php?edit_domain_id=1184493) کلیک کنید و آی پی سرور را خود و نام مورد نظر را در آن قرار دهید.
-
-4- زیر دامنه ایجاد شده را کپی کنید.
-</details>
 
 # Easy Setup (نصب سریع)
 
@@ -119,12 +108,25 @@ sudo bash install.sh
 <details markdown="1"> <summary>Optional: Advanced Setup (اختیاری: نصب پیشرفته) </summary>
 
 این قسمت برای افراد آشنا با کامپیوتر آماده شده است. میتوانید از آن صرفه نظر کنید.
+
+
+<details markdown="1"><summary>اگر زیر دامنه ندارید، میتوانید زیردامنه سفارشی خود،  را بسازید</summary>
+
+1- وارد [این سایت](https://freedns.afraid.org/signup/?plan=starter) و یک یوزر بسازید (لازم نیست که اطلاعاتتان واقعی باشد فقط ایمیل باید درست باشد)
+
+2- ایمیلی که به شما ارسال شده را اکتیو کنید
+
+3- روی [این لینک](https://freedns.afraid.org/subdomain/edit.php?edit_domain_id=1184493) کلیک کنید و آی پی سرور را خود و نام مورد نظر را در آن قرار دهید.
+
+4- زیر دامنه ایجاد شده را کپی کنید.
+</details>
+
 ```
 cd /opt/
 git clone https://github.com/hiddify/hiddify-config
 cd hiddify-config
 ```
-change the varibales in config.env
+change the varibales in config.env and insert your domain and secret
 then run 
 ```
 sudo bash install.sh
