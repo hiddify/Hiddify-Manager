@@ -86,6 +86,40 @@ It is tested on Ubuntu 20.04 and 22.04
 </details>
 
 
+<details  markdown="1"> <summary>code for cloud-init</summary>
+
+در بعضی از شرکت ها شما میتوانید با استفاده از اسکریپت زیر به صورت خودکار پروکسی را نصب کنید و از آدرس `https://yourip.nip.io/0123456789abcdef0123456789abcdef/` به صفحه کاربران آن دسترسی داشته باشید کافی است به جای yourip آی پی خود را قرار دهید.
+
+
+```
+#cloud-config
+package_upgrade: true
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - wget
+  - gnupg-agent
+  - software-properties-common
+  - git
+
+runcmd:
+  - cd /opt
+  - git clone https://github.com/hiddify/hiddify-config/
+  - cd hiddify-config
+  - echo "USER_SECRET=0123456789abcdef0123456789abcdef" >config.env
+  - echo "MAIN_DOMAIN=" >>config.env
+  - echo "TELEGRAM_AD_TAG=" >>config.env
+  - bash install.sh
+
+final_message: "The system is finally up, after $UPTIME seconds"
+output: { all: "| tee -a /root/cloud-init-output.log" }
+
+```
+
+</details>
+
+
 # پیش نیازها:
 - یک vps آماده با ubuntu 20.04 و آی پی مثلا `1.1.1.1`
 
