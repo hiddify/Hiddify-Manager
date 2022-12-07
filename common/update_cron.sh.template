@@ -1,0 +1,13 @@
+#!/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+cd /opt/GITHUB_REPOSITORY/
+
+changed=0
+git pull --dry-run | grep -q -v 'Already up-to-date.' && changed=1
+
+
+if [[ "$changed" == "1" ]];then
+    git pull
+    bash install.sh
+fi

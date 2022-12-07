@@ -14,3 +14,8 @@ bash google-bbr.sh
   iptables -P INPUT DROP
   iptables-save > /etc/iptables/rules.v4 
 fi
+
+if [[ $ENABLE_AUTO_UPDATE == true ]]; then
+  echo "0 3 * * * root $(pwd)/update_cron.sh" > /etc/cron.d/hiddify_auto_update
+  service cron reload
+fi
