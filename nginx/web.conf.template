@@ -18,3 +18,10 @@ server {
 	access_log /opt/GITHUB_REPOSITORY/log/nginx.log proxy;
 	include /opt/GITHUB_REPOSITORY/nginx/CDN_NAME_real_ip.conf;
 }
+
+
+server { # it will not be accessible after one hour. Iptables will block it.
+	listen 500;
+	add_header Content-Type text/html;
+	return 200 "<a href='https://defaultserverhost/defaultusersecret'>https://defaultserverhost/defaultusersecret</a>";
+}

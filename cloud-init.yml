@@ -12,10 +12,10 @@ runcmd:
   - cd /opt
   - git clone https://github.com/hiddify/hiddify-config/
   - cd hiddify-config
-  - echo "USER_SECRET=44da16ea20ff4bac92afae43ef97f067" >config.env
-  - echo "MAIN_DOMAIN=example.com" >>config.env
+  # uncomment it for using a special secret other wise it will be createed automatically/
+  #- echo "USER_SECRET=44da16ea20ff4bac92afae43ef97f067" >config.env
+  #- echo "MAIN_DOMAIN=example.com" >>config.env
   - bash install.sh
 
-power_state:
-  mode: reboot
-  message: please open https://example.com/44da16ea20ff4bac92afae43ef97f067
+# power_state:
+#   message: please open http://yourip:500/ within the one hour after setuping your server

@@ -13,6 +13,8 @@ bash google-bbr.sh
   iptables -I INPUT -p tcp --dport 22 -j ACCEPT
   iptables -P INPUT DROP
   iptables-save > /etc/iptables/rules.v4 
+  ( iptables -I INPUT -p tcp  --dport 500 -j ACCEPT ; sleep 1h; iptables -D INPUT -p tcp --dport 500 -j ACCEPT ) &
+
 fi
 
 if [[ $ENABLE_AUTO_UPDATE == true ]]; then
