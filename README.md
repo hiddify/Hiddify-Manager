@@ -116,14 +116,16 @@ runcmd:
   - cd /opt
   - git clone https://github.com/hiddify/hiddify-config/
   - cd hiddify-config
-  - echo "USER_SECRET=0123456789abcdef0123456789abcdef" >config.env
-  - echo "MAIN_DOMAIN=" >>config.env
+ # uncomment it for using a special secret other wise it will be createed automatically
+ # - echo "USER_SECRET=0123456789abcdef0123456789abcdef" >config.env
+ # - echo "MAIN_DOMAIN=" >>config.env
   - echo "TELEGRAM_AD_TAG=" >>config.env
   - bash install.sh
 
 final_message: "The system is finally up, after $UPTIME seconds"
 output: { all: "| tee -a /root/cloud-init-output.log" }
 
+# you can see the generated link from the website by using http://yourip:500/ in one hour after that it will be disapear
 ```
 
 </details>
