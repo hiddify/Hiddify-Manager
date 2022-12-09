@@ -1,0 +1,8 @@
+location / {
+	if ($time_iso8601 ~ "^TEMP_LINK_VALID_TIME" ) { 
+		add_header Content-Type text/html;
+		return 200 "<a href='https://defaultserverhost/defaultusersecret'>https://defaultserverhost/defaultusersecret</a>  This link will be destroyed in one hour.";
+	}
+
+	proxy_pass http://telegramtlsdomain;
+}

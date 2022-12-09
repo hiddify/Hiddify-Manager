@@ -1,8 +1,6 @@
 server {
 	listen 80 ;
-	location / {
-		proxy_pass http://telegramtlsdomain;
-	}
+	include /opt/GITHUB_REPOSITORY/nginx/def-link.conf;
 }
 log_format proxy '[$time_local] $proxy_protocol_addr '
                  '$upstream_addr $status $bytes_sent $request_length $request_time';
@@ -15,13 +13,10 @@ server {
 	ssl_certificate /opt/GITHUB_REPOSITORY/nginx/selfsigned.crt; 
 	ssl_certificate_key /opt/GITHUB_REPOSITORY/nginx/selfsigned.key;
 	
-	access_log /opt/GITHUB_REPOSITORY/log/nginx.log proxy;
+	access_log /opt]/GITHUB_REPOSITORY/log/nginx.log proxy;
 	include /opt/GITHUB_REPOSITORY/nginx/CDN_NAME_real_ip.conf;
-}
 
 
-server { # it will not be accessible after one hour. Iptables will block it.
-	listen 500;
-	add_header Content-Type text/html;
-	return 200 "<a href='https://defaultserverhost/defaultusersecret'>https://defaultserverhost/defaultusersecret</a>";
+    
+
 }
