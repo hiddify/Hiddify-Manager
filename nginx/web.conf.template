@@ -13,7 +13,7 @@ server {
 	ssl_certificate /opt/GITHUB_REPOSITORY/nginx/selfsigned.crt; 
 	ssl_certificate_key /opt/GITHUB_REPOSITORY/nginx/selfsigned.key;
 	
-	access_log /opt]/GITHUB_REPOSITORY/log/nginx.log proxy;
+	access_log /opt/GITHUB_REPOSITORY/log/nginx.log proxy;
 	include /opt/GITHUB_REPOSITORY/nginx/CDN_NAME_real_ip.conf;
 
 
