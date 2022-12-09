@@ -1,7 +1,11 @@
+sudo timedatectl set-timezone  Asia/Tehran
+
 apt install -y apt-transport-https dnsutils ca-certificates git curl wget gnupg-agent software-properties-common  iptables
 
 ln -s $(pwd)/sysctl.conf /etc/sysctl.d/ss-opt.conf
 sysctl --system
+
+
 
 bash google-bbr.sh
 
