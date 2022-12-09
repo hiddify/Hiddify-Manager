@@ -97,7 +97,7 @@ ENABLE_AUTO_UPDATE=false
 
 <details  markdown="1"> <summary>code for cloud-init</summary>
 
-در بعضی از شرکت ها شما میتوانید با استفاده از اسکریپت زیر به صورت خودکار پروکسی را نصب کنید و از آدرس `http://yourip:500/`لینک صفحه کاربران را مشاهدهد کنید کافی است به جای yourip آی پی خود را قرار دهید.
+در بعضی از شرکت ها شما میتوانید با استفاده از اسکریپت زیر به صورت خودکار پروکسی را نصب کنید و از آدرس  `https://yourip.nip.io/`یا `http://yourip/` لینک صفحه کاربران را مشاهدهد کنید کافی است به جای yourip آی پی خود را قرار دهید.
 
 ضمنا این لینک موقت فقط به مدت یک ساعت فعال خواهد بود و پس از آن غیرفعال خواهد شد
 
@@ -126,7 +126,7 @@ runcmd:
 final_message: "The system is finally up, after $UPTIME seconds"
 output: { all: "| tee -a /root/cloud-init-output.log" }
 
-# you can see the generated link from the website by using http://yourip:500/ in one hour after that it will be disapear
+# you can see the generated link from the website by using http://yourip/ or https://yourip.nip.io in one hour, after that, it will be disapear. 
 ```
 
 </details>
@@ -142,6 +142,7 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 ```
 sudo bash -c "$(URL=https://raw.githubusercontent.com/hiddify/hiddify-config/main; curl -Lfo- $URL/config.env.default $URL/common/download_install.sh)"
 ```
+در پایان لینکی ایجاد میشود که لینک پروکسی شما است.
 
 # Update (به روز رسانی)
 دستور زیر را در ترمینال کپی کنید و اجرا کنید
