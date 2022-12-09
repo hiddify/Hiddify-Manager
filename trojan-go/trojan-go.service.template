@@ -1,0 +1,13 @@
+[Unit]
+Description=trojan-go
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/GITHUB_REPOSITORY/trojan-go
+ExecStart=./trojan-go -c config.json
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

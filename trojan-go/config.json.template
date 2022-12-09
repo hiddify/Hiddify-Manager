@@ -1,0 +1,18 @@
+{
+  "run_type": "server",
+  "local_addr": "0.0.0.0",
+  "local_port": 9443,
+  "remote_addr": "127.0.0.1",
+  "remote_port": 80,
+  "password": ["usersecret"],
+  "ssl": {
+    "cert": "/etc/letsencrypt/live/serverip/fullchain.pem",
+    "key": "/etc/letsencrypt/live/serverip/privkey.pem",
+    "sni": "serverip"
+  },
+  "websocket": {
+    "enabled": true,
+    "path": "/usersecret/trojan/",
+    "hostname": "serverip"
+  }
+}
