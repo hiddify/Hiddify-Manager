@@ -3,7 +3,7 @@ HEX_TELEGRAM_DOMAIN=$(echo -n "$TELEGRAM_FAKE_TLS_DOMAIN"| xxd -ps | tr -d '\n')
 CLOUD_PROVIDER=${CLOUD_PROVIDER:-$MAIN_DOMAIN}
 GUID_SECRET="${USER_SECRET:0:8}-${USER_SECRET:8:4}-${USER_SECRET:12:4}-${USER_SECRET:16:4}-${USER_SECRET:20:12}"
 
-TEMP_LINK_VALID_TIME=$(date '+%Y-%m-%dT(%H|')$(($(date '+%H') +1))")"
+TEMP_LINK_VALID_TIME=$(date '+%Y-%m-%dT(%H\|')$(($(date '+%H') +1))")"
 IP=$(curl -Lso- https://api.ipify.org);
 
 for template_file in $(find . -name "*.template"); do
