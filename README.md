@@ -189,7 +189,15 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 ![image](https://user-images.githubusercontent.com/114227601/206861323-1de41700-6ce4-403a-a644-0836e2a22876.png)
 
 
+یادتون نره حداقل 10 دقیقه  صبر کنیدا
+
 پس از این لینک صفحه پروکسی را مشاهده میکنید. توجه کنید که این لینک را در تلگرام خود کپی کنید وگرنه بعد از یک ساعت دیگر قابل دسترسی نیست.
+![image](https://user-images.githubusercontent.com/114227601/206862357-27578faa-89cb-4eed-a83e-4b405faa8da7.png)
+
+تبریک!
+
+سرور پروکسی شما آماده است. 
+![image](https://user-images.githubusercontent.com/114227601/206862431-07e4e38c-7c25-48a1-b0b8-027b7c516416.png)
 
 </details>
 
