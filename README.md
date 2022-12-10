@@ -254,6 +254,8 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 سرور پروکسی شما آماده است. 
 ![image](https://user-images.githubusercontent.com/114227601/206862431-07e4e38c-7c25-48a1-b0b8-027b7c516416.png)
 
+</details>
+
 # نصب سریع اگر یک سرور دارید
 
 دستور زیر را در ترمینال کپی کنید و اجرا کنید
@@ -263,18 +265,24 @@ sudo bash -c "$(URL=https://raw.githubusercontent.com/hiddify/hiddify-config/mai
 ```
 در پایان لینکی ایجاد میشود که لینک پروکسی شما است.
 
-# Update (به روز رسانی)
+
+<details markdown="1"> <summary>Optional: Advanced Setup (اختیاری: نصب پیشرفته) </summary>
+
+این قسمت برای افراد آشنا با کامپیوتر آماده شده است. میتوانید از آن صرفه نظر کنید.
+
+<details markdown="1"> <summary> Update (به روز رسانی) </summary>
+
+به صورت پیش فرض آپدیت خودکار فعال است. برای غیرفعال کردن آن در فایل `config.env` عبارت `ENABLE_AUTO_UPDATE=false` را قرار دهید.
+
+و برای آپدیت دستی
+
 دستور زیر را در ترمینال کپی کنید و اجرا کنید
 ```
 cd /opt/hiddify-config
 sudo git pull
 sudo bash install.sh
 ```
-
-<details markdown="1"> <summary>Optional: Advanced Setup (اختیاری: نصب پیشرفته) </summary>
-
-این قسمت برای افراد آشنا با کامپیوتر آماده شده است. میتوانید از آن صرفه نظر کنید.
-
+</details>
 
 <details markdown="1"><summary>اگر زیر دامنه ندارید، میتوانید زیردامنه سفارشی خود،  را بسازید</summary>
 
@@ -379,11 +387,6 @@ After your domain nameservers changed successfully (depending on the registrar, 
 ![صفحه راهنمای کاربران](https://user-images.githubusercontent.com/114227601/205199749-a3b93e75-7818-4deb-9924-706aef467f97.png)
 
 
-# One Click Setup
-
-توجه کنید پس از اجرای دکمه زیر حداقل 5 دقیقه زمان لازم است که به صورت کامل همه کامپوننت ها نصب گردد. پس صبر داشته باشید :) و پس از ده دقیقه لینک تولید شده را آزمایش کنید تا صفحه را مشاهده کنید
-
-Oracle: 
 
 <!-- For Azure: -> Telegram: <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhiddify%2Fconfig%2Fmain%2Ftelegram%2Ftelegram-vm-azure-template.json" target="_blank"><img src="https://aka.ms/deploytoazurebutton"/></a>
 MultiProxy: <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhiddify%2Fconfig%2Fmain%2Fshadowsocks%2Fss-azure-template.json" target="_blank"><img src="https://aka.ms/deploytoazurebutton"/></a> -->
