@@ -12,12 +12,13 @@ bash google-bbr.sh
 
 
  if [[ $ENABLE_FIREWALL == true ]]; then
+  iptables -I INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+  iptables -I INPUT -i lo -j ACCEPT
   iptables -I INPUT -p tcp --dport 443 -j ACCEPT
   iptables -I INPUT -p tcp --dport 80 -j ACCEPT
   iptables -I INPUT -p tcp --dport 22 -j ACCEPT
   iptables -P INPUT DROP
   iptables-save > /etc/iptables/rules.v4 
-  ( iptables -I INPUT -p tcp  --dport 500 -j ACCEPT ; sleep 1h; iptables -D INPUT -p tcp --dport 500 -j ACCEPT ) &
 
 fi
 
