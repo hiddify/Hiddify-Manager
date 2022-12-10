@@ -89,10 +89,10 @@ function replace_empty_env() {
                 fi
 
                 # read -p "> " RESPONSE
-                if [[ -z "$RESPONSE" ]]; then
-                        RESPONSE=$DEFAULT
-                fi
-                
+                #if [[ -z "$RESPONSE" ]]; then
+                #        RESPONSE=$DEFAULT
+                #fi
+                RESPONSE=$DEFAULT
                 if [[ ! -z "$REGEX" ]];then
                         if [[ "$RESPONSE" =~ $REGEX ]];then
                                 sed -i "s|$1=|$1=$RESPONSE|g" config.env 

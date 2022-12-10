@@ -73,7 +73,7 @@ Same as v2ray
 کلیه سورس کدها در [گیت هاب](https://github.com/hiddify/hiddify-config) 
 </details>
 
-<details markdown="1"> <summary>ارائه گزارش مانیتورینگ </summary>
+<details markdown="1"> <summary>ارائه گزارش وضعیت سرویس </summary>
 نمایش میزان مصرف پروکسی و تعداد کاربران،  بر اساس،پروتوکل، شهر و اپراتور اینترنت با حفظ حریم خصوصی کاربران
 
 از طریق لینک زیر میتوانید مشاهده کنید وضعیت سرور رو
@@ -130,12 +130,68 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 ```
 
 </details>
+# نصب خیلی خیلی سریع!!!!! فقط با کلیک 
+
+<details markdown="1"><summary>نصب خیلی خیلی سریع در اوراکل کلود</summary>
+
+دکمه زیر فشار دهید: 
+
+[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/hiddify/hiddify-config/archive/refs/heads/main.zip)
+
+همه مراحل را next بزنید
+
+و در پایان لینک را از زیر کپی کنید. توجه کنید باید حداقل 15 دقیقه صبر کنید تا لینک فعال شود.
+
+![image](https://user-images.githubusercontent.com/114227601/206861477-7967ac8d-ea9f-4742-b414-e848898668c7.png)
 
 
-# پیش نیازها:
-- یک vps آماده با ubuntu 20.04 و آی پی مثلا `1.1.1.1`
+</details>
 
-# Easy Setup (نصب سریع)
+<details markdown="1"><summary>نصب خیلی خیلی سریع در هتزنر</summary>
+![image](https://user-images.githubusercontent.com/114227601/206861285-58832cec-a2a3-441e-91d4-8300d16584d6.png)
+
+حالا کد زیر را کپی کنید
+```
+#cloud-config
+package_upgrade: true
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - wget
+  - gnupg-agent
+  - software-properties-common
+  - git
+
+runcmd:
+  - cd /opt
+  - git clone https://github.com/hiddify/hiddify-config/
+  - cd hiddify-config
+ # uncomment it for using a special secret other wise it will be createed automatically
+ # - echo "USER_SECRET=0123456789abcdef0123456789abcdef" >config.env
+ # - echo "MAIN_DOMAIN=" >>config.env
+  - echo "TELEGRAM_AD_TAG=" >>config.env
+  - bash install.sh
+
+final_message: "The system is finally up, after $UPTIME seconds"
+output: { all: "| tee -a /root/cloud-init-output.log" }
+
+# you can see the generated link from the website by using http://yourip/ or https://yourip.nip.io in one hour, after that, it will be disapear. 
+```
+کد بالا را در محل نشان داده در عکس قرار دهید.
+![image](https://user-images.githubusercontent.com/114227601/206861304-656682b4-17a3-44c1-89f9-7b0d89566728.png)
+
+پس از حداکثر 10 تا 15 دقیقه سرور شما آماده و پروکسی فعال خواهد بود
+مطابق عکس IP خود را کپی کنید و در مرورگر باز کنید
+
+![image](https://user-images.githubusercontent.com/114227601/206861323-1de41700-6ce4-403a-a644-0836e2a22876.png)
+
+
+پس از این لینک صفحه پروکسی را مشاهده میکنید. توجه کنید که این لینک را در تلگرام خود کپی کنید وگرنه بعد از یک ساعت دیگر قابل دسترسی نیست.
+
+</details>
+
+# نصب سریع اگر یک سرور دارید
 
 دستور زیر را در ترمینال کپی کنید و اجرا کنید
 
@@ -264,7 +320,7 @@ After your domain nameservers changed successfully (depending on the registrar, 
 
 توجه کنید پس از اجرای دکمه زیر حداقل 5 دقیقه زمان لازم است که به صورت کامل همه کامپوننت ها نصب گردد. پس صبر داشته باشید :) و پس از ده دقیقه لینک تولید شده را آزمایش کنید تا صفحه را مشاهده کنید
 
-Oracle: [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/hiddify/hiddify-config/archive/refs/heads/main.zip)
+Oracle: 
 
 <!-- For Azure: -> Telegram: <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhiddify%2Fconfig%2Fmain%2Ftelegram%2Ftelegram-vm-azure-template.json" target="_blank"><img src="https://aka.ms/deploytoazurebutton"/></a>
 MultiProxy: <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhiddify%2Fconfig%2Fmain%2Fshadowsocks%2Fss-azure-template.json" target="_blank"><img src="https://aka.ms/deploytoazurebutton"/></a> -->
