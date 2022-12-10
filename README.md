@@ -130,6 +130,7 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 ```
 
 </details>
+
 # نصب خیلی خیلی سریع!!!!! فقط با کلیک 
 
 <details markdown="1"><summary>نصب خیلی خیلی سریع در اوراکل کلود</summary>
