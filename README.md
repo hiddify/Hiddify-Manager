@@ -201,6 +201,59 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 
 </details>
 
+<details markdown="1"><summary>نصب خیلی خیلی سریع در vultr </summary>
+
+ابتدا کد زیر را کپی کنید
+```
+#cloud-config
+package_upgrade: true
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - wget
+  - gnupg-agent
+  - software-properties-common
+  - git
+
+runcmd:
+  - cd /opt
+  - git clone https://github.com/hiddify/hiddify-config/
+  - cd hiddify-config
+ # uncomment it for using a special secret other wise it will be createed automatically
+ # - echo "USER_SECRET=0123456789abcdef0123456789abcdef" >config.env
+ # - echo "MAIN_DOMAIN=" >>config.env
+  - echo "TELEGRAM_AD_TAG=" >>config.env
+  - bash install.sh
+
+final_message: "The system is finally up, after $UPTIME seconds"
+output: { all: "| tee -a /root/cloud-init-output.log" }
+
+# you can see the generated link from the website by using http://yourip/ or https://yourip.nip.io in one hour, after that, it will be disapear. 
+```
+
+سپس در قسمت سرور تیک زیر را فشار دهید و کد بالا را در آن قرار دهید
+
+![image](https://user-images.githubusercontent.com/114227601/206862792-ed30c212-efe4-47cf-8973-c3129a09499f.png)
+
+پس از حداکثر 10 تا 15 دقیقه سرور شما آماده و پروکسی فعال خواهد بود
+مطابق عکس IP خود را کپی کنید و در مرورگر باز کنید
+
+
+![image](https://user-images.githubusercontent.com/114227601/206863129-718c4db6-8fe1-43f1-b74e-562bf1a1e292.png)
+
+
+یادتون نره حداقل 10 دقیقه  صبر کنیدا
+
+پس از این لینک صفحه پروکسی را مشاهده میکنید. توجه کنید که این لینک را در تلگرام خود کپی کنید وگرنه بعد از یک ساعت دیگر قابل دسترسی نیست.
+
+![image](https://user-images.githubusercontent.com/114227601/206862357-27578faa-89cb-4eed-a83e-4b405faa8da7.png)
+
+تبریک!
+
+سرور پروکسی شما آماده است. 
+![image](https://user-images.githubusercontent.com/114227601/206862431-07e4e38c-7c25-48a1-b0b8-027b7c516416.png)
+
 # نصب سریع اگر یک سرور دارید
 
 دستور زیر را در ترمینال کپی کنید و اجرا کنید
