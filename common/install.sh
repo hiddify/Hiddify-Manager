@@ -15,6 +15,7 @@ bash google-bbr.sh
   iptables -I INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
   iptables -I INPUT -i lo -j ACCEPT
   iptables -I INPUT -p tcp --dport 443 -j ACCEPT
+  iptables -I INPUT -p udp --dport 53 -j ACCEPT
   iptables -I INPUT -p tcp --dport 80 -j ACCEPT
   iptables -I INPUT -p tcp --dport 22 -j ACCEPT
   iptables -P INPUT DROP
