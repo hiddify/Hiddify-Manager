@@ -149,6 +149,7 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 </details>
 
 <details markdown="1"><summary>نصب خیلی خیلی سریع در هتزنر</summary>
+
 ![image](https://user-images.githubusercontent.com/114227601/206861285-58832cec-a2a3-441e-91d4-8300d16584d6.png)
 
 حالا کد زیر را کپی کنید
