@@ -8,7 +8,7 @@ cd  mtprotoproxy
 sed "s/00000000000000000000000000000001/defaultusersecret/g" config.py > config.py.template
 echo 'AD_TAG="telegramadtag"'>>config.py.template
 echo 'TLS_DOMAIN = "telegramtlsdomain"'>> config.py.template
-sed -i 's/PORT = 443/PORT = 449/g' config.py.template
+sed -i 's/PORT = 443/PORT = 1001/g' config.py.template
 
 ln -s  $(pwd)/../mtproxy.service /etc/systemd/system/
 

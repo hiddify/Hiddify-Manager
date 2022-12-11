@@ -1,6 +1,6 @@
 {
     "server":"0.0.0.0",
-    "server_port":448,
+    "server_port":1003,
     "password":"defaultusersecret",
     "timeout":300,
     "plugin":"/opt/GITHUB_REPOSITORY/shadowsocks/v2ray-plugin_linux",

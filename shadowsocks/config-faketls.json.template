@@ -1,6 +1,6 @@
 {
     "server":"0.0.0.0",
-    "server_port":447,
+    "server_port":1002,
     "password":"defaultusersecret",
     "timeout":300,
     "plugin":"obfs-server",

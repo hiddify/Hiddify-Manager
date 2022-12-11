@@ -1,7 +1,7 @@
 location = /defaultusersecret/trojan/ {
    proxy_redirect off;
    proxy_http_version 1.1;
-   proxy_pass https://127.0.0.1:9443/;
+   proxy_pass https://127.0.0.1:1005/;
    proxy_ssl_server_name on;
    proxy_ssl_name $http_host;
    proxy_set_header Upgrade $http_upgrade;
@@ -14,7 +14,7 @@ location = /defaultusersecret/v2ray/ {
   #for performance
   proxy_redirect off;
   proxy_http_version 1.1;
-  proxy_pass http://127.0.0.1:448/; # Port of v2ray-plugin
+  proxy_pass http://127.0.0.1:1003/; # Port of v2ray-plugin
   proxy_set_header Upgrade $http_upgrade;
   proxy_set_header Connection "upgrade";
   proxy_set_header Host $http_host;
@@ -26,7 +26,7 @@ location = /defaultusersecret/vmess/ {
   #for performance
   proxy_redirect off;
   proxy_http_version 1.1;
-  proxy_pass http://127.0.0.1:445/; # Port of v2ray-plugin
+  proxy_pass http://127.0.0.1:1004/; # Port of v2ray-plugin
   proxy_set_header Upgrade $http_upgrade;
   proxy_set_header Connection "upgrade";
   proxy_set_header Host $http_host;
