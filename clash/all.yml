@@ -56,24 +56,38 @@ proxies:
     #   max-early-data: 2048
     #   early-data-header-name: Sec-WebSocket-Protocol
      
+  - name: "trojan"
+    type: trojan
+    server: cloudprovider
+    port: 443
+    password: "usersecret"
+    #udp: true
+    sni: proxyproviderip
+    network: ws
+    ws-opts:
+      path: /usersecret/trojan/
+
 proxy-groups:
    - name: Autom
      proxies:
+       - trojan
        - faketls
        - v2ray
        - vmess
+       
      type: url-test
      url: 'https://www.facebook.com/'
      interval: 300
 
    - name: P
      proxies:
+       - trojan
        - v2ray
        - faketls
        - vmess
        - DIRECT
      type: fallback
-     url: 'http://www.gstatic.com/generate_204'
+     url: 'https://www.facebook.com/'
      interval: 300
      
 
