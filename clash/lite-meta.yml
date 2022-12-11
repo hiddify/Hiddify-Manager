@@ -112,16 +112,3 @@ rules:
   - DOMAIN-SUFFIX,proxyproviderip,P
   - MATCH,DIRECT
 
-dns:
-  enable: true
-  listen: 0.0.0.0:53
-  ipv6: false # when the false, response to AAAA questions will be empty
-  default-nameserver:
-    - 178.22.122.100
-    - 185.51.200.2
-  enhanced-mode: fake-ip 
-  fake-ip-range: 10.18.0.1/16 
-  nameserver:
-    - 178.22.122.100
-    - 185.51.200.2
-    #- https://serverip/usersecret/dns/dns-query 

@@ -77,15 +77,7 @@ proxy-groups:
      interval: 300
      
 
-rule-providers:     
-  ads:
-    type: http
-    behavior: classical
-    url: "https://proxyproviderip/usersecret/clash/rules/ads-sites.yml"
-    path: ./ruleset/ads.yaml
-    interval: 432000   
 rules:
-  - RULE-SET,ads,REJECT
   - IP-CIDR,10.10.34.0/24,P
   - DOMAIN-SUFFIX,t.me,P #tele gram
   - DOMAIN-SUFFIX,tdesktop.com,P #tele gram
