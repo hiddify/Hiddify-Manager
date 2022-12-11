@@ -26,4 +26,7 @@ fi
 if [[ $ENABLE_AUTO_UPDATE == true ]]; then
   echo "0 3 * * * root $(pwd)/update_cron.sh" > /etc/cron.d/hiddify_auto_update
   service cron reload
+else
+  rm -rf /etc/cron.d/hiddify_auto_update
+  service cron reload
 fi

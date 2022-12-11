@@ -28,3 +28,4 @@ log_format proxy '[$time_local] $proxy_protocol_addr '
                  '$upstream_addr $status $bytes_sent $bytes_received '
                  '$session_time';
 access_log /opt/GITHUB_REPOSITORY/log/nginx.log proxy;
+resolver 8.8.8.8;

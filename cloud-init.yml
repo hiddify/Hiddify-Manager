@@ -17,4 +17,4 @@ runcmd:
   #- echo "MAIN_DOMAIN=example.com" >>config.env
   - bash install.sh
 
-# please open http://yourip/ or https://yourip.nip.io within the one hour after setuping your server
+# please open http://yourip/ or https://yourip.sslip.io within the one hour after setuping your server

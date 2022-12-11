@@ -97,7 +97,7 @@ ENABLE_AUTO_UPDATE=false
 
 <details  markdown="1"> <summary>code for cloud-init</summary>
 
-در بعضی از شرکت ها شما میتوانید با استفاده از اسکریپت زیر به صورت خودکار پروکسی را نصب کنید و از آدرس  `https://yourip.nip.io/`یا `http://yourip/` لینک صفحه کاربران را مشاهدهد کنید کافی است به جای yourip آی پی خود را قرار دهید.
+در بعضی از شرکت ها شما میتوانید با استفاده از اسکریپت زیر به صورت خودکار پروکسی را نصب کنید و از آدرس  `https://yourip.sslip.io/`یا `http://yourip/` لینک صفحه کاربران را مشاهدهد کنید کافی است به جای yourip آی پی خود را قرار دهید.
 
 ضمنا این لینک موقت فقط به مدت یک ساعت فعال خواهد بود و پس از آن غیرفعال خواهد شد
 
@@ -126,7 +126,7 @@ runcmd:
 final_message: "The system is finally up, after $UPTIME seconds"
 output: { all: "| tee -a /root/cloud-init-output.log" }
 
-# you can see the generated link from the website by using http://yourip/ or https://yourip.nip.io in one hour, after that, it will be disapear. 
+# you can see the generated link from the website by using http://yourip/ or https://yourip.sslip.io in one hour, after that, it will be disapear. 
 ```
 
 </details>
@@ -178,7 +178,7 @@ runcmd:
 final_message: "The system is finally up, after $UPTIME seconds"
 output: { all: "| tee -a /root/cloud-init-output.log" }
 
-# you can see the generated link from the website by using http://yourip/ or https://yourip.nip.io in one hour, after that, it will be disapear. 
+# you can see the generated link from the website by using http://yourip/ or https://yourip.sslip.io in one hour, after that, it will be disapear. 
 ```
 کد بالا را در محل نشان داده در عکس قرار دهید.
 ![image](https://user-images.githubusercontent.com/114227601/206861304-656682b4-17a3-44c1-89f9-7b0d89566728.png)
@@ -229,7 +229,7 @@ runcmd:
 final_message: "The system is finally up, after $UPTIME seconds"
 output: { all: "| tee -a /root/cloud-init-output.log" }
 
-# you can see the generated link from the website by using http://yourip/ or https://yourip.nip.io in one hour, after that, it will be disapear. 
+# you can see the generated link from the website by using http://yourip/ or https://yourip.sslip.io in one hour, after that, it will be disapear. 
 ```
 
 سپس در قسمت سرور تیک زیر را فشار دهید و کد بالا را در آن قرار دهید

@@ -3,7 +3,7 @@
 # 
 
 locals{
-   site1= var.domain_name==""? format("https://%s.nip.io/%s/", oci_core_instance.app_instance[0].public_ip , local.guid): format("https://%s/%s/",var.domain_name,local.guid)
+   site1= var.domain_name==""? format("https://%s.sslip.io/%s/", oci_core_instance.app_instance[0].public_ip , local.guid): format("https://%s/%s/",var.domain_name,local.guid)
 }
 output "proxy_url" {
   value       = local.site1
