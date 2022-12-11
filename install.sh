@@ -13,8 +13,9 @@ function set_env_if_empty(){
   IFS=\= read k v <<< $line
   if [[ ! -z $k && -z "${!k}" ]]; then      
       export $k="$v"
+      echo $k="$v"
   fi
-  echo $k="$v"
+  
  done        
 
 }
