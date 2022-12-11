@@ -5,11 +5,11 @@ apt install -y apt-transport-https dnsutils ca-certificates git curl wget gnupg-
 ln -s $(pwd)/sysctl.conf /etc/sysctl.d/ss-opt.conf
 sysctl --system
 
-
-sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
-sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
-sudo sysctl -w net.ipv6.conf.lo.disable_ipv6=1
-
+if [[ $ONLY_IPV4 == true ]];then
+  sysctl -w net.ipv6.conf.all.disable_ipv6=1
+  sysctl -w net.ipv6.conf.default.disable_ipv6=1
+  sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+fi
 
 bash google-bbr.sh
 
