@@ -88,9 +88,10 @@ function replace_empty_env() {
                 echo "$DESCRIPTION"
                 
                 if [[ -z "$DEFAULT" ]]; then
-                        echo "Enter $DEFAULT?"
+                        echo "Enter $VAR?"
                 else
-                        echo "Enter $DEFAULT (default value='$DEFAULT' -> to confirm enter)"
+                        # echo "Enter $VAR (default value='$DEFAULT' -> to confirm enter)"
+                        echo "using '$DEFAULT' for $VAR"
                 fi
 
                 # read -p "> " RESPONSE
