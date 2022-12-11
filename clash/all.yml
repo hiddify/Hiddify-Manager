@@ -60,7 +60,7 @@ proxies:
     type: trojan
     server: cloudprovider
     port: 443
-    password: "usersecret"
+    password: "1"
     #udp: true
     sni: proxyproviderip
     network: ws

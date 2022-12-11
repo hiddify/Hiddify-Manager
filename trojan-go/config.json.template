@@ -1,10 +1,10 @@
 {
   "run_type": "server",
-  "local_addr": "0.0.0.0",
+  "local_addr": "127.0.0.1",
   "local_port": 1005,
   "remote_addr": "127.0.0.1",
   "remote_port": 80,
-  "password": ["defaultusersecret"],
+  "password": ["1"],
   "ssl": {
     "cert": "/opt/GITHUB_REPOSITORY/nginx/selfsigned.crt",
     "key": "/opt/GITHUB_REPOSITORY/nginx/selfsigned.key",
