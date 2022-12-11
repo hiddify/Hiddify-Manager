@@ -4,15 +4,15 @@
   "local_port": 9443,
   "remote_addr": "127.0.0.1",
   "remote_port": 80,
-  "password": ["usersecret"],
+  "password": ["defaultusersecret"],
   "ssl": {
-    "cert": "/etc/letsencrypt/live/serverip/fullchain.pem",
-    "key": "/etc/letsencrypt/live/serverip/privkey.pem",
-    "sni": "serverip"
+    "cert": "/opt/GITHUB_REPOSITORY/nginx/selfsigned.crt",
+    "key": "/opt/GITHUB_REPOSITORY/nginx/selfsigned.key",
+    "sni": "defaultserverhost"
   },
   "websocket": {
     "enabled": true,
-    "path": "/usersecret/trojan/",
-    "hostname": "serverip"
+    "path": "/",
+    "hostname": "defaultserverhost"
   }
 }

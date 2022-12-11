@@ -1,7 +1,7 @@
-location = /0e9e445c3a0842911babef44a0c60104/trojan/ {
+location = /defaultusersecret/trojan/ {
    proxy_redirect off;
    proxy_http_version 1.1;
-   proxy_pass https://127.0.0.1:9443;
+   proxy_pass https://127.0.0.1:9443/;
    proxy_ssl_server_name on;
    proxy_ssl_name $http_host;
    proxy_set_header Upgrade $http_upgrade;
