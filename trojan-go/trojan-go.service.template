@@ -6,7 +6,7 @@ Wants=network-online.target
 [Service]
 Type=simple
 WorkingDirectory=/opt/GITHUB_REPOSITORY/trojan-go
-ExecStart=./trojan-go -c config.json
+ExecStart=/opt/GITHUB_REPOSITORY/trojan-go/trojan-go -config config.json
 Restart=on-failure
 
 [Install]
