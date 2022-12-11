@@ -63,9 +63,7 @@ Same as v2ray
  
  با امکان تولید qrcode
 
- 
- ![صفحه راهنمای کاربران](https://user-images.githubusercontent.com/114227601/205199749-a3b93e75-7818-4deb-9924-706aef467f97.png)
-
+ ![صفحه راهنمای کاربران](https://user-images.githubusercontent.com/114227601/206908372-db1fc206-4c6a-4206-ad39-e6b6b44a55c4.png)
 
 </details>
 <details markdown="1"> <summary>Open Source</summary> 
@@ -197,7 +195,8 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 تبریک!
 
 سرور پروکسی شما آماده است. 
-![image](https://user-images.githubusercontent.com/114227601/206862431-07e4e38c-7c25-48a1-b0b8-027b7c516416.png)
+![صفحه راهنمای کاربران](https://user-images.githubusercontent.com/114227601/206908372-db1fc206-4c6a-4206-ad39-e6b6b44a55c4.png)
+
 
 </details>
 
@@ -252,7 +251,8 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 تبریک!
 
 سرور پروکسی شما آماده است. 
-![image](https://user-images.githubusercontent.com/114227601/206862431-07e4e38c-7c25-48a1-b0b8-027b7c516416.png)
+![صفحه راهنمای کاربران](https://user-images.githubusercontent.com/114227601/206908372-db1fc206-4c6a-4206-ad39-e6b6b44a55c4.png)
+
 
 </details>
 
@@ -384,7 +384,7 @@ After your domain nameservers changed successfully (depending on the registrar, 
 
 با امکان تولید qrcode
 
-![صفحه راهنمای کاربران](https://user-images.githubusercontent.com/114227601/205199749-a3b93e75-7818-4deb-9924-706aef467f97.png)
+![صفحه راهنمای کاربران](https://user-images.githubusercontent.com/114227601/206908372-db1fc206-4c6a-4206-ad39-e6b6b44a55c4.png)
 
 
 
