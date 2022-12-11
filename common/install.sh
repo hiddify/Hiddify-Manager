@@ -9,15 +9,17 @@ sysctl --system
 
 bash google-bbr.sh
 
-
+function add2iptables(){
+  iptables -C $1 || echo "adding rule $1" && iptables -I $1
+}
 
  if [[ $ENABLE_FIREWALL == true ]]; then
-  iptables -I INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
-  iptables -I INPUT -i lo -j ACCEPT
-  iptables -I INPUT -p tcp --dport 443 -j ACCEPT
-  iptables -I INPUT -p udp --dport 53 -j ACCEPT
-  iptables -I INPUT -p tcp --dport 80 -j ACCEPT
-  iptables -I INPUT -p tcp --dport 22 -j ACCEPT
+  add2iptables "INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT"
+  add2iptables "INPUT -i lo -j ACCEPT"
+  add2iptables "INPUT -p tcp --dport 443 -j ACCEPT"
+  add2iptables "INPUT -p udp --dport 53 -j ACCEPT"
+  add2iptables "INPUT -p tcp --dport 80 -j ACCEPT"
+  add2iptables "INPUT -p tcp --dport 22 -j ACCEPT"
   iptables -P INPUT DROP
   iptables-save > /etc/iptables/rules.v4 
 
