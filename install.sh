@@ -53,6 +53,18 @@ function do_for_all() {
         if [[ $ENABLE_TROJAN_GO == true ]]; then
                 runsh $1.sh trojan-go
         fi
+
+        if [[ $ENABLE_WARP_GO == true ]]; then
+                runsh $1.sh warp-go
+        fi
+
+        if [[ $ENABLE_XUI == true ]]; then
+                runsh $1.sh xui
+        fi
+        
+        if [[ $ENABLE_DNS_MASQUE == true ]]; then
+                runsh $1.sh dns-masque
+        fi
 }
 
 

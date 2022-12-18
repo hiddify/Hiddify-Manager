@@ -11,6 +11,8 @@ if [[ $ONLY_IPV4 == true ]];then
   sysctl -w net.ipv6.conf.lo.disable_ipv6=1
 fi
 
+bash ssh-port.sh
+
 if [[ $ENABLE_BBR == true ]]; then
   bash google-bbr.sh
 fi
@@ -25,7 +27,7 @@ function add2iptables(){
   add2iptables "INPUT -p tcp --dport 443 -j ACCEPT"
   add2iptables "INPUT -p udp --dport 53 -j ACCEPT"
   add2iptables "INPUT -p tcp --dport 80 -j ACCEPT"
-  add2iptables "INPUT -p tcp --dport $SSH_PORT -j ACCEPT"
+  # add2iptables "INPUT -p tcp --dport $SSH_PORT -j ACCEPT"
   iptables -P INPUT DROP
   iptables-save > /etc/iptables/rules.v4 
 

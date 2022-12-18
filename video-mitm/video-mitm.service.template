@@ -1,0 +1,13 @@
+[Unit]
+Description=video-mitm
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/GITHUB_REPOSITORY/video-mitm
+ExecStart=/opt/GITHUB_REPOSITORY/video-mitm/video-mitm run -r netflix.yaml > videomitm.log 2>&1 &
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

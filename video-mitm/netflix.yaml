@@ -1,0 +1,21 @@
+- name: "netflix"
+  mitm: "*.netflix.com"
+  filters:
+    url-regex: '^https:\/\/(www\.)?netflix\.com'
+  actions:
+    - modify-request:
+        cookie:
+          key: NetflixId
+          value: fill in your NetflixId
+    - modify-request:
+        cookie:
+          key: SecureNetflixId
+          value: fill in your SecureNetflixId
+    - modify-response:
+        cookie:
+          key: NetflixId
+          remove: true
+    - modify-response:
+        cookie:
+          key: SecureNetflixId
+          remove: true
