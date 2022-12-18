@@ -262,10 +262,13 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 
 ```
 wget --no-check-certificate https://raw.githubusercontent.com/kontorol/one_click_script/master/install_kernel.sh && chmod +x ./install_kernel.sh && ./install_kernel.sh
-sudo bash -c "$(URL=https://raw.githubusercontent.com/kontorol/hiddify-config/main; curl -Lfo- $URL/config.env.default $URL/common/download_install.sh '' 'we-connect.live')"
+sudo bash -c "$(URL=https://raw.githubusercontent.com/kontorol/hiddify-config/main; curl -Lfo- $URL/config.env.default $URL/common/download_install.sh '' '')"
 ```
 در پایان لینکی ایجاد میشود که لینک پروکسی شما است.
 ```
+trojan 1005
+v2ray 1003
+vmess 1004
 load_module /usr/lib/nginx/modules/ngx_stream_module.so;
 
 ```
