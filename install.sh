@@ -36,6 +36,8 @@ function do_for_all() {
         bash common/replace_variables.sh
         runsh $1.sh common
         runsh $1.sh nginx
+        runsh $1.sh dns-masque
+        
         if [[ $ENABLE_TELEGRAM == true ]]; then
                 runsh $1.sh telegram
         fi

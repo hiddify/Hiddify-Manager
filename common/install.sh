@@ -11,8 +11,6 @@ if [[ $ONLY_IPV4 == true ]];then
   sysctl -w net.ipv6.conf.lo.disable_ipv6=1
 fi
 
-bash ssh-port.sh
-
 if [[ $ENABLE_BBR == true ]]; then
   bash google-bbr.sh
 fi
