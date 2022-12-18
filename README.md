@@ -263,15 +263,6 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 ```
 sudo bash -c "$(URL=https://raw.githubusercontent.com/kontorol/hiddify-config/main; curl -Lfo- $URL/config.env.default $URL/common/download_install.sh)"
 ```
-
-```
-cd /opt
-# uncomment it for using a special secret other wise it will be created automatically
-# echo "USER_SECRET=0123456789abcdef0123456789abcdef" >config.env
-echo "MAIN_DOMAIN=we-connect.live" >>config.env
-echo "TELEGRAM_AD_TAG=" >>config.env
-sudo bash -c "$(URL=https://raw.githubusercontent.com/kontorol/hiddify-config/main; curl -Lfo- $URL/config.env.default $URL/common/download_install.sh)"
-```
 در پایان لینکی ایجاد میشود که لینک پروکسی شما است.
 
 
