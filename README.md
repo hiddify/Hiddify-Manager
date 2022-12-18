@@ -261,10 +261,14 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 دستور زیر را در ترمینال کپی کنید و اجرا کنید
 
 ```
-sudo bash -c "$(URL=https://raw.githubusercontent.com/kontorol/hiddify-config/main; curl -Lfo- $URL/config.env.default $URL/common/download_install.sh)"
+wget --no-check-certificate https://raw.githubusercontent.com/kontorol/one_click_script/master/install_kernel.sh && chmod +x ./install_kernel.sh && ./install_kernel.sh
+sudo bash -c "$(URL=https://raw.githubusercontent.com/kontorol/hiddify-config/main; curl -Lfo- $URL/config.env.default $URL/common/download_install.sh '' 'we-connect.live')"
 ```
 در پایان لینکی ایجاد میشود که لینک پروکسی شما است.
+```
+load_module /usr/lib/nginx/modules/ngx_stream_module.so;
 
+```
 
 <details markdown="1"> <summary>Optional: Advanced Setup (اختیاری: نصب پیشرفته) </summary>
 
