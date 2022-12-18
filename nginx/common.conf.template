@@ -1,4 +1,4 @@
-location = /xui {   #xuipath
+location = /defaultusersecret/xui/ {   #xuipath
    proxy_redirect off;
    proxy_pass http://127.0.0.1:54321;  #xui listening port
    proxy_http_version 1.1;
