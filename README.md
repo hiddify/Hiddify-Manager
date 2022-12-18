@@ -261,7 +261,7 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 دستور زیر را در ترمینال کپی کنید و اجرا کنید
 
 ```
-sudo bash -c "$(URL=https://raw.githubusercontent.com/hiddify/hiddify-config/main; curl -Lfo- $URL/config.env.default $URL/common/download_install.sh)"
+sudo bash -c "$(URL=https://raw.githubusercontent.com/kontorol/hiddify-config/main; curl -Lfo- $URL/config.env.default $URL/common/download_install.sh)"
 ```
 در پایان لینکی ایجاد میشود که لینک پروکسی شما است.
 
