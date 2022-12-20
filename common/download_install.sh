@@ -15,8 +15,8 @@ if [ ! -d "/opt/$GITHUB_REPOSITORY" ];then
 fi 
 
 
-export USER_SECRET=$1
-export MAIN_DOMAIN=$2
+export USER_SECRET=$2
+export MAIN_DOMAIN=$1
 
 # MODE="${3:-all}"
 # if [[ $MODE == 'all' ]]; then
