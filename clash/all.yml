@@ -4,7 +4,7 @@ log-level: info
 secret: ""
 external-controller: 127.0.0.1:9090
 ipv6: false
-mode: rule
+mode: global
 proxies:
 
 
@@ -85,7 +85,6 @@ proxy-groups:
        - v2ray
        - faketls
        - vmess
-       - DIRECT
      type: fallback
      url: 'https://www.facebook.com/'
      interval: 300
