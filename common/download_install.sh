@@ -18,10 +18,12 @@ fi
 export USER_SECRET=$2
 export MAIN_DOMAIN=$1
 
-while [ -z MAIN_DOMAIN ];then
+while [ -z MAIN_DOMAIN ]
+do
         echo "Enter the domain name: "  
         read MAIN_DOMAIN 
-fi
+done
+
 # MODE="${3:-all}"
 # if [[ $MODE == 'all' ]]; then
 #   MODE="shadowsocks-telegram-vmess";
