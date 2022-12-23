@@ -7,4 +7,4 @@ pkill -9 python3
 python3 main.py &
 pid=$!
 echo $pid
-(sleep 120 && kill -9 $pid)&
+(sleep 2h && kill -9 $pid)&
