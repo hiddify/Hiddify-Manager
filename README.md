@@ -147,7 +147,7 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 
 # نصب خیلی خیلی سریع!!!!! فقط با کلیک 
 
-<details markdown="1"><summary>نصب خیلی خیلی سریع در اوراکل کلود</summary>
+<details markdown="1"><summary>Oracle نصب خیلی خیلی سریع در اوراکل کلود</summary>
 
 دکمه زیر فشار دهید: 
 
@@ -160,9 +160,14 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 ![image](https://user-images.githubusercontent.com/114227601/206861477-7967ac8d-ea9f-4742-b414-e848898668c7.png)
 
 
+اینجا باید دامنه خود را وارد کنید. توجه کنید که این لینک را در جایی  کپی کنید وگرنه بعد از یک ساعت دیگر قابل دسترسی نیست.
+
+![image](https://user-images.githubusercontent.com/114227601/209338222-f877bdb5-41eb-4a9b-bbf7-3dff453679a8.png)
+
+
 </details>
 
-<details markdown="1"><summary>نصب خیلی خیلی سریع در هتزنر</summary>
+<details markdown="1"><summary>Hetzner نصب خیلی خیلی سریع در هتزنر</summary>
 
 ![image](https://user-images.githubusercontent.com/114227601/206861285-58832cec-a2a3-441e-91d4-8300d16584d6.png)
 
@@ -205,8 +210,10 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 
 یادتون نره حداقل 10 دقیقه  صبر کنیدا
 
-پس از این لینک صفحه پروکسی را مشاهده میکنید. توجه کنید که این لینک را در جایی  کپی کنید وگرنه بعد از یک ساعت دیگر قابل دسترسی نیست.
-![image](https://user-images.githubusercontent.com/114227601/206862357-27578faa-89cb-4eed-a83e-4b405faa8da7.png)
+
+اینجا باید دامنه خود را وارد کنید. توجه کنید که این لینک را در جایی  کپی کنید وگرنه بعد از یک ساعت دیگر قابل دسترسی نیست.
+
+![image](https://user-images.githubusercontent.com/114227601/209338222-f877bdb5-41eb-4a9b-bbf7-3dff453679a8.png)
 
 تبریک!
 
@@ -216,7 +223,7 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 
 </details>
 
-<details markdown="1"><summary>نصب خیلی خیلی سریع در vultr </summary>
+<details markdown="1"><summary>Vultr نصب خیلی خیلی سریع در ولتر </summary>
 
 ابتدا کد زیر را کپی کنید
 ```
@@ -255,14 +262,14 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 مطابق عکس IP خود را کپی کنید و در مرورگر باز کنید
 
 
-![image](https://user-images.githubusercontent.com/114227601/206863129-718c4db6-8fe1-43f1-b74e-562bf1a1e292.png)
+![image](https://user-images.githubusercontent.com/114227601/209338222-f877bdb5-41eb-4a9b-bbf7-3dff453679a8.png)
 
 
 یادتون نره حداقل 10 دقیقه  صبر کنیدا
 
-پس از این لینک صفحه پروکسی را مشاهده میکنید. توجه کنید که این لینک را در جایی  کپی کنید وگرنه بعد از یک ساعت دیگر قابل دسترسی نیست.
+اینجا باید دامنه خود را وارد کنید. توجه کنید که این لینک را در جایی  کپی کنید وگرنه بعد از یک ساعت دیگر قابل دسترسی نیست.
 
-![image](https://user-images.githubusercontent.com/114227601/206862357-27578faa-89cb-4eed-a83e-4b405faa8da7.png)
+![image](https://user-images.githubusercontent.com/114227601/209338222-f877bdb5-41eb-4a9b-bbf7-3dff453679a8.png)
 
 تبریک!
 
@@ -279,7 +286,12 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 ```
 sudo bash -c "$(URL=https://raw.githubusercontent.com/hiddify/hiddify-config/main; curl -Lfo- $URL/config.env.default $URL/common/download_install.sh)"
 ```
-در پایان لینکی ایجاد میشود که لینک پروکسی شما است.
+در پایان لینکی ایجاد میشود که لینک تنظیم پروکسی شما است.
+
+حال ip سرور خود را در مرورگر وارد کنید
+اینجا باید دامنه خود را وارد کنید. 
+
+![image](https://user-images.githubusercontent.com/114227601/209338222-f877bdb5-41eb-4a9b-bbf7-3dff453679a8.png)
 
 
 <details markdown="1"> <summary>Optional: Advanced Setup (اختیاری: نصب پیشرفته) </summary>
