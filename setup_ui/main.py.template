@@ -9,32 +9,39 @@ import json
 import urllib.request
 import subprocess
 import re
-secret="defaultusersecret"
+
 @route('/')
 def index():
     external_ip = urllib.request.urlopen('https://v4.ident.me/').read().decode('utf8')
-    return f"""
+    return """
         This page is only for configuration purpose. After clicking on Submit button or after one hour this page will be disappeared.
         <form action='change' method='get'>
-            Your IP is "{external_ip}" Please set this ip in your domain and enter your domain bellow.<br>   
-            SubDomain <input type='text' id='domain' name='domain' placeholder='plese enter your subdomain' oninput="handleValueChange() /> <a href='https://github.com/hiddify/hiddify-config/blob/main/docs/create_domain.md'
+            Your IP is """+external_ip+""" Please set this ip in your domain and enter your domain bellow.<br>   
+            SubDomain <input type='text' id='domain' name='domain' placeholder='plese enter your subdomain' oninput="handleValueChange()" /> <a href='https://github.com/hiddify/hiddify-config/blob/main/docs/create_domain.md'> Help</a> <br>
            
+            After entering your subdomain, please save your Proxy Link which is 
+            <a href='' id='link_href'></a> <br>
+
+            This link will be expired after clicking on submit. Please don't forget to save your proxy link.<br>
+            After click on submit wait around 2 minutes to make sure everything is working.
             <input type='submit' value='Submit'>
-            <a href='' id='link_href'></a>
             <script>
+            secret="defaultusersecret"
             function handleValueChange(){
                 domain=document.getElementById('domain').value;
                 a=document.getElementById('link_href');
                 a.href='https://'+domain+"/"+secret+"/";
-                a.inner_html=a.href;
+                a.innerHTML=a.href;
             }
             </script>
         </form>
     """
 
-@route('/chnage/?domain=<domain>')
-def change(domain):
-    m = re.search(r'^([A-Za-z0-9\.]+\.[a-zA-Z]{2,})$', 'domain')
+@route('/change/')
+@route('/change')
+def change():
+    domain=request.query.domain
+    m = re.search(r'^([A-Za-z0-9\.]+\.[a-zA-Z]{2,})$', domain)
     if not m:
         return "Invalid domain. Click back and fix it"
     all_lines=""
@@ -52,7 +59,8 @@ def change(domain):
     
     cwd = os.getcwd()
     os.chdir('/opt/GITHUB_REPOSITORY/')
-    rc = subprocess.call("install.sh",shell=True)
-    return domain
+    rc = subprocess.call("DO_NOT_INSTALL=true ./install.sh &",shell=True)
+    return "sucess please wait around 2 minutes to make sure everything is working. Then click on <br>"+
+            f"<a href='https://{domain}/defaultusersecret/'>https://{domain}/defaultusersecret/</a>"
 
 run(host='localhost', port=439)

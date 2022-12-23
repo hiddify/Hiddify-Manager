@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 echo "we are going to install :)"
 export DEBIAN_FRONTEND=noninteractive
 if [ "$(id -u)" -ne 0 ]; then
