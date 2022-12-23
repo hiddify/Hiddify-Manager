@@ -19,5 +19,5 @@ ln -s $(pwd)/signal.conf /etc/nginx/stream.d/signal.conf
 if ! grep -Fxq "stream{include /etc/nginx/stream.d/*.conf;}" /etc/nginx/nginx.conf; then
   echo "stream{include /etc/nginx/stream.d/*.conf;}">>/etc/nginx/nginx.conf;
 fi
-
+echo "load_module /usr/lib/nginx/modules/ngx_stream_module.so;">>/etc/nginx/nginx.conf;
 systemctl enable --now nginx
