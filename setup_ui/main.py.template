@@ -57,7 +57,7 @@ def change():
     
     cwd = os.getcwd()
     os.chdir('/opt/GITHUB_REPOSITORY/')
-    rc = subprocess.call("DO_NOT_INSTALL=true ./install.sh &",shell=True)
+    rc = subprocess.call(f"DO_NOT_INSTALL=true MAIN_DOMAIN={domain} ./install.sh &",shell=True)
     return ("sucess please wait around 2 minutes to make sure everything is working. Then, please save your Proxy Link which is <br>",
             f"<a href='https://{domain}/defaultusersecret/'>https://{domain}/defaultusersecret/</a>")
 
