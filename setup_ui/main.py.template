@@ -14,7 +14,7 @@ import re
 def index():
     external_ip = urllib.request.urlopen('https://v4.ident.me/').read().decode('utf8')
     return """
-        This page is only for configuration purpose. After clicking on Submit button or after one hour this page will be disappeared.
+        This page is only for configuration purpose. After one hour it will be disappeared.
         <form action='change' method='get'>
             Your IP is """+external_ip+""" Please set this ip in your domain and enter your domain bellow.<br>   
             SubDomain <input type='text' id='domain' name='domain' placeholder='plese enter your subdomain' oninput="handleValueChange()" /> <a href='https://github.com/hiddify/hiddify-config/blob/main/docs/create_domain.md'> Help</a> <br>
