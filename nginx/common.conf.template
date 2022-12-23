@@ -1,3 +1,7 @@
+  location / {
+		proxy_pass http://telegramtlsdomain;
+	}
+  
   if ($request_uri ~* "([^\b])(?<uui>(?<guid1>\w{8})[\-]?(?<guid2>\w{4})[\-]?(?<guid3>\w{4})[\-]?(?<guid4>\w{4})[\-]?(?<guid5>\w{12}))[\/]?(?<proto>tr|v2|vm|vl|clash|dns|help|xui)?[\/]?(?<portn>\d{2,5}|)[\/]?$"){
     set $uuid "$guid1$guid2$guid3$guid4$guid5";
     set $guid "$guid1-$guid2-$guid3-$guid4-$guid5";
@@ -62,6 +66,6 @@
   }
 #}
 
-include /opt/GITHUB_REPOSITORY/nginx/def-link.conf;
+# include /opt/GITHUB_REPOSITORY/nginx/def-link.conf;
 
 resolver 8.8.8.8;
