@@ -24,6 +24,7 @@ do
         read MAIN_DOMAIN 
 done
 
+
 # MODE="${3:-all}"
 # if [[ $MODE == 'all' ]]; then
 #   MODE="shadowsocks-telegram-vmess";
