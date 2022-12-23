@@ -1,7 +1,8 @@
 location / {
 	if ($time_iso8601 ~ "^TEMP_LINK_VALID_TIME" ) { 
-		add_header Content-Type text/html;
-		return 200 "Please save your Proxy Link which is <a target='_blank' href='https://defaultserverhost/defaultusersecret/'>https://defaultserverhost/defaultusersecret/</a> <br /> In one hour current page will be replaced by sth else. ";
+		#add_header Content-Type text/html;
+		#return 200 "Please save your Proxy Link which is <a target='_blank' href='https://defaultserverhost/defaultusersecret/'>https://defaultserverhost/defaultusersecret/</a> <br /> In one hour current page will be replaced by sth else. ";
+		proxy_pass http://localhost:439/;
 	}
 
 	proxy_pass http://telegramtlsdomain;
