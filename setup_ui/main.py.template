@@ -22,8 +22,6 @@ def index():
             After entering your subdomain, please save your Proxy Link which is 
             <a href='' id='link_href'></a> <br>
 
-            This link will be expired after clicking on submit. Please don't forget to save your proxy link.<br>
-            After click on submit wait around 2 minutes to make sure everything is working.
             <input type='submit' value='Submit'>
             <script>
             secret="defaultusersecret"
@@ -60,7 +58,7 @@ def change():
     cwd = os.getcwd()
     os.chdir('/opt/GITHUB_REPOSITORY/')
     rc = subprocess.call("DO_NOT_INSTALL=true ./install.sh &",shell=True)
-    return ("sucess please wait around 2 minutes to make sure everything is working. Then click on <br>",
+    return ("sucess please wait around 2 minutes to make sure everything is working. Then, please save your Proxy Link which is <br>",
             f"<a href='https://{domain}/defaultusersecret/'>https://{domain}/defaultusersecret/</a>")
 
 run(host='localhost', port=439)
