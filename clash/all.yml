@@ -50,7 +50,7 @@ proxies:
     # servername: example.com # priority over wss host
     network: ws
     ws-opts:
-      path: /usersecret/vm/1004/
+      path: /usersecret/vmess/
     #   headers:
     #     Host: v2ray.com
     #   max-early-data: 2048
@@ -65,7 +65,7 @@ proxies:
     sni: proxyproviderip
     network: ws
     ws-opts:
-      path: /usersecret/tr/1005/
+      path: /usersecret/trojan/1005/
 
 proxy-groups:
    - name: Autom

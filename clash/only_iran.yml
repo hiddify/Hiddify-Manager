@@ -49,7 +49,7 @@ proxies:
     # servername: example.com # priority over wss host
     network: ws
     ws-opts:
-      path: /usersecret/vm/1004/
+      path: /usersecret/vmess/
     #   headers:
     #     Host: v2ray.com
     #   max-early-data: 2048

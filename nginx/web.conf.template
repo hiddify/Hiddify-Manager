@@ -1,8 +1,6 @@
 server {
 	listen 80 ;
-	location / {
-		proxy_pass http://telegramtlsdomain;
-	}
+	include /opt/GITHUB_REPOSITORY/nginx/def-link.conf;
 }
 log_format proxy '[$time_local] $proxy_protocol_addr '
                  '$upstream_addr $status $bytes_sent $request_length $request_time';
@@ -17,8 +15,5 @@ server {
 	
 	access_log /opt/GITHUB_REPOSITORY/log/nginx.log proxy;
 	include /opt/GITHUB_REPOSITORY/nginx/CDN_NAME_real_ip.conf;
-
-
-    
 
 }
