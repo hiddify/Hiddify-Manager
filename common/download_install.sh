@@ -5,7 +5,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 echo "we are going to download needed files:)"
-
+apt --fix-broken install
 if [ ! -d "/opt/$GITHUB_REPOSITORY" ];then
         apt update
         apt install -y git
