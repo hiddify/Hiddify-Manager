@@ -55,12 +55,12 @@ def change():
     if not has_main_domain:
         all_lines+=f"MAIN_DOMAIN={domain}\n"
     with open('/opt/GITHUB_REPOSITORY/config.env','w') as f:
-        f.write(line)
+        f.write(all_lines)
     
     cwd = os.getcwd()
     os.chdir('/opt/GITHUB_REPOSITORY/')
     rc = subprocess.call("DO_NOT_INSTALL=true ./install.sh &",shell=True)
-    return "sucess please wait around 2 minutes to make sure everything is working. Then click on <br>"+
-            f"<a href='https://{domain}/defaultusersecret/'>https://{domain}/defaultusersecret/</a>"
+    return ("sucess please wait around 2 minutes to make sure everything is working. Then click on <br>",
+            f"<a href='https://{domain}/defaultusersecret/'>https://{domain}/defaultusersecret/</a>")
 
 run(host='localhost', port=439)
