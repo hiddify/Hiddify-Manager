@@ -11,7 +11,8 @@
 
   if ($request_uri ~ "^/redirect/(.*)(%3A%2F%2F|://)(.*)$") {
     return 307 $1://$3;
-  }
+  
+}
 
   location ~* "([^\b])(?<uui>(?<guid1>\w{8})[\-]?(?<guid2>\w{4})[\-]?(?<guid3>\w{4})[\-]?(?<guid4>\w{4})[\-]?(?<guid5>\w{12}))[\/]?(?<proto>tr|v2|vm|vl|clash|dns|help|xui)?[\/]?(?<portn>\d{2,5}|)[\/]?$" {
     # if ($http_upgrade != "websocket") {
