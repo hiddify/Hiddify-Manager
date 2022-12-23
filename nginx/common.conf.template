@@ -14,7 +14,7 @@ location ~* `([^\b])(?<uuid>\w{32})[\/]?(?<proto>v2ray)?[\/]?$` {
   #for performance
   proxy_redirect off;
   proxy_http_version 1.1;
-  proxy_pass http://127.0.0.1:1003/; # Port of v2ray-plugin
+  proxy_pass http://127.0.0.1:1003/$uuid/; # Port of v2ray-plugin
   proxy_set_header Upgrade $http_upgrade;
   proxy_set_header Connection "upgrade";
   proxy_set_header Host $http_host;
@@ -26,7 +26,7 @@ location ~* `([^\b])(?<uuid>\w{32})[\/]?(?<proto>vmess)?[\/]?$` {
   #for performance
   proxy_redirect off;
   proxy_http_version 1.1;
-  proxy_pass http://127.0.0.1:1004/; # Port of v2ray-plugin
+  proxy_pass http://127.0.0.1:1004/$uuid/; # Port of v2ray-plugin
   proxy_set_header Upgrade $http_upgrade;
   proxy_set_header Connection "upgrade";
   proxy_set_header Host $http_host;
