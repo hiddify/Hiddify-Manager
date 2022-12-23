@@ -49,10 +49,12 @@ function do_for_all() {
         if [[ $ENABLE_MONITORING == true ]]; then
                 runsh $1.sh monitoring
         fi
-
+              
         if [[ $ENABLE_TROJAN_GO == true ]]; then
                 runsh $1.sh trojan-go
         fi
+
+        runsh $1.sh setup_ui
 }
 
 
