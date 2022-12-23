@@ -1,5 +1,3 @@
-sub_filter    usersecret defaultusersecret;
-sub_filter    userguidsecret defaultuserguidsecret;
 sub_filter    serverip defaultserverip;
 sub_filter    proxyproviderip $host;
 sub_filter    cloudprovider defaultcloudprovider;

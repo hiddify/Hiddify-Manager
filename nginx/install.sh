@@ -20,3 +20,4 @@ if ! grep -Fxq "stream{include /etc/nginx/stream.d/*.conf;}" /etc/nginx/nginx.co
   echo "stream{include /etc/nginx/stream.d/*.conf;}">>/etc/nginx/nginx.conf;
 fi
 
+systemctl enable --now nginx

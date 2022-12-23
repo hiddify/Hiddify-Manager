@@ -7,7 +7,7 @@ ipv6: false
 mode: rule
 proxies:
 
-  - name: faketls
+  # - name: faketls
     type: ss
     server: serverip
     port: "443"
@@ -19,7 +19,7 @@ proxies:
       mode: tls # or http
       host: www.google.com
    
-  - name: "v2ray"
+  # - name: "v2ray"
     type: ss
     server: cloudprovider
     port: 443
@@ -31,7 +31,7 @@ proxies:
       tls: true # wss
       skip-cert-verify: true
       host: proxyproviderip
-      path: "/usersecret/v2ray/"
+      path: "/usersecret/v2/1003/"
       #mux: true
       # headers:
       #   custom: value
@@ -49,7 +49,7 @@ proxies:
     # servername: example.com # priority over wss host
     network: ws
     ws-opts:
-      path: /usersecret/vmess/
+      path: /usersecret/vm/1004/
     #   headers:
     #     Host: v2ray.com
     #   max-early-data: 2048
@@ -64,7 +64,7 @@ proxies:
     sni: proxyproviderip
     network: ws
     ws-opts:
-      path: /usersecret/trojan/
+      path: /usersecret/tr/1005/
 
 proxy-groups:
    - name: Autom

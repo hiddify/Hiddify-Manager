@@ -1,2 +1,2 @@
-systemctl enable x-ui
-systemctl restart x-ui
+systemctl enable video-mitm
+systemctl restart video-mitm
