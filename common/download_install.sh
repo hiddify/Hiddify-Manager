@@ -18,11 +18,12 @@ fi
 export USER_SECRET=$2
 export MAIN_DOMAIN=$1
 
-while [ -z MAIN_DOMAIN ]
+while [ -z $MAIN_DOMAIN ]
 do
         echo "Enter the domain name: "  
         read MAIN_DOMAIN 
 done
+
 
 
 # MODE="${3:-all}"
