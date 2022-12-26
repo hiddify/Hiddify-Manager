@@ -5,15 +5,15 @@
 resource "oci_core_virtual_network" "hiddify_main_vcn" {
   cidr_block     = lookup(var.network_cidrs, "MAIN-VCN-CIDR")
   compartment_id = var.compartment_ocid
-  display_name   = "hiddify-main-${random_string.deploy_id.result}"
-  dns_label      = "hiddifymain${random_string.deploy_id.result}"
+  display_name   = "hiddify-main"
+  dns_label      = "hiddifymain"
   freeform_tags  = local.common_tags
 }
 
 resource "oci_core_subnet" "hiddify_main_subnet" {
   cidr_block                 = lookup(var.network_cidrs, "MAIN-SUBNET-REGIONAL-CIDR")
-  display_name               = "hiddify-main-${random_string.deploy_id.result}"
-  dns_label                  = "hiddifymain${random_string.deploy_id.result}"
+  display_name               = "hiddify-main"
+  dns_label                  = "hiddifymain"
   security_list_ids          = [oci_core_security_list.hiddify_security_list.id]
   compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_virtual_network.hiddify_main_vcn.id
