@@ -101,5 +101,10 @@ locals {
 
 
   guid=var.guid_secret==""? random_string.guid.result:var.guid_secret
+
+
+  subnet_ocid = length(data.oci_core_subnets.PRIVATESUBNET.subnets) > 0 ? data.oci_core_subnets.PRIVATESUBNET.subnets[0].id : oci_core_subnet.hiddify_main_subnet.id
+
+  
   
 }

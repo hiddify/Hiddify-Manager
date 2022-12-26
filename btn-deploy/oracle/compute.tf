@@ -25,7 +25,7 @@ resource "oci_core_instance" "app_instance" {
   }
 
   create_vnic_details {
-    subnet_id        = oci_core_subnet.hiddify_main_subnet.id
+    subnet_id        =  oci_core_subnet.hiddify_main_subnet.id
     display_name     = "primaryvnic"
     assign_public_ip = true
     hostname_label   = "hiddify-${random_string.deploy_id.result}-${count.index}"

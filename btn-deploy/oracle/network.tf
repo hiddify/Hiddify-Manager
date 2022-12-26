@@ -8,6 +8,7 @@ resource "oci_core_virtual_network" "hiddify_main_vcn" {
   display_name   = "hiddify-main"
   dns_label      = "hiddifymain"
   freeform_tags  = local.common_tags
+  count = length(data.oci_core_subnets.PRIVATESUBNET.subnets)>0?0:1
 }
 
 resource "oci_core_subnet" "hiddify_main_subnet" {
@@ -21,6 +22,7 @@ resource "oci_core_subnet" "hiddify_main_subnet" {
   dhcp_options_id            = oci_core_virtual_network.hiddify_main_vcn.default_dhcp_options_id
   prohibit_public_ip_on_vnic = false
   freeform_tags              = local.common_tags
+  count = length(data.oci_core_subnets.PRIVATESUBNET.subnets)>0?0:1
 }
 
 
@@ -32,6 +34,7 @@ resource "oci_core_default_route_table" "hiddify_main_route_table" {
 		network_entity_id = "${oci_core_internet_gateway.hiddify_internet_gateway.id}"
 	}
 	manage_default_resource_id = "${oci_core_virtual_network.hiddify_main_vcn.default_route_table_id}"
+  count = length(data.oci_core_subnets.PRIVATESUBNET.subnets)>0?0:1
 }
 
 
@@ -41,4 +44,5 @@ resource "oci_core_internet_gateway" "hiddify_internet_gateway" {
 	enabled = "true"
 	vcn_id = "${oci_core_virtual_network.hiddify_main_vcn.id}"
   freeform_tags  = local.common_tags
+  count = length(data.oci_core_subnets.PRIVATESUBNET.subnets)>0?0:1
 }

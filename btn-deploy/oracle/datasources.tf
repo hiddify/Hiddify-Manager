@@ -162,3 +162,21 @@ locals {
     Reference = "Created by OCI QuickStart for HiddifyProxy Basic demo"
   }
 }
+
+data "oci_core_vcns" "VCN" {
+  compartment_id = var.compartment_ocid
+  filter {
+    name   = "display_name"
+    values = ["hiddify-main"]
+  }
+}
+
+/********** Subnet Accessor **********/
+data "oci_core_subnets" "PRIVATESUBNET" {
+  compartment_id = var.compartment_ocid
+  vcn_id         = length(data.oci_core_vcns.VCN.virtual_networks)>0?data.oci_core_vcns.VCN.virtual_networks[0]:0
+  filter {
+    name   = "display_name"
+    values = ["hiddify-main"]
+  }
+}
