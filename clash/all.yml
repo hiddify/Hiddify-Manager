@@ -4,10 +4,8 @@ log-level: info
 secret: ""
 external-controller: 127.0.0.1:9090
 ipv6: false
-mode: global
+mode: rule
 proxies:
-
-
   - name: faketls
     type: ss
     server: serverip
