@@ -1,4 +1,6 @@
-apt-get install -y nginx certbot python3-certbot-nginx
+apt-get install -y nginx certbot python3-certbot-nginx python3-pip
+pip3 install pip pyopenssl --upgrade
+
 systemctl stop nginx
 pkill -9 nginx
 mkdir -p ../log
