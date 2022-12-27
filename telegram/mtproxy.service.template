@@ -1,15 +1,13 @@
 [Unit]
-    Description=Async MTProto proxy for Telegram
-    After=network-online.target
-    Wants=network-online.target
+Description=MTProxy
+After=network.target
 
 [Service]
-    ExecStart=/opt/GITHUB_REPOSITORY/telegram/mtprotoproxy/mtprotoproxy.py
-    AmbientCapabilities=CAP_NET_BIND_SERVICE
-    LimitNOFILE=infinity
-    User=tgproxy
-    Group=tgproxy
-    Restart=on-failure
+Type=simple
+WorkingDirectory=/opt/GITHUB_REPOSITORY/telegram/
+ExecStart=/opt/GITHUB_REPOSITORY/telegram/tgproxy_run.sh
+Restart=on-failure
+StartLimitBurst=0
 
 [Install]
-    WantedBy=multi-user.target
+WantedBy=multi-user.target
