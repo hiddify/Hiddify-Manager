@@ -2,4 +2,5 @@
 # systemctl restart mtproxy.service
 
 cd mtproto_proxy
-sudo make update-sysconfig && sudo systemctl reload mtproto-proxy
+sudo make update-sysconfig 
+sudo systemctl restart mtproto-proxy
