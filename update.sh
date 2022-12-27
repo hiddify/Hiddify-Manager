@@ -1,7 +1,7 @@
 #!/bin/bash
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
-cd $( dirname -- "$0"; )/
+cd $( dirname -- "$0"; )
 
 changed=0
 git pull --dry-run 2>&1 | grep -q -v 'Already up-to-date.' && changed=1
