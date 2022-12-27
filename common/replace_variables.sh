@@ -10,7 +10,7 @@ for template_file in $(find . -name "*.template"); do
     out_file=${template_file/.template/}
     cp $template_file $out_file
     if [[ "$ENABLE_MONITORING" == "false" ]];then
-        sed -i "s|access_log /opt/GITHUB_REPOSITORY/log/nginx.log proxy;|access_log off;|g"
+        sed -i "s|access_log /opt/GITHUB_REPOSITORY/log/nginx.log proxy;|access_log off;|g" $out_file
     fi
     sed -i "s|TEMP_LINK_VALID_TIME|$TEMP_LINK_VALID_TIME|g" $out_file 
     sed -i "s|defaultusersecret|$USER_SECRET|g" $out_file 
