@@ -1,6 +1,7 @@
 echo "telegram proxy install.sh $*"
 systemctl stop mtproxy.service
 systemctl disable mtproxy.service
+systemctl stop mtproto-proxy.service
 systemctl disable mtproto-proxy.service
 
 
