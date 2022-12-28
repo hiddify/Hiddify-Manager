@@ -8,8 +8,9 @@ systemctl disable mtproto-proxy.service
 apt install -y git curl build-essential libssl-dev zlib1g-dev
 ln -s  $(pwd)/mtproxy.service /etc/systemd/system/
 
-git clone https://github.com/TelegramMessenger/MTProxy
+git clone https://github.com/krepver/MTProxy/
 cd MTProxy
+git checkout gcc10
 
 make 
 
