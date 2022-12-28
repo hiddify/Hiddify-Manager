@@ -39,7 +39,7 @@ def index():
 @route('/change')
 def change():
     domain=request.query.domain
-    m = re.search(r'^([A-Za-z0-9\.]+\.[a-zA-Z]{2,})$', domain)
+    m = re.search(r'^([A-Za-z0-9\-\.]+\.[a-zA-Z]{2,})$', domain)
     if not m:
         return "Invalid domain. Click back and fix it"
     all_lines=""
