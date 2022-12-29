@@ -1,13 +1,14 @@
 [Unit]
-Description=MTProxy
+Description=mtg - MTProto proxy server
+Documentation=https://github.com/9seconds/mtg
 After=network.target
 
 [Service]
-Type=simple
-WorkingDirectory=/opt/GITHUB_REPOSITORY/telegram/
-ExecStart=/opt/GITHUB_REPOSITORY/telegram/tgproxy_run.sh
-Restart=on-failure
-StartLimitBurst=0
+ExecStart=/opt/GITHUB_REPOSITORY/telegram/mtg/mtg run /opt/GITHUB_REPOSITORY/telegram/mtg.toml
+Restart=always
+RestartSec=3
+DynamicUser=true
+AmbientCapabilities=CAP_NET_BIND_SERVICE
 
 [Install]
 WantedBy=multi-user.target

@@ -5,16 +5,12 @@ systemctl stop mtproto-proxy.service
 systemctl disable mtproto-proxy.service
 
 
-apt install -y git curl build-essential libssl-dev zlib1g-dev
+apt install -y git curl make golang golang-go
 ln -s  $(pwd)/mtproxy.service /etc/systemd/system/
 
-git clone https://github.com/hiddify/MTProxy
-cd MTProxy
+git clone https://github.com/9seconds/mtg/
+cd mtg
 
 make 
 
-cd objs/bin
-
-curl -s https://core.telegram.org/getProxySecret -o proxy-secret
-curl -s https://core.telegram.org/getProxyConfig -o proxy-multi.conf
 
