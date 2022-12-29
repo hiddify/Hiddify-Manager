@@ -4,7 +4,7 @@ systemctl disable mtproxy.service
 systemctl stop mtproto-proxy.service
 systemctl disable mtproto-proxy.service
 
-sudo add-apt-repository ppa:longsleep/golang-backports
+sudo add-apt-repository -y ppa:longsleep/golang-backports
 sudo apt update
 apt install -y make golang 
 
