@@ -14,7 +14,9 @@ apt install -y make golang
 
 ln -s  $(pwd)/mtproxy.service /etc/systemd/system/
 
+export GOPATH=/opt/hiddify-config/telegram/go/
 git clone https://github.com/9seconds/mtg/
+
 cd mtg
 
 make 
