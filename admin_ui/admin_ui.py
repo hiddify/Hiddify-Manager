@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 
 import pathlib
-config_dir=pathlib.Path(__file__).parent.parent.resolve()
-dirname = os.path.dirname(sys.argv[0])
 
 
-from bottle import route, run, template,redirect,request
+
+from bottle import route, run, template,redirect,request,static_file
 from datetime import datetime,timedelta,date
-import os
+import os,sys
 import json
 import urllib.request
 import subprocess
 import re
-
+config_dir=pathlib.Path(__file__).parent.parent.resolve()
+dirname = os.path.dirname(sys.argv[0])
 conf_vars=[
         "MAIN_DOMAIN", 
         "ADMIN_SECRET",
@@ -122,16 +122,16 @@ def set_configs(configs):
         f.write(all_lines)
 
 
-@app.route('/static/<filename:re:.*\.css>')
+@route('/static/<filename:re:.*\.css>')
 def send_css(filename):
-    return static_file(filename, root=dirname+'/static/asset/css')
+    return static_file(filename, root=f'{dirname}/static/asset/css')
 
-@app.route('/static/<filename:re:.*\.js>')
+@route('/static/<filename:re:.*\.js>')
 def send_js(filename):
-    return static_file(filename, root=dirname+'/static/asset/js')
+    return static_file(filename, root=f'{dirname}/static/asset/js')
 
-@app.route('/static/<filename:re:.*\.(png|jpg|webp)>')
+@route('/static/<filename:re:.*\.(png|jpg|webp)>')
 def send_img(filename):
-    return static_file(filename, root=dirname+'/static/asset/images')
+    return static_file(filename, root=f'{dirname}/static/asset/images')
 
 run(host='localhost', port=439)
