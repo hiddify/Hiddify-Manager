@@ -162,7 +162,7 @@ error-rate = 0.001
 # processed in backgrounds. An error in any URL is ignored.
 [defense.blocklist]
 # You can enable/disable this feature.
-enabled = true
+enabled = false
 # This is a limiter for concurrency. In order to protect website
 # from overloading, we download files in this number of threads.
 download-concurrency = 2
