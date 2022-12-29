@@ -53,7 +53,7 @@ def change():
         if not re.search(r'^([A-Za-z0-9\-\.]+\.[a-zA-Z]{2,})$', request.query[domain]):
             return template("result",data={
                         "out-type":"danger",
-                        "out-msg":f"Invalid ${domain}=${request.query[domain]}. Click back and fix it"
+                        "out-msg":f"Invalid {domain}={request.query[domain]}. Click back and fix it"
                     })
         new_configs[domain]=request.query[domain]
     for domain1 in domain_fields:
@@ -61,14 +61,14 @@ def change():
             if domain1!=domain2 and request.query[domain1]==request.query[domain2]:
                 return template("result",data={
                         "out-type":"danger",
-                        "out-msg":f"Invalid ${domain1}=${request.query[domain1]} and ${domain2}=${request.query[domain2]}. These values should be different."
+                        "out-msg":f"Invalid {domain1}={request.query[domain1]} and {domain2}={request.query[domain2]}. These values should be different."
                     })
 
     for secret in secret_fields:
         if not re.search(r"^([0-9A-Fa-f]{32})$", request.query[secret]):
             return template("result",data={
                         "out-type":"danger",
-                        "out-msg":f"Secret for ${secret}=${request.query[secret]} is incorrect. It should be 32 char hex values. Click back and fix it"
+                        "out-msg":f"Secret for {secret}={request.query[secret]} is incorrect. It should be 32 char hex values. Click back and fix it"
                     })
         new_configs[secret]=request.query[secret]
         
@@ -88,12 +88,12 @@ def change():
     for name in new_configs:
         if name in my_env:
             del my_env[name]
-    my_env["DO_NOT_INSTALL"]=True
-    os.chdir(config_dir)
+    my_env["DO_NOT_INSTALL"]="true"
+    # os.chdir(config_dir)
     # rc = subprocess.call(f"./install.sh &",shell=True)
-    subprocess.Popen(f"./install.sh &",env=my_env)
+    subprocess.Popen(f"{config_dir}/install.sh",env=my_env,cwd=f"{config_dir}")
     return template("result",data={
-                        "out-type":"Success",
+                        "out-type":"success",
                         "out-msg":("Success! Please wait around 2 minutes to make sure everything is working. Then, please save your Proxy Link which is <br>",
                                 f"<h1>User Link</h1><a href='https://{request.query['MAIN_DOMAIN']}/{request.query['USER_SECRET']}/'>https://{request.query['MAIN_DOMAIN']}/{request.query['USER_SECRET']}/</a><br>",
                                 f"<h1>Admin Link</h1><a href='https://{request.query['MAIN_DOMAIN']}/{request.query['ADMIN_SECRET']}/'>https://{request.query['MAIN_DOMAIN']}/{request.query['ADMIN_SECRET']}/</a>")
