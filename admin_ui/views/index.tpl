@@ -1,9 +1,18 @@
 % include('head')
 
-<div class="btn-group">
-    <a href="config/" class="btn btn-primary">تنظیمات سیستم</a>
+<div class="card">
+    <h5 class="card-header">
+        صفحه تنظیمات سیستم
+    </h5>
+    <div class="card-body">
+        <p class="card-text">
+        در این بخش می توانید تنظیمات سیستم را تغییر دهید.
+        </p>
+        <div class="btn-group">
+            <a href="config/" class="btn btn-primary">تنظیمات سیستم</a>
+        </div>
+    </div>
 </div>
-
 <div class="card">
     <h5 class="card-header">
         گزارش وضعیت سرویس
