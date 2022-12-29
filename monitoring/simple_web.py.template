@@ -89,7 +89,7 @@ def daily_range(folder,dates='',out_type="html",per=''):
     if out_type=='html':
         total=None
         for date in final_dates:
-            daydf=daily_aggregate(folder,date,out_type=out_type,per=per)    
+            daydf=daily_aggregate(folder,date,per=per)    
             if daydf is None:
                 total=daydf
             else:
