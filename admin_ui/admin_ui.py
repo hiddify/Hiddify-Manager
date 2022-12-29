@@ -2,6 +2,7 @@
 
 import pathlib
 config_dir=pathlib.Path(__file__).parent.parent.resolve()
+dirname = os.path.dirname(sys.argv[0])
 
 
 from bottle import route, run, template,redirect,request
@@ -119,5 +120,18 @@ def set_configs(configs):
 
     with open(f'{config_dir}/config.env','w') as f:
         f.write(all_lines)
+
+
+@app.route('/static/<filename:re:.*\.css>')
+def send_css(filename):
+    return static_file(filename, root=dirname+'/static/asset/css')
+
+@app.route('/static/<filename:re:.*\.js>')
+def send_js(filename):
+    return static_file(filename, root=dirname+'/static/asset/js')
+
+@app.route('/static/<filename:re:.*\.(png|jpg|webp)>')
+def send_img(filename):
+    return static_file(filename, root=dirname+'/static/asset/images')
 
 run(host='localhost', port=439)
