@@ -1,7 +1,7 @@
 % include('head')
 
 This page is only for configuration purpose. After one hour it will be disappeared.
-<form action='change' method='get'>
+<form action='change' method='get' dir="ltr">
     
     Your IP is {{data["external_ip"]}} Please set this ip in your domain and enter your domain bellow.<br>   
     <div class="form-group">

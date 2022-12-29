@@ -12,9 +12,10 @@ import urllib.request
 import subprocess
 import re
 config_dir=pathlib.Path(__file__).parent.parent.resolve()
-dirname = os.path.dirname(sys.argv[0])
+dirname = pathlib.Path(__file__).parent.resolve()
 conf_vars=[
         "MAIN_DOMAIN", 
+        "USER_SECRET",
         "ADMIN_SECRET",
         "CDN_NAME",
         "TELEGRAM_FAKE_TLS_DOMAIN",
