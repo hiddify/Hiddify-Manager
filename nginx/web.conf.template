@@ -2,6 +2,11 @@ server {
 	listen 80 ;
 	include /opt/GITHUB_REPOSITORY/nginx/admin-link.conf;
 	include /opt/GITHUB_REPOSITORY/nginx/def-link.conf;
+
+	location @handle_redirect {
+		set $saved_redirect_location '$upstream_http_location';
+		proxy_pass $saved_redirect_location;
+	}
 }
 log_format proxy '[$time_local] $proxy_protocol_addr '
                  '$upstream_addr $status $bytes_sent $request_length $request_time';
@@ -20,7 +25,9 @@ server {
 	access_log /opt/GITHUB_REPOSITORY/log/nginx.log proxy;
 	include /opt/GITHUB_REPOSITORY/nginx/CDN_NAME_real_ip.conf;
 
-
+	location @handle_redirect {
+		set $saved_redirect_location '$upstream_http_location';
+		proxy_pass $saved_redirect_location;
+	}
     
-
 }
