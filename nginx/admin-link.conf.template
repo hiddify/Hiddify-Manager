@@ -1,7 +1,6 @@
-location /ADMIN_SECRET/config/ {
-	proxy_pass http://localhost:439/;
-}
-
 location /ADMIN_SECRET/stats/ {
 	proxy_pass http://localhost:440/; 
+}
+location /ADMIN_SECRET/ {
+	proxy_pass http://localhost:439/; 
 }
