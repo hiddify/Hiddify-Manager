@@ -34,19 +34,19 @@
     <div class="form-group">
         <label>If you are using CDN, which CDN you are using</label>
         <select class="form-control" name="CDN_NAME">
-        <option value="" {% if data["CDN_NAME"] == "" %} selected {% endif %}>No CDN</option>
-        <option value="ar" {% if data["CDN_NAME"] == "ar" %} selected {% endif %}>ArvanCloud</option>
-        <option value="cf" {% if data["CDN_NAME"] == "cf" %} selected {% endif %}>Cloudflare</option>
+        <option value="" {{"selected" if data["CDN_NAME"] == "" else "" }} >No CDN</option>
+        <option value="ar" {{"selected" if data["CDN_NAME"] == "ar" else "" }} >ArvanCloud</option>
+        <option value="cf" {{"selected" if data["CDN_NAME"] == "cf" else "" }} >Cloudflare</option>
         </select>
         <small class="form-text text-muted">This will be used only for translating proxy ips for better report</small>
     </div>   
 
     <div class="form-check">
-        <input type="checkbox" class="form-check-input" name="ENABLE_FIREWALL" {% if data["ENABLE_FIREWALL"] == "true" %} checked {% endif %}>
+        <input type="checkbox" class="form-check-input" name="ENABLE_FIREWALL" {{"checked"  if data["ENABLE_FIREWALL"] == "true" else ""}}>
         <label class="form-check-label">Enable Firewall</label>
     </div>
     <div class="form-check">
-        <input type="checkbox" class="form-check-input" name="ENABLE_AUTO_UPDATE" {% if data["ENABLE_AUTO_UPDATE"] == "true" %} checked {% endif %}>
+        <input type="checkbox" class="form-check-input" name="ENABLE_AUTO_UPDATE" {{"checked" if data["ENABLE_AUTO_UPDATE"] == "true" else ""}}>
         <label class="form-check-label">Enable Auto Update</label>
     </div>
 
