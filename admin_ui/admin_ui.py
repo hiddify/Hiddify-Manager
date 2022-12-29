@@ -45,14 +45,17 @@ def config():
 
 @route('/change')
 def change():
+    new_configs={}
     domain_fields=["MAIN_DOMAIN","TELEGRAM_FAKE_TLS_DOMAIN","SS_FAKE_TLS_DOMAIN"]
     secret_fields=["USER_SECRET","ADMIN_SECRET"]
+    boolean_fields=["ENABLE_FIREWALL","ENABLE_AUTO_UPDATE"]
     for domain in domain_fields:
         if not re.search(r'^([A-Za-z0-9\-\.]+\.[a-zA-Z]{2,})$', request.query[domain]):
             return template("result",data={
                         "out-type":"danger",
                         "out-msg":f"Invalid ${domain}=${request.query[domain]}. Click back and fix it"
                     })
+        new_configs[domain]=request.query[domain]
     for domain1 in domain_fields:
         for domain2 in domain_fields:
             if domain1!=domain2 and request.query[domain1]==request.query[domain2]:
@@ -67,11 +70,17 @@ def change():
                         "out-type":"danger",
                         "out-msg":f"Secret for ${secret}=${request.query[secret]} is incorrect. It should be 32 char hex values. Click back and fix it"
                     })
+        new_configs[secret]=request.query[secret]
+        
                         
+    for bf in boolean_fields:
+        new_configs[bf]=request.query.get(name,'false')!='false'
+
+    for name in env_vars:
+        if name not in new_configs:
+            new_configs[name]=request.query.get(name,"")
     
-    has_main_domain=False
-    
-    set_configs({name:request.query.get(name,"false") for name in env_vars})
+    set_configs(new_configs)
     
     cwd = os.getcwd()
     
