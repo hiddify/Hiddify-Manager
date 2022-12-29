@@ -54,7 +54,7 @@ function do_for_all() {
                 runsh $1.sh trojan-go
         fi
 
-        runsh $1.sh setup_ui
+        runsh $1.sh admin_ui
 }
 
 
