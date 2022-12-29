@@ -85,7 +85,7 @@ def change():
     cwd = os.getcwd()
     
     my_env = os.environ.copy()
-    for name in env_vars:
+    for name in new_configs:
         if name in my_env:
             del my_env[name]
     my_env["DO_NOT_INSTALL"]=true
