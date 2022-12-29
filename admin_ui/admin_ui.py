@@ -74,7 +74,7 @@ def change():
         
                         
     for bf in boolean_fields:
-        new_configs[bf]=request.query.get(bf,'false')!='false'
+        new_configs[bf]="true" if request.query.get(bf,'false')!='false' else "false"
 
     for name in conf_vars:
         if name not in new_configs:

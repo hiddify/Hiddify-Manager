@@ -44,11 +44,11 @@
     </div>   
 
     <div class="form-check">
-        <input type="checkbox" class="form-check-input" name="ENABLE_FIREWALL" {{"checked"  if data["ENABLE_FIREWALL"] == "true" else ""}}>
+        <input type="checkbox" class="form-check-input" name="ENABLE_FIREWALL" {{"checked"  if data["ENABLE_FIREWALL"] == "false" else ""}}>
         <label class="form-check-label">Enable Firewall</label>
     </div>
     <div class="form-check">
-        <input type="checkbox" class="form-check-input" name="ENABLE_AUTO_UPDATE" {{"checked" if data["ENABLE_AUTO_UPDATE"] == "true" else ""}}>
+        <input type="checkbox" class="form-check-input" name="ENABLE_AUTO_UPDATE" {{"checked" if data["ENABLE_AUTO_UPDATE"] != "false" else ""}}>
         <label class="form-check-label">Enable Auto Update</label>
     </div>
 
