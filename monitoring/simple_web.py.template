@@ -116,8 +116,7 @@ def daily_aggregate(folder,date,per=''):
     alldf=''
     total=None
     root=f'{root}/{date}'
-    if len(hours)!=1:
-       out_json['hours']={} 
+
     hours_files=sorted(os.listdir(root)) if os.path.isdir(root) else []
     for hour in sorted(hours_files):
         # if date not in hour:continue
@@ -207,6 +206,8 @@ def hourly(folder,date,out_type="html",per=''):
     return out_html
 
 def format_table(df):
+    if df is None:
+        return ""
     df=df.copy()
     df['download']=(df['download']/1024/1024/1024).round(3)
     df['upload']=(df['upload']/1024/1024/1024).round(3)
