@@ -1,13 +1,13 @@
 % include('head')
 
-This page is only for configuration purpose. After one hour it will be disappeared.
+
 <form action='change' method='get' dir="ltr">
-    
+    This page is only for configuration purpose. After one hour it will be disappeared.    
     Your IP is {{data["external_ip"]}} Please set this ip in your domain and enter your domain bellow.<br>   
     <div class="form-group">
         <label>SubDomain</label>
         <input type='text'  value='{{data["MAIN_DOMAIN"]}}' class="form-control"  name='MAIN_DOMAIN' placeholder='plese enter your subdomain' /> 
-        <small class="form-text text-muted"><a href='https://github.com/hiddify/hiddify-config/blob/main/docs/create_domain.md'> Help</a></small>
+        <small class="form-text text-muted">This field should be correct. Please visit <a href='https://github.com/hiddify/hiddify-config/blob/main/docs/create_domain.md'> Help</a> to learn how to create a subdomain.</small>
     </div>   
     <div class="form-group">
         <label>Secret</label>
@@ -42,17 +42,22 @@ This page is only for configuration purpose. After one hour it will be disappear
     </div>   
 
     <div class="form-check">
-        <input type="checkbox" class="form-check-input" name="ENABLE_FIREWALL">
+        <input type="checkbox" class="form-check-input" name="ENABLE_FIREWALL" {% if data["ENABLE_FIREWALL"] == "true" %} checked {% endif %}>
         <label class="form-check-label">Enable Firewall</label>
     </div>
     <div class="form-check">
-        <input type="checkbox" class="form-check-input" name="ENABLE_AUTO_UPDATE">
-        <label class="form-check-label">Enable Firewall</label>
+        <input type="checkbox" class="form-check-input" name="ENABLE_AUTO_UPDATE" {% if data["ENABLE_AUTO_UPDATE"] == "true" %} checked {% endif %}>
+        <label class="form-check-label">Enable Auto Update</label>
     </div>
 
     <input type='submit' value='Submit' class="btn btn-primary">
     
 
 </form>
-        
+<style>
+.form-check-input[type=checkbox]{
+float: left;
+margin-right: .5em;
+}
+</style>
 % include('tail')

@@ -71,7 +71,7 @@ def change():
     
     has_main_domain=False
     
-    set_configs({name:request.query[name] for name in env_vars})
+    set_configs({name:request.query.get(name,"false") for name in env_vars})
     
     cwd = os.getcwd()
     
