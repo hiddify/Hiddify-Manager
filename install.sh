@@ -1,5 +1,4 @@
 #!/bin/bash
-export DEBIAN_FRONTEND=noninteractive
 echo "we are going to install :)"
 export DEBIAN_FRONTEND=noninteractive
 if [ "$(id -u)" -ne 0 ]; then
@@ -62,7 +61,13 @@ function do_for_all() {
 function check_for_env() {
 
         random_secret=$(hexdump -vn16 -e'4/4 "%08X" 1 "\n"' /dev/urandom)
-        replace_empty_env USER_SECRET "please enter 32 char user secret" $random_secret "^([0-9A-Fa-f]{32})$"
+        replace_empty_env USER_SECRET "setting 32 char user secret" $random_secret "^([0-9A-Fa-f]{32})$"
+
+
+        random_admin_secret=$(hexdump -vn16 -e'4/4 "%08X" 1 "\n"' /dev/urandom)
+        replace_empty_env ADMIN_SECRET "setting 32 char admin secret" $random_admin_secret "^([0-9A-Fa-f]{32})$"
+
+
         export SERVER_IP=$(curl -Lso- https://api.ipify.org)
         replace_empty_env MAIN_DOMAIN "please enter valid domain name to use " "$SERVER_IP.sslip.io" "^([A-Za-z0-9\.]+\.[a-zA-Z]{2,})$"
         

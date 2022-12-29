@@ -87,10 +87,15 @@ def daily_range(folder,dates='',out_type="html",per=''):
             final_dates.append(rel_date(date))
 
     if out_type=='html':
-        out=''
+        total=None
         for date in final_dates:
-            out+=hourly(folder,date,out_type=out_type,per=per)    
-        return out
+            daydf=daily_aggregate(folder,date,out_type=out_type,per=per)    
+            if daydf is None:
+                total=daydf
+            else:
+                total=total.add(daydf,fill_value=0)
+        
+        return f'<a href="json">json</a><br/>' + format_table(total)
 
     res={}
     for date in final_dates:
@@ -99,6 +104,42 @@ def daily_range(folder,dates='',out_type="html",per=''):
     return res
     
     
+def daily_aggregate(folder,date,per=''):
+    root=f'{stat_path}/{folder}'
+    per=per.split(',') if len(per) else []
+    hours=[f'{i:02}' for i in range(24)]
+    if '-' in date:
+        dateobj=datetime.strptime(date,"%Y%m%d-%H")
+        date=dateobj.strftime("%Y%m%d")
+        hours=[dateobj.strftime("%H")]
+    
+    alldf=''
+    total=None
+    root=f'{root}/{date}'
+    if len(hours)!=1:
+       out_json['hours']={} 
+    hours_files=sorted(os.listdir(root)) if os.path.isdir(root) else []
+    for hour in sorted(hours_files):
+        # if date not in hour:continue
+        hour_name=hour.split('.')[0]
+        if hour_name not in hours:continue
+        if not os.path.isfile(f'{root}/{hour}'):continue
+        
+        df=pd.read_csv(f'{root}/{hour}',dtype={'haship':'Int64','download':'Int64','upload':'Int64','connection_count':'Int64','unique_ips':'Int64'})
+        df=df.set_index([col for col in df.columns if col in ['status','upstream','haship','asn_name','country_code','province','city']])
+        if total is None:
+            total=df
+        else:
+            total=total.add(df,fill_value=0)
+
+    if total is not None:
+        if 'haship' in total.index.names:
+            total,unique_users=aggregate_users(total)
+            
+        if len(per):
+            total=total.groupby(per).sum()
+
+    return total
 
 
 def hourly(folder,date,out_type="html",per=''):
@@ -141,7 +182,7 @@ def hourly(folder,date,out_type="html",per=''):
             if len(per):
                 df=df.groupby(per).sum()
             out_json['hours'][hour_name]['details']=df_to_dict(df)
-            out_html+=df.to_html()
+            out_html+=format_table(df)
 
     if total is not None:
         out_json['total']={}
@@ -153,7 +194,7 @@ def hourly(folder,date,out_type="html",per=''):
             
         if len(per):
             total=total.groupby(per).sum()
-        out_html_total+=total.to_html()
+        out_html_total+=format_table(total)
         out_json['total']['details']=df_to_dict(total)
 
         if len(hours)!=1:
@@ -164,6 +205,14 @@ def hourly(folder,date,out_type="html",per=''):
     if out_type=='json':
         return out_json
     return out_html
+
+def format_table(df):
+    df=df.copy()
+    df['download']=(df['download']/1024/1024/1024).round(3)
+    df['upload']=(df['upload']/1024/1024/1024).round(3)
+    df=df.rename({'upload':'upload (GB)', 'download':'download (GB)'},axis=1)
+
+    return df.to_html()
 
 @route('/daily/<folder>')
 @route('/daily/<folder>/<date>')

@@ -1,0 +1,12 @@
+[Unit]
+Description=hiddify admin ui
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/opt/GITHUB_REPOSITORY/admin_ui/admin_ui.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -102,6 +102,6 @@ location = /defaultusersecret/signal/ {
   }
 #}
 
-include /opt/GITHUB_REPOSITORY/nginx/def-link.conf;
+
 
 resolver 8.8.8.8;
