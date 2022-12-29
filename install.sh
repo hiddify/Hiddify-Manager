@@ -110,6 +110,11 @@ function replace_empty_env() {
                 if [[ ! -z "$REGEX" ]];then
                         if [[ "$RESPONSE" =~ $REGEX ]];then
                                 sed -i "s|$1=|$1=$RESPONSE|g" config.env 
+                                cat config.env|grep -e "^$1"
+                                if [[ "$!?" != "0" ]]; then
+                                    echo "$1=$RESPONSE">> config.env
+                                fi
+
                                 export $1=$RESPONSE
                         else 
                                 echo "!!!!!!!!!!!!!!!!!!!!!!"
