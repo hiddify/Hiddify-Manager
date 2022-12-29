@@ -6,6 +6,7 @@ Wants=network-online.target
 [Service]
 Type=simple
 ExecStart=/opt/GITHUB_REPOSITORY/admin_ui/admin_ui.py
+WorkingDirectory=/opt/GITHUB_REPOSITORY/admin_ui/
 Restart=on-failure
 
 [Install]

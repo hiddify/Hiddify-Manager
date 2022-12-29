@@ -8,3 +8,4 @@ pip install bottle
 
 pkill -9 python3
 ln -s $(pwd)/hiddify-admin.service /etc/systemd/system/hiddify-admin.service
+
