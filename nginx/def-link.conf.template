@@ -1,6 +1,7 @@
 location = / {
 	if ($time_iso8601 ~ "^TEMP_LINK_VALID_TIME" ) { 
-		return 307  ADMIN_SECRET/config;
+		return "Please underestand that this link is temporary and will be disappeared after one hour. Please click <a href='/ADMIN_SECRET/config'>here</a> to continue setup."
+		#return 307  ADMIN_SECRET/config;
 	}
 
 	proxy_pass http://telegramtlsdomain;

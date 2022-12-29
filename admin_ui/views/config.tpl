@@ -2,9 +2,11 @@
 
 
 <form action='change' method='get' dir="ltr">
-    This page is only for configuration purpose. After one hour it will be disappeared.    
-    Your IP is {{data["external_ip"]}} Please set this ip in your domain and enter your domain bellow.<br>   
+    <p>This page is only for configuration purpose.  </p>
+    
     <div class="form-group">
+    <p>Your IP is {{data["external_ip"]}} Please set this ip in your domain and enter your domain bellow.<br>   
+    </p>
         <label>SubDomain</label>
         <input type='text'  value='{{data["MAIN_DOMAIN"]}}' class="form-control"  name='MAIN_DOMAIN' placeholder='plese enter your subdomain' /> 
         <small class="form-text text-muted">This field should be correct. Please visit <a href='https://github.com/hiddify/hiddify-config/blob/main/docs/create_domain.md'> Help</a> to learn how to create a subdomain.</small>
