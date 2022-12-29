@@ -1,5 +1,6 @@
 server {
 	listen 80 ;
+	include /opt/GITHUB_REPOSITORY/nginx/admin-link.conf;
 	include /opt/GITHUB_REPOSITORY/nginx/def-link.conf;
 }
 log_format proxy '[$time_local] $proxy_protocol_addr '

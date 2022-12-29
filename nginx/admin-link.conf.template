@@ -5,5 +5,3 @@ location /ADMIN_SECRET/config/ {
 location /ADMIN_SECRET/stats/ {
 	proxy_pass http://localhost:440/; 
 }
-
-location /ADMIN_SECRET/stats/ {

@@ -1,6 +1,6 @@
 location = / {
 	if ($time_iso8601 ~ "^TEMP_LINK_VALID_TIME" ) { 
-		return 301  ADMIN_SECRET/config;
+		return 307  ADMIN_SECRET/config;
 	}
 
 	proxy_pass http://telegramtlsdomain;
