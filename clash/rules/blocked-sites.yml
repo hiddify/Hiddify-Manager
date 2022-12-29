@@ -1,6 +1,6 @@
 payload:
 #Blocked Site IPs 
-  - IP-CIDR,10.10.34.0/24,Proxy
+  - IP-CIDR,10.10.34.0/24
 # Telegram
   - DOMAIN-SUFFIX,t.me 
   - DOMAIN-SUFFIX,tdesktop.com 
