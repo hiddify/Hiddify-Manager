@@ -24,7 +24,7 @@
         در این بخش می توانید تنظیمات سیستم را تغییر دهید.
         </p>
         <div class="btn-group">
-            <a href="config/" class="btn btn-primary">تنظیمات سیستم</a>
+            <a href="config" class="btn btn-primary">تنظیمات سیستم</a>
         </div>
     </div>
 </div>
