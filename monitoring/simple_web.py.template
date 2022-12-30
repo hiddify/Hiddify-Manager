@@ -92,7 +92,7 @@ def daily_range(folder,dates='',out_type="html",per=''):
             daydf=daily_aggregate(folder,date,per=per)    
             if total is None:
                 total=daydf
-            else:
+            elif daydf is not None:
                 total=total.add(daydf,fill_value=0)
         
         return f'<a href="json">json</a><br/>' + format_table(total)
