@@ -1,5 +1,20 @@
 % include('head')
 
+
+<div class="card">
+    <h5 class="card-header">
+        لینک عمومی کاربران
+    </h5>
+    <div class="card-body">
+        <p class="card-text">
+        با اشتراک گذاشتن لینک زیر می‌توانید لینک عمومی پروکسی را به اشتراک بگذارید
+        </p>
+        <div class="btn-group">
+            <a href="/{{data["USER_SECRET"]}}/" class="btn btn-primary">صفحه عمومی کاربران</a>
+        </div>
+    </div>
+</div>
+
 <div class="card">
     <h5 class="card-header">
         صفحه تنظیمات سیستم
