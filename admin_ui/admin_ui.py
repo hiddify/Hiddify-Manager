@@ -25,7 +25,8 @@ conf_vars=[
     ]
 @route('/')
 def index():
-    return template('index')
+    data=read_configs()
+    return template('index',data=data)
 
 @route('/config/')
 def redirect_no_tailing_slash():
