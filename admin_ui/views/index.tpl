@@ -40,22 +40,22 @@
         <div class="btn-group">
             <a href="stats/daily/asn/0/" class="btn btn-primary">امروز تا الان</a>
             <a href="stats/daily/asn/1/" class="btn btn-primary">دیروز</a>
-            <a href="stats/daily/asn/7/" class="btn btn-primary">هفتگی</a>
-            <a href="stats/daily/asn/30/" class="btn btn-primary">ماهیانه</a>
+            <a href="stats/daily/asn/0:6/" class="btn btn-primary">هفتگی</a>
+            <a href="stats/daily/asn/0:30/" class="btn btn-primary">ماهیانه</a>
         </div>
         <h6>گزارش بر مبنای شهر</h6>
         <div class="btn-group">
             <a href="stats/daily/city/0/" class="btn btn-primary">امروز تا الان</a>
             <a href="stats/daily/city/1/" class="btn btn-primary">دیروز</a>
-            <a href="stats/daily/city/7/" class="btn btn-primary">هفتگی</a>
-            <a href="stats/daily/city/30/" class="btn btn-primary">ماهیانه</a>
+            <a href="stats/daily/city/0:6/" class="btn btn-primary">هفتگی</a>
+            <a href="stats/daily/city/0:30/" class="btn btn-primary">ماهیانه</a>
         </div>
         <h6>گزارش بر مبنای پروتکل</h6>
         <div class="btn-group">
             <a href="stats/daily/proto/0/" class="btn btn-primary">امروز تا الان</a>
             <a href="stats/daily/proto/1/" class="btn btn-primary">دیروز</a>
-            <a href="stats/daily/proto/7/" class="btn btn-primary">هفتگی</a>
-            <a href="stats/daily/proto/30/" class="btn btn-primary">ماهیانه</a>
+            <a href="stats/daily/proto/0:6/" class="btn btn-primary">هفتگی</a>
+            <a href="stats/daily/proto/0:30/" class="btn btn-primary">ماهیانه</a>
         </div>
         <div class="btn-group">
             <a href="stats/" class="btn btn-primary orig-link">جزییات</a>
