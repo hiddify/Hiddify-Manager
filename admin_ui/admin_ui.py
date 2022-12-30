@@ -94,9 +94,9 @@ def change():
     subprocess.Popen(f"{config_dir}/install.sh",env=my_env,cwd=f"{config_dir}")
     return template("result",data={
                         "out-type":"success",
-                        "out-msg":("Success! Please wait around 2 minutes to make sure everything is working. Then, please save your Proxy Link which is <br>",
-                                f"<h1>User Link</h1><a href='https://{request.query['MAIN_DOMAIN']}/{request.query['USER_SECRET']}/'>https://{request.query['MAIN_DOMAIN']}/{request.query['USER_SECRET']}/</a><br>",
-                                f"<h1>Admin Link</h1><a href='https://{request.query['MAIN_DOMAIN']}/{request.query['ADMIN_SECRET']}/'>https://{request.query['MAIN_DOMAIN']}/{request.query['ADMIN_SECRET']}/</a>")
+                        "out-msg":"Success! Please wait around 2 minutes to make sure everything is working. Then, please save your proxy links which are <br>"+
+                                f"<h1>User Link</h1><a href='https://{request.query['MAIN_DOMAIN']}/{request.query['USER_SECRET']}/'>https://{request.query['MAIN_DOMAIN']}/{request.query['USER_SECRET']}/</a><br>"+
+                                f"<h1>Admin Link</h1><a href='https://{request.query['MAIN_DOMAIN']}/{request.query['ADMIN_SECRET']}/'>https://{request.query['MAIN_DOMAIN']}/{request.query['ADMIN_SECRET']}/</a>"
     })
 
 
