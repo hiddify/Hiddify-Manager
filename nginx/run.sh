@@ -14,6 +14,6 @@ pkill nginx
 pkill -9 nginx
 certbot --nginx --register-unsafely-without-email -d $MAIN_DOMAIN --non-interactive --agree-tos  --https-port 444 --no-redirect
 pkill -9 nginx
-echo "Please visit http://$SERVER_IP/ in one hour to change your domain.\n\n Current Proxy Link is:\n https://$MAIN_DOMAIN/$USER_SECRET/ \n\n Current Admin Link is:\n https://$MAIN_DOMAIN/$ADMIN_SECRET/">use-link
+echo -e "Please visit http://$SERVER_IP/ in one hour to change your domain.\n\n Current Proxy Link is:\n https://$MAIN_DOMAIN/$USER_SECRET/ \n\n Current Admin Link is:\n https://$MAIN_DOMAIN/$ADMIN_SECRET/">use-link
 
 systemctl restart nginx
