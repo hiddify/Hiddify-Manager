@@ -20,7 +20,7 @@
  این پروکسی، از v2ray استفاده میکند و یک زیرمسیر از سایت که با tls و http2 فعال است استفاده میکند
 
 </details>
-<details markdown="1"> <summary>vmess (cdn support)</summary>
+<details markdown="1"> <summary>vmess</summary>
 
 Same as v2ray
 
