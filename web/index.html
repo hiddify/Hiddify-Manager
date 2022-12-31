@@ -475,9 +475,10 @@
         }
         $(document).ready(function () {
             $('a.orig-link').each((i, p) => {
-                if (p.href.startsWith("clash://install-config?url=")){
-                    href = p.href.replaceAll('clash://install-config?url=', '');
-                    href=href.replaceAll(".yml&",".yml?")
+                href = p.href
+                if (href.startsWith("clash://install-config?url=")){
+                    href = href.replaceAll('clash://install-config?url=', '');
+                    href = href.replaceAll(".yml&",".yml?")
                 }
 
                 // ecopy = ' <a href="' + href + '" class="btn btn-success copy-link">کپی لینک</a>'
