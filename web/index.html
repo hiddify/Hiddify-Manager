@@ -475,7 +475,7 @@
         }
         $(document).ready(function () {
             $('a.orig-link').each((i, p) => {
-                if (p.href.startsWith("clash://install-config?url="){
+                if (p.href.startsWith("clash://install-config?url=")){
                     href = p.href.replaceAll('clash://install-config?url=', '');
                     href=href.replaceAll(".yml&",".yml?")
                 }
