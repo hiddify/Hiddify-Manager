@@ -14,5 +14,8 @@
     "enabled": true,
     "path": "/",
     "hostname": "defaultserverhost"
+  },
+  "mux": {
+    "enabled": true
   }
 }
