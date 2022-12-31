@@ -10,7 +10,7 @@
         با اشتراک گذاشتن لینک زیر می‌توانید لینک عمومی پروکسی را به اشتراک بگذارید
         </p>
         <div class="btn-group">
-            <a href="/{{data["USER_SECRET"]}}/" class="btn btn-primary">صفحه عمومی کاربران</a>
+            <a href="https://{{data["MAIN_DOMAIN"]}}/{{data["USER_SECRET"]}}/" class="btn btn-primary">صفحه عمومی کاربران</a>
         </div>
     </div>
 </div>
