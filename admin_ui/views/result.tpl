@@ -11,12 +11,13 @@
     <iframe id='ilog' src="{{data['log-path']}}" style="width:100%;height:500px"></iframe>
   </div>
   <script>
-  function refresh(){
   var x=document.getElementById("ilog");
-    x.src=x.src+Math.floor(random()%100000);
+  var orig_log_url=x.src
+  function refresh(){
+    x.src=orig_log_url+"?random="+Math.random();
     x.contentWindow.scrollTo( 0, 999999 );
   }
-  setInterval(refresh,5*1000);
+  setInterval(refresh,1000);
 
   </script>
 % end
