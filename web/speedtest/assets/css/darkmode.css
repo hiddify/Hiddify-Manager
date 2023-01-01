@@ -1,0 +1,45 @@
+body {
+  background-color: #181818;
+}
+#ipDesk {
+  fill: aliceblue;
+}
+
+.oDoLive-Speed {
+  fill: #ffffff;
+}
+.oDoLive-Status {
+  fill: aliceblue;
+}
+#ipMob {
+  fill: aliceblue;
+}
+.rtextnum {
+  fill: #ffffff;
+}
+.rtextmbms {
+  fill: #ffffff;
+}
+.rtext {
+  fill: #ffffff;
+}
+.Cards {
+  fill: #000000;
+}
+
+.main-Gaugebg {
+  stroke: #000000;
+}
+.uiBg {
+  fill: #000000;
+}
+.progressbg {
+  stroke: #202020;
+}
+.jitter-Mob {
+  fill: #ffffff;
+}
+
+.ConnectError {
+  fill: #ffffff;
+}
