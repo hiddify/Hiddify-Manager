@@ -4,4 +4,19 @@
               {{!data["out-msg"]}}
             </div>
 
+% if "log-path" in data:
+  <h1>Logs</h1>
+  <a href="{{data['log-path']}}" target="_blank" >Click here to see the complete log</a><br>
+  <iframe id='ilog' src="{{data['log-path']}}" style="width:100%;height:500px"/>
+
+  <script>
+  function refresh(){
+  var x=document.getElementById("ilog");
+    x.src=x.src+Math.floor(random()%100000);
+    x.contentWindow.scrollTo( 0, 999999 );
+  }
+  setInterval(refresh,5*1000);
+
+  </script>
+% end
 % include('tail')

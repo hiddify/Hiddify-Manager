@@ -31,7 +31,7 @@ def index():
 
 @route('/apply_configs')
 def apply_configs():
-    return reinstall(false)
+    return reinstall(False)
 
 @route('/reinstall')
 def reinstall(complete_install=True):
@@ -48,7 +48,7 @@ def reinstall(complete_install=True):
                         "out-msg":f"Success! Please wait around {6 if complete_install else 2} minutes to make sure everything is updated. Then, please save your proxy links which are <br>"+
                                 f"<h1>User Link</h1><a href='https://{configs['MAIN_DOMAIN']}/{configs['USER_SECRET']}/'>https://{configs['MAIN_DOMAIN']}/{configs['USER_SECRET']}/</a><br>"+
                                 f"<h1>Admin Link</h1><a href='https://{configs['MAIN_DOMAIN']}/{configs['ADMIN_SECRET']}/'>https://{configs['MAIN_DOMAIN']}/{configs['ADMIN_SECRET']}/</a><br>"+
-                                f"<a href='log/0-install.log'><h3>System Log</h3></a>"
+                        "log-path":"log/0-install.log"
     })
 
 @route('/update')
@@ -68,8 +68,8 @@ def update():
     # subprocess.Popen(f"{config_dir}/update.sh",env=my_env,cwd=f"{config_dir}")
     return template("result",data={
                         "out-type":"success",
-                        "out-msg":"Success! Please wait around 5 minutes to make sure everything is updated. Then, please save your proxy links which are <br>"+
-                                f"<a href='log/update.log'><h3>Update Log</h3></a>"
+                        "out-msg":"Success! Please wait around 5 minutes to make sure everything is updated. Then, please save your proxy links which are <br>",
+                        "log-path":"log/0-install.log"
     })
 
     
