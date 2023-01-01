@@ -14,7 +14,7 @@
   var x=document.getElementById("ilog");
   var orig_log_url=x.src
   function refresh(){
-    x.location.replace(orig_log_url+"?random="+Math.random());
+    x.contentWindow.location.replace(orig_log_url+"?random="+Math.random());
     //x.contentWindow.scrollTo( 0, 999999 );
   }
   setInterval(refresh,2000);
