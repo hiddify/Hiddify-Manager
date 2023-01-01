@@ -96,6 +96,7 @@ ENABLE_AUTO_UPDATE=false
 # [آموزش نصب و راه اندازی (کلیک کنید)](https://github.com/hiddify/hiddify-config/wiki#آموزش-نصب)
 
 
+# [کانال تلگرام ما](https://t.me/hiddify)
 
 # صفحه راهنمای کاربران
 
