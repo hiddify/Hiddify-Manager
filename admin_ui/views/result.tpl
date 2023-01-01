@@ -8,7 +8,7 @@
   <div dir="ltr">
   <h1>Logs</h1>
     <a href="{{data['log-path']}}" target="_blank" >Click here to see the complete log</a><br>
-    <iframe id='ilog' src="{{data['log-path']}}" style="width:100%;height:500px" onload="document.getElementById('ilog').contentWindow.scrollTo(0,999999)"></iframe>
+    <iframe id='ilog' src="{{data['log-path']}}" style="width:100%;height:500px" ></iframe>
   </div>
   <script>
   var x=document.getElementById("ilog");

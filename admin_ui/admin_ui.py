@@ -29,6 +29,13 @@ def index():
     return template('index',data=data)
 
 
+@route('/reverselog/<logfile>')
+def reverselog(logfile):
+    with open(f'{config_dir}/log/system/{logfile}') as f:
+        lines=[line for line in f]
+        response.content_type = 'text/plain;
+        return "\n".join(lines[::-1])
+
 @route('/apply_configs')
 def apply_configs():
     return reinstall(False)
@@ -49,7 +56,7 @@ def reinstall(complete_install=True):
                         "out-msg":f"Success! Please wait around {6 if complete_install else 2} minutes to make sure everything is updated. Then, please save your proxy links which are <br>"+
                                 f"<h1>User Link</h1><a href='https://{configs['MAIN_DOMAIN']}/{configs['USER_SECRET']}/'>https://{configs['MAIN_DOMAIN']}/{configs['USER_SECRET']}/</a><br>"+
                                 f"<h1>Admin Link</h1><a href='https://{configs['MAIN_DOMAIN']}/{configs['ADMIN_SECRET']}/'>https://{configs['MAIN_DOMAIN']}/{configs['ADMIN_SECRET']}/</a><br>",
-                        "log-path":f"https://{configs['MAIN_DOMAIN']}/{configs['ADMIN_SECRET']}/log/0-install.log"
+                        "log-path":f"https://{configs['MAIN_DOMAIN']}/{configs['ADMIN_SECRET']}/reverselog/0-install.log"
     })
 
 @route('/update')
@@ -70,7 +77,7 @@ def update():
     return template("result",data={
                         "out-type":"success",
                         "out-msg":"Success! Please wait around 5 minutes to make sure everything is updated.<br>",
-                        "log-path":"log/update.log"
+                        "log-path":"reverselog/update.log"
     })
 
     
