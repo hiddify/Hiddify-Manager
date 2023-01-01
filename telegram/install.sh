@@ -12,7 +12,7 @@ apt install -y make golang
 # tar -xvf go1.19.linux-amd64.tar.gz   
 # export PATH=$(pwd)/go/bin:$PATH
 
-ln -s  $(pwd)/mtproxy.service /etc/systemd/system/mtproxy.service
+
 
 export GOPATH=/opt/hiddify-config/telegram/go/
 git clone https://github.com/9seconds/mtg/

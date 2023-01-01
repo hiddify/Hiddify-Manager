@@ -9,8 +9,6 @@ tar xvzf v2ray-plugin-linux-*
 mv v2ray-plugin_linux_$(dpkg --print-architecture) v2ray-plugin_linux
 
 
-ln -s $(pwd)/ss-faketls.service /etc/systemd/system/ss-faketls.service
-ln -s $(pwd)/ss-v2ray.service /etc/systemd/system/ss-v2ray.service
 
 
 
