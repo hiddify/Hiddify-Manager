@@ -3,7 +3,12 @@ location /ADMIN_SECRET/stats/ {
 	error_page 301 302 307 = @handle_redirect;
 }
 location /ADMIN_SECRET/log/ {
+	autoindex on;
 	alias /opt/GITHUB_REPOSITORY/log/system/;
+	types {
+        text/plain log;
+    }
+	expires -1;
 }
 location /ADMIN_SECRET/ {
 	proxy_pass http://localhost:439/; 
