@@ -1,14 +1,15 @@
 % include('head')
 
-            <div class="alert alert-{{data["out-type"]}}" role="alert" dir="ltr">
-              {{!data["out-msg"]}}
-            </div>
+    <div class="alert alert-{{data["out-type"]}}" role="alert" dir="ltr">
+      {{!data["out-msg"]}}
+    </div>
 
 % if "log-path" in data:
+  <div dir="ltr">
   <h1>Logs</h1>
-  <a href="{{data['log-path']}}" target="_blank" >Click here to see the complete log</a><br>
-  <iframe id='ilog' src="{{data['log-path']}}" style="width:100%;height:500px"/>
-
+    <a href="{{data['log-path']}}" target="_blank" >Click here to see the complete log</a><br>
+    <iframe id='ilog' src="{{data['log-path']}}" style="width:100%;height:500px"></iframe>
+  </div>
   <script>
   function refresh(){
   var x=document.getElementById("ilog");

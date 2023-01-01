@@ -68,7 +68,7 @@ def update():
     # subprocess.Popen(f"{config_dir}/update.sh",env=my_env,cwd=f"{config_dir}")
     return template("result",data={
                         "out-type":"success",
-                        "out-msg":"Success! Please wait around 5 minutes to make sure everything is updated. Then, please save your proxy links which are <br>",
+                        "out-msg":"Success! Please wait around 5 minutes to make sure everything is updated.<br>",
                         "log-path":"log/0-install.log"
     })
 
