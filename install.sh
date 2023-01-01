@@ -26,7 +26,7 @@ function runsh() {
                 echo "==========================================================="
                 echo "===$1 $2"
                 echo "==========================================================="        
-                bash $1; 
+                bash $1
         fi
         popd 
 }
@@ -128,29 +128,33 @@ function replace_empty_env() {
         fi
 }
 
+function main(){
 
+        set_env_if_empty config.env
+        set_env_if_empty config.env.default
 
-set_env_if_empty config.env
-set_env_if_empty config.env.default
+        cd /opt/$GITHUB_REPOSITORY
+        git pull
 
-cd /opt/$GITHUB_REPOSITORY
-git pull
+        if [[ -z "$DO_NOT_RUN" || "$DO_NOT_RUN" == false ]];then
+                check_for_env
+        fi
 
-if [[ -z "$DO_NOT_RUN" || "$DO_NOT_RUN" == false ]];then
-        check_for_env
-fi
+        if [[ -z "$DO_NOT_INSTALL" || "$DO_NOT_INSTALL" == false  ]];then
+                do_for_all install
+        fi
 
-if [[ -z "$DO_NOT_INSTALL" || "$DO_NOT_INSTALL" == false  ]];then
-        do_for_all install
-fi
+        if [[ -z "$DO_NOT_RUN" || "$DO_NOT_RUN" == false ]];then
+                do_for_all run
+                echo ""
+                echo ""
+                echo "==========================================================="
+                echo "Thank you for helping Iranians to skip filternet."
+                echo "Please open the following link in the browser for client setup"
+                cat nginx/use-link
+        fi
 
-if [[ -z "$DO_NOT_RUN" || "$DO_NOT_RUN" == false ]];then
-        do_for_all run
-        echo ""
-        echo ""
-        echo "==========================================================="
-        echo "Thank you for helping Iranians to skip filternet."
-        echo "Please open the following link in the browser for client setup"
-        cat nginx/use-link
-fi
+}
 
+mkdir -p log
+main |& tee log/hiddify-install.log
