@@ -161,11 +161,11 @@ function main(){
                 echo ""
                 echo ""
                 echo "==========================================================="
-                echo "Thank you for helping Iranians to skip filternet."
+                echo "Finished! Thank you for helping Iranians to skip filternet."
                 echo "Please open the following link in the browser for client setup"
                 cat nginx/use-link
         fi
-
+        systemctl restart hiddify-admin.service
 }
 
 mkdir -p log/system/
