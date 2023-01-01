@@ -15,24 +15,24 @@
  `faketls domain=www.google.com` 
  
 </details>
-<details markdown="1"> <summary>Shadowsocks+v2ray (cdn support)</summary>
+<details markdown="1"> <summary>v2ray (supports CDN)</summary>
  
  این پروکسی، از v2ray استفاده میکند و یک زیرمسیر از سایت که با tls و http2 فعال است استفاده میکند
 
 </details>
-<details markdown="1"> <summary>vmess</summary>
+<details markdown="1"> <summary>vmess (supports CDN)</summary>
 
 Same as v2ray
 
 </details>
-<details markdown="1"> <summary>DNS over HTTPS (cdn support)</summary>
+<details markdown="1"> <summary>DNS over HTTPS (supports CDN)</summary>
  
  برای استفاده از DNS over HTTPS کافی است در مرورگر از dns زیر استفاده کنید:
  
  `https://yourdomain.com/yoursecret/dns/dns-query{?dns}`
  
 </details>
-<details markdown="1"> <summary>Redirector (cdn support)</summary> 
+<details markdown="1"> <summary>Redirector (supports CDN)</summary> 
  
  نکته این امر آن است که برای مثال وقتی میخواهید پروکسی تلگرام یا پروکسی شدوساکس را از طریق برنامه های دیگر به اشتراک بگذارید امکان آن فراهم می شود. برای مثال اگر کانفیگ شدوساکس را به جای `fullURL` آن قرار دهید باعث میشود با کلیک بر روی این لینک، نرم افزار شدوساکس باز شده و پروکسی بر روی آن فعال شود.
  
@@ -96,6 +96,7 @@ ENABLE_AUTO_UPDATE=false
 # [آموزش نصب و راه اندازی (کلیک کنید)](https://github.com/hiddify/hiddify-config/wiki#آموزش-نصب)
 
 
+# [کانال تلگرام ما](https://t.me/hiddify)
 
 # صفحه راهنمای کاربران
 
