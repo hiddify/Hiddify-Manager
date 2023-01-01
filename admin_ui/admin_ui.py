@@ -42,9 +42,10 @@ def reinstall(complete_install=True):
     for name in configs:
         if name in my_env:
             del my_env[name]
-    my_env["DO_NOT_INSTALL"]="false" if complete_install else "true"
+    env="DO_NOT_INSTALL="+("false" if complete_install else "true")
 
-    subprocess.Popen(f"{config_dir}/update.sh",env=my_env,cwd=f"{config_dir}")
+    # subprocess.Popen(f"{config_dir}/update.sh",env=my_env,cwd=f"{config_dir}")
+    os.spawnl(os.P_DETACH, f'cd {config_dir};{env} ./install.sh')
     return template("result",data={
                         "out-type":"success",
                         "out-msg":f"Success! Please wait around {6 if complete_install else 2} minutes to make sure everything is updated. Then, please save your proxy links which are <br>"+
@@ -58,13 +59,15 @@ def update():
     configs=read_configs()
     cwd = os.getcwd()
     
-    my_env = os.environ.copy()
-    for name in configs:
-        if name in my_env:
-            del my_env[name]
+    # my_env = os.environ.copy()
+    # for name in configs:
+    #     if name in my_env:
+    #         del my_env[name]
     # os.chdir(config_dir)
     # rc = subprocess.call(f"./install.sh &",shell=True)
-    subprocess.Popen(f"{config_dir}/update.sh",env=my_env,cwd=f"{config_dir}")
+    os.spawnl(os.P_DETACH, f'cd {config_dir};./update.sh')
+
+    # subprocess.Popen(f"{config_dir}/update.sh",env=my_env,cwd=f"{config_dir}")
     return template("result",data={
                         "out-type":"success",
                         "out-msg":"Success! Please wait around 5 minutes to make sure everything is updated. Then, please save your proxy links which are <br>"+
