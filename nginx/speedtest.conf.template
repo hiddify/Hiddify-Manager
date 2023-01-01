@@ -1,0 +1,102 @@
+     #©CopyRight 2013-2023 by OpenSpeedTest.COM. All Rights Reserved. 
+     #Official Website : https://OpenSpeedTest.COM | Email: support@openspeedtest.com
+     #Developed by : Vishnu | https://Vishnu.Pro | Email : me@vishnu.pro 
+            
+     #HTML5 Network Performance Estimation Tool -> [JS,XHR,SVG,HTML,CSS]
+     #Started in 2011 and Moved to OpenSpeedTest.COM, Dedicated Project/Domain Name in 2013.
+     #SpeedTest Script -> 2013 -> Beta | 2015 -> V1 | 2019 ->V2 | 2020 V2.1 | 2021 V2.12 | 2022 V2.5 & 2.5.3
+     #Self-Hosted OpenSpeedTest-Server (iFrame/Nginx) -> 2014. (Managed SelfHosted SpeedTesT Widget)
+     #OpenSpeedTest-Server (On-premises) (Fully SelfHosted Apps)
+     #[OpenSpeedTest-Server Docker Image] -> V1 2019 | V2 2020 | V2.1 2021 | V2.2 & 2.2.2 2022
+     #[Node.js/Electron JS  OpenSpeedTest-Server Desktop Apps] -> 2020 V1 | 2021 V2 & V2.1 | 2.1.1 to 2.1.8 2022
+     #[Ionic Android and iOS OpenSpeedTest-Server Mobile Apps] V1.2 to 1.5 2022 
+
+     #Download Now -> https://go.openspeedtest.com/Server
+
+     #Like this Project? Please Donate NOW & Keep us Alive -> https://go.openspeedtest.com/Donate
+
+     #Speed Test by OpenSpeedTest™️ is Free and Open-Source Software (FOSS) with MIT License.
+     #Read full license terms @ http://go.openspeedtest.com/License
+
+     #If you have any Questions, ideas or Comments Please Send it via -> https://go.openspeedtest.com/SendMessage
+
+
+server {
+server_name _ localhost;
+        listen 438;
+        listen [::]:438;
+        
+        # If you like to Enable HTTP2 add "http2" to the above line.
+        # If HTTP2 Enabled. Upload location should Proxy_Pass to http 1.1 port.
+        # Otherwise you will see abnormal Upload Speeds.
+        # Nginx Server Windows SSL Performance was very poor! Better use Linux if you need SSL support.
+
+        alias /opt/GITHUB_REPOSITORY/web/speedtest/;
+        index index.html;
+        client_max_body_size 10000M;
+        error_page  405     =200 $uri;
+        access_log off;
+        gzip off; 
+        fastcgi_read_timeout 999;
+        log_not_found  off;
+        server_tokens off;
+        error_log /dev/null; #Disable this for Windows Nginx.
+        tcp_nodelay on;
+        tcp_nopush on;
+        sendfile on;
+        open_file_cache max=200000 inactive=20s;
+        open_file_cache_valid 30s;
+        open_file_cache_min_uses 2;
+        open_file_cache_errors off;
+        
+        location / {
+            
+            add_header 'Access-Control-Allow-Origin' "*" always;
+            add_header 'Access-Control-Allow-Headers' 'Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Mx-ReqToken,X-Requested-With' always;
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+            #Very Very Important! You SHOULD send no-store from server for Google Chrome.
+            add_header Cache-Control 'no-store, no-cache, max-age=0, no-transform';
+            add_header Last-Modified $date_gmt;
+                if_modified_since off;
+                expires off;
+                etag off;
+
+            if ($request_method = OPTIONS ) {
+            add_header Access-Control-Allow-Credentials "true";
+            add_header 'Access-Control-Allow-Headers' 'Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Mx-ReqToken,X-Requested-With' always;
+            add_header 'Access-Control-Allow-Origin' "$http_origin" always;        
+            add_header Access-Control-Allow-Methods "GET, POST, OPTIONS" always;
+            return 204;
+                }
+            }
+
+        # IF and Only if you Enabled HTTP2 otherwise never enable the following 
+        #location = /upload {
+        # HTTP2 will return 200 withot waiting for upload to complete. it's smart but we don't need that to happen here when testing upload speed on HTTP2.    
+        #proxy_pass http://127.0.0.1:80/upload.bin;
+        #}
+
+           
+ #Caching for Static Files,
+location ~* ^.+\.(?:css|cur|js|jpe?g|gif|htc|ico|png|html|xml|otf|ttf|eot|woff|woff2|svg)$ {
+    access_log off;
+    expires 365d;
+    add_header Cache-Control public;
+    add_header Vary Accept-Encoding;
+    tcp_nodelay off;
+    open_file_cache max=3000 inactive=120s;
+    open_file_cache_valid 45s;
+    open_file_cache_min_uses 2;
+    open_file_cache_errors off;
+    gzip on; 
+    gzip_disable "msie6";
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_buffers 16 8k;
+    gzip_http_version 1.1;
+    gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript image/svg+xml;
+}
+   
+}
+# Make this Nginx conf. Better? Send me you ideas -> https://go.openspeedtest.com/SendMessage

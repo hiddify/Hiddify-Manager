@@ -91,8 +91,9 @@ location = /defaultusersecret/signal/ {
     # use it in your browser as https://defaultserverhost/defaultusersecret/dns/dns-query{?dns}
     proxy_pass https://dns.google:443/; 
   }
-  location /defaultusersecret/stats/ {
-    proxy_pass http://localhost:440/; 
+  location /defaultusersecret/speedtest/ {
+    client_max_body_size 10000M;
+    proxy_pass          http://localhost:438/;
   }
   location /defaultusersecret/ { #for help
     alias /opt/GITHUB_REPOSITORY/web/;
