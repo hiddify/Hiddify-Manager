@@ -4,7 +4,7 @@ import pathlib
 
 
 
-from bottle import route, run, template,redirect,request,static_file
+from bottle import route, run, template,redirect,request,response,static_file
 from datetime import datetime,timedelta,date
 import os,sys
 import json
@@ -33,8 +33,8 @@ def index():
 def reverselog(logfile):
     with open(f'{config_dir}/log/system/{logfile}') as f:
         lines=[line for line in f]
-        response.content_type = 'text/plain;
-        return "\n".join(lines[::-1])
+        response.content_type = 'text/plain';
+        return "".join(lines[::-1])
 
 @route('/apply_configs')
 def apply_configs():
