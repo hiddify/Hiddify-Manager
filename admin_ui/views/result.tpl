@@ -17,7 +17,7 @@
     x.contentWindow.location.replace(orig_log_url+"?random="+Math.random());
     //x.contentWindow.scrollTo( 0, 999999 );
   }
-  setInterval(refresh,2000);
+  setInterval(refresh,1000);
 
   </script>
 % end
