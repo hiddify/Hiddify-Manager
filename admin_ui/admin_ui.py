@@ -69,7 +69,7 @@ def update():
     return template("result",data={
                         "out-type":"success",
                         "out-msg":"Success! Please wait around 5 minutes to make sure everything is updated.<br>",
-                        "log-path":"log/0-install.log"
+                        "log-path":"log/update.log"
     })
 
     
