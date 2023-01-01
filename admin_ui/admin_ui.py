@@ -42,7 +42,7 @@ def reinstall(complete_install=True):
 
     # subprocess.Popen(f"{config_dir}/update.sh",env=my_env,cwd=f"{config_dir}")
     # os.system(f'cd {config_dir};{env} ./install.sh &')
-    rc = subprocess.call(f"cd {config_dir};./{file} &",shell=True)
+    rc = subprocess.call(f"cd {config_dir};./{file} & disown",shell=True)
     return template("result",data={
                         "out-type":"success",
                         "out-msg":f"Success! Please wait around {6 if complete_install else 2} minutes to make sure everything is updated. Then, please save your proxy links which are <br>"+
@@ -62,7 +62,7 @@ def update():
             del os.environ[name]
     # os.chdir(config_dir)
     # rc = subprocess.call(f"./install.sh &",shell=True)
-    rc = subprocess.call(f"cd {config_dir};./update.sh &",shell=True)
+    rc = subprocess.call(f"cd {config_dir};./update.sh & disown",shell=True)
     # os.system(f'cd {config_dir};./update.sh &')
 
     # subprocess.Popen(f"{config_dir}/update.sh",env=my_env,cwd=f"{config_dir}")
