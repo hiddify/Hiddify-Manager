@@ -24,7 +24,23 @@
         در این بخش می توانید تنظیمات سیستم را تغییر دهید.
         </p>
         <div class="btn-group">
-            <a href="config" class="btn btn-primary">تنظیمات سیستم</a>
+            <a href="config" class="btn btn-primary">تنظیمات</a>
+        </div>
+
+        <div class="btn-group">
+            <a href="apply_configs" class="btn btn-primary">اعمال مجدد کانفیگ</a>
+        </div>
+
+        <div class="btn-group">
+            <a href="reinstall" class="btn btn-primary">نصب مجدد</a>
+        </div>
+
+        <div class="btn-group">
+            <a href="update" class="btn btn-primary">به روز رسانی</a>
+        </div>
+
+        <div class="btn-group">
+            <a href="log" class="btn btn-primary">مشاهده لاگ</a>
         </div>
     </div>
 </div>

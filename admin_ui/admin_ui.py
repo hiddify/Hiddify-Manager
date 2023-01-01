@@ -28,6 +28,56 @@ def index():
     data=read_configs()
     return template('index',data=data)
 
+@route('/log')
+def log():
+    return static_file("hiddify-install.log", root=f'{config_dir}/log/')
+
+
+@route('/apply_configs')
+def apply_configs():
+    return reinstall(false)
+
+@route('/reinstall')
+def reinstall(complete_install=True):
+    configs=read_configs()
+    cwd = os.getcwd()
+    
+    my_env = os.environ.copy()
+    for name in configs:
+        if name in my_env:
+            del my_env[name]
+    my_env["DO_NOT_INSTALL"]="false" if complete_install else "true"
+
+    subprocess.Popen(f"{config_dir}/update.sh",env=my_env,cwd=f"{config_dir}")
+    return template("result",data={
+                        "out-type":"success",
+                        "out-msg":f"Success! Please wait around {6 if complete_install else 2} minutes to make sure everything is updated. Then, please save your proxy links which are <br>"+
+                                f"<h1>User Link</h1><a href='https://{request.query['MAIN_DOMAIN']}/{request.query['USER_SECRET']}/'>https://{request.query['MAIN_DOMAIN']}/{request.query['USER_SECRET']}/</a><br>"+
+                                f"<h1>Admin Link</h1><a href='https://{request.query['MAIN_DOMAIN']}/{request.query['ADMIN_SECRET']}/'>https://{request.query['MAIN_DOMAIN']}/{request.query['ADMIN_SECRET']}/</a><br>"+
+                                f"<a href='log'><h3>System Log</h3></a>"
+    })
+
+@route('/update')
+def update():
+    configs=read_configs()
+    cwd = os.getcwd()
+    
+    my_env = os.environ.copy()
+    for name in configs:
+        if name in my_env:
+            del my_env[name]
+    # os.chdir(config_dir)
+    # rc = subprocess.call(f"./install.sh &",shell=True)
+    subprocess.Popen(f"{config_dir}/update.sh",env=my_env,cwd=f"{config_dir}")
+    return template("result",data={
+                        "out-type":"success",
+                        "out-msg":"Success! Please wait around 5 minutes to make sure everything is updated. Then, please save your proxy links which are <br>"+
+                                f"<a href='log'><h3>System Log</h3></a>"
+    })
+
+    
+
+
 @route('/config/')
 def redirect_no_tailing_slash():
     newu=request.url.split('/')[-2]
@@ -83,22 +133,8 @@ def change():
     
     set_configs(new_configs)
     
-    cwd = os.getcwd()
+    return apply_configs()
     
-    my_env = os.environ.copy()
-    for name in new_configs:
-        if name in my_env:
-            del my_env[name]
-    my_env["DO_NOT_INSTALL"]="true"
-    # os.chdir(config_dir)
-    # rc = subprocess.call(f"./install.sh &",shell=True)
-    subprocess.Popen(f"{config_dir}/install.sh",env=my_env,cwd=f"{config_dir}")
-    return template("result",data={
-                        "out-type":"success",
-                        "out-msg":"Success! Please wait around 2 minutes to make sure everything is working. Then, please save your proxy links which are <br>"+
-                                f"<h1>User Link</h1><a href='https://{request.query['MAIN_DOMAIN']}/{request.query['USER_SECRET']}/'>https://{request.query['MAIN_DOMAIN']}/{request.query['USER_SECRET']}/</a><br>"+
-                                f"<h1>Admin Link</h1><a href='https://{request.query['MAIN_DOMAIN']}/{request.query['ADMIN_SECRET']}/'>https://{request.query['MAIN_DOMAIN']}/{request.query['ADMIN_SECRET']}/</a>"
-    })
 
 
 def read_configs(read_default=True):
