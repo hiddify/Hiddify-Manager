@@ -9,6 +9,7 @@ location /ADMIN_SECRET/log/ {
         text/plain log;
     }
 	expires -1;
+	add_header X-Frame-Options SAMEORIGIN;
 }
 location /ADMIN_SECRET/ {
 	proxy_pass http://localhost:439/; 
