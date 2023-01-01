@@ -20,11 +20,6 @@ mkdir -p /etc/nginx/stream.d/
 ln -s $(pwd)/sni-proxy.conf /etc/nginx/stream.d/sni-proxy.conf
 ln -s $(pwd)/signal.conf /etc/nginx/stream.d/signal.conf
 
-if [[ "$ENABLE_SPEED_TEST" == "true" ]];then
-ln -s $(pwd)/speedtest.conf /etc/nginx/conf.d/speedtest.conf
-else
-rm /etc/nginx/conf.d/speedtest.conf
-fi
 # if ! grep -Fxq "stream{include /etc/nginx/stream.d/*.conf;}" /etc/nginx/nginx.conf; then
 #   echo "stream{include /etc/nginx/stream.d/*.conf;}">>/etc/nginx/nginx.conf;
 # fi
