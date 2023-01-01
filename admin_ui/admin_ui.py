@@ -36,16 +36,13 @@ def apply_configs():
 @route('/reinstall')
 def reinstall(complete_install=True):
     configs=read_configs()
-    cwd = os.getcwd()
+
+    file="install.sh" if complete_install else "apply_configs.sh"
     
-    
-    for name in configs:
-        if name in os.environ:
-            del os.environ[name]
-    env="DO_NOT_INSTALL="+("false" if complete_install else "true")
 
     # subprocess.Popen(f"{config_dir}/update.sh",env=my_env,cwd=f"{config_dir}")
-    os.system(f'cd {config_dir};{env} ./install.sh &')
+    # os.system(f'cd {config_dir};{env} ./install.sh &')
+    rc = subprocess.call(f"cd {config_dir};./{file} &",shell=True)
     return template("result",data={
                         "out-type":"success",
                         "out-msg":f"Success! Please wait around {6 if complete_install else 2} minutes to make sure everything is updated. Then, please save your proxy links which are <br>"+
@@ -65,7 +62,8 @@ def update():
             del os.environ[name]
     # os.chdir(config_dir)
     # rc = subprocess.call(f"./install.sh &",shell=True)
-    os.system(f'cd {config_dir};./update.sh &')
+    rc = subprocess.call(f"cd {config_dir};./update.sh &",shell=True)
+    # os.system(f'cd {config_dir};./update.sh &')
 
     # subprocess.Popen(f"{config_dir}/update.sh",env=my_env,cwd=f"{config_dir}")
     return template("result",data={

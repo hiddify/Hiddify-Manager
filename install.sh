@@ -9,12 +9,13 @@ fi
 
 
 function set_env_if_empty(){
+ echo "applying configs from $1========================================="
  for line in $(sed 's/\#.*//g' $1 | grep '=');do  
   IFS=\= read k v <<< $line
-  if [[ ! -z $k && -z "${!k}" ]]; then      
+#   if [[ ! -z $k && -z "${!k}" ]]; then      
       export $k="$v"
       echo $k="$v"
-  fi
+#   fi
   
  done        
 
@@ -139,9 +140,9 @@ function replace_empty_env() {
 }
 
 function main(){
-
-        set_env_if_empty config.env
         set_env_if_empty config.env.default
+        set_env_if_empty config.env
+        
 
         cd /opt/$GITHUB_REPOSITORY
         git pull
