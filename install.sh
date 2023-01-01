@@ -38,20 +38,30 @@ function do_for_all() {
         runsh $1.sh nginx
         if [[ $ENABLE_TELEGRAM == true ]]; then
                 runsh $1.sh telegram
+        else
+                runsh uninstall.sh telegram
         fi
         if [[ $ENABLE_SS == true ]]; then
                 runsh $1.sh shadowsocks
+        else
+                runsh uninstall.sh telegram
         fi
         if [[ $ENABLE_VMESS == true ]]; then
                 runsh $1.sh vmess
+        else
+                runsh uninstall.sh telegram
         fi
 
         if [[ $ENABLE_MONITORING == true ]]; then
                 runsh $1.sh monitoring
+        else
+                runsh uninstall.sh telegram
         fi
               
         if [[ $ENABLE_TROJAN_GO == true ]]; then
                 runsh $1.sh trojan-go
+        else
+                runsh uninstall.sh telegram
         fi
 
         runsh $1.sh admin_ui
@@ -142,6 +152,7 @@ function main(){
 
         if [[ -z "$DO_NOT_INSTALL" || "$DO_NOT_INSTALL" == false  ]];then
                 do_for_all install
+                systemctl daemon-reload
         fi
 
         if [[ -z "$DO_NOT_RUN" || "$DO_NOT_RUN" == false ]];then
@@ -156,5 +167,5 @@ function main(){
 
 }
 
-mkdir -p log
-main |& tee log/hiddify-install.log
+mkdir -p log/system/
+main |& tee log/system/0-install.log

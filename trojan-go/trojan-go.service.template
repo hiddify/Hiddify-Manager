@@ -8,6 +8,8 @@ Type=simple
 WorkingDirectory=/opt/GITHUB_REPOSITORY/trojan-go
 ExecStart=/opt/GITHUB_REPOSITORY/trojan-go/trojan-go -config config.json
 Restart=on-failure
+StandardOutput=file:/opt/GITHUB_REPOSITORY/log/system/trojan.out.log
+StandardError=file:/opt/GITHUB_REPOSITORY/log/system/trojan.err.log
 
 [Install]
 WantedBy=multi-user.target

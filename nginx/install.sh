@@ -3,7 +3,7 @@ pip3 install pip pyopenssl --upgrade
 
 systemctl stop nginx
 pkill -9 nginx
-mkdir -p ../log
+
 
 rm /etc/nginx/sites-available/default
 rm /etc/nginx/sites-enabled/default

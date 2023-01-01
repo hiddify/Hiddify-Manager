@@ -1,9 +1,9 @@
 echo "telegram proxy install.sh $*"
-systemctl stop mtproxy.service
+systemctl kill mtproxy.service
 systemctl disable mtproxy.service
-systemctl stop mtproto-proxy.service
+systemctl kill mtproto-proxy.service
 systemctl disable mtproto-proxy.service
-systemctl daemon-reload
+
 sudo add-apt-repository -y ppa:longsleep/golang-backports
 sudo apt update
 apt install -y make golang 

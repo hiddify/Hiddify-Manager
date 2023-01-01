@@ -28,7 +28,7 @@
         </div>
 
         <div class="btn-group">
-            <a href="apply_configs" class="btn btn-primary">اعمال مجدد کانفیگ</a>
+            <a href="apply_configs" class="btn btn-primary">اجرای مجدد</a>
         </div>
 
         <div class="btn-group">
@@ -40,7 +40,7 @@
         </div>
 
         <div class="btn-group">
-            <a href="log" class="btn btn-primary">مشاهده لاگ</a>
+            <a href="log/" class="btn btn-primary">مشاهده لاگ ها</a>
         </div>
     </div>
 </div>

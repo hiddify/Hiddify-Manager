@@ -28,10 +28,6 @@ def index():
     data=read_configs()
     return template('index',data=data)
 
-@route('/log')
-def log():
-    return static_file("hiddify-install.log", root=f'{config_dir}/log/')
-
 
 @route('/apply_configs')
 def apply_configs():
@@ -54,7 +50,7 @@ def reinstall(complete_install=True):
                         "out-msg":f"Success! Please wait around {6 if complete_install else 2} minutes to make sure everything is updated. Then, please save your proxy links which are <br>"+
                                 f"<h1>User Link</h1><a href='https://{request.query['MAIN_DOMAIN']}/{request.query['USER_SECRET']}/'>https://{request.query['MAIN_DOMAIN']}/{request.query['USER_SECRET']}/</a><br>"+
                                 f"<h1>Admin Link</h1><a href='https://{request.query['MAIN_DOMAIN']}/{request.query['ADMIN_SECRET']}/'>https://{request.query['MAIN_DOMAIN']}/{request.query['ADMIN_SECRET']}/</a><br>"+
-                                f"<a href='log'><h3>System Log</h3></a>"
+                                f"<a href='log/0-install.log'><h3>System Log</h3></a>"
     })
 
 @route('/update')
@@ -72,7 +68,7 @@ def update():
     return template("result",data={
                         "out-type":"success",
                         "out-msg":"Success! Please wait around 5 minutes to make sure everything is updated. Then, please save your proxy links which are <br>"+
-                                f"<a href='log'><h3>System Log</h3></a>"
+                                f"<a href='log/update.log'><h3>Update Log</h3></a>"
     })
 
     

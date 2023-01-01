@@ -8,6 +8,7 @@ Type=simple
 ExecStart=/opt/GITHUB_REPOSITORY/admin_ui/admin_ui.py
 WorkingDirectory=/opt/GITHUB_REPOSITORY/admin_ui/
 Restart=on-failure
-
+StandardOutput=file:/opt/GITHUB_REPOSITORY/log/system/admin_ui.out.log
+StandardError=file:/opt/GITHUB_REPOSITORY/log/system/admin_ui.err.log
 [Install]
 WantedBy=multi-user.target

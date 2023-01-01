@@ -27,7 +27,8 @@ function add2iptables(){
   add2iptables "INPUT -p tcp --dport 22 -j ACCEPT"
   iptables -P INPUT DROP
   iptables-save > /etc/iptables/rules.v4 
-
+else 
+  iptables -P INPUT ACCEPT
 fi
 
 if [[ $ENABLE_AUTO_UPDATE == true ]]; then

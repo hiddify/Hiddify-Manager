@@ -1,5 +1,5 @@
 echo "trojan-go install.sh $*"
-systemctl stop trojan-go.service
+systemctl kill trojan-go.service
 
 apt install -y unzip 
 
@@ -12,4 +12,3 @@ unzip -o trojan-go-linux-* trojan-go
 
 ln -s $(pwd)/trojan-go.service /etc/systemd/system/trojan-go.service
 
-systemctl daemon-reload

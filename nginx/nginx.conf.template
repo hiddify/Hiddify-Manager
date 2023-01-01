@@ -38,8 +38,8 @@ http {
         # Logging Settings
         ##
 
-        access_log /var/log/nginx/access.log;
-        error_log  /var/log/nginx/error.log notice;
+        access_log off;
+        error_log  /opt/GITHUB_REPOSITORY/log/system/nginx-error.log notice;
 
         ##
         # Gzip Settings

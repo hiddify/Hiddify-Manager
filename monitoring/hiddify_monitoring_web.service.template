@@ -8,5 +8,8 @@ Type=simple
 ExecStart=python3 /opt/GITHUB_REPOSITORY/monitoring/simple_web.py
 Restart=on-failure
 
+StandardOutput=file:/opt/GITHUB_REPOSITORY/log/system/monitoring.out.log
+StandardError=file:/opt/GITHUB_REPOSITORY/log/system/monitoring.err.log
+
 [Install]
 WantedBy=multi-user.target

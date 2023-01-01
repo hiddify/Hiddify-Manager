@@ -7,6 +7,7 @@ Wants=network-online.target
 Type=simple
 ExecStart=ss-server -c /opt/GITHUB_REPOSITORY/shadowsocks/config-faketls.json
 Restart=on-failure
-
+StandardOutput=file:/opt/GITHUB_REPOSITORY/log/system/ss-faketls.out.log
+StandardError=file:/opt/GITHUB_REPOSITORY/log/system/ss-faketls.err.log
 [Install]
 WantedBy=multi-user.target
