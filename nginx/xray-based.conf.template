@@ -1,0 +1,83 @@
+server {
+    listen unix:/dev/shm/h1.sock proxy_protocol default_server;
+    listen unix:/dev/shm/h2c.sock http2 proxy_protocol default_server;
+    set_real_ip_from unix:;
+    real_ip_header proxy_protocol;
+    server_name _;
+    include /opt/GITHUB_REPOSITORY/nginx/admin-link.conf;
+    include /opt/GITHUB_REPOSITORY/nginx/def-link.conf;
+    include /opt/GITHUB_REPOSITORY/nginx/common.conf;
+} #Restrict domain name access (prohibit access to the website by IP) and return 400
+
+# HTTP1 UDS listener
+server {
+    listen unix:/dev/shm/h1.sock proxy_protocol; #HTTP/1.1 server monitor process and enable PROXY protocol reception
+    set_real_ip_from unix:;
+    real_ip_header proxy_protocol;
+    server_name defaultserverhost; 
+
+    include /opt/GITHUB_REPOSITORY/nginx/admin-link.conf;
+	include /opt/GITHUB_REPOSITORY/nginx/def-link.conf;
+    include /opt/GITHUB_REPOSITORY/nginx/common.conf;
+}
+
+# HTTP2 UDS listener
+server {
+    listen unix:/dev/shm/h2c.sock http2 proxy_protocol; #H2C server monitor process and enable PROXY protocol reception
+    set_real_ip_from unix:;
+    real_ip_header proxy_protocol;
+    server_name defaultserverhost;
+
+    # grpc settings
+    grpc_read_timeout 1h;
+    grpc_send_timeout 1h;
+    grpc_set_header X-Real-IP $remote_addr;
+
+    location /defaultusersecret-trgrpc { #corresponds to serviceName in trojan-grpc config of xray
+        if ($request_method != "POST") {
+            return 404;
+        } #POST returns 404 when negotiation fails
+        client_body_buffer_size 1m;
+        client_body_timeout 1h;
+        client_max_body_size 0;
+        grpc_pass grpc://127.0.0.1:3001;
+
+    }
+
+    location /defaultusersecret-vlgrpc { #corresponds to serviceName in vless-grpc config of xray
+        if ($request_method != "POST") {
+            return 404;
+        } #POST returns 404 when negotiation fails
+        client_body_buffer_size 1m;
+        client_body_timeout 1h;
+        client_max_body_size 0;
+        grpc_pass grpc://127.0.0.1:3002;
+
+    }
+
+    location /defaultusersecret-vmgrpc { #corresponds to serviceName in vmess-grpc config of xray
+        if ($request_method != "POST") {
+            return 404;
+        } #POST returns 404 when negotiation fails
+        client_body_buffer_size 1m;
+        client_body_timeout 1h;
+        client_max_body_size 0;
+        grpc_pass grpc://127.0.0.1:3003;
+
+    }
+    
+    location /defaultusersecret-ssgrpc { #corresponds to serviceName in shadowsocks-grpc config of xray
+        if ($request_method != "POST") {
+            return 404;
+        } #POST returns 404 when negotiation fails
+        client_body_buffer_size 1m;
+        client_body_timeout 1h;
+        client_max_body_size 0;
+        grpc_pass grpc://127.0.0.1:3004;
+    }
+
+    # Decoy website
+    include /opt/GITHUB_REPOSITORY/nginx/admin-link.conf;
+    include /opt/GITHUB_REPOSITORY/nginx/def-link.conf;
+    include /opt/GITHUB_REPOSITORY/nginx/common.conf;
+}

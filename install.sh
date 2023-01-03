@@ -64,7 +64,7 @@ function do_for_all() {
         else
                 runsh uninstall.sh telegram
         fi
-
+        runsh $1.sh xray
         runsh $1.sh admin_ui
 }
 
