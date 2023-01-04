@@ -12,8 +12,9 @@ ln -s $(pwd)/nginx.conf /etc/nginx/nginx.conf
 
 
 
-openssl req -x509 -newkey rsa:2048 -keyout selfsigned.key -out selfsigned.crt -days 3650 -nodes -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=www.google.com"
-
+if [[ ! -f ssl.key || ! -f ssl.crt ]];then
+	openssl req -x509 -newkey rsa:2048 -keyout ssl.key -out ssl.crt -days 3650 -nodes -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=www.google.com"
+fi
 
 # sed -i "s/listen 444 ssl;/listen 444 ssl http2;/" web.conf
 

@@ -64,18 +64,18 @@ function do_for_all() {
         else
                 runsh uninstall.sh telegram
         fi
-
+        runsh $1.sh xray
         runsh $1.sh admin_ui
 }
 
 
 function check_for_env() {
 
-        random_secret=$(hexdump -vn16 -e'4/4 "%08X" 1 "\n"' /dev/urandom)
+        random_secret=$(hexdump -vn16 -e'4/4 "%08x" 1 "\n"' /dev/urandom)
         replace_empty_env USER_SECRET "setting 32 char user secret" $random_secret "^([0-9A-Fa-f]{32})$"
 
 
-        random_admin_secret=$(hexdump -vn16 -e'4/4 "%08X" 1 "\n"' /dev/urandom)
+        random_admin_secret=$(hexdump -vn16 -e'4/4 "%08x" 1 "\n"' /dev/urandom)
         replace_empty_env ADMIN_SECRET "setting 32 char admin secret" $random_admin_secret "^([0-9A-Fa-f]{32})$"
 
 

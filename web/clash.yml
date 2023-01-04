@@ -1,0 +1,211 @@
+mixed-port: 7890
+allow-lan: false
+log-level: info
+secret: 
+external-controller: 127.0.0.1:9090
+ipv6: false
+mode: rule
+proxies:
+  - name: trojan_ws_proxyproviderip_trojan_74488
+    type: trojan
+    password: userguidsecret
+    server: cloudprovider
+    port: 443
+    udp: true
+    sni: proxyproviderip
+    skip-cert-verify: true
+    alpn:
+      - h2
+    network: ws
+    ws-opts:
+      path: /usersecret/trojanws
+  - name: vmess_ws_proxyproviderip_vmess_59999
+    type: vmess
+    server: cloudprovider
+    port: 443
+    uuid: userguidsecret
+    alterId: 0
+    cipher: auto
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: proxyproviderip
+    network: ws
+    ws-opts:
+      path: /usersecret/vmessws
+  - name: trojan-grpc_proxyproviderip_trojan_49303
+    type: trojan
+    password: userguidsecret
+    server: serverip
+    port: 443
+    udp: true
+    sni: proxyproviderip
+    skip-cert-verify: true
+    alpn:
+      - h2
+    network: grpc
+    grpc-opts:
+      grpc-service-name: usersecret-trgrpc
+  - name: vmess_grpc_proxyproviderip_vmess_59432
+    type: vmess
+    server: serverip
+    port: 443
+    uuid: userguidsecret
+    alterId: 0
+    cipher: auto
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: proxyproviderip
+    network: grpc
+    grpc-opts:
+      grpc-service-name: usersecret-vmgrpc
+  - name: trojan+tls_proxyproviderip_trojan_58054
+    type: trojan
+    password: userguidsecret
+    server: serverip
+    port: 443
+    udp: true
+    sni: proxyproviderip
+    skip-cert-verify: true
+    alpn:
+      - h2
+  - name: vmess+tls_proxyproviderip_vmess_93601
+    type: vmess
+    server: serverip
+    port: 443
+    uuid: userguidsecret
+    alterId: 0
+    cipher: auto
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: proxyproviderip
+    network: http
+    http-opts:
+      path:
+        - /usersecret/vmtc
+  - name: trojan+tls+http1.1_proxyproviderip_trojan_78009
+    type: trojan
+    password: userguidsecret
+    server: serverip
+    port: 443
+    udp: true
+    sni: proxyproviderip
+    skip-cert-verify: true
+    alpn:
+      - http/1.1
+  - name: vmess+tls+http1.1_proxyproviderip_vmess_11423
+    type: vmess
+    server: serverip
+    port: 443
+    uuid: userguidsecret
+    alterId: 0
+    cipher: auto
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: proxyproviderip
+    network: http
+    http-opts:
+      path:
+        - /usersecret/vmtc
+  - name: old_trojan-go_proxyproviderip_trojan-go_86355
+    type: trojan
+    password: 1
+    server: cloudprovider
+    port: 443
+    udp: true
+    sni: proxyproviderip
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: /usersecret/trojan/
+  - name: old_v2ray_proxyproviderip_ss_94133
+    type: ss
+    cipher: chacha20-ietf-poly1305
+    password: usersecret
+    server: proxyproviderip
+    port: 443
+    udp_over_tcp: true
+    plugin: v2ray-plugin
+    plugin-opts:
+      mode: websocket
+      tls: true
+      skip-cert-verify: true
+      host: proxyproviderip
+      path: /usersecret/v2ray/
+  - name: old_ssfaketls_proxyproviderip_ss_85981
+    type: ss
+    cipher: chacha20-ietf-poly1305
+    password: usersecret
+    server: proxyproviderip
+    port: 443
+    udp_over_tcp: true
+    plugin: obfs
+    plugin-opts:
+      mode: tls
+      host: www.google.com
+  - name: old_vmess_proxyproviderip_vmess_18831
+    type: vmess
+    server: cloudprovider
+    port: 443
+    uuid: userguidsecret
+    alterId: 0
+    cipher: chacha20-poly1305
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: proxyproviderip
+    network: ws
+    ws-opts:
+      path: /usersecret/vmess/
+proxy-groups:
+  - name: auto
+    proxies:
+      
+      
+      - trojan_ws_proxyproviderip_trojan_74488
+      - vmess_ws_proxyproviderip_vmess_59999
+      
+      - trojan-grpc_proxyproviderip_trojan_49303
+      - vmess_grpc_proxyproviderip_vmess_59432
+      - trojan+tls_proxyproviderip_trojan_58054
+      
+      - vmess+tls_proxyproviderip_vmess_93601
+      - trojan+tls+http1.1_proxyproviderip_trojan_78009
+      
+      - vmess+tls+http1.1_proxyproviderip_vmess_11423
+      - old_trojan-go_proxyproviderip_trojan-go_86355
+      - old_v2ray_proxyproviderip_ss_94133
+      - old_ssfaketls_proxyproviderip_ss_85981
+      - old_vmess_proxyproviderip_vmess_18831
+    type: url-test
+    url: https://www.facebook.com/
+    interval: 300
+  - name: PROXY
+    proxies:
+      
+      - trojan_ws_proxyproviderip_trojan_74488
+      - vmess_ws_proxyproviderip_vmess_59999
+      
+      - trojan-grpc_proxyproviderip_trojan_49303
+      - vmess_grpc_proxyproviderip_vmess_59432
+      - trojan+tls_proxyproviderip_trojan_58054
+      
+      - vmess+tls_proxyproviderip_vmess_93601
+      - trojan+tls+http1.1_proxyproviderip_trojan_78009
+      
+      - vmess+tls+http1.1_proxyproviderip_vmess_11423
+      - old_trojan-go_proxyproviderip_trojan-go_86355
+      - old_v2ray_proxyproviderip_ss_94133
+      - old_ssfaketls_proxyproviderip_ss_85981
+      - old_vmess_proxyproviderip_vmess_18831
+    type: select
+rules:
+  - IP-CIDR,10.10.0.0/16,auto
+  - GEOIP,IR,DIRECT
+  - GEOIP,CN,DIRECT
+  - DOMAIN-SUFFIX,.ir,DIRECT
+  - DOMAIN-SUFFIX,.cn,DIRECT
+  - MATCH,auto

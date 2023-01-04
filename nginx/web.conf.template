@@ -19,8 +19,8 @@ server {
 	include /opt/GITHUB_REPOSITORY/nginx/def-link.conf;
 	
 	listen 444 ssl http2 proxy_protocol;
-	ssl_certificate /opt/GITHUB_REPOSITORY/nginx/selfsigned.crt; 
-	ssl_certificate_key /opt/GITHUB_REPOSITORY/nginx/selfsigned.key;
+	ssl_certificate /opt/GITHUB_REPOSITORY/nginx/ssl.crt; 
+	ssl_certificate_key /opt/GITHUB_REPOSITORY/nginx/ssl.key;
 	
 	access_log /opt/GITHUB_REPOSITORY/log/nginx.log proxy;
 	include /opt/GITHUB_REPOSITORY/nginx/CDN_NAME_real_ip.conf;
@@ -31,3 +31,4 @@ server {
 	}
     
 }
+include /opt/GITHUB_REPOSITORY/nginx/xray-base.conf;
