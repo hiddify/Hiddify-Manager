@@ -241,44 +241,45 @@ proxies:
 proxy-groups:
   - name: auto
     proxies:
-      
-      
       - trojan_ws_proxyproviderip_trojan_74488
       - vmess_ws_proxyproviderip_vmess_59999
-      
+      - CDN trojan_ws_proxyproviderip_trojan_74488
+      - CDN vmess_ws_proxyproviderip_vmess_59999
       - trojan-grpc_proxyproviderip_trojan_49303
       - vmess_grpc_proxyproviderip_vmess_59432
       - trojan+tls_proxyproviderip_trojan_58054
-      
       - vmess+tls_proxyproviderip_vmess_93601
       # - trojan+tls+http1.1_proxyproviderip_trojan_78009
-      
       - vmess+tls+http1.1_proxyproviderip_vmess_11423
       - old_trojan-go_proxyproviderip_trojan-go_86355
       - old_v2ray_proxyproviderip_ss_94133
-      - old_ssfaketls_proxyproviderip_ss_85981
       - old_vmess_proxyproviderip_vmess_18831
+      - CDN old_trojan-go_proxyproviderip_trojan-go_86355
+      - CDN old_v2ray_proxyproviderip_ss_94133
+      - CDN old_vmess_proxyproviderip_vmess_18831      
+      - old_ssfaketls_proxyproviderip_ss_85981
     type: url-test
     url: https://www.facebook.com/
     interval: 300
   - name: PROXY
     proxies:
-      
       - trojan_ws_proxyproviderip_trojan_74488
       - vmess_ws_proxyproviderip_vmess_59999
-      
+      - CDN trojan_ws_proxyproviderip_trojan_74488
+      - CDN vmess_ws_proxyproviderip_vmess_59999
       - trojan-grpc_proxyproviderip_trojan_49303
       - vmess_grpc_proxyproviderip_vmess_59432
       - trojan+tls_proxyproviderip_trojan_58054
-      
       - vmess+tls_proxyproviderip_vmess_93601
       # - trojan+tls+http1.1_proxyproviderip_trojan_78009
-      
       - vmess+tls+http1.1_proxyproviderip_vmess_11423
       - old_trojan-go_proxyproviderip_trojan-go_86355
       - old_v2ray_proxyproviderip_ss_94133
-      - old_ssfaketls_proxyproviderip_ss_85981
       - old_vmess_proxyproviderip_vmess_18831
+      - CDN old_trojan-go_proxyproviderip_trojan-go_86355
+      - CDN old_v2ray_proxyproviderip_ss_94133
+      - CDN old_vmess_proxyproviderip_vmess_18831      
+      - old_ssfaketls_proxyproviderip_ss_85981
     type: select
 rules:
   - IP-CIDR,10.10.0.0/16,auto

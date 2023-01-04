@@ -266,7 +266,7 @@ proxies:
     ws-opts:
       path: /usersecret/vmess/
 
-  - name: old_trojan-go_proxyproviderip_trojan-go_86355
+  - name: CDN old_trojan-go_proxyproviderip_trojan-go_86355
     type: trojan
     password: 1
     server: cloudprovider
@@ -277,7 +277,7 @@ proxies:
     network: ws
     ws-opts:
       path: /usersecret/trojan/
-  - name: old_v2ray_proxyproviderip_ss_94133
+  - name: CDN old_v2ray_proxyproviderip_ss_94133
     type: ss
     cipher: chacha20-ietf-poly1305
     password: usersecret
@@ -292,7 +292,7 @@ proxies:
       host: proxyproviderip
       path: /usersecret/v2ray/
 
-  - name: old_vmess_proxyproviderip_vmess_18831
+  - name: CDN old_vmess_proxyproviderip_vmess_18831
     type: vmess
     server: cloudprovider
     port: 443
@@ -313,6 +313,9 @@ proxy-groups:
       - vless_ws_proxyproviderip_vless_41935
       - trojan_ws_proxyproviderip_trojan_74488
       - vmess_ws_proxyproviderip_vmess_59999
+      - CDN vless_ws_proxyproviderip_vless_41935
+      - CDN trojan_ws_proxyproviderip_trojan_74488
+      - CDN vmess_ws_proxyproviderip_vmess_59999
       - vless-grpc_proxyproviderip_vless_61006
       - trojan-grpc_proxyproviderip_trojan_49303
       - vmess_grpc_proxyproviderip_vmess_59432
@@ -323,9 +326,12 @@ proxy-groups:
       - vless+tls+http1.1_proxyproviderip_vless_16517
       - vmess+tls+http1.1_proxyproviderip_vmess_11423
       - old_trojan-go_proxyproviderip_trojan-go_86355
-      - old_v2ray_proxyproviderip_ss_94133
-      - old_ssfaketls_proxyproviderip_ss_85981
+      - old_v2ray_proxyproviderip_ss_94133     
       - old_vmess_proxyproviderip_vmess_18831
+      - CDN old_trojan-go_proxyproviderip_trojan-go_86355
+      - CDN old_v2ray_proxyproviderip_ss_94133     
+      - CDN old_vmess_proxyproviderip_vmess_18831
+      - old_ssfaketls_proxyproviderip_ss_85981
     type: url-test
     url: https://www.facebook.com/
     interval: 300
@@ -335,6 +341,9 @@ proxy-groups:
       - vless_ws_proxyproviderip_vless_41935
       - trojan_ws_proxyproviderip_trojan_74488
       - vmess_ws_proxyproviderip_vmess_59999
+      - CDN vless_ws_proxyproviderip_vless_41935
+      - CDN trojan_ws_proxyproviderip_trojan_74488
+      - CDN vmess_ws_proxyproviderip_vmess_59999
       - vless-grpc_proxyproviderip_vless_61006
       - trojan-grpc_proxyproviderip_trojan_49303
       - vmess_grpc_proxyproviderip_vmess_59432
@@ -345,9 +354,12 @@ proxy-groups:
       - vless+tls+http1.1_proxyproviderip_vless_16517
       - vmess+tls+http1.1_proxyproviderip_vmess_11423
       - old_trojan-go_proxyproviderip_trojan-go_86355
-      - old_v2ray_proxyproviderip_ss_94133
-      - old_ssfaketls_proxyproviderip_ss_85981
+      - old_v2ray_proxyproviderip_ss_94133     
       - old_vmess_proxyproviderip_vmess_18831
+      - CDN old_trojan-go_proxyproviderip_trojan-go_86355
+      - CDN old_v2ray_proxyproviderip_ss_94133     
+      - CDN old_vmess_proxyproviderip_vmess_18831
+      - old_ssfaketls_proxyproviderip_ss_85981  
     type: select
 rules:
   - IP-CIDR,10.10.0.0/16,auto
