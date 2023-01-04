@@ -20,7 +20,7 @@ proxies:
   - name: vless_ws_proxyproviderip_vless_41935
     type: vless
     uuid: userguidsecret
-    server: cloudprovider
+    server: serverip
     port: 443
     udp: true
     tls: true
@@ -33,7 +33,7 @@ proxies:
   - name: trojan_ws_proxyproviderip_trojan_74488
     type: trojan
     password: userguidsecret
-    server: cloudprovider
+    server: serverip
     port: 443
     udp: true
     sni: proxyproviderip
@@ -46,7 +46,7 @@ proxies:
 
   - name: vmess_ws_proxyproviderip_vmess_59999
     type: vmess
-    server: cloudprovider
+    server: serverip
     port: 443
     uuid: userguidsecret
     alterId: 0
