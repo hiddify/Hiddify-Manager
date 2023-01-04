@@ -14,13 +14,15 @@ vmess://{"v":"2", "ps":"vmess_grpc_proxyproviderip", "add":"serverip", "port":"4
 #tls
 trojan://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=h2&type=tcp#trojan+tls_proxyproviderip
 vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=h2&type=tcp#vless+tls_proxyproviderip
-vmess://{"v": "2", "ps": "vmess2_proxyproviderip", "add": "serverip", "port": "443", "id": "userguidsecret", "aid": "0", "scy": "auto", "net": "tcp", "type": "http", "host": "", "path": "/usersecret/vmtc", "tls": "tls", "sni": "proxyproviderip", "alpn": "h2"}
+vmess://{"v": "2", "ps": "vmess+tls_proxyproviderip", "add": "serverip", "port": "443", "id": "userguidsecret", "aid": "0", "scy": "auto", "net": "tcp", "type":"http", "host": "", "path": "/usersecret/vmtc", "tls": "tls", "sni": "proxyproviderip", "alpn": "h2"}
 
 
 
-#other
-trojan://userguidsecret@serverip:443?flow=xtls-rprx-direct&sni=proxyproviderip&security=tls&type=tcp&alpn=h2#trojan2
-trojan://userguidsecret@serverip:443?flow=xtls-rprx-direct&sni=proxyproviderip&security=tls&alpn=http1.1&type=tcp#trojan3
+#tls+http1.1
+trojan://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=http/1.1&type=tcp#trojan+tls+http1.1_proxyproviderip
+vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=http/1.1&type=tcp#vless+tls+http1.1_proxyproviderip
+vmess://{"v": "2", "ps": "vmess+tls+http1.1_proxyproviderip", "add": "serverip", "port": "443", "id": "userguidsecret", "aid": "0", "scy": "auto", "net": "tcp", "type": "http", "host": "", "path": "/usersecret/vmtc", "tls": "tls", "sni": "proxyproviderip", "alpn": "http/1.1"}
+
 
 
 

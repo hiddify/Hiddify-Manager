@@ -41,6 +41,80 @@
 <a href="https://signal.tube/#proxyproviderip/eeusersecret%%HEX_TELEGRAM_DOMAIN%%/" class='btn btn-primary'>گذرنده سیگنال کلیک کنید</a>
 -->
 
+            <details>
+                <summary>تنظیمات جدید</summary>
+                <details>
+                    <summary>تنظیمات با پشتیبانی CDN</summary>
+                    <div class="btn-group">
+                        <a href='vless://userguidsecret@cloudprovider:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Fvlessws#vless_ws_proxyproviderip'
+                            class="btn btn-primary orig-link"> vless+ws</a>
+                    </div>
+                    <div class="btn-group">
+                        <a href='trojan://userguidsecret@cloudprovider:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Ftrojanws#trojan_ws_proxyproviderip'
+                            class="btn btn-primary orig-link"> trojan+ws</a>
+                    </div>
+                    <div class="btn-group">
+                        <a href='vmess://{"v": "2", "ps": "vmess", "add": "y22.nofi.eu.org", "port": "443", "id": "666A2913-7EED-8BAA-75A2-AA6C11AEAED5", "aid": "0", "scy": "auto", "net": "tcp", "type": "http", "host": "", "path": "/666A29137EED8BAA75A2AA6C11AEAED5/vmtc", "tls": "tls", "sni": "", "alpn": "h2"}'
+                            class="btn btn-primary orig-link"> vmess+ws</a>
+                    </div>
+
+                </details>
+                <details>
+                    <summary>تنظیمات بدون CDN</summary>
+                    <div class="btn-group">
+                        <a href='vless://userguidsecret@serverip:443?flow=xtls-rprx-direct&security=xtls&alpn=h2&sni=proxyproviderip&type=tcp#vless+xtls_proxyproviderip'
+                            class="btn btn-primary orig-link"> vless+xtls</a>
+                    </div>
+                    <div class="btn-group">
+                        <a href='vless://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=grpc&serviceName=usersecret-vlgrpc&mode=multi#vless-grpc_proxyproviderip'
+                            class="btn btn-primary orig-link"> vless+grpc</a>
+                    </div>
+                    <div class="btn-group">
+                        <a href='trojan://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=grpc&serviceName=usersecret-trgrpc&mode=multi#trojan-grpc_proxyproviderip'
+                            class="btn btn-primary orig-link"> trojan+grpc</a>
+                    </div>
+                    <div class="btn-group">
+                        <a href='vmess://{"v":"2", "ps":"vmess_grpc_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"grpc", "type":"multi", "host":"", "path":"usersecret-vmgrpc", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
+                            class="btn btn-primary orig-link">vmess+grpc</a>
+                    </div>
+                    <div class="btn-group">
+                        <a href='trojan://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=h2&type=tcp#trojan+tls_proxyproviderip'
+                            class="btn btn-primary orig-link">trojan+tls</a>
+                    </div>
+                    <div class="btn-group">
+                        <a href='vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=h2&type=tcp#vless+tls_proxyproviderip'
+                            class="btn btn-primary orig-link">vless+tls</a>
+                    </div>
+                    <div class="btn-group">
+                        <a href='vmess://{"v": "2", "ps": "vmess+tls_proxyproviderip", "add": "serverip", "port": "443", "id": "userguidsecret", "aid": "0", "scy": "auto", "net": "tcp", "type":"http", "host": "", "path": "/usersecret/vmtc", "tls": "tls", "sni": "proxyproviderip", "alpn": "h2"}'
+                            class="btn btn-primary orig-link">vmess+tls</a>
+                    </div>
+
+                    <div class="btn-group">
+                        <a href='vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=http/1.1&type=tcp#vless+tls+http1.1_proxyproviderip'
+                            class="btn btn-primary orig-link">vless+tls+http/1.1</a>
+                    </div>
+                    <div class="btn-group">
+                        <a href='vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=http/1.1&type=tcp&path=/usersecret/trtc&headerType=http#vless+tls+http1.1+path_proxyproviderip'
+                            class="btn btn-primary orig-link">vless+tls+http/1.1+path</a>
+                    </div>
+                    <div class="btn-group">
+                        <a href='trojan://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=http/1.1&type=tcp&headerType=http&path=/usersecret/trtc#trojan+tls+http1.1_proxyproviderip'
+                            class="btn btn-primary orig-link">trojan+tls+http/1.1</a>
+                    </div>
+                    <div class="btn-group">
+                        <a href='vmess://{"v": "2", "ps": "vmess+tls+http1.1_proxyproviderip", "add": "serverip", "port": "443", "id": "userguidsecret", "aid": "0", "scy": "auto", "net": "tcp", "type": "http", "host": "", "path": "/usersecret/vmtc", "tls": "tls", "sni": "proxyproviderip", "alpn": "http/1.1"}'
+                            class="btn btn-primary orig-link">vmess+tls+http/1.1</a>
+                    </div>
+
+                </details>
+                <a href="all.txt">همه تنظیمات به صورتی لینکی</a><br>
+                <a href="clash.yml">همه تنظیمات در فایل کلش</a><br>
+                <a href="clash-meta.yml">همه تنظیمات در فایل کلش متا</a><br>
+
+            </details>
+
+
             <h1 id="گذرنده-سایت-ها-و-اپلیکشن-ها">گذرنده سایت ها و اپلیکشن ها:</h1>
             <div class="row">
                 <div class="accordion col-md-6" id="accordionExample">
@@ -62,7 +136,7 @@
                                         class="btn btn-primary orig-link">دانلود نرم افزار HiddifyProxy</a>
                                 </div>
 
-                               
+
                                 <!--                                         
 
                                 با استفاده از یکی از دو لینک زیر، اپلیکیشن کلش Clash را دانلود و نصب کنید. 
@@ -163,29 +237,30 @@
                                         class="orig-link"><img src="images/android-apk-badge.png" /></a>
                                 </div> -->
                                 <div class="btn-group">
-                                <a href="gh/hiddify/HiddifyProxyAndroid/releases/download/v0.4/hiddify-2.5.13-pre04-h0.4-meta-alpha-universal-release.apk"
+                                    <a href="gh/hiddify/HiddifyProxyAndroid/releases/download/v0.4/hiddify-2.5.13-pre04-h0.4-meta-alpha-universal-release.apk"
                                         class="btn btn-primary orig-link">دانلود نرم افزار HiddifyProxy</a>
-                                    </div> 
+                                </div>
 
-                                <details><summary>نرم افزار جایگزین</summary>
+                                <details>
+                                    <summary>نرم افزار جایگزین</summary>
                                     <div class="btn-group">
                                         <a href="https://play.google.com/store/apps/details?id=moe.matsuri.lite"
                                             class="btn btn-primary orig-link">نرم افزار Matsuri از گوگل پلی</a>
-                                        </div>
+                                    </div>
 
                                     <div class="btn-group">
-                                    <a href="gh/MatsuriDayo/Matsuri/releases/"
-                                        class="btn btn-primary orig-link">نرم افزار Matsuri مستقیم</a>
+                                        <a href="gh/MatsuriDayo/Matsuri/releases/" class="btn btn-primary orig-link">نرم
+                                            افزار Matsuri مستقیم</a>
                                     </div>
 
                                     <div class="btn-group">
                                         <a href="https://play.google.com/store/apps/details?id=io.nekohasekai.sagernet"
                                             class="btn btn-primary orig-link">نرم افزار sagernet از گوگل پلی</a>
-                                        </div>
+                                    </div>
 
                                     <div class="btn-group">
-                                    <a href="gh/SagerNet/SagerNet/releases/"
-                                        class="btn btn-primary orig-link">نرم افزار sagernet مستقیم</a>
+                                        <a href="gh/SagerNet/SagerNet/releases/" class="btn btn-primary orig-link">نرم
+                                            افزار sagernet مستقیم</a>
                                     </div>
                                 </details>
 
@@ -245,14 +320,14 @@
                             <div class="accordion-body">
                                 ابتدا نرم‌افزار کلشClash را با توجه به سیستم عامل خود دانلود و نصب کنید.
                                 <br>
-                                
+
                                 <div class="btn-group">
-                                <a class="btn btn-primary"
-                                    href="gh/Fndroid/clash_for_windows_pkg/releases/download/0.20.9/Clash.for.Windows.Setup.0.20.9.exe">Windows</a>
-                                <a class="btn btn-secondary"
-                                    href="gh/Fndroid/clash_for_windows_pkg/releases/download/0.20.9/Clash.for.Windows-0.20.9.dmg">macOS</a>
-                                <a class="btn btn-success"
-                                    href="gh/Fndroid/clash_for_windows_pkg/releases/download/0.20.9/Clash.for.Windows-0.20.9-x64-linux.tar.gz">Linux</a>
+                                    <a class="btn btn-primary"
+                                        href="gh/Fndroid/clash_for_windows_pkg/releases/download/0.20.9/Clash.for.Windows.Setup.0.20.9.exe">Windows</a>
+                                    <a class="btn btn-secondary"
+                                        href="gh/Fndroid/clash_for_windows_pkg/releases/download/0.20.9/Clash.for.Windows-0.20.9.dmg">macOS</a>
+                                    <a class="btn btn-success"
+                                        href="gh/Fndroid/clash_for_windows_pkg/releases/download/0.20.9/Clash.for.Windows-0.20.9-x64-linux.tar.gz">Linux</a>
 
                                 </div>
                                 <br>
@@ -329,11 +404,14 @@
                             <div class="accordion-body">
                                 ابتدا نرم افزار زیر را دانلود کنید:
                                 <div class="btn-group">
-                                    <a href="https://apps.apple.com/us/app/fair-vpn/id1533873488" class="btn btn-primary orig-link"> نرم افزار fair-vpn</a>
+                                    <a href="https://apps.apple.com/us/app/fair-vpn/id1533873488"
+                                        class="btn btn-primary orig-link"> نرم افزار fair-vpn</a>
                                 </div>
-                                <details><summary>نرم افزار جایگزین</summary>
+                                <details>
+                                    <summary>نرم افزار جایگزین</summary>
                                     <div class="btn-group">
-                                        <a href="https://apps.apple.com/us/app/shadowlink-shadowsocks-vpn/id1439686518" class="btn btn-primary orig-link"> نرم افزار shadow link</a>
+                                        <a href="https://apps.apple.com/us/app/shadowlink-shadowsocks-vpn/id1439686518"
+                                            class="btn btn-primary orig-link"> نرم افزار shadow link</a>
                                     </div>
                                 </details>
                                 <h2>

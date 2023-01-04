@@ -63,6 +63,12 @@
             "xver": 2
           },
           {
+            // if the path was `/trtc`, pass it to trojan-tcp-path listener
+            "path": "/defaultusersecret/trtc",
+            "dest": "@trojan-tcp-path",
+            "xver": 2
+          },
+          {
             "alpn": "h2",
             // if the request's ALPN was HTTP2, pass it to trojan-tcp. (Also from trojan-tcp fallback to Nginx HTTP2)
             "dest": "@trojan-tcp",
@@ -208,6 +214,34 @@
         "security": "none",
         "tcpSettings": {
           "acceptProxyProtocol": true //Enable PROXY protocol reception, receive the real source IP and port before vless+tcp+tls fallback.
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls"]
+      }
+    },
+    {
+      "listen": "@trojan-tcp-path", //trojan+tcp listening process
+      "protocol": "trojan",
+      "settings": {
+        "clients": [
+          {
+            "password": "defaultuserguidsecret" //Change to your own password
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "none",
+        "tcpSettings": {
+          "acceptProxyProtocol": true //Enable PROXY protocol reception, receive the real source IP and port before vless+tcp+tls fallback.
+          "header": {
+            "type": "http",
+            "request": {
+              "path": ["/defaultusersecret/trtc"]
+            }
+          }
         }
       },
       "sniffing": {
