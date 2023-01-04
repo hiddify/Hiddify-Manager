@@ -46,21 +46,34 @@
                 <details>
                     <summary>تنظیمات با پشتیبانی CDN</summary>
                     <div class="btn-group">
-                        <a href='vless://userguidsecret@cloudprovider:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Fvlessws#vless_ws_proxyproviderip'
-                            class="btn btn-primary orig-link"> vless+ws</a>
+                        <a href='vless://userguidsecret@cloudprovider:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Fvlessws#CDNvless_ws_proxyproviderip'
+                            class="btn btn-primary orig-link"> CDN vless+ws</a>
                     </div>
                     <div class="btn-group">
-                        <a href='trojan://userguidsecret@cloudprovider:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Ftrojanws#trojan_ws_proxyproviderip'
-                            class="btn btn-primary orig-link"> trojan+ws</a>
+                        <a href='trojan://userguidsecret@cloudprovider:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Ftrojanws#CDNtrojan_ws_proxyproviderip'
+                            class="btn btn-primary orig-link"> CDN trojan+ws</a>
                     </div>
                     <div class="btn-group">
-                        <a href='vmess://{"v": "2", "ps": "vmess", "add": "y22.nofi.eu.org", "port": "443", "id": "666A2913-7EED-8BAA-75A2-AA6C11AEAED5", "aid": "0", "scy": "auto", "net": "tcp", "type": "http", "host": "", "path": "/666A29137EED8BAA75A2AA6C11AEAED5/vmtc", "tls": "tls", "sni": "", "alpn": "h2"}'
-                            class="btn btn-primary orig-link"> vmess+ws</a>
+                        <a href='vmess://{"v":"2", "ps":"CDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/usersecret/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
+                            class="btn btn-primary orig-link"> CDN vmess+ws</a>
                     </div>
 
                 </details>
                 <details>
                     <summary>تنظیمات بدون CDN</summary>
+                    <div class="btn-group">
+                        <a href='vless://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Fvlessws#vless_ws_proxyproviderip'
+                            class="btn btn-primary orig-link"> vless+ws</a>
+                    </div>
+                    <div class="btn-group">
+                        <a href='trojan://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Ftrojanws#trojan_ws_proxyproviderip'
+                            class="btn btn-primary orig-link"> trojan+ws</a>
+                    </div>
+                    <div class="btn-group">
+                        <a href='vmess://{"v":"2", "ps":"vmess_ws_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/usersecret/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
+                            class="btn btn-primary orig-link"> vmess+ws</a>
+                    </div>
+
                     <div class="btn-group">
                         <a href='vless://userguidsecret@serverip:443?flow=xtls-rprx-direct&security=xtls&alpn=h2&sni=proxyproviderip&type=tcp#vless+xtls_proxyproviderip'
                             class="btn btn-primary orig-link"> vless+xtls</a>
@@ -110,7 +123,7 @@
                 </details>
 
 
-                <h3>مهم: نرم افزار هایدیفای پروکسی را به نسخه 0.6 آپدیت کنید</h3>
+                <h3>مهم: نرم افزار هایدیفای پروکسی را به نسخه 0.6 (4/1/2023) آپدیت کنید</h3>
                 <div class="btn-group">
                     <a href="gh/hiddify/HiddifyProxyAndroid/releases/download/v0.6/hiddify-2.5.13-pre04-h0.6-meta-alpha-universal-release.apk"
                         class="btn btn-primary orig-link">دانلود نرم افزار HiddifyProxy</a>
@@ -248,7 +261,7 @@
                             <div class="accordion-body">
                                 ابتدا نرم افزار HiddifyProxy را از طریق لینک زیر نصب کنید
 
-                                <h3>مهم: نرم افزار هایدیفای پروکسی را به نسخه 0.6 آپدیت کنید</h3>
+                                <h3>مهم: نرم افزار هایدیفای پروکسی را به نسخه 0.6 (4/1/2023) آپدیت کنید</h3>
                                 <br>
 
                                 <!-- <div class="btn-group">
@@ -270,6 +283,15 @@
                                     <div class="btn-group">
                                         <a href="gh/MatsuriDayo/Matsuri/releases/" class="btn btn-primary orig-link">نرم
                                             افزار Matsuri مستقیم</a>
+                                    </div>
+                                    <div class="btn-group">
+                                        <a href="https://play.google.com/store/apps/details?id=com.v2ray.ang"
+                                            class="btn btn-primary orig-link">نرم افزار v2rayng از گوگل پلی</a>
+                                    </div>
+
+                                    <div class="btn-group">
+                                        <a href="gh/2dust/v2rayNG/releases/" class="btn btn-primary orig-link">نرم
+                                            افزار v2rayng مستقیم</a>
                                     </div>
 
                                     <div class="btn-group">
