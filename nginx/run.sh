@@ -20,4 +20,10 @@ certbot --nginx --register-unsafely-without-email -d $MAIN_DOMAIN --non-interact
 pkill -9 nginx
 echo -e "Please visit http://$SERVER_IP/ in one hour to change your domain.\n\n  Proxy Link is:\n https://$MAIN_DOMAIN/$USER_SECRET/ \n\n Alias to admin Link is:\n http://$SERVER_IP/$ADMIN_SECRET/ \n\n Current Admin Link is:\n https://$MAIN_DOMAIN/$ADMIN_SECRET/">use-link
 
-systemctl restart nginx
+
+if [[ -f /etc/letsencrypt/live/$MAIN_DOMAIN/fullchain.pem && -f /etc/letsencrypt/live/$MAIN_DOMAIN/privkey.pem ]];then
+	rm ssl.key ssl.crt
+	ln -s /etc/letsencrypt/live/$MAIN_DOMAIN/fullchain.pem ssl.crt
+	ln -s /etc/letsencrypt/live/$MAIN_DOMAIN/privkey.pem ssl.key
+fi
+ systemctl restart nginx

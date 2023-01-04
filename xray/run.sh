@@ -1,2 +1,7 @@
-mv /usr/local/etc/xray/config.json mv /usr/local/etc/xray/config.json.old
-systemctl restart Xray
+mv /usr/local/etc/xray/config.json /usr/local/etc/xray/config.json.old
+ln -s $(pwd)/xtls-config.json /usr/local/etc/xray/config.json
+sed -i "s/^User=/#User=/g" /etc/systemd/system/xray.service
+
+systemctl daemon-reload
+
+systemctl restart xray

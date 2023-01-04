@@ -3,6 +3,23 @@
     "loglevel": "info"
   },
   "inbounds": [
+    //{
+    //   "port": 443,
+    //   "protocol": "vless",
+    //   "settings": {
+    //     "clients": [
+    //       {
+    //       "id": "defaultuserguidsecret"
+    //       }
+    //     ],
+    //     "decryption": "none"
+    //   },   
+    // "streamSettings": {
+    //  "network": "kcp",
+    //  "kcpSettings": {
+    //     "seed": "defaultusersecret/vless-kcp"
+    //   }
+    //  }},
     {
       "port": 400, // This is TLS entrypoint. This entrypoint does the SSL Termination then routes the request based on the Path or ALPN type.
       "protocol": "vless",
@@ -15,10 +32,6 @@
         ],
         "decryption": "none",
         "fallbacks": [
-          {
-						"dest": @trojan-tcp,
-						"xver": 2
-					},
           {
             // if the path was `/vlessws`, pass it to vless-ws listener
             "path": "/defaultusersecret/vlessws",
@@ -50,28 +63,31 @@
             "xver": 2
           },
           {
-            // if the request's ALPN was HTTP2, pass it to trojan-tcp. (Also from trojan-tcp fallback to Nginx HTTP2)
             "alpn": "h2",
+            // if the request's ALPN was HTTP2, pass it to trojan-tcp. (Also from trojan-tcp fallback to Nginx HTTP2)
             "dest": "@trojan-tcp",
             "xver": 2
           },
           {
-            // if not any other condition, pass it to Nginx HTTP1.1 listener
-            "dest": "/dev/shm/h1.sock",
-            "xver": 2
+            // if it was not a valid trojan reuqest, for example the trojan password was wrong, pass it to the NGINX HTTP2 cleartext UDS
+            "dest": "501",
+            "xver": 2 //Enable PROXY protocol sending, and send the real source IP and port to Nginx. 1 or 2 indicates the PROXY protocol version. Consistent with the above, configuration 2 is recommended.
           }
         ]
       },
       "streamSettings": {
         "network": "tcp",
+        "tcpSettings": {
+          "acceptProxyProtocol": true //Enable PROXY protocol reception, receive the real source IP and port from nginx sni proxy.
+        },
         "security": "xtls", //If XTLS Direct is enabled, tls must be changed to xtls; otherwise, tls will be restored.
         "xtlsSettings": {
           //If XTLS Direct is enabled, tlsSettings must be changed to xtlsSettings; otherwise, restore tlsSettings.
           "certificates": [
             {
               "ocspStapling": 3600, //The Xray version is not less than v1.3.0 to support configuring the time interval between OCSP stapling update and certificate hot reload. Currently V2Ray does not support it. If you use V2Ray as the server, you must delete this configuration.
-              "certificateFile": "/etc/ssl/example.com/domain.pem", // this is te fullchain (domain + any bundle). Make sure the permissions are correct (absolute path)
-              "keyFile": "/etc/ssl/example.com/domain-key.pem" // this is the private key of the cert. Make sure the permissions are correct (absolute path)
+              "certificateFile": "/opt/GITHUB_REPOSITORY/nginx/ssl.crt", // this is te fullchain (domain + any bundle). Make sure the permissions are correct (absolute path)
+              "keyFile": "/opt/GITHUB_REPOSITORY/nginx/ssl.key" // this is the private key of the cert. Make sure the permissions are correct (absolute path)
             }
             //,{
             //  // more domains and therefore more certificates can be added to this `certificates` list
@@ -182,13 +198,7 @@
         "fallbacks": [
           {
             // if it was not a valid trojan reuqest, for example the trojan password was wrong, pass it to the NGINX HTTP2 cleartext UDS
-            "dest": "/dev/shm/h1.sock",
-            "xver": 2 //Enable PROXY protocol sending, and send the real source IP and port to Nginx. 1 or 2 indicates the PROXY protocol version. Consistent with the above, configuration 2 is recommended.
-          },
-          {
-            // if it was not a valid trojan reuqest, for example the trojan password was wrong, pass it to the NGINX HTTP2 cleartext UDS
-            "alpn": "h2",
-            "dest": "/dev/shm/h2c.sock",
+            "dest": "502",
             "xver": 2 //Enable PROXY protocol sending, and send the real source IP and port to Nginx. 1 or 2 indicates the PROXY protocol version. Consistent with the above, configuration 2 is recommended.
           }
         ]
@@ -337,8 +347,7 @@
       "protocol": "shadowsocks",
       "settings": {
         "method": "chacha20-ietf-poly1305",
-        "password": "defaultuserguidsecret", //Change to your own password
-        "email": "2011@gmail.com"
+        "password": "defaultuserguidsecret" //Change to your own password
       },
       "streamSettings": {
         "network": "grpc",
@@ -383,7 +392,7 @@
     //         "xver": 2
     //       },
     //       {
-    //         "dest": "/dev/shm/h1.sock", // defaults to Nginx HTTP1.1 listener
+    //         "dest": "501", // defaults to Nginx HTTP1.1 listener
     //         "xver": 2
     //       }
     //     ],
@@ -427,7 +436,7 @@
            "outboundTag": "blackhole",
            "ip": ["geoip:private"]
         },
-        { DNS Cache rule
+        { //DNS Cache rule
            "type": "field",
            "port": 53,
            "network": "tcp,udp",
