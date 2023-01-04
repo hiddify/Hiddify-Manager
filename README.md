@@ -1,7 +1,7 @@
 # Hiddify Config
 در این مقاله به شما آموزش میدهیم چگونه یک فیلترشکن اختصاصی مالتی پروتوکل در پورت 443 ایجاد کنید.
 موارد پشتیبانی شده:
-### Supported configs: </summary>
+### Supported configs:
 
 ##### telegram proxy
 
@@ -32,7 +32,7 @@
  - vmess (cdn support)
  - ss+faketls
  
-</details>
+
 
 <details markdown="1"> <summary>DNS over HTTPS (supports CDN)</summary>
  
