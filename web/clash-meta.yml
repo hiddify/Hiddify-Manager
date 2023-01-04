@@ -191,7 +191,7 @@ proxies:
     type: ss
     cipher: chacha20-ietf-poly1305
     password: usersecret
-    server: proxyproviderip
+    server: serverip
     port: 443
     udp_over_tcp: true
     plugin: obfs
