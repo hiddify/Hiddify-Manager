@@ -2,9 +2,15 @@
 vless://userguidsecret@serverip:443?flow=xtls-rprx-direct&security=xtls&alpn=h2&sni=proxyproviderip&type=tcp#vless+xtls_proxyproviderip
 
 #ws:
-vless://userguidsecret@cloudprovider:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Fvlessws#vless_ws_proxyproviderip
-trojan://userguidsecret@cloudprovider:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Ftrojanws#trojan_ws_proxyproviderip
-vmess://{"v":"2", "ps":"vmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/usersecret/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}
+vless://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Fvlessws#vless_ws_proxyproviderip
+trojan://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Ftrojanws#trojan_ws_proxyproviderip
+vmess://{"v":"2", "ps":"vmess_ws_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/usersecret/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}
+
+#ws CDN:
+vless://userguidsecret@cloudprovider:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Fvlessws#CDNvless_ws_proxyproviderip
+trojan://userguidsecret@cloudprovider:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Ftrojanws#CDNtrojan_ws_proxyproviderip
+vmess://{"v":"2", "ps":"CDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/usersecret/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}
+
 
 #grpc
 vless://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=grpc&serviceName=usersecret-vlgrpc&mode=multi#vless-grpc_proxyproviderip

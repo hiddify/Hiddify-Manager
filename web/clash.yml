@@ -19,7 +19,36 @@ proxies:
     network: ws
     ws-opts:
       path: /usersecret/trojanws
+
   - name: vmess_ws_proxyproviderip_vmess_59999
+    type: vmess
+    server: cloudprovider
+    port: 443
+    uuid: userguidsecret
+    alterId: 0
+    cipher: auto
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: proxyproviderip
+    network: ws
+    ws-opts:
+      path: /usersecret/vmessws
+  - name: CDN trojan_ws_proxyproviderip_trojan_74488
+    type: trojan
+    password: userguidsecret
+    server: cloudprovider
+    port: 443
+    udp: true
+    sni: proxyproviderip
+    skip-cert-verify: true
+    alpn:
+      - h2
+    network: ws
+    ws-opts:
+      path: /usersecret/trojanws
+
+  - name: CDN vmess_ws_proxyproviderip_vmess_59999
     type: vmess
     server: cloudprovider
     port: 443
@@ -110,31 +139,9 @@ proxies:
     http-opts:
       path:
         - /usersecret/vmtc
-  - name: old_trojan-go_proxyproviderip_trojan-go_86355
-    type: trojan
-    password: 1
-    server: cloudprovider
-    port: 443
-    udp: true
-    sni: proxyproviderip
-    skip-cert-verify: true
-    network: ws
-    ws-opts:
-      path: /usersecret/trojan/
-  - name: old_v2ray_proxyproviderip_ss_94133
-    type: ss
-    cipher: chacha20-ietf-poly1305
-    password: usersecret
-    server: proxyproviderip
-    port: 443
-    udp_over_tcp: true
-    plugin: v2ray-plugin
-    plugin-opts:
-      mode: websocket
-      tls: true
-      skip-cert-verify: true
-      host: proxyproviderip
-      path: /usersecret/v2ray/
+
+
+
   - name: old_ssfaketls_proxyproviderip_ss_85981
     type: ss
     cipher: chacha20-ietf-poly1305
@@ -146,7 +153,76 @@ proxies:
     plugin-opts:
       mode: tls
       host: www.google.com
+
+
+  - name: old_trojan-go_proxyproviderip_trojan-go_86355
+    type: trojan
+    password: 1
+    server: serverip
+    port: 443
+    udp: true
+    sni: proxyproviderip
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: /usersecret/trojan/
+  - name: old_v2ray_proxyproviderip_ss_94133
+    type: ss
+    cipher: chacha20-ietf-poly1305
+    password: usersecret
+    server: serverip
+    port: 443
+    udp_over_tcp: true
+    plugin: v2ray-plugin
+    plugin-opts:
+      mode: websocket
+      tls: true
+      skip-cert-verify: true
+      host: proxyproviderip
+      path: /usersecret/v2ray/
+      
   - name: old_vmess_proxyproviderip_vmess_18831
+    type: vmess
+    server: serverip
+    port: 443
+    uuid: userguidsecret
+    alterId: 0
+    cipher: chacha20-poly1305
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: proxyproviderip
+    network: ws
+    ws-opts:
+      path: /usersecret/vmess/
+
+  - name: CDN old_trojan-go_proxyproviderip_trojan-go_86355
+    type: trojan
+    password: 1
+    server: cloudprovider
+    port: 443
+    udp: true
+    sni: proxyproviderip
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: /usersecret/trojan/
+  - name: CDN old_v2ray_proxyproviderip_ss_94133
+    type: ss
+    cipher: chacha20-ietf-poly1305
+    password: usersecret
+    server: cloudprovider
+    port: 443
+    udp_over_tcp: true
+    plugin: v2ray-plugin
+    plugin-opts:
+      mode: websocket
+      tls: true
+      skip-cert-verify: true
+      host: proxyproviderip
+      path: /usersecret/v2ray/
+      
+  - name: CDN old_vmess_proxyproviderip_vmess_18831
     type: vmess
     server: cloudprovider
     port: 443
@@ -160,6 +236,8 @@ proxies:
     network: ws
     ws-opts:
       path: /usersecret/vmess/
+
+
 proxy-groups:
   - name: auto
     proxies:
