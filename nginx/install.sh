@@ -12,7 +12,7 @@ ln -s $(pwd)/nginx.conf /etc/nginx/nginx.conf
 
 
 
-if [[ -f ssl.key || -f ssl.crt ]];then
+if [[ ! -f ssl.key || ! -f ssl.crt ]];then
 	openssl req -x509 -newkey rsa:2048 -keyout ssl.key -out ssl.crt -days 3650 -nodes -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=www.google.com"
 fi
 
