@@ -235,7 +235,7 @@
         "network": "tcp",
         "security": "none",
         "tcpSettings": {
-          "acceptProxyProtocol": true //Enable PROXY protocol reception, receive the real source IP and port before vless+tcp+tls fallback.
+          "acceptProxyProtocol": true, //Enable PROXY protocol reception, receive the real source IP and port before vless+tcp+tls fallback.
           "header": {
             "type": "http",
             "request": {
