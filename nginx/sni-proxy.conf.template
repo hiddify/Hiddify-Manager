@@ -17,7 +17,7 @@ server {
         ssl_preread on;
 }
 server {
-        listen 443;
+        listen 445; #443 is analysed by xray
         proxy_pass $name;
         ssl_preread on;
         proxy_protocol    on;
