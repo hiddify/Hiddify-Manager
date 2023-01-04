@@ -128,16 +128,16 @@ proxies:
     http-opts:
       path:
         - /usersecret/vmtc
-  - name: trojan+tls+http1.1_proxyproviderip_trojan_78009
-    type: trojan
-    password: userguidsecret
-    server: serverip
-    port: 443
-    udp: true
-    sni: proxyproviderip
-    skip-cert-verify: true
-    alpn:
-      - http/1.1
+  # - name: trojan+tls+http1.1_proxyproviderip_trojan_78009
+  #   type: trojan
+  #   password: userguidsecret
+  #   server: serverip
+  #   port: 443
+  #   udp: true
+  #   sni: proxyproviderip
+  #   skip-cert-verify: true
+  #   alpn:
+  #     - http/1.1
   - name: vless+tls+http1.1_proxyproviderip_vless_16517
     type: vless
     uuid: userguidsecret
@@ -225,7 +225,7 @@ proxy-groups:
       - trojan+tls_proxyproviderip_trojan_58054
       - vless+tls_proxyproviderip_vless_81611
       - vmess+tls_proxyproviderip_vmess_93601
-      - trojan+tls+http1.1_proxyproviderip_trojan_78009
+      # - trojan+tls+http1.1_proxyproviderip_trojan_78009
       - vless+tls+http1.1_proxyproviderip_vless_16517
       - vmess+tls+http1.1_proxyproviderip_vmess_11423
       - old_trojan-go_proxyproviderip_trojan-go_86355
@@ -247,7 +247,7 @@ proxy-groups:
       - trojan+tls_proxyproviderip_trojan_58054
       - vless+tls_proxyproviderip_vless_81611
       - vmess+tls_proxyproviderip_vmess_93601
-      - trojan+tls+http1.1_proxyproviderip_trojan_78009
+      # - trojan+tls+http1.1_proxyproviderip_trojan_78009
       - vless+tls+http1.1_proxyproviderip_vless_16517
       - vmess+tls+http1.1_proxyproviderip_vmess_11423
       - old_trojan-go_proxyproviderip_trojan-go_86355

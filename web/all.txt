@@ -19,8 +19,8 @@ vmess://{"v": "2", "ps": "vmess+tls_proxyproviderip", "add": "serverip", "port":
 
 
 #tls+http1.1
-trojan://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=http/1.1&type=tcp#trojan+tls+http1.1_proxyproviderip
-vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=http/1.1&type=tcp#vless+tls+http1.1_proxyproviderip
+#trojan://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=http/1.1&type=tcp&headerType=http&path=%2Fusersecret%2Ftrtc#trojan+tls+http1.1_proxyproviderip
+vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=http/1.1&type=tcp&headerType=http&path=%2Fusersecret%2Fvltc#vless+tls+http1.1_proxyproviderip
 vmess://{"v": "2", "ps": "vmess+tls+http1.1_proxyproviderip", "add": "serverip", "port": "443", "id": "userguidsecret", "aid": "0", "scy": "auto", "net": "tcp", "type": "http", "host": "", "path": "/usersecret/vmtc", "tls": "tls", "sni": "proxyproviderip", "alpn": "http/1.1"}
 
 
