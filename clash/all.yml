@@ -1,120 +1,335 @@
 mixed-port: 7890
 allow-lan: false
 log-level: info
-secret: ""
+secret: 
 external-controller: 127.0.0.1:9090
 ipv6: false
 mode: rule
 proxies:
-  - name: faketls
-    type: ss
+  - name: trojan_ws_proxyproviderip_trojan_74488
+    type: trojan
+    password: userguidsecret
     server: serverip
-    port: "443"
-    cipher: chacha20-ietf-poly1305
-    password: "usersecret"
+    port: 443
     udp: true
-    plugin: obfs
-    plugin-opts:
-      mode: tls # or http
-      host: www.google.com
-   
-  - name: "v2ray"
-    type: ss
+    sni: proxyproviderip
+    skip-cert-verify: true
+    alpn:
+      - h2
+    network: ws
+    ws-opts:
+      path: /usersecret/trojanws
+
+  - name: vmess_ws_proxyproviderip_vmess_59999
+    type: vmess
+    server: serverip
+    port: 443
+    uuid: userguidsecret
+    alterId: 0
+    cipher: auto
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: proxyproviderip
+    network: ws
+    ws-opts:
+      path: /usersecret/vmessws
+  - name: CDN trojan_ws_proxyproviderip_trojan_74488
+    type: trojan
+    password: userguidsecret
     server: cloudprovider
     port: 443
-    cipher: chacha20-ietf-poly1305
-    password: "usersecret"
-    plugin: v2ray-plugin
-    plugin-opts:
-      mode: websocket # no QUIC now
-      tls: true # wss
-      skip-cert-verify: true
-      host: proxyproviderip
-      path: "/usersecret/v2ray/"
-      #mux: true
-      # headers:
-      #   custom: value
-      
-  - name: "vmess"
+    udp: true
+    sni: proxyproviderip
+    skip-cert-verify: true
+    alpn:
+      - h2
+    network: ws
+    ws-opts:
+      path: /usersecret/trojanws
+
+  - name: CDN vmess_ws_proxyproviderip_vmess_59999
     type: vmess
     server: cloudprovider
     port: 443
     uuid: userguidsecret
     alterId: 0
-    cipher: "chacha20-poly1305"
-    # udp: true
+    cipher: auto
+    udp: true
     tls: true
-    # skip-cert-verify: true
-    # servername: example.com # priority over wss host
+    skip-cert-verify: true
+    servername: proxyproviderip
     network: ws
     ws-opts:
-      path: /usersecret/vmess/
-    #   headers:
-    #     Host: v2ray.com
-    #   max-early-data: 2048
-    #   early-data-header-name: Sec-WebSocket-Protocol
-     
-  - name: "trojan"
+      path: /usersecret/vmessws
+  - name: trojan-grpc_proxyproviderip_trojan_49303
     type: trojan
-    server: cloudprovider
+    password: userguidsecret
+    server: serverip
     port: 443
-    password: "1"
-    #udp: true
+    udp: true
     sni: proxyproviderip
+    skip-cert-verify: true
+    alpn:
+      - h2
+    network: grpc
+    grpc-opts:
+      grpc-service-name: usersecret-trgrpc
+  - name: vmess_grpc_proxyproviderip_vmess_59432
+    type: vmess
+    server: serverip
+    port: 443
+    uuid: userguidsecret
+    alterId: 0
+    cipher: auto
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: proxyproviderip
+    network: grpc
+    grpc-opts:
+      grpc-service-name: usersecret-vmgrpc
+  - name: trojan+tls_proxyproviderip_trojan_58054
+    type: trojan
+    password: userguidsecret
+    server: serverip
+    port: 443
+    udp: true
+    sni: proxyproviderip
+    skip-cert-verify: true
+    alpn:
+      - h2
+  - name: vmess+tls_proxyproviderip_vmess_93601
+    type: vmess
+    server: serverip
+    port: 443
+    uuid: userguidsecret
+    alterId: 0
+    cipher: auto
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: proxyproviderip
+    network: http
+    http-opts:
+      path:
+        - /usersecret/vmtc
+  # - name: trojan+tls+http1.1_proxyproviderip_trojan_78009
+  #   type: trojan
+  #   password: userguidsecret
+  #   server: serverip
+  #   port: 443
+  #   udp: true
+  #   sni: proxyproviderip
+  #   skip-cert-verify: true
+  #   alpn:
+  #     - http/1.1
+  - name: vmess+tls+http1.1_proxyproviderip_vmess_11423
+    type: vmess
+    server: serverip
+    port: 443
+    uuid: userguidsecret
+    alterId: 0
+    cipher: auto
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: proxyproviderip
+    network: http
+    http-opts:
+      path:
+        - /usersecret/vmtc
+
+
+
+  - name: old_ssfaketls_proxyproviderip_ss_85981
+    type: ss
+    cipher: chacha20-ietf-poly1305
+    password: usersecret
+    server: serverip
+    port: 443
+    udp_over_tcp: true
+    plugin: obfs
+    plugin-opts:
+      mode: tls
+      host: www.google.com
+
+
+  - name: old_trojan-go_proxyproviderip_trojan-go_86355
+    type: trojan
+    password: 1
+    server: serverip
+    port: 443
+    udp: true
+    sni: proxyproviderip
+    skip-cert-verify: true
     network: ws
     ws-opts:
       path: /usersecret/trojan/
+  - name: old_v2ray_proxyproviderip_ss_94133
+    type: ss
+    cipher: chacha20-ietf-poly1305
+    password: usersecret
+    server: serverip
+    port: 443
+    udp_over_tcp: true
+    plugin: v2ray-plugin
+    plugin-opts:
+      mode: websocket
+      tls: true
+      skip-cert-verify: true
+      host: proxyproviderip
+      path: /usersecret/v2ray/
+      
+  - name: old_vmess_proxyproviderip_vmess_18831
+    type: vmess
+    server: serverip
+    port: 443
+    uuid: userguidsecret
+    alterId: 0
+    cipher: chacha20-poly1305
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: proxyproviderip
+    network: ws
+    ws-opts:
+      path: /usersecret/vmess/
+
+  - name: CDN old_trojan-go_proxyproviderip_trojan-go_86355
+    type: trojan
+    password: 1
+    server: cloudprovider
+    port: 443
+    udp: true
+    sni: proxyproviderip
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: /usersecret/trojan/
+  - name: CDN old_v2ray_proxyproviderip_ss_94133
+    type: ss
+    cipher: chacha20-ietf-poly1305
+    password: usersecret
+    server: cloudprovider
+    port: 443
+    udp_over_tcp: true
+    plugin: v2ray-plugin
+    plugin-opts:
+      mode: websocket
+      tls: true
+      skip-cert-verify: true
+      host: proxyproviderip
+      path: /usersecret/v2ray/
+      
+  - name: CDN old_vmess_proxyproviderip_vmess_18831
+    type: vmess
+    server: cloudprovider
+    port: 443
+    uuid: userguidsecret
+    alterId: 0
+    cipher: chacha20-poly1305
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: proxyproviderip
+    network: ws
+    ws-opts:
+      path: /usersecret/vmess/
 
 proxy-groups:
-   - name: Autom
-     proxies:
-       - trojan
-       - faketls
-       - v2ray
-       - vmess
-       
-     type: url-test
-     url: 'https://www.facebook.com/'
-     interval: 300
+  - name: auto
+    proxies:
+      - trojan_ws_proxyproviderip_trojan_74488
+      - vmess_ws_proxyproviderip_vmess_59999
+      - CDN trojan_ws_proxyproviderip_trojan_74488
+      - CDN vmess_ws_proxyproviderip_vmess_59999
+      - trojan-grpc_proxyproviderip_trojan_49303
+      - vmess_grpc_proxyproviderip_vmess_59432
+      - trojan+tls_proxyproviderip_trojan_58054
+      - vmess+tls_proxyproviderip_vmess_93601
+      # - trojan+tls+http1.1_proxyproviderip_trojan_78009
+      - vmess+tls+http1.1_proxyproviderip_vmess_11423
+      - old_trojan-go_proxyproviderip_trojan-go_86355
+      - old_v2ray_proxyproviderip_ss_94133
+      - old_vmess_proxyproviderip_vmess_18831
+      - CDN old_trojan-go_proxyproviderip_trojan-go_86355
+      - CDN old_v2ray_proxyproviderip_ss_94133
+      - CDN old_vmess_proxyproviderip_vmess_18831      
+      - old_ssfaketls_proxyproviderip_ss_85981
+      - OnProxyIssue
+    type: url-test
+    url: https://www.facebook.com/
+    interval: 300
+  - name: PROXY
+    proxies:
+      - auto
+      - trojan_ws_proxyproviderip_trojan_74488
+      - vmess_ws_proxyproviderip_vmess_59999
+      - CDN trojan_ws_proxyproviderip_trojan_74488
+      - CDN vmess_ws_proxyproviderip_vmess_59999
+      - trojan-grpc_proxyproviderip_trojan_49303
+      - vmess_grpc_proxyproviderip_vmess_59432
+      - trojan+tls_proxyproviderip_trojan_58054
+      - vmess+tls_proxyproviderip_vmess_93601
+      # - trojan+tls+http1.1_proxyproviderip_trojan_78009
+      - vmess+tls+http1.1_proxyproviderip_vmess_11423
+      - old_trojan-go_proxyproviderip_trojan-go_86355
+      - old_v2ray_proxyproviderip_ss_94133
+      - old_vmess_proxyproviderip_vmess_18831
+      - CDN old_trojan-go_proxyproviderip_trojan-go_86355
+      - CDN old_v2ray_proxyproviderip_ss_94133
+      - CDN old_vmess_proxyproviderip_vmess_18831      
+      - old_ssfaketls_proxyproviderip_ss_85981
+    type: select
 
-   - name: P
-     proxies:
-       - trojan
-       - v2ray
-       - faketls
-       - vmess
-     type: fallback
-     url: 'https://www.facebook.com/'
-     interval: 300
-     
 
+  - name: OnIranSites
+    proxies:
+      - PROXY
+      - DIRECT
+    type: select
+
+  - name: OnNotFilteredSites
+    proxies:
+      - PROXY
+      - DIRECT
+    type: select  
+
+  - name: OnProxyIssue
+    proxies:
+      - REJECT
+      - DIRECT
+    type: select
 rules:
-  - IP-CIDR,10.10.34.0/24,P
-  - DOMAIN-SUFFIX,t.me,P #tele gram
-  - DOMAIN-SUFFIX,tdesktop.com,P #tele gram
-  - DOMAIN-SUFFIX,telegra.ph,P #tele gram
-  - DOMAIN-SUFFIX,telegram.me,P #tele gram
-  - DOMAIN-SUFFIX,telegram.org,P #tele gram
-  - IP-CIDR,91.108.4.0/22,P,no-resolve #tele gram
-  - IP-CIDR,91.108.8.0/22,P,no-resolve #tele gram
-  - IP-CIDR,91.108.12.0/22,P,no-resolve #tele gram
-  - IP-CIDR,91.108.16.0/22,P,no-resolve #tele gram
-  - IP-CIDR,91.108.56.0/22,P,no-resolve #tele gram
-  - IP-CIDR,149.154.160.0/20,P,no-resolve #tele gram
-  - DOMAIN-KEYWORD,instagram,P 
-  - DOMAIN-KEYWORD,whatsapp,P
-  - DOMAIN-KEYWORD,facebook,P
-  - DOMAIN-SUFFIX,cdninstagram.com,P
-  - DOMAIN-SUFFIX,instagram.com,P
-  - DOMAIN-SUFFIX,instanthq.com,P
-  - DOMAIN-SUFFIX,instanthq.com,P
-  - DOMAIN-SUFFIX,whatsapp.com,P
-  - DOMAIN-SUFFIX,whatsapp.net,P
-  - DST-PORT,5222,P #whatspp
-  - DST-PORT,5223,P #whatspp
-  - DST-PORT,5228,P #whatspp
-  - DST-PORT,5242,P #whatspp
-  - DST-PORT,3478,P #whatspp
-  - DST-PORT,1400,P #tele gram
+  - IP-CIDR,10.10.34.0/24,PROXY
+  - GEOIP,IR,OnIranSites
+  - DOMAIN-SUFFIX,.ir,OnIranSites
+  - DOMAIN-SUFFIX,t.me,PROXY #tele gram
+  - DOMAIN-SUFFIX,tdesktop.com,PROXY #tele gram
+  - DOMAIN-SUFFIX,telegra.ph,PROXY #tele gram
+  - DOMAIN-SUFFIX,telegram.me,PROXY #tele gram
+  - DOMAIN-SUFFIX,telegram.org,PROXY #tele gram
+  - IP-CIDR,91.108.4.0/22,PROXY,no-resolve #tele gram
+  - IP-CIDR,91.108.8.0/22,PROXY,no-resolve #tele gram
+  - IP-CIDR,91.108.12.0/22,PROXY,no-resolve #tele gram
+  - IP-CIDR,91.108.16.0/22,PROXY,no-resolve #tele gram
+  - IP-CIDR,91.108.56.0/22,PROXY,no-resolve #tele gram
+  - IP-CIDR,149.154.160.0/20,PROXY,no-resolve #tele gram
+  - DOMAIN-KEYWORD,instagram,PROXY 
+  - DOMAIN-KEYWORD,whatsapp,PROXY
+  - DOMAIN-KEYWORD,facebook,PROXY
+  - DOMAIN-SUFFIX,cdninstagram.com,PROXY
+  - DOMAIN-SUFFIX,instagram.com,PROXY
+  - DOMAIN-SUFFIX,instanthq.com,PROXY
+  - DOMAIN-SUFFIX,instanthq.com,PROXY
+  - DOMAIN-SUFFIX,whatsapp.com,PROXY
+  - DOMAIN-SUFFIX,whatsapp.net,PROXY
+  - DST-PORT,5222,PROXY #whatspp
+  - DST-PORT,5223,PROXY #whatspp
+  - DST-PORT,5228,PROXY #whatspp
+  - DST-PORT,5242,PROXY #whatspp
+  - DST-PORT,3478,PROXY #whatspp
+  - DST-PORT,1400,PROXY #tele gram
   - DOMAIN-SUFFIX,anydesk.com,DIRECT
-  - MATCH,P
+  - MATCH,OnNotFilteredSites

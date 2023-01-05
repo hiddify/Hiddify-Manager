@@ -6,6 +6,30 @@ external-controller: 127.0.0.1:9090
 ipv6: false
 mode: rule
 proxies:
+  - name: vless+xtls_proxyproviderip_vless_98915
+    type: vless
+    uuid: userguidsecret
+    server: serverip
+    port: 443
+    udp: true
+    tls: false
+    servername: proxyproviderip
+    skip-cert-verify: true
+    flow: xtls-rprx-direct
+
+  - name: vless_ws_proxyproviderip_vless_41935
+    type: vless
+    uuid: userguidsecret
+    server: serverip
+    port: 443
+    udp: true
+    tls: true
+    servername: proxyproviderip
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: /usersecret/vlessws
+
   - name: trojan_ws_proxyproviderip_trojan_74488
     type: trojan
     password: userguidsecret
@@ -34,6 +58,21 @@ proxies:
     network: ws
     ws-opts:
       path: /usersecret/vmessws
+
+
+  - name: CDN vless_ws_proxyproviderip_vless_41935
+    type: vless
+    uuid: userguidsecret
+    server: cloudprovider
+    port: 443
+    udp: true
+    tls: true
+    servername: proxyproviderip
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: /usersecret/vlessws
+
   - name: CDN trojan_ws_proxyproviderip_trojan_74488
     type: trojan
     password: userguidsecret
@@ -62,6 +101,19 @@ proxies:
     network: ws
     ws-opts:
       path: /usersecret/vmessws
+
+  - name: vless-grpc_proxyproviderip_vless_61006
+    type: vless
+    uuid: userguidsecret
+    server: serverip
+    port: 443
+    udp: true
+    tls: true
+    servername: proxyproviderip
+    skip-cert-verify: true
+    network: grpc
+    grpc-opts:
+      grpc-service-name: usersecret-vlgrpc
   - name: trojan-grpc_proxyproviderip_trojan_49303
     type: trojan
     password: userguidsecret
@@ -99,6 +151,15 @@ proxies:
     skip-cert-verify: true
     alpn:
       - h2
+  - name: vless+tls_proxyproviderip_vless_81611
+    type: vless
+    uuid: userguidsecret
+    server: serverip
+    port: 443
+    udp: true
+    tls: true
+    servername: proxyproviderip
+    skip-cert-verify: true
   - name: vmess+tls_proxyproviderip_vmess_93601
     type: vmess
     server: serverip
@@ -124,6 +185,15 @@ proxies:
   #   skip-cert-verify: true
   #   alpn:
   #     - http/1.1
+  - name: vless+tls+http1.1_proxyproviderip_vless_16517
+    type: vless
+    uuid: userguidsecret
+    server: serverip
+    port: 443
+    udp: true
+    tls: true
+    servername: proxyproviderip
+    skip-cert-verify: true
   - name: vmess+tls+http1.1_proxyproviderip_vmess_11423
     type: vmess
     server: serverip
@@ -139,7 +209,6 @@ proxies:
     http-opts:
       path:
         - /usersecret/vmtc
-
 
 
   - name: old_ssfaketls_proxyproviderip_ss_85981
@@ -166,6 +235,7 @@ proxies:
     network: ws
     ws-opts:
       path: /usersecret/trojan/
+
   - name: old_v2ray_proxyproviderip_ss_94133
     type: ss
     cipher: chacha20-ietf-poly1305
@@ -180,7 +250,7 @@ proxies:
       skip-cert-verify: true
       host: proxyproviderip
       path: /usersecret/v2ray/
-      
+
   - name: old_vmess_proxyproviderip_vmess_18831
     type: vmess
     server: serverip
@@ -221,7 +291,7 @@ proxies:
       skip-cert-verify: true
       host: proxyproviderip
       path: /usersecret/v2ray/
-      
+
   - name: CDN old_vmess_proxyproviderip_vmess_18831
     type: vmess
     server: cloudprovider
@@ -235,27 +305,32 @@ proxies:
     servername: proxyproviderip
     network: ws
     ws-opts:
-      path: /usersecret/vmess/
-
+      path: /usersecret/vmess/      
 proxy-groups:
   - name: auto
     proxies:
+      - vless+xtls_proxyproviderip_vless_98915
+      - vless_ws_proxyproviderip_vless_41935
       - trojan_ws_proxyproviderip_trojan_74488
       - vmess_ws_proxyproviderip_vmess_59999
+      - CDN vless_ws_proxyproviderip_vless_41935
       - CDN trojan_ws_proxyproviderip_trojan_74488
       - CDN vmess_ws_proxyproviderip_vmess_59999
+      - vless-grpc_proxyproviderip_vless_61006
       - trojan-grpc_proxyproviderip_trojan_49303
       - vmess_grpc_proxyproviderip_vmess_59432
       - trojan+tls_proxyproviderip_trojan_58054
+      - vless+tls_proxyproviderip_vless_81611
       - vmess+tls_proxyproviderip_vmess_93601
       # - trojan+tls+http1.1_proxyproviderip_trojan_78009
+      - vless+tls+http1.1_proxyproviderip_vless_16517
       - vmess+tls+http1.1_proxyproviderip_vmess_11423
       - old_trojan-go_proxyproviderip_trojan-go_86355
-      - old_v2ray_proxyproviderip_ss_94133
+      - old_v2ray_proxyproviderip_ss_94133     
       - old_vmess_proxyproviderip_vmess_18831
       - CDN old_trojan-go_proxyproviderip_trojan-go_86355
-      - CDN old_v2ray_proxyproviderip_ss_94133
-      - CDN old_vmess_proxyproviderip_vmess_18831      
+      - CDN old_v2ray_proxyproviderip_ss_94133     
+      - CDN old_vmess_proxyproviderip_vmess_18831
       - old_ssfaketls_proxyproviderip_ss_85981
       - OnProxyIssue
     type: url-test
@@ -264,23 +339,29 @@ proxy-groups:
   - name: PROXY
     proxies:
       - auto
+      - vless+xtls_proxyproviderip_vless_98915
+      - vless_ws_proxyproviderip_vless_41935
       - trojan_ws_proxyproviderip_trojan_74488
       - vmess_ws_proxyproviderip_vmess_59999
+      - CDN vless_ws_proxyproviderip_vless_41935
       - CDN trojan_ws_proxyproviderip_trojan_74488
       - CDN vmess_ws_proxyproviderip_vmess_59999
+      - vless-grpc_proxyproviderip_vless_61006
       - trojan-grpc_proxyproviderip_trojan_49303
       - vmess_grpc_proxyproviderip_vmess_59432
       - trojan+tls_proxyproviderip_trojan_58054
+      - vless+tls_proxyproviderip_vless_81611
       - vmess+tls_proxyproviderip_vmess_93601
       # - trojan+tls+http1.1_proxyproviderip_trojan_78009
+      - vless+tls+http1.1_proxyproviderip_vless_16517
       - vmess+tls+http1.1_proxyproviderip_vmess_11423
       - old_trojan-go_proxyproviderip_trojan-go_86355
-      - old_v2ray_proxyproviderip_ss_94133
+      - old_v2ray_proxyproviderip_ss_94133     
       - old_vmess_proxyproviderip_vmess_18831
       - CDN old_trojan-go_proxyproviderip_trojan-go_86355
-      - CDN old_v2ray_proxyproviderip_ss_94133
-      - CDN old_vmess_proxyproviderip_vmess_18831      
-      - old_ssfaketls_proxyproviderip_ss_85981
+      - CDN old_v2ray_proxyproviderip_ss_94133     
+      - CDN old_vmess_proxyproviderip_vmess_18831
+      - old_ssfaketls_proxyproviderip_ss_85981  
     type: select
 
 
@@ -292,8 +373,8 @@ proxy-groups:
 
   - name: OnNotFilteredSites
     proxies:
-      - PROXY
       - DIRECT
+      - PROXY
     type: select  
 
   - name: OnProxyIssue
@@ -301,8 +382,8 @@ proxy-groups:
       - DIRECT
       - REJECT
     type: select
-
 rule-providers:
+
   blocked:
     type: http
     behavior: classical
@@ -329,7 +410,6 @@ rule-providers:
     url: "https://proxyproviderip/usersecret/clash/rules/ads-sites.yml"
     path: ./ruleset/ads.yaml
     interval: 432000   
-
 
 rules:
   - IP-CIDR,10.10.34.0/24,PROXY
