@@ -6,8 +6,8 @@
   "remote_port": 80,
   "password": ["1"],
   "ssl": {
-    "cert": "/opt/GITHUB_REPOSITORY/nginx/selfsigned.crt",
-    "key": "/opt/GITHUB_REPOSITORY/nginx/selfsigned.key",
+    "cert": "/opt/GITHUB_REPOSITORY/nginx/ssl.crt",
+    "key": "/opt/GITHUB_REPOSITORY/nginx/ssl.key",
     "sni": "defaultserverhost"
   },
   "websocket": {
