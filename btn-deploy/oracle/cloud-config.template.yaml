@@ -13,7 +13,7 @@ runcmd:
   - cd /opt
   - git clone https://github.com/hiddify/hiddify-config/
   - cd hiddify-config
-  - echo "USER_SECRET=${guid}" >config.env
+  - echo "ADMIN_SECRET=${guid}" >config.env
   - echo "MAIN_DOMAIN=${domain}" >>config.env
   - echo "TELEGRAM_AD_TAG=${telegram_adtag}" >>config.env
   - bash install.sh

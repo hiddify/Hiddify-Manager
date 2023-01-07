@@ -77,8 +77,8 @@ variables:
 
   guid_secret:
     type: string
-    title: "The secret for your proxy."
-    description: "You can put your secret or we will create a secret for you. for example '0123456789abcdef0123456789abcdef'"
+    title: "The Admin Secret for your proxy."
+    description: "You can put your admin secret or we will create a secret for you. for example '0123456789abcdef0123456789abcdef'"
     maxLength: 32
     pattern: "^([0-9A-Fa-f]{32}|)$"
     required: false
@@ -95,6 +95,7 @@ variables:
     required: false
     visible:
       and:
+        - false
         - show_advanced
 
   telegram_adtag:
@@ -106,6 +107,7 @@ variables:
     required: false
     visible:
       and:
+        - false
         - show_advanced
 
   generate_public_ssh_key:
