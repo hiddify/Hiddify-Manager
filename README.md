@@ -79,7 +79,7 @@ ENABLE_AUTO_UPDATE=false
 </details>
 
 
-# [آموزش نصب و راه اندازی (کلیک کنید)](https://github.com/hiddify/hiddify-config/wiki/نصب-سریع-در-اوبونتو)
+# [آموزش نصب و راه اندازی (کلیک کنید)](https://github.com/hiddify/hiddify-config/wiki#کانال-تلگرام-ما-کلیک-کنید)
 
 
 # [کانال تلگرام ما](https://t.me/hiddify)
