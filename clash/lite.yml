@@ -240,7 +240,7 @@ proxies:
 proxy-groups:
   - name: auto
     proxies:
-            - trojan_ws_proxyproviderip_trojan_74488
+      - trojan_ws_proxyproviderip_trojan_74488
       - vmess_ws_proxyproviderip_vmess_59999
       - CDN trojan_ws_proxyproviderip_trojan_74488
       - CDN vmess_ws_proxyproviderip_vmess_59999
