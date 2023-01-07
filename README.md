@@ -118,8 +118,9 @@ ENABLE_AUTO_UPDATE=false
 
 # صفحه ادمین
 
-![image](https://user-images.githubusercontent.com/114227601/209979538-cb3196aa-a832-4b06-95c4-37e9795e00cb.png)
+![HiddifyPanel](https://raw.githubusercontent.com/hiddify/hiddify-config/main/docs/HiddifyPanel.webp)
 -->
+![image](https://user-images.githubusercontent.com/114227601/209979538-cb3196aa-a832-4b06-95c4-37e9795e00cb.png)
 <!-- For Azure: -> Telegram: <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhiddify%2Fconfig%2Fmain%2Ftelegram%2Ftelegram-vm-azure-template.json" target="_blank"><img src="https://aka.ms/deploytoazurebutton"/></a>
 MultiProxy: <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhiddify%2Fconfig%2Fmain%2Fshadowsocks%2Fss-azure-template.json" target="_blank"><img src="https://aka.ms/deploytoazurebutton"/></a> -->
 
