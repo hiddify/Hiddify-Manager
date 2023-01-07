@@ -45,24 +45,30 @@ function do_for_all() {
         if [[ $ENABLE_SS == true ]]; then
                 runsh $1.sh shadowsocks
         else
-                runsh uninstall.sh telegram
+                runsh uninstall.sh shadowsocks
         fi
         if [[ $ENABLE_VMESS == true ]]; then
                 runsh $1.sh vmess
         else
-                runsh uninstall.sh telegram
+                runsh uninstall.sh vmess
         fi
 
         if [[ $ENABLE_MONITORING == true ]]; then
                 runsh $1.sh monitoring
         else
-                runsh uninstall.sh telegram
+                runsh uninstall.sh monitoring
         fi
-              
+
+        if [[ $ENABLE_NETDATA == true ]]; then
+                runsh $1.sh netdata
+        else
+                runsh uninstall.sh netdata
+        fi
+
         if [[ $ENABLE_TROJAN_GO == true ]]; then
                 runsh $1.sh trojan-go
         else
-                runsh uninstall.sh telegram
+                runsh uninstall.sh trojan-go
         fi
         runsh $1.sh xray
         runsh $1.sh admin_ui
@@ -82,7 +88,7 @@ function check_for_env() {
         export SERVER_IP=$(curl -Lso- https://api.ipify.org)
         replace_empty_env MAIN_DOMAIN "please enter valid domain name to use " "$SERVER_IP.sslip.io" "^([A-Za-z0-9\.]+\.[a-zA-Z]{2,})$"
         
-        
+        apt -qq install -y dnsutils
         DOMAIN_IP=$(dig +short -t a $MAIN_DOMAIN.)
         
 
@@ -158,11 +164,13 @@ function main(){
 
         if [[ -z "$DO_NOT_RUN" || "$DO_NOT_RUN" == false ]];then
                 do_for_all run
+                
                 echo ""
                 echo ""
                 echo "==========================================================="
                 echo "Finished! Thank you for helping Iranians to skip filternet."
                 echo "Please open the following link in the browser for client setup"
+                bash status.sh
                 cat nginx/use-link
         fi
         systemctl restart hiddify-admin.service

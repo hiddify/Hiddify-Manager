@@ -8,6 +8,7 @@ map $ssl_preread_server_name $name {
 map $ssl_preread_server_name $namfaketls {
         sstlsdomain 127.0.0.1:1002; #port of shadowsocks obfs-simple
         telegramtlsdomain 127.0.0.1:1001; #port of telegram faketls
+        NO_CDN_DOMAIN 127.0.0.1:444; #forward all others for avoid active detection
         default telegramtlsdomain:443; #forward all others for avoid active detection
 }
 

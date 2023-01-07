@@ -49,6 +49,18 @@
         گزارش وضعیت سرویس
     </h5>
     <div class="card-body">
+        <div class="btn-group">
+            <a href="status" class="btn btn-primary">مشاهده وضعیت سرویس ها</a>
+        </div>
+
+        <div class="btn-group">
+            <a href="netdata/" class="btn btn-primary">مشاهده کامل وضعیت سرور CPU و رم و ...</a>
+        </div>
+        <iframe src="netdata/dash.html" style="width:100%;height:500px;">
+        </iframe>
+        <details>
+        <summary>گزارش بر مبنای شهر موقتا غیر فعال است</summary>
+        
         <p class="card-text">
             از طریق لینک زیر میتوانید وضعیت هر پروتکل در هر اوپراتور بر مبنای هر شهر را مشاهده نمایید.
         </p>
@@ -76,6 +88,7 @@
         <div class="btn-group">
             <a href="stats/" class="btn btn-primary orig-link">جزییات</a>
         </div>
+        </details>
     </div>
 </div>
 

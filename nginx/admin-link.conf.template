@@ -1,3 +1,8 @@
+location /ADMIN_SECRET/netdata/ {
+	proxy_pass          http://localhost:19999/;
+	error_page 301 302 307 = @handle_redirect;
+}
+
 location /ADMIN_SECRET/stats/ {
 	proxy_pass http://localhost:440/; 
 	error_page 301 302 307 = @handle_redirect;

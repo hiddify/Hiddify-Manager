@@ -13,16 +13,20 @@ import subprocess
 import re
 config_dir=pathlib.Path(__file__).parent.parent.resolve()
 dirname = pathlib.Path(__file__).parent.resolve()
-conf_vars=[
-        "MAIN_DOMAIN", 
-        "USER_SECRET",
-        "ADMIN_SECRET",
-        "CDN_NAME",
-        "TELEGRAM_FAKE_TLS_DOMAIN",
-        "SS_FAKE_TLS_DOMAIN",
-        "ENABLE_FIREWALL",
-        "ENABLE_AUTO_UPDATE"
-    ]
+conf_vars={
+        "MAIN_DOMAIN":"domain", 
+        "NO_CDN_DOMAIN":"domain", 
+        "USER_SECRET":"uuid",
+        "ADMIN_SECRET":"uuid",
+        "CDN_NAME":"string",
+        "TELEGRAM_FAKE_TLS_DOMAIN":"domain",
+        "SS_FAKE_TLS_DOMAIN":"domain",
+        "ENABLE_FIREWALL":"boolean",
+        "ENABLE_NETDATA":"boolean",
+        "ALLOW_ALL_SNI_TO_USE_PROXY":"boolean",
+        "ENABLE_HTTP_PROXY":"boolean",
+        "ENABLE_AUTO_UPDATE":"boolean"
+}
 @route('/')
 def index():
     data=read_configs()
@@ -45,8 +49,10 @@ def reinstall(complete_install=True):
     configs=read_configs()
 
     file="install.sh" if complete_install else "apply_configs.sh"
-    
-
+    try:
+        server_ip=urllib.request.urlopen('https://v4.ident.me/').read().decode('utf8')
+    except:
+        server_ip="server_ip"
     # subprocess.Popen(f"{config_dir}/update.sh",env=my_env,cwd=f"{config_dir}")
     # os.system(f'cd {config_dir};{env} ./install.sh &')
     # rc = subprocess.call(f"cd {config_dir};./{file} & disown",shell=True)
@@ -55,9 +61,25 @@ def reinstall(complete_install=True):
                         "out-type":"success",
                         "out-msg":f"Success! Please wait around {6 if complete_install else 2} minutes to make sure everything is updated. Then, please save your proxy links which are <br>"+
                                 f"<h1>User Link</h1><a href='https://{configs['MAIN_DOMAIN']}/{configs['USER_SECRET']}/'>https://{configs['MAIN_DOMAIN']}/{configs['USER_SECRET']}/</a><br>"+
-                                f"<h1>Admin Link</h1><a href='https://{configs['MAIN_DOMAIN']}/{configs['ADMIN_SECRET']}/'>https://{configs['MAIN_DOMAIN']}/{configs['ADMIN_SECRET']}/</a><br>",
+                                f"<h1>Secure Admin Link</h1><a href='https://{configs['MAIN_DOMAIN']}/{configs['ADMIN_SECRET']}/'>https://{configs['MAIN_DOMAIN']}/{configs['ADMIN_SECRET']}/</a><br>"+
+                                f"<h6>Alternative Admin Link</h6><a href='http://{server_ip}/{configs['ADMIN_SECRET']}/'>http://{server_ip}/{configs['ADMIN_SECRET']}/</a><br>",
                         "log-path":f"https://{configs['MAIN_DOMAIN']}/{configs['ADMIN_SECRET']}/reverselog/0-install.log"
     })
+
+
+@route('/status')
+def status():
+    configs=read_configs()
+    # subprocess.Popen(f"{config_dir}/update.sh",env=my_env,cwd=f"{config_dir}")
+    # os.system(f'cd {config_dir};{env} ./install.sh &')
+    # rc = subprocess.call(f"cd {config_dir};./{file} & disown",shell=True)
+    subprocess.Popen(f"{config_dir}/status.sh",cwd=f"{config_dir}",start_new_session=True)
+    return template("result",data={
+                        "out-type":"success",
+                        "out-msg":f"see the log in the bellow screen",
+                        "log-path":f"https://{configs['MAIN_DOMAIN']}/{configs['ADMIN_SECRET']}/reverselog/status.log"
+    })
+
 
 @route('/update')
 def update():
@@ -102,16 +124,18 @@ def config():
 @route('/change')
 def change():
     new_configs={}
-    domain_fields=["MAIN_DOMAIN","TELEGRAM_FAKE_TLS_DOMAIN","SS_FAKE_TLS_DOMAIN"]
-    secret_fields=["USER_SECRET","ADMIN_SECRET"]
-    boolean_fields=["ENABLE_FIREWALL","ENABLE_AUTO_UPDATE"]
+    domain_fields=[c for c in conf_vars if conf_vars[c]=="domain"]
+    secret_fields=[c for c in conf_vars if conf_vars[c]=="uuid"]
+    boolean_fields=[c for c in conf_vars if conf_vars[c]=="boolean"]
     for domain in domain_fields:
-        if not re.search(r'^([A-Za-z0-9\-\.]+\.[a-zA-Z]{2,})$', request.query[domain]):
+        is_no_cdn=domain=="NO_CDN_DOMAIN" and request.query[domain]==""
+        if not is_no_cdn and not re.search(r'^([A-Za-z0-9\-\.]+\.[a-zA-Z]{2,})$', request.query[domain]):
             return template("result",data={
                         "out-type":"danger",
                         "out-msg":f"Invalid {domain}={request.query[domain]}. Click back and fix it"
                     })
         new_configs[domain]=request.query[domain]
+
     for domain1 in domain_fields:
         for domain2 in domain_fields:
             if domain1!=domain2 and request.query[domain1]==request.query[domain2]:

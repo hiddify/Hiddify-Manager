@@ -24,6 +24,12 @@
         <input type='text' value='{{data["ADMIN_SECRET"]}}'  class="form-control" name='ADMIN_SECRET' placeholder='plese enter your admin secret'" /> 
         <small class="form-text text-muted">Admin Secret will be used for accessing admin panel</small>
     </div>   
+
+    <div class="form-group">
+        <label>NO CDN valid Domain</label>
+        <input type='text' value='{{data["NO_CDN_DOMAIN"]}}'  class="form-control" name='NO_CDN_DOMAIN' placeholder='plese enter your no cdn valid domain'" /> 
+        <small class="form-text text-muted">this domain is used for no cdn configurations, if not available we use IP instead</small>
+    </div>   
     <div class="form-group">
         <label>Telegram Fake TLS Domain</label>
         <input type='text' value='{{data["TELEGRAM_FAKE_TLS_DOMAIN"]}}'  class="form-control" name='TELEGRAM_FAKE_TLS_DOMAIN' placeholder='plese enter your telegram fake tls domain'" /> 
@@ -50,6 +56,22 @@
         <input type="checkbox" class="form-check-input" name="ENABLE_FIREWALL" {{"checked"  if data["ENABLE_FIREWALL"] == "false" else ""}}>
         <label class="form-check-label">Enable Firewall</label>
     </div>
+
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" name="ENABLE_NETDATA" {{"checked" if data["ENABLE_NETDATA"] != "false" else ""}}>
+        <label class="form-check-label">Enable Netdata. May use your CPU but not too much</label>
+    </div>
+
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" name="ALLOW_ALL_SNI_TO_USE_PROXY" {{"checked" if data["ALLOW_ALL_SNI_TO_USE_PROXY"] != "false" else ""}}>
+        <label class="form-check-label">Allow all sni to use proxy. NOT RECOMMENDED! NOT SAFE</label>
+    </div>
+
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" name="ENABLE_HTTP_PROXY" {{"checked" if data["ENABLE_HTTP_PROXY"] != "false" else ""}}>
+        <label class="form-check-label">Allow port 80 to use as proxy without SSL. NOT RECOMMENDED! NOT SAFE</label>
+    </div>
+
     <div class="form-check">
         <input type="checkbox" class="form-check-input" name="ENABLE_AUTO_UPDATE" {{"checked" if data["ENABLE_AUTO_UPDATE"] != "false" else ""}}>
         <label class="form-check-label">Enable Auto Update</label>
