@@ -21,10 +21,17 @@
 	</div>
 
 	<div style="width: 33%; display: inline-block;">
+		<div data-netdata="system.ram" data-dimensions="used|buffers|active|wired" data-append-options="percentage"
+			data-chart-library="easypiechart" data-title="Used RAM" data-units="%" data-easypiechart-max-value="100"
+			data-width="200" data-height="200" data-points="300" data-colors="#EE9911" role="application">
+
+		</div>
 		<div style="display: inline-block; position: relative;">
-			<div data-netdata="mem.available" data-chart-library="easypiechart" data-width="200" data-height="200"
+
+
+			<!-- <div data-netdata="mem.available" data-chart-library="easypiechart" data-width="200" data-height="200"
 				data-after="-300" data-points="300" data-dt-element-name="time603"></div>
-			<!-- <div data-netdata="sys" data-chart-library="dygraph" data-width="200" data-height="200"
+			 <div data-netdata="sys" data-chart-library="dygraph" data-width="200" data-height="200"
 				data-dt-element-name="time603"></div> -->
 
 		</div>
@@ -52,6 +59,9 @@
 		<br />
 
 	</div>
+
+
+
 </body>
 <script type="text/javascript" src="dashboard.js"></script>
 
