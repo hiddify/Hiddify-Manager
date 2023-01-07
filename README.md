@@ -107,16 +107,19 @@ ENABLE_AUTO_UPDATE=false
 
 # [کانال تلگرام ما](https://t.me/hiddify)
 
-# صفحه راهنمای کاربران
+#  صفحه راهنمای کاربران و ادمین
 
 با امکان تولید qrcode
 
+![HiddifyPanel](https://user-images.githubusercontent.com/114227601/211161591-13ec01df-b4a9-4bbb-b147-c8ecc52dc0f9.gif)
+<!--
 ![صفحه راهنمای کاربران](https://user-images.githubusercontent.com/114227601/206908372-db1fc206-4c6a-4206-ad39-e6b6b44a55c4.png)
+
 
 # صفحه ادمین
 
 ![image](https://user-images.githubusercontent.com/114227601/209979538-cb3196aa-a832-4b06-95c4-37e9795e00cb.png)
-
+-->
 <!-- For Azure: -> Telegram: <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhiddify%2Fconfig%2Fmain%2Ftelegram%2Ftelegram-vm-azure-template.json" target="_blank"><img src="https://aka.ms/deploytoazurebutton"/></a>
 MultiProxy: <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhiddify%2Fconfig%2Fmain%2Fshadowsocks%2Fss-azure-template.json" target="_blank"><img src="https://aka.ms/deploytoazurebutton"/></a> -->
 
