@@ -1,36 +1,13 @@
 # Hiddify Config
 در این مقاله به شما آموزش میدهیم چگونه یک فیلترشکن اختصاصی مالتی پروتوکل در پورت 443 ایجاد کنید.
 موارد پشتیبانی شده:
-### Supported configs:
 
-##### telegram proxy
-
-##### vless+xtls
-
-##### ws (cdn support):
- - vless+tls+ws 
- - trojan+tls+ws 
- - vmess+tls+ws 
-
-##### h2+tls:
- - vless+tls
- - trojan+tls
- - vmess+tls
-
-##### grpc+tls:
- - vless+grpc+tls
- - trojan+grpc+tls
- - vmess+grpc+tls
-
-##### http1.1+tls:
- - trojan+tls
- - vmess+tls
-
-##### old configs:
- - trojango (cdn support)
- - v2ray+ws (cdn support)
- - vmess (cdn support)
- - ss+faketls
+| Supported Configs | کانفیگ های پشتیبانی شده|
+| - | - |
+| **Telegram Proxy** | **vless+xtls** |
+| **Web Socket (cdn support)**:<br> - vless+tls+ws <br>- trojan+tls+ws <br> - vmess+tls+ws | **h2+tls**:<br> - vless+tls<br> - trojan+tls<br> - vmess+tls |
+| **grpc+tls**:<br> - vless+grpc+tls<br> - trojan+grpc+tls<br> - vmess+grpc+tls | **http1.1+tls**:  <br>- trojan+tls <br> - vmess+tls|
+| **old configs**: <br> - trojango (cdn support) <br> - v2ray+ws (cdn support) <br> - vmess (cdn support) <br> - ss+faketls| **HTTP** <br> -unsafe, default is disable <br> - vless<br> -vmess |
  
 
 
