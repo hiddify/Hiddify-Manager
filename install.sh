@@ -21,6 +21,19 @@ function set_env_if_empty(){
 
 }
 
+function check_req(){
+        
+   for req in hexdump dig curl git;do
+        which $req
+        if [[ "$?" != 0 ]];then
+                apt update
+                apt install -y dnsutils bsdmainutils curl git
+                break
+        fi
+   done
+   
+}
+
 function runsh() {    
         pushd $2; 
         if [[ -f $1 ]];then
@@ -88,7 +101,6 @@ function check_for_env() {
         export SERVER_IP=$(curl -Lso- https://api.ipify.org)
         replace_empty_env MAIN_DOMAIN "please enter valid domain name to use " "$SERVER_IP.sslip.io" "^([A-Za-z0-9\.]+\.[a-zA-Z]{2,})$"
         
-        apt -qq install -y dnsutils
         DOMAIN_IP=$(dig +short -t a $MAIN_DOMAIN.)
         
 
@@ -146,6 +158,7 @@ function replace_empty_env() {
 }
 
 function main(){
+        check_req
         set_env_if_empty config.env.default
         set_env_if_empty config.env
         
