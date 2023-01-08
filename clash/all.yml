@@ -238,7 +238,7 @@ proxies:
       path: /usersecret/vmess/
 
 proxy-groups:
-  - name: auto
+  - name: auto_all
     proxies:
       - trojan_ws_proxyproviderip_trojan_74488
       - vmess_ws_proxyproviderip_vmess_59999
@@ -257,10 +257,18 @@ proxy-groups:
       - CDN old_v2ray_proxyproviderip_ss_94133
       - CDN old_vmess_proxyproviderip_vmess_18831      
       - old_ssfaketls_proxyproviderip_ss_85981
-      - OnProxyIssue
     type: url-test
-    url: https://www.facebook.com/
+    url: http://cp.cloudflare.com
     interval: 300
+
+  - name: auto
+    type: fallback
+    url: 'http://cp.cloudflare.com'
+    interval: 300
+    proxies:
+        - auto_all
+        - OnProxyIssue
+
   - name: PROXY
     proxies:
       - auto

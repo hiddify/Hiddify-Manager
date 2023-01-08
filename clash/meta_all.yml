@@ -5,6 +5,25 @@ secret:
 external-controller: 127.0.0.1:9090
 ipv6: false
 mode: rule
+dns:
+  enable: true
+  use-hosts: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  listen: 127.0.0.1:6868
+  default-nameserver:
+    - https://1.1.1.1/dns-query#PROXY
+    - https://8.8.8.8/dns-query#PROXY
+    - https://1.0.0.1/dns-query#PROXY
+    - 1.1.1.1
+    - 8.8.8.8
+    - 1.0.0.1
+  nameserver:
+    - https://1.1.1.1/dns-query#PROXY
+    - https://8.8.8.8/dns-query#PROXY
+    - https://1.0.0.1/dns-query#PROXY
+
 proxies:
   - name: vless+xtls_proxyproviderip_vless_98915
     type: vless
@@ -307,7 +326,7 @@ proxies:
     ws-opts:
       path: /usersecret/vmess/      
 proxy-groups:
-  - name: auto
+  - name: auto_all
     proxies:
       - vless+xtls_proxyproviderip_vless_98915
       - vless_ws_proxyproviderip_vless_41935
@@ -332,10 +351,18 @@ proxy-groups:
       - CDN old_v2ray_proxyproviderip_ss_94133     
       - CDN old_vmess_proxyproviderip_vmess_18831
       - old_ssfaketls_proxyproviderip_ss_85981
-      - OnProxyIssue
     type: url-test
-    url: https://www.facebook.com/
+    url: http://cp.cloudflare.com
     interval: 300
+
+  - name: auto
+    type: fallback
+    url: 'http://cp.cloudflare.com'
+    interval: 300
+    proxies:
+        - auto_all
+        - OnProxyIssue
+
   - name: PROXY
     proxies:
       - auto
