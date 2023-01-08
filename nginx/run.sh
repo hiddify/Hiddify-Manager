@@ -16,7 +16,14 @@ fi
 systemctl stop nginx
 pkill -9 nginx
 
-certbot --nginx --register-unsafely-without-email -d $MAIN_DOMAIN --non-interactive --agree-tos  --https-port 444 --no-redirect
+certbot certonly  --webroot -w $(pwd)/certbot --register-unsafely-without-email -d $MAIN_DOMAIN --non-interactive --agree-tos  
+
+IP=$(curl -Lso- https://api.ipify.org);
+NO_CDN_DOMAIN_IP=$(dig +short -t a $NO_CDN_DOMAIN.)
+if [[ "$NO_CDN_DOMAIN_IP" != "$IP" ]];then
+    certbot certonly  --webroot -w $(pwd)/certbot --register-unsafely-without-email -d $NO_CDN_DOMAIN --non-interactive --agree-tos  
+fi
+
 pkill -9 nginx
 echo -e "Please visit http://$SERVER_IP/ in one hour to change your domain.\n\n  Proxy Link is:\n https://$MAIN_DOMAIN/$USER_SECRET/ \n\n Alias to admin Link is:\n http://$SERVER_IP/$ADMIN_SECRET/ \n\n Current Admin Link is:\n https://$MAIN_DOMAIN/$ADMIN_SECRET/">use-link
 

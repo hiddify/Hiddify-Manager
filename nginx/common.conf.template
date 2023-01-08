@@ -1,3 +1,6 @@
+location /.well-known/acme-challenge/ {
+  root /opt/GITHUB_REPOSITORY/nginx/certbot/;
+} 
 location = /defaultusersecret/trojan/ {
    proxy_redirect off;
    proxy_http_version 1.1;
