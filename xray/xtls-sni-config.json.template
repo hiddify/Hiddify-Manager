@@ -482,6 +482,9 @@
       "tag": "blackhole"
     },
     {
+      "tag": "forbidden_sites", "protocol": "blackhole"
+    },
+    {
       "tag": "localhost-xtls",
       "protocol": "freedom",
       "settings": {
@@ -521,52 +524,47 @@
   ],
   "routing": {
     "domainStrategy": "AsIs",
+    "domainMatcher":"hybrid",
     "settings": {
       "rules": [
         {
           "type": "field",
-          "inboundTag": [
-            "sniproxy-in"
-          ],
-          "domain": [
-            "domain:defaultserverhost"
-          ],
+          "ip": ["geoip:ir", "geoip:cn"],
+          "outboundTag": "forbidden_sites"
+        },
+        {
+          "type": "field",
+          "domain": ["geosite:cn","tld-cn","tld-ir","ir","cn"],
+          "outboundTag": "forbidden_sites"
+        },
+        {
+          "type": "field",
+          "inboundTag": ["sniproxy-in"],
+          "domain": ["domain:defaultserverhost"],
           "outboundTag": "localhost-xtls"
         },
         {
           "type": "field",
-          "inboundTag": [
-            "sniproxy-in"
-          ],
-          "domain": [
-            "domain:telegramtlsdomain"
-          ],
+          "inboundTag": ["sniproxy-in"],
+          "domain": ["domain:telegramtlsdomain"],
           "outboundTag": "localhost-tgproxy"
         },
         {
           "type": "field",
-          "inboundTag": [
-            "sniproxy-in"
-          ],
-          "domain": [
-            "domain:sstlsdomain"
-          ],
+          "inboundTag": ["sniproxy-in"],
+          "domain": ["domain:sstlsdomain"],
           "outboundTag": "localhost-faketls"
         },
         {
           "_comment": "default sni",
           "type": "field",
-          "inboundTag": [
-            "sniproxy-in"
-          ],
+          "inboundTag": ["sniproxy-in"],
           "outboundTag": "other-sni"
         },
         {
           "type": "field",
           "outboundTag": "blackhole",
-          "ip": [
-            "geoip:private"
-          ]
+          "ip": ["geoip:private"]
         },
         { //DNS Cache rule
           "type": "field",
@@ -577,14 +575,10 @@
         {
           "type": "field", // Block BitTorrent protocol
           "outboundTag": "blackhole",
-          "protocol": [
-            "bittorrent"
-          ]
+          "protocol": ["bittorrent"]
         },
         {
-          "inboundTag": [
-            "api"
-          ],
+          "inboundTag": ["api"],
           "outboundTag": "api",
           "type": "field"
         }

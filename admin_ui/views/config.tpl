@@ -73,6 +73,11 @@
     </div>
 
     <div class="form-check">
+        <input type="checkbox" class="form-check-input" name="BLOCK_IR_SITES" {{"checked" if data["BLOCK_IR_SITES"] != "false" else ""}}>
+        <label class="form-check-label">Block Iranian sites to prevent detection by the govenment (experimental).</label>
+    </div>
+
+    <div class="form-check">
         <input type="checkbox" class="form-check-input" name="ENABLE_AUTO_UPDATE" {{"checked" if data["ENABLE_AUTO_UPDATE"] != "false" else ""}}>
         <label class="form-check-label">Enable Auto Update</label>
     </div>
