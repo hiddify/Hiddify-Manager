@@ -1,4 +1,5 @@
 location /.well-known/acme-challenge/ {
+  default_type "text/plain";
   root /opt/GITHUB_REPOSITORY/nginx/certbot/;
 } 
 location = /defaultusersecret/trojan/ {

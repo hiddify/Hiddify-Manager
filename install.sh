@@ -50,6 +50,7 @@ function do_for_all() {
         bash common/replace_variables.sh
         runsh $1.sh common
         runsh $1.sh nginx
+        runsh $1.sh xray
         if [[ $ENABLE_TELEGRAM == true ]]; then
                 runsh $1.sh telegram
         else
@@ -83,7 +84,7 @@ function do_for_all() {
         else
                 runsh uninstall.sh trojan-go
         fi
-        runsh $1.sh xray
+        
         runsh $1.sh admin_ui
 }
 

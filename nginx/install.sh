@@ -23,7 +23,7 @@ mkdir -p /etc/nginx/stream.d/
 ln -s $(pwd)/sni-proxy.conf /etc/nginx/stream.d/sni-proxy.conf
 ln -s $(pwd)/signal.conf /etc/nginx/stream.d/signal.conf
 
-certbot certonly  --webroot -w $(pwd)/certbot --register-unsafely-without-email -d $MAIN_DOMAIN --non-interactive --agree-tos 
+certbot certonly  --webroot -w $(pwd)/certbot --register-unsafely-without-email -d $MAIN_DOMAIN --non-interactive --agree-tos  --logs-dir $(pwd)/../log/system/certbot.log
 # if ! grep -Fxq "stream{include /etc/nginx/stream.d/*.conf;}" /etc/nginx/nginx.conf; then
 #   echo "stream{include /etc/nginx/stream.d/*.conf;}">>/etc/nginx/nginx.conf;
 # fi
