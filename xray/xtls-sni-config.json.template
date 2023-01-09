@@ -529,11 +529,13 @@
     "settings": {
       "rules": [
         {
+          "inboundTag": ["localhost-xtls"],
           "type": "field",
           "ip": ["geoip:ir", "geoip:cn"],
           "outboundTag": "forbidden_sites"
         },
         {
+          "inboundTag": ["localhost-xtls"],
           "type": "field",
           "domain": ["geosite:cn","tld-cn","tld-ir","ir","cn"],
           "outboundTag": "forbidden_sites"

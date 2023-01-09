@@ -67,11 +67,12 @@
         <label class="form-check-label">Allow all sni to use proxy. NOT RECOMMENDED! NOT SAFE</label>
     </div>
 
+<!--
     <div class="form-check">
         <input type="checkbox" class="form-check-input" name="ENABLE_HTTP_PROXY" {{"checked" if data["ENABLE_HTTP_PROXY"] != "false" else ""}}>
         <label class="form-check-label">Allow port 80 to use as proxy without SSL. NOT RECOMMENDED! NOT SAFE</label>
     </div>
-
+-->
     <div class="form-check">
         <input type="checkbox" class="form-check-input" name="BLOCK_IR_SITES" {{"checked" if data["BLOCK_IR_SITES"] != "false" else ""}}>
         <label class="form-check-label">Block Iranian sites to prevent detection by the govenment (experimental).</label>
