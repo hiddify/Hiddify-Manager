@@ -16,12 +16,13 @@ fi
 systemctl stop nginx
 pkill -9 nginx
 
-certbot certonly  --webroot -w $(pwd)/certbot --register-unsafely-without-email -d $MAIN_DOMAIN --non-interactive --agree-tos  --logs-dir $(pwd)/../log/system/certbot.log
-
+# certbot certonly  --webroot -w $(pwd)/certbot --register-unsafely-without-email -d $MAIN_DOMAIN --non-interactive --agree-tos  --logs-dir $(pwd)/../log/system/certbot.log
+certbot --nginx --register-unsafely-without-email -d $MAIN_DOMAIN --non-interactive --agree-tos  --https-port 444 --no-redirect --logs-dir $(pwd)/../log/system/certbot.log
 IP=$(curl -Lso- https://api.ipify.org);
 NO_CDN_DOMAIN_IP=$(dig +short -t a $NO_CDN_DOMAIN.)
 if [[ "$NO_CDN_DOMAIN_IP" == "$IP" ]];then
-    certbot certonly  --webroot -w $(pwd)/certbot --register-unsafely-without-email -d $NO_CDN_DOMAIN --non-interactive --agree-tos  --logs-dir $(pwd)/../log/system/certbot.log
+	certbot --nginx --register-unsafely-without-email -d $NO_CDN_DOMAIN_IP --non-interactive --agree-tos  --https-port 444 --no-redirect --logs-dir $(pwd)/../log/system/certbot.log
+    # certbot certonly  --webroot -w $(pwd)/certbot --register-unsafely-without-email -d $NO_CDN_DOMAIN --non-interactive --agree-tos  --logs-dir $(pwd)/../log/system/certbot.log
 fi
 
 pkill -9 nginx
