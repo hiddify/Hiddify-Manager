@@ -113,5 +113,6 @@ MultiProxy: <a href="https://portal.azure.com/#create/Microsoft.Template/uri/htt
 ----
 به کمک شما در توسعه این پروژه نیاز داریم
 
-اگر توانایی برنامه نویسی دارید با ما در تماس باشید
+اگر توانایی برنامه نویسی یا تولید محتوا دارید با ما در تماس باشید
+
 hiddify@gmail.com
