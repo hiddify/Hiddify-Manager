@@ -1,7 +1,7 @@
 
 فیلم زیر مراحل را با جزییات شرح داده است.
 
-[![subdomain](https://img.youtube.com/vi/pkGwk3jl5g8/maxresdefault.jpg)](https://www.youtube.com/watch?v=pkGwk3jl5g8)
+[![subdomain](https://img.youtube.com/vi/l-KKRus2KS0/maxresdefault.jpg)](https://www.youtube.com/watch?v=l-KKRus2KS0)
 
 - وارد [این سایت](https://freedns.afraid.org/signup/?plan=starter) و یک یوزر بسازید (لازم نیست که اطلاعاتتان واقعی باشد فقط ایمیل باید درست باشد)
 - ایمیلی که به شما ارسال شده را اکتیو کنید
