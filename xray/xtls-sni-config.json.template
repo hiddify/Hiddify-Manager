@@ -523,7 +523,8 @@
     }
   ],
   "routing": {
-    "domainStrategy": "AsIs",
+    // "domainStrategy": "AsIs",
+    "domainStrategy": "IPOnDemand",
     "domainMatcher":"hybrid",
     "settings": {
       "rules": [
