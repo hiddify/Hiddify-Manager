@@ -110,3 +110,8 @@ MultiProxy: <a href="https://portal.azure.com/#create/Microsoft.Template/uri/htt
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhiddify%2Fconfig%2Fmain%2Fgost%2Fgost-vm-azure-template.json" target="_blank"><img src="https://aka.ms/deploytoazurebutton"/></a>
  -->
 
+----
+به کمک شما در توسعه این پروژه نیاز داریم
+
+اگر توانایی برنامه نویسی دارید با ما در تماس باشید
+hiddify@gmail.com
