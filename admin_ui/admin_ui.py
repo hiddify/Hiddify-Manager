@@ -135,14 +135,14 @@ def change():
                         "out-type":"danger",
                         "out-msg":f"Invalid {domain}={request.query[domain]}. Click back and fix it"
                     })
-        new_configs[domain]=request.query[domain]
+        new_configs[domain]=request.query[domain].lower()
 
     for domain1 in domain_fields:
         for domain2 in domain_fields:
-            if domain1!=domain2 and request.query[domain1]==request.query[domain2]:
+            if domain1!=domain2 and new_configs[domain1]==new_configs[domain2]:
                 return template("result",data={
                         "out-type":"danger",
-                        "out-msg":f"Invalid {domain1}={request.query[domain1]} and {domain2}={request.query[domain2]}. These values should be different."
+                        "out-msg":f"Invalid {domain1}={new_configs[domain1]} and {domain2}={new_configs[domain2]}. These values should be different."
                     })
 
     for secret in secret_fields:
