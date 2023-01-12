@@ -1,0 +1,26 @@
+{
+	"inbounds": [
+		{
+			"tag":"v2ray-ws-old",
+			"port": "1030",
+			"protocol": "shadowsocks",
+			"settings": {
+				"clients":[
+					{"password": "TELEGRAM_USER_SECRET", "email": "1@hiddify.com","method": "Chacha20-IETF-Poly1305"}
+				]
+			  },
+			"streamSettings": {
+			  "network": "ws",
+			  "security": "none",
+			  "wsSettings": {
+				"acceptProxyProtocol": true,
+				"path": "/BASE_PROXY_PATH/v2ray/"
+			  }
+			},
+			"sniffing": {
+			  "enabled": true,
+			  "destOverride": ["http","tls"]
+			}
+		  }	  
+	  ]
+}

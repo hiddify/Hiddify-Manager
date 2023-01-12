@@ -9,9 +9,15 @@
         <p class="card-text">
         با اشتراک گذاشتن لینک زیر می‌توانید لینک عمومی پروکسی را به اشتراک بگذارید
         </p>
-        <div class="btn-group">
-            <a href="https://{{data["MAIN_DOMAIN"]}}/{{data["USER_SECRET"]}}/" class="btn btn-primary">صفحه عمومی کاربران</a>
-        </div>
+        % for domain in data["MAIN_DOMAIN"].split(";"): 
+            <h5>دامنه {{domain}}<h5>
+            
+            % for i,user in enumerate(data["USER_SECRET"].split(";")): 
+                <div class="btn-group">    
+                    <a href="https://{{domain}}/{{data["BASE_PROXY_PATH"]}}/{{user}}/" class="btn btn-primary">صفحه عمومی کاربر {{i}}</a>
+                </div>
+            % end
+        % end
     </div>
 </div>
 

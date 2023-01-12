@@ -1,0 +1,32 @@
+{
+	"inbounds": [
+		{
+			"tag":"http",
+			"port": 80, // This is TLS entrypoint. This entrypoint does the SSL Termination then routes the request based on the Path or ALPN type.
+			"protocol": "vless",
+			"settings": {
+			  "clients": [
+				{"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com","flow": "xtls-rprx-direct"}
+			  ],
+			  "decryption": "none",
+			  "fallbacks": [
+				{
+				  "dest": "@dispatcher",
+				  "xver": 2
+				}
+			  ]
+			},
+			"streamSettings": {
+			  "network": "tcp",
+			  "tcpSettings": {
+				//"acceptProxyProtocol": true //Enable PROXY protocol reception, receive the real source IP and port from nginx sni proxy.
+			  },
+			  "security": "none"
+			},
+			"sniffing": {
+			  "enabled": true,
+			  "destOverride": ["http","tls"]
+			}
+		  }
+	]
+}

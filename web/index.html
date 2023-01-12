@@ -14,92 +14,99 @@
     <link rel="stylesheet" href="css/font-awesome.css" type="text/css">
 </head>
 
-<body class="">
+<body class="" style="text-align: justify;">
     <div id="skip-to-content"><a href="#maincontent">Skip to main content</a></div>
     <div class="container my-3">
         <main id="maincontent" role="main" aria-label="Content" class="flex-shrink-0">
 
-            <div class="row equal">
-                <div class="col-12  col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <i class="fa-solid fa-graduation-cap fa-margin"></i>
-                            به بخش آموزش استفاده خوش آمدید
-                        </div>
-                        <div class="card-body">
+            <div class="d-flex ">
 
-                            <p>
-                                در این سایت آموزش نحوه استفاده از پروکسی شرح داده شده است.
-                            </p>
-                            <p>
-                                ساخت پروکسی مثل این سایت:
-                                <a href="https://github.com/hiddify/hiddify-config/wiki">کلیک کنید</a>
-                            </p>
+                <div class="card col col-12  col-md-6">
+                    <div class="card-header">
+                        <i class="fa-solid fa-graduation-cap fa-margin"></i>
+                        به بخش آموزش استفاده خوش آمدید
 
-                            <p>اگر صفحه قدیمی را میخواهید: <a href="index_old.html">کلیک کنید</a></p>
-                            <div class="alert alert-info">
-                                برای دسترسی و به اشتراک گذاشتن هر یک از لینک‌ها می‌توانید روی قسمت طوسی رنگ دکمه‌‌ها
-                                کلیک کنید تا QR Code
-                                مختص آن لینک نمایش داده شود.
-
-                                <div class="btn-group d-block d-md-none">
-                                    <a href="https://proxyproviderip/usersecret/"
-                                        class="btn btn-primary orig-link ">لینک این صفحه</a>
-                                </div>
-
-                            </div>
-                        </div>
                     </div>
+                    <div class="card-body">
 
-                    <div class="card">
-                        <div class="card-header">
-                            <i class="fa-brands fa-telegram fa-margin"></i> گذرنده تلگرام (برای دور زدن فیلترینگ تلگرام)
-                        </div>
-                        <div class="card-body">
+                        <p>
+                            در این سایت آموزش نحوه استفاده از پروکسی شرح داده شده است.
+                        </p>
+                        <p>
+                            <a href="https://github.com/hiddify/hiddify-config/wiki">آموزش ساخت فیلترشکن به زبان
+                                ساده</a>
 
-                            روی لینک «پروکسی تلگرام» کلیک کنید. سپس کافی است در صفحه‌ای که باز می‌شود، روی دکمه‌ی
-                            CONNECT PROXY کلیک
-                            کنید:
+                        </p>
 
-                            <div class="btn-group">
-                                <a href="tg://proxy?server=serverip&amp;port=443&amp;secret=eeusersecret%%HEX_TELEGRAM_DOMAIN%%"
-                                    class="btn btn-primary orig-link">گذرنده پروکسی تلگرام</a>
+                        <!-- <p>اگر صفحه قدیمی را میخواهید: <a href="index_old.html">کلیک کنید</a></p> -->
+                        <div class="alert alert-info">
+                            برای کپی یا به اشتراک گذاشتن لینک‌ها روی قسمت طوسی رنگ کلیک کنید تا QR Code
+                            آن نمایش داده شود.
+
+                            <div class="btn-group d-block d-md-none">
+                                <a href="https://proxyproviderip/BASE_PATH/usersecret/"
+                                    class="btn btn-primary orig-link ">لینک
+                                    این صفحه</a>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 d-none d-md-block  d-flex align-items-stretch">
-                    <div class="card">
-                        <div class="card-header">
-                            <i class="fa-solid fa-qrcode fa-margin"></i> کد qr-code این صفحه
-                        </div>
-                        <div class="card-body d-flex flex-column">
-                            <div id="qrcode2" style="margin:auto;"></div>
-                            <center>
-                                <figcaption class="figure-caption">برای مشاهده qr-code یا کپی لینک ها، بر روی بخش
-                                    خاکستری لینک‌ها کلیک کنید.</figcaption>
 
+                        </div>
+                        <details class="accordion main-details">
+                            <summary class="accordion-button">
+                                <i class="fa-brands fa-telegram fa-margin"></i> گذرنده تلگرام (برای دور زدن فیلترینگ
+                                تلگرام)
+                            </summary>
+                            <div class="card-body">
+
+                                روی لینک «پروکسی تلگرام» کلیک کنید. سپس کافی است در صفحه‌ای که باز می‌شود، روی دکمه‌ی
+                                CONNECT PROXY کلیک
+                                کنید:
 
                                 <div class="btn-group">
-                                    <a href="https://proxyproviderip/usersecret/"
-                                        class="btn btn-primary orig-link share-link">لینک این صفحه</a>
+                                    <a href="tg://proxy?server=serverip&amp;port=443&amp;secret=ee%%TELEGRAM_SECRET%%%%HEX_TELEGRAM_DOMAIN%%"
+                                        class="btn btn-primary orig-link">گذرنده پروکسی تلگرام</a>
                                 </div>
-                            </center>
-                        </div>
+                            </div>
+                        </details>
+                    </div>
+
+
+
+                </div>
+
+
+                <div class="card col col-md-6 d-none d-md-block">
+                    <div class="card-header">
+                        <i class="fa-solid fa-qrcode fa-margin"></i> کد qr-code این صفحه
+                    </div>
+                    <div class="card-body">
+                        <div id="qrcode2" style="margin:auto;"></div>
+                        <center>
+                            <figcaption class="figure-caption">برای مشاهده qr-code یا کپی لینک ها، بر روی بخش
+                                خاکستری لینک‌ها کلیک کنید.</figcaption>
+
+
+                            <div class="btn-group">
+                                <a href="https://proxyproviderip/BASE_PATH/usersecret/"
+                                    class="btn btn-primary orig-link share-link">لینک این صفحه</a>
+                            </div>
+                        </center>
                     </div>
                 </div>
+
             </div>
+
 
 
             <!--
 # گذرنده سیگنال
 بر روی لینک زیر کلیک کنید تا بر روی سیگنال شما تنظیم شود.
-<a href="https://signal.tube/#proxyproviderip/eeusersecret%%HEX_TELEGRAM_DOMAIN%%/" class='btn btn-primary'>گذرنده سیگنال کلیک کنید</a>
+<a href="https://signal.tube/#proxyproviderip/BASE_PATH/eeusersecret%%HEX_TELEGRAM_DOMAIN%%/" class='btn btn-primary'>گذرنده سیگنال کلیک کنید</a>
 -->
 
-            <div class="card">
+            <div class="card d-none d-md-block">
                 <div class="card-header">
-                    <h1>گذرنده سایت ها و اپلیکشن ها:
+                    <i class="fa-solid fa-globe fa-margin"></i>
+                    گذرنده سایت ها و اپلیکشن ها:
                 </div>
 
             </div>
@@ -107,76 +114,71 @@
 
 
             <div class="row">
-                <div class="accordion col-md-6" id="accordionExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                <i class="fa-brands fa-android fa-margin"></i> اندروید - Android
-                            </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                ابتدا نرم افزار HiddifyProxy را از طریق لینک زیر نصب کنید
+                <div class="col-md-6">
+                    <details class="accordion main-details">
+                        <summary class="accordion-button">
+                            <i class="fa-brands fa-android fa-margin"></i> اندروید - Android
+                        </summary>
+                        <div class="card-body">
+                            ابتدا نرم افزار HiddifyProxy را از طریق لینک زیر نصب کنید
 
-                                <div class="alert alert-danger">
-                                    <h5>مهم: نرم افزار هایدیفای پروکسی را به نسخه 0.6 آپدیت کنید</h5>
-                                </div>
-                                <div class="btn-group">
-                                    <a href="gh/hiddify/HiddifyProxyAndroid/releases/download/v0.6/hiddify-2.5.13-pre04-h0.6-meta-alpha-universal-release.apk"
-                                        class="btn btn-primary orig-link">دانلود نرم افزار HiddifyProxy</a>
-                                </div>
-                                <div class="alert alert-info">
-                                    هایدیفای پروکسی، یک نسخه پیشرفته کلش هست که پروتکل‌های بیشتر را پیشتبانی میکنه.
-                                    <br>
-                                    این نرم افزار کاملا امن و کدباز هست و کلیه کدهای آن در
-                                    <a href="https://github.com/hiddify/HiddifyProxyAndroid">گیت هاب</a>
-                                    وجود دارد.
-                                    <br>
-                                    خیالتون راحت باشه پس 🙃
+                            <div class="alert alert-danger">
+                                <h5>مهم: نرم افزار هایدیفای پروکسی را به نسخه 0.6 آپدیت کنید</h5>
+                            </div>
+                            <div class="btn-group">
+                                <a href="/BASE_PATH/gh/hiddify/HiddifyProxyAndroid/releases/download/v0.6/hiddify-2.5.13-pre04-h0.6-meta-alpha-universal-release.apk"
+                                    class="btn btn-primary orig-link">دانلود نرم افزار HiddifyProxy</a>
+                            </div>
+                            <div class="alert alert-info">
+                                هایدیفای پروکسی، یک نسخه پیشرفته کلش هست که پروتکل‌های بیشتر را پیشتبانی میکنه.
+                                <br>
+                                این نرم افزار کاملا امن و کدباز هست و کلیه کدهای آن در
+                                <a href="https://github.com/hiddify/HiddifyProxyAndroid">گیت هاب</a>
+                                وجود دارد.
+                                <br>
+                                خیالتون راحت باشه پس 🙃
 
-                                    <details>
-                                        <summary>نرم افزار جایگزین: کلش اندروید عادی</summary>
-                                        <div class="btn-group">
-                                            <a href="https://play.google.com/store/apps/details?id=com.github.kr328.clash"
-                                                class="btn btn-warning orig-link">دانلود کلش از گوگل پلی</a>
-                                        </div>
-                                        <div class="btn-group">
-                                            <a href="gh/Kr328/ClashForAndroid/releases/download/v2.5.12/cfa-2.5.12-premium-universal-release.apk"
-                                                class="btn btn-warning orig-link">دانلود مستقیم کلش</a>
-                                        </div>
+                                <details>
+                                    <summary>نرم افزار جایگزین: کلش اندروید عادی</summary>
+                                    <div class="btn-group">
+                                        <a href="https://play.google.com/store/apps/details?id=com.github.kr328.clash"
+                                            class="btn btn-warning orig-link">دانلود کلش از گوگل پلی</a>
+                                    </div>
+                                    <div class="btn-group">
+                                        <a href="/BASE_PATH/gh/Kr328/ClashForAndroid/releases/download/v2.5.12/cfa-2.5.12-premium-universal-release.apk"
+                                            class="btn btn-warning orig-link">دانلود مستقیم کلش</a>
+                                    </div>
 
-                                        <div class="alert alert-danger">
-                                            توجه کنید کلش اندروید پروتکل vless را ساپورت نمیکنه.
+                                    <div class="alert alert-danger">
+                                        توجه کنید کلش اندروید پروتکل vless را ساپورت نمیکنه.
 
-                                            <br>
-                                            بنابراین لینک های آن متفاوت است.
-                                        </div>
-                                        <!--                                             <div class="btn-group">
-                                        <a href="clash://install-config?url=https://proxyproviderip/usersecret/clash/lite.yml&name=lite_proxyproviderip"
+                                        <br>
+                                        بنابراین لینک های آن متفاوت است.
+                                    </div>
+                                    <!--                                             <div class="btn-group">
+                                        <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/lite.yml&name=lite_proxyproviderip"
                                             class="btn btn-primary orig-link">نصب فقط برای سایت‌های فیلتر</a>
                                     </div>
                                             <br>
                                     <div class="btn-group">
-                                        <a href="clash://install-config?url=https://proxyproviderip/usersecret/clash/normal.yml&name=normal_proxyproviderip"
+                                        <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/normal.yml&name=normal_proxyproviderip"
                                             class="btn btn-primary orig-link">نصب گذرنده برای سایت‌های خارجی</a>
                                     </div>
                                             
                                     <br>
                                         <div class="btn-group">
-                                        <a href="clash://install-config?url=https://proxyproviderip/usersecret/clash/all.yml&name=all_proxyproviderip"
+                                        <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/all.yml&name=all_proxyproviderip"
                                             class="btn btn-primary orig-link">نصب گذرنده برای همه سایت‌ها</a>
                                     </div> -->
 
 
 
 
-                                    </details>
-                                </div>
+                                </details>
+                            </div>
 
 
-                                <!--                                         
+                            <!--                                         
 
                                 با استفاده از یکی از دو لینک زیر، اپلیکیشن کلش Clash را دانلود و نصب کنید. 
                                 
@@ -184,75 +186,75 @@
                                  -->
 
 
-                                <h2>لینک تنظیمات:</h2>
-                                حالا با توجه به نیازتان روی یکی از دکمه‌ها کلیک کنید:
-                                <div class="alert alert-success">
-                                    <h5> گذرنده فقط برای سایت‌های فیلتر شده
-                                    </h5>
-                                    اگر فقط قصد دسترسی به سایت‌های فیلتر نشده را دارید، از این لینک استفاده کنید. در این
-                                    حالت سایت‌های فیلتر نشده بدون هیچ افت سرعتی کار می‌کنند.
+                            <h2>لینک تنظیمات:</h2>
+                            حالا با توجه به نیازتان روی یکی از دکمه‌ها کلیک کنید:
+                            <div class="alert alert-success">
+                                <h5> گذرنده فقط برای سایت‌های فیلتر شده
+                                </h5>
+                                اگر فقط قصد دسترسی به سایت‌های فیلتر نشده را دارید، از این لینک استفاده کنید. در این
+                                حالت سایت‌های فیلتر نشده بدون هیچ افت سرعتی کار می‌کنند.
 
-                                    <br>
-                                    <div class="btn-group">
-                                        <a href="clash://install-config?url=https://proxyproviderip/usersecret/clash/meta_lite.yml&name=mlite_proxyproviderip"
-                                            class="btn btn-primary orig-link">نصب فقط برای سایت‌های فیلتر</a>
-                                    </div>
-                                    <details>
-                                        <summary>لینک جایگزین برای کلش عادی</summary>
-                                        <div class="btn-group">
-                                            <a href="clash://install-config?url=https://proxyproviderip/usersecret/clash/lite.yml&name=lite_proxyproviderip"
-                                                class="btn btn-warning orig-link">لینک برای کلش اندروید</a>
-                                        </div>
-                                    </details>
+                                <br>
+                                <div class="btn-group">
+                                    <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/meta_lite.yml&name=mlite_proxyproviderip"
+                                        class="btn btn-primary orig-link">نصب فقط برای سایت‌های فیلتر</a>
                                 </div>
-                                <div class="alert alert-info">
-                                    <h5>
-                                        گذرنده فقط برای سایت‌های خارجی
-                                    </h5>
-                                    اگر فقط قصد دسترسی به سایت‌های خارجی را دارید، از این لینک استفاده کنید. این حالت
-                                    برای
-                                    گذر از برخی از تحریم‌های سایت‌های خارجی مفید است.
-                                    <br />
+                                <details>
+                                    <summary>لینک جایگزین برای کلش عادی</summary>
                                     <div class="btn-group">
-                                        <a href="clash://install-config?url=https://proxyproviderip/usersecret/clash/meta_normal.yml&name=mnormal_proxyproviderip"
-                                            class="btn btn-primary orig-link">نصب گذرنده برای سایت‌های خارجی</a>
+                                        <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/lite.yml&name=lite_proxyproviderip"
+                                            class="btn btn-warning orig-link">لینک برای کلش اندروید</a>
                                     </div>
-                                    <details>
-                                        <summary>لینک جایگزین برای کلش عادی</summary>
-                                        <div class="btn-group">
-                                            <a href="clash://install-config?url=https://proxyproviderip/usersecret/clash/normal.yml&name=normal_proxyproviderip"
-                                                class="btn btn-warning orig-link">لینک برای کلش اندروید</a>
-                                        </div>
-                                    </details>
+                                </details>
+                            </div>
+                            <div class="alert alert-info">
+                                <h5>
+                                    گذرنده فقط برای سایت‌های خارجی
+                                </h5>
+                                اگر فقط قصد دسترسی به سایت‌های خارجی را دارید، از این لینک استفاده کنید. این حالت
+                                برای
+                                گذر از برخی از تحریم‌های سایت‌های خارجی مفید است.
+                                <br />
+                                <div class="btn-group">
+                                    <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/meta_normal.yml&name=mnormal_proxyproviderip"
+                                        class="btn btn-primary orig-link">نصب گذرنده برای سایت‌های خارجی</a>
                                 </div>
-                                <div class="alert alert-warning">
-                                    <h5>
-                                        گذرنده همه سایت‌ها
-                                    </h5>
-                                    اگر می‌خواهید برای دسترسی به همه سایت‌ها (چه فیلتر شده و چه غیر فیلتر) از پروکسی
-                                    استفاده
-                                    کنید، از این لینک استفاده کنید. این حالت باعث کاهش سرعت سایت‌های داخلی می‌شود. علاوه
-                                    بر
-                                    آن، اگر قصد استفاده از اپ‌های بانکی را دارید، از این لینک استفاده نکنید.
-
-                                    <div class="alert alert-danger">
-                                        در این حالت سرعت سایت‌های داخلی شدیدا کاهش پیدا می‌کند.
-                                    </div>
-
+                                <details>
+                                    <summary>لینک جایگزین برای کلش عادی</summary>
                                     <div class="btn-group">
-                                        <a href="clash://install-config?url=https://proxyproviderip/usersecret/clash/meta_all.yml&name=mall_proxyproviderip"
-                                            class="btn btn-primary orig-link">نصب گذرنده برای همه سایت‌ها</a>
+                                        <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/normal.yml&name=normal_proxyproviderip"
+                                            class="btn btn-warning orig-link">لینک برای کلش اندروید</a>
                                     </div>
-                                    <details>
-                                        <summary>لینک جایگزین برای کلش عادی</summary>
-                                        <div class="btn-group">
-                                            <a href="clash://install-config?url=https://proxyproviderip/usersecret/clash/all.yml&name=all_proxyproviderip"
-                                                class="btn btn-warning orig-link">لینک برای کلش اندروید</a>
-                                        </div>
-                                    </details>
+                                </details>
+                            </div>
+                            <div class="alert alert-warning">
+                                <h5>
+                                    گذرنده همه سایت‌ها
+                                </h5>
+                                اگر می‌خواهید برای دسترسی به همه سایت‌ها (چه فیلتر شده و چه غیر فیلتر) از پروکسی
+                                استفاده
+                                کنید، از این لینک استفاده کنید. این حالت باعث کاهش سرعت سایت‌های داخلی می‌شود. علاوه
+                                بر
+                                آن، اگر قصد استفاده از اپ‌های بانکی را دارید، از این لینک استفاده نکنید.
+
+                                <div class="alert alert-danger">
+                                    در این حالت سرعت سایت‌های داخلی شدیدا کاهش پیدا می‌کند.
                                 </div>
 
-                                <!--
+                                <div class="btn-group">
+                                    <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/meta_all.yml&name=mall_proxyproviderip"
+                                        class="btn btn-primary orig-link">نصب گذرنده برای همه سایت‌ها</a>
+                                </div>
+                                <details>
+                                    <summary>لینک جایگزین برای کلش عادی</summary>
+                                    <div class="btn-group">
+                                        <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/all.yml&name=all_proxyproviderip"
+                                            class="btn btn-warning orig-link">لینک برای کلش اندروید</a>
+                                    </div>
+                                </details>
+                            </div>
+
+                            <!--
                                 ابندا یکی از لینک تنظیمات کلش را کپی کنید و در بخش 2 مرحله 4 قرار دهید و مراحل را مطابق
                                 گیف
                                 زیر انجام دهید
@@ -265,71 +267,67 @@
                                         <p>How to use clash for Android</p>
                                     </figcaption>
                                 </figure> -->
-                            </div>
                         </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingThree3">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseThree3" aria-expanded="false" aria-controls="collapseThree3">
-                                <i class="fa-brands fa-app-store-ios fa-margin"></i>
-                                آیفون - iPhone - iOS
-                            </button>
-                        </h2>
-                        <div id="collapseThree3" class="accordion-collapse collapse" aria-labelledby="headingThree3"
-                            data-bs-parent="#accordionExample">
 
-                            <div class="accordion-body">
-                                ابتدا نرم افزار زیر را دانلود کنید:
-                                <div class="btn-group">
-                                    <a href="https://apps.apple.com/us/app/shadowlink-shadowsocks-vpn/id1439686518"
-                                        class="btn btn-primary orig-link"> نرم افزار shadow link</a>
-                                </div>
-                                <details>
-                                    <summary>نرم افزار جایگزین</summary>
-                                    <div class="btn-group">
-                                        <a href="https://apps.apple.com/us/app/fair-vpn/id1533873488"
-                                            class="btn btn-primary orig-link"> نرم افزار fair-vpn</a>
-
-                                    </div>
-                                </details>
-                                <h2>
-                                    کار در iOS
-                                </h2>
-                                ابتدا بر روی دکمه "نصب با یک کلیک" کلیک کنید و سپس مود را انتخاب و اجرا نمایید. توجه
-                                نمایید
-                                در iOS نمیتوان رایگان هوشمند کار کرد.
-
-                                <br />
-
-                                <div class="btn-group">
-                                    <a href='vless://userguidsecret@cloudprovider:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Fvlessws#CDNvless_ws_proxyproviderip'
-                                        class="btn btn-primary orig-link"> CDN vless+ws</a>
-                                </div>
-                                <div class="btn-group">
-                                    <a href='trojan://userguidsecret@cloudprovider:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Ftrojanws#CDNtrojan_ws_proxyproviderip'
-                                        class="btn btn-primary orig-link"> CDN trojan+ws</a>
-                                </div>
-                                <div class="btn-group">
-                                    <a href='vless://userguidsecret@serverip:443?flow=xtls-rprx-direct&security=xtls&alpn=h2&sni=proxyproviderip&type=tcp#vless+xtls_proxyproviderip'
-                                        class="btn btn-primary orig-link"> vless+xtls</a>
-                                </div>
-                                <div class="btn-group">
-                                    <a href='vless://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=grpc&serviceName=usersecret-vlgrpc&mode=multi#vless-grpc_proxyproviderip'
-                                        class="btn btn-primary orig-link"> vless+grpc</a>
-                                </div>
-                                <div class="btn-group">
-                                    <a href='trojan://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=grpc&serviceName=usersecret-trgrpc&mode=multi#trojan-grpc_proxyproviderip'
-                                        class="btn btn-primary orig-link"> trojan+grpc</a>
-                                </div>
-
-                                <div class="btn-group">
-                                    <a href='vmess://{"v":"2", "ps":"CDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/usersecret/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
-                                        class="btn btn-primary orig-link"> CDN vmess+ws</a>
-                                </div>
+                    </details>
+                    <details class="accordion main-details">
+                        <summary class="accordion-button">
+                            <i class="fa-brands fa-app-store-ios fa-margin"></i>
+                            آیفون - iPhone - iOS
+                        </summary>
+                        <div class="card-body">
 
 
-                                <!--
+                            ابتدا نرم افزار زیر را دانلود کنید:
+                            <div class="btn-group">
+                                <a href="https://apps.apple.com/us/app/shadowlink-shadowsocks-vpn/id1439686518"
+                                    class="btn btn-primary orig-link"> نرم افزار shadow link</a>
+                            </div>
+                            <details>
+                                <summary>نرم افزار جایگزین</summary>
+                                <div class="btn-group">
+                                    <a href="https://apps.apple.com/us/app/fair-vpn/id1533873488"
+                                        class="btn btn-primary orig-link"> نرم افزار fair-vpn</a>
+
+                                </div>
+                            </details>
+                            <h2>
+                                کار در iOS
+                            </h2>
+                            ابتدا بر روی دکمه "نصب با یک کلیک" کلیک کنید و سپس مود را انتخاب و اجرا نمایید. توجه
+                            نمایید
+                            در iOS نمیتوان رایگان هوشمند کار کرد.
+
+                            <br />
+
+                            <div class="btn-group">
+                                <a href='vless://userguidsecret@cloudprovider:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Fvlessws#CDNvless_ws_proxyproviderip'
+                                    class="btn btn-primary orig-link"> CDN vless+ws</a>
+                            </div>
+                            <div class="btn-group">
+                                <a href='trojan://userguidsecret@cloudprovider:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Ftrojanws#CDNtrojan_ws_proxyproviderip'
+                                    class="btn btn-primary orig-link"> CDN trojan+ws</a>
+                            </div>
+                            <div class="btn-group">
+                                <a href='vless://userguidsecret@serverip:443?flow=xtls-rprx-direct&security=xtls&alpn=h2&sni=proxyproviderip&type=tcp#vless+xtls_proxyproviderip'
+                                    class="btn btn-primary orig-link"> vless+xtls</a>
+                            </div>
+                            <div class="btn-group">
+                                <a href='vless://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=grpc&serviceName=usersecret-vlgrpc&mode=multi#vless-grpc_proxyproviderip'
+                                    class="btn btn-primary orig-link"> vless+grpc</a>
+                            </div>
+                            <div class="btn-group">
+                                <a href='trojan://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=grpc&serviceName=usersecret-trgrpc&mode=multi#trojan-grpc_proxyproviderip'
+                                    class="btn btn-primary orig-link"> trojan+grpc</a>
+                            </div>
+
+                            <div class="btn-group">
+                                <a href='vmess://{"v":"2", "ps":"CDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/usersecret/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
+                                    class="btn btn-primary orig-link"> CDN vmess+ws</a>
+                            </div>
+
+
+                            <!--
         <br/>
         <br/>        
         
@@ -342,17 +340,47 @@
 <a href="ss://chacha20-ietf-poly1305:usersecret@proxyproviderip:443?plugin=obfs-local%3Bobfs%3Dtls%3Bobfs-host%3Dwww.google.com&udp-over-tcp=true#proxyproviderip" class="btn btn-success copylink">کپی لینک</a>
         -->
 
-                                <figure class="figure d-block text-center p-3">
-                                    <img src="images/ios_shadow.gif" alt="How to use v2 ray for iOS"
-                                        class="figure-img img-fluid rounded" />
-                                    <figcaption class="figure-caption">
-                                        <p>How to use clash for iOS</p>
-                                    </figcaption>
-                                </figure>
+                            <figure class="figure d-block text-center p-3">
+                                <img src="images/ios_shadow.gif" alt="How to use v2 ray for iOS"
+                                    class="figure-img img-fluid rounded" />
+                                <figcaption class="figure-caption">
+                                    <p>How to use clash for iOS</p>
+                                </figcaption>
+                            </figure>
 
+                        </div>
+                    </details>
+
+                    <details class="accordion main-details">
+                        <summary class="accordion-button">
+                            <i class="fa-solid fa-gauge-high fa-margin"></i>
+                            تست سرعت (شناسایی IP کثیف)
+                        </summary>
+                        <div class="card-body">
+
+                            ابتدا بدون فیلترشکن سرعت را تست کنید. اگر سرعت خوب نبود، به معنی آن است که این ip به
+                            اصطلاح
+                            کثیف
+                            شده
+                            روی
+                            سرویس دهنده اینترنت شما.
+                            <br>
+                            اگر بدون فیلترشکن سرعت پایین بود دیگر وقت خود را تلف نکنید.
+                            <br>
+                            در غیر این صورت با پروکسی های مختلف این سایت تست بگیرید و اگر سرعت آن مشابه سرعت بدون
+                            فیلترشکن
+                            بود
+                            یعنی
+                            بهترین پروتکل را پیدا کردید.
+
+                            <br />
+                            <div class="btn-group">
+                                <a href="speedtest/?test=upload" class="btn btn-primary">تست آپلود</a>
+                                <a href="speedtest/?test=download" class="btn btn-primary">تست دانلود</a>
+                                <a href="speedtest/?run" class="btn btn-primary">تست کامل</a>
                             </div>
                         </div>
-                    </div>
+                    </details>
                 </div>
 
 
@@ -388,110 +416,103 @@
 
 
 
+                <div class="col-md-6">
 
+                    <details class="accordion main-details">
+                        <summary class="accordion-button">
+                            <i class="fa-brands fa-windows fa-margin"></i> ویندوز، <i
+                                class="fa-brands fa-apple fa-margin"></i>
+                            macOS و <i class="fa-brands fa-linux fa-margin"></i> لینوکس
+                        </summary>
 
+                        <div class="card-body">
+                            ابتدا نرم‌افزار کلشClash را با توجه به سیستم عامل خود دانلود و نصب کنید.
+                            <br>
 
-                <div class="accordion col-md-6" id="accordionExample2">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                <i class="fa-brands fa-windows fa-margin"></i> ویندوز، <i
-                                    class="fa-brands fa-apple fa-margin"></i> macOS و <i
-                                    class="fa-brands fa-linux fa-margin"></i> لینوکس
-                            </button>
-                        </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                            data-bs-parent="#accordionExample2">
-                            <div class="accordion-body">
-                                ابتدا نرم‌افزار کلشClash را با توجه به سیستم عامل خود دانلود و نصب کنید.
-                                <br>
-
-                                <div class="btn-group">
-                                    <a class="btn btn-primary"
-                                        href="gh/Fndroid/clash_for_windows_pkg/releases/download/0.20.9/Clash.for.Windows.Setup.0.20.9.exe"><i
-                                            class="fa-brands fa-windows fa-margin"></i> Windows</a>
-                                    <a class="btn btn-secondary"
-                                        href="gh/Fndroid/clash_for_windows_pkg/releases/download/0.20.9/Clash.for.Windows-0.20.9.dmg"><i
-                                            class="fa-brands fa-apple fa-margin"></i> macOS</a>
-                                    <a class="btn btn-success"
-                                        href="gh/Fndroid/clash_for_windows_pkg/releases/download/0.20.9/Clash.for.Windows-0.20.9-x64-linux.tar.gz"><i
-                                            class="fa-brands fa-linux fa-margin"></i> Linux</a>
-
-                                </div>
-                                <br>
-
-                                حالا با توجه به نیازتان می‌توانید روی یکی از دکمه‌ها کلیک کنید. با مشاهده‌‌ی پنجره در
-                                مرورگرتان کافی است روی گزینه‌ی Open Clash for Windows کلیک کنید تا به صورت خودکار لینک
-                                سرور به کلش اضافه شود.
-
-                                <h2>لینک تنظیمات:</h2>
-                                حالا با توجه به نیازتان روی یکی از دکمه‌ها کلیک کنید:
-                                <div class="alert alert-success">
-                                    <h5> گذرنده فقط برای سایت‌های فیلتر شده
-                                    </h5>
-                                    اگر فقط قصد دسترسی به سایت‌های فیلتر نشده را دارید، از این لینک استفاده کنید. در این
-                                    حالت سایت‌های فیلتر نشده بدون هیچ افت سرعتی کار می‌کنند.
-
-                                    <br>
-                                    <div class="btn-group">
-                                        <a href="clash://install-config?url=https://proxyproviderip/usersecret/clash/lite.yml&name=lite_proxyproviderip"
-                                            class="btn btn-primary orig-link">نصب فقط برای سایت‌های فیلتر</a>
-                                    </div>
-                                </div>
-                                <div class="alert alert-info">
-                                    <h5>
-                                        گذرنده فقط برای سایت‌های خارجی
-                                    </h5>
-                                    اگر فقط قصد دسترسی به سایت‌های خارجی را دارید، از این لینک استفاده کنید. این حالت
-                                    برای
-                                    گذر از برخی از تحریم‌های سایت‌های خارجی مفید است.
-                                    <br />
-                                    <div class="btn-group">
-                                        <a href="clash://install-config?url=https://proxyproviderip/usersecret/clash/normal.yml&name=normal_proxyproviderip"
-                                            class="btn btn-primary orig-link">نصب گذرنده برای سایت‌های خارجی</a>
-                                    </div>
-                                </div>
-                                <div class="alert alert-warning">
-                                    <h5>
-                                        گذرنده همه سایت‌ها
-                                    </h5>
-                                    اگر می‌خواهید برای دسترسی به همه سایت‌ها (چه فیلتر شده و چه غیر فیلتر) از پروکسی
-                                    استفاده
-                                    کنید، از این لینک استفاده کنید. این حالت باعث کاهش سرعت سایت‌های داخلی می‌شود. علاوه
-                                    بر
-                                    آن، اگر قصد استفاده از اپ‌های بانکی را دارید، از این لینک استفاده نکنید.
-
-                                    <div class="alert alert-danger">
-                                        در این حالت سرعت سایت‌های داخلی شدیدا کاهش پیدا می‌کند.
-                                    </div>
-
-                                    <div class="btn-group">
-                                        <a href="clash://install-config?url=https://proxyproviderip/usersecret/clash/all.yml&name=all_proxyproviderip"
-                                            class="btn btn-primary orig-link">نصب گذرنده برای همه سایت‌ها</a>
-                                    </div>
-                                </div>
-                                <h2>
-                                    کار با کلش ویندوز، مک و لینوکس
-                                </h2>
-                                چنانچه بر روی دکمه "نصب با یک کلیک" کلیک کرده اید دیگر نیاز به انجام مرحله دوم را ندارید
-                                فقط
-                                مرحله اول کافی است
-                                ابندا یکی از لینک تنظیمات کلش را کپی کنید و در قسمت 1 تصویر دوم گیف قرار دهید و مراحل را
-                                مطابق گیف زیر انجام دهید
-
-                                <figure class="figure d-block text-center p-3">
-                                    <img src="images/clash_windows.gif" alt="How to use clash for windows and macOS"
-                                        class="figure-img img-fluid rounded" />
-                                    <figcaption class="figure-caption">
-                                        <p>How to use clash for windows and macOS</p>
-                                    </figcaption>
-                                </figure>
-
+                            <div class="btn-group">
+                                <a class="btn btn-primary"
+                                    href="/BASE_PATH/gh/Fndroid/clash_for_windows_pkg/releases/download/0.20.9/Clash.for.Windows.Setup.0.20.9.exe"><i
+                                        class="fa-brands fa-windows fa-margin"></i> Windows</a>
+                                <a class="btn btn-secondary"
+                                    href="/BASE_PATH/gh/Fndroid/clash_for_windows_pkg/releases/download/0.20.9/Clash.for.Windows-0.20.9.dmg"><i
+                                        class="fa-brands fa-apple fa-margin"></i> macOS</a>
+                                <a class="btn btn-success"
+                                    href="/BASE_PATH/gh/Fndroid/clash_for_windows_pkg/releases/download/0.20.9/Clash.for.Windows-0.20.9-x64-linux.tar.gz"><i
+                                        class="fa-brands fa-linux fa-margin"></i> Linux</a>
 
                             </div>
+                            <br>
+
+                            حالا با توجه به نیازتان می‌توانید روی یکی از دکمه‌ها کلیک کنید. با مشاهده‌‌ی پنجره در
+                            مرورگرتان کافی است روی گزینه‌ی Open Clash for Windows کلیک کنید تا به صورت خودکار لینک
+                            سرور به کلش اضافه شود.
+
+                            <h2>لینک تنظیمات:</h2>
+                            حالا با توجه به نیازتان روی یکی از دکمه‌ها کلیک کنید:
+                            <div class="alert alert-success">
+                                <h5> گذرنده فقط برای سایت‌های فیلتر شده
+                                </h5>
+                                اگر فقط قصد دسترسی به سایت‌های فیلتر نشده را دارید، از این لینک استفاده کنید. در این
+                                حالت سایت‌های فیلتر نشده بدون هیچ افت سرعتی کار می‌کنند.
+
+                                <br>
+                                <div class="btn-group">
+                                    <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/lite.yml&name=lite_proxyproviderip"
+                                        class="btn btn-primary orig-link">نصب فقط برای سایت‌های فیلتر</a>
+                                </div>
+                            </div>
+                            <div class="alert alert-info">
+                                <h5>
+                                    گذرنده فقط برای سایت‌های خارجی
+                                </h5>
+                                اگر فقط قصد دسترسی به سایت‌های خارجی را دارید، از این لینک استفاده کنید. این حالت
+                                برای
+                                گذر از برخی از تحریم‌های سایت‌های خارجی مفید است.
+                                <br />
+                                <div class="btn-group">
+                                    <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/normal.yml&name=normal_proxyproviderip"
+                                        class="btn btn-primary orig-link">نصب گذرنده برای سایت‌های خارجی</a>
+                                </div>
+                            </div>
+                            <div class="alert alert-warning">
+                                <h5>
+                                    گذرنده همه سایت‌ها
+                                </h5>
+                                اگر می‌خواهید برای دسترسی به همه سایت‌ها (چه فیلتر شده و چه غیر فیلتر) از پروکسی
+                                استفاده
+                                کنید، از این لینک استفاده کنید. این حالت باعث کاهش سرعت سایت‌های داخلی می‌شود. علاوه
+                                بر
+                                آن، اگر قصد استفاده از اپ‌های بانکی را دارید، از این لینک استفاده نکنید.
+
+                                <div class="alert alert-danger">
+                                    در این حالت سرعت سایت‌های داخلی شدیدا کاهش پیدا می‌کند.
+                                </div>
+
+                                <div class="btn-group">
+                                    <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/all.yml&name=all_proxyproviderip"
+                                        class="btn btn-primary orig-link">نصب گذرنده برای همه سایت‌ها</a>
+                                </div>
+                            </div>
+                            <h2>
+                                کار با کلش ویندوز، مک و لینوکس
+                            </h2>
+                            چنانچه بر روی دکمه "نصب با یک کلیک" کلیک کرده اید دیگر نیاز به انجام مرحله دوم را ندارید
+                            فقط
+                            مرحله اول کافی است
+                            ابندا یکی از لینک تنظیمات کلش را کپی کنید و در قسمت 1 تصویر دوم گیف قرار دهید و مراحل را
+                            مطابق گیف زیر انجام دهید
+
+                            <figure class="figure d-block text-center p-3">
+                                <img src="images/clash_windows.gif" alt="How to use clash for windows and macOS"
+                                    class="figure-img img-fluid rounded" />
+                                <figcaption class="figure-caption">
+                                    <p>How to use clash for windows and macOS</p>
+                                </figcaption>
+                            </figure>
+
+
                         </div>
-                    </div>
+                    </details>
 
 
 
@@ -513,68 +534,66 @@
 
 
 
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                <i class="fa-solid fa-grip fa-margin"></i> همه کانفیگ ها (در همه ی سیستم عامل ها)
-                            </button>
-                        </h2>
-                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                در این بخش کلیه کانفیگ ها قرار گرفته است. کافی است کانفیگ مورد نظر خورد را انتخاب و
-                                استفاده کنید.
 
-                                <!-- <div class="btn-group">
-                                    <a href="gh/hiddify/HiddifyProxyAndroid/releases/download/v0.6/hiddify-2.5.13-pre04-h0.6-meta-alpha-universal-release.apk"
+                    <details class="accordion main-details">
+                        <summary class="accordion-button">
+                            <i class="fa-solid fa-grip fa-margin"></i> همه کانفیگ ها
+                        </summary>
+
+                        <div class="card-body">
+                            در این بخش کلیه کانفیگ ها قرار گرفته است. کافی است کانفیگ مورد نظر خورد را انتخاب و
+                            استفاده کنید.
+
+                            <!-- <div class="btn-group">
+                                    <a href="/BASE_PATH/gh/hiddify/HiddifyProxyAndroid/releases/download/v0.6/hiddify-2.5.13-pre04-h0.6-meta-alpha-universal-release.apk"
                                         class="orig-link"><img src="images/android-apk-badge.png" /></a>
                                 </div> -->
 
 
+                            <details>
+                                <summary>نرم افزار های پیشنهادی</summary>
                                 <details>
-                                    <summary>نرم افزار های پیشنهادی</summary>
-                                    <details>
-                                        <summary>اندروید</summary>
-                                        <div class="btn-group">
-                                            <a href="gh/hiddify/HiddifyProxyAndroid/releases/download/v0.6/hiddify-2.5.13-pre04-h0.6-meta-alpha-universal-release.apk"
-                                                class="btn btn-primary orig-link">دانلود نرم افزار HiddifyProxy</a>
-                                        </div>
+                                    <summary>اندروید</summary>
+                                    <div class="btn-group">
+                                        <a href="/BASE_PATH/gh/hiddify/HiddifyProxyAndroid/releases/download/v0.6/hiddify-2.5.13-pre04-h0.6-meta-alpha-universal-release.apk"
+                                            class="btn btn-primary orig-link">دانلود نرم افزار HiddifyProxy</a>
+                                    </div>
 
-                                        <div class="btn-group">
-                                            <a href="https://play.google.com/store/apps/details?id=moe.matsuri.lite"
-                                                class="btn btn-primary orig-link">نرم افزار Matsuri از گوگل پلی</a>
-                                        </div>
+                                    <div class="btn-group">
+                                        <a href="https://play.google.com/store/apps/details?id=moe.matsuri.lite"
+                                            class="btn btn-primary orig-link">نرم افزار Matsuri از گوگل پلی</a>
+                                    </div>
 
-                                        <div class="btn-group">
-                                            <a href="gh/MatsuriDayo/Matsuri/releases/"
-                                                class="btn btn-primary orig-link">نرم
-                                                افزار Matsuri مستقیم</a>
-                                        </div>
-                                        <div class="btn-group">
-                                            <a href="https://play.google.com/store/apps/details?id=com.v2ray.ang"
-                                                class="btn btn-primary orig-link">نرم افزار v2rayng از گوگل پلی</a>
-                                        </div>
+                                    <div class="btn-group">
+                                        <a href="/BASE_PATH/gh/MatsuriDayo/Matsuri/releases/"
+                                            class="btn btn-primary orig-link">نرم
+                                            افزار Matsuri مستقیم</a>
+                                    </div>
+                                    <div class="btn-group">
+                                        <a href="https://play.google.com/store/apps/details?id=com.v2ray.ang"
+                                            class="btn btn-primary orig-link">نرم افزار v2rayng از گوگل پلی</a>
+                                    </div>
 
-                                        <div class="btn-group">
-                                            <a href="gh/2dust/v2rayNG/releases/" class="btn btn-primary orig-link">نرم
-                                                افزار v2rayng مستقیم</a>
-                                        </div>
+                                    <div class="btn-group">
+                                        <a href="/BASE_PATH/gh/2dust/v2rayNG/releases/"
+                                            class="btn btn-primary orig-link">نرم
+                                            افزار v2rayng مستقیم</a>
+                                    </div>
 
-                                        <div class="btn-group">
-                                            <a href="https://play.google.com/store/apps/details?id=io.nekohasekai.sagernet"
-                                                class="btn btn-primary orig-link">نرم افزار sagernet از گوگل پلی</a>
-                                        </div>
+                                    <div class="btn-group">
+                                        <a href="https://play.google.com/store/apps/details?id=io.nekohasekai.sagernet"
+                                            class="btn btn-primary orig-link">نرم افزار sagernet از گوگل پلی</a>
+                                    </div>
 
-                                        <div class="btn-group">
-                                            <a href="gh/SagerNet/SagerNet/releases/"
-                                                class="btn btn-primary orig-link">نرم
-                                                افزار sagernet مستقیم</a>
-                                        </div>
-                                    </details>
+                                    <div class="btn-group">
+                                        <a href="/BASE_PATH/gh/SagerNet/SagerNet/releases/"
+                                            class="btn btn-primary orig-link">نرم
+                                            افزار sagernet مستقیم</a>
+                                    </div>
                                 </details>
+                            </details>
 
-                                <!-- 
+                            <!-- 
                                 ابتدا نرم افزار SagerNet را از طریق یکی از لینک‌های زیر دانلود کنید.
                                 <br>
                                 <div class="btn-group">
@@ -582,134 +601,164 @@
                                         src="images/google-play-badge.png" /></a>
                                         </div>
                                         <div class="btn-group">
-                                <a href="gh/SagerNet/SagerNet/releases/download/0.8.1-rc03/SN-0.8.1-rc03-arm64-v8a.apk" class="orig-link"><img
+                                <a href="/BASE_PATH/gh/SagerNet/SagerNet/releases/download/0.8.1-rc03/SN-0.8.1-rc03-arm64-v8a.apk" class="orig-link"><img
                                         src="images/android-apk-badge.png" /></a>
                                     </div>
 
                                 <br> -->
-                                سپس روی یکی از دکمه‌های زیر (به دلخواه) کلیک کنید تا لینک با اپ هایدیفای باز شود. سپس در
-                                نرم افزار HiddifyProxy با زدن روی دکمه YES درخواست وارد کردن لینک را تایید کنید.
-                                <br />
-                                <details>
-                                    <summary>تنظیمات تکی</summary>
+                            سپس روی یکی از دکمه‌های زیر (به دلخواه) کلیک کنید تا لینک با اپ هایدیفای باز شود. سپس در
+                            نرم افزار HiddifyProxy با زدن روی دکمه YES درخواست وارد کردن لینک را تایید کنید.
+                            <br />
+                            <details>
+                                <summary>تنظیمات تکی</summary>
 
-                                    <h5>تنظیمات با پشتیبانی CDN</h5>
-                                    <div class="btn-group">
-                                        <a href='vless://userguidsecret@cloudprovider:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Fvlessws#CDNvless_ws_proxyproviderip'
-                                            class="btn btn-primary orig-link"> CDN vless+ws</a>
-                                    </div>
-                                    <div class="btn-group">
-                                        <a href='trojan://userguidsecret@cloudprovider:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Ftrojanws#CDNtrojan_ws_proxyproviderip'
-                                            class="btn btn-primary orig-link"> CDN trojan+ws</a>
-                                    </div>
-                                    <div class="btn-group">
-                                        <a href='vmess://{"v":"2", "ps":"CDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/usersecret/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
-                                            class="btn btn-primary orig-link"> CDN vmess+ws</a>
-                                    </div>
-
-                                    <h5>تنظیمات بدون CDN</h5>
-                                    <div class="btn-group">
-                                        <a href='vless://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Fvlessws#vless_ws_proxyproviderip'
-                                            class="btn btn-primary orig-link"> vless+ws</a>
-                                    </div>
-                                    <div class="btn-group">
-                                        <a href='trojan://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Ftrojanws#trojan_ws_proxyproviderip'
-                                            class="btn btn-primary orig-link"> trojan+ws</a>
-                                    </div>
-                                    <div class="btn-group">
-                                        <a href='vmess://{"v":"2", "ps":"vmess_ws_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/usersecret/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
-                                            class="btn btn-primary orig-link"> vmess+ws</a>
-                                    </div>
-
-                                    <div class="btn-group">
-                                        <a href='vless://userguidsecret@serverip:443?flow=xtls-rprx-direct&security=xtls&alpn=h2&sni=proxyproviderip&type=tcp#vless+xtls_proxyproviderip'
-                                            class="btn btn-primary orig-link"> vless+xtls</a>
-                                    </div>
-                                    <div class="btn-group">
-                                        <a href='vless://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=grpc&serviceName=usersecret-vlgrpc&mode=multi#vless-grpc_proxyproviderip'
-                                            class="btn btn-primary orig-link"> vless+grpc</a>
-                                    </div>
-                                    <div class="btn-group">
-                                        <a href='trojan://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=grpc&serviceName=usersecret-trgrpc&mode=multi#trojan-grpc_proxyproviderip'
-                                            class="btn btn-primary orig-link"> trojan+grpc</a>
-                                    </div>
-                                    <div class="btn-group">
-                                        <a href='vmess://{"v":"2", "ps":"vmess_grpc_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"grpc", "type":"multi", "host":"", "path":"usersecret-vmgrpc", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
-                                            class="btn btn-primary orig-link">vmess+grpc</a>
-                                    </div>
-                                    <div class="btn-group">
-                                        <a href='trojan://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=h2&type=tcp#trojan+tls_proxyproviderip'
-                                            class="btn btn-primary orig-link">trojan+tls</a>
-                                    </div>
-                                    <div class="btn-group">
-                                        <a href='vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=h2&type=tcp#vless+tls_proxyproviderip'
-                                            class="btn btn-primary orig-link">vless+tls</a>
-                                    </div>
-                                    <div class="btn-group">
-                                        <a href='vmess://{"v": "2", "ps": "vmess+tls_proxyproviderip", "add": "serverip", "port": "443", "id": "userguidsecret", "aid": "0", "scy": "auto", "net": "tcp", "type":"http", "host": "", "path": "/usersecret/vmtc", "tls": "tls", "sni": "proxyproviderip", "alpn": "h2"}'
-                                            class="btn btn-primary orig-link">vmess+tls</a>
-                                    </div>
-
-                                    <div class="btn-group">
-                                        <a href='vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=http/1.1&type=tcp#vless+tls+http1.1_proxyproviderip'
-                                            class="btn btn-primary orig-link">vless+tls+http/1.1</a>
-                                    </div>
-                                    <div class="btn-group">
-                                        <a href='vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=http/1.1&type=tcp&path=/usersecret/trtc&headerType=http#vless+tls+http1.1+path_proxyproviderip'
-                                            class="btn btn-primary orig-link">vless+tls+http/1.1+path</a>
-                                    </div>
-                                    <div class="btn-group">
-                                        <a href='trojan://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=http/1.1&type=tcp&headerType=http&path=/usersecret/trtc#trojan+tls+http1.1_proxyproviderip'
-                                            class="btn btn-primary orig-link">trojan+tls+http/1.1</a>
-                                    </div>
-                                    <div class="btn-group">
-                                        <a href='vmess://{"v": "2", "ps": "vmess+tls+http1.1_proxyproviderip", "add": "serverip", "port": "443", "id": "userguidsecret", "aid": "0", "scy": "auto", "net": "tcp", "type": "http", "host": "", "path": "/usersecret/vmtc", "tls": "tls", "sni": "proxyproviderip", "alpn": "http/1.1"}'
-                                            class="btn btn-primary orig-link">vmess+tls+http/1.1</a>
-                                    </div>
-
-                                </details>
-
-
-
-                                <h5>همه در یک فایل</h5>
+                                <h5>تنظیمات با پشتیبانی CDN</h5>
                                 <div class="btn-group">
-                                    <a href="clash://install-config?url=https://proxyproviderip/usersecret/clash-meta.yml&name=meta_normal_proxyproviderip"
-                                        class="btn btn-primary orig-link">فایل هایدیفای پروکسی</a>
+                                    <a href='vless://userguidsecret@cloudprovider:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Fvlessws#CDNvless_ws_proxyproviderip'
+                                        class="btn btn-primary orig-link"> CDN vless+ws</a>
                                 </div>
                                 <div class="btn-group">
-                                    <a href="clash://install-config?url=https://proxyproviderip/usersecret/clash.yml&name=new_normal_proxyproviderip"
-                                        class="btn btn-primary orig-link">فایل کلش</a>
+                                    <a href='trojan://userguidsecret@cloudprovider:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Ftrojanws#CDNtrojan_ws_proxyproviderip'
+                                        class="btn btn-primary orig-link"> CDN trojan+ws</a>
                                 </div>
                                 <div class="btn-group">
-                                    <a href="https://proxyproviderip/usersecret/all.txt?name=new_link_proxyproviderip"
-                                        class="btn btn-primary orig-link">همه تنظیمات به صورتی لینکی</a>
+                                    <a href='vmess://{"v":"2", "ps":"CDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/usersecret/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
+                                        class="btn btn-primary orig-link"> CDN vmess+ws</a>
                                 </div>
 
+                                <h5>تنظیمات بدون CDN</h5>
+                                <div class="btn-group">
+                                    <a href='vless://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Fvlessws#vless_ws_proxyproviderip'
+                                        class="btn btn-primary orig-link"> vless+ws</a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href='trojan://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Ftrojanws#trojan_ws_proxyproviderip'
+                                        class="btn btn-primary orig-link"> trojan+ws</a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href='vmess://{"v":"2", "ps":"vmess_ws_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/usersecret/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
+                                        class="btn btn-primary orig-link"> vmess+ws</a>
+                                </div>
+
+                                <div class="btn-group">
+                                    <a href='vless://userguidsecret@serverip:443?flow=xtls-rprx-direct&security=xtls&alpn=h2&sni=proxyproviderip&type=tcp#vless+xtls_proxyproviderip'
+                                        class="btn btn-primary orig-link"> vless+xtls</a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href='vless://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=grpc&serviceName=usersecret-vlgrpc&mode=multi#vless-grpc_proxyproviderip'
+                                        class="btn btn-primary orig-link"> vless+grpc</a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href='trojan://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=grpc&serviceName=usersecret-trgrpc&mode=multi#trojan-grpc_proxyproviderip'
+                                        class="btn btn-primary orig-link"> trojan+grpc</a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href='vmess://{"v":"2", "ps":"vmess_grpc_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"grpc", "type":"multi", "host":"", "path":"usersecret-vmgrpc", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
+                                        class="btn btn-primary orig-link">vmess+grpc</a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href='trojan://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=h2&type=tcp#trojan+tls_proxyproviderip'
+                                        class="btn btn-primary orig-link">trojan+tls</a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href='vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=h2&type=tcp#vless+tls_proxyproviderip'
+                                        class="btn btn-primary orig-link">vless+tls</a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href='vmess://{"v": "2", "ps": "vmess+tls_proxyproviderip", "add": "serverip", "port": "443", "id": "userguidsecret", "aid": "0", "scy": "auto", "net": "tcp", "type":"http", "host": "", "path": "/usersecret/vmtc", "tls": "tls", "sni": "proxyproviderip", "alpn": "h2"}'
+                                        class="btn btn-primary orig-link">vmess+tls</a>
+                                </div>
+
+                                <div class="btn-group">
+                                    <a href='vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=http/1.1&type=tcp#vless+tls+http1.1_proxyproviderip'
+                                        class="btn btn-primary orig-link">vless+tls+http/1.1</a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href='vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=http/1.1&type=tcp&path=/usersecret/trtc&headerType=http#vless+tls+http1.1+path_proxyproviderip'
+                                        class="btn btn-primary orig-link">vless+tls+http/1.1+path</a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href='trojan://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=http/1.1&type=tcp&headerType=http&path=/usersecret/trtc#trojan+tls+http1.1_proxyproviderip'
+                                        class="btn btn-primary orig-link">trojan+tls+http/1.1</a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href='vmess://{"v": "2", "ps": "vmess+tls+http1.1_proxyproviderip", "add": "serverip", "port": "443", "id": "userguidsecret", "aid": "0", "scy": "auto", "net": "tcp", "type": "http", "host": "", "path": "/usersecret/vmtc", "tls": "tls", "sni": "proxyproviderip", "alpn": "http/1.1"}'
+                                        class="btn btn-primary orig-link">vmess+tls+http/1.1</a>
+                                </div>
+
+                            </details>
+
+
+
+                            <h5>همه در یک فایل</h5>
+                            <div class="btn-group">
+                                <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash-meta.yml&name=meta_normal_proxyproviderip"
+                                    class="btn btn-primary orig-link">فایل هایدیفای پروکسی</a>
+                            </div>
+                            <div class="btn-group">
+                                <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash.yml&name=new_normal_proxyproviderip"
+                                    class="btn btn-primary orig-link">فایل کلش</a>
+                            </div>
+                            <div class="btn-group">
+                                <a href="https://proxyproviderip/BASE_PATH/usersecret/all.txt?name=new_link_proxyproviderip"
+                                    class="btn btn-primary orig-link">همه تنظیمات به صورتی لینکی</a>
+                            </div>
+
+                        </div>
+                    </details>
+
+
+
+                    <details class="accordion main-details">
+                        <summary class="accordion-button">
+                            <i class="fa-solid fa-sitemap fa-margin"></i>
+                            DNS over HTTPS
+                        </summary>
+                        <div class="card-body">
+                            کافی است در مرورگر خود عبارت زیر را وارد کنید:
+
+                            <pre dir="ltr">
+https://proxyproviderip/BASE_PATH/dns/dns-query{?dns}
+                    </pre>
+                            <div dir="ltr">
+                                <h4>Configure DoH on your browser</h4>
+                                There are several browsers compatible with DNS over HTTPS (DoH). This protocol lets
+                                you
+                                encrypt
+                                your connection to 1.1.1.1 in order to protect your DNS queries from privacy
+                                intrusions
+                                and
+                                tampering.
+
+                                Some browsers might already have this setting enabled.
+
+                                <h5>​​Mozilla Firefox</h5>
+                                Select the menu button > Settings.
+                                In the General menu, scroll down to access Network Settings.
+                                Select Settings.
+                                Select Enable DNS over HTTPS. By default, it resolves to Cloudflare DNS.
+                                ​<h5>​Google Chrome</h5>
+                                Select the three-dot menu in your browser > Settings.
+                                Select Privacy and security > Security.
+                                Scroll down and enable Use secure DNS.
+                                Select the With option, and from the drop-down menu choose Cloudflare (1.1.1.1).
+                                <h5>​​Microsoft Edge</h5>
+                                Select the three-dot menu in your browser > Settings.
+                                Select Privacy, Search, and Services, and scroll down to Security.
+                                Enable Use secure DNS.
+                                Select Choose a service provider.
+                                Select the Enter custom provider drop-down menu and choose Cloudflare (1.1.1.1).
+                                ​<h5>​Brave</h5>
+                                Select the menu button in your browser > Settings.
+                                Select Security and Privacy > Security.
+                                Enable Use secure DNS.
+                                Select With Custom and choose Cloudflare (1.1.1.1) as a service provider from the
+                                drop-down
+                                menu.
                             </div>
                         </div>
-                    </div>
+                    </details>
                 </div>
-            </div>
-
-            <br>
-            <h3> تست سرعت (جهت شناسایی کثیف بودن IP)
-            </h3>
-            ابتدا بدون فیلترشکن سرعت را تست کنید. اگر سرعت خوب نبود، به معنی آن است که این ip به اصطلاح کثیف شده روی
-            سرویس دهنده اینترنت شما.
-            <br>
-            اگر بدون فیلترشکن سرعت پایین بود دیگر وقت خود را تلف نکنید.
-            <br>
-            در غیر این صورت با پروکسی های مختلف این سایت تست بگیرید و اگر سرعت آن مشابه سرعت بدون فیلترشکن بود یعنی
-            بهترین پروتکل را پیدا کردید.
-
-            <br />
-            <div class="btn-group">
-                <a href="speedtest/?test=upload" class="btn btn-primary">تست سرعت آپلود</a>
-                <a href="speedtest/?test=download" class="btn btn-primary">تست سرعت دانلود</a>
-                <a href="speedtest/?run" class="btn btn-primary">تست سرعت کامل</a>
-            </div>
-
-
         </main>
         <div class="b-example-divider"></div>
         <div class="container">
@@ -726,7 +775,8 @@
 
                 <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
                     <li class="ms-3"><a class="text-muted"
-                            href="https://twitter.com/intent/follow?screen_name=hiddify1"> Twitter </a></li>
+                            href="https://twitter.com/intent/follow?screen_name=hiddify1">
+                            Twitter </a></li>
                     <li class="ms-3"><a class="text-muted" href="https://t.me/hiddify">Telegram</a></li>
                 </ul>
             </footer>
@@ -874,7 +924,7 @@
             var link = this.href;
             qrcode.clear()
             qrcode.makeCode(link);
-            hrefshare = "https://proxyproviderip/usersecret/redirect/" + link.replaceAll('://', '%3A%2F%2F')
+            hrefshare = "https://proxyproviderip/BASE_PATH/redirect/" + link.replaceAll('://', '%3A%2F%2F')
             $('#qrcode-link')[0].href = link
             $('#share-link-redirect')[0].href = hrefshare
             if (link.startsWith("http"))
@@ -902,7 +952,19 @@
         });
 
 
+        const Main_Details = document.querySelectorAll('.main-details');
 
+        Main_Details.forEach(deet => {
+            deet.addEventListener('toggle', toggleOpenOneOnly)
+        })
+
+        function toggleOpenOneOnly(e) {
+            if (this.open) {
+                Main_Details.forEach(deet => {
+                    if (deet != this && deet.open) deet.open = false
+                });
+            }
+        }
     </script>
     <button id="scroll-to-top" type="button" class="btn btn-link btn-lg" onclick="scrollToTop();" title="Back to Top"
         aria-label="Back to Top">

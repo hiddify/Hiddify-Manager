@@ -1,0 +1,35 @@
+{
+	"inbounds": [
+		{
+			"tag": "vless",
+			"listen": "@vless-tcp",
+			"protocol": "vless",
+			"settings": {
+			  "clients": [
+				{"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com"}
+			  ],
+			  "decryption": "none"
+			},
+			"streamSettings": {
+			  "network": "tcp",
+			  "security": "none",
+			  "tcpSettings": {
+				"acceptProxyProtocol": true,
+				"header": {
+				  "type": "http",
+				  "request": {
+					"path": [
+					  "/BASE_PROXY_PATH/vltc"
+					]
+				  }
+				}
+			  }
+			},
+			"sniffing": {
+			  "enabled": true,
+			  "destOverride": ["http","tls"]
+			}
+		  }
+	  
+	  ]
+}
