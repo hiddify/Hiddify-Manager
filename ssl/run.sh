@@ -6,9 +6,7 @@ kill -9 `lsof -t -i:80`
 
 DST="../use-link"
 echo "">$DST
-if [[ "$FIRST_SETUP" == "true" ]];then
-	echo -e "Please visit http://$SERVER_IP/ in one hour to change your domain.\n\n" >>$DST
-fi
+
 
 echo -e "Permanent Admin link:  http://$SERVER_IP/$ADMIN_SECRET/ \n" >>$DST
 echo -e "Secure Admin links: \n" >>$DST
@@ -32,3 +30,7 @@ for DOMAIN in $DOMAINS;	do
 	fi
 	chmod 644 $DOMAIN.key
 done
+
+if [[ "$FIRST_SETUP" == "true" ]];then
+	echo -e "Please visit http://$SERVER_IP/ in one hour to change your domain. \n\n or you can use http://$SERVER_IP/$ADMIN_SECRET/config" >>$DST
+fi

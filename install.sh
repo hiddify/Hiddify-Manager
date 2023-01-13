@@ -64,15 +64,15 @@ function do_for_all() {
                 runsh uninstall.sh shadowsocks
         fi
         if [[ $ENABLE_VMESS == true ]]; then
-                runsh $1.sh vmess
+                runsh $1.sh deprecated/vmess
         else
-                runsh uninstall.sh vmess
+                runsh uninstall.sh deprecated/vmess
         fi
 
         if [[ $ENABLE_MONITORING == true ]]; then
-                runsh $1.sh monitoring
+                runsh $1.sh deprecated/monitoring
         else
-                runsh uninstall.sh monitoring
+                runsh uninstall.sh deprecated/monitoring
         fi
 
         if [[ $ENABLE_NETDATA == true ]]; then
@@ -82,9 +82,9 @@ function do_for_all() {
         fi
 
         if [[ $ENABLE_TROJAN_GO == true ]]; then
-                runsh $1.sh trojan-go
+                runsh $1.sh deprecated/trojan-go
         else
-                runsh uninstall.sh trojan-go
+                runsh uninstall.sh deprecated/trojan-go
         fi
         
         runsh $1.sh admin_ui
