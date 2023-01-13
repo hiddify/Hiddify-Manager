@@ -1,4 +1,7 @@
 import pathlib
+import yaml
+
+
 config_dir=pathlib.Path(__file__).parent.parent.resolve()
 dirname = pathlib.Path(__file__).parent.resolve()
 conf_vars={
@@ -14,7 +17,8 @@ conf_vars={
         "ALLOW_ALL_SNI_TO_USE_PROXY":"boolean",
         "ENABLE_HTTP_PROXY":"boolean",
         "ENABLE_AUTO_UPDATE":"boolean",
-        "BLOCK_IR_SITES":"boolean"
+        "BLOCK_IR_SITES":"boolean",
+        "USERS_YAML_FILE": "/home/me/code/github/hiddify/org-repo/hiddify-config/hiddify-config/admin_ui/users.yml"
 }
 
 def read_configs(read_default=True):
@@ -47,3 +51,22 @@ def set_configs(configs):
 
     with open(f'{config_dir}/config.env','w') as f:
         f.write(all_lines)
+
+# make user as dict for adding to the yaml file
+def make_user(uuid,name,bandwith,expire_time,usage):
+    return {uuid:{"name":str(name),"bandwith":float(bandwith),"expire_time":expire_time,"usage":float(usage)}}
+
+def add_user_to_yaml_file(uuid,name,bandwith,expire_time,usage):
+    data = read_yaml(conf_vars['USERS_YAML_FILE'])
+    data['Users'].update(make_user(uuid,name,bandwith,expire_time,usage))
+
+    write_yaml(conf_vars['USERS_YAML_FILE'],data)
+
+def read_yaml(path):
+    with open(path,'r') as f:
+        return yaml.safe_load(f)
+
+def write_yaml(path,data):
+    with open(path,'w') as f:
+        yaml.safe_dump(data,f)
+

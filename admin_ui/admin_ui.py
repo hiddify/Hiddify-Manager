@@ -4,20 +4,38 @@ import pathlib
 
 
 
-from bottle import route, run, template,redirect,request,response,static_file
+from bottle import route, run, template,redirect,request,response,static_file,get, post
 from datetime import datetime,timedelta,date
 import os,sys
 import json
 import urllib.request
 import subprocess
 import re
+import yaml
 
-from common import read_configs
+from common import *
+
 @route('/admin/')
 def index():
     data=read_configs()
     return template('index',data=data)
 
+
+
+@get('adduser')
+def add_user_get():
+    return template('add_user')
+
+
+@post('adduser')
+def add_user_post():
+    # name = request.forms.get('name')
+    # bandwith = request.forms.get('bandwith')
+    # expire_time = request.forms.get('expire-time')
+    # usage = request.forms.get('usage')
+    # uuid = ''
+
+    pass
 
 @route('/admin/reverselog/<logfile>')
 def reverselog(logfile):
