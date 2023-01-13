@@ -43,7 +43,7 @@ def clash_config(secret,mode,meta_or_normal="normal"):
     response.content_type = 'text/plain';
     data['meta_or_normal']=meta_or_normal
     data['mode']=mode
-    response.headers['Subscription-Userinfo']="upload=1000;download=2000;total=5000;expire=1000000"
+    # response.headers['Subscription-Userinfo']="upload=1000;download=2000;total=5000;expire=1000000"
     return template('clash_config',data=data)
 
 @route('/user/<secret>/all.txt')
