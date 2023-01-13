@@ -64,28 +64,35 @@ domains:
         cdn: true
 
 
-services:
-  telegram:
-    enable: true
+telegram:
+  enable: true
 
-    # 32 char uuid common between all your users
-    secret: 
+  # 32 char uuid common between all your users
+  secret: 
 
-    # demonestrate fake_tls_domain for preventing probing
-    fake_tls_domain: mail.google.com
+  # demonestrate fake_tls_domain for preventing probing
+  fake_tls_domain: mail.google.com
 
-    #adtag not supported now
-    # ad_tag:  
+  #adtag not supported now
+  # ad_tag:  
 
-  ss_faketls:
-    enable: true
+ss_faketls:
+  enable: true
 
-    # 32 char uuid common between all your users
-    secret: 
+  # 32 char uuid common between all your users
+  secret: 
+
+  # demonestrate fake_tls_domain for preventing probing
+  fake_tls_domain: www.google.com
     
-    # demonestrate fake_tls_domain for preventing probing
-    fake_tls_domain: www.google.com
-    
+
+# list all configs to be disabled. It will check if the name contains tag
+disabled_xray_configs:
+  #  - grpc
+  #  - ws
+  #  - trojan
+  #  - vmess
+  #  - vmess_grpc
 
 github:
    user: hiddify
