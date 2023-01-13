@@ -23,11 +23,11 @@ dns:
     - https://1.1.1.1/dns-query#PROXY
     - https://8.8.8.8/dns-query#PROXY
     - https://1.0.0.1/dns-query#PROXY
+
 proxy-groups:
   - name: auto_all
     use:
-      - meta
-      - normal
+      - all_proxies
     type: url-test
     url: http://cp.cloudflare.com
     interval: 300
@@ -44,8 +44,7 @@ proxy-groups:
     proxies:
       - auto
     use:
-      - meta
-      - normal
+      - all_proxies
     type: select
 
 
@@ -71,7 +70,7 @@ proxy-providers:
   all_proxies:
     type: http
     url: "https://proxyproviderip/{{data["BASE_PROXY_PATH"]}}/{{data["user_id"]}}/clash/{{data["meta_or_normal"]}}/proxies.yml"
-    path: proxyproviderip/usersecret-meta-proxies.yaml
+    path: proxyproviderip/{{data["user_id"]}}-{{data["meta_or_normal"]}}-proxies.yaml
     health-check:
       enable: true
       interval: 600
@@ -93,6 +92,7 @@ rule-providers:
     url: "https://proxyproviderip/BASE_PATH/clash/rules/tmp-blocked-sites.yml"
     path: ./ruleset/tmpblocked.yaml
     interval: 432000
+
   open:
     type: http
     behavior: classical

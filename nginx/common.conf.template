@@ -1,8 +1,12 @@
-location ~* "/BASE_PROXY_PATH/(?<guid1>\w{8})[\-]?(?<guid2>\w{4})[\-]?(?<guid3>\w{4})[\-]?(?<guid4>\w{4})[\-]?(?<guid5>\w{12})/clash/(?<path>.*)" {
+location ~* "xxx/BASE_PROXY_PATH/(?<guid1>\w{8})[\-]?(?<guid2>\w{4})[\-]?(?<guid3>\w{4})[\-]?(?<guid4>\w{4})[\-]?(?<guid5>\w{12})/clash/(?<path>.*)" {
   set $guid "$guid1-$guid2-$guid3-$guid4-$guid5";
   set $usersecret "$guid1$guid2$guid3$guid4$guid5";
-  alias /opt/GITHUB_REPOSITORY/clash/$path;
-  types { }   default_type "text/plain";
+  proxy_pass http://localhost:439/user/$usersecret/$path; 
+	error_page 301 302 307 = @handle_redirect;
+
+  # alias /opt/GITHUB_REPOSITORY/clash/$path;
+  # types { }   default_type "text/plain";
+
   sub_filter_types text/plain;
   include /opt/GITHUB_REPOSITORY/nginx/replace.conf;
   sub_filter usersecret $usersecret;
@@ -12,7 +16,9 @@ location ~* "/BASE_PROXY_PATH/(?<guid1>\w{8})[\-]?(?<guid2>\w{4})[\-]?(?<guid3>\
 location ~* "/BASE_PROXY_PATH/(?<guid1>\w{8})[\-]?(?<guid2>\w{4})[\-]?(?<guid3>\w{4})[\-]?(?<guid4>\w{4})[\-]?(?<guid5>\w{12})/(?<path>.*)" {
   set $guid "$guid1-$guid2-$guid3-$guid4-$guid5";
   set $usersecret "$guid1$guid2$guid3$guid4$guid5";
-  alias /opt/GITHUB_REPOSITORY/web/$path;
+  proxy_pass http://localhost:439/user/$usersecret/$path; 
+	error_page 301 302 307 = @handle_redirect;
+  #alias /opt/GITHUB_REPOSITORY/web/$path;
   include mime.types;
   types {"text/plain" yml; }
   sub_filter_types text/plain;

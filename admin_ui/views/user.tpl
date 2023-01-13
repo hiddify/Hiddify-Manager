@@ -5,7 +5,7 @@
 
 
 <main id="maincontent" role="main" aria-label="Content" class="flex-shrink-0">
-
+           
             <div class="d-flex ">
 
                 <div class="card col col-12  col-md-6">
@@ -37,6 +37,7 @@
                             </div>
 
                         </div>
+                        % if data["ENABLE_TELEGRAM"]=='true':
                         <details class="accordion main-details">
                             <summary class="accordion-button">
                                 <i class="fa-brands fa-telegram fa-margin"></i> گذرنده تلگرام (برای دور زدن فیلترینگ
@@ -54,6 +55,7 @@
                                 </div>
                             </div>
                         </details>
+                        % end
                     </div>
 
 
@@ -143,12 +145,12 @@
                                         بنابراین لینک های آن متفاوت است.
                                     </div>
                                     <!--                                             <div class="btn-group">
-                                        <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/lite.yml&name=lite_proxyproviderip"
+                                        <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/normal/lite.yml&name=lite_proxyproviderip"
                                             class="btn btn-primary orig-link">نصب فقط برای سایت‌های فیلتر</a>
                                     </div>
                                             <br>
                                     <div class="btn-group">
-                                        <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/normal.yml&name=normal_proxyproviderip"
+                                        <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/normal/normal.yml&name=normal_proxyproviderip"
                                             class="btn btn-primary orig-link">نصب گذرنده برای سایت‌های خارجی</a>
                                     </div>
                                             
@@ -307,12 +309,12 @@
                                 <a href='trojan://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=grpc&serviceName=usersecret-trgrpc&mode=multi#trojan-grpc_proxyproviderip'
                                     class="btn btn-primary orig-link"> trojan+grpc</a>
                             </div>
-
+                            % if data["ENABLE_VMESS"]=='true':
                             <div class="btn-group">
-                                <a href='vmess://{"v":"2", "ps":"CDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/usersecret/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
+                                <a href='vmess://{"v":"2", "ps":"CDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/BASE_PATH/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
                                     class="btn btn-primary orig-link"> CDN vmess+ws</a>
                             </div>
-
+                            % end
 
                             <!--
         <br/>
@@ -608,11 +610,12 @@
                                     <a href='trojan://userguidsecret@cloudprovider:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Ftrojanws#CDNtrojan_ws_proxyproviderip'
                                         class="btn btn-primary orig-link"> CDN trojan+ws</a>
                                 </div>
+                                % if data["ENABLE_VMESS"]=='true':
                                 <div class="btn-group">
-                                    <a href='vmess://{"v":"2", "ps":"CDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/usersecret/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
+                                    <a href='vmess://{"v":"2", "ps":"CDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/BASE_PATH/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
                                         class="btn btn-primary orig-link"> CDN vmess+ws</a>
                                 </div>
-
+                                % end
                                 <h5>تنظیمات بدون CDN</h5>
                                 <div class="btn-group">
                                     <a href='vless://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Fvlessws#vless_ws_proxyproviderip'
@@ -622,11 +625,12 @@
                                     <a href='trojan://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Ftrojanws#trojan_ws_proxyproviderip'
                                         class="btn btn-primary orig-link"> trojan+ws</a>
                                 </div>
+                                % if data["ENABLE_VMESS"]=='true':
                                 <div class="btn-group">
-                                    <a href='vmess://{"v":"2", "ps":"vmess_ws_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/usersecret/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
+                                    <a href='vmess://{"v":"2", "ps":"vmess_ws_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/BASE_PATH/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
                                         class="btn btn-primary orig-link"> vmess+ws</a>
                                 </div>
-
+                                % end
                                 <div class="btn-group">
                                     <a href='vless://userguidsecret@serverip:443?flow=xtls-rprx-direct&security=xtls&alpn=h2&sni=proxyproviderip&type=tcp#vless+xtls_proxyproviderip'
                                         class="btn btn-primary orig-link"> vless+xtls</a>
@@ -639,10 +643,12 @@
                                     <a href='trojan://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=grpc&serviceName=usersecret-trgrpc&mode=multi#trojan-grpc_proxyproviderip'
                                         class="btn btn-primary orig-link"> trojan+grpc</a>
                                 </div>
+                                % if data["ENABLE_VMESS"]=='true':
                                 <div class="btn-group">
                                     <a href='vmess://{"v":"2", "ps":"vmess_grpc_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"grpc", "type":"multi", "host":"", "path":"usersecret-vmgrpc", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
                                         class="btn btn-primary orig-link">vmess+grpc</a>
                                 </div>
+                                % end
                                 <div class="btn-group">
                                     <a href='trojan://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=h2&type=tcp#trojan+tls_proxyproviderip'
                                         class="btn btn-primary orig-link">trojan+tls</a>
@@ -651,27 +657,30 @@
                                     <a href='vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=h2&type=tcp#vless+tls_proxyproviderip'
                                         class="btn btn-primary orig-link">vless+tls</a>
                                 </div>
+                                % if data["ENABLE_VMESS"]=='true':
                                 <div class="btn-group">
-                                    <a href='vmess://{"v": "2", "ps": "vmess+tls_proxyproviderip", "add": "serverip", "port": "443", "id": "userguidsecret", "aid": "0", "scy": "auto", "net": "tcp", "type":"http", "host": "", "path": "/usersecret/vmtc", "tls": "tls", "sni": "proxyproviderip", "alpn": "h2"}'
+                                    <a href='vmess://{"v": "2", "ps": "vmess+tls_proxyproviderip", "add": "serverip", "port": "443", "id": "userguidsecret", "aid": "0", "scy": "auto", "net": "tcp", "type":"http", "host": "", "path": "/BASE_PATH/vmtc", "tls": "tls", "sni": "proxyproviderip", "alpn": "h2"}'
                                         class="btn btn-primary orig-link">vmess+tls</a>
                                 </div>
-
+                                % end
                                 <div class="btn-group">
                                     <a href='vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=http/1.1&type=tcp#vless+tls+http1.1_proxyproviderip'
                                         class="btn btn-primary orig-link">vless+tls+http/1.1</a>
                                 </div>
                                 <div class="btn-group">
-                                    <a href='vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=http/1.1&type=tcp&path=/usersecret/trtc&headerType=http#vless+tls+http1.1+path_proxyproviderip'
+                                    <a href='vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=http/1.1&type=tcp&path=/BASE_PATH/trtc&headerType=http#vless+tls+http1.1+path_proxyproviderip'
                                         class="btn btn-primary orig-link">vless+tls+http/1.1+path</a>
                                 </div>
                                 <div class="btn-group">
-                                    <a href='trojan://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=http/1.1&type=tcp&headerType=http&path=/usersecret/trtc#trojan+tls+http1.1_proxyproviderip'
+                                    <a href='trojan://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=http/1.1&type=tcp&headerType=http&path=/BASE_PATH/trtc#trojan+tls+http1.1_proxyproviderip'
                                         class="btn btn-primary orig-link">trojan+tls+http/1.1</a>
                                 </div>
+                                % if data["ENABLE_VMESS"]=='true':
                                 <div class="btn-group">
-                                    <a href='vmess://{"v": "2", "ps": "vmess+tls+http1.1_proxyproviderip", "add": "serverip", "port": "443", "id": "userguidsecret", "aid": "0", "scy": "auto", "net": "tcp", "type": "http", "host": "", "path": "/usersecret/vmtc", "tls": "tls", "sni": "proxyproviderip", "alpn": "http/1.1"}'
+                                    <a href='vmess://{"v": "2", "ps": "vmess+tls+http1.1_proxyproviderip", "add": "serverip", "port": "443", "id": "userguidsecret", "aid": "0", "scy": "auto", "net": "tcp", "type": "http", "host": "", "path": "/BASE_PATH/vmtc", "tls": "tls", "sni": "proxyproviderip", "alpn": "http/1.1"}'
                                         class="btn btn-primary orig-link">vmess+tls+http/1.1</a>
                                 </div>
+                                % end
 
                             </details>
 
@@ -862,7 +871,6 @@ https://proxyproviderip/BASE_PATH/dns/dns-query{?dns}
             </div>
         </div>
     </div>
-
 <script src="static/js/jquery-3.6.1.min.js"></script>
 <script src="static/js/qrcode.js"></script>
 

@@ -25,8 +25,8 @@ from common import dirname
 #     return static_file(filename, root=f'{dirname}/static/asset/images')
 
 @route('/admin/static/<filename:re:.*>')
-@route('/user/static/<filename:re:.*>')
-def send_assets(filename):
+@route('/user/<secret>/static/<filename:re:.*>')
+def send_assets(filename,secret=''):
     if ".." in filename:return "not found"
     return static_file(filename, root=f'{dirname}/static/asset/')
 
