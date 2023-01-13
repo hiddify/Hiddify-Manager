@@ -14,9 +14,9 @@ global:
 
   # fake site when someone without proxy wants to use this proxy
   decoy_site: https://www.google.com/
-  
-  # can be a string with any lenght (automatically generate if not present)
-  base_proxy_path:
+
+  # can be a string with any lenght (automatically generate if is "change")
+  base_proxy_path: "change"
 
   # allow only tls ports and http ports in firewall
   firewall: true
@@ -41,14 +41,15 @@ global:
   only_ipv4: true
 
 
-admin_secret: 
+# admin secret will be changed to random if it contains "0000000000000000000000000000000"
+admin_secret: "00000000000000000000000000000001" 
 
 # list of users in the system
 users:
   - name: "hiddify"
 
-    # uuid is 32 char
-    uuid: "0123456789ABCDEF0123456789ABCDEF"
+    # uuid is 32 char (user will be ignored if uuid contains 0000000000000000000000000000000)
+    uuid: "00000000000000000000000000000000"
 
     # bandwidth is a float in GB. 0 means unlimited
     monthly_usage_limit: 10
@@ -63,6 +64,7 @@ users:
 
 
 domains:
+   # should be unique
    - test.hiddify.com:
         cdn: true
 
@@ -71,9 +73,10 @@ telegram:
   enable: true
 
   # 32 char uuid common between all your users
-  secret: 
+  # will be changed to random if uuid contains 0000000000000000000000000000000
+  secret: "00000000000000000000000000000000"
 
-  # demonestrate fake_tls_domain for preventing probing
+  # demonestrate fake_tls_domain for preventing probing, should be unique
   fake_tls_domain: mail.google.com
 
   #adtag not supported now
@@ -83,9 +86,10 @@ ss_faketls:
   enable: true
 
   # 32 char uuid common between all your users
-  secret: 
+  # will be changed to random if uuid contains 0000000000000000000000000000000
+  secret: "00000000000000000000000000000000"
 
-  # demonestrate fake_tls_domain for preventing probing
+  # demonestrate fake_tls_domain for preventing probing, should be unique
   fake_tls_domain: www.google.com
     
 
