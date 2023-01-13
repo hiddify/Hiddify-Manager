@@ -13,6 +13,8 @@ conf_vars={
         "ENABLE_NETDATA":"boolean",
         "ALLOW_ALL_SNI_TO_USE_PROXY":"boolean",
         "ENABLE_HTTP_PROXY":"boolean",
+        "ENABLE_TELEGRAM":"boolean",
+        "ENABLE_SS":"boolean",
         "ENABLE_AUTO_UPDATE":"boolean",
         "BLOCK_IR_SITES":"boolean"
 }

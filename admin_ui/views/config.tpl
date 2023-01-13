@@ -11,6 +11,11 @@
         <input type='text'  value='{{data["MAIN_DOMAIN"]}}' class="form-control"  name='MAIN_DOMAIN' placeholder='plese enter your subdomain' /> 
         <small class="form-text text-muted">This field should be correct. Please visit <a href='https://github.com/hiddify/hiddify-config/blob/main/docs/create_domain.md'> Help</a> to learn how to create a subdomain.</small>
     </div>   
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" name="ENABLE_TELEGRAM" {{"checked" if data["ENABLE_TELEGRAM"] != "false" else ""}}>
+        <label class="form-check-label">Enable Telegram</label>
+    </div>
+    
     <details>
 <summary>Advanced Configs</summary>
 
@@ -66,7 +71,10 @@
         <input type="checkbox" class="form-check-input" name="ALLOW_ALL_SNI_TO_USE_PROXY" {{"checked" if data["ALLOW_ALL_SNI_TO_USE_PROXY"] != "false" else ""}}>
         <label class="form-check-label">Allow all sni to use proxy. NOT RECOMMENDED! NOT SAFE</label>
     </div>
-
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" name="ENABLE_SS" {{"checked" if data["ENABLE_SS"] != "false" else ""}}>
+        <label class="form-check-label">Enable Shadowsocks v2ray and faketls (not recomnded)</label>
+    </div>
 <!--
     <div class="form-check">
         <input type="checkbox" class="form-check-input" name="ENABLE_HTTP_PROXY" {{"checked" if data["ENABLE_HTTP_PROXY"] != "false" else ""}}>
