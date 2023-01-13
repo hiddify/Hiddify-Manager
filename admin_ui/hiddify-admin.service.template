@@ -5,7 +5,7 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/opt/GITHUB_REPOSITORY/admin_ui/admin_ui.py
+ExecStart=/opt/GITHUB_REPOSITORY/admin_ui/hiddify_panel.py
 WorkingDirectory=/opt/GITHUB_REPOSITORY/admin_ui/
 Restart=on-failure
 StandardOutput=file:/opt/GITHUB_REPOSITORY/log/system/admin_ui.out.log
