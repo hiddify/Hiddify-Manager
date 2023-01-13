@@ -9,8 +9,9 @@
     <meta name="description" content="گذرنده سریع">
     <meta name="author" content="Hiddify">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" href="static/bootstrap.rtl.min.css">
-    <link rel="stylesheet" href="static/custom.css" type="text/css">
+    <link rel="stylesheet" href="static/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="static/css/custom.css" type="text/css">
+    <link rel="stylesheet" href="static/css/font-awesome.css" type="text/css">
 </head>
 
 <body class="d-flex flex-column h-100">
