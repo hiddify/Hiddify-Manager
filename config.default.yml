@@ -12,6 +12,9 @@ global:
   http_ports: 
     - 80
 
+  # fake site when someone without proxy wants to use this proxy
+  decoy_site: https://www.google.com/
+  
   # can be a string with any lenght (automatically generate if not present)
   base_proxy_path:
 
