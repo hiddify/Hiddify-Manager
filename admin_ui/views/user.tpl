@@ -115,7 +115,7 @@
                                 <h5>مهم: نرم افزار هایدیفای پروکسی را به نسخه 0.7 آپدیت کنید</h5>
                             </div>
                             <div class="btn-group">
-                                <a href="/BASE_PATH/gh/hiddify/HiddifyProxyAndroid/releases/download/v0.6/hiddify-2.5.13-pre04-h0.6-meta-alpha-universal-release.apk"
+                                <a href="/BASE_PATH/gh/hiddify/HiddifyProxyAndroid/releases/download/v0.6/hiddify-2.5.13-pre04-h0.6-meta/alpha-universal-release.apk"
                                     class="btn btn-primary orig-link">دانلود نرم افزار HiddifyProxy</a>
                             </div>
                             <div class="alert alert-info">
@@ -534,7 +534,7 @@
                             استفاده کنید.
 
                             <!-- <div class="btn-group">
-                                    <a href="/BASE_PATH/gh/hiddify/HiddifyProxyAndroid/releases/download/v0.6/hiddify-2.5.13-pre04-h0.6-meta-alpha-universal-release.apk"
+                                    <a href="/BASE_PATH/gh/hiddify/HiddifyProxyAndroid/releases/download/v0.6/hiddify-2.5.13-pre04-h0.6-meta/alpha-universal-release.apk"
                                         class="orig-link"><img src="images/android-apk-badge.png" /></a>
                                 </div> -->
 
@@ -544,7 +544,7 @@
                                 <details>
                                     <summary>اندروید</summary>
                                     <div class="btn-group">
-                                        <a href="/BASE_PATH/gh/hiddify/HiddifyProxyAndroid/releases/download/v0.6/hiddify-2.5.13-pre04-h0.6-meta-alpha-universal-release.apk"
+                                        <a href="/BASE_PATH/gh/hiddify/HiddifyProxyAndroid/releases/download/v0.6/hiddify-2.5.13-pre04-h0.6-meta/alpha-universal-release.apk"
                                             class="btn btn-primary orig-link">دانلود نرم افزار HiddifyProxy</a>
                                     </div>
 
@@ -688,7 +688,7 @@
 
                             <h5>همه در یک فایل</h5>
                             <div class="btn-group">
-                                <a href="clashmeta://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/meta-all.yml&name=meta_normal_proxyproviderip"
+                                <a href="clashmeta://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/meta/all.yml&name=meta_normal_proxyproviderip"
                                     class="btn btn-primary orig-link">فایل هایدیفای پروکسی</a>
                             </div>
                             <div class="btn-group">

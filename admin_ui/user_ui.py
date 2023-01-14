@@ -35,12 +35,13 @@ def clash_proxies(secret,meta_or_normal="normal"):
     return template('clash_proxies',data=data)
 
 
-@route('/user/<secret>/clash/<meta_or_normal>_<mode>.yml')
+
 @route('/user/<secret>/clash/<meta_or_normal>/<mode>.yml')
 @route('/user/<secret>/clash/<mode>.yml')
 def clash_config(secret,mode,meta_or_normal="normal"):
     data=read_user_configs(secret)
     response.content_type = 'text/plain';
+    
     data['meta_or_normal']=meta_or_normal
     data['mode']=mode
     # response.headers['Subscription-Userinfo']="upload=1000;download=2000;total=5000;expire=1000000"
