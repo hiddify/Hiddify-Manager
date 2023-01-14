@@ -112,7 +112,7 @@
                             ابتدا نرم افزار HiddifyProxy را از طریق لینک زیر نصب کنید
 
                             <div class="alert alert-danger">
-                                <h5>مهم: نرم افزار هایدیفای پروکسی را به نسخه 0.6 آپدیت کنید</h5>
+                                <h5>مهم: نرم افزار هایدیفای پروکسی را به نسخه 0.7 آپدیت کنید</h5>
                             </div>
                             <div class="btn-group">
                                 <a href="/BASE_PATH/gh/hiddify/HiddifyProxyAndroid/releases/download/v0.6/hiddify-2.5.13-pre04-h0.6-meta-alpha-universal-release.apk"
