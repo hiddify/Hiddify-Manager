@@ -6,7 +6,7 @@ systemctl disable mtproto-proxy.service
 
 
 apt install -y git curl build-essential libssl-dev zlib1g-dev
-ln -s  $(pwd)/mtproxy.service /etc/systemd/system/
+ln -sf  $(pwd)/mtproxy.service /etc/systemd/system/
 
 git clone https://github.com/hiddify/MTProxy
 cd MTProxy

@@ -692,7 +692,7 @@
                                     class="btn btn-primary orig-link">فایل هایدیفای پروکسی</a>
                             </div>
                             <div class="btn-group">
-                                <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/all.yml&name=new_normal_proxyproviderip"
+                                <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/all.yml&name=new_normal_proxyproviderip"
                                     class="btn btn-primary orig-link">فایل کلش</a>
                             </div>
                             <div class="btn-group">
