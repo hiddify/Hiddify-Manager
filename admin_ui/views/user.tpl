@@ -816,9 +816,9 @@ https://proxyproviderip/BASE_PATH/dns/dns-query{?dns}
         cloudprovid = document.location.host;
 
         function replace_info(str) {
-            str = str.replaceAll('usersecret', secret);
-            str = str.replaceAll('proxyproviderip', host);
-            str = str.replaceAll('cloudprovider', cloudprovid);
+            // str = str.replaceAll('usersecret', secret);
+            // str = str.replaceAll('proxyproviderip', host);
+            // str = str.replaceAll('cloudprovider', cloudprovid);
 
             if (str.includes('vmess://')) {
                 splt = str.split('vmess://')
