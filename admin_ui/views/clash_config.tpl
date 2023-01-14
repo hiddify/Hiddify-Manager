@@ -75,11 +75,11 @@ proxy-groups:
   - name: OnProxyIssue
     proxies:
     % if data["mode"]=="all":
-      - PROXY
+      - REJECT
       - DIRECT
     % else:
       - DIRECT
-      - PROXY
+      - REJECT
     % end
     type: select
 
