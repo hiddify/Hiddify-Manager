@@ -4,10 +4,10 @@
 #access_log /opt/GITHUB_REPOSITORY/log/nginx.log proxy;
 #include /opt/GITHUB_REPOSITORY/nginx/ar_real_ip.conf;
 
-include /opt/GITHUB_REPOSITORY/nginx/admin-link.conf;
-include /opt/GITHUB_REPOSITORY/nginx/def-link.conf;
-include /opt/GITHUB_REPOSITORY/nginx/common.conf;
 location @handle_redirect {
     set $saved_redirect_location '$upstream_http_location';
     proxy_pass $saved_redirect_location;
 }
+include /opt/GITHUB_REPOSITORY/nginx/admin-link.conf;
+include /opt/GITHUB_REPOSITORY/nginx/def-link.conf;
+include /opt/GITHUB_REPOSITORY/nginx/common.conf;

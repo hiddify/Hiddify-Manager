@@ -4,13 +4,18 @@ location = / {
 		return 200 "Please underestand that this link is temporary and will be disappeared after one hour. Please click <a href='/ADMIN_SECRET/config'>here</a> to continue setup.";
 		#return 307  ADMIN_SECRET/config;
 	}
-
-	proxy_set_header Host telegramtlsdomain;
-	proxy_pass https://telegramtlsdomain/;
+	# proxy_redirect / /;
+    #proxy_intercept_errors on;
 	error_page 301 302 307 = @handle_redirect;
+	proxy_set_header Host telegramtlsdomain;
+	proxy_pass https://telegramtlsdomain;
+	
 }
 location / {
-	proxy_set_header Host telegramtlsdomain;
-	proxy_pass https://telegramtlsdomain/;
+	# proxy_redirect / /; 
+    proxy_intercept_errors on;
 	error_page 301 302 307 = @handle_redirect;
+	proxy_set_header Host telegramtlsdomain;
+	proxy_pass https://telegramtlsdomain;
+	
 }
