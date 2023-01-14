@@ -69,8 +69,8 @@ proxy-groups:
 proxy-providers:
   all_proxies:
     type: http
-    url: "https://proxyproviderip/{{data["BASE_PROXY_PATH"]}}/{{data["user_id"]}}/clash/{{data["meta_or_normal"]}}/proxies.yml"
-    path: proxyproviderip/{{data["user_id"]}}-{{data["meta_or_normal"]}}-proxies.yaml
+    url: "https://proxyproviderip/{{data["BASE_PROXY_PATH"]}}/{{data["user_id"]}}/clash/{{data["meta_or_normal"]}}/proxies.yml?1"
+    path: proxyproviderip/{{data["user_id"]}}-{{data["meta_or_normal"]}}-proxies1.yaml
     health-check:
       enable: true
       interval: 600
