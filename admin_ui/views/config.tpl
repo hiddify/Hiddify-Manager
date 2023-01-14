@@ -67,10 +67,11 @@
         <label class="form-check-label">Enable Netdata. May use your CPU but not too much</label>
     </div>
 
+<!--
     <div class="form-check">
         <input type="checkbox" class="form-check-input" name="ALLOW_ALL_SNI_TO_USE_PROXY" {{"checked" if data["ALLOW_ALL_SNI_TO_USE_PROXY"] != "false" else ""}}>
         <label class="form-check-label">Allow all sni to use proxy. NOT RECOMMENDED! NOT SAFE</label>
-    </div>
+    </div>-->
     <div class="form-check">
         <input type="checkbox" class="form-check-input" name="ENABLE_SS" {{"checked" if data["ENABLE_SS"] != "false" else ""}}>
         <label class="form-check-label">Enable Shadowsocks v2ray and faketls (not recomnded)</label>

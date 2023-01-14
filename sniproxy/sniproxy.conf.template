@@ -32,7 +32,7 @@ listen 443 {
 table https_hosts {
     telegramtlsdomain 127.0.0.1:1001
     sstlsdomain 127.0.0.1:1002 
-    defaultserverhost unix:/dev/shm/hiddify-xtls-main.sock 
+    # defaultserverhost unix:/dev/shm/hiddify-xtls-main.sock 
 	#proxy_protocol
 
 # pattern:
