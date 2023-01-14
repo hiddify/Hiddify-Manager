@@ -6,8 +6,8 @@ apt-get install -y nginx
 # pkill -9 nginx
 
 
-# rm /etc/nginx/sites-available/default
-# rm /etc/nginx/sites-enabled/default
+rm /etc/nginx/sites-available/default
+rm /etc/nginx/sites-enabled/default
 # rm /etc/nginx/nginx.conf
 # ln -sf $(pwd)/nginx.conf /etc/nginx/nginx.conf
 
