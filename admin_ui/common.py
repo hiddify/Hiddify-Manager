@@ -1,4 +1,6 @@
 import pathlib
+
+
 config_dir=pathlib.Path(__file__).parent.parent.resolve()
 dirname = pathlib.Path(__file__).parent.resolve()
 conf_vars={
@@ -17,7 +19,8 @@ conf_vars={
         "ENABLE_SS":"boolean",
         "ENABLE_VMESS":"boolean",
         "ENABLE_AUTO_UPDATE":"boolean",
-        "BLOCK_IR_SITES":"boolean"
+        "BLOCK_IR_SITES":"boolean",
+        "USERS_YAML_FILE": "/path/to/config/file",
 }
 
 def read_configs(read_default=True):
@@ -50,3 +53,4 @@ def set_configs(configs):
 
     with open(f'{config_dir}/config.env','w') as f:
         f.write(all_lines)
+        
