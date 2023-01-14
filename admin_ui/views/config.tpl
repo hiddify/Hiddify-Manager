@@ -39,18 +39,20 @@
         <small class="form-text text-muted">Admin Secret will be used for accessing admin panel</small>
     </div>   
 
+<!--
     <div class="form-group">
         <label>NO CDN valid Domain</label>
         <input type='text' value='{{data["NO_CDN_DOMAIN"]}}'  class="form-control" name='NO_CDN_DOMAIN' placeholder='plese enter your no cdn valid domain'" /> 
         <small class="form-text text-muted">this domain is used for no cdn configurations, if not available we use IP instead</small>
     </div>   
+    -->
     <div class="form-group">
         <label>Shadowsocks Fake TLS Domain</label>
         <input type='text' value='{{data["SS_FAKE_TLS_DOMAIN"]}}'  class="form-control" name='SS_FAKE_TLS_DOMAIN' placeholder='plese enter your shadowsocks fake tls domain'" /> 
         <small class="form-text text-muted">Please use a well known domain in your data center. For example, if you are in azure data center, microsoft-update.com is a good example</small>
         <small class="form-text text-muted">Shadowsocks fake tls and telegram fake tls should be different</small>
     </div>   
-
+<!--
     <div class="form-group">
         <label>If you are using CDN, which CDN you are using</label>
         <select class="form-control" name="CDN_NAME">
@@ -60,7 +62,7 @@
         </select>
         <small class="form-text text-muted">This will be used only for translating proxy ips for better report</small>
     </div>   
-
+-->
     <div class="form-check">
         <input type="checkbox" class="form-check-input" name="ENABLE_FIREWALL" {{"checked"  if data["ENABLE_FIREWALL"] == "false" else ""}}>
         <label class="form-check-label">Enable Firewall</label>
