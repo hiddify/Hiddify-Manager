@@ -7,8 +7,10 @@ location = / {
 
 	proxy_set_header Host telegramtlsdomain;
 	proxy_pass https://telegramtlsdomain/;
+	error_page 301 302 307 = @handle_redirect;
 }
 location / {
 	proxy_set_header Host telegramtlsdomain;
 	proxy_pass https://telegramtlsdomain/;
+	error_page 301 302 307 = @handle_redirect;
 }
