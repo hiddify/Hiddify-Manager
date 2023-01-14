@@ -15,6 +15,7 @@ conf_vars={
         "ENABLE_HTTP_PROXY":"boolean",
         "ENABLE_TELEGRAM":"boolean",
         "ENABLE_SS":"boolean",
+        "ENABLE_VMESS":"boolean",
         "ENABLE_AUTO_UPDATE":"boolean",
         "BLOCK_IR_SITES":"boolean"
 }

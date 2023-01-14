@@ -15,7 +15,10 @@
         <input type="checkbox" class="form-check-input" name="ENABLE_TELEGRAM" {{"checked" if data["ENABLE_TELEGRAM"] != "false" else ""}}>
         <label class="form-check-label">Enable Telegram</label>
     </div>
-    
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" name="ENABLE_VMESS" {{"checked" if data["ENABLE_VMESS"] != "false" else ""}}>
+        <label class="form-check-label">Enable VMESS</label>
+    </div>
     <details>
 <summary>Advanced Configs</summary>
 
