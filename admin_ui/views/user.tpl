@@ -185,7 +185,7 @@
 
                                 <br>
                                 <div class="btn-group">
-                                    <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/meta_lite.yml&name=mlite_proxyproviderip"
+                                    <a href="clashmeta://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/meta_lite.yml&name=mlite_proxyproviderip"
                                         class="btn btn-primary orig-link">نصب فقط برای سایت‌های فیلتر</a>
                                 </div>
                                 <details>
@@ -205,7 +205,7 @@
                                 گذر از برخی از تحریم‌های سایت‌های خارجی مفید است.
                                 <br />
                                 <div class="btn-group">
-                                    <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/meta_normal.yml&name=mnormal_proxyproviderip"
+                                    <a href="clashmeta://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/meta_normal.yml&name=mnormal_proxyproviderip"
                                         class="btn btn-primary orig-link">نصب گذرنده برای سایت‌های خارجی</a>
                                 </div>
                                 <details>
@@ -231,7 +231,7 @@
                                 </div>
 
                                 <div class="btn-group">
-                                    <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/meta_all.yml&name=mall_proxyproviderip"
+                                    <a href="clashmeta://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/meta_all.yml&name=mall_proxyproviderip"
                                         class="btn btn-primary orig-link">نصب گذرنده برای همه سایت‌ها</a>
                                 </div>
                                 <details>
@@ -688,11 +688,11 @@
 
                             <h5>همه در یک فایل</h5>
                             <div class="btn-group">
-                                <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash-meta.yml&name=meta_normal_proxyproviderip"
+                                <a href="clashmeta://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/meta-all.yml&name=meta_normal_proxyproviderip"
                                     class="btn btn-primary orig-link">فایل هایدیفای پروکسی</a>
                             </div>
                             <div class="btn-group">
-                                <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash.yml&name=new_normal_proxyproviderip"
+                                <a href="clash://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/all.yml&name=new_normal_proxyproviderip"
                                     class="btn btn-primary orig-link">فایل کلش</a>
                             </div>
                             <div class="btn-group">
@@ -926,6 +926,10 @@ https://proxyproviderip/BASE_PATH/dns/dns-query{?dns}
                 href = p.href
                 if (href.startsWith("clash://install-config?url=")) {
                     href = href.replaceAll('clash://install-config?url=', '');
+                    href = href.replaceAll(".yml&", ".yml?")
+                }
+                if (href.startsWith("clashmeta://install-config?url=")) {
+                    href = href.replaceAll('clashmeta://install-config?url=', '');
                     href = href.replaceAll(".yml&", ".yml?")
                 }
 
