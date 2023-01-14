@@ -1,0 +1,27 @@
+{
+   "inbounds": [
+    {
+	  "tag":"kcp",
+      "port": 443,
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com"}
+        ],
+        "decryption": "none",
+		"fallbacks": [
+			{
+			  "dest": "@dispatcher",
+			  "xver": 2
+			}
+		  ]
+      },   
+    "streamSettings": {
+     "network": "kcp",
+     "kcpSettings": {
+        "seed": "defaultusersecret/vless-kcp"
+      }
+     }
+	}
+	]
+}

@@ -49,7 +49,9 @@ function do_for_all() {
         #cd /opt/$GITHUB_REPOSITORY
         bash common/replace_variables.sh
         runsh $1.sh common
+        runsh $1.sh ssl
         runsh $1.sh nginx
+        runsh $1.sh sniproxy
         runsh $1.sh xray
         if [[ $ENABLE_TELEGRAM == true ]]; then
                 runsh $1.sh telegram
@@ -62,15 +64,15 @@ function do_for_all() {
                 runsh uninstall.sh shadowsocks
         fi
         if [[ $ENABLE_VMESS == true ]]; then
-                runsh $1.sh vmess
+                runsh $1.sh deprecated/vmess
         else
-                runsh uninstall.sh vmess
+                runsh uninstall.sh deprecated/vmess
         fi
 
         if [[ $ENABLE_MONITORING == true ]]; then
-                runsh $1.sh monitoring
+                runsh $1.sh deprecated/monitoring
         else
-                runsh uninstall.sh monitoring
+                runsh uninstall.sh deprecated/monitoring
         fi
 
         if [[ $ENABLE_NETDATA == true ]]; then
@@ -80,9 +82,9 @@ function do_for_all() {
         fi
 
         if [[ $ENABLE_TROJAN_GO == true ]]; then
-                runsh $1.sh trojan-go
+                runsh $1.sh deprecated/trojan-go
         else
-                runsh uninstall.sh trojan-go
+                runsh uninstall.sh deprecated/trojan-go
         fi
         
         runsh $1.sh admin_ui
@@ -94,10 +96,16 @@ function check_for_env() {
         random_secret=$(hexdump -vn16 -e'4/4 "%08x" 1 "\n"' /dev/urandom)
         replace_empty_env USER_SECRET "setting 32 char user secret" $random_secret "^([0-9A-Fa-f]{32})$"
 
+        random_path=$(tr -dc A-Za-z0-9 </dev/urandom | head -c $(shuf -i 10-32 -n 1))
+        replace_empty_env BASE_PROXY_PATH "setting proxy path" $random_secret ".*"
+        
+        random_tel_secret=$(hexdump -vn16 -e'4/4 "%08x" 1 "\n"' /dev/urandom)
+        replace_empty_env TELEGRAM_USER_SECRET "setting 32 char for TELEGRAM_USER_SECRET" $random_tel_secret ".*"
 
         random_admin_secret=$(hexdump -vn16 -e'4/4 "%08x" 1 "\n"' /dev/urandom)
         replace_empty_env ADMIN_SECRET "setting 32 char admin secret" $random_admin_secret "^([0-9A-Fa-f]{32})$"
 
+        
 
         export SERVER_IP=$(curl -Lso- https://api.ipify.org)
         replace_empty_env MAIN_DOMAIN "please enter valid domain name to use " "$SERVER_IP.sslip.io" "^([A-Za-z0-9\.]+\.[a-zA-Z]{2,})$"
@@ -161,11 +169,21 @@ function replace_empty_env() {
 function main(){
         check_req
         set_env_if_empty config.env.default
-        set_env_if_empty config.env
-        
+        set_env_if_empty config.env      
+        if [[ "$BASE_PROXY_PATH" == "" ]]; then
+                replace_empty_env BASE_PROXY_PATH "" $USER_SECRET ".*"
+        fi
+        if [[ "$TELEGRAM_USER_SECRET" == "" ]]; then
+                replace_empty_env TELEGRAM_USER_SECRET "" $USER_SECRET ".*"
+        fi
 
         cd /opt/$GITHUB_REPOSITORY
         git pull
+
+        if [[ "$FIRST_SETUP" == "" ]];then
+                replace_empty_env FIRST_SETUP "First Setup Detected!" false ".*"
+                export FIRST_SETUP="true"
+        fi
 
         if [[ -z "$DO_NOT_RUN" || "$DO_NOT_RUN" == false ]];then
                 check_for_env
@@ -185,7 +203,7 @@ function main(){
                 echo "Finished! Thank you for helping Iranians to skip filternet."
                 echo "Please open the following link in the browser for client setup"
                 bash status.sh
-                cat nginx/use-link
+                cat use-link
         fi
         systemctl restart hiddify-admin.service
 }

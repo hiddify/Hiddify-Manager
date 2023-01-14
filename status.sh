@@ -1,8 +1,8 @@
 #!/bin/bash
 function main(){
-	systemctl status --no-pager nginx xray |cat
+	systemctl status --no-pager nginx hiddify-xray hiddify-sniproxy|cat
 
-for s in **/*.service v2ray netdata nginx xray;do
+for s in **/*.service netdata nginx;do
 	s=${s##*/}
 	s=${s%%.*}
 	printf "%-30s %-30s \n" $s $(systemctl is-active $s)

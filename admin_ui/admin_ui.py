@@ -11,41 +11,26 @@ import json
 import urllib.request
 import subprocess
 import re
-config_dir=pathlib.Path(__file__).parent.parent.resolve()
-dirname = pathlib.Path(__file__).parent.resolve()
-conf_vars={
-        "MAIN_DOMAIN":"domain", 
-        "NO_CDN_DOMAIN":"domain", 
-        "USER_SECRET":"uuid",
-        "ADMIN_SECRET":"uuid",
-        "CDN_NAME":"string",
-        "TELEGRAM_FAKE_TLS_DOMAIN":"domain",
-        "SS_FAKE_TLS_DOMAIN":"domain",
-        "ENABLE_FIREWALL":"boolean",
-        "ENABLE_NETDATA":"boolean",
-        "ALLOW_ALL_SNI_TO_USE_PROXY":"boolean",
-        "ENABLE_HTTP_PROXY":"boolean",
-        "ENABLE_AUTO_UPDATE":"boolean",
-        "BLOCK_IR_SITES":"boolean"
-}
-@route('/')
+
+from common import read_configs,set_configs,conf_vars,config_dir
+@route('/admin/')
 def index():
     data=read_configs()
     return template('index',data=data)
 
 
-@route('/reverselog/<logfile>')
+@route('/admin/reverselog/<logfile>')
 def reverselog(logfile):
     with open(f'{config_dir}/log/system/{logfile}') as f:
         lines=[line for line in f]
         response.content_type = 'text/plain';
         return "".join(lines[::-1])
 
-@route('/apply_configs')
+@route('/admin/apply_configs')
 def apply_configs():
     return reinstall(False)
 
-@route('/reinstall')
+@route('/admin/reinstall')
 def reinstall(complete_install=True):
     configs=read_configs()
 
@@ -68,7 +53,7 @@ def reinstall(complete_install=True):
     })
 
 
-@route('/status')
+@route('/admin/status')
 def status():
     configs=read_configs()
     # subprocess.Popen(f"{config_dir}/update.sh",env=my_env,cwd=f"{config_dir}")
@@ -82,7 +67,7 @@ def status():
     })
 
 
-@route('/update')
+@route('/admin/update')
 def update():
     configs=read_configs()
     cwd = os.getcwd()
@@ -106,12 +91,12 @@ def update():
     
 
 
-@route('/config/')
+@route('/admin/config/')
 def redirect_no_tailing_slash():
     newu=request.url.split('/')[-2]
     return f"<html><head><meta http-equiv='refresh' content='0;url=../{newu}' /></head><body>this page is moved to <a href='../{newu}'>../{newu}</a></body></html>"
 
-@route('/config')
+@route('/admin/config')
 def config():
     configs=read_configs()
     data={name:configs.get(name,"") for name in conf_vars}
@@ -122,7 +107,7 @@ def config():
 
     return template("config",data=data)
 
-@route('/change')
+@route('/admin/change')
 def change():
     new_configs={}
     domain_fields=[c for c in conf_vars if conf_vars[c]=="domain"]
@@ -167,48 +152,7 @@ def change():
     
 
 
-def read_configs(read_default=True):
-    out=read_config_from_file(f'{config_dir}/config.env.default') if read_default else {}
-    return {**out,**read_config_from_file(f'{config_dir}/config.env')}
-
-def read_config_from_file(f):
-    out={}
-    with open(f,'r') as f:
-        for line in f:
-            line=line.strip()
-            if line.startswith("#"):
-                continue
-            if line=="":
-                continue
-            line=line.split("#")[0]
-            splt=line.split("=")
-            out[splt[0].strip()]=splt[1].strip()
-    return out
-
-def set_configs(configs):
-    configs={key:val for key,val in configs.items() if val is not None}
-    new_configs={**read_configs(read_default=False),**configs}
-    
-    all_lines=""
-    
-    
-    for key,val in new_configs.items():
-        all_lines+=f"{key}={val}\n"
-
-    with open(f'{config_dir}/config.env','w') as f:
-        f.write(all_lines)
 
 
-@route('/static/<filename:re:.*\.css>')
-def send_css(filename):
-    return static_file(filename, root=f'{dirname}/static/asset/css')
 
-@route('/static/<filename:re:.*\.js>')
-def send_js(filename):
-    return static_file(filename, root=f'{dirname}/static/asset/js')
 
-@route('/static/<filename:re:.*\.(png|jpg|webp)>')
-def send_img(filename):
-    return static_file(filename, root=f'{dirname}/static/asset/images')
-
-run(host='localhost', port=439)

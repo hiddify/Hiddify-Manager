@@ -1,9 +1,9 @@
 {
     "server":"0.0.0.0",
     "server_port":1002,
-    "password":"defaultusersecret",
+    "password":"TELEGRAM_USER_SECRET",
     "timeout":300,
     "plugin":"obfs-server",
-    "plugin_opts":"obfs=tls;failover=www.google.com:443",
+    "plugin_opts":"obfs=tls;failover=sstlsdomain:443",
     "method":"chacha20-ietf-poly1305"
 }

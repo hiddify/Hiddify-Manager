@@ -1,0 +1,24 @@
+{
+	"inbounds": [
+		{
+			"tag": "vless-grpc",
+			"listen": "127.0.0.1", // listen on localhost
+			"port": 3002,
+			"protocol": "vless",
+			"settings": {
+			  "clients": [
+				{"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com"}
+			  ],
+			  "decryption": "none"
+			},
+			"streamSettings": {
+			  "network": "grpc",
+			  "security": "none",
+			  "grpcSettings": {
+				"serviceName": "BASE_PROXY_PATH-vlgrpc"
+			  }
+			}
+		  }
+	  
+	  ]
+}

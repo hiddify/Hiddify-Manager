@@ -1,0 +1,58 @@
+{
+  "routing": {
+    // "domainStrategy": "AsIs",
+    "domainStrategy": "IPOnDemand",
+    "domainMatcher":"hybrid",
+    "settings": {
+      "rules": [
+        {
+            "type": "field", 
+            "inboundTag": ["xtls"], 
+            "outboundTag": "forbidden_sites",
+            "ip": ["geoip:ir", "geoip:cn"] 
+        },
+        {
+            "type": "field",
+            "inboundTag": ["xtls"], 
+            "outboundTag": "forbidden_sites",
+            "domain": ["geosite:cn","tld-cn","tld-ir","ir","cn"]
+        },
+        {
+          "type": "field",
+          "inboundTag": ["sniproxy-in"],
+          "outboundTag": "localhost-xtls",
+          "domain": ["domain:defaultserverhost"]
+        },
+        {
+          "type": "field",
+          "inboundTag": ["sniproxy-in"],
+          "outboundTag": "localhost-tgproxy",
+          "domain": ["domain:telegramtlsdomain"]
+        },
+        {
+          "type": "field",
+          "inboundTag": ["sniproxy-in"],
+          "outboundTag": "localhost-faketls",
+          "domain": ["domain:sstlsdomain"]
+        },
+        {
+          "type": "field", "inboundTag": ["sniproxy-in"], "outboundTag": "other-sni",
+          "_comment": "default sni"
+        },
+        {
+          "type": "field", "outboundTag": "blackhole", "ip": ["geoip:private"]
+        },
+        { //DNS Cache rule
+          "type": "field", "port": 53, "network": "tcp,udp", "outboundTag": "DNS-Internal"
+        },
+        {// Block BitTorrent protocol
+          "type": "field", "outboundTag": "blackhole", "protocol": ["bittorrent"]
+        },
+        {
+          "inboundTag": ["api"], "outboundTag": "api", "type": "field"
+        }
+      ]
+    }
+  }
+
+}

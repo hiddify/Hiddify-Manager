@@ -1,0 +1,71 @@
+proxies:
+  - name: vless+xtls_proxyproviderip_vless_98915
+    type: vless
+    uuid: userguidsecret
+    server: serverip
+    port: 443
+    udp: true
+    tls: false
+    servername: proxyproviderip
+    skip-cert-verify: true
+    flow: xtls-rprx-direct
+
+  - name: vless_ws_proxyproviderip_vless_41935
+    type: vless
+    uuid: userguidsecret
+    server: serverip
+    port: 443
+    udp: true
+    tls: true
+    servername: proxyproviderip
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: /BASE_PATH/vlessws
+
+
+  - name: CDN vless_ws_proxyproviderip_vless_41935
+    type: vless
+    uuid: userguidsecret
+    server: cloudprovider
+    port: 443
+    udp: true
+    tls: true
+    servername: proxyproviderip
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: /BASE_PATH/vlessws
+
+
+  - name: vless-grpc_proxyproviderip_vless_61006
+    type: vless
+    uuid: userguidsecret
+    server: serverip
+    port: 443
+    udp: true
+    tls: true
+    servername: proxyproviderip
+    skip-cert-verify: true
+    network: grpc
+    grpc-opts:
+      grpc-service-name: BASE_PATH-vlgrpc
+  - name: vless+tls_proxyproviderip_vless_81611
+    type: vless
+    uuid: userguidsecret
+    server: serverip
+    port: 443
+    udp: true
+    tls: true
+    servername: proxyproviderip
+    skip-cert-verify: true
+
+  - name: vless+tls+http1.1_proxyproviderip_vless_16517
+    type: vless
+    uuid: userguidsecret
+    server: serverip
+    port: 443
+    udp: true
+    tls: true
+    servername: proxyproviderip
+    skip-cert-verify: true

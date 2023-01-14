@@ -1,0 +1,13 @@
+[Unit]
+Description=HTTPS SNI Proxy
+After=network.target
+Documentation=man:sniproxy(8) file:///usr/share/doc/sniproxy/
+
+[Service]
+EnvironmentFile=-/etc/default/sniproxy
+ExecStart=/usr/sbin/sniproxy -f -c /opt/GITHUB_REPOSITORY/sniproxy/sniproxy.conf
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,23 @@
+{
+	"inbounds": [
+		{
+			"tag": "vmess-grpc",
+			"listen": "127.0.0.1", // listen on localhost
+			"port": 3003,
+			"protocol": "vmess",
+			"settings": {
+			  "clients": [
+				{"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com", "level": 0}
+			  ]
+			},
+			"streamSettings": {
+			  "network": "grpc",
+			  "security": "none",
+			  "grpcSettings": {
+				"serviceName": "BASE_PROXY_PATH-vmgrpc"
+			  }
+			}
+		  }	  
+	  
+	  ]
+}

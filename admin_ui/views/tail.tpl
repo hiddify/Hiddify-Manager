@@ -5,10 +5,10 @@
 
 
     <!-- Bootstrap JS bundle -->
-    <script src="static/jquery-3.6.1.min.js"></script>
-    <script src="static/popper.min.js"></script>
-    <script src="static/bootstrap.min.js"></script>
-
+    <script src="static/js/jquery-3.6.1.min.js"></script>
+    <script src="static/js/popper.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    
     <button id="scroll-to-top" type="button" class="btn btn-link btn-lg" onclick="scrollToTop();" title="Back to Top"
         aria-label="Back to Top">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-square"

@@ -1,0 +1,50 @@
+user daemon
+
+# PID file
+pidfile /var/run/sniproxy.pid
+
+error_log {
+    # Log to the daemon syslog facility
+#    syslog daemon
+
+    # Alternatively we could log to file
+    filename /opt/GITHUB_REPOSITORY/log/system/sniproxy.err.log
+
+    # Control the verbosity of the log
+    priority notice
+}
+
+# listen 80 {
+#     proto http
+#     table http_hosts
+# 	default 127.0.0.1:445
+# }
+
+listen 443 {
+    proto tls
+    table https_hosts
+	# default 127.0.0.1:445
+	fallback  unix:/dev/shm/hiddify-xtls-main.sock
+	#proxy_protocol
+}
+
+# named tables are defined with the table directive
+table https_hosts {
+    telegramtlsdomain 127.0.0.1:1001
+    sstlsdomain 127.0.0.1:1002 
+    # defaultserverhost unix:/dev/shm/hiddify-xtls-main.sock 
+	#proxy_protocol
+
+# pattern:
+#       valid Perl-compatible Regular Expression that matches the
+#       hostname
+	#
+# target:
+#       - a DNS name
+#       - an IP address (with optional port)
+#       - '*' to use the hostname that the client requested
+#
+# pattern       target
+#.*\.itunes\.apple\.com$        *:443
+#.*     127.0.0.1:4443
+}

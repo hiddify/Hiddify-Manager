@@ -17,10 +17,10 @@ wget https://raw.githubusercontent.com/hiddify/config/main/gost/nginx-sni-proxy.
 
 rm /etc/nginx/sites-available/default
 rm /etc/nginx/sites-enabled/default
-ln -s $(pwd)/nginx.conf /etc/nginx/conf.d/site.conf
-mkdir -p /etc/nginx/stream.d/ && ln -s $(pwd)/nginx-sni-proxy.conf /etc/nginx/stream.d/nginx-sni-proxy.conf
+ln -sf $(pwd)/nginx.conf /etc/nginx/conf.d/site.conf
+mkdir -p /etc/nginx/stream.d/ && ln -sf $(pwd)/nginx-sni-proxy.conf /etc/nginx/stream.d/nginx-sni-proxy.conf
 echo "include /etc/nginx/stream.d/*.conf">>/etc/nginx/nginx.conf;
-ln -s $(pwd)/gost.service /etc/systemd/system/gost.service
+ln -sf $(pwd)/gost.service /etc/systemd/system/gost.service
 
 wget -qO- https://raw.githubusercontent.com/hiddify/config/main/google-bbr.sh | bash
 

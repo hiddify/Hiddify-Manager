@@ -6,17 +6,17 @@
     Speed Test by OpenSpeedTest™️ is Free and Open-Source Software (FOSS) with MIT License.
     Read full license terms @ http://go.openspeedtest.com/License
     If you have any Questions, ideas or Comments Please Send it via -> https://go.openspeedtest.com/SendMessage
-*/ 
-window.onload = function() {
+*/
+window.onload = function () {
   var appSVG = document.getElementById("OpenSpeedTest-UI");
   appSVG.parentNode.replaceChild(appSVG.contentDocument.documentElement, appSVG);
   ostOnload();
   OpenSpeedTest.Start();
 };
-(function(OpenSpeedTest) {
+(function (OpenSpeedTest) {
   var Status;
   var ProG;
-  var Callback = function(callback) {
+  var Callback = function (callback) {
     if (callback && typeof callback === "function") {
       callback();
     }
@@ -45,17 +45,17 @@ window.onload = function() {
     }
     var fading = window.setInterval(func, interval);
   };
-  var easeOutQuint = function(t, b, c, d) {
+  var easeOutQuint = function (t, b, c, d) {
     t /= d;
     t--;
     return c * (t * t * t * t * t + 1) + b;
   };
-  var easeOutCubic = function(t, b, c, d) {
+  var easeOutCubic = function (t, b, c, d) {
     t /= d;
     t--;
     return c * (t * t * t + 1) + b;
   };
-  var openSpeedtestShow = function() {
+  var openSpeedtestShow = function () {
     this.YourIP = _("YourIP");
     this.ipDesk = _("ipDesk");
     this.ipMob = _("ipMob");
@@ -98,7 +98,7 @@ window.onload = function() {
     this.graphMob2 = _("graphMob2");
     this.graphMob1 = _("graphMob1");
     this.text = _("text");
-    this.scale = [{degree:680, value:0}, {degree:570, value:0.5}, {degree:460, value:1}, {degree:337, value:10}, {degree:220, value:100}, {degree:115, value:500}, {degree:0, value:1000},];
+    this.scale = [{ degree: 680, value: 0 }, { degree: 570, value: 0.5 }, { degree: 460, value: 1 }, { degree: 337, value: 10 }, { degree: 220, value: 100 }, { degree: 115, value: 500 }, { degree: 0, value: 1000 },];
     this.element = "";
     this.chart = "";
     this.polygon = "";
@@ -111,7 +111,7 @@ window.onload = function() {
     this.measurements = [];
     this.points = [];
   };
-  openSpeedtestShow.prototype.reset = function() {
+  openSpeedtestShow.prototype.reset = function () {
     this.element = "";
     this.chart = "";
     this.polygon = "";
@@ -124,7 +124,7 @@ window.onload = function() {
     this.measurements = [];
     this.points = [];
   };
-  openSpeedtestShow.prototype.ip = function() {
+  openSpeedtestShow.prototype.ip = function () {
     var Self = this;
     if (Self.ipDesk.el.style.display === "block") {
       Self.ipDesk.el.style.display = "none";
@@ -134,22 +134,22 @@ window.onload = function() {
       Self.ipMob.el.style.display = "block";
     }
   };
-  openSpeedtestShow.prototype.prePing = function() {
+  openSpeedtestShow.prototype.prePing = function () {
     this.loader.fade("out", 500);
     this.OpenSpeedtest.fade("in", 1000);
   };
-  openSpeedtestShow.prototype.app = function() {
+  openSpeedtestShow.prototype.app = function () {
     this.loader.fade("out", 500, this.ShowAppIntro());
   };
-  openSpeedtestShow.prototype.ShowAppIntro = function() {
+  openSpeedtestShow.prototype.ShowAppIntro = function () {
     this.OpenSpeedtest.fade("in", 1000);
   };
-  openSpeedtestShow.prototype.userInterface = function() {
+  openSpeedtestShow.prototype.userInterface = function () {
     var Self = this;
     this.intro_Desk.fade("out", 1000);
     this.intro_Mob.fade("out", 1000, this.ShowUI());
   };
-  openSpeedtestShow.prototype.ShowUI = function() {
+  openSpeedtestShow.prototype.ShowUI = function () {
     this.UI_Desk.fade("in", 1000);
     this.UI_Mob.fade("in", 1000, uiLoaded);
     function uiLoaded(argument) {
@@ -157,7 +157,7 @@ window.onload = function() {
       console.log("Developed by Vishnu. Email --\x3e me@vishnu.pro");
     }
   };
-  openSpeedtestShow.prototype.Symbol = function(dir) {
+  openSpeedtestShow.prototype.Symbol = function (dir) {
     if (dir == 0) {
       this.downSymbolMob.el.style.display = "block";
       this.downSymbolDesk.el.style.display = "block";
@@ -177,9 +177,9 @@ window.onload = function() {
       this.upSymbolDesk.el.style.display = "none";
     }
   };
-  openSpeedtestShow.prototype.Graph = function(speed, select) {
+  openSpeedtestShow.prototype.Graph = function (speed, select) {
     if (!("remove" in Element.prototype)) {
-      Element.prototype.remove = function() {
+      Element.prototype.remove = function () {
         if (this.parentNode) {
           this.parentNode.removeChild(this);
         }
@@ -252,13 +252,13 @@ window.onload = function() {
       createChart(Graphelement, speed);
     }
   };
-  openSpeedtestShow.prototype.progress = function(Switch, duration) {
+  openSpeedtestShow.prototype.progress = function (Switch, duration) {
     var Self = this;
     var Stop = duration;
     var Stage = Switch;
     var currTime = Date.now();
     var chan2 = 0 - 400;
-    var interval = setInterval(function() {
+    var interval = setInterval(function () {
       var timeNow = (Date.now() - currTime) / 1000;
       var toLeft = easeOutCubic(timeNow, 400, 400, Stop);
       var toRight = easeOutCubic(timeNow, 400, chan2, Stop);
@@ -277,7 +277,7 @@ window.onload = function() {
       }
     }, 14);
   };
-  openSpeedtestShow.prototype.mainGaugeProgress = function(currentSpeed) {
+  openSpeedtestShow.prototype.mainGaugeProgress = function (currentSpeed) {
     var Self = this;
     var speed = currentSpeed;
     if (speed < 0) {
@@ -306,14 +306,14 @@ window.onload = function() {
       this.mainGaugeBlue_Desk.el.style.strokeDashoffset = 681.1;
     }
   };
-  openSpeedtestShow.prototype.showStatus = function(e) {
+  openSpeedtestShow.prototype.showStatus = function (e) {
     this.oDoLiveStatus.el.textContent = e;
   };
-  openSpeedtestShow.prototype.ConnectionError = function() {
+  openSpeedtestShow.prototype.ConnectionError = function () {
     this.ConnectErrorMob.el.style.display = "block";
     this.ConnectErrorDesk.el.style.display = "block";
   };
-  openSpeedtestShow.prototype.uploadResult = function(upload) {
+  openSpeedtestShow.prototype.uploadResult = function (upload) {
     if (upload < 1) {
       this.upRestxt.el.textContent = upload.toFixed(3);
     }
@@ -329,7 +329,7 @@ window.onload = function() {
       this.upRestxt.el.style.fontSize = "18px";
     }
   };
-  openSpeedtestShow.prototype.pingResults = function(data, Display) {
+  openSpeedtestShow.prototype.pingResults = function (data, Display) {
     var ShowData = data;
     if (Display === "Ping") {
       if (ShowData >= 1 && ShowData < 10000) {
@@ -347,7 +347,7 @@ window.onload = function() {
       this.oDoLiveSpeed.el.textContent = ShowData;
     }
   };
-  openSpeedtestShow.prototype.downloadResult = function(download) {
+  openSpeedtestShow.prototype.downloadResult = function (download) {
     if (download < 1) {
       this.downResult.el.textContent = download.toFixed(3);
     }
@@ -363,7 +363,7 @@ window.onload = function() {
       this.downResult.el.style.fontSize = "18px";
     }
   };
-  openSpeedtestShow.prototype.jitterResult = function(data, Display) {
+  openSpeedtestShow.prototype.jitterResult = function (data, Display) {
     var ShowData = data;
     if (Display === "Jitter") {
       if (ShowData >= 1 && ShowData < 10000) {
@@ -384,7 +384,7 @@ window.onload = function() {
       }
     }
   };
-  openSpeedtestShow.prototype.LiveSpeed = function(data, Display) {
+  openSpeedtestShow.prototype.LiveSpeed = function (data, Display) {
     var ShowData = data;
     if (Display === "countDown") {
       var speed = ShowData.toFixed(0);
@@ -438,14 +438,14 @@ window.onload = function() {
       }
     }
   };
-  openSpeedtestShow.prototype.GaugeProgresstoZero = function(currentSpeed, status) {
+  openSpeedtestShow.prototype.GaugeProgresstoZero = function (currentSpeed, status) {
     var speed = currentSpeed;
     var Self = this;
     var duration = 3;
     if (speed >= 0) {
       var time = Date.now();
       var SpeedtoZero = 0 - speed;
-      var interval = setInterval(function() {
+      var interval = setInterval(function () {
         var timeNow = (Date.now() - time) / 1000;
         var speedToZero = easeOutQuint(timeNow, speed, SpeedtoZero, duration);
         Self.LiveSpeed(speedToZero, "speedToZero");
@@ -459,7 +459,7 @@ window.onload = function() {
       }, 16);
     }
   };
-  openSpeedtestShow.prototype.getNonlinearDegree = function(mega_bps) {
+  openSpeedtestShow.prototype.getNonlinearDegree = function (mega_bps) {
     var i = 0;
     if (0 == mega_bps || mega_bps <= 0 || isNaN(mega_bps)) {
       return 0;
@@ -473,20 +473,20 @@ window.onload = function() {
     }
     return this.scale[this.scale.length - 1].degree;
   };
-  var openSpeedtestGet = function() {
+  var openSpeedtestGet = function () {
     this.OverAllTimeAvg = window.performance.now();
     this.SpeedSamples = [];
     this.FinalSpeed;
   };
-  openSpeedtestGet.prototype.reset = function() {
+  openSpeedtestGet.prototype.reset = function () {
     this.OverAllTimeAvg = window.performance.now();
     this.SpeedSamples = [];
     this.FinalSpeed = 0;
   };
-  openSpeedtestGet.prototype.ArraySum = function(Arr) {
+  openSpeedtestGet.prototype.ArraySum = function (Arr) {
     var array = Arr;
     if (array) {
-      var sum = array.reduce(function(A, B) {
+      var sum = array.reduce(function (A, B) {
         if (typeof A === "number" && typeof B === "number") {
           return A + B;
         }
@@ -496,7 +496,7 @@ window.onload = function() {
       return 0;
     }
   };
-  openSpeedtestGet.prototype.AvgSpeed = function(Livespeed, Start, duration) {
+  openSpeedtestGet.prototype.AvgSpeed = function (Livespeed, Start, duration) {
     var Self = this;
     this.timeNow = (window.performance.now() - this.OverAllTimeAvg) / 1000;
     this.FinalSpeed;
@@ -510,7 +510,7 @@ window.onload = function() {
     }
     return Self.FinalSpeed;
   };
-  openSpeedtestGet.prototype.uRandom = function(size, callback) {
+  openSpeedtestGet.prototype.uRandom = function (size, callback) {
     var size = size;
     var randomValue = new Uint32Array(262144);
     function getRandom() {
@@ -521,22 +521,22 @@ window.onload = function() {
       return randomValue;
     }
     var randomData = [];
-    var genData = function(dataSize) {
+    var genData = function (dataSize) {
       var dataSize = dataSize;
       for (var i = 0; i < dataSize; i++) {
         randomData[i] = getRandom();
       }
       return randomData;
     };
-    return new Blob(genData(size), {type:"application/octet-stream"}, Callback(callback));
+    return new Blob(genData(size), { type: "application/octet-stream" }, Callback(callback));
   };
-  openSpeedtestGet.prototype.addEvt = function(o, e, f) {
+  openSpeedtestGet.prototype.addEvt = function (o, e, f) {
     o.addEventListener(e, f);
   };
-  openSpeedtestGet.prototype.remEvt = function(o, e, f) {
+  openSpeedtestGet.prototype.remEvt = function (o, e, f) {
     o.removeEventListener(e, f);
   };
-  var openSpeedtestEngine = function() {
+  var openSpeedtestEngine = function () {
     var Get = new openSpeedtestGet();
     var Show = new openSpeedtestShow();
     Show.app();
@@ -596,7 +596,7 @@ window.onload = function() {
     Get.addEvt(Show.startButtonMob.el, "click", runTasks);
     Get.addEvt(document, "keypress", hiEnter);
     var addEvent = true;
-    var getParams = function(url) {
+    var getParams = function (url) {
       var params = {};
       var parser = document.createElement("a");
       parser.href = url;
@@ -668,7 +668,7 @@ window.onload = function() {
           severAddress = getCommand.h;
         }
         if (isValidHttpUrl(severAddress)) {
-          openSpeedTestServerList = [{ServerName:"Home", Download:severAddress + "/downloading", Upload:severAddress + "/upload", ServerIcon:"DefaultIcon",},];
+          openSpeedTestServerList = [{ ServerName: "Home", Download: severAddress + "/downloading", Upload: severAddress + "/upload", ServerIcon: "DefaultIcon", },];
         }
       }
     }
@@ -860,9 +860,9 @@ window.onload = function() {
       }
     }
     var osttm = "\u2122";
-    var myname = "OpenSpeedTest";
+    var myname = "Hiddify";
     var com = ".com";
-    var ost = myname + osttm;
+    var ost = "Hiddify";
     function hiEnter(e) {
       if (e.key === "Enter") {
         runTasks();
@@ -899,7 +899,7 @@ window.onload = function() {
         uploadTime = window.performance.now();
         upReq();
       }
-      var Engine = setInterval(function() {
+      var Engine = setInterval(function () {
         if (Status === "Loaded") {
           Status = "busy";
           sendPing(0);
@@ -1008,7 +1008,7 @@ window.onload = function() {
         if (Status === "SendR") {
           Show.showStatus("All done");
           var dummyElement = document.createElement("div");
-          dummyElement.innerHTML = '<a xlink:href="https://openspeedtest.com?ref=Self-Hosted-Outro&run=5" style="cursor: pointer" target="_blank"></a>';
+          dummyElement.innerHTML = '<a xlink:href="https://github.com/hiddify/hiddify-config/wiki/" style="cursor: pointer" target="_blank"></a>';
           var htmlAnchorElement = dummyElement.querySelector("a");
           Show.oDoLiveSpeed.el.textContent = ost;
           var circleSVG = document.getElementById("oDoLiveSpeed");
@@ -1033,14 +1033,14 @@ window.onload = function() {
     }
     function downReq() {
       for (var i = 0; i < dlThreads; i++) {
-        setTimeout(function(i) {
+        setTimeout(function (i) {
           SendReQ(i);
         }, dlDelay * i, i);
       }
     }
     function upReq() {
       for (var i = 0; i < ulThreads; i++) {
-        setTimeout(function(i) {
+        setTimeout(function (i) {
           SendUpReq(i);
         }, ulDelay * i, i);
       }
@@ -1120,7 +1120,7 @@ window.onload = function() {
       var OST = new XMLHttpRequest();
       ReQ[i] = OST;
       ReQ[i].open("GET", fianlPingServer.Download + "?n=" + Math.random(), true);
-      ReQ[i].onprogress = function(e) {
+      ReQ[i].onprogress = function (e) {
         if (stop === 1) {
           ReQ[i].abort();
           ReQ[i] = null;
@@ -1138,7 +1138,7 @@ window.onload = function() {
         dLoaded += eLoaded;
         lastLoaded = e.loaded;
       };
-      ReQ[i].onload = function(e) {
+      ReQ[i].onload = function (e) {
         if (lastLoaded === 0) {
           dLoaded += e.total;
         }
@@ -1155,7 +1155,7 @@ window.onload = function() {
           SendReQ(i);
         }
       };
-      ReQ[i].onerror = function(e) {
+      ReQ[i].onerror = function (e) {
         if (stop === 0) {
           SendReQ(i);
         }
@@ -1169,7 +1169,7 @@ window.onload = function() {
       var OST = new XMLHttpRequest();
       uReQ[i] = OST;
       uReQ[i].open("POST", fianlPingServer.Upload + "?n=" + Math.random(), true);
-      uReQ[i].upload.onprogress = function(e) {
+      uReQ[i].upload.onprogress = function (e) {
         if (Status == "initup" && some === undefined) {
           var some;
           Status = "Uploading";
@@ -1188,7 +1188,7 @@ window.onload = function() {
         uLoaded += eLoaded;
         lastULoaded = e.loaded;
       };
-      uReQ[i].onload = function() {
+      uReQ[i].onload = function () {
         if (lastULoaded === 0) {
           uLoaded += ulDataSize * 1048576;
           if (uploadTimeing >= ulDuration) {
@@ -1213,7 +1213,7 @@ window.onload = function() {
           SendUpReq(i);
         }
       };
-      uReQ[i].onerror = function(e) {
+      uReQ[i].onerror = function (e) {
         if (uploadTimeing <= ulDuration) {
           SendUpReq(i);
         }
@@ -1289,11 +1289,11 @@ window.onload = function() {
           }
         } else {
           if (pingResult.length > 1) {
-            jitterResult.sort(function(a, b) {
+            jitterResult.sort(function (a, b) {
               return a - b;
             });
             jitterResult = jitterResult.slice(0, jitterResult.length * jitterFinalSample);
-            jitterResult = jitterResult.reduce(function(acc, val) {
+            jitterResult = jitterResult.reduce(function (acc, val) {
               return acc + val;
             }, 0) / jitterResult.length;
             var leastJitter = jitterResult.toFixed(1);
@@ -1321,7 +1321,7 @@ window.onload = function() {
         ReQ.timeout = pingTimeOut;
         var startTime = window.performance.now();
         ReQ.send();
-        ReQ.onload = function() {
+        ReQ.onload = function () {
           if (this.status === 200 && this.readyState === 4) {
             var endTime = Math.floor(window.performance.now() - startTime);
             var perfNum = performance.getEntries();
@@ -1357,18 +1357,18 @@ window.onload = function() {
             sendNewPingReq();
           }
         };
-        ReQ.onerror = function(e) {
+        ReQ.onerror = function (e) {
           pingSamplesSend++;
           sendNewPingReq();
         };
-        ReQ.ontimeout = function(e) {
+        ReQ.ontimeout = function (e) {
           pingSamplesSend++;
           sendNewPingReq();
         };
       }
       PingRequest();
     }
-    var ServerConnect = function(auth) {
+    var ServerConnect = function (auth) {
       var Self = this;
       var xhr = new XMLHttpRequest();
       var url = OpenSpeedTestdb;
@@ -1383,7 +1383,7 @@ window.onload = function() {
       }
       xhr.open("POST", url, true);
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhr.onreadystatechange = function() {
+      xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
           return_data = xhr.responseText.trim();
           if (auth == 2) {
@@ -1393,7 +1393,7 @@ window.onload = function() {
             TestServerip = return_data;
           }
           if (auth == 3) {
-            setTimeout(function() {
+            setTimeout(function () {
               location.href = showResult + return_data;
             }, 1500);
           }
@@ -1422,7 +1422,7 @@ window.onload = function() {
       xhr.send(logData);
     };
   };
-  OpenSpeedTest.Start = function() {
+  OpenSpeedTest.Start = function () {
     new openSpeedtestEngine();
   };
 })(window.OpenSpeedTest = window.OpenSpeedTest || {});
