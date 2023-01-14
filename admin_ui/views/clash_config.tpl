@@ -25,7 +25,7 @@ dns:
     - 8.8.8.8
     - 1.0.0.1
   nameserver:
-    - https://proxyproviderip/BASE_PATH/dns/dns-query
+#    - https://proxyproviderip/BASE_PATH/dns/dns-query
 % if data["meta_or_normal"]=='meta':
     - https://1.1.1.1/dns-query#PROXY
     - https://8.8.8.8/dns-query#PROXY
