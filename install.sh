@@ -110,15 +110,7 @@ function check_for_env() {
         export SERVER_IP=$(curl -Lso- https://api.ipify.org)
         replace_empty_env MAIN_DOMAIN "please enter valid domain name to use " "$SERVER_IP.sslip.io" "^([A-Za-z0-9\.]+\.[a-zA-Z]{2,})$"
         
-        DOMAIN_IP=$(dig +short -t a $MAIN_DOMAIN.)
         
-
-        echo "resolving domain $MAIN_DOMAIN -> IP= $DOMAIN_IP ServerIP-> $SERVER_IP"
-        if [[ $SERVER_IP != $DOMAIN_IP ]];then
-                echo "maybe it is an error! make sure that it is correct"
-                sleep 5
-        fi
-
         # replace_empty_env CLOUD_PROVIDER "If you are using a cdn please enter the cdn domain " "" /^([a-z0-9\.]+\.[a-z]{2,})?$/i
 
 }

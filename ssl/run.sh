@@ -15,6 +15,17 @@ echo -e "Secure Admin links: \n" >>$DST
 
 for DOMAIN in $DOMAINS;	do
 	echo -e "\thttps://$DOMAIN/$ADMIN_SECRET/\n" >>$DST
+
+	DOMAIN_IP=$(dig +short -t a $DOMAIN.)
+        
+
+	echo "resolving domain $DOMAIN -> IP= $DOMAIN_IP ServerIP-> $SERVER_IP"
+	if [[ $SERVER_IP != $DOMAIN_IP ]];then
+			echo "maybe it is an error! make sure that it is correct"
+			sleep 10
+	fi
+
+
 	if [[ ! -f $DOMAIN.key || ! -f $DOMAIN.crt ]];then
 		openssl req -x509 -newkey rsa:2048 -keyout $DOMAIN.key -out $DOMAIN.crt -days 3650 -nodes -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=www.google.com"
 	fi
