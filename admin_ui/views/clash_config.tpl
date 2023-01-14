@@ -12,6 +12,9 @@ dns:
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   listen: 127.0.0.1:6868
+  fake-ip-filter:
+     - 'proxyproviderip'
+     - '{{data["TELEGRAM_FAKE_TLS_DOMAIN"]}}'
   default-nameserver:
 % if data["meta_or_normal"]=='meta':
     - https://1.1.1.1/dns-query#PROXY
@@ -130,12 +133,14 @@ rule-providers:
     interval: 432000   
 
 rules:
+  - DOMAIN,{{data["TELEGRAM_FAKE_TLS_DOMAIN"]}},DIRECT
+  - DOMAIN,proxyproviderip,DIRECT
+  - IP-CIDR,serverip/32,DIRECT
   - IP-CIDR,10.10.34.0/24,PROXY
   - RULE-SET,tmpblocked,PROXY
   - RULE-SET,blocked,PROXY
   - GEOIP,IR,OnIranSites
   - DOMAIN-SUFFIX,.ir,OnIranSites
-  - DOMAIN,faketlsdomain,OnIranSites
   - RULE-SET,open,OnIranSites
   - RULE-SET,ads,REJECT
   - MATCH,OnNotFilteredSites
