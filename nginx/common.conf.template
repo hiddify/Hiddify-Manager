@@ -127,8 +127,12 @@ location /BASE_PROXY_PATH/speedtest/ {
   proxy_pass          http://localhost:438/;
 }
 location /BASE_PROXY_PATH/ { #for help
+  proxy_set_header Host $host;  
   proxy_pass http://127.0.0.1:80/BASE_PROXY_PATH/BASE_PROXY_PATH/;
-
+  # proxy_intercept_errors on;
+	# error_page 301 302 307 = @handle_redirect;
+	
+  # return 302 /BASE_PROXY_PATH/BASE_PROXY_PATH/;
 }
 #}
 

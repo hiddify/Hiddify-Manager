@@ -714,7 +714,7 @@
                             کافی است در مرورگر خود عبارت زیر را وارد کنید:
 
                             <pre dir="ltr">
-https://proxyproviderip/BASE_PATH/dns/dns-query{?dns}
+https://proxyproviderip/BASE_PATH/dns/dns-query
                     </pre>
                             <div dir="ltr">
                                 <h4>Configure DoH on your browser</h4>
