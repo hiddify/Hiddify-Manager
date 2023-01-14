@@ -5,8 +5,10 @@ location = / {
 		#return 307  ADMIN_SECRET/config;
 	}
 
-	proxy_pass http://telegramtlsdomain;
+	proxy_set_header Host telegramtlsdomain;
+	proxy_pass https://telegramtlsdomain/;
 }
 location / {
-	proxy_pass http://telegramtlsdomain;
+	proxy_set_header Host telegramtlsdomain;
+	proxy_pass https://telegramtlsdomain/;
 }
