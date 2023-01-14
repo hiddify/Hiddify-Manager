@@ -109,14 +109,14 @@ location /BASE_PROXY_PATH/help/ { #for help
 
 
 
-# location /BASE_PROXY_PATH/clash/ {
-#   #for clash configs
-#    alias /opt/GITHUB_REPOSITORY/clash/;
-#    types { }   default_type "text/plain";
-#    sub_filter_types text/plain;
-#    include /opt/GITHUB_REPOSITORY/nginx/replace.conf;
-#    sub_filter_once off;
-# }
+location /BASE_PROXY_PATH/clash/ {
+  #for clash configs
+   alias /opt/GITHUB_REPOSITORY/clash/;
+   types { }   default_type "text/plain";
+   sub_filter_types text/plain;
+   include /opt/GITHUB_REPOSITORY/nginx/replace.conf;
+   sub_filter_once off;
+}
 
 location /BASE_PROXY_PATH/dns/ {
   # use it in your browser as https://defaultserverhost/BASE_PROXY_PATH/dns/dns-query{?dns}

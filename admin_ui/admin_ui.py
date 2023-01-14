@@ -43,13 +43,16 @@ def reinstall(complete_install=True):
     # os.system(f'cd {config_dir};{env} ./install.sh &')
     # rc = subprocess.call(f"cd {config_dir};./{file} & disown",shell=True)
     subprocess.Popen(f"{config_dir}/{file}",cwd=f"{config_dir}",start_new_session=True)
+    
     return template("result",data={
                         "out-type":"success",
                         "out-msg":f"Success! Please wait around {6 if complete_install else 2} minutes to make sure everything is updated. Then, please save your proxy links which are <br>"+
-                                f"<h1>User Link</h1><a href='https://{configs['MAIN_DOMAIN']}/{configs['USER_SECRET']}/'>https://{configs['MAIN_DOMAIN']}/{configs['USER_SECRET']}/</a><br>"+
+                                # f"<h1>User Link</h1><a href='https://{configs['MAIN_DOMAIN']}/{configs['USER_SECRET']}/'>https://{configs['MAIN_DOMAIN']}/{configs['USER_SECRET']}/</a><br>"+
                                 f"<h1>Secure Admin Link</h1><a href='https://{configs['MAIN_DOMAIN']}/{configs['ADMIN_SECRET']}/'>https://{configs['MAIN_DOMAIN']}/{configs['ADMIN_SECRET']}/</a><br>"+
+                                f"<h6>Alternative Admin Link</h6><a href='https://{server_ip}.sslip.io/{configs['ADMIN_SECRET']}/'>http://{server_ip}/{configs['ADMIN_SECRET']}/</a><br>",
                                 f"<h6>Alternative Admin Link</h6><a href='http://{server_ip}/{configs['ADMIN_SECRET']}/'>http://{server_ip}/{configs['ADMIN_SECRET']}/</a><br>",
                         "log-path":f"https://{configs['MAIN_DOMAIN']}/{configs['ADMIN_SECRET']}/reverselog/0-install.log"
+                        
     })
 
 
