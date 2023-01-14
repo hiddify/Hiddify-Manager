@@ -52,20 +52,35 @@ proxy-groups:
 
   - name: OnIranSites
     proxies:
+    % if data["mode"]=="all":
+      - PROXY
+      - DIRECT
+    % else:
       - DIRECT
       - PROXY
+    % end
     type: select
 
   - name: OnNotFilteredSites
     proxies:
+    % if data["mode"]=="lite":
+      - DIRECT
+      - PROXY
+    % else:
       - PROXY
       - DIRECT
+    % end
     type: select  
 
   - name: OnProxyIssue
     proxies:
-      - REJECT
+    % if data["mode"]=="all":
+      - PROXY
       - DIRECT
+    % else:
+      - DIRECT
+      - PROXY
+    % end
     type: select
 
 proxy-providers:
@@ -115,6 +130,7 @@ rules:
   - RULE-SET,blocked,PROXY
   - GEOIP,IR,OnIranSites
   - DOMAIN-SUFFIX,.ir,OnIranSites
+  - DOMAIN,faketlsdomain,OnIranSites
   - RULE-SET,open,OnIranSites
   - RULE-SET,ads,REJECT
   - MATCH,OnNotFilteredSites
