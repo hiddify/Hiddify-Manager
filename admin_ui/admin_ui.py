@@ -50,7 +50,7 @@ def reinstall(complete_install=True):
                                 # f"<h1>User Link</h1><a href='https://{configs['MAIN_DOMAIN']}/{configs['USER_SECRET']}/'>https://{configs['MAIN_DOMAIN']}/{configs['USER_SECRET']}/</a><br>"+
                                 f"<h1>Secure Admin Link</h1><a href='https://{configs['MAIN_DOMAIN']}/{configs['ADMIN_SECRET']}/'>https://{configs['MAIN_DOMAIN']}/{configs['ADMIN_SECRET']}/</a><br>"+
                                 f"<h6>Alternative Admin Link1:</h6><a href='https://{server_ip}.sslip.io/{configs['ADMIN_SECRET']}/'>https://{server_ip}.sslip.io/{configs['ADMIN_SECRET']}/</a><br>"+
-                                f"<h6>Alternative Admin Link2:</h6><a href='http://{server_ip}/{configs['ADMIN_SECRET']}/'>http://{server_ip}/{configs['ADMIN_SECRET']}/</a><br>",
+                                f"<a href='http://{server_ip}/{configs['ADMIN_SECRET']}/'>http://{server_ip}/{configs['ADMIN_SECRET']}/</a><br>",
                         "log-path":f"https://{configs['MAIN_DOMAIN']}/{configs['ADMIN_SECRET']}/reverselog/0-install.log"
                         
     })
