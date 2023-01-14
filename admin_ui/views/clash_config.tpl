@@ -13,9 +13,11 @@ dns:
   fake-ip-range: 198.18.0.1/16
   listen: 127.0.0.1:6868
   default-nameserver:
+% if data["meta_or_normal"]=='meta':
     - https://1.1.1.1/dns-query#PROXY
     - https://8.8.8.8/dns-query#PROXY
     - https://1.0.0.1/dns-query#PROXY
+% end
     - 1.1.1.1
     - 8.8.8.8
     - 1.0.0.1
