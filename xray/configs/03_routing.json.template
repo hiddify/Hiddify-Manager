@@ -17,28 +17,28 @@
             "outboundTag": "forbidden_sites",
             "domain": ["geosite:cn","tld-cn","tld-ir","ir","cn"]
         },
-        {
-          "type": "field",
-          "inboundTag": ["sniproxy-in"],
-          "outboundTag": "localhost-xtls",
-          "domain": ["domain:defaultserverhost"]
-        },
-        {
-          "type": "field",
-          "inboundTag": ["sniproxy-in"],
-          "outboundTag": "localhost-tgproxy",
-          "domain": ["domain:telegramtlsdomain"]
-        },
-        {
-          "type": "field",
-          "inboundTag": ["sniproxy-in"],
-          "outboundTag": "localhost-faketls",
-          "domain": ["domain:sstlsdomain"]
-        },
-        {
-          "type": "field", "inboundTag": ["sniproxy-in"], "outboundTag": "other-sni",
-          "_comment": "default sni"
-        },
+        // {
+        //   "type": "field",
+        //   "inboundTag": ["sniproxy-in"],
+        //   "outboundTag": "localhost-xtls",
+        //   "domain": ["domain:defaultserverhost"]
+        // },
+        // {
+        //   "type": "field",
+        //   "inboundTag": ["sniproxy-in"],
+        //   "outboundTag": "localhost-tgproxy",
+        //   "domain": ["domain:telegramtlsdomain"]
+        // },
+        // {
+        //   "type": "field",
+        //   "inboundTag": ["sniproxy-in"],
+        //   "outboundTag": "localhost-faketls",
+        //   "domain": ["domain:sstlsdomain"]
+        // },
+        // {
+        //   "type": "field", "inboundTag": ["sniproxy-in"], "outboundTag": "other-sni",
+        //   "_comment": "default sni"
+        // },
         {
           "type": "field", "outboundTag": "blackhole", "ip": ["geoip:private"]
         },
