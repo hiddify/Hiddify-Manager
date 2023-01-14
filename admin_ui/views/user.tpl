@@ -364,9 +364,9 @@
 
                             <br />
                             <div class="btn-group">
-                                <a href="speedtest/?test=upload" class="btn btn-primary">تست آپلود</a>
-                                <a href="speedtest/?test=download" class="btn btn-primary">تست دانلود</a>
-                                <a href="speedtest/?run" class="btn btn-primary">تست کامل</a>
+                                <a href="../speedtest/?test=upload" class="btn btn-primary">تست آپلود</a>
+                                <a href="../speedtest/?test=download" class="btn btn-primary">تست دانلود</a>
+                                <a href="../speedtest/?run" class="btn btn-primary">تست کامل</a>
                             </div>
                         </div>
                     </details>
