@@ -6,6 +6,7 @@
 ln -sf $(pwd)/hiddify-xray.service /etc/systemd/system/hiddify-xray.service
 systemctl enable hiddify-xray.service
 
+MAIN_DOMAIN="$MAIN_DOMAIN;$SERVER_IP.sslip.io"
 DOMAINS=${MAIN_DOMAIN//;/ }
 USERS=${USER_SECRET//;/ }
 
