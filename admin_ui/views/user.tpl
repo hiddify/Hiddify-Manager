@@ -185,7 +185,7 @@
 
                                 <br>
                                 <div class="btn-group">
-                                    <a href="clashmeta://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/meta_lite.yml&name=mlite_proxyproviderip"
+                                    <a href="clashmeta://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/meta/lite.yml&name=mlite_proxyproviderip"
                                         class="btn btn-primary orig-link">نصب فقط برای سایت‌های فیلتر</a>
                                 </div>
                                 <details>
@@ -205,7 +205,7 @@
                                 گذر از برخی از تحریم‌های سایت‌های خارجی مفید است.
                                 <br />
                                 <div class="btn-group">
-                                    <a href="clashmeta://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/meta_normal.yml&name=mnormal_proxyproviderip"
+                                    <a href="clashmeta://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/meta/normal.yml&name=mnormal_proxyproviderip"
                                         class="btn btn-primary orig-link">نصب گذرنده برای سایت‌های خارجی</a>
                                 </div>
                                 <details>
@@ -231,7 +231,7 @@
                                 </div>
 
                                 <div class="btn-group">
-                                    <a href="clashmeta://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/meta_all.yml&name=mall_proxyproviderip"
+                                    <a href="clashmeta://install-config?url=https://proxyproviderip/BASE_PATH/usersecret/clash/meta/all.yml&name=mall_proxyproviderip"
                                         class="btn btn-primary orig-link">نصب گذرنده برای همه سایت‌ها</a>
                                 </div>
                                 <details>
