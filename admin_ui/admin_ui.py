@@ -12,7 +12,7 @@ import urllib.request
 import subprocess
 import re
 
-from common import read_configs
+from common import read_configs,set_configs,conf_vars
 @route('/admin/')
 def index():
     data=read_configs()
