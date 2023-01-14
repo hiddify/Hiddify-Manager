@@ -10,7 +10,8 @@
         <label>SubDomain <small> *Required</small></label>
         <input type='text'  value='{{data["MAIN_DOMAIN"]}}' class="form-control"  name='MAIN_DOMAIN' placeholder='plese enter your subdomain' /> 
         <small class="form-text text-muted">This field should be correct. Please visit <a href='https://github.com/hiddify/hiddify-config/blob/main/docs/create_domain.md'> Help</a> to learn how to create a subdomain.</small>
-    </div>   
+    </div>
+       
     <div class="form-check">
         <input type="checkbox" class="form-check-input" name="ENABLE_TELEGRAM" {{"checked" if data["ENABLE_TELEGRAM"] != "false" else ""}}>
         <label class="form-check-label">Enable Telegram</label>
@@ -19,6 +20,11 @@
         <input type="checkbox" class="form-check-input" name="ENABLE_VMESS" {{"checked" if data["ENABLE_VMESS"] != "false" else ""}}>
         <label class="form-check-label">Enable VMESS</label>
     </div>
+    <div class="form-group">
+        <label>Fake site: simulate a site when someone visit your domain (وقتی کسی وارد سایت شما میشه نشان داده میشه) </label>
+        <input type='text' value='{{data["TELEGRAM_FAKE_TLS_DOMAIN"]}}'  class="form-control" name='TELEGRAM_FAKE_TLS_DOMAIN' placeholder='plese enter your telegram fake tls domain'" /> 
+        <small class="form-text text-muted">Please use a well known domain in your data center. For example, if you are in azure data center, microsoft.com is a good example</small>
+    </div>   
     <details>
 <summary>Advanced Configs</summary>
 
@@ -37,11 +43,6 @@
         <label>NO CDN valid Domain</label>
         <input type='text' value='{{data["NO_CDN_DOMAIN"]}}'  class="form-control" name='NO_CDN_DOMAIN' placeholder='plese enter your no cdn valid domain'" /> 
         <small class="form-text text-muted">this domain is used for no cdn configurations, if not available we use IP instead</small>
-    </div>   
-    <div class="form-group">
-        <label>Telegram Fake TLS Domain</label>
-        <input type='text' value='{{data["TELEGRAM_FAKE_TLS_DOMAIN"]}}'  class="form-control" name='TELEGRAM_FAKE_TLS_DOMAIN' placeholder='plese enter your telegram fake tls domain'" /> 
-        <small class="form-text text-muted">Please use a well known domain in your data center. For example, if you are in azure data center, microsoft.com is a good example</small>
     </div>   
     <div class="form-group">
         <label>Shadowsocks Fake TLS Domain</label>
