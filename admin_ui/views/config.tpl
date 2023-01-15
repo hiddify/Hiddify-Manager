@@ -18,11 +18,11 @@
     </div>
     <div class="form-check">
         <input type="checkbox" class="form-check-input" name="ENABLE_VMESS" {{"checked" if data["ENABLE_VMESS"] != "false" else ""}}>
-        <label class="form-check-label">Enable VMESS (not recomnded)</label>
+        <label class="form-check-label">Enable VMESS (not recommended)</label>
     </div>
     <div class="form-check">
         <input type="checkbox" class="form-check-input" name="BLOCK_IR_SITES" {{"checked" if data["BLOCK_IR_SITES"] != "false" else ""}}>
-        <label class="form-check-label">Block Iranian sites to prevent detection by the govenment (recomnded).</label>
+        <label class="form-check-label">Block Iranian sites to prevent detection by the govenment (recommended).</label>
     </div>
     <div class="form-group">
         <label>Fake site: simulate a site when someone visit your domain (وقتی کسی وارد سایت شما میشه نشان داده میشه) </label>
@@ -32,7 +32,7 @@
     <details>
 <summary>Advanced Configs</summary>
     <div class="form-group">
-        <label>Fake CDN site: simulate a cdn site. (RECOMMENDED) <a href="https://github.com/hiddify/hiddify-config/wiki/fake-cdn-استفاده-از">more info</a> </label>
+        <label>Fake CDN site: simulate a cdn site (Highly RECOMMENDED). <a href="https://github.com/hiddify/hiddify-config/wiki/fake-cdn-استفاده-از">more info</a> </label>
         <input type='text' value='{{data["FAKE_CDN_DOMAIN"]}}'  class="form-control" name='FAKE_CDN_DOMAIN' placeholder='plese enter your fake CDN domain'" /> 
         <small class="form-text text-muted">You need to register your domain in a CDN provider. Then enter a not filtered domain that used that CDN. </small>
         <small class="form-text text-muted">Tested with arvancloud.ir and cloudflare.com </small>

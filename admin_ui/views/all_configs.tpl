@@ -1,11 +1,19 @@
 % if data["FAKE_CDN_DOMAIN"]!='':
-#ws fake CDN:
-vless://userguidsecret@data["FAKE_CDN_DOMAIN"]:443?security=tls&sni=data["FAKE_CDN_DOMAIN"]&type=ws&host=proxyproviderip&path=%2FBASE_PATH%2Fvlessws#FakeCDNvless_ws_proxyproviderip
-trojan://userguidsecret@data["FAKE_CDN_DOMAIN"]:443?security=tls&sni=data["FAKE_CDN_DOMAIN"]&type=ws&host=proxyproviderip&path=%2FBASE_PATH%2Ftrojanws#FakeCDNtrojan_ws_proxyproviderip
-
+#WS Fake CDN:
+vless://userguidsecret@{{data["FAKE_CDN_DOMAIN"]}}:443?security=tls&sni={{data["FAKE_CDN_DOMAIN"]}}&type=ws&host=proxyproviderip&path=%2FBASE_PATH%2Fvlessws#FakeCDNvless_ws_proxyproviderip
+trojan://userguidsecret@{{data["FAKE_CDN_DOMAIN"]}}:443?security=tls&sni={{data["FAKE_CDN_DOMAIN"]}}&type=ws&host=proxyproviderip&path=%2FBASE_PATH%2Ftrojanws#FakeCDNtrojan_ws_proxyproviderip
 % if data["ENABLE_VMESS"]=='true':
-vmess://{"v":"2", "ps":"FakeCDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"proxyproviderip", "path":"/BASE_PATH/vmessws", "tls":"tls", "sni":"data["FAKE_CDN_DOMAIN"]"}
+vmess://{"v":"2", "ps":"FakeCDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"proxyproviderip", "path":"/BASE_PATH/vmessws", "tls":"tls", "sni":"{{data["FAKE_CDN_DOMAIN"]}}"}
 % end
+
+#GRPC Fake CDN
+vless://userguidsecret@{{data["FAKE_CDN_DOMAIN"]}}:443?security=tls&sni=proxyproviderip&type=grpc&serviceName=usersecret-vlgrpc&mode=multi#vless-grpc_proxyproviderip
+trojan://userguidsecret@{{data["FAKE_CDN_DOMAIN"]}}:443?security=tls&sni=proxyproviderip&type=grpc&serviceName=usersecret-trgrpc&mode=multi#trojan-grpc_proxyproviderip
+% if data["ENABLE_VMESS"]=='true':
+vmess://{"v":"2", "ps":"vmess_grpc_proxyproviderip", "add":"{{data["FAKE_CDN_DOMAIN"]}}", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"grpc", "type":"multi", "host":"proxyproviderip", "path":"usersecret-vmgrpc", "tls":"tls", "sni":"{{data["FAKE_CDN_DOMAIN"]}}"}
+% end
+
+
 % end
 
 
