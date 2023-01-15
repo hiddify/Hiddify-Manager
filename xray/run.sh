@@ -44,9 +44,11 @@ if [[ "$ALLOW_ALL_SNI_TO_USE_PROXY" == "true" ]];then
         sed -i 's|"redirect": "127.0.0.1:445"|"redirect": "127.0.0.1:400"|g' configs/05_inbounds_02_sni_proxy.json
 fi
 
-if [[ "$BLOCK_IR_SITES" == "false" ]];then
-        sed -i 's|"tag": "forbidden_sites", "protocol": "blackhole"|"tag": "forbidden_sites", "protocol": "freedom"|g' configs/06_outbounds.json
+if [[ "$BLOCK_IR_SITES" == "true" ]];then
+        # sed -i 's|"tag": "forbidden_sites", "protocol": "blackhole"|"tag": "forbidden_sites", "protocol": "freedom"|g' configs/06_outbounds.json
+		sed -i 's|"inboundTag": ["Experimental"],||g' configs/03_routing.jsons	
 fi 
+
 
 rm -rf /dev/shm/hiddify-xtls-main.sock
 systemctl restart hiddify-xray.service

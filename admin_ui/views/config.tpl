@@ -18,7 +18,11 @@
     </div>
     <div class="form-check">
         <input type="checkbox" class="form-check-input" name="ENABLE_VMESS" {{"checked" if data["ENABLE_VMESS"] != "false" else ""}}>
-        <label class="form-check-label">Enable VMESS</label>
+        <label class="form-check-label">Enable VMESS (not recomnded)</label>
+    </div>
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" name="BLOCK_IR_SITES" {{"checked" if data["BLOCK_IR_SITES"] != "false" else ""}}>
+        <label class="form-check-label">Block Iranian sites to prevent detection by the govenment (recomnded).</label>
     </div>
     <div class="form-group">
         <label>Fake site: simulate a site when someone visit your domain (وقتی کسی وارد سایت شما میشه نشان داده میشه) </label>
@@ -71,10 +75,7 @@
         <label class="form-check-label">Allow port 80 to use as proxy without SSL. NOT RECOMMENDED! NOT SAFE</label>
     </div>
 -->
-    <div class="form-check">
-        <input type="checkbox" class="form-check-input" name="BLOCK_IR_SITES" {{"checked" if data["BLOCK_IR_SITES"] != "false" else ""}}>
-        <label class="form-check-label">Block Iranian sites to prevent detection by the govenment (experimental).</label>
-    </div>
+    
 
     <div class="form-check">
         <input type="checkbox" class="form-check-input" name="ENABLE_AUTO_UPDATE" {{"checked" if data["ENABLE_AUTO_UPDATE"] != "false" else ""}}>
