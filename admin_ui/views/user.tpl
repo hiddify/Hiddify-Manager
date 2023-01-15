@@ -216,6 +216,7 @@
                                     </div>
                                 </details>
                             </div>
+                            % if data["BLOCK_IR_SITES"]=='false':
                             <div class="alert alert-warning">
                                 <h5>
                                     گذرنده همه سایت‌ها
@@ -242,7 +243,7 @@
                                     </div>
                                 </details>
                             </div>
-
+                            % end
                             <!--
                                 ابندا یکی از لینک تنظیمات کلش را کپی کنید و در بخش 2 مرحله 4 قرار دهید و مراحل را مطابق
                                 گیف
@@ -463,6 +464,7 @@
                                         class="btn btn-primary orig-link">نصب گذرنده برای سایت‌های خارجی</a>
                                 </div>
                             </div>
+                            % if data["BLOCK_IR_SITES"]=='false':
                             <div class="alert alert-warning">
                                 <h5>
                                     گذرنده همه سایت‌ها
@@ -482,6 +484,7 @@
                                         class="btn btn-primary orig-link">نصب گذرنده برای همه سایت‌ها</a>
                                 </div>
                             </div>
+                            % end
                             <h2>
                                 کار با کلش ویندوز، مک و لینوکس
                             </h2>
