@@ -31,6 +31,12 @@
     </div>   
     <details>
 <summary>Advanced Configs</summary>
+    <div class="form-group">
+        <label>Fake CDN site: simulate a cdn site. (RECOMMENDED) <a href="https://github.com/hiddify/hiddify-config/wiki/fake-cdn-استفاده-از">more info</a> </label>
+        <input type='text' value='{{data["FAKE_CDN_DOMAIN"]}}'  class="form-control" name='FAKE_CDN_DOMAIN' placeholder='plese enter your fake CDN domain'" /> 
+        <small class="form-text text-muted">You need to register your domain in a CDN provider. Then enter a not filtered domain that used that CDN. </small>
+        <small class="form-text text-muted">Tested with arvancloud.ir and cloudflare.com </small>
+    </div>   
 
     <div class="form-group">
         <label>Secret</label>

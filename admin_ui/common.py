@@ -6,6 +6,7 @@ conf_vars={
         # "NO_CDN_DOMAIN":"domain", 
         "USER_SECRET":"uuid",
         "ADMIN_SECRET":"uuid",
+        "FAKE_CDN_DOMAIN":"domain", 
         # "CDN_NAME":"string",
         "TELEGRAM_FAKE_TLS_DOMAIN":"domain",
         "SS_FAKE_TLS_DOMAIN":"domain",

@@ -1,6 +1,60 @@
 proxies:
+% if data["FAKE_CDN_DOMAIN"]!='':
+  % if data["ENABLE_VMESS"]=='true':
+  - name: FakeCDN vmess_ws proxyproviderip
+    type: vmess
+    server: data["FAKE_CDN_DOMAIN"]
+    port: 443
+    uuid: userguidsecret
+    alterId: 0
+    cipher: auto
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: data["FAKE_CDN_DOMAIN"]
+    network: ws
+    ws-opts:
+      path: /BASE_PATH/vmessws
+      headers:
+        Host: proxyproviderip
+  % end
+
+  - name: FakeCDN trojan_ws proxyproviderip
+    type: trojan
+    password: userguidsecret
+    server: data["FAKE_CDN_DOMAIN"]
+    port: 443
+    udp: true
+    sni: data["FAKE_CDN_DOMAIN"]
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: /BASE_PATH/trojanws
+      headers:
+        Host: proxyproviderip
+
+  % if data["meta_or_normal"]=='meta':
+  - name: FakeCDN vless_ws proxyproviderip
+    type: vless
+    uuid: userguidsecret
+    server: data["FAKE_CDN_DOMAIN"]
+    port: 443
+    udp: true
+    tls: true
+    servername: data["FAKE_CDN_DOMAIN"]
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: /BASE_PATH/vlessws
+      headers:
+        Host: proxyproviderip
+    % end
+
+
+% end
+
 % if data["meta_or_normal"]=='meta':
-  - name: vless+xtls_proxyproviderip_vless_98915
+  - name: vless+xtls proxyproviderip
     type: vless
     uuid: userguidsecret
     server: serverip
@@ -11,7 +65,7 @@ proxies:
     skip-cert-verify: true
     flow: xtls-rprx-direct
 
-  - name: vless_ws_proxyproviderip_vless_41935
+  - name: vless_ws proxyproviderip
     type: vless
     uuid: userguidsecret
     server: serverip
@@ -25,7 +79,7 @@ proxies:
       path: /BASE_PATH/vlessws
 
 
-  - name: CDN vless_ws_proxyproviderip_vless_41935
+  - name: CDN vless_ws proxyproviderip
     type: vless
     uuid: userguidsecret
     server: cloudprovider
@@ -39,7 +93,7 @@ proxies:
       path: /BASE_PATH/vlessws
 
 
-  - name: vless-grpc_proxyproviderip_vless_61006
+  - name: vless-grpc proxyproviderip
     type: vless
     uuid: userguidsecret
     server: serverip
@@ -51,7 +105,7 @@ proxies:
     network: grpc
     grpc-opts:
       grpc-service-name: BASE_PATH-vlgrpc
-  - name: vless+tls_proxyproviderip_vless_81611
+  - name: vless+tls proxyproviderip
     type: vless
     uuid: userguidsecret
     server: serverip
@@ -61,7 +115,7 @@ proxies:
     servername: proxyproviderip
     skip-cert-verify: true
 
-  - name: vless+tls+http1.1_proxyproviderip_vless_16517
+  - name: vless+tls+http1.1 proxyproviderip
     type: vless
     uuid: userguidsecret
     server: serverip
@@ -75,7 +129,7 @@ proxies:
 
 
 % if data["ENABLE_VMESS"]=='true':
-  - name: vmess_ws_proxyproviderip_vmess_59999
+  - name: vmess_ws proxyproviderip
     type: vmess
     server: serverip
     port: 443
@@ -90,7 +144,7 @@ proxies:
     ws-opts:
       path: /BASE_PATH/vmessws
 
-  - name: CDN vmess_ws_proxyproviderip_vmess_59999
+  - name: CDN vmess_ws proxyproviderip
     type: vmess
     server: cloudprovider
     port: 443
@@ -105,7 +159,7 @@ proxies:
     ws-opts:
       path: /BASE_PATH/vmessws
 
-  - name: vmess_grpc_proxyproviderip_vmess_59432
+  - name: vmess_grpc proxyproviderip
     type: vmess
     server: serverip
     port: 443
@@ -120,7 +174,7 @@ proxies:
     grpc-opts:
       grpc-service-name: BASE_PATH-vmgrpc
 
-  - name: vmess+tls_proxyproviderip_vmess_93601
+  - name: vmess+tls proxyproviderip
     type: vmess
     server: serverip
     port: 443
@@ -136,7 +190,7 @@ proxies:
       path:
         - /BASE_PATH/vmtc
 
-  - name: vmess+tls+http1.1_proxyproviderip_vmess_11423
+  - name: vmess+tls+http1.1 proxyproviderip
     type: vmess
     server: serverip
     port: 443
@@ -186,7 +240,7 @@ proxies:
 % end
 
 % end
-  - name: trojan_ws_proxyproviderip_trojan_74488
+  - name: trojan_ws proxyproviderip
     type: trojan
     password: userguidsecret
     server: serverip
@@ -200,7 +254,7 @@ proxies:
     ws-opts:
       path: /BASE_PATH/trojanws
 
-  - name: CDN trojan_ws_proxyproviderip_trojan_74488
+  - name: CDN trojan_ws proxyproviderip
     type: trojan
     password: userguidsecret
     server: cloudprovider
@@ -214,7 +268,7 @@ proxies:
     ws-opts:
       path: /BASE_PATH/trojanws
 
-  - name: trojan-grpc_proxyproviderip_trojan_49303
+  - name: trojan-grpc proxyproviderip
     type: trojan
     password: userguidsecret
     server: serverip
@@ -228,7 +282,7 @@ proxies:
     grpc-opts:
       grpc-service-name: BASE_PATH-trgrpc
 
-  - name: trojan+tls_proxyproviderip_trojan_58054
+  - name: trojan+tls proxyproviderip
     type: trojan
     password: userguidsecret
     server: serverip
@@ -250,7 +304,7 @@ proxies:
   #     - http/1.1
 
 % if data["ENABLE_SS"] == 'true':
-  - name: old_ssfaketls_proxyproviderip_ss_85981
+  - name: old_ssfaketls proxyproviderip
     type: ss
     cipher: chacha20-ietf-poly1305
     password: %%TELEGRAM_SECRET%%
@@ -261,7 +315,7 @@ proxies:
     plugin-opts:
       mode: tls
       host: www.google.com
-  - name: old_v2ray_proxyproviderip_ss_94133
+  - name: old_v2ray proxyproviderip
     type: ss
     cipher: chacha20-ietf-poly1305
     password: %%TELEGRAM_SECRET%%
@@ -276,7 +330,7 @@ proxies:
       host: proxyproviderip
       path: /BASE_PATH/v2ray/
 
-  - name: CDN old_v2ray_proxyproviderip_ss_94133
+  - name: CDN old_v2ray proxyproviderip
     type: ss
     cipher: chacha20-ietf-poly1305
     password: %%TELEGRAM_SECRET%%

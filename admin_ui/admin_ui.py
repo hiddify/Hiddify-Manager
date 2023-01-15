@@ -117,7 +117,7 @@ def change():
     secret_fields=[c for c in conf_vars if conf_vars[c]=="uuid"]
     boolean_fields=[c for c in conf_vars if conf_vars[c]=="boolean"]
     for domain in domain_fields:
-        is_no_cdn=domain=="NO_CDN_DOMAIN" and request.query[domain]==""
+        is_no_cdn=domain=="FAKE_CDN_DOMAIN" and request.query[domain]==""
         if not is_no_cdn and not re.search(r'^([A-Za-z0-9\-\.]+\.[a-zA-Z]{2,})$', request.query[domain]):
             return template("result",data={
                         "out-type":"danger",

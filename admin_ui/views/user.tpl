@@ -601,9 +601,25 @@
                             سپس روی یکی از دکمه‌های زیر (به دلخواه) کلیک کنید تا لینک با اپ هایدیفای باز شود. سپس در
                             نرم افزار HiddifyProxy با زدن روی دکمه YES درخواست وارد کردن لینک را تایید کنید.
                             <br />
-                            <details>
-                                <summary>تنظیمات تکی</summary>
-
+                            <details class="accordion">
+                                <summary class="accordion-button">تنظیمات تکی</summary>
+                                % if data["FAKE_CDN_DOMAIN"]!='':
+                                <h5>تنظیمات با پشتیبانی FakeCDN</h5>
+                                <div class="btn-group">
+                                    <a href='vless://userguidsecret@data["FAKE_CDN_DOMAIN"]:443?security=tls&sni=data["FAKE_CDN_DOMAIN"]&type=ws&host=proxyproviderip&path=%2FBASE_PATH%2Fvlessws#FakeCDNvless_ws_proxyproviderip'
+                                        class="btn btn-primary orig-link">FakeCDN vless+ws</a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href='trojan://userguidsecret@data["FAKE_CDN_DOMAIN"]:443?security=tls&sni=data["FAKE_CDN_DOMAIN"]&type=ws&host=proxyproviderip&path=%2FBASE_PATH%2Ftrojanws#FakeCDNtrojan_ws_proxyproviderip'
+                                        class="btn btn-primary orig-link">FakeCDN trojan+ws</a>
+                                </div>
+                                    % if data["ENABLE_VMESS"]=='true':
+                                    <div class="btn-group">
+                                        <a href='vmess://{"v":"2", "ps":"FakeCDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"proxyproviderip", "path":"/BASE_PATH/vmessws", "tls":"tls", "sni":"data["FAKE_CDN_DOMAIN"]"}'
+                                            class="btn btn-primary orig-link">FakeCDN vmess+ws</a>
+                                    </div>
+                                    % end
+                                % end
                                 <h5>تنظیمات با پشتیبانی CDN</h5>
                                 <div class="btn-group">
                                     <a href='vless://userguidsecret@cloudprovider:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Fvlessws#CDNvless_ws_proxyproviderip'
