@@ -17,6 +17,21 @@ proxies:
       path: /BASE_PATH/vmessws
       headers:
         Host: proxyproviderip
+
+  - name: FakeCDN vmess_grpc proxyproviderip
+    type: vmess
+    server: {{data["FAKE_CDN_DOMAIN"]}}
+    port: 443
+    uuid: userguidsecret
+    alterId: 0
+    cipher: auto
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: proxyproviderip
+    network: grpc
+    grpc-opts:
+      grpc-service-name: BASE_PATH-vmgrpc
   % end
 
   - name: FakeCDN trojan_ws proxyproviderip
@@ -33,6 +48,19 @@ proxies:
       headers:
         Host: proxyproviderip
 
+  - name: trojan-grpc proxyproviderip
+    type: trojan
+    password: userguidsecret
+    server: {{data["FAKE_CDN_DOMAIN"]}}
+    port: 443
+    udp: true
+    sni: proxyproviderip
+    skip-cert-verify: true
+    #alpn:
+    #  - h2
+    network: grpc
+    grpc-opts:
+      grpc-service-name: BASE_PATH-trgrpc
   % if data["meta_or_normal"]=='meta':
   - name: FakeCDN vless_ws proxyproviderip
     type: vless
@@ -50,7 +78,18 @@ proxies:
         Host: proxyproviderip
     % end
 
-
+  - name: FakeCDN vless-grpc proxyproviderip
+    type: vless
+    uuid: userguidsecret
+    server: {{data["FAKE_CDN_DOMAIN"]}}
+    port: 443
+    udp: true
+    tls: true
+    servername: proxyproviderip
+    skip-cert-verify: true
+    network: grpc
+    grpc-opts:
+      grpc-service-name: BASE_PATH-vlgrpc
 % end
 
 % if data["meta_or_normal"]=='meta':
@@ -248,8 +287,8 @@ proxies:
     udp: true
     sni: proxyproviderip
     skip-cert-verify: true
-    alpn:
-      - h2
+#    alpn:
+#      - h2
     network: ws
     ws-opts:
       path: /BASE_PATH/trojanws
@@ -276,8 +315,8 @@ proxies:
     udp: true
     sni: proxyproviderip
     skip-cert-verify: true
-    alpn:
-      - h2
+    #alpn:
+    #  - h2
     network: grpc
     grpc-opts:
       grpc-service-name: BASE_PATH-trgrpc
@@ -290,8 +329,8 @@ proxies:
     udp: true
     sni: proxyproviderip
     skip-cert-verify: true
-    alpn:
-      - h2
+#    alpn:
+#      - h2
   # - name: trojan+tls+http1.1_proxyproviderip_trojan_78009
   #   type: trojan
   #   password: userguidsecret

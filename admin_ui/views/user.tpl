@@ -602,7 +602,7 @@
                             نرم افزار HiddifyProxy با زدن روی دکمه YES درخواست وارد کردن لینک را تایید کنید.
                             <br />
                             <details class="accordion">
-                                <summary class="accordion-button">تنظیمات تکی</summary>
+                                <summary class="card-header">تنظیمات تکی</summary>
                                 % if data["FAKE_CDN_DOMAIN"]!='':
                                 <h5>تنظیمات با پشتیبانی FakeCDN</h5>
                                 <div class="btn-group">
