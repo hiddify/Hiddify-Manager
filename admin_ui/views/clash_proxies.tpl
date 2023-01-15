@@ -3,7 +3,7 @@ proxies:
   % if data["ENABLE_VMESS"]=='true':
   - name: FakeCDN vmess_ws proxyproviderip
     type: vmess
-    server: data["FAKE_CDN_DOMAIN"]
+    server: {{data["FAKE_CDN_DOMAIN"]}}
     port: 443
     uuid: userguidsecret
     alterId: 0
@@ -11,7 +11,7 @@ proxies:
     udp: true
     tls: true
     skip-cert-verify: true
-    servername: data["FAKE_CDN_DOMAIN"]
+    servername: {{data["FAKE_CDN_DOMAIN"]}}
     network: ws
     ws-opts:
       path: /BASE_PATH/vmessws
@@ -22,10 +22,10 @@ proxies:
   - name: FakeCDN trojan_ws proxyproviderip
     type: trojan
     password: userguidsecret
-    server: data["FAKE_CDN_DOMAIN"]
+    server: {{data["FAKE_CDN_DOMAIN"]}}
     port: 443
     udp: true
-    sni: data["FAKE_CDN_DOMAIN"]
+    sni: {{data["FAKE_CDN_DOMAIN"]}}
     skip-cert-verify: true
     network: ws
     ws-opts:
@@ -37,11 +37,11 @@ proxies:
   - name: FakeCDN vless_ws proxyproviderip
     type: vless
     uuid: userguidsecret
-    server: data["FAKE_CDN_DOMAIN"]
+    server: {{data["FAKE_CDN_DOMAIN"]}}
     port: 443
     udp: true
     tls: true
-    servername: data["FAKE_CDN_DOMAIN"]
+    servername: {{data["FAKE_CDN_DOMAIN"]}}
     skip-cert-verify: true
     network: ws
     ws-opts:

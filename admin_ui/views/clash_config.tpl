@@ -94,8 +94,8 @@ proxy-groups:
 proxy-providers:
   all_proxies:
     type: http
-    url: "https://proxyproviderip/{{data["BASE_PROXY_PATH"]}}/{{data["user_id"]}}/clash/{{data["meta_or_normal"]}}/proxies.yml?4"
-    path: proxyproviderip/{{data["user_id"]}}-{{data["meta_or_normal"]}}-proxies4.yaml
+    url: "https://proxyproviderip/{{data["BASE_PROXY_PATH"]}}/{{data["user_id"]}}/clash/{{data["meta_or_normal"]}}/proxies.yml?{{hash(f'{data}')}}"
+    path: proxyproviderip/{{data["user_id"]}}-{{data["meta_or_normal"]}}-proxies{{hash(f'{data}')}}.yaml
     health-check:
       enable: true
       interval: 600
