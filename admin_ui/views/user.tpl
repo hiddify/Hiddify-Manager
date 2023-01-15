@@ -312,7 +312,7 @@
                             </div>
                             % if data["ENABLE_VMESS"]=='true':
                             <div class="btn-group">
-                                <a href='vmess://{"v":"2", "ps":"CDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/BASE_PATH/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
+                                <a href='vmess://{"v":"2", "ps":"CDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/BASE_PATH/vmessws", "tls":"tls", "sni":"proxyproviderip"}'
                                     class="btn btn-primary orig-link"> CDN vmess+ws</a>
                             </div>
                             % end
@@ -615,7 +615,7 @@
                                 </div>
                                 % if data["ENABLE_VMESS"]=='true':
                                 <div class="btn-group">
-                                    <a href='vmess://{"v":"2", "ps":"CDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/BASE_PATH/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
+                                    <a href='vmess://{"v":"2", "ps":"CDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/BASE_PATH/vmessws", "tls":"tls", "sni":"proxyproviderip"}'
                                         class="btn btn-primary orig-link"> CDN vmess+ws</a>
                                 </div>
                                 % end
@@ -630,7 +630,7 @@
                                 </div>
                                 % if data["ENABLE_VMESS"]=='true':
                                 <div class="btn-group">
-                                    <a href='vmess://{"v":"2", "ps":"vmess_ws_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/BASE_PATH/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
+                                    <a href='vmess://{"v":"2", "ps":"vmess_ws_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/BASE_PATH/vmessws", "tls":"tls", "sni":"proxyproviderip"}'
                                         class="btn btn-primary orig-link"> vmess+ws</a>
                                 </div>
                                 % end
@@ -648,7 +648,7 @@
                                 </div>
                                 % if data["ENABLE_VMESS"]=='true':
                                 <div class="btn-group">
-                                    <a href='vmess://{"v":"2", "ps":"vmess_grpc_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"grpc", "type":"multi", "host":"", "path":"usersecret-vmgrpc", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
+                                    <a href='vmess://{"v":"2", "ps":"vmess_grpc_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"grpc", "type":"multi", "host":"", "path":"usersecret-vmgrpc", "tls":"tls", "sni":"proxyproviderip"}'
                                         class="btn btn-primary orig-link">vmess+grpc</a>
                                 </div>
                                 % end
