@@ -43,8 +43,8 @@ for DOMAIN in $DOMAINS;	do
 done
 
 if [[ "$FIRST_SETUP" == "true" ]];then
-	echo -e "Please visit http://$SERVER_IP/ or https://$SERVER_IP.sslip.io/ in one hour to change your domain. \n\n">>$DST
+	echo -e "Please visit http://$SERVER_IP/ or https://$SERVER_IP.sslip.io/ in one hour to change your domain.">>$DST
 	echo "or you can use the following links to continue setup:">>$DST
-	echo  "\thttp://$SERVER_IP/$ADMIN_SECRET/config" >>$DST
-	echo  "\thttps://$SERVER_IP.sslip.io/$ADMIN_SECRET/config" >>$DST
+	echo  -e "\thttp://$SERVER_IP/$ADMIN_SECRET/config" >>$DST
+	echo  -e "\thttps://$SERVER_IP.sslip.io/$ADMIN_SECRET/config" >>$DST
 fi
