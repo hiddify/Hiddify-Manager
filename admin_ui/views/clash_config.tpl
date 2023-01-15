@@ -135,7 +135,7 @@ rule-providers:
 rules:
   - DOMAIN,{{data["TELEGRAM_FAKE_TLS_DOMAIN"]}},DIRECT
   - DOMAIN,proxyproviderip,DIRECT
-  - IP-CIDR,serverip/32,DIRECT
+  - IP-CIDR,{{data["external_ip"]}}/32,DIRECT
   - IP-CIDR,10.10.34.0/24,PROXY
   - RULE-SET,tmpblocked,PROXY
   - RULE-SET,blocked,PROXY
