@@ -76,7 +76,7 @@ proxies:
       path: /BASE_PATH/vlessws
       headers:
         Host: proxyproviderip
-    % end
+    
 
   - name: FakeCDN vless-grpc proxyproviderip
     type: vless
@@ -90,6 +90,7 @@ proxies:
     network: grpc
     grpc-opts:
       grpc-service-name: BASE_PATH-vlgrpc
+    % end
 % end
 
 % if data["meta_or_normal"]=='meta':
