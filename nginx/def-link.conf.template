@@ -9,6 +9,9 @@ location = / {
 	error_page 301 302 307 = @handle_redirect;
 	proxy_set_header Host telegramtlsdomain;
 	proxy_pass https://telegramtlsdomain;
+        proxy_ssl_server_name on;
+        proxy_ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+
 	# proxy_buffering        on;
 	# proxy_cache            STATIC;
 	# proxy_cache_valid      200  1d;
@@ -22,6 +25,8 @@ location / {
 	error_page 301 302 307 = @handle_redirect;
 	proxy_set_header Host telegramtlsdomain;
 	proxy_pass https://telegramtlsdomain;
+        proxy_ssl_server_name on;
+        proxy_ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
 	# proxy_buffering        on;
 	# proxy_cache            STATIC;
 	# proxy_cache_valid      200  1d;
