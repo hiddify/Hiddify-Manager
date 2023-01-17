@@ -53,6 +53,7 @@ function do_for_all() {
         runsh $1.sh nginx
         runsh $1.sh sniproxy
         runsh $1.sh xray
+        runsh $1.sh web
         if [[ $ENABLE_TELEGRAM == true ]]; then
                 runsh $1.sh telegram
         else
