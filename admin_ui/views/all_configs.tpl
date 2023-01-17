@@ -1,4 +1,5 @@
 % if data["FAKE_CDN_DOMAIN"]!='':
+
 #WS Fake CDN:
 vless://userguidsecret@{{data["FAKE_CDN_DOMAIN"]}}:443?security=tls&sni={{data["FAKE_CDN_DOMAIN"]}}&type=ws&host=proxyproviderip&path=%2FBASE_PATH%2Fvlessws#FakeCDNvless_ws_proxyproviderip
 trojan://userguidsecret@{{data["FAKE_CDN_DOMAIN"]}}:443?security=tls&sni={{data["FAKE_CDN_DOMAIN"]}}&type=ws&host=proxyproviderip&path=%2FBASE_PATH%2Ftrojanws#FakeCDNtrojan_ws_proxyproviderip
@@ -13,18 +14,24 @@ trojan://userguidsecret@{{data["FAKE_CDN_DOMAIN"]}}:443?security=tls&sni=proxypr
 vmess://{"v":"2", "ps":"vmess_grpc_proxyproviderip", "add":"{{data["FAKE_CDN_DOMAIN"]}}", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"grpc", "type":"multi", "host":"proxyproviderip", "path":"usersecret-vmgrpc", "tls":"tls", "sni":"{{data["FAKE_CDN_DOMAIN"]}}"}
 % end
 
+#WS 80 Fake CDN:
+vless://userguidsecret@{{data["FAKE_CDN_DOMAIN"]}}:80?security=none&sni={{data["FAKE_CDN_DOMAIN"]}}&type=ws&host=proxyproviderip&path=%2FBASE_PATH%2Fvlessws#FakeCDNvless_ws_proxyproviderip
+% if data["ENABLE_VMESS"]=='true':
+vmess://{{base64(f'{"v":"2", "ps":"FakeCDNvmess_ws", "add":"{data["FAKE_CDN_DOMAIN"]}", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"proxyproviderip", "path":"/BASE_PATH/vmessws" }')}}
+% end
+
 
 % end
 
 
 #xtls:
-vless://userguidsecret@serverip:443?flow=xtls-rprx-direct&security=xtls&sni=proxyproviderip&type=tcp#vless+xtls_proxyproviderip
+vless://userguidsecret@serverip:443?flow=xtls-rprx-direct&security=xtls&alpn=h2&sni=proxyproviderip&type=tcp#vless+xtls_proxyproviderip
 
 #ws:
-vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&type=ws&path=%2FBASE_PATH%2Fvlessws#vless_ws_proxyproviderip
-trojan://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&type=ws&path=%2FBASE_PATH%2Ftrojanws#trojan_ws_proxyproviderip
+vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&type=ws&alpn=h2&path=%2FBASE_PATH%2Fvlessws#vless_ws_proxyproviderip
+trojan://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&type=ws&alpn=h2&path=%2FBASE_PATH%2Ftrojanws#trojan_ws_proxyproviderip
 % if data["ENABLE_VMESS"]=='true':
-vmess://{"v":"2", "ps":"vmess_ws_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/BASE_PATH/vmessws", "tls":"tls", "sni":"proxyproviderip"}
+vmess://{"v":"2", "ps":"vmess_ws_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/BASE_PATH/vmessws", "tls":"tls", "sni":"proxyproviderip","alpn":"h2"}
 % end
 
 #ws CDN:
@@ -40,25 +47,25 @@ vmess://{"v":"2", "ps":"CDNvmess_ws_proxyproviderip", "add":"cloudprovider", "po
 
 
 #grpc
-vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&type=grpc&serviceName=usersecret-vlgrpc&mode=multi#vless-grpc_proxyproviderip
-trojan://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&type=grpc&serviceName=usersecret-trgrpc&mode=multi#trojan-grpc_proxyproviderip
+vless://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=grpc&serviceName=usersecret-vlgrpc&mode=multi#vless-grpc_proxyproviderip
+trojan://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=grpc&serviceName=usersecret-trgrpc&mode=multi#trojan-grpc_proxyproviderip
 % if data["ENABLE_VMESS"]=='true':
-vmess://{"v":"2", "ps":"vmess_grpc_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"grpc", "type":"multi", "host":"", "path":"usersecret-vmgrpc", "tls":"tls", "sni":"proxyproviderip"}
+vmess://{"v":"2", "ps":"vmess_grpc_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"grpc", "type":"multi", "host":"", "path":"usersecret-vmgrpc", "tls":"tls", "sni":"proxyproviderip","alpn":"h2"}
 % end
 
 #tls
-trojan://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&type=tcp#trojan+tls_proxyproviderip
-vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&type=tcp#vless+tls_proxyproviderip
+trojan://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=tcp#trojan+tls_proxyproviderip
+vless://userguidsecret@serverip:443?security=tls&alpn=h2&sni=proxyproviderip&type=tcp#vless+tls_proxyproviderip
 % if data["ENABLE_VMESS"]=='true':
-vmess://{"v": "2", "ps": "vmess+tls_proxyproviderip", "add": "serverip", "port": "443", "id": "userguidsecret", "aid": "0", "scy": "auto", "net": "tcp", "type":"http", "host": "", "path": "/BASE_PATH/vmtc", "tls": "tls", "sni": "proxyproviderip"}
+vmess://{"v": "2", "ps": "vmess+tls_proxyproviderip", "add": "serverip", "port": "443", "id": "userguidsecret", "aid": "0", "scy": "auto", "net": "tcp", "type":"http", "host": "", "path": "/BASE_PATH/vmtc", "tls": "tls", "sni": "proxyproviderip","alpn":"h2"}
 % end
 
 
-#tls+http2
-#trojan://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=h2&type=tcp&headerType=http&path=%2FBASE_PATH%2Ftrtc#trojan+tls+http1.1_proxyproviderip
-vless://userguidsecret@serverip:443?security=tls&sni=proxyproviderip&alpn=h2&type=tcp&headerType=http&path=%2FBASE_PATH%2Fvltc#vless+tls+http1.1_proxyproviderip
+#tls+http1.1
+#trojan://userguidsecret@serverip:443?security=tls&alpn=http/1.1&sni=proxyproviderip&alpn=h2&type=tcp&headerType=http&path=%2FBASE_PATH%2Ftrtc#trojan+tls+http1.1_proxyproviderip
+vless://userguidsecret@serverip:443?security=tls&alpn=http/1.1&sni=proxyproviderip&alpn=h2&type=tcp&headerType=http&path=%2FBASE_PATH%2Fvltc#vless+tls+http1.1_proxyproviderip
 % if data["ENABLE_VMESS"]=='true':
-vmess://{"v": "2", "ps": "vmess+tls+http1.1_proxyproviderip", "add": "serverip", "port": "443", "id": "userguidsecret", "aid": "0", "scy": "auto", "net": "tcp", "type": "http", "host": "", "path": "/BASE_PATH/vmtc", "tls": "tls", "sni": "proxyproviderip", "alpn": "h2"}
+vmess://{"v": "2", "ps": "vmess+tls+http1.1_proxyproviderip", "add": "serverip", "port": "443", "id": "userguidsecret", "aid": "0", "scy": "auto", "net": "tcp", "type": "http", "host": "", "path": "/BASE_PATH/vmtc", "tls": "tls", "sni": "proxyproviderip","alpn": "http/1.1"}
 % end
 
 
