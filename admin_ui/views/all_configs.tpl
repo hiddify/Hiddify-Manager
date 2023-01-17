@@ -17,7 +17,7 @@ vmess://{"v":"2", "ps":"vmess_grpc_proxyproviderip", "add":"{{data["FAKE_CDN_DOM
 #WS 80 Fake CDN:
 vless://userguidsecret@{{data["FAKE_CDN_DOMAIN"]}}:80?security=none&sni={{data["FAKE_CDN_DOMAIN"]}}&type=ws&host=proxyproviderip&path=%2FBASE_PATH%2Fvlessws#FakeCDNvless_ws_proxyproviderip
 % if data["ENABLE_VMESS"]=='true':
-vmess://{{base64(f'{"v":"2", "ps":"FakeCDNvmess_ws", "add":"{data["FAKE_CDN_DOMAIN"]}", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"proxyproviderip", "path":"/BASE_PATH/vmessws" }')}}
+vmess://{"v":"2", "ps":"FakeCDNvmess_ws", "add":"{{data["FAKE_CDN_DOMAIN"]}}", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"proxyproviderip", "path":"/BASE_PATH/vmessws" }
 % end
 
 
