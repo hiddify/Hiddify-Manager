@@ -20,10 +20,7 @@
         <input type="checkbox" class="form-check-input" name="ENABLE_VMESS" {{"checked" if data["ENABLE_VMESS"] != "false" else ""}}>
         <label class="form-check-label">Enable VMESS (not recommended)</label>
     </div>
-    <div class="form-check">
-        <input type="checkbox" class="form-check-input" name="BLOCK_IR_SITES" {{"checked" if data["BLOCK_IR_SITES"] != "false" else ""}}>
-        <label class="form-check-label">Block Iranian sites to prevent detection by the govenment (recommended).</label>
-    </div>
+    
     <div class="form-group">
         <label>Fake site: simulate a site when someone visit your domain (وقتی کسی وارد سایت شما میشه نشان داده میشه) </label>
         <input type='text' value='{{data["TELEGRAM_FAKE_TLS_DOMAIN"]}}'  class="form-control" name='TELEGRAM_FAKE_TLS_DOMAIN' placeholder='plese enter your telegram fake tls domain'" /> 
@@ -37,7 +34,10 @@
         <small class="form-text text-muted">You need to register your domain in a CDN provider. Then enter a not filtered domain that used that CDN. </small>
         <small class="form-text text-muted">Tested with arvancloud.ir and cloudflare.com </small>
     </div>   
-
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" name="BLOCK_IR_SITES" {{"checked" if data["BLOCK_IR_SITES"] != "false" else ""}}>
+        <label class="form-check-label">Block Iranian sites to prevent detection by the govenment (experimental). If there is a problem, please disable it.</label>
+    </div>
     <div class="form-group">
         <label>Secret</label>
         <input type='text'  value='{{data["USER_SECRET"]}}' class="form-control" name='USER_SECRET' placeholder='plese enter your user secret'" /> 
