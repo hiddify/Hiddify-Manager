@@ -18,7 +18,7 @@ if [[ "$FIRST_SETUP" == "true" ]];then
 	TEMP_LINK_VALID_TIME="$(date '+%Y-%m-%dT%H')"
 	nextH="$(printf '%02d' $(($(date '+%H') +1)))"
 	if [[ "$nextH" != "" ]];then
-		TEMP_LINK_VALID_TIME=$(date "+%Y-%m-%dT(%H|$nextH)")
+		TEMP_LINK_VALID_TIME=$(date "+%Y-%m-%dT(%H\|$nextH)")
 	fi
 	sed -i "s|TEMP_LINK_VALID_TIME|$TEMP_LINK_VALID_TIME|g" def-link.conf
 fi
