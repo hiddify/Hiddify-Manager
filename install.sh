@@ -98,7 +98,7 @@ function check_for_env() {
         replace_empty_env USER_SECRET "setting 32 char user secret" $random_secret "^([0-9A-Fa-f]{32})$"
 
         random_path=$(tr -dc A-Za-z0-9 </dev/urandom | head -c $(shuf -i 10-32 -n 1))
-        replace_empty_env BASE_PROXY_PATH "setting proxy path" $random_secret ".*"
+        replace_empty_env BASE_PROXY_PATH "setting proxy path" $random_path ".*"
         
         random_tel_secret=$(hexdump -vn16 -e'4/4 "%08x" 1 "\n"' /dev/urandom)
         replace_empty_env TELEGRAM_USER_SECRET "setting 32 char for TELEGRAM_USER_SECRET" $random_tel_secret ".*"
