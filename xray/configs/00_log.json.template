@@ -1,3 +1,5 @@
 {
-	"loglevel": "warning"
+	"log": {
+		"loglevel": "warning"
+	}
 }
