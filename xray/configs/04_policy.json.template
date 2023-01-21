@@ -7,7 +7,7 @@
 		  //   "uplinkOnly": 2,
 		  //   "downlinkOnly": 5,
 			"statsUserUplink": true,
-			"statsUserDownlink": true,
+			"statsUserDownlink": true
 		  //   "bufferSize": 4
 		  }
 		},
