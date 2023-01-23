@@ -162,7 +162,15 @@ function replace_empty_env() {
 function main(){
         check_req
         set_env_if_empty config.env.default
-        set_env_if_empty config.env      
+        if [ "$1" == "install-docker" ];then
+                export DO_NOT_RUN=true
+                export ENABLE_SS=true
+                export ENABLE_TELEGRAM=true
+                export ENABLE_FIREWALL=false
+                export ENABLE_AUTO_UPDATE=false
+                export ONLY_IPV4=false
+        fi
+        set_env_if_empty config.env
         if [[ "$BASE_PROXY_PATH" == "" ]]; then
                 replace_empty_env BASE_PROXY_PATH "" $USER_SECRET ".*"
         fi

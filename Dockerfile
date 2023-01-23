@@ -6,9 +6,10 @@ ENV TERM xterm
 ENV TZ Etc/UTC
 ENV DEBIAN_FRONTEND noninteractive
 
+
 WORKDIR /opt/hiddify-config/
 COPY . .
-RUN mkdir -p ~/.ssh && echo "StrictHostKeyChecking no " > ~/.ssh/config
-RUN bash -c "$(cat config.env.docker) $(cat install.sh)"
+# RUN mkdir -p ~/.ssh && echo "StrictHostKeyChecking no " > ~/.ssh/config
+RUN bash -c "install.sh install-docker"
 RUN curl -L https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl.py -o /usr/bin/systemctl
-ENTRYPOINT ["./docker_entry.sh"]
+ENTRYPOINT ["bash apply_configs.sh && tail -f /opt/hiddify-config/log/system/*"]

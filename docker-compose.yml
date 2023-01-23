@@ -10,4 +10,3 @@ services:
     privileged: true
     cap_add:
       - NET_ADMIN
-    network_mode: host
