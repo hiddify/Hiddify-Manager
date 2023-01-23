@@ -49,7 +49,7 @@ function do_for_all() {
         #cd /opt/$GITHUB_REPOSITORY
         bash common/replace_variables.sh
         runsh $1.sh common
-        runsh $1.sh ssl
+runsh $1.sh ssl
         runsh $1.sh nginx
         runsh $1.sh sniproxy
         runsh $1.sh xray
@@ -162,7 +162,16 @@ function replace_empty_env() {
 function main(){
         check_req
         set_env_if_empty config.env.default
-        set_env_if_empty config.env      
+        if [ "$1" == "install-docker" ];then
+                echo "install-docker"
+                export DO_NOT_RUN=true
+                export ENABLE_SS=true
+                export ENABLE_TELEGRAM=true
+                export ENABLE_FIREWALL=false
+                export ENABLE_AUTO_UPDATE=false
+                export ONLY_IPV4=false
+        fi
+        set_env_if_empty config.env
         if [[ "$BASE_PROXY_PATH" == "" ]]; then
                 replace_empty_env BASE_PROXY_PATH "" $USER_SECRET ".*"
         fi
@@ -202,4 +211,4 @@ function main(){
 }
 
 mkdir -p log/system/
-main |& tee log/system/0-install.log
+main $* |& tee log/system/0-install.log

@@ -5,9 +5,12 @@ services:
     image: hiddify
     build: .
     ports:
-      - 443
-      - 80
-    privileged: true
-    cap_add:
-      - NET_ADMIN
-    network_mode: host
+      - 443:443
+      - 80:80
+    # privileged: true
+    # cap_add:
+    #   - NET_ADMIN
+    volumes:
+       - ./config.env:/opt/hiddify-config/config.env
+       - ./ssl/:/opt/hiddify-config/ssl/
+       - /etc/letsencrypt/:/etc/letsencrypt/
