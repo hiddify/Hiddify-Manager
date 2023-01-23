@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  hiddify:
+    image: hiddify
+    build: .
+    ports:
+      - 443
+      - 80
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+    network_mode: host
