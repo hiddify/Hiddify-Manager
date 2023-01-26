@@ -39,6 +39,10 @@
         //   "type": "field", "inboundTag": ["sniproxy-in"], "outboundTag": "other-sni",
         //   "_comment": "default sni"
         // },
+        
+        {
+          "inboundTag": ["api"], "outboundTag": "api", "type": "field"
+        },
         {
           "type": "field", "outboundTag": "blackhole", "ip": ["geoip:private"]
         },
@@ -47,9 +51,6 @@
         },
         {// Block BitTorrent protocol
           "type": "field", "outboundTag": "blackhole", "protocol": ["bittorrent"]
-        },
-        {
-          "inboundTag": ["api"], "outboundTag": "api", "type": "field"
         }
       ]
     }

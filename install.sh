@@ -203,7 +203,15 @@ function main(){
         #         export FIRST_SETUP="true"
         # fi
 
-
+        if [ "$1" == "install-docker" ];then
+                echo "install-docker"
+                export DO_NOT_RUN=true
+                export ENABLE_SS=true
+                export ENABLE_TELEGRAM=true
+                export ENABLE_FIREWALL=false
+                export ENABLE_AUTO_UPDATE=false
+                export ONLY_IPV4=false
+        fi
         if [[ -z "$DO_NOT_INSTALL" || "$DO_NOT_INSTALL" == false  ]];then
                 do_for_all install
                 systemctl daemon-reload
