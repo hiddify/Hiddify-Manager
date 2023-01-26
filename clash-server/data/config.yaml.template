@@ -1,0 +1,64 @@
+log-level: debug
+ipv6: true
+mode: global
+
+allow-lan: true # Allow LAN connections
+bind-address: "*"
+
+tuic-server:
+  enable: true
+  listen: 0.0.0.0:3478 #PlayStation Game Port
+  token:
+    - BASE_PROXY_PATH
+  certificate: ../ssl/$SERVER_IP.sslip.io.crt
+  private-key: ../ssl/$SERVER_IP.sslip.io.key
+  congestion-controller: bbr
+  max-idle-time: 15000
+  authentication-timeout: 1000
+  alpn:
+    - h3
+  max-udp-relay-packet-size: 1500
+
+
+
+
+proxies:
+  - name: "xray"
+    type: ss
+    server: server
+    port: 443
+    cipher: chacha20-ietf-poly1305
+    password:
+      "password"
+
+
+sub-rules:
+  xray:
+    # - DST-PORT,3001,DIRECT
+    - IP-CIDR,127.0.0.1/32,DIRECT
+    - MATCH,REJECT
+
+listeners:
+  - name: tuic-in-xray
+    type: tuic
+    port: 3479 #PlayStation Game Port
+    listen: 0.0.0.0
+    rule: xray # Rules are used by default, and rules are used directly if sub-rule is not found
+    proxy: xray # If it is not empty, the inbound traffic is directly handed over to the specified proxy (when proxy is not empty, the proxy name here must be legal, otherwise an error will occur)
+    token:
+      - BASE_PROXY_PATH
+    certificate: ../ssl/$SERVER_IP.sslip.io.crt
+    private-key: ../ssl/$SERVER_IP.sslip.io.key
+    congestion-controller: bbr
+    max-idle-time: 15000
+    authentication-timeout: 1000
+    alpn:
+       - h3
+    max-udp-relay-packet-size: 1400
+
+  - name: http-in-1
+    type: http
+    port: 10809
+    listen: 0.0.0.0
+    # rule: sub-rule-name1 # Rules are used by default, and rules are used directly if sub-rule is not found
+    # proxy: proxy # If it is not empty, the inbound traffic is directly handed over to the specified proxy (when proxy is not empty, the proxy name here must be legal, otherwise an error will occur)

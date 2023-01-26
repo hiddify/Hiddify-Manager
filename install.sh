@@ -7,20 +7,106 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 
+function set_config_from_hpanel(){
+. ./common/ticktick.sh
 
-function set_env_if_empty(){
- echo "applying configs from $1========================================="
- for line in $(sed 's/\#.*//g' $1 | grep '=');do  
-  IFS=\= read k v <<< $line
-#   if [[ ! -z $k && -z "${!k}" ]]; then      
-      export $k="$v"
-      echo $k="$v"
-#   fi
-  
- done        
+hiddify=`curl -s http://h1.hiddify.com:9000/admin/api/v1/all/`
+tickParse  "$hiddify"
+# tickVars
 
+function setenv () {
+    echo $1=$2
+    export $1="$2"
 }
 
+
+setenv GITHUB_USER hiddify
+setenv GITHUB_REPOSITORY hiddify-config
+setenv GITHUB_BRANCH_OR_TAG main
+
+TELEGRAM_SECRET=``hconfigs[telegram_secret]``
+
+setenv TELEGRAM_SECRET ${TELEGRAM_SECRET//-/}
+
+setenv BASE_PROXY_PATH ``hconfigs[proxy_path]``
+setenv ADMIN_SECRET ``hconfigs[admin_secret]``
+
+setenv ENABLE_SS ``hconfigs[ssfaketls_enable]``
+setenv SS_FAKE_TLS_DOMAIN ``hconfigs[ss_fakedomain]``
+
+setenv ENABLE_TELEGRAM ``hconfigs[telegram_enable]``
+setenv TELEGRAM_FAKE_TLS_DOMAIN ``hconfigs[telegram_fakedomain]``
+setenv TELEGRAM_AD_TAG ``hconfigs[telegram_adtag]``
+
+setenv ENABLE_SHADOW_TLS ``hconfigs[shadowtls_enable]``
+setenv SHADOWTLS_FAKEDOMAIN ``hconfigs[shadowtls_fakedomain]``
+
+setenv FAKE_CDN_DOMAIN ``hconfigs[fake_cdn_domain]``
+
+setenv ENABLE_SSR ``hconfigs[ssr_enable]``
+setenv SSR_FAKEDOMAIN ``hconfigs[ssr_fakedomain]``
+
+setenv ENABLE_VMESS ``hconfigs[vmess_enable]``
+setenv ENABLE_MONITORING false
+setenv ENABLE_FIREWALL ``hconfigs[firewall]``
+setenv ENABLE_NETDATA ``hconfigs[netdata]``
+setenv ENABLE_HTTP_PROXY ``hconfigs[http_proxy]`` # UNSAFE to enable, use proxy also in unencrypted 80 port
+setenv ALLOW_ALL_SNI_TO_USE_PROXY ``hconfigs[allow_invalid_sni]`` #UNSAFE to enable, true=only MAIN domain is allowed to use proxy
+setenv ENABLE_AUTO_UPDATE ``hconfigs[auto_update]``
+setenv ENABLE_TROJAN_GO false
+setenv ENABLE_SPEED_TEST ``hconfigs[speed_test]``
+setenv BLOCK_IR_SITES ``hconfigs[block_iran_sites]``
+setenv ONLY_IPV4 ``hconfigs[only_ipv4]``
+
+
+return 0
+function get () {
+    group=$1
+    index=`printf "%012d" "$2"` 
+    member=$3
+    
+    var="__tick_data_${group}_${index}_${member}";
+    echo ${!var}
+}
+
+MAIN_DOMAIN=
+for i in $(seq 0 ``domains.length()``); do
+    domain=$(get domains $i domain)
+    mode=$(get domains $i mode)
+    if [ "$mode"  = "direct" ] | [ "$mode"  = "direct" ];then
+        MAIN_DOMAIN="$domain;$DOMAINS"
+    fi
+    if [ "$mode"  = "ss_faketls" ];then
+        setenv SS_FAKE_TLS_DOMAIN $domain
+    fi
+    if [ "$mode"  = "telegram_faketls" ];then
+        setenv TELEGRAM_FAKE_TLS_DOMAIN $domain
+    fi
+
+    if [ "$mode"  = "fake_cdn" ];then
+        setenv FAKE_CDN_DOMAIN $domain
+    fi
+done
+
+setenv MAIN_DOMAIN $MAIN_DOMAIN
+
+USER_SECRET=
+for i in $(seq 0 ``users.length()``); do
+    uuid=$(get users $i uuid)
+    secret=${uuid//-/}
+    if [ "$secret" != "" ];then
+        USER_SECRET="$secret;$USER_SECRET"
+    fi
+done
+
+
+
+setenv USER_SECRET $USER_SECRET
+
+
+
+
+}
 function check_req(){
         
    for req in hexdump dig curl git;do
@@ -49,7 +135,7 @@ function do_for_all() {
         #cd /opt/$GITHUB_REPOSITORY
         bash common/replace_variables.sh
         runsh $1.sh common
-        runsh $1.sh ssl
+        runsh $1.sh certbot
         runsh $1.sh nginx
         runsh $1.sh sniproxy
         runsh $1.sh xray
@@ -92,95 +178,31 @@ function do_for_all() {
 }
 
 
-function check_for_env() {
-
-        random_secret=$(hexdump -vn16 -e'4/4 "%08x" 1 "\n"' /dev/urandom)
-        replace_empty_env USER_SECRET "setting 32 char user secret" $random_secret "^([0-9A-Fa-f]{32})$"
-
-        random_path=$(tr -dc A-Za-z0-9 </dev/urandom | head -c $(shuf -i 10-32 -n 1))
-        replace_empty_env BASE_PROXY_PATH "setting proxy path" $random_secret ".*"
-        
-        random_tel_secret=$(hexdump -vn16 -e'4/4 "%08x" 1 "\n"' /dev/urandom)
-        replace_empty_env TELEGRAM_USER_SECRET "setting 32 char for TELEGRAM_USER_SECRET" $random_tel_secret ".*"
-
-        random_admin_secret=$(hexdump -vn16 -e'4/4 "%08x" 1 "\n"' /dev/urandom)
-        replace_empty_env ADMIN_SECRET "setting 32 char admin secret" $random_admin_secret "^([0-9A-Fa-f]{32})$"
-
-        
-
-        export SERVER_IP=$(curl -Lso- https://api.ipify.org)
-        replace_empty_env MAIN_DOMAIN "please enter valid domain name to use " "$SERVER_IP.nip.io" "^([A-Za-z0-9\.]+\.[a-zA-Z]{2,})$"
-        
-        
-        # replace_empty_env CLOUD_PROVIDER "If you are using a cdn please enter the cdn domain " "" /^([a-z0-9\.]+\.[a-z]{2,})?$/i
-
-}
-
-function replace_empty_env() {
-        VAR=$1
-        DESCRIPTION=$2
-        DEFAULT=$3
-        REGEX=$4
-        if [[ -z "${!VAR}" ]]; then
-                echo ''
-                echo "============================"
-                echo "$DESCRIPTION"
-                
-                if [[ -z "$DEFAULT" ]]; then
-                        echo "Enter $VAR?"
-                else
-                        # echo "Enter $VAR (default value='$DEFAULT' -> to confirm enter)"
-                        echo "using '$DEFAULT' for $VAR"
-                fi
-
-                # read -p "> " RESPONSE
-                #if [[ -z "$RESPONSE" ]]; then
-                #        RESPONSE=$DEFAULT
-                #fi
-                RESPONSE=$DEFAULT
-                if [[ ! -z "$REGEX" ]];then
-                        if [[ "$RESPONSE" =~ $REGEX ]];then
-                                sed -i "s|$1=|$1=$RESPONSE|g" config.env 
-                                cat config.env|grep -e "^$1"
-                                if [[ "$!?" != "0" ]]; then
-                                    echo "$1=$RESPONSE">> config.env
-                                fi
-
-                                export $1=$RESPONSE
-                        else 
-                                echo "!!!!!!!!!!!!!!!!!!!!!!"
-                                echo "invalid response $RESPONSE -> regex= $REGEX"
-                                echo "retry:"
-                                replace_empty_env "$1" "$2" "$3" "$4"
-                        fi
-
-                fi
-                
-        fi
-}
-
 function main(){
-        check_req
-        set_env_if_empty config.env.default
-        set_env_if_empty config.env      
-        if [[ "$BASE_PROXY_PATH" == "" ]]; then
-                replace_empty_env BASE_PROXY_PATH "" $USER_SECRET ".*"
-        fi
-        if [[ "$TELEGRAM_USER_SECRET" == "" ]]; then
-                replace_empty_env TELEGRAM_USER_SECRET "" $USER_SECRET ".*"
-        fi
+        runsh install.sh HiddifyPanel
+        # source common/set_config_from_hpanel.sh
+        set_config_from_hpanel
+        # check_req
+        
+        
+        # set_env_if_empty config.env.default
+        # set_env_if_empty config.env      
 
-        cd /opt/$GITHUB_REPOSITORY
-        git pull
+        # if [[ "$BASE_PROXY_PATH" == "" ]]; then
+        #         replace_empty_env BASE_PROXY_PATH "" $USER_SECRET ".*"
+        # fi
+        # if [[ "$TELEGRAM_USER_SECRET" == "" ]]; then
+        #         replace_empty_env TELEGRAM_USER_SECRET "" $USER_SECRET ".*"
+        # fi
+        
+        # cd /opt/$GITHUB_REPOSITORY
+        # git pull
 
-        if [[ "$FIRST_SETUP" == "" ]];then
-                replace_empty_env FIRST_SETUP "First Setup Detected!" false ".*"
-                export FIRST_SETUP="true"
-        fi
+        # if [[ -z "config.env $FIRST_SETUP" == "" ]];then
+        #         replace_empty_env FIRST_SETUP "First Setup Detected!" false ".*"
+        #         export FIRST_SETUP="true"
+        # fi
 
-        if [[ -z "$DO_NOT_RUN" || "$DO_NOT_RUN" == false ]];then
-                check_for_env
-        fi
 
         if [[ -z "$DO_NOT_INSTALL" || "$DO_NOT_INSTALL" == false  ]];then
                 do_for_all install
