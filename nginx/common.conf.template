@@ -5,7 +5,7 @@
 #   proxy_pass http://localhost:9000/BASE_PROXY_PATH/$guid/$path; 
 # }
 
-location /BASE_PROXY_PATH/ADMIN_SECRET/netdata/ {
+location /BASE_PROXY_PATH/ADMIN_SECRET/admin/netdata/ {
 	proxy_pass  http://localhost:19999/;
 	error_page 301 302 307 = @handle_redirect;
 }
