@@ -355,7 +355,7 @@ arch=$( uname -m )
 lbit=$( getconf LONG_BIT )
 kern=$( uname -r )
 
-clear
+# clear
 echo "---------- System Information ----------"
 echo " OS      : $opsy"
 echo " Arch    : $arch ($lbit Bit)"

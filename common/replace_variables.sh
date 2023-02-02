@@ -25,6 +25,7 @@ for template_file in $(find . -name "*.template"); do
     sed -i "s|TELEGRAM_USER_SECRET|$TELEGRAM_USER_SECRET|g" $out_file 
     sed -i "s|defaultcloudprovider|$CLOUD_PROVIDER|g" $out_file 
     sed -i "s|defaultserverip|$SERVER_IP|g" $out_file 
+    sed -i "s|DOCKEY_SITE|$DOCKEY_SITE|g" $out_file 
     sed -i "s|NO_CDN_DOMAIN|$NO_CDN_DOMAIN|g" $out_file 
     sed -i "s|defaultserverhost|$MAIN_DOMAIN|g" $out_file 
     sed -i "s|telegramadtag|$TELEGRAM_AD_TAG|g" $out_file 

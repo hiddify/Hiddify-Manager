@@ -1,19 +1,19 @@
 # rm /etc/sniproxy.conf
 # ln -sf $(pwd)/sniproxy.conf /etc/sniproxy.conf
 
-if [ "$ENABLE_SHADOW_TLS" == "false"];then
+if [ "$ENABLE_SHADOW_TLS" == "false" ];then
     sed -i "s|$SHADOWTLS_FAKEDOMAIN|#|g" sniproxy.conf
 fi
 
-if [ "$ENABLE_SSR" == "false"];then
+if [ "$ENABLE_SSR" == "false" ];then
     sed -i "s|$SSR_FAKEDOMAIN|#|g" sniproxy.conf
 fi
 
-if [ "$ENABLE_SS" == "false"];then
+if [ "$ENABLE_SS" == "false" ];then
     sed -i "s|$SS_FAKE_TLS_DOMAIN|#|g" sniproxy.conf
 fi
 
-if [ "$ENABLE_TELEGRAM" == "false"];then
+if [ "$ENABLE_TELEGRAM" == "false" ];then
     sed -i "s|$TELEGRAM_FAKE_TLS_DOMAIN|#|g" sniproxy.conf
 fi
 

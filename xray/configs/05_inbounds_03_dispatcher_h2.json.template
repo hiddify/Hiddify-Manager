@@ -61,6 +61,11 @@
 					"xver": 2
 				  },
 				  {
+					"path": "/BASE_PROXY_PATH/ADMIN_SECRET",
+					"dest": "502",
+					"xver": 2 
+				  },
+				  {
 					"dest": "502",
 					"xver": 2 
 				  }  

@@ -1,0 +1,13 @@
+[Unit]
+Description=ss-server faketls
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+#ExecStart=obfs-server -c /opt/GITHUB_REPOSITORY/other/ssfaketls/config-faketls.json -r 127.0.0.1:3005
+Restart=on-failure
+StandardOutput=file:/opt/GITHUB_REPOSITORY/log/system/ssplugin-shadowtls.out.log
+StandardError=file:/opt/GITHUB_REPOSITORY/log/system/ssplugin-shadowtls.err.log
+[Install]
+WantedBy=multi-user.target

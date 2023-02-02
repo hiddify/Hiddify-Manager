@@ -1,0 +1,21 @@
+[Unit]
+Description=hiddify admin ui
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=clashmeta -d /opt/GITHUB_REPOSITORY/other/clash-server/data/
+ExecStartPre=/usr/bin/sleep 1s
+WorkingDirectory=/opt/GITHUB_REPOSITORY/other/clash-server/
+Restart=on-failure
+StandardOutput=file:/opt/GITHUB_REPOSITORY/log/system/clash-server.out.log
+StandardError=file:/opt/GITHUB_REPOSITORY/log/system/clash-server.err.log
+
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_RAW CAP_NET_BIND_SERVICE
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_RAW CAP_NET_BIND_SERVICE
+LimitNPROC=500
+LimitNOFILE=1000000
+
+[Install]
+WantedBy=multi-user.target

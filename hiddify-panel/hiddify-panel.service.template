@@ -1,0 +1,14 @@
+[Unit]
+Description=hiddify admin ui
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=flask run
+WorkingDirectory=/opt/GITHUB_REPOSITORY/hiddify-panel/
+Restart=on-failure
+StandardOutput=file:/opt/GITHUB_REPOSITORY/log/system/hiddify_panel.out.log
+StandardError=file:/opt/GITHUB_REPOSITORY/log/system/hiddify_panel.err.log
+[Install]
+WantedBy=multi-user.target
