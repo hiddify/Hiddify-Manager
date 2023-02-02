@@ -216,7 +216,7 @@ function main(){
                 bash status.sh
                 cat use-link
         fi
-        runsh run.sh hiddify-panel
+        systemctl restart hiddify-panel
 }
 
 mkdir -p log/system/
