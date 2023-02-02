@@ -1,14 +1,4 @@
 [default]
 DEBUG = false
 HIDDIFY_CONFIG_PATH="/opt/hiddify-config/"
-FLASK_ADMIN_TEMPLATE_MODE = "bootstrap4"
-FLASK_ADMIN_SWATCH = 'cerulean'
-SQLALCHEMY_DATABASE_URI = 'sqlite:///development.db'
-SECRET_KEY = "Pl3453Ch4ng3"
-PASSWORD_SCHEMES = ['pbkdf2_sha512', 'md5_crypt']
-
-[testing]
-SQLALCHEMY_DATABASE_URI = 'sqlite:///testing.db'
-
-[production]
 SQLALCHEMY_DATABASE_URI = 'sqlite:////opt/hiddify-config/hiddify-panel/hiddifypanel.db'

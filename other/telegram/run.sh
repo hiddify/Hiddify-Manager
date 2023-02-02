@@ -1,6 +1,7 @@
 systemctl kill mtproxy.service
 
-if [ -f mtg/mtg ];then
+if [ ! -f mtg/mtg ];then
+    echo "error in installation of telegram"
     bash install.sh
 fi
 

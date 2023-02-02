@@ -7,8 +7,8 @@ location = / {
 	# proxy_redirect / /;
     #proxy_intercept_errors on;
 	error_page 301 302 307 = @handle_redirect;
-	proxy_set_header Host DOCKEY_DOMAIN;
-	proxy_pass https://DOCKEY_DOMAIN;
+	proxy_set_header Host DECOY_DOMAIN;
+	proxy_pass https://DECOY_DOMAIN;
         proxy_ssl_server_name on;
         proxy_ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
 
@@ -23,8 +23,8 @@ location / {
 	# proxy_redirect / /; 
     proxy_intercept_errors on;
 	error_page 301 302 307 = @handle_redirect;
-	proxy_set_header Host DOCKEY_DOMAIN;
-	proxy_pass https://DOCKEY_DOMAIN;
+	proxy_set_header Host DECOY_DOMAIN;
+	proxy_pass https://DECOY_DOMAIN;
         proxy_ssl_server_name on;
         proxy_ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
 	# proxy_buffering        on;

@@ -8,13 +8,13 @@ DST="../use-link"
 echo "">$DST
 
 
-echo -e "Permanent Admin link:  http://$SERVER_IP/$ADMIN_SECRET/ \n" >>$DST
+echo -e "Permanent Admin link: \n   http://$SERVER_IP/$BASE_PROXY_PATH/$ADMIN_SECRET/admin/ \n" >>$DST
 echo -e "Secure Admin links: \n" >>$DST
 
 ssl_cert_path=../ssl/
 
 for DOMAIN in $DOMAINS;	do
-	echo -e "\thttps://$DOMAIN/$BASE_PROXY_PATH/$ADMIN_SECRET/\n" >>$DST
+	echo -e "   https://$DOMAIN/$BASE_PROXY_PATH/$ADMIN_SECRET/admin/\n" >>$DST
 
 	DOMAIN_IP=$(dig +short -t a $DOMAIN.)
         
@@ -45,6 +45,6 @@ done
 if [[ "$FIRST_SETUP" == "true" ]];then
 	echo -e "Please visit http://$SERVER_IP/ or https://$SERVER_IP.sslip.io/ in one hour to change your domain.">>$DST
 	echo "or you can use the following links to continue setup:">>$DST
-	echo  -e "\thttp://$SERVER_IP/$BASE_PROXY_PATH/$ADMIN_SECRET/quicksetup" >>$DST
-	echo  -e "\thttps://$SERVER_IP.sslip.io/$BASE_PROXY_PATH/$ADMIN_SECRET/quicksetup" >>$DST
+	echo  -e "   http://$SERVER_IP/$BASE_PROXY_PATH/$ADMIN_SECRET/admin/quicksetup" >>$DST
+	echo  -e "   https://$SERVER_IP.sslip.io/$BASE_PROXY_PATH/$ADMIN_SECRET/admin/quicksetup" >>$DST
 fi

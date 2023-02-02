@@ -37,7 +37,7 @@ function set_config_from_hpanel(){
         setenv ENABLE_SS ``hconfigs[ssfaketls_enable]``
         setenv SS_FAKE_TLS_DOMAIN ``hconfigs[ssfaketls_fakedomain]``
         
-        setenv DOCKEY_DOMAIN ``hconfigs[decoy_domain]``
+        setenv DECOY_DOMAIN ``hconfigs[decoy_domain]``
 
         setenv SHARED_SECRET ``hconfigs[shared_secret]``
         
@@ -169,7 +169,7 @@ function main(){
         runsh install.sh hiddify-panel
         # source common/set_config_from_hpanel.sh
         set_config_from_hpanel
-        exit 0
+        
         # check_req
         
         
