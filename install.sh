@@ -27,7 +27,7 @@ function set_config_from_hpanel(){
 
         TELEGRAM_SECRET=``hconfigs[shared_secret]``
 
-        setenv TELEGRAM_SECRET ${TELEGRAM_SECRET//-/}
+        setenv TELEGRAM_USER_SECRET ${TELEGRAM_SECRET//-/}
 
         setenv BASE_PROXY_PATH ``hconfigs[proxy_path]``
         setenv ADMIN_SECRET ``hconfigs[admin_secret]``
