@@ -82,7 +82,7 @@ function set_config_from_hpanel(){
         for i in $(seq 0 ``domains.length()``); do
                 domain=$(get domains $i domain)
                 mode=$(get domains $i mode)
-                if [ "$mode"  = "direct" ] | [ "$mode"  = "direct" ];then
+                if [ "$mode"  = "direct" ] | [ "$mode"  = "cdn" ];then
                         MAIN_DOMAIN="$domain;$DOMAINS"
                 fi
                 if [ "$mode"  = "ss_faketls" ];then

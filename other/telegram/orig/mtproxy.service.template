@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/opt/GITHUB_REPOSITORY/telegram/
-ExecStart=/opt/GITHUB_REPOSITORY/telegram/tgproxy_run.sh
+WorkingDirectory=/opt/GITHUB_REPOSITORY/other/telegram/orig/
+ExecStart=/opt/GITHUB_REPOSITORY/other/telegram/orig/tgproxy_run.sh
 Restart=on-failure
 StartLimitBurst=0
 

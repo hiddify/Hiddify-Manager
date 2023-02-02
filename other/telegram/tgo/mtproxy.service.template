@@ -4,7 +4,7 @@ Documentation=https://github.com/9seconds/mtg
 After=network.target
 
 [Service]
-ExecStart=/opt/GITHUB_REPOSITORY/other/telegram/mtg/mtg run /opt/GITHUB_REPOSITORY/other/telegram/mtg.toml
+ExecStart=/opt/GITHUB_REPOSITORY/other/telegram/tgo/mtg/mtg run /opt/GITHUB_REPOSITORY/other/telegram/tgo/mtg.toml
 Restart=always
 RestartSec=3
 DynamicUser=true
