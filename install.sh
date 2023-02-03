@@ -30,6 +30,7 @@ function set_config_from_hpanel(){
         setenv TELEGRAM_USER_SECRET ${TELEGRAM_SECRET//-/}
 
         setenv BASE_PROXY_PATH ``hconfigs[proxy_path]``
+        setenv TELEGRAM_LIB ``hconfigs[telegram_lib]``
         setenv ADMIN_SECRET ``hconfigs[admin_secret]``
 
         setenv ENABLE_V2RAY ``hconfigs[v2ray_enable]``
