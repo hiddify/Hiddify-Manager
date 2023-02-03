@@ -26,7 +26,7 @@ if [ -f "../config.env" ]; then
     fi
 fi
 
-echo "*/5 * * * * root $(pwd)/update_usage.sh" > /etc/cron.d/hiddify_usage_update
+echo "*/1 * * * * root $(pwd)/update_usage.sh" > /etc/cron.d/hiddify_usage_update
 service cron reload
 
 
