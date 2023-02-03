@@ -10,7 +10,7 @@ for req in pip gunicorn;do
             break
     fi
 done
-
+rm hiddify-panel.service.template
 # pip --disable-pip-version-check install -q -U hiddifypanel==0.8.6
 pip uninstall -y hiddifypanel 
 pip --disable-pip-version-check install -q -U git+https://github.com/hiddify/HiddifyPanel
