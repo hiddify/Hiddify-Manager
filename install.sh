@@ -169,6 +169,7 @@ function do_for_all() {
 
 
 function main(){
+        rm /dev/shm/hiddify-xtls-main.sock
         runsh install.sh hiddify-panel
         # source common/set_config_from_hpanel.sh
         set_config_from_hpanel
