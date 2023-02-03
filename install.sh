@@ -219,7 +219,7 @@ function main(){
                 echo "Please open the following link in the browser for client setup"
                 bash status.sh
                 cat use-link
-                echo "---------------------Congratulation! Finished!------------------------"
+                echo "---------------------Finished!------------------------"
         fi
         systemctl restart hiddify-panel
 }
