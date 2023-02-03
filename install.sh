@@ -124,17 +124,20 @@ function check_req(){
    
 }
 
-function runsh() {    
-        pushd $2; 
+function runsh() {          
         command=$1
         if [[ $3 == "false" ]];then
                 command=uninstall.sh
         fi
-        if [[ -f $1 ]];then
+        pushd $2; 
+        # if [[ $? != 0]];then
+        #         echo "$2 not found"
+        # fi
+        if [[ $? == 0 && -f $command ]];then
                 echo "==========================================================="
-                echo "===$1 $2"
+                echo "===$command $2"
                 echo "==========================================================="        
-                bash $1
+                bash $command
         fi
         popd 
 }
