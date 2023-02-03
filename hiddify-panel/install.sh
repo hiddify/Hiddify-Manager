@@ -10,7 +10,7 @@ for req in pip gunicorn;do
             break
     fi
 done
-rm hiddify-panel.service.template
+
 # pip --disable-pip-version-check install -q -U hiddifypanel==0.8.6
 pip uninstall -y hiddifypanel 
 pip --disable-pip-version-check install -q -U git+https://github.com/hiddify/HiddifyPanel
@@ -25,7 +25,7 @@ if [ -f "../config.env" ]; then
             echo "temporary disable removing config.env"
     fi
 fi
-
+systemctl daemon-reload
 echo "*/1 * * * * root $(pwd)/update_usage.sh" > /etc/cron.d/hiddify_usage_update
 service cron reload
 

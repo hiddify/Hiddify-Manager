@@ -12,10 +12,8 @@ function main(){
     if [[ "$changed" == "1" ]];then
         echo "Updating system"
         
-        git checkout hiddify-panel/hiddify-panel.service
-        if [[ $? != 0 ]];then
-            rm hiddify-panel/hiddify-panel.service
-        fi
+        rm hiddify-panel/hiddify-panel.service&&git checkout hiddify-panel/hiddify-panel.service 
+        
         git pull
         bash install.sh
     else 
