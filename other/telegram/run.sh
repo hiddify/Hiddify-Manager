@@ -1,3 +1,3 @@
 
 
-cd python; bash run.sh
+cd $TELEGRAM_LIB; bash run.sh
