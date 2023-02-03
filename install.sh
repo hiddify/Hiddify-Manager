@@ -7,9 +7,9 @@ if [ "$(id -u)" -ne 0 ]; then
 
 fi
 
+source ./common/ticktick.sh
 
 function set_config_from_hpanel(){
-        source ./common/ticktick.sh
 
         hiddify=`cd hiddify-panel;hiddifypanel all-configs`
         tickParse  "$hiddify"
