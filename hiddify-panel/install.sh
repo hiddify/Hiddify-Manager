@@ -11,7 +11,10 @@ for req in pip gunicorn;do
     fi
 done
 
-pip --disable-pip-version-check install -q -U hiddifypanel==0.8.2
+# pip --disable-pip-version-check install -q -U hiddifypanel==0.8.6
+pip uninstall -y hiddifypanel 
+pip --disable-pip-version-check install -q -U git+https://github.com/hiddify/HiddifyPanel
+
 hiddifypanel init-db
 ln -sf $(pwd)/hiddify-panel.service /etc/systemd/system/hiddify-panel.service
 systemctl enable hiddify-panel.service
