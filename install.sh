@@ -9,7 +9,7 @@ fi
 
 
 function set_config_from_hpanel(){
-        . ./common/ticktick.sh
+        source ./common/ticktick.sh
 
         hiddify=`cd hiddify-panel;hiddifypanel all-configs`
         tickParse  "$hiddify"
@@ -83,7 +83,7 @@ function set_config_from_hpanel(){
                 domain=$(get domains $i domain)
                 mode=$(get domains $i mode)
                 if [ "$mode"  = "direct" ] | [ "$mode"  = "cdn" ];then
-                        MAIN_DOMAIN="$domain;$DOMAINS"
+                        MAIN_DOMAIN="$domain;$MAIN_DOMAIN"
                 fi
                 if [ "$mode"  = "ss_faketls" ];then
                         setenv SS_FAKE_TLS_DOMAIN $domain
