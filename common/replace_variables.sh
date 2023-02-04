@@ -28,8 +28,9 @@ for template_file in $(find . -name "*.template"); do
     sed -i "s|DECOY_DOMAIN|$DECOY_DOMAIN|g" $out_file 
     sed -i "s|NO_CDN_DOMAIN|$NO_CDN_DOMAIN|g" $out_file 
     sed -i "s|defaultserverhost|$MAIN_DOMAIN|g" $out_file 
-    sed -i "s|telegramadtag|$TELEGRAM_AD_TAG|g" $out_file 
-    sed -i "s|telegramtlsdomain|$TELEGRAM_FAKE_TLS_DOMAIN|g" $out_file 
+    sed -i "s|TELEGRAM_AD_TAG|$TELEGRAM_AD_TAG|g" $out_file 
+    sed -i "s|TELEGRAM_FAKE_TLS_DOMAIN|$TELEGRAM_FAKE_TLS_DOMAIN|g" $out_file 
+
     sed -i "s|sstlsdomain|$SS_FAKE_TLS_DOMAIN|g" $out_file 
     sed -i "s|shadowtlsdomain|$SHADOWTLS_FAKEDOMAIN|g" $out_file 
     sed -i "s|ssrtlsdomain|$SSR_FAKEDOMAIN|g" $out_file 

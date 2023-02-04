@@ -27,7 +27,7 @@
         //   "type": "field",
         //   "inboundTag": ["sniproxy-in"],
         //   "outboundTag": "localhost-tgproxy",
-        //   "domain": ["domain:telegramtlsdomain"]
+        //   "domain": ["domain:TELEGRAM_FAKE_TLS_DOMAIN"]
         // },
         // {
         //   "type": "field",

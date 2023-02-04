@@ -10,8 +10,8 @@ if [ $CURL_EXIT_STATUS -ne 0 ]; then
 fi
 CPU_CORES=$(nproc --all)
 NEW_CORE=$((CPU_CORES - 1))
-ARGS_STR="-u nobody -H 1001 -S defaultusersecret -D telegramtlsdomain -M $NEW_CORE --aes-pwd proxy-secret proxy-multi.conf --nat-info 0.0.0.0:$SERVER_IP"
-TAG=telegramadtag
+ARGS_STR="-u nobody -H 1001 -S TELEGRAM_USER_SECRET -D TELEGRAM_FAKE_TLS_DOMAIN -M $NEW_CORE --aes-pwd proxy-secret proxy-multi.conf --nat-info 0.0.0.0:$SERVER_IP"
+TAG=TELEGRAM_AD_TAG
 if [ -n "$TAG" ]; then
     ARGS_STR+=" -P $TAG "
 fi

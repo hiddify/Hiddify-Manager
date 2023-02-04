@@ -549,7 +549,7 @@
         {
           "type": "field",
           "inboundTag": ["sniproxy-in"],
-          "domain": ["domain:telegramtlsdomain"],
+          "domain": ["domain:TELEGRAM_FAKE_TLS_DOMAIN"],
           "outboundTag": "localhost-tgproxy"
         },
         {

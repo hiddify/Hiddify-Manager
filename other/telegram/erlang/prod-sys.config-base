@@ -9,8 +9,8 @@
     [#{name => mtp_handler_1,
        listen_ip => "0.0.0.0",
        port => 1001,
-       secret => <<"defaultusersecret">>,
-       tag => <<"telegramadtag">>}
+       secret => <<"TELEGRAM_USER_SECRET">>,
+       tag => <<"TELEGRAM_AD_TAG">>}
     ]}
    ]},
 
