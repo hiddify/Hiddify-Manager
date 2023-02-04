@@ -24,6 +24,8 @@ function set_config_from_hpanel(){
         setenv GITHUB_USER hiddify
         setenv GITHUB_REPOSITORY hiddify-config
         setenv GITHUB_BRANCH_OR_TAG main
+        
+        setenv FIRST_SETUP =``hconfigs[first_setup]``
 
         TELEGRAM_SECRET=``hconfigs[shared_secret]``
 
