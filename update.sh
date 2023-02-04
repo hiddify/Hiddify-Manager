@@ -10,7 +10,7 @@ function main(){
 
     pip uninstall -y hiddifypanel 
     pip --disable-pip-version-check install -q -U git+https://github.com/hiddify/HiddifyPanel
-
+    
     if [[ "$changed" == "1" ]];then
         echo "Updating system"
         
@@ -21,6 +21,7 @@ function main(){
     else 
         echo "No update is needed"
     fi
+    systemctl restart hiddify-panel
 }
 
 mkdir -p log/system/
