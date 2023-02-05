@@ -7,13 +7,13 @@
       "rules": [
         {
             "type": "field", 
-            "inboundTag": ["xtls"], 
+            //"inboundTag": ["xtls"], 
             "outboundTag": "forbidden_sites",
             "ip": ["geoip:ir", "geoip:cn"] 
         },
         {
             "type": "field",
-            "inboundTag": ["xtls"], 
+            //"inboundTag": ["xtls"], 
             "outboundTag": "forbidden_sites",
             "domain": ["geosite:cn","tld-cn","tld-ir","ir","cn"]
         },
