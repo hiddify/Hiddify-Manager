@@ -1,4 +1,4 @@
-
+bash uninstall.sh
 
 echo "Installing Telegramlib $TELEGRAM_LIB"
 if [ -d "$TELEGRAM_LIB" ];then 

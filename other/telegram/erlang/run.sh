@@ -3,4 +3,6 @@
 
 cd mtproto_proxy
 sudo make update-sysconfig 
-sudo systemctl restart mtproxy
+
+sudo systemctl enable mtproto-proxy
+sudo systemctl restart mtproto-proxy
