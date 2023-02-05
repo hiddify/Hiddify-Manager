@@ -21,12 +21,12 @@ systemctl enable hiddify-panel.service
 if [ -f "../config.env" ]; then
     hiddifypanel import-config -c $(pwd)/../config.env
     if [ "$?" == 0 ];then
-            # rm config.env
-            echo "temporary disable removing config.env"
+            rm config.env
+            # echo "temporary disable removing config.env"
     fi
 fi
 systemctl daemon-reload
-echo "*/1 * * * * root $(pwd)/update_usage.sh" > /etc/cron.d/hiddify_usage_update
+echo "*/10 * * * * root $(pwd)/update_usage.sh" > /etc/cron.d/hiddify_usage_update
 service cron reload
 
 
