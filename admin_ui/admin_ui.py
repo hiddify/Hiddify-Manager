@@ -83,12 +83,17 @@ def update():
     # rc = subprocess.call(f"./install.sh &",shell=True)
     # rc = subprocess.call(f"cd {config_dir};./update.sh & disown",shell=True)
     # os.system(f'cd {config_dir};./update.sh &')
+    
+    
 
     subprocess.Popen(f"{config_dir}/update.sh",cwd=f"{config_dir}",start_new_session=True)
+    p=f"{configs['BASE_PROXY_PATH']}/{configs['ADMIN_SECRET']}/admin/"
     return template("result",data={
                         "out-type":"success",
-                        "out-msg":"Success! Please wait around 5 minutes to make sure everything is updated.<br>",
-                        "log-path":"reverselog/update.log"
+                        "out-msg":f"<h1>Secure Admin Link</h1><a href='https://{configs['MAIN_DOMAIN']}/{p}'>https://{configs['MAIN_DOMAIN']}/{p}</a><br>"+
+                                f"<h6>Alternative Admin Link1:</h6><a href='https://{server_ip}.sslip.io/{p}'>https://{server_ip}.sslip.io/{p}</a><br>"+
+                                f"<a href='http://{server_ip}/{p}'>http://{server_ip}/{p}</a><br>",
+                        "log-path":f"https://{configs['MAIN_DOMAIN']}/{p}/reverselog/update.log"
     })
 
     

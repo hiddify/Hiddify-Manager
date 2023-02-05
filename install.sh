@@ -6,7 +6,7 @@ if [ "$(id -u)" -ne 0 ]; then
 #        exit 1
 fi
 
-
+.
 
 function set_env_if_empty(){
  echo "applying configs from $1========================================="
@@ -178,7 +178,7 @@ function main(){
         if [[ "$TELEGRAM_USER_SECRET" == "" ]]; then
                 replace_empty_env TELEGRAM_USER_SECRET "" $USER_SECRET ".*"
         fi
-
+        export ENABLE_AUTO_UPDATE=false
         cd /opt/$GITHUB_REPOSITORY
         git pull
 
