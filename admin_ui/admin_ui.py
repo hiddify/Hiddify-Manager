@@ -74,7 +74,10 @@ def status():
 def update():
     configs=read_configs()
     cwd = os.getcwd()
-    
+    try:
+        server_ip=urllib.request.urlopen('https://v4.ident.me/').read().decode('utf8')
+    except:
+        server_ip="server_ip"
     my_env = os.environ
     for name in configs:
         if name in os.environ:
