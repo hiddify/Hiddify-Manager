@@ -1,0 +1,42 @@
+
+%% -*- mode: erlang -*-
+[
+ {mtproto_proxy,
+  %% see src/mtproto_proxy.app.src for examples.
+  [
+   {allowed_protocols, [mtp_fake_tls]},
+   {ports,
+    [#{name => mtp_handler_1,
+       listen_ip => "0.0.0.0",
+       port => 1001,
+       secret => <<"TELEGRAM_USER_SECRET">>,
+       tag => <<"TELEGRAM_AD_TAG">>}
+    ]}
+   ]},
+
+ %% Logging config
+ {lager,
+  [{log_root, "/var/log/mtproto-proxy"},
+   {crash_log, "crash.log"},
+   {handlers,
+    [
+     {lager_console_backend,
+      [{level, critical}]},
+     {lager_file_backend,
+      [{file, "application.log"},
+       {level, info},
+       %% Do fsync only on critical messages
+       {sync_on, critical},
+       %% If we logged more than X messages in a second, flush the rest
+       {high_water_mark, 300},
+       %% If we hit hwm and msg queue len is >X, flush the queue
+       {flush_queue, true},
+       {flush_threshold, 2000},
+       %% How often to check if log should be rotated
+       {check_interval, 5000},
+       %% Rotate when file size is 10MB+
+       {size, 10485760}
+      ]}
+    ]}]},
+ {sasl, [{errlog_type, error}]}
+].

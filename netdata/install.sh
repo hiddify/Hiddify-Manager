@@ -1,3 +1,0 @@
-apt install -y netdata
-
-

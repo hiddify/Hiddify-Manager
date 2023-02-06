@@ -2,7 +2,7 @@
    "inbounds": [
     {
 	  "tag":"kcp",
-      "port": 443,
+      "port": 88, #xbox port
       "protocol": "vless",
       "settings": {
         "clients": [
@@ -19,7 +19,7 @@
     "streamSettings": {
      "network": "kcp",
      "kcpSettings": {
-        "seed": "defaultusersecret/vless-kcp"
+        "seed": "BASE_PROXY_PATH"
       }
      }
 	}

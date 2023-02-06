@@ -6,7 +6,7 @@
 ln -sf $(pwd)/hiddify-xray.service /etc/systemd/system/hiddify-xray.service
 systemctl enable hiddify-xray.service
 
-MAIN_DOMAIN="$MAIN_DOMAIN;$SERVER_IP.sslip.io"
+# MAIN_DOMAIN="$MAIN_DOMAIN;$SERVER_IP.sslip.io"
 DOMAINS=${MAIN_DOMAIN//;/ }
 USERS=${USER_SECRET//;/ }
 
@@ -16,13 +16,14 @@ USERS=${USER_SECRET//;/ }
 final=""
 TEMPLATE_LINE='{"ocspStapling": 3600, "certificateFile": "ssl.crt", "keyFile": "ssl.key"}'
 for DOMAIN in $DOMAINS;do
-echo $DOMAIN
+	echo $DOMAIN
 	NEW_LINE=${TEMPLATE_LINE//ssl/"/opt/$GITHUB_REPOSITORY/ssl/$DOMAIN"}	
 	final=$final,$NEW_LINE
 done
 final=${final:1}
 echo $final
 sed -i "s|$TEMPLATE_LINE|$final|g" configs/05_inbounds_02_xtls_main.json
+sed -i "s|$TEMPLATE_LINE|$final|g" configs/05_inbounds_02_quic_main.json
 
 for CONFIG_FILE in $(find configs/ -name "*.json"); do
 	grep $CONFIG_FILE -e defaultuserguidsecret| while read -r line ; do
@@ -44,9 +45,10 @@ if [[ "$ALLOW_ALL_SNI_TO_USE_PROXY" == "true" ]];then
         sed -i 's|"redirect": "127.0.0.1:445"|"redirect": "127.0.0.1:400"|g' configs/05_inbounds_02_sni_proxy.json
 fi
 
-if [[ "$BLOCK_IR_SITES" == "true" ]];then
-        # sed -i 's|"tag": "forbidden_sites", "protocol": "blackhole"|"tag": "forbidden_sites", "protocol": "freedom"|g' configs/06_outbounds.json
-		sed -i 's|"inboundTag": ["Experimental"],||g' configs/03_routing.jsons	
+if [[ "$BLOCK_IR_SITES" != "true" ]];then
+        sed -i 's|"tag": "forbidden_sites", "protocol": "blackhole"|"tag": "forbidden_sites", "protocol": "freedom"|g' configs/06_outbounds.json
+		# sed -i 's|"inboundTag": ["Experimental"],||g' configs/03_routing.json
+		
 fi 
 
 

@@ -14,6 +14,7 @@ function add2iptables(){
 else 
   iptables -P INPUT ACCEPT
 fi
+#add2iptables "INPUT -p tcp --dport 9000 -j DROP"
 
 if [[ $ENABLE_AUTO_UPDATE == true ]]; then
   echo "0 3 * * * root $(pwd)/../update.sh" > /etc/cron.d/hiddify_auto_update

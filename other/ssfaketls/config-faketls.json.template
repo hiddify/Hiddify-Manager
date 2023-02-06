@@ -1,0 +1,9 @@
+{
+    "server":"0.0.0.0",
+    "server_port":1002,
+    "password":"SHARED_SECRET",
+    "timeout":300,
+    "plugin":"obfs-server",
+    "plugin_opts":"obfs=tls;failover=sstlsdomain:443",
+    "method":"chacha20-ietf-poly1305"
+}

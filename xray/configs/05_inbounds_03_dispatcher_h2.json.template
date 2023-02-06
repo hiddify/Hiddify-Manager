@@ -3,17 +3,13 @@
 		{
 			"tag":"dispatcher_h2",
 			"listen": "@dispatcher_h2", 
-			"protocol": "trojan",
+			"protocol": "vless",
 			"settings": {
 			  "clients": [
-				{"password": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com"}
+				{"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com"}
 			  ],
+			  "decryption": "none",
 			  "fallbacks": [
-				// 	{
-				// 	"path": "/.well-known/acme-challenge/",
-				// 	"dest": "402",
-				// 	"xver": 2 
-				//   },
 				  {
 					"path": "/BASE_PROXY_PATH/vlessws",
 					"dest": "@vless-ws",
@@ -63,6 +59,11 @@
 					"path": "/BASE_PROXY_PATH/v2ray-ws",
 					"dest": "3006",
 					"xver": 2
+				  },
+				  {
+					"path": "/BASE_PROXY_PATH/ADMIN_SECRET",
+					"dest": "502",
+					"xver": 2 
 				  },
 				  {
 					"dest": "502",

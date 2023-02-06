@@ -22,9 +22,9 @@ if [[ "$FIRST_SETUP" == "true" ]];then
 	fi
 	sed -i "s|TEMP_LINK_VALID_TIME|$TEMP_LINK_VALID_TIME|g" def-link.conf
 fi
-if [[ "$ENABLE_MONITORING" == "false" ]];then
-        sed -i "s|access_log /opt/GITHUB_REPOSITORY/log/nginx.log proxy;|access_log off;|g" $out_file
-fi
+# if [[ "$ENABLE_MONITORING" == "false" ]];then
+#         sed -i "s|access_log /opt/GITHUB_REPOSITORY/log/nginx.log proxy;|access_log off;|g" $out_file
+# fi
 
 systemctl stop nginx
 pkill -9 nginx

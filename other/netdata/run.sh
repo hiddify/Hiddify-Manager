@@ -1,0 +1,2 @@
+systemctl enable netdata
+systemctl restart netdata

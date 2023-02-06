@@ -1,0 +1,13 @@
+[Unit]
+Description=MTProxy
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/GITHUB_REPOSITORY/other/telegram/orig/
+ExecStart=/opt/GITHUB_REPOSITORY/other/telegram/orig/tgproxy_run.sh
+Restart=on-failure
+StartLimitBurst=0
+
+[Install]
+WantedBy=multi-user.target

@@ -30,8 +30,10 @@ listen 443 {
 
 # named tables are defined with the table directive
 table https_hosts {
-    telegramtlsdomain 127.0.0.1:1001
+    TELEGRAM_FAKE_TLS_DOMAIN 127.0.0.1:1001
     sstlsdomain 127.0.0.1:1002 
+    shadowtlsdomain 127.0.0.1:1003 
+    ssrtlsdomain 127.0.0.1:1004
     # defaultserverhost unix:/dev/shm/hiddify-xtls-main.sock 
 	#proxy_protocol
 

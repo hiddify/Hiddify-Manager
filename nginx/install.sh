@@ -15,7 +15,7 @@ rm /etc/nginx/sites-enabled/default
 
 # sed -i "s/listen 444 ssl;/listen 444 ssl http2;/" web.conf
 
-ln -sf  $(pwd)/web.conf /etc/nginx/conf.d/web.conf
+ln -sf  $(pwd)/xray-base.conf /etc/nginx/conf.d/xray-base.conf
 # mkdir -p /etc/nginx/stream.d/ 
 # ln -sf $(pwd)/sni-proxy.conf /etc/nginx/stream.d/sni-proxy.conf
 # ln -sf $(pwd)/signal.conf /etc/nginx/stream.d/signal.conf

@@ -1,81 +1,14 @@
-# location ~* "xxx/BASE_PROXY_PATH/(?<guid1>\w{8})[\-]?(?<guid2>\w{4})[\-]?(?<guid3>\w{4})[\-]?(?<guid4>\w{4})[\-]?(?<guid5>\w{12})/clash/(?<path>.*)" {
+
+# location ~* "/BASE_PROXY_PATH/(?<guid1>\w{8})[\-]?(?<guid2>\w{4})[\-]?(?<guid3>\w{4})[\-]?(?<guid4>\w{4})[\-]?(?<guid5>\w{12})/(?<path>.*)" {
 #   set $guid "$guid1-$guid2-$guid3-$guid4-$guid5";
 #   set $usersecret "$guid1$guid2$guid3$guid4$guid5";
-#   proxy_pass http://localhost:439/user/$usersecret/$path; 
-# 	error_page 301 302 307 = @handle_redirect;
-
-#   # alias /opt/GITHUB_REPOSITORY/clash/$path;
-#   # types { }   default_type "text/plain";
-
-#   sub_filter_types text/plain;
-#   include /opt/GITHUB_REPOSITORY/nginx/replace.conf;
-#   sub_filter usersecret $usersecret;
-#   sub_filter userguidsecret $guid;
-#   sub_filter_once off;
+#   proxy_pass http://localhost:9000/BASE_PROXY_PATH/$guid/$path; 
 # }
-location ~* "/BASE_PROXY_PATH/(?<guid1>\w{8})[\-]?(?<guid2>\w{4})[\-]?(?<guid3>\w{4})[\-]?(?<guid4>\w{4})[\-]?(?<guid5>\w{12})/(?<path>.*)" {
-  set $guid "$guid1-$guid2-$guid3-$guid4-$guid5";
-  set $usersecret "$guid1$guid2$guid3$guid4$guid5";
-  proxy_pass http://localhost:439/user/$usersecret/$path; 
+
+location /BASE_PROXY_PATH/ADMIN_SECRET/admin/netdata/ {
+	proxy_pass  http://localhost:19999/;
 	error_page 301 302 307 = @handle_redirect;
-  #alias /opt/GITHUB_REPOSITORY/web/$path;
-  include mime.types;
-  types {"text/plain" yml; }
-  sub_filter_types text/plain;
-  include /opt/GITHUB_REPOSITORY/nginx/replace.conf;
-  sub_filter usersecret $usersecret;
-  sub_filter userguidsecret $guid;
-  sub_filter_once off;
 }
-
-
-location = /BASE_PROXY_PATH/trojan/ {
- proxy_redirect off;
- proxy_http_version 1.1;
- proxy_pass https://127.0.0.1:1005/;
- proxy_ssl_server_name on;
- proxy_ssl_name $http_host;
- proxy_set_header Upgrade $http_upgrade;
- proxy_set_header Connection "upgrade";
- proxy_set_header Host $http_host;
- proxy_set_header X-Real-IP $remote_addr;
- proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-}
-location = /BASE_PROXY_PATH/v2ray/ {
-#for performance
-proxy_redirect off;
-proxy_http_version 1.1;
-proxy_pass http://127.0.0.1:1003/; # Port of v2ray-plugin
-proxy_set_header Upgrade $http_upgrade;
-proxy_set_header Connection "upgrade";
-proxy_set_header Host $http_host;
-# Show real IP if you enable V2Ray access log
-proxy_set_header X-Real-IP $remote_addr;
-proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-}
-location = /BASE_PROXY_PATH/vmess/ {
-#for performance
-proxy_redirect off;
-proxy_http_version 1.1;
-proxy_pass http://127.0.0.1:1004/; # Port of v2ray-plugin
-proxy_set_header Upgrade $http_upgrade;
-proxy_set_header Connection "upgrade";
-proxy_set_header Host $http_host;
-# Show real IP if you enable V2Ray access log
-proxy_set_header X-Real-IP $remote_addr;
-proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-}
-location = /BASE_PROXY_PATH/signal/ {
-  proxy_pass            https://localhost:4433;
-}
-
-#location /BASE_PROXY_PATH/ {
-if ($request_uri ~ "^/BASE_PROXY_PATH/redirect/(.*)(%3A%2F%2F|://)(.*)$") {
-  return 307 $1://$3;
-}
-#location = /BASE_PROXY_PATH/ {
-#  return 302 help/index.html;
-#}
 
 location /BASE_PROXY_PATH/ghr/ {
   #for proxy github raw
@@ -103,9 +36,6 @@ location /BASE_PROXY_PATH/gh/ {
   sub_filter    src="/ src="/BASE_PROXY_PATH/gh/;
 }
 
-location /BASE_PROXY_PATH/help/ { #for help
-  return 302 ../;
-}
 
 
 
@@ -114,7 +44,7 @@ location /BASE_PROXY_PATH/clash/ {
    alias /opt/GITHUB_REPOSITORY/clash/;
    types { }   default_type "text/plain";
    sub_filter_types text/plain;
-   include /opt/GITHUB_REPOSITORY/nginx/replace.conf;
+   #include /opt/GITHUB_REPOSITORY/nginx/replace.conf;
    sub_filter_once off;
 }
 
@@ -126,16 +56,13 @@ location /BASE_PROXY_PATH/speedtest/ {
   client_max_body_size 10000M;
   proxy_pass          http://localhost:438/;
 }
-location /BASE_PROXY_PATH/ { #for help
-  proxy_set_header Host $host;  
-  proxy_pass http://127.0.0.1:80/BASE_PROXY_PATH/BASE_PROXY_PATH/;
-  # proxy_intercept_errors on;
-	# error_page 301 302 307 = @handle_redirect;
-	
-  # return 302 /BASE_PROXY_PATH/BASE_PROXY_PATH/;
+
+location /BASE_PROXY_PATH/ {
+  proxy_set_header Host $host;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_pass http://localhost:9000/BASE_PROXY_PATH/; 
+  error_page 301 302 307 = @handle_redirect;
 }
-#}
-
-
 
 resolver 8.8.8.8;
