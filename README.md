@@ -1,6 +1,9 @@
 # Hiddify Config
-در این مقاله به شما آموزش میدهیم چگونه یک فیلترشکن اختصاصی مالتی پروتوکل در پورت 443 ایجاد کنید.
-موارد پشتیبانی شده:
+
+This repository help you to create a dedicated multiprotocol proxy on port 443.
+Supported items:
+
+در این ریپازیتوری ساخت فیلترشکن حرفه‌ای را فقط با چند کلیک ساده فراهم کردیم.
 
 | Supported Configs | کانفیگ های پشتیبانی شده|
 | - | - |
@@ -11,13 +14,8 @@
  
 
 
-<details markdown="1"> <summary>DNS over HTTPS (supports CDN)</summary>
- 
- برای استفاده از DNS over HTTPS کافی است در مرورگر از dns زیر استفاده کنید:
- 
- `https://yourdomain.com/yoursecret/dns/dns-query{?dns}`
- 
-</details>
+- DNS over HTTPS (supports CDN)
+
 <details markdown="1"> <summary>Redirector (supports CDN)</summary> 
  
  نکته این امر آن است که برای مثال وقتی میخواهید پروکسی تلگرام یا پروکسی شدوساکس را از طریق برنامه های دیگر به اشتراک بگذارید امکان آن فراهم می شود. برای مثال اگر کانفیگ شدوساکس را به جای `fullURL` آن قرار دهید باعث میشود با کلیک بر روی این لینک، نرم افزار شدوساکس باز شده و پروکسی بر روی آن فعال شود.
@@ -57,34 +55,19 @@
 کلیه سورس کدها در [گیت هاب](https://github.com/hiddify/hiddify-config) 
 </details>
 
-<details markdown="1"> <summary>ارائه گزارش وضعیت سرویس </summary>
-نمایش میزان مصرف پروکسی و تعداد کاربران،  بر اساس،پروتوکل، شهر و اپراتور اینترنت با حفظ حریم خصوصی کاربران
-
-از طریق لینک زیر میتوانید مشاهده کنید وضعیت سرور رو
-
-`https://yourdomain.com/yoursecret/stats/` 
-
-</details>
 <details  markdown="1"> <summary>Supported OS: Ubuntu arm64 or amd64</summary>
 It is tested on Ubuntu 20.04 and 22.04
 </details>
 
-<details  markdown="1"> <summary>Auto Up to date (به روز رسانی خودکار)</summary>
-
-به صورت پیش فرض به روزرسانی خودکار فعال است
-جهت غیرفعال کردن آن کد زیر را در `config.env` اضافه کنید
-```
-ENABLE_AUTO_UPDATE=false
-```
-</details>
+<details  markdown="1"> <summary>Auto Up to date (به روز رسانی خودکار)</summary></details>
 
 
-# [آموزش نصب و راه اندازی (کلیک کنید)](https://github.com/hiddify/hiddify-config/wiki#کانال-تلگرام-ما-کلیک-کنید)
+# [Installation Guide (Click) آموزش نصب و راه اندازی (کلیک کنید)](https://github.com/hiddify/hiddify-config/wiki#کانال-تلگرام-ما-کلیک-کنید)
 
 
-# [کانال تلگرام ما](https://t.me/hiddify)
+# [(Telegram Channel) کانال تلگرام ما](https://t.me/hiddify)
 
-#  صفحه راهنمای کاربران و ادمین
+# Admin and User Area صفحه کاربران و ادمین
 
 با امکان تولید qrcode
 
