@@ -5,6 +5,9 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 echo "we are going to download needed files:)"
+GITHUB_REPOSITORY=hiddify-config
+GITHUB_USER=hiddify
+GITHUB_BRANCH_OR_TAG=main
 
 if [ ! -d "/opt/$GITHUB_REPOSITORY" ];then
         apt update
@@ -13,24 +16,6 @@ if [ ! -d "/opt/$GITHUB_REPOSITORY" ];then
         cd /opt/$GITHUB_REPOSITORY
         git checkout $GITHUB_BRANCH_OR_TAG
 fi 
-
-
-export USER_SECRET=$1
-export MAIN_DOMAIN=$2
-
-MODE="${3:-all}"
-if [[ $MODE == 'all' ]]; then
-  MODE="shadowsocks-telegram-vmess";
-fi
-if [[ $MODE == *'telegram'* ]]; then
-  export ENABLE_TELEGRAM=true
-fi
-if [[ $MODE == *'shadowsocks'* ]]; then
-   export ENABLE_SS=true
-fi
-if [[ $MODE == *'vmess'* ]]; then
-   export ENABLE_VMESS=true
-fi
 
 cd /opt/$GITHUB_REPOSITORY
 bash install.sh
