@@ -1,7 +1,7 @@
 location = / {
 	if ($time_iso8601 ~ "^TEMP_LINK_VALID_TIME" ) { 
 		add_header Content-Type text/html;
-		return 200 "Please underestand that this link is temporary and will be disappeared after one hour. Please click <a href='BASE_PROXY_PATH/ADMIN_SECRET/admin/quick-setup'>here</a> to continue setup. After that, please do not forget to save your admin link!";
+		return 200 "Please underestand that this link is temporary and will be disappeared after one hour. Please click <a href='BASE_PROXY_PATH/ADMIN_SECRET/admin/quick-setup/'>here</a> to continue setup. After that, please do not forget to save your admin link!";
 		#return 307  ADMIN_SECRET/config;
 	}
 	# proxy_redirect / /;
