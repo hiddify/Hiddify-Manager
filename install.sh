@@ -25,7 +25,7 @@ function set_config_from_hpanel(){
         setenv GITHUB_REPOSITORY hiddify-config
         setenv GITHUB_BRANCH_OR_TAG main
         
-        setenv FIRST_SETUP =``hconfigs[first_setup]``
+        setenv FIRST_SETUP ``hconfigs[first_setup]``
 
         TELEGRAM_SECRET=``hconfigs[shared_secret]``
 
@@ -150,6 +150,7 @@ function do_for_all() {
         bash common/replace_variables.sh
         runsh $1.sh common
         runsh $1.sh certbot
+        # runsh $1.sh acme.sh
         runsh $1.sh nginx
         runsh $1.sh sniproxy
         runsh $1.sh xray
