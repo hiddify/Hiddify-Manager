@@ -3,9 +3,10 @@
 # 
 
 locals{
-   #site1= var.domain_name==""? format("https://%s.sslip.io/%s/config", oci_core_instance.app_instance[0].public_ip , local.guid): format("https://%s/%s/config",var.domain_name,local.guid)
-   site1= format("http://%s/%s/config", oci_core_instance.app_instance[0].public_ip , local.guid)
-   site2= format("http://%s/%s/config", oci_core_instance.app_instance[0].public_ip , local.guid)
+   #site1= var.domain_name==""? format("https://%s.sslip.io/", oci_core_instance.app_instance[0].public_ip): format("https://%s/",var.domain_name)
+   site1= format("http://%s/", oci_core_instance.app_instance[0].public_ip )
+   site2= format("http://%s/", oci_core_instance.app_instance[0].public_ip )
+   #site2= format("http://%s/%s/config", oci_core_instance.app_instance[0].public_ip , local.guid)
 }
 output "proxy_url" {
   value       = local.site2
