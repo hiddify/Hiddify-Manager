@@ -32,9 +32,8 @@ for DOMAIN in $DOMAINS;	do
 	fi
 	./lib/acme.sh --server  letsencrypt --issue  --standalone  -d $DOMAIN
 	./lib/acme.sh  --installcert  -d $DOMAIN  \
-			--certpath $ssl_cert_path/$DOMAIN.crt \
+			--fullchainpath $ssl_cert_path/$DOMAIN.crt \
 			--keypath $ssl_cert_path/$DOMAIN.key  \
-			--capath  $ssl_cert_path/$DOMAIN.ca  \
 			--reloadcmd  "systemctl restart hiddify-xray"
 
 	# if [[ $(dig +short -t a $DOMAIN.) ]];then

@@ -149,8 +149,8 @@ function do_for_all() {
         #cd /opt/$GITHUB_REPOSITORY
         bash common/replace_variables.sh
         runsh $1.sh common
-        runsh $1.sh certbot
-        #runsh $1.sh acme.sh
+        #runsh $1.sh certbot
+        runsh $1.sh acme.sh
         runsh $1.sh nginx
         runsh $1.sh sniproxy
         runsh $1.sh xray
