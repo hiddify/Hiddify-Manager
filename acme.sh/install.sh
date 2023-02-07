@@ -1,5 +1,7 @@
 sudo apt-get install socat
 sudo apt-get uninstall certbot
-curl https://get.acme.sh | sh
+mkdir -p /opt/hiddify/acme.sh/lib/
+curl -L https://get.acme.sh| sh -s -- home /opt/hiddify-config/acme.sh/lib/ 
+    
 
 mkdir -p ../ssl/

@@ -30,8 +30,8 @@ for DOMAIN in $DOMAINS;	do
 		rm $ssl_cert_path/$DOMAIN.key $ssl_cert_path/$DOMAIN.crt
 		openssl req -x509 -newkey rsa:2048 -keyout $ssl_cert_path/$DOMAIN.key -out $ssl_cert_path/$DOMAIN.crt -days 3650 -nodes -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=www.google.com"
 	fi
-	/root/.acme.sh/acme.sh --server  letsencrypt --issue  --standalone  -d $DOMAIN
-	/root/.acme.sh/acme.sh  --installcert  -d $DOMAIN  \
+	./lib/acme.sh --server  letsencrypt --issue  --standalone  -d $DOMAIN
+	./lib/acme.sh  --installcert  -d $DOMAIN  \
 			--certpath $ssl_cert_path/$DOMAIN.crt \
 			--keypath $ssl_cert_path/$DOMAIN.key  \
 			--capath  $ssl_cert_path/$DOMAIN.ca  \
