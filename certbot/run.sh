@@ -32,8 +32,10 @@ for DOMAIN in $DOMAINS;	do
 	fi
 
 	if [[ $(dig +short -t a $DOMAIN.) ]];then
-		certbot certonly --standalone --http-01-port 80 --register-unsafely-without-email -d $DOMAIN --non-interactive --agree-tos --logs-dir $(pwd)/../log/system/
+		
 	fi
+	certbot certonly --standalone --http-01-port 80 --register-unsafely-without-email -d $DOMAIN --non-interactive --agree-tos --logs-dir $(pwd)/../log/system/
+	
 	if [[ -f /etc/letsencrypt/live/$DOMAIN/fullchain.pem && -f /etc/letsencrypt/live/$DOMAIN/privkey.pem ]];then
 		rm $ssl_cert_path/$DOMAIN.key $ssl_cert_path/$DOMAIN.crt
 		ln -sf /etc/letsencrypt/live/$DOMAIN/fullchain.pem $ssl_cert_path/$DOMAIN.crt
