@@ -11,7 +11,8 @@ for s in netdata other/**/*.service **/*.service nginx;do
 done
 
 
-
+rm -rf /etc/cron.d/hiddify*
+service cron reload
 }
 mkdir -p log/system/
 main |& tee log/system/uninstall.log
