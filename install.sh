@@ -70,8 +70,8 @@ function set_config_from_hpanel(){
         setenv BLOCK_IR_SITES ``hconfigs[block_iran_sites]``
         setenv ONLY_IPV4 ``hconfigs[only_ipv4]``
 
-        setenv SERVER_IP `curl -s https://v4.ident.me/`
-        setenv SERVER_IPv6 `curl -s https://v6.ident.me/`
+        setenv SERVER_IP `curl --connect-timeout 1 -s https://v4.ident.me/`
+        setenv SERVER_IPv6 `curl  --connect-timeout 1 -s https://v6.ident.me/`
 
         function get () {
                 group=$1
