@@ -229,4 +229,4 @@ function main(){
 }
 
 mkdir -p log/system/
-main |& tee log/system/0-install.log
+main $@|& tee log/system/0-install.log

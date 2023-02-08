@@ -11,7 +11,7 @@ echo "">$DST
 echo -e "Permanent Admin link: \n   http://$SERVER_IP/$BASE_PROXY_PATH/$ADMIN_SECRET/admin/ \n" >>$DST
 echo -e "Secure Admin links: \n" >>$DST
 
-ssl_cert_path=../ssl/
+ssl_cert_path=../ssl
 
 for DOMAIN in $DOMAINS;	do
 	echo -e "   https://$DOMAIN/$BASE_PROXY_PATH/$ADMIN_SECRET/admin/\n" >>$DST
