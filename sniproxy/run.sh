@@ -20,3 +20,4 @@ fi
 
 pkill -9 sniproxy
 systemctl restart hiddify-sniproxy.service
+systemctl status  hiddify-sniproxy.service

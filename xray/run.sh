@@ -54,6 +54,6 @@ fi
 
 rm -rf /dev/shm/hiddify-xtls-main.sock
 systemctl restart hiddify-xray.service
-
+systemctl status hiddify-xray.service
 
 

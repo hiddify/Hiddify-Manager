@@ -133,7 +133,7 @@ function runsh() {
         if [[ $3 == "false" ]];then
                 command=uninstall.sh
         fi
-        pushd $2; 
+        pushd $2 >>/dev/null 
         # if [[ $? != 0]];then
         #         echo "$2 not found"
         # fi
@@ -143,7 +143,7 @@ function runsh() {
                 echo "==========================================================="        
                 bash $command
         fi
-        popd 
+        popd >>/dev/null
 }
 
 function do_for_all() {
@@ -160,7 +160,7 @@ function do_for_all() {
         runsh $1.sh other/ssfaketls $ENABLE_SS
         runsh $1.sh other/v2ray $ENABLE_V2RAY
         runsh $1.sh other/shadowtls $ENABLE_SHADOWTLS
-        runsh $1.sh other/clash-server $ENABLE_TUIC
+        #runsh $1.sh other/next-version/clash-server $ENABLE_TUIC
         # runsh $1.sh deprecated/vmess $ENABLE_VMESS
         runsh uninstall.sh deprecated/vmess
         # runsh $1.sh deprecated/monitoring $ENABLE_MONITORING
@@ -219,10 +219,11 @@ function main(){
                 
                 echo ""
                 echo ""
+                bash status.sh
                 echo "==========================================================="
                 echo "Finished! Thank you for helping Iranians to skip filternet."
                 echo "Please open the following link in the browser for client setup"
-                bash status.sh
+                
                 cat use-link
                 echo "---------------------Finished!------------------------"
         fi
