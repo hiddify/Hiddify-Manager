@@ -16,4 +16,5 @@ bash google-bbr.sh
 
 sysctl -w net.ipv4.conf.all.route_localnet=1
 
-
+echo "@reboot root /opt/hiddify-config/install.sh >> /opt/hiddify-config/log/system/reboot.log 2>&1" > /etc/cron.d/hiddify_reinstall_on_reboot
+service cron reload
