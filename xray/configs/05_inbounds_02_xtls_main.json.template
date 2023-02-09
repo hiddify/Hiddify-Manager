@@ -7,7 +7,7 @@
 			"protocol": "trojan",
 			"settings": {
 			  "clients": [
-				{"password": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com","flow": "xtls-rprx-direct"}
+				{"password": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com","flow": "xtls-rprx-vision"}
 			  ],
 			  "fallbacks": [
 				{
@@ -26,17 +26,16 @@
 			  "tcpSettings": {
 				//"acceptProxyProtocol": true //Enable PROXY protocol reception, receive the real source IP and port from nginx sni proxy.
 			  },
-			  "security": "xtls", 
-			  "xtlsSettings": {
-				//If XTLS Direct is enabled, tlsSettings must be changed to xtlsSettings; otherwise, restore tlsSettings.
+			  "security": "tls", 
+			  "tlsSettings": {
 				"certificates": [
 				  {"ocspStapling": 3600, "certificateFile": "ssl.crt", "keyFile": "ssl.key"}
 				],
-				"minVersion": "1.2", //Xray version is not less than v1.1.4 to support configuring the minimum TLS version. Currently V2Ray does not support it. If you use V2Ray as the server, you must delete this configuration.
-				"cipherSuites": "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256", //Xray版本不小于v1.1.4才支持配置密码套件（若无RSA证书，可删除所有RSA算法的密码套件；无ECC证书, to remove cipher suites for all ECDSA algorithms.). Currently V2Ray does not support it. If you use V2Ray as the server, you must delete this configuration.
+				"minVersion": "1.2", 
+				"cipherSuites": "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256", 
 				"alpn": [
-				  "h2", //Enabling h2 connection needs to configure h2 fallback, otherwise inconsistency (streaking) is easily detected by the wall and blocked.
-				  "http/1.1" //Enabling http/1.1 connection needs to configure http/1.1 fallback, otherwise inconsistency (streaking) is easily detected by the wall and blocked.
+				  "h2", 
+				  "http/1.1" 
 				]
 			  }
 			},
