@@ -23,7 +23,7 @@ for DOMAIN in $DOMAINS;	do
 	echo "resolving domain $DOMAIN -> IP= $DOMAIN_IP ServerIP-> $SERVER_IP"
 	if [[ $SERVER_IP != $DOMAIN_IP ]];then
 			echo "maybe it is an error! make sure that it is correct"
-			sleep 10
+			#sleep 10
 	fi
 
 
