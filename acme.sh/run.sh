@@ -54,6 +54,6 @@ done
 if [[ "$FIRST_SETUP" == "true" ]];then
 	echo -e "Please visit http://$SERVER_IP/ or https://$SERVER_IP.sslip.io/ in one hour to change your domain.">>$DST
 	echo "or you can use the following links to continue setup:">>$DST
-	echo  -e "   http://$SERVER_IP/$BASE_PROXY_PATH/$ADMIN_SECRET/admin/quick-setup" >>$DST
+	echo  -e "   http://$SERVER_IP/$BASE_PROXY_PATH/$ADMIN_SECRET/admin/quick-setup/" >>$DST
 	echo  -e "   https://$SERVER_IP.sslip.io/$BASE_PROXY_PATH/$ADMIN_SECRET/admin/quick-setup/" >>$DST
 fi
