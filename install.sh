@@ -72,10 +72,7 @@ function set_config_from_hpanel(){
 
         setenv SERVER_IP `curl --connect-timeout 1 -s https://v4.ident.me/`
         setenv SERVER_IPv6 `curl  --connect-timeout 1 -s https://v6.ident.me/`
-        if [ "$SERVER_IPv6" == '' ];then
-              echo "ipv6 not detected so we disable it"
-              setenv ONLY_IPV4 'true'
-        fi
+
         function get () {
                 group=$1
                 index=`printf "%012d" "$2"` 

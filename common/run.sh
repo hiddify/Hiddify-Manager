@@ -9,12 +9,13 @@ add2iptables "INPUT -p tcp --dport 443 -j ACCEPT"
 add2iptables "INPUT -p udp --dport 53 -j ACCEPT"
 add2iptables "INPUT -p tcp --dport 80 -j ACCEPT"
 add2iptables "INPUT -p tcp --dport 22 -j ACCEPT"
-
+mkdir -p /etc/iptables/
  if [[ $ENABLE_FIREWALL == true ]]; then
   iptables -P INPUT DROP
   iptables-save > /etc/iptables/rules.v4 
 else 
   iptables -P INPUT ACCEPT
+  iptables-save > /etc/iptables/rules.v4 
 fi
 #add2iptables "INPUT -p tcp --dport 9000 -j DROP"
 
