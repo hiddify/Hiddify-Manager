@@ -4,10 +4,11 @@
 			"tag":"xtls",
 			// "port": 400, // This is TLS entrypoint. This entrypoint does the SSL Termination then routes the request based on the Path or ALPN type.
 			"listen": "/dev/shm/hiddify-xtls-main.sock,0666",
-			"protocol": "trojan",
+			"protocol": "vless",
 			"settings": {
+			  "decryption": "none",
 			  "clients": [
-				{"password": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com","flow": "xtls-rprx-vision"}
+				{"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com","flow": "xtls-rprx-vision"}
 			  ],
 			  "fallbacks": [
 				{
