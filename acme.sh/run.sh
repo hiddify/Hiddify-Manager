@@ -1,4 +1,4 @@
-
+source ./lib/acme.sh.env
 # MAIN_DOMAIN="$MAIN_DOMAIN;$SERVER_IP.sslip.io"
 DOMAINS=${MAIN_DOMAIN//;/ }
 
