@@ -21,7 +21,7 @@ systemctl enable hiddify-panel.service
 if [ -f "../config.env" ]; then
     hiddifypanel import-config -c $(pwd)/../config.env
     if [ "$?" == 0 ];then
-            rm config.env
+            rm -f config.env
             # echo "temporary disable removing config.env"
     fi
 fi
