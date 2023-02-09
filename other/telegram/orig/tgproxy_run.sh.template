@@ -16,5 +16,5 @@ if [ -n "$TAG" ]; then
     ARGS_STR+=" -P $TAG "
 fi
 
-
-/opt/GITHUB_REPOSITORY/other/telegram/orig/MTProxy/objs/bin/mtproto-proxy  $ARGS_STR
+echo ./mtproto-proxy  $ARGS_STR
+./mtproto-proxy  $ARGS_STR

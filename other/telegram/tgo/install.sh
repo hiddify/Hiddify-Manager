@@ -14,6 +14,7 @@ export pkg=$(dpkg --print-architecture)
 
 wget -c https://github.com/9seconds/mtg/releases/download/v2.1.7/mtg-2.1.7-linux-$pkg.tar.gz
 tar -xf mtg-2.1.7-linux-$pkg.tar.gz
+rm -rf mtg
 mv mtg-2.1.7-linux-$pkg/mtg mtg
 
 # export GOPATH=/opt/hiddify-config/other/telegram/tgo/go/
