@@ -1,4 +1,5 @@
 source ./lib/acme.sh.env
+./lib/acme.sh --register-account -m my@example.com
 # MAIN_DOMAIN="$MAIN_DOMAIN;$SERVER_IP.sslip.io"
 DOMAINS=${MAIN_DOMAIN//;/ }
 

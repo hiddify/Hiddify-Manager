@@ -7,6 +7,6 @@ rm -rf /opt/hiddify/
      --config-home /opt/hiddify-config/acme.sh/lib/data \
      --cert-home  /opt/hiddify-config/acme.sh/lib/certs
 
-./lib/acme.sh --register-account -m my@example.com
+
 
 mkdir -p ../ssl/
