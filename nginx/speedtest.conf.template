@@ -24,7 +24,7 @@
 server {
 server_name _ localhost;
         listen 438;
-        listen [::]:438;
+        #listen [::]:438;
         
         # If you like to Enable HTTP2 add "http2" to the above line.
         # If HTTP2 Enabled. Upload location should Proxy_Pass to http 1.1 port.
