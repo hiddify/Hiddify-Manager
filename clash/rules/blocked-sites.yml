@@ -34,7 +34,7 @@ payload:
   - DOMAIN-SUFFIX,yt.com
   - DOMAIN-KEYWORD,youtube
   - DOMAIN,youtubei.googleapis.com
-  #- DOMAIN-SUFFIX,googlevideo.com
+  - DOMAIN-SUFFIX,googlevideo.com
   - DOMAIN-SUFFIX,youtu.be
   - DOMAIN-SUFFIX,ytimg.com
   - PROCESS-NAME,com.google.android.youtube
