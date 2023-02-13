@@ -149,6 +149,7 @@ function runsh() {
 function do_for_all() {
         #cd /opt/$GITHUB_REPOSITORY
         bash common/replace_variables.sh
+        systemctl daemon-reload
         if [ "$MODE" != "apply_users" ];then
                 runsh $1.sh common
                 #runsh $1.sh certbot
@@ -170,7 +171,7 @@ function do_for_all() {
                 runsh $1.sh deprecated/trojan-go  $ENABLE_TROJAN_GO
         fi
 
-        runsh $1.shg xray
+        runsh $1.sh xray
         
 }
 
@@ -236,7 +237,7 @@ function main(){
                         echo "---------------------Finished!------------------------"
                 fi
         fi
-        
+
         if [ "$MODE" != "apply_users" ];then
                 systemctl restart hiddify-panel
         fi
