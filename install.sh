@@ -149,33 +149,38 @@ function runsh() {
 function do_for_all() {
         #cd /opt/$GITHUB_REPOSITORY
         bash common/replace_variables.sh
-        runsh $1.sh common
-        #runsh $1.sh certbot
-        runsh $1.sh acme.sh
-        runsh $1.sh nginx
-        runsh $1.sh sniproxy
-        runsh $1.sh xray
-        runsh $1.sh other/speedtest
-        runsh $1.sh other/telegram $ENABLE_TELEGRAM
-        runsh $1.sh other/ssfaketls $ENABLE_SS
-        runsh $1.sh other/v2ray $ENABLE_V2RAY
-        runsh $1.sh other/shadowtls $ENABLE_SHADOWTLS
-        #runsh $1.sh other/next-version/clash-server $ENABLE_TUIC
-        # runsh $1.sh deprecated/vmess $ENABLE_VMESS
-        runsh uninstall.sh deprecated/vmess
-        # runsh $1.sh deprecated/monitoring $ENABLE_MONITORING
-        runsh uninstall.sh deprecated/monitoring
-        runsh $1.sh other/netdata $ENABLE_NETDATA
-        runsh $1.sh deprecated/trojan-go  $ENABLE_TROJAN_GO
+        if [ "$MODE" != "apply_users" ];then
+                runsh $1.sh common
+                #runsh $1.sh certbot
+                runsh $1.sh acme.sh
+                runsh $1.sh nginx
+                runsh $1.sh sniproxy
+                
+                runsh $1.sh other/speedtest
+                runsh $1.sh other/telegram $ENABLE_TELEGRAM
+                runsh $1.sh other/ssfaketls $ENABLE_SS
+                runsh $1.sh other/v2ray $ENABLE_V2RAY
+                runsh $1.sh other/shadowtls $ENABLE_SHADOWTLS
+                #runsh $1.sh other/next-version/clash-server $ENABLE_TUIC
+                # runsh $1.sh deprecated/vmess $ENABLE_VMESS
+                runsh uninstall.sh deprecated/vmess
+                # runsh $1.sh deprecated/monitoring $ENABLE_MONITORING
+                runsh uninstall.sh deprecated/monitoring
+                runsh $1.sh other/netdata $ENABLE_NETDATA
+                runsh $1.sh deprecated/trojan-go  $ENABLE_TROJAN_GO
+        fi
 
-        
+        runsh $1.shg xray
         
 }
 
 
 function main(){
+        export MODE="$1"
         rm /dev/shm/hiddify-xtls-main.sock
-        runsh install.sh hiddify-panel
+        if [ "$MODE" != "apply_users" ];then
+                runsh install.sh hiddify-panel
+        fi
         # source common/set_config_from_hpanel.sh
         set_config_from_hpanel
         
@@ -200,7 +205,7 @@ function main(){
         #         export FIRST_SETUP="true"
         # fi
 
-        if [ "$1" == "install-docker" ];then
+        if [ "$MODE" == "install-docker" ];then
                 echo "install-docker"
                 export DO_NOT_RUN=true
                 export ENABLE_SS=true
@@ -209,6 +214,9 @@ function main(){
                 export ENABLE_AUTO_UPDATE=false
                 export ONLY_IPV4=false
         fi
+        if [ "$MODE" == "apply_users" ];then
+                export DO_NOT_INSTALL=true
+        fi
         if [[ -z "$DO_NOT_INSTALL" || "$DO_NOT_INSTALL" == false  ]];then
                 do_for_all install
                 systemctl daemon-reload
@@ -216,18 +224,22 @@ function main(){
 
         if [[ -z "$DO_NOT_RUN" || "$DO_NOT_RUN" == false ]];then
                 do_for_all run
-                
-                echo ""
-                echo ""
-                bash status.sh
-                echo "==========================================================="
-                echo "Finished! Thank you for helping Iranians to skip filternet."
-                echo "Please open the following link in the browser for client setup"
-                
-                cat use-link
-                echo "---------------------Finished!------------------------"
+                if [ "$MODE" != "apply_users" ];then        
+                        echo ""
+                        echo ""
+                        bash status.sh
+                        echo "==========================================================="
+                        echo "Finished! Thank you for helping Iranians to skip filternet."
+                        echo "Please open the following link in the browser for client setup"
+                        
+                        cat use-link
+                        echo "---------------------Finished!------------------------"
+                fi
         fi
-        systemctl restart hiddify-panel
+        
+        if [ "$MODE" != "apply_users" ];then
+                systemctl restart hiddify-panel
+        fi
 }
 
 mkdir -p log/system/
