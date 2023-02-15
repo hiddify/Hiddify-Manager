@@ -8,7 +8,7 @@ location = / {
     #proxy_intercept_errors on;
 	error_page 301 302 307 = @handle_redirect;
 	proxy_set_header Host DECOY_DOMAIN;
-	set upstream DECOY_DOMAIN;
+	set $upstream DECOY_DOMAIN;
 	proxy_pass https://$upstream;
         proxy_ssl_server_name on;
         proxy_ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
@@ -25,7 +25,7 @@ location / {
     proxy_intercept_errors on;
 	error_page 301 302 307 = @handle_redirect;
 	proxy_set_header Host DECOY_DOMAIN;
-	set upstream DECOY_DOMAIN;
+	set $upstream DECOY_DOMAIN;
 	proxy_pass https://$upstream;
         proxy_ssl_server_name on;
         proxy_ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
