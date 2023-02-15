@@ -1,1 +1,1 @@
-[Stylesheet](path/to/your/styles.css)
+[Stylesheet](styles.css)
