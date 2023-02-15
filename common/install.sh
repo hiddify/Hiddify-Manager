@@ -1,7 +1,7 @@
 
 sudo timedatectl set-timezone  Asia/Tehran
 apt update
-apt install -y at apt-transport-https dnsutils ca-certificates git curl wget gnupg-agent software-properties-common  iptables locales lsof
+apt install -y at apt-transport-https dnsutils ca-certificates git curl wget gnupg-agent software-properties-common  iptables locales lsof cron
 sudo apt -y remove needrestart
 ln -sf $(pwd)/sysctl.conf /etc/sysctl.d/ss-opt.conf
 sysctl --system
