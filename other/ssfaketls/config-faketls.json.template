@@ -1,5 +1,5 @@
 {
-    "server":"0.0.0.0",
+    "server":"127.0.0.1",
     "server_port":1002,
     "password":"SHARED_SECRET",
     "timeout":300,

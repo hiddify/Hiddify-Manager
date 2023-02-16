@@ -2,6 +2,7 @@
 	"inbounds": [
 		{
 			"tag":"v2ray-ws",
+			"listen": "127.0.0.1",
 			"port": "3006",
 			"protocol": "shadowsocks",
 			"settings": {

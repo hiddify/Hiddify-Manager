@@ -23,7 +23,7 @@
 
 server {
 server_name _ localhost;
-        listen 438;
+        listen 127.0.0.1:438;
         #listen [::]:438;
         
         # If you like to Enable HTTP2 add "http2" to the above line.
