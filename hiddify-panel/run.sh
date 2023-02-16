@@ -1,3 +1,3 @@
 
-systemctl restart hiddify-panel.service
-systemctl status hiddify-panel.service
+# systemctl restart hiddify-panel.service
+# systemctl status hiddify-panel.service

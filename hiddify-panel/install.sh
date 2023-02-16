@@ -29,4 +29,6 @@ systemctl daemon-reload
 echo "*/10 * * * * root $(pwd)/update_usage.sh" > /etc/cron.d/hiddify_usage_update
 service cron reload
 
+systemctl restart hiddify-panel.service
+systemctl status hiddify-panel.service
 
