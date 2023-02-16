@@ -7,14 +7,14 @@
 
 # HTTP1 UDS listener
 server {
-    listen 501 proxy_protocol; #HTTP/1.1 server monitor process and enable PROXY protocol reception
+    listen 127.0.0.1:501 proxy_protocol; #HTTP/1.1 server monitor process and enable PROXY protocol reception
     # server_name defaultserverhost; 
     include /opt/GITHUB_REPOSITORY/nginx/hiddify.conf;
 }
 
 # HTTP2 UDS listener
 server {
-    listen 502 http2 proxy_protocol; #H2C server monitor process and enable PROXY protocol reception
+    listen 127.0.0.1:502 http2 proxy_protocol; #H2C server monitor process and enable PROXY protocol reception
     # server_name defaultserverhost;
 
     # grpc settings
