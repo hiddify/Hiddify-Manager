@@ -5,7 +5,7 @@ apt-get install -y nginx
 # systemctl stop nginx
 # pkill -9 nginx
 
-
+rm /etc/nginx/conf.d/web.conf
 rm /etc/nginx/sites-available/default
 rm /etc/nginx/sites-enabled/default
 # rm /etc/nginx/nginx.conf
