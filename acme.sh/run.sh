@@ -36,7 +36,7 @@ for DOMAIN in $DOMAINS;	do
 	./lib/acme.sh  --installcert  -d $DOMAIN  \
 			--fullchainpath $ssl_cert_path/$DOMAIN.crt \
 			--keypath $ssl_cert_path/$DOMAIN.key  \
-			--reloadcmd  "systemctl restart hiddify-xray"
+			--reloadcmd  "success"
 
 	# if [[ $(dig +short -t a $DOMAIN.) ]];then
 		
@@ -50,7 +50,8 @@ for DOMAIN in $DOMAINS;	do
 	# fi
 	chmod 644 $ssl_cert_path/$DOMAIN.key
 done
-
+systemctl start hiddify-xray
+systemctl start hiddify-sniproxy
 if [[ "$FIRST_SETUP" == "true" ]];then
 	echo -e "Please visit http://$SERVER_IP/ or https://$SERVER_IP.sslip.io/ in one hour to change your domain.">>$DST
 	echo "or you can use the following links to continue setup:">>$DST

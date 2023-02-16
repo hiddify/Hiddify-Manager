@@ -19,5 +19,7 @@ fi
 
 
 pkill -9 sniproxy
+kill -9 `lsof -t -i:443`
+kill -9 `lsof -t -i:80`
 systemctl restart hiddify-sniproxy.service
 systemctl status  hiddify-sniproxy.service
