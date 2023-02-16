@@ -12,7 +12,7 @@ source ./common/ticktick.sh
 
 function set_config_from_hpanel(){
 
-        hiddify=`cd hiddify-panel;hiddifypanel all-configs`
+        hiddify=`cd hiddify-panel;python3 -m hiddifypanel all-configs`
         tickParse  "$hiddify"
         tickVars
 
