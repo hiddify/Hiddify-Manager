@@ -6,7 +6,7 @@ ENV TERM xterm
 ENV TZ Etc/UTC
 ENV DEBIAN_FRONTEND noninteractive
 
-
+USER root
 WORKDIR /opt/hiddify-config/
 COPY . .
 # RUN mkdir -p ~/.ssh && echo "StrictHostKeyChecking no " > ~/.ssh/config

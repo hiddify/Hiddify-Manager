@@ -5,7 +5,7 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-ExecStart=gunicorn -b 127.0.0.1:9000 'hiddifypanel:create_app()'
+ExecStart=/usr/bin/gunicorn -b 127.0.0.1:9000 'hiddifypanel:create_app()'
 WorkingDirectory=/opt/hiddify-config/hiddify-panel/
 Restart=on-failure
 StandardOutput=file:/opt/hiddify-config/log/system/hiddify_panel.out.log
