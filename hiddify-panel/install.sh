@@ -15,6 +15,8 @@ pip --disable-pip-version-check install -q -U hiddifypanel
 # pip uninstall -y hiddifypanel 
 # pip --disable-pip-version-check install -q -U git+https://github.com/hiddify/HiddifyPanel
 
+ln -sf $(which gunicorn) /usr/bin/gunicorn
+
 hiddifypanel init-db
 ln -sf $(pwd)/hiddify-panel.service /etc/systemd/system/hiddify-panel.service
 systemctl enable hiddify-panel.service
