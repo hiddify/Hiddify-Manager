@@ -27,6 +27,7 @@ function set_config_from_hpanel(){
         setenv GITHUB_BRANCH_OR_TAG main
         
         setenv FIRST_SETUP ``hconfigs[first_setup]``
+        setenv DB_VERSION ``hconfigs[db_version]``
 
         TELEGRAM_SECRET=``hconfigs[shared_secret]``
 
@@ -184,6 +185,10 @@ function main(){
         fi
         # source common/set_config_from_hpanel.sh
         set_config_from_hpanel
+        if [[ $DB_VERSION =="" ]];then
+                echo "ERROR!!!! There is an error in the installation of python panel. Exit...."
+                exit 1
+        fi
         
         # check_req
         
