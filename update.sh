@@ -2,7 +2,7 @@
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 cd $( dirname -- "$0"; )
-
+ 
 function main(){
     git branch
     changed=0
