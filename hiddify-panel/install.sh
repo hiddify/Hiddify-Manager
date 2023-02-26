@@ -2,7 +2,7 @@
 systemctl kill hiddify-admin.service
 systemctl disable hiddify-admin.service
 
-for req in pip gunicorn;do
+for req in pip3 gunicorn;do
     which $req
     if [[ "$?" != 0 ]];then
             apt update
@@ -11,7 +11,7 @@ for req in pip gunicorn;do
     fi
 done
 
-pip --disable-pip-version-check install -q -U hiddifypanel
+pip3 --disable-pip-version-check install -q -U hiddifypanel
 # pip uninstall -y hiddifypanel 
 # pip --disable-pip-version-check install -q -U git+https://github.com/hiddify/HiddifyPanel
 
