@@ -5,6 +5,12 @@
 
 ### New
 
+* Remove test before release due to error. [hiddify]
+
+* Disable auto test after each commit. [hiddify]
+
+* Add release package. [hiddify]
+
 * Add menu. [hiddify]
 
 * Add release package. [hiddify]
