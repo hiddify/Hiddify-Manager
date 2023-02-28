@@ -62,7 +62,7 @@ function main(){
         fi
     fi
     if [[ "$CURRENT" != "$LATEST" ]];then
-        systemctl restart hiddify-central-panel
+        systemctl restart hiddify-panel
     fi
 }
 
