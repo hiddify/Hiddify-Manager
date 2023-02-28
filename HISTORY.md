@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v7.0.1 (2023-02-28)
+
+### New
+
+* Add menu to startup. [hiddify]
+
+### Fix
+
+* Menu permission. [hiddify]
+
+
 ## v7.0.0 (2023-02-28)
 
 ### New
