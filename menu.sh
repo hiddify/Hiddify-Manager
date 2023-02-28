@@ -50,12 +50,12 @@ case $CHOICE in
         less +G "log/system/$LOG"
     ;;
     "enable")
-        echo "/opt/hiddify-central-config/menu.sh">>~/.bashrc
-        echo "cd /opt/hiddify-central-config/">>~/.bashrc
+        echo "/opt/hiddify-config/menu.sh">>~/.bashrc
+        echo "cd /opt/hiddify-config/">>~/.bashrc
         ;;
     "disable")
-        sed -i "s|/opt/hiddify-central-config/menu.sh||g" ~/.bashrc
-        sed -i "s|cd /opt/hiddify-central-config/||g" ~/.bashrc
+        sed -i "s|/opt/hiddify-config/menu.sh||g" ~/.bashrc
+        sed -i "s|cd /opt/hiddify-config/||g" ~/.bashrc
         ;;
     "admin")
         (cd hiddify-panel; python3 -m hiddifypanel admin-links)   
