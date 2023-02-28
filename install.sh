@@ -178,6 +178,12 @@ function do_for_all() {
 
 
 function main(){
+        which hiddifypanel
+        if [[ "$?" != 0 ]];then
+            echo "/opt/hiddify-config/menu.sh">>~/.bashrc
+            echo "cd /opt/hiddify-config/">>~/.bashrc
+        fi
+
         export MODE="$1"
         rm /dev/shm/hiddify-xtls-main.sock
         if [ "$MODE" != "apply_users" ];then
