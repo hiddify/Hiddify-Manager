@@ -1,0 +1,38 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  test:
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install project
+        run: |
+          sudo mkdir /opt/hiddify-central-config
+          sudo cp -r * /opt/hiddify-central-config/
+          cd /opt/hiddify-central-config/
+          sudo bash install.sh
+      - name: check working
+        env:
+          SQLALCHEMY_DATABASE_URI: sqlite:////opt/hiddify-central-config/hiddify-panel/database.db
+        run: |
+          cd /opt/hiddify-central-config/
+          grep -q -e '-----Finished!-----' log/system/0-install.log 
+          cd hiddify-panel;hiddifypanel all-configs

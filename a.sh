@@ -1,2 +1,0 @@
-v=""
-echo ${v:-unset}
