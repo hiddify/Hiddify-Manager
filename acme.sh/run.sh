@@ -36,7 +36,10 @@ for DOMAIN in $DOMAINS;	do
 		flags="--listen-v6"
 	fi
 	# --server  letsencrypt 
+	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --server letsencrypt
+	if [[ $? != 130 and $? !=0 ]];then 
 	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags
+	fi
 	./lib/acme.sh  --installcert  -d $DOMAIN  \
 			--fullchainpath $ssl_cert_path/$DOMAIN.crt \
 			--keypath $ssl_cert_path/$DOMAIN.key  \
