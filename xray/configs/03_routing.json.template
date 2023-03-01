@@ -46,6 +46,24 @@
         {
           "type": "field", "outboundTag": "blackhole", "ip": ["geoip:private"]
         },
+
+// Block Ads. On Server level
+{
+	    "domain": [
+		  "geosite:category-ads-all",
+                   "vatanclick.ir"
+                   // Any Site for Ad Block Can be added Here
+                   // Working on v2ray client, as well as all non iran IP add site in clash
+                   // In clash config if IR sires is set to direct, IR site ads, bypass, I am working to find sloution
+                   // server side ads block, have more advantage than client side, speed, batrry ....
+                   
+		],
+        "outboundTag": "blackhole",
+        "type": "field"
+      },
+        
+//    End of Chande    
+        
         { //DNS Cache rule
           "type": "field", "port": 53, "network": "tcp,udp", "outboundTag": "DNS-Internal"
         },
