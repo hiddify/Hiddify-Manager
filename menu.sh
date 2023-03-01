@@ -3,8 +3,8 @@ cd $( dirname -- "$0"; )
 HEIGHT=20
 WIDTH=60
 CHOICE_HEIGHT=4
-BACKTITLE="Welcome to Hiddify Central Panel (config version=$(cat VERSION))"
-TITLE="Hiddify Central Panel"
+BACKTITLE="Welcome to Hiddify Panel (config version=$(cat VERSION))"
+TITLE="Hiddify Panel"
 MENU="Choose one of the following options:"
 
 OPTIONS=(status "View status of system"

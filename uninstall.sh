@@ -11,7 +11,7 @@ function main(){
     if [[ "$1" == "purge" ]];then
         cd .. && rm -rf hiddify-panel
         apt remove -y nginx gunicorn python3-pip python3
-        echo "We have completely removed hiddify central panel"
+        echo "We have completely removed hiddify panel"
     fi
 }
 
