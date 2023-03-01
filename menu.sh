@@ -74,7 +74,7 @@ case $CHOICE in
         bash $CHOICE.sh
 esac
 
-if [[ $NEED_KEY == 0 ]];then
+if [[ $NEED_KEY == 1 ]];then
     read -p "Press any key to return to menu" -n 1 key
 
     # if [[ $key == 'q' ]];then
