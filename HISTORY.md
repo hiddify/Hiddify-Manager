@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v7.1.0 (2023-03-01)
+
+### New
+
+* Add letsencrypt by default, when fail, it will use zerossl. [hiddify]
+
+### Fix
+
+* Name. [hiddify]
+
+* Download and install is working now. [hiddify]
+
+
 ## v7.0.2 (2023-02-28)
 
 ### Fix
