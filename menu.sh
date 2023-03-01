@@ -30,6 +30,7 @@ CHOICE=$(dialog --clear \
 clear
 echo "Hiddify: Command $CHOICE"
 echo "=========================================="
+NEED_KEY=1
 case $CHOICE in 
     "") exit;;
     'log')
@@ -47,32 +48,38 @@ case $CHOICE in
                 2>&1 >/dev/tty)
         clear
         echo -e "\033[0m"
-        less +G "log/system/$LOG"
+        if [[ $LOG != "" ]];then    
+            less +G "log/system/$LOG"
+        fi
+        NEED_KEY=0
     ;;
     "enable")
         echo "/opt/hiddify-config/menu.sh">>~/.bashrc
         echo "cd /opt/hiddify-config/">>~/.bashrc
+        NEED_KEY=0
         ;;
     "disable")
         sed -i "s|/opt/hiddify-config/menu.sh||g" ~/.bashrc
         sed -i "s|cd /opt/hiddify-config/||g" ~/.bashrc
+        NEED_KEY=0
         ;;
     "admin")
         (cd hiddify-panel; python3 -m hiddifypanel admin-links)   
         ;;
     "status")
         bash status.sh |less +G
-        ./menu.sh
-        exit
+        NEED_KEY=0
         ;;
     *)
         bash $CHOICE.sh
 esac
 
-read -p "Press any key to return to menu, press 'q' to exit" -n 1 key
-if [[ $key == 'q' ]];then
-    echo ""
-    exit; 
-fi
+if [[ $NEED_KEY == 0 ]];then
+    read -p "Press any key to return to menu" -n 1 key
 
+    # if [[ $key == 'q' ]];then
+    #     echo ""
+    #     exit; 
+    # fi
+fi
 ./menu.sh
