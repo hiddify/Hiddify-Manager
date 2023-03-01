@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v7.1.1 (2023-03-01)
+
+### New
+
+* Better menu. [hiddify]
+
+### Fix
+
+* Bug in getting certificate. [hiddify]
+
+
 ## v7.1.0 (2023-03-01)
 
 ### New
