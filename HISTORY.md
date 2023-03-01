@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v7.1.2 (2023-03-01)
+
+### Fix
+
+* Need key after showing information. [hiddify]
+
+
 ## v7.1.1 (2023-03-01)
 
 ### New
