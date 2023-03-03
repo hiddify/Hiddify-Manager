@@ -9,9 +9,6 @@ function get_commit_version(){
 }
 
 function main(){
-    # temporary
-    echo "/opt/hiddify-config/menu.sh">>~/.bashrc
-    echo "cd /opt/hiddify-config/">>~/.bashrc
 
     PACKAGE_MODE=$(cd hiddify-panel;python3 -m hiddifypanel all-configs|jq -r ".hconfigs.package_mode")
     
