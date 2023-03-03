@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v7.1.5 (2023-03-03)
+
+### New
+
+* Show press q to exit. [hiddify]
+
+### Fix
+
+* Will not add menu  on update anymore. [hiddify]
+
+* Menu now exit successfully. [hiddify]
+
+
 ## v7.1.2 (2023-03-01)
 
 ### Fix
