@@ -1,7 +1,7 @@
 
 <div dir="ltr" markdown="1">
 
-### [جهت مشاهده توضیحات فارسی کلیک کنید](https://github.com/hiddify/hiddify-config/wiki)
+### [جهت مشاهده‌ی توضیحات فارسی کلیک کنید](https://github.com/hiddify/hiddify-config/wiki)
 
 
 
