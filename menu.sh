@@ -2,7 +2,7 @@
 cd $( dirname -- "$0"; )
 HEIGHT=20
 WIDTH=60
-CHOICE_HEIGHT=4
+CHOICE_HEIGHT=10
 BACKTITLE="Welcome to Hiddify Panel (config version=$(cat VERSION))"
 TITLE="Hiddify Panel"
 MENU="Choose one of the following options:"
@@ -27,6 +27,10 @@ CHOICE=$(dialog --clear \
                 "${OPTIONS[@]}" \
                 2>&1 >/dev/tty)
 
+if [[ $? != 0 ]];then 
+clear
+exit 
+fi
 clear
 echo "Hiddify: Command $CHOICE"
 echo "=========================================="
