@@ -15,7 +15,7 @@
             "type": "field",
             //"inboundTag": ["xtls"], 
             "outboundTag": "forbidden_sites",
-            "domain": ["geosite:cn","tld-cn","tld-ir","ir","cn"]
+            "domain": ["geosite:cn","tld-cn","tld-ir",".ir",".هcn"]
         },
         // {
         //   "type": "field",
