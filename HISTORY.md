@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v7.1.6 (2023-03-03)
+
+### Fix
+
+* Sites with ir and cn in names not working well. [Hiddify]
+
+### Other
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Fix bug in sites with ir in their names. [Hiddify]
+
+
 ## v7.1.5 (2023-03-03)
 
 ### New
