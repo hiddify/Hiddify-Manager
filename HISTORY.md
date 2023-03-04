@@ -1,6 +1,15 @@
 # Changelog
 
 
+## v7.1.7 (2023-03-04)
+
+### New
+
+* Add pre-hook to kill all process in port 80. [hiddify]
+
+* Auto restart on exit for all critical services. [hiddify]
+
+
 ## v7.1.6 (2023-03-03)
 
 ### Fix
