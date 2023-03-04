@@ -3,7 +3,7 @@ source ./lib/acme.sh.env
 # MAIN_DOMAIN="$MAIN_DOMAIN;$SERVER_IP.sslip.io"
 DOMAINS=${MAIN_DOMAIN//;/ }
 
-kill -9 `lsof -t -i:80`
+
 
 DST="../use-link"
 echo "">$DST
@@ -36,14 +36,15 @@ for DOMAIN in $DOMAINS;	do
 		flags="--listen-v6"
 	fi
 	# --server  letsencrypt 
-	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --server letsencrypt
+	
+	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --server letsencrypt --pre-hook 'kill -9 $(lsof -t -i:80)'
 	#if [[ $? != 130 && $? != 0 ]];then 
-	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags
+	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --pre-hook 'kill -9 $(lsof -t -i:80)'
 	#fi
 	./lib/acme.sh  --installcert  -d $DOMAIN  \
 			--fullchainpath $ssl_cert_path/$DOMAIN.crt \
 			--keypath $ssl_cert_path/$DOMAIN.key  \
-			--reloadcmd  "success"
+			--reloadcmd  "echo success"
 
 	# if [[ $(dig +short -t a $DOMAIN.) ]];then
 		
