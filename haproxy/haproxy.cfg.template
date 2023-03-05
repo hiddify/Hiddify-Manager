@@ -81,15 +81,15 @@ frontend https-in
 
 backend xray_http
     mode http
-    server xray_http abns@xrayhttp
+    server xray_http abns@xrayhttp send-proxy-v2
 backend xray
     mode tcp
     # server xray unix@/dev/shm/hiddify-xtls-main.sock
-    server xray abns@xtlsin
+    server xray abns@xtlsin send-proxy-v2
 
 backend xraydecoy
     mode tcp
-    server xraydecoy abns@xtlsindecoy
+    server xraydecoy abns@xtlsindecoy send-proxy-v2
 
 backend tgdecoy
     mode tcp

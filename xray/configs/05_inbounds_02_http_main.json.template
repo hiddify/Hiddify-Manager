@@ -19,7 +19,7 @@
 			"streamSettings": {
 			  "network": "tcp",
 			  "tcpSettings": {
-				//"acceptProxyProtocol": true //Enable PROXY protocol reception, receive the real source IP and port from nginx sni proxy.
+				"acceptProxyProtocol": true //Enable PROXY protocol reception, receive the real source IP and port from nginx sni proxy.
 			  },
 			  "security": "none"
 			},
