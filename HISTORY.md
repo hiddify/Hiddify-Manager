@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v7.2.3 (2023-03-05)
+
+### Fix
+
+* Uwsgi not installed. [hiddify]
+
+
 ## v7.2.2 (2023-03-05)
 
 ### New
