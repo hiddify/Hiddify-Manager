@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v7.2.0 (2023-03-05)
+
+### Fix
+
+* Bug in http proxy. [hiddify]
+
+
 ## v7.1.9 (2023-03-05)
 
 ### Fix
