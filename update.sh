@@ -61,6 +61,7 @@ function main(){
     if [[ "$CURRENT" != "$LATEST" ]];then
         systemctl restart hiddify-panel
     fi
+    echo "---------------------Finished!------------------------"
 }
 
 mkdir -p log/system/
