@@ -15,14 +15,14 @@ done
 
 
 
-ln -sf $(which gunicorn) /usr/bin/gunicorn
+# ln -sf $(which gunicorn) /usr/bin/gunicorn
 
 #pip3 --disable-pip-version-check install -q -U hiddifypanel
 # pip uninstall -y hiddifypanel 
 # pip --disable-pip-version-check install -q -U git+https://github.com/hiddify/HiddifyPanel
 
-ln -sf $(which gunicorn) /usr/bin/gunicorn
-
+# ln -sf $(which gunicorn) /usr/bin/gunicorn
+ln -sf $(uwsgi) /usr/local/bin/uwsgi
 hiddifypanel init-db
 ln -sf $(pwd)/hiddify-panel.service /etc/systemd/system/hiddify-panel.service
 systemctl enable hiddify-panel.service
