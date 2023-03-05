@@ -11,6 +11,10 @@ location /BASE_PROXY_PATH/ADMIN_SECRET/admin/netdata/ {
 	proxy_pass  http://localhost:19999/;
 	error_page 301 302 307 = @handle_redirect;
 }
+location /BASE_PROXY_PATH/ADMIN_SECRET/admin/stats/ {
+	proxy_pass  http://localhost:8181/;
+	error_page 301 302 307 = @handle_redirect;
+}
 
 location /BASE_PROXY_PATH/ghr/ {
   #for proxy github raw
