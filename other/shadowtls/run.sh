@@ -1,0 +1,2 @@
+systemctl daemon-reload
+systemctl restart shadowtls

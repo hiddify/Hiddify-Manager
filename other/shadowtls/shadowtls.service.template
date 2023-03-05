@@ -5,7 +5,8 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-#ExecStart=obfs-server -c /opt/GITHUB_REPOSITORY/other/ssfaketls/config-faketls.json -r 127.0.0.1:3005
+WorkingDirectory=/opt/hiddify-config/other/shadowtls
+ExecStart=/opt/hiddify-config/other/shadowtls/shadowtls server --listen 127.0.0.1:1003 --server 127.0.0.1:3005 --tls shadowtlsdomain --password BASE_PROXY_PATH
 Restart=on-failure
 StandardOutput=file:/opt/GITHUB_REPOSITORY/log/system/ssplugin-shadowtls.out.log
 StandardError=file:/opt/GITHUB_REPOSITORY/log/system/ssplugin-shadowtls.err.log
