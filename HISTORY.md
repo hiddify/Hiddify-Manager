@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v7.2.2 (2023-03-05)
+
+### New
+
+* Limit memoryusage of panel to only 200 mb. [hiddify]
+
+* Change panel backend from gunicorn to uwsgi. [hiddify]
+
+* Add haproxy stats. [hiddify]
+
+### Fix
+
+* Not stoping port 80 acme.sh. [hiddify]
+
+* Stats relative paths. [hiddify]
+
+### Other
+
+* Add proxy protocol to preserve the source ip client. [hiddify]
+
+
 ## v7.2.1 (2023-03-05)
 
 ### Fix
