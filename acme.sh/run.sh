@@ -37,9 +37,9 @@ for DOMAIN in $DOMAINS;	do
 	fi
 	# --server  letsencrypt 
 	
-	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --server letsencrypt --pre-hook 'kill -9 $(lsof -t -i:80)'
+	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --server letsencrypt --pre-hook "kill -9 $(lsof -t -i:80) || echo 'nothing to kill'"
 	#if [[ $? != 130 && $? != 0 ]];then 
-	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --pre-hook 'kill -9 $(lsof -t -i:80)'
+	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --pre-hook "kill -9 $(lsof -t -i:80) || echo 'nothing to kill'"
 	#fi
 	./lib/acme.sh  --installcert  -d $DOMAIN  \
 			--fullchainpath $ssl_cert_path/$DOMAIN.crt \

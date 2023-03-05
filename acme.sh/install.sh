@@ -7,6 +7,6 @@ rm -rf /opt/hiddify/
      --config-home /opt/hiddify-config/acme.sh/lib/data \
      --cert-home  /opt/hiddify-config/acme.sh/lib/certs
 
-
+sed -i 's|_sleep_overload_retry_sec=$_retryafter|_sleep_overload_retry_sec=$_retryafter; if [[ "$_retryafter" > 20 ]];then return 10; fi|g' lib/acme.sh
 
 mkdir -p ../ssl/
