@@ -156,8 +156,8 @@ function do_for_all() {
                 #runsh $1.sh certbot
                 runsh $1.sh acme.sh
                 runsh $1.sh nginx
-                runsh $1.sh sniproxy
-                
+                # runsh $1.sh sniproxy
+                runsh $1.sh haproxy
                 runsh $1.sh other/speedtest
                 runsh $1.sh other/telegram $ENABLE_TELEGRAM
                 runsh $1.sh other/ssfaketls $ENABLE_SS

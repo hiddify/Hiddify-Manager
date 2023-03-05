@@ -1,0 +1,141 @@
+global
+    log /dev/log local0
+
+defaults
+    log global
+    mode tcp
+    option tcplog
+    option dontlognull
+    timeout connect 5s
+    timeout client 50s
+    timeout client-fin 50s
+    timeout server 50s
+    timeout tunnel 1h
+    default-server inter 15s fastinter 2s downinter 5s rise 3 fall 3
+
+### standalone stats page
+listen stats
+        # accessible at http://192.168.1.100/haproxy?stats
+        bind 0.0.0.0:8181
+      	mode http
+      	option httplog
+      	stats enable
+      	stats admin if TRUE
+      	stats refresh 5m
+
+frontend http-in
+    bind *:80
+    mode http
+    acl app1_http_acl hdr(host) -i XRAY_DOMAIN
+    acl app2_http_acl hdr(host) -i TELEGRAM_FAKE_TLS_DOMAIN
+
+    acl xray_domains hdr(host) -i XRAY_DOMAIN
+    acl tg_domains hdr(host) -i TELEGRAM_FAKE_TLS_DOMAIN
+    acl ss_domains hdr(host) -i sstlsdomain
+    acl shadowtls_domains hdr(host) -i shadowtlsdomain
+    # acl ssr_domains hdr(host) -i ssrtlsdomain
+
+    use_backend xray_http if xray_domains
+    use_backend tgdecoy_http if tg_domains
+    use_backend shadowtls_decoy_http if shadowtls_domains
+
+    # use_backend ssdecoy if sstlsdomain
+    # use_backend ssrdecory if ssr_domains
+
+
+    default_backend xray_http
+
+frontend https-in
+    bind *:443
+    mode tcp
+    tcp-request inspect-delay 5s
+    tcp-request content accept if { req.ssl_hello_type 1 }
+    acl tls1_2 req.ssl_ver 1.2
+    acl tls1_3 req.ssl_ver 1.3
+    
+    acl xray_domains req.ssl_sni -i XRAY_DOMAIN
+    acl tg_domains req.ssl_sni -i TELEGRAM_FAKE_TLS_DOMAIN
+    acl ss_domains req.ssl_sni -i sstlsdomain
+    acl shadowtls_domains req.ssl_sni -i shadowtlsdomain
+
+    # # acl ssr_domains req.ssl_sni -i ssrtlsdomain
+
+    # use_backend xray if tls1_3 xray_domains
+    # use_backend xraydecoy if xray_domains
+    use_backend telegram if tls1_3 tg_domains
+    use_backend telegram if tg_domains
+    # use_backend tgdecoy if tg_domains
+
+    use_backend ssfake if tls1_3 ss_domains
+    use_backend ssfake if ss_domains
+    # use_backend ssdecoy if ss_domains
+    
+    use_backend shadowtls if shadowtls_domains
+
+    # use_backend ssr if tls1_3 ssr_domains
+    # use_backend ssr if ssr_domains
+    # use_backend ssrdecory if ssr_domains
+
+    # default sni behavior
+    default_backend xray
+
+backend xray_http
+    mode http
+    server xray_http abns@xrayhttp
+backend xray
+    mode tcp
+    # server xray unix@/dev/shm/hiddify-xtls-main.sock
+    server xray abns@xtlsin
+
+backend xraydecoy
+    mode tcp
+    server xraydecoy abns@xtlsindecoy
+
+backend tgdecoy
+    mode tcp
+    server tgdecoy TELEGRAM_FAKE_TLS_DOMAIN
+
+backend tgdecoy_http
+    mode http
+    server tgdecoy_http TELEGRAM_FAKE_TLS_DOMAIN
+
+backend telegram
+    mode tcp
+    server telegram 127.0.0.1:1001
+
+backend ssdecoy_http
+    mode http
+    server ssdecoy sstlsdomain
+
+backend ssfake
+    mode tcp
+    server ssfake 127.0.0.1:1002
+
+backend shadowtls
+    mode tcp
+    server shadowtls 127.0.0.1:1003
+
+backend shadowtls_decoy_http
+    mode http
+    server shadowtls_decoy_http shadowtlsdomain
+
+backend shadowtls_decoy
+    server shadowtls_decoy shadowtlsdomain
+
+# backend ssrdecory
+#     server ssrdecoy ssrtlsdomain
+
+# backend ssr
+#     server ssr 127.0.0.1:1004
+
+
+# # Access logs
+# log-format %ci:%cp\ [%t]\ %ft\ %b/%s\ %Tcc\ %Tw/%Tc/%Tr/%Ta\ %ST\ %B\ %CC\ %CS\ %tsc\ %ac/%fc/%bc/%sc/%rc\ %sq/%bq\ %hr\ %hs\ %{+Q}r
+# option httplog
+# option http-server-close
+# option forwardfor except 127.0.0.1  # Add X-Forwarded-For header except for HAProxy itself
+# log /opt/hiddify/hiddify-config/log/system/haproxy.log local0
+
+# # Error logs
+# option dontlog-normal
+# log /opt/hiddify/hiddify-config/log/system/haproxy.err.log local0

@@ -1,23 +1,22 @@
 {
 	"inbounds": [
 		{
-			"tag":"xtls",
+			"tag":"decoy",
 			// "port": 400, // This is TLS entrypoint. This entrypoint does the SSL Termination then routes the request based on the Path or ALPN type.
-			"listen": "@@xtlsin",
+			"listen": "@xtlsindecoy",
 			"protocol": "vless",
 			"settings": {
 			  "decryption": "none",
 			  "clients": [
-				{"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com","flow": "xtls-rprx-vision"}
 			  ],
 			  "fallbacks": [
 				{
 					"alpn": "h2",
-					"dest": "@dispatcher_h2",
+					"dest": "502",
 					"xver": 2
 				},
 				{
-				  "dest": "@dispatcher",
+				  "dest": "501",
 				  "xver": 2
 				}
 			  ]

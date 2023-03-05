@@ -3,10 +3,10 @@
 		{
 			"tag":"dispatcher_h2",
 			"listen": "@dispatcher_h2", 
-			"protocol": "vless",
+			"protocol": "trojan",
 			"settings": {
 			  "clients": [
-				{"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com"}
+				{"password": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com"}
 			  ],
 			  "decryption": "none",
 			  "fallbacks": [

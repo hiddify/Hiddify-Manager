@@ -23,6 +23,7 @@ done
 final=${final:1}
 echo $final
 sed -i "s|$TEMPLATE_LINE|$final|g" configs/05_inbounds_02_xtls_main.json
+sed -i "s|$TEMPLATE_LINE|$final|g" configs/05_inbounds_02_decoy.json
 sed -i "s|$TEMPLATE_LINE|$final|g" configs/05_inbounds_02_quic_main.json
 
 for CONFIG_FILE in $(find configs/ -name "*.json"); do
