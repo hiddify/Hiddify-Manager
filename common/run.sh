@@ -6,6 +6,8 @@ function add2iptables(){
 add2iptables "INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT"
 add2iptables "INPUT -i lo -j ACCEPT"
 add2iptables "INPUT -p tcp --dport 443 -j ACCEPT"
+# add2iptables "INPUT -p udp --dport 443 -j ACCEPT"
+add2iptables "INPUT -p udp --dport 3478 -j ACCEPT"
 add2iptables "INPUT -p udp --dport 53 -j ACCEPT"
 add2iptables "INPUT -p tcp --dport 80 -j ACCEPT"
 add2iptables "INPUT -p tcp --dport 22 -j ACCEPT"

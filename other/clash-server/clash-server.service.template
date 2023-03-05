@@ -1,13 +1,13 @@
 [Unit]
-Description=hiddify admin ui
+Description=hiddify clash server
 After=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=simple
-ExecStart=./clashmeta -d /opt/GITHUB_REPOSITORY/next-version/clash-server/data/
+ExecStart=/opt/GITHUB_REPOSITORY/other/clash-server/clashmeta -d /opt/GITHUB_REPOSITORY/other/clash-server/data/
 ExecStartPre=/usr/bin/sleep 1s
-WorkingDirectory=/opt/GITHUB_REPOSITORY/next-version/clash-server/
+WorkingDirectory=/opt/GITHUB_REPOSITORY/other/clash-server/
 Restart=on-failure
 StandardOutput=file:/opt/GITHUB_REPOSITORY/log/system/clash-server.out.log
 StandardError=file:/opt/GITHUB_REPOSITORY/log/system/clash-server.err.log
