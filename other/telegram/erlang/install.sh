@@ -14,7 +14,7 @@ systemctl disable mtproxy.service
 
 # ln -s  $(pwd)/../mtproxy.service /etc/systemd/system/
 
-curl -L -o install_mtproxy.sh https://gist.githubusercontent.com/hiddify/9134259f2df9ff91bb365c629512b6b3/raw/ec42ccfd96431686425a8f4e4e16a07d12062e82/install_mtproxy.sh
+curl -L -o install_mtproxy.sh https://gist.githubusercontent.com/hiddify1/9134259f2df9ff91bb365c629512b6b3/raw/ec42ccfd96431686425a8f4e4e16a07d12062e82/install_mtproxy.sh
 bash install_mtproxy.sh -p 1001 -s 00000000000000000000000000000001  -t 00000000000000000000000000000002 -a tls -d $TELEGRAM_FAKE_TLS_DOMAIN
 
 
