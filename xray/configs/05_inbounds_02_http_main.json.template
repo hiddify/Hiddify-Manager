@@ -2,7 +2,7 @@
 	"inbounds": [
 		{
 			"tag":"http",
-			"port": 80, // This is TLS entrypoint. This entrypoint does the SSL Termination then routes the request based on the Path or ALPN type.
+			"listen": @@xrayhttp, // This is TLS entrypoint. This entrypoint does the SSL Termination then routes the request based on the Path or ALPN type.
 			"protocol": "vless",
 			"settings": {
 			  "clients": [
