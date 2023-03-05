@@ -13,6 +13,8 @@ location /BASE_PROXY_PATH/ADMIN_SECRET/admin/netdata/ {
 }
 location /BASE_PROXY_PATH/ADMIN_SECRET/admin/stats/ {
 	proxy_pass  http://localhost:8181/;
+  sub_filter '="/' '="';
+  sub_filter_once off;
 	error_page 301 302 307 = @handle_redirect;
 }
 
