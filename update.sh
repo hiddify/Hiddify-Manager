@@ -58,10 +58,10 @@ function main(){
             bash install.sh
         fi
     fi
+    echo "---------------------Finished!------------------------"
     if [[ "$CURRENT" != "$LATEST" ]];then
         systemctl restart hiddify-panel
     fi
-    echo "---------------------Finished!------------------------"
 }
 
 mkdir -p log/system/
