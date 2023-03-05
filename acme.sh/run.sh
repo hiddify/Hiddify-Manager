@@ -37,9 +37,10 @@ for DOMAIN in $DOMAINS;	do
 	fi
 	# --server  letsencrypt 
 	
-	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --server letsencrypt --pre-hook "kill -9 $(lsof -t -i:80) || echo 'nothing to kill'"
+	
+	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --server letsencrypt --pre-hook "systemctl stop haproxy||kill -9 $(lsof -t -i:80) || echo 'nothing to kill'"
 	#if [[ $? != 130 && $? != 0 ]];then 
-	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --pre-hook "kill -9 $(lsof -t -i:80) || echo 'nothing to kill'"
+	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --pre-hook "systemctl stop haproxy||kill -9 $(lsof -t -i:80) || echo 'nothing to kill'"
 	#fi
 	./lib/acme.sh  --installcert  -d $DOMAIN  \
 			--fullchainpath $ssl_cert_path/$DOMAIN.crt \
@@ -58,8 +59,8 @@ for DOMAIN in $DOMAINS;	do
 	# fi
 	chmod 644 $ssl_cert_path/$DOMAIN.key
 done
-systemctl start hiddify-xray
-systemctl start hiddify-sniproxy
+# systemctl start hiddify-xray
+systemctl start haproxy
 if [[ "$FIRST_SETUP" == "true" ]];then
 	echo -e "Please visit http://$SERVER_IP/ or https://$SERVER_IP.sslip.io/ in one hour to change your domain.">>$DST
 	echo "or you can use the following links to continue setup:">>$DST
