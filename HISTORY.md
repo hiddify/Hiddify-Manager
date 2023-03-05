@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v7.2.1 (2023-03-05)
+
+### Fix
+
+* A bug in xray config. [hiddify]
+
+
 ## v7.2.0 (2023-03-05)
 
 ### Fix
