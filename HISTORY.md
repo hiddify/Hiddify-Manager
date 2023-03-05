@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v7.1.9 (2023-03-05)
+
+### Fix
+
+* Enable haproxy, shadowtls and clash server again for test. [hiddify]
+
+
 ## v7.1.8 (2023-03-05)
 
 ### New
