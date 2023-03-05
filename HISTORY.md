@@ -1,6 +1,33 @@
 # Changelog
 
 
+## v7.1.8 (2023-03-05)
+
+### New
+
+* Add tuic: the fastest protocol you can imagine in Iran. [hiddify]
+
+* Add shadowtls protocol support. [hiddify]
+
+* Use haproxy backend for more security and performance. [hiddify]
+
+### Fix
+
+* Temporary disable haproxy, shadowtls and tuic for release. [hiddify]
+
+* Bug in acme.sh that waits 10 minute for CA and retry. [hiddify]
+
+* Fake password  in tuic configs. [hiddify]
+
+* Not showing green box on update. [hiddify]
+
+* Not showing green box in update. [hiddify]
+
+* Fix bug when shadowtls is not enabled. [hiddify]
+
+* Erlang telegram proxy url. [hiddify]
+
+
 ## v7.1.7 (2023-03-04)
 
 ### New
