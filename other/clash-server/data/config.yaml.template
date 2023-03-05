@@ -2,7 +2,7 @@ log-level: debug
 ipv6: true
 mode: rule
 
-allow-lan: true # Allow LAN connections
+allow-lan: false # Allow LAN connections
 bind-address: "*"
 
 tuic-server:
@@ -27,6 +27,8 @@ proxies:
     type: ss
     server: server
     port: 443
+    password: "d"
+    cipher: "chacha20-ietf-poly1305"
 rules:
   - IP-CIDR,127.0.0.1/32,DIRECT
   - MATCH,REJECT
