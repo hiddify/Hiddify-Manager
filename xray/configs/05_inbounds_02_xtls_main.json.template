@@ -13,7 +13,7 @@
 			  "fallbacks": [
 				{
 					"alpn": "h2",
-					"dest": "@dispatcher_h2",
+					"dest": "@@dispatcher_h2",
 					"xver": 2
 				},
 				{

@@ -1,6 +1,28 @@
 {
 	"inbounds": [
 		{
+			"tag":"trojan-ws-new",
+			"listen": "@@trojan-ws-new", //trojan+ws listener process
+			"protocol": "trojan",
+			"settings": {
+			  "clients": [
+				{"password": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com"}
+			  ]
+			},
+			"streamSettings": {
+			  "network": "ws",
+			  "security": "none",
+			  "wsSettings": {
+				"acceptProxyProtocol": true, //Enable PROXY protocol reception, receive the real source IP and port
+				"path": "/TROJAN_PATHw" //Change to your own path
+			  }
+			},
+			"sniffing": {
+			  "enabled": true,
+			  "destOverride": ["http","tls"]
+			}
+		  }	  ,
+		{
 			"tag":"trojan-ws",
 			"listen": "@trojan-ws", //trojan+ws listener process
 			"protocol": "trojan",

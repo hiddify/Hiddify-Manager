@@ -1,49 +1,54 @@
 {
 	"inbounds": [
 		{
-			"tag":"v2ray-ws-new",
-			"listen": "@@v2ray-ws-new",
+			"tag": "v2ray-grpc-new",
+			"listen": "@@v2ray-grpc-new", //Only listen on localhost
 			"protocol": "shadowsocks",
 			"settings": {
 				"clients":[
 					{"password": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com","method": "Chacha20-IETF-Poly1305"}
 				]
-			  },
+			},
 			"streamSettings": {
-			  "network": "ws",
+			  "network": "grpc",
 			  "security": "none",
-			  "wsSettings": {
-				"acceptProxyProtocol": true,
-				"path": "/PATH_V2RAYw"
+			  "grpcSettings": {
+				"serviceName": "PATH_V2RAYg" //Change to your own gRPC service name, similar to Path in HTTP/2.
 			  }
 			},
 			"sniffing": {
 			  "enabled": true,
-			  "destOverride": ["http","tls"]
+			  "destOverride": [
+				"http",
+				"tls"
+			  ]
 			}
 		  }	  ,
 		{
-			"tag":"v2ray-ws",
-			"listen": "127.0.0.1",
-			"port": "3006",
+			"tag": "v2ray-grpc",
+			"listen": "127.0.0.1", //Only listen on localhost
+			"port": 3008,
 			"protocol": "shadowsocks",
 			"settings": {
 				"clients":[
 					{"password": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com","method": "Chacha20-IETF-Poly1305"}
 				]
-			  },
+			},
 			"streamSettings": {
-			  "network": "ws",
+			  "network": "grpc",
 			  "security": "none",
-			  "wsSettings": {
-				"acceptProxyProtocol": true,
-				"path": "/BASE_PROXY_PATH/v2ray-ws"
+			  "grpcSettings": {
+				"serviceName": "BASE_PROXY_PATH-ssgrpc" //Change to your own gRPC service name, similar to Path in HTTP/2.
 			  }
 			},
 			"sniffing": {
 			  "enabled": true,
-			  "destOverride": ["http","tls"]
+			  "destOverride": [
+				"http",
+				"tls"
+			  ]
 			}
 		  }	  
+	  
 	  ]
 }

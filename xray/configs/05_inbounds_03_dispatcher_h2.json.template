@@ -2,7 +2,7 @@
 	"inbounds": [
 		{
 			"tag":"dispatcher_h2",
-			"listen": "@dispatcher_h2", 
+			"listen": "@dispatcher_h2_old", 
 			"protocol": "trojan",
 			"settings": {
 			  "clients": [
@@ -11,62 +11,7 @@
 			  "decryption": "none",
 			  "fallbacks": [
 				  {
-					"path": "/BASE_PROXY_PATH/vlessws",
-					"dest": "@vless-ws",
-					"xver": 2 
-				  },
-				  {
-					"path": "/BASE_PROXY_PATH/vmessws",
-					"dest": "@vmess-ws",
-					"xver": 2
-				  },
-				  {
-					"path": "/BASE_PROXY_PATH/vmess/",
-					"dest": "@vmess-ws-old",
-					"xver": 2
-				  },
-				  {
-					"path": "/BASE_PROXY_PATH/trojanws",
-					"dest": "@trojan-ws",
-					"xver": 2
-				  },
-				  {
-					"path": "/BASE_PROXY_PATH/trojan/",
-					"dest": "@trojan-ws-old",
-					"xver": 2
-				  },
-				  {
-					"path": "/BASE_PROXY_PATH/vltc",
-					"dest": "@vless-tcp",
-					"xver": 2
-				  },
-				  {
-					"path": "/BASE_PROXY_PATH/vmtc",
-					"dest": "@vmess-tcp",
-					"xver": 2
-				  },
-				  {
-					"path": "/BASE_PROXY_PATH/trtc",
-					"dest": "@trojan-tcp-path",
-					"xver": 2
-				  },
-				  {
-					"path": "/BASE_PROXY_PATH/v2ray/",
-					"dest": "1003",
-					"xver": 0
-				  },
-				  {
-					"path": "/BASE_PROXY_PATH/v2ray-ws",
-					"dest": "3006",
-					"xver": 2
-				  },
-				  {
-					"path": "/BASE_PROXY_PATH/ADMIN_SECRET",
-					"dest": "502",
-					"xver": 2 
-				  },
-				  {
-					"dest": "502",
+					"dest": "@@dispatcher_h2",
 					"xver": 2 
 				  }  
 			  ]

@@ -1,6 +1,28 @@
 {
 	"inbounds": [
 		{
+			"tag":"vmess-ws-new",
+			"listen": "@@vmess-ws-new",
+			"protocol": "vmess",
+			"settings": {
+			  "clients": [
+				{"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com", "level": 0}
+			  ]
+			},
+			"streamSettings": {
+			  "network": "ws",
+			  "security": "none",
+			  "wsSettings": {
+				"acceptProxyProtocol": true,
+				"path": "/PATH_VMESSw"
+			  }
+			},
+			"sniffing": {
+			  "enabled": true,
+			  "destOverride": ["http","tls"]
+			}
+		  }	  ,
+		{
 			"tag":"vmess-ws",
 			"listen": "@vmess-ws",
 			"protocol": "vmess",

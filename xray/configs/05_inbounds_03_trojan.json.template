@@ -1,5 +1,34 @@
 {
 	"inbounds": [
+				{
+			"tag":"trojan-new",
+			"listen": "@@trojan-tcp-new", //trojan+tcp listening process
+			"protocol": "trojan",
+			"settings": {
+			  "clients": [
+				{"password": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com"}
+			  ]
+			},
+			"streamSettings": {
+			  "network": "tcp",
+			  "security": "none",
+			  "tcpSettings": {
+				"acceptProxyProtocol": true, //Enable PROXY protocol reception, receive the real source IP and port before vless+tcp+tls fallback.
+				"header": {
+				  "type": "http",
+				  "request": {
+					"path": [
+					  "/PATH_TROJANt"
+					]
+				  }
+				}
+			  }
+			},
+			"sniffing": {
+			  "enabled": true,
+			  "destOverride": ["http","tls"]
+			}
+		  }	  ,
 		{
 			"tag":"trojan",
 			"listen": "@trojan-tcp-path", //trojan+tcp listening process
