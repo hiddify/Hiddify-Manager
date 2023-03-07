@@ -139,3 +139,100 @@ backend shadowtls_decoy
 # # Error logs
 # option dontlog-normal
 # log /opt/hiddify/hiddify-config/log/system/haproxy.err.log local0
+
+
+
+
+
+
+
+
+
+frontend grpc_frontend
+  bind abns@dispatcher_h2 accept-proxy
+
+  mode http
+  acl is_grpc_req hdr(content-type) -i application/grpc
+  acl vmessg path_beg /PATH_VMESSg
+  acl vlessg path_beg /PATH_VLESSg
+  acl v2rayg path_beg /PATH_V2RAYg
+  acl trojang path_beg /PATH_TROJANg
+
+  acl vmesst path_beg /PATH_VMESSt
+  acl vlesst path_beg /PATH_VLESSt
+  acl v2rayt path_beg /PATH_V2RAYt
+  acl trojant path_beg /PATH_TROJANt
+
+  acl vmessw path_beg /PATH_VMESSw
+  acl vlessw path_beg /PATH_VLESSw
+  acl v2rayw path_beg /PATH_V2RAYw
+  acl trojanw path_beg /PATH_TROJANw
+
+  use_backend vmessg if vmessg
+  use_backend vlessg if vlessg
+  use_backend v2rayg if v2rayg
+  use_backend trojang if trojang
+
+  use_backend vmesst if vmesst
+  use_backend vlesst if vlesst
+  use_backend v2rayt if v2rayt
+  use_backend trojant if trojant
+
+  use_backend vmessw if vmessw
+  use_backend vlessw if vlessw
+  use_backend v2rayw if v2rayw
+  use_backend trojanw if trojanw
+  default_backend dummy_backend
+
+backend dummy_backend
+    mode http
+    server nginx 127.0.0.1:502 send-proxy-v2
+
+backend vmessg
+  mode http
+  server vmessg abns@vmess-grpc-new send-proxy-v2
+
+backend vlessg
+  mode http
+  server vlessg abns@vless-grpc-new  send-proxy-v2
+
+backend v2rayg
+  mode http
+  server v2rayg abns@v2ray-grpc-new send-proxy-v2
+
+backend trojang
+  mode http
+  server trojang abns@trojan-grpc-new send-proxy-v2
+
+backend vmesst
+  mode http
+  server vmesst abns@vmess-tcp-new send-proxy-v2
+
+backend vlesst
+  mode http
+  server vlesst abns@vless-tcp-new send-proxy-v2
+
+backend v2rayt
+  mode http
+  server v2rayt abns@v2ray-tcp-new send-proxy-v2
+
+backend trojant
+  mode http
+  server trojant abns@trojan-tcp-new send-proxy-v2
+
+backend vmessw
+  mode http
+  server vmessw abns@vmess-ws-new send-proxy-v2
+
+backend vlessw
+  mode http
+  server vlessw abns@vless-ws-new send-proxy-v2
+
+backend v2rayw
+  mode http
+  server v2rayw abns@v2ray-ws-new send-proxy-v2
+
+backend trojanw
+  mode http
+  server trojanw abns@trojan-ws-new send-proxy-v2
+

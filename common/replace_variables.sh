@@ -41,6 +41,11 @@ for template_file in $(find . -name "*.template"); do
     sed -i "s|GITHUB_BRANCH_OR_TAG|$GITHUB_BRANCH_OR_TAG|g" $out_file 
     sed -i "s|BASE_PROXY_PATH|$BASE_PROXY_PATH|g" $out_file 
 
+    sed -i "s|PATH_VLESS|$PATH_VLESS|g" $out_file 
+    sed -i "s|PATH_VMESS|$PATH_VMESS|g" $out_file 
+    sed -i "s|PATH_TROJAN|$PATH_TROJAN|g" $out_file 
+    sed -i "s|PATH_V2RAY|$PATH_V2RAY|g" $out_file 
+
     
 
 done
