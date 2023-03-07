@@ -5,7 +5,7 @@ apt-get install -y  shadowsocks-libev simple-obfs
 
 
 
-
+ln -sf $(pwd)/ss-faketls.service /etc/systemd/system/ss-faketls.service
 
 
 
