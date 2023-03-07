@@ -1,9 +1,8 @@
 {
 	"inbounds": [
 		{
-			"tag": "vmess-grpc",
-			"listen": "127.0.0.1", // listen on localhost
-			"port": 3003,
+			"tag":"vmess-ws-new",
+			"listen": "@@vmess-ws-new",
 			"protocol": "vmess",
 			"settings": {
 			  "clients": [
@@ -11,13 +10,17 @@
 			  ]
 			},
 			"streamSettings": {
-			  "network": "grpc",
+			  "network": "ws",
 			  "security": "none",
-			  "grpcSettings": {
-				"serviceName": "BASE_PROXY_PATH-vmgrpc"
+			  "wsSettings": {
+				"acceptProxyProtocol": true,
+				"path": "/PATH_VMESSw"
 			  }
+			},
+			"sniffing": {
+			  "enabled": true,
+			  "destOverride": ["http","tls"]
 			}
 		  }	  
-	  
 	  ]
 }

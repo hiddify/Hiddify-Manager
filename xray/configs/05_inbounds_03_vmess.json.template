@@ -1,38 +1,6 @@
 {
 	"inbounds": [
 		{
-			"tag": "vmess-new",
-			"listen": "@@vmess-tcp-new",
-			"protocol": "vmess",
-			"settings": {
-			  "clients": [
-				{"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com", "level": 0}
-			  ]
-			},
-			"streamSettings": {
-			  "network": "tcp",
-			  "security": "none",
-			  "tcpSettings": {
-				"acceptProxyProtocol": true,
-				"header": {
-				  "type": "http",
-				  "request": {
-					"path": [
-					  "/PATH_VMESSt"
-					] //,
-					// "headers": {
-					//   "Host": ["www.varzesh3.com"]
-					// }
-				  }
-				}
-			  }
-			},
-			"sniffing": {
-			  "enabled": true,
-			  "destOverride": ["http","tls"]
-			}
-		  },
-		{
 			"tag": "vmess",
 			"listen": "@vmess-tcp",
 			"protocol": "vmess",

@@ -1,8 +1,8 @@
 {
 	"inbounds": [
-		{
-			"tag":"trojan",
-			"listen": "@trojan-tcp-path", //trojan+tcp listening process
+				{
+			"tag":"trojan-new",
+			"listen": "@@trojan-tcp-new", //trojan+tcp listening process
 			"protocol": "trojan",
 			"settings": {
 			  "clients": [
@@ -18,7 +18,7 @@
 				  "type": "http",
 				  "request": {
 					"path": [
-					  "/BASE_PROXY_PATH/trtc"
+					  "/PATH_TROJANt"
 					]
 				  }
 				}
@@ -29,5 +29,5 @@
 			  "destOverride": ["http","tls"]
 			}
 		  }	  
-	  ]
+	]
 }

@@ -1,9 +1,8 @@
 {
 	"inbounds": [
 		{
-			"tag":"v2ray-ws",
-			"listen": "127.0.0.1",
-			"port": "3006",
+			"tag":"v2ray-ws-new",
+			"listen": "@@v2ray-ws-new",
 			"protocol": "shadowsocks",
 			"settings": {
 				"clients":[
@@ -15,13 +14,13 @@
 			  "security": "none",
 			  "wsSettings": {
 				"acceptProxyProtocol": true,
-				"path": "/BASE_PROXY_PATH/v2ray-ws"
+				"path": "/PATH_V2RAYw"
 			  }
 			},
 			"sniffing": {
 			  "enabled": true,
 			  "destOverride": ["http","tls"]
 			}
-		  }	  
+		  }	
 	  ]
 }

@@ -1,8 +1,8 @@
 {
 	"inbounds": [
-		{
-			"tag":"vless-ws",
-			"listen": "@vless-ws",
+				{
+			"tag": "vless-new",
+			"listen": "@@vless-tcp-new",
 			"protocol": "vless",
 			"settings": {
 			  "clients": [
@@ -11,11 +11,18 @@
 			  "decryption": "none"
 			},
 			"streamSettings": {
-			  "network": "ws",
+			  "network": "tcp",
 			  "security": "none",
-			  "wsSettings": {
+			  "tcpSettings": {
 				"acceptProxyProtocol": true,
-				"path": "/BASE_PROXY_PATH/vlessws"
+				"header": {
+				  "type": "http",
+				  "request": {
+					"path": [
+					  "/PATH_VLESSt"
+					]
+				  }
+				}
 			  }
 			},
 			"sniffing": {

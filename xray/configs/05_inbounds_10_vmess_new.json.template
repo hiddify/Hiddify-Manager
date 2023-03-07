@@ -1,8 +1,8 @@
 {
 	"inbounds": [
 		{
-			"tag":"vmess-ws",
-			"listen": "@vmess-ws",
+			"tag": "vmess-new",
+			"listen": "@@vmess-tcp-new",
 			"protocol": "vmess",
 			"settings": {
 			  "clients": [
@@ -10,17 +10,27 @@
 			  ]
 			},
 			"streamSettings": {
-			  "network": "ws",
+			  "network": "tcp",
 			  "security": "none",
-			  "wsSettings": {
+			  "tcpSettings": {
 				"acceptProxyProtocol": true,
-				"path": "/BASE_PROXY_PATH/vmessws"
+				"header": {
+				  "type": "http",
+				  "request": {
+					"path": [
+					  "/PATH_VMESSt"
+					] //,
+					// "headers": {
+					//   "Host": ["www.varzesh3.com"]
+					// }
+				  }
+				}
 			  }
 			},
 			"sniffing": {
 			  "enabled": true,
 			  "destOverride": ["http","tls"]
 			}
-		  }	  
-	  ]
+		  }
+	]
 }

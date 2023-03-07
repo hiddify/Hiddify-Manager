@@ -1,8 +1,8 @@
 {
 	"inbounds": [
 		{
-			"tag":"vless-ws",
-			"listen": "@vless-ws",
+			"tag": "vless-grpc-new",
+			"listen": "@@vless-grpc-new", // listen on localhost
 			"protocol": "vless",
 			"settings": {
 			  "clients": [
@@ -11,17 +11,12 @@
 			  "decryption": "none"
 			},
 			"streamSettings": {
-			  "network": "ws",
+			  "network": "grpc",
 			  "security": "none",
-			  "wsSettings": {
-				"acceptProxyProtocol": true,
-				"path": "/BASE_PROXY_PATH/vlessws"
+			  "grpcSettings": {
+				"serviceName": "PATH_VLESSg"
 			  }
-			},
-			"sniffing": {
-			  "enabled": true,
-			  "destOverride": ["http","tls"]
 			}
-		  }	  
-	  ]
+		  }
+	]
 }

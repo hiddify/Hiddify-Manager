@@ -1,9 +1,9 @@
 {
 	"inbounds": [
 		{
-			"tag": "vmess-grpc",
-			"listen": "127.0.0.1", // listen on localhost
-			"port": 3003,
+			"tag": "vmess-grpc-new",
+			"listen": "@vmess-grpc-new", // listen on localhost
+			
 			"protocol": "vmess",
 			"settings": {
 			  "clients": [
@@ -14,10 +14,9 @@
 			  "network": "grpc",
 			  "security": "none",
 			  "grpcSettings": {
-				"serviceName": "BASE_PROXY_PATH-vmgrpc"
+				"serviceName": "PATH_VMESSg"
 			  }
 			}
 		  }	  
-	  
 	  ]
 }

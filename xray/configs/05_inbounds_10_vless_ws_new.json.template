@@ -1,8 +1,8 @@
 {
 	"inbounds": [
 		{
-			"tag":"vless-ws",
-			"listen": "@vless-ws",
+			"tag":"vless-ws-new",
+			"listen": "@@vless-ws-new",
 			"protocol": "vless",
 			"settings": {
 			  "clients": [
@@ -15,13 +15,13 @@
 			  "security": "none",
 			  "wsSettings": {
 				"acceptProxyProtocol": true,
-				"path": "/BASE_PROXY_PATH/vlessws"
+				"path": "/PATH_VLESSw"
 			  }
 			},
 			"sniffing": {
 			  "enabled": true,
 			  "destOverride": ["http","tls"]
 			}
-		  }	  
+		  }
 	  ]
 }

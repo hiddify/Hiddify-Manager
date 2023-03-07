@@ -1,29 +1,6 @@
 {
 	"inbounds": [
-		{
-			"tag": "v2ray-grpc-new",
-			"listen": "@@v2ray-grpc-new", //Only listen on localhost
-			"protocol": "shadowsocks",
-			"settings": {
-				"clients":[
-					{"password": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com","method": "Chacha20-IETF-Poly1305"}
-				]
-			},
-			"streamSettings": {
-			  "network": "grpc",
-			  "security": "none",
-			  "grpcSettings": {
-				"serviceName": "PATH_V2RAYg" //Change to your own gRPC service name, similar to Path in HTTP/2.
-			  }
-			},
-			"sniffing": {
-			  "enabled": true,
-			  "destOverride": [
-				"http",
-				"tls"
-			  ]
-			}
-		  }	  ,
+
 		{
 			"tag": "v2ray-grpc",
 			"listen": "127.0.0.1", //Only listen on localhost

@@ -1,26 +1,20 @@
 {
 	"inbounds": [
 		{
-			"tag":"dispatcher_h2",
-			"listen": "@dispatcher_h2_old", 
+			"tag":"trojan-ws-new",
+			"listen": "@@trojan-ws-new", //trojan+ws listener process
 			"protocol": "trojan",
 			"settings": {
 			  "clients": [
 				{"password": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com"}
-			  ],
-			  "decryption": "none",
-			  "fallbacks": [
-				  {
-					"dest": "@@dispatcher_h2",
-					"xver": 2 
-				  }  
 			  ]
 			},
 			"streamSettings": {
-			  "network": "tcp",
+			  "network": "ws",
 			  "security": "none",
-			  "tcpSettings": {
-				"acceptProxyProtocol": true 
+			  "wsSettings": {
+				"acceptProxyProtocol": true, //Enable PROXY protocol reception, receive the real source IP and port
+				"path": "/TROJAN_PATHw" //Change to your own path
 			  }
 			},
 			"sniffing": {
