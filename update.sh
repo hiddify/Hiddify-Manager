@@ -9,8 +9,12 @@ function get_commit_version(){
 }
 
 function main(){
-
-    PACKAGE_MODE=$(cd hiddify-panel;python3 -m hiddifypanel all-configs|jq -r ".hconfigs.package_mode")
+    rm  -rf sniproxy
+    if [[ "$1" == "" ]];then
+        PACKAGE_MODE=$(cd hiddify-panel;python3 -m hiddifypanel all-configs|jq -r ".hconfigs.package_mode")
+    else
+        PACKAGE_MODE=$1
+    fi
     
     if [[ "$PACKAGE_MODE" == "develop" ]];then
         echo "you are in develop mode"
@@ -65,4 +69,4 @@ function main(){
 }
 
 mkdir -p log/system/
-main |& tee log/system/update.log
+main $@|& tee log/system/update.log
