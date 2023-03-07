@@ -184,7 +184,7 @@ frontend grpc_frontend
   use_backend trojanw if trojanw
   default_backend h2_nginx_backend
 
-backend h2_ngix_backend
+backend h2_nginx_backend
     mode http
     server nginx 127.0.0.1:502 proto h2 send-proxy-v2
 
