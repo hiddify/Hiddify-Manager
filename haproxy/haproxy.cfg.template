@@ -153,10 +153,10 @@ frontend grpc_frontend
 
   mode http
   acl is_grpc_req hdr(content-type) -i application/grpc
-  acl vmessg path_beg /PATH_VMESSg
-  acl vlessg path_beg /PATH_VLESSg
-  acl v2rayg path_beg /PATH_V2RAYg
-  acl trojang path_beg /PATH_TROJANg
+  acl vmessg path_beg PATH_VMESSg
+  acl vlessg path_beg PATH_VLESSg
+  acl v2rayg path_beg PATH_V2RAYg
+  acl trojang path_beg PATH_TROJANg
 
   acl vmesst path_beg /PATH_VMESSt
   acl vlesst path_beg /PATH_VLESSt
