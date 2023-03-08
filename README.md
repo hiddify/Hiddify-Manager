@@ -196,6 +196,6 @@ We need your collaboration in order to develop this project. If you are speciali
 ## Contact us &nbsp;&nbsp;&nbsp;&nbsp; راه‌های ارتباط با ما
 * Email: [hiddify@gmail.com](mailto:hiddify@gmail.com)
 * Annoncements: [Telegram Channel](https://t.me/hiddify)
-* Discussion: [Telegram topics](https://t.me/hiddify_board)
+* Discussion: [Telegram Topics](https://t.me/hiddify_board)
 
 
