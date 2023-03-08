@@ -9,7 +9,7 @@ function get_commit_version(){
 }
 
 function main(){
-    
+    UPDATE=0
     if [[ "$1" == "" ]];then
         PACKAGE_MODE=$(cd hiddify-panel;python3 -m hiddifypanel all-configs|jq -r ".hconfigs.package_mode")
     else
@@ -27,6 +27,7 @@ function main(){
             pip3 install -U git+https://github.com/hiddify/HiddifyPanel
             echo $LATEST>$INSTALL_DIR/hiddifypanel/VERSION
             echo "__version__='$LATEST'">$INSTALL_DIR/hiddifypanel/VERSION.py
+            UPDATE=1
         fi
     else 
         CURRENT=`pip3 freeze |grep hiddifypanel|awk -F"==" '{ print $2 }'`
@@ -35,6 +36,7 @@ function main(){
         if [[ "$CURRENT" != "$LATEST" ]];then
             echo "panel is outdated! updating...."
             pip3 install -U hiddifypanel
+            UPDATE=1
         fi
     fi
 
@@ -52,6 +54,7 @@ function main(){
             echo $LAST_CONFIG_VERSION > VERSION
 
             bash install.sh
+            UPDATE=1
         fi
     else 
         LAST_CONFIG_VERSION=$(lastversion hiddify/hiddify-config)
@@ -63,9 +66,12 @@ function main(){
             tar xvzf hiddify-config-v$LAST_CONFIG_VERSION.tar.gz --strip-components=1
             rm hiddify-config-v$LAST_CONFIG_VERSION.tar.gz
             bash install.sh
+            UPDATE=1
         fi
     fi
-    echo "---------------------Finished!------------------------"
+    if [[ $UPDATE == 0 ]];then
+        echo "---------------------Finished!------------------------"
+    fi
     if [[ "$CURRENT" != "$LATEST" ]];then
         systemctl restart hiddify-panel
     fi
