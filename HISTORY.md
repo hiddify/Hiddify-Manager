@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v7.4.3 (2023-03-08)
+
+### Fix
+
+* Nginx user not exist. [hiddify]
+
+
 ## v7.4.1 (2023-03-08)
 
 ### New
