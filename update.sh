@@ -9,6 +9,7 @@ function get_commit_version(){
 }
 
 function main(){
+    rm -rf sniproxy/*
     UPDATE=0
     if [[ "$1" == "" ]];then
         PACKAGE_MODE=$(cd hiddify-panel;python3 -m hiddifypanel all-configs|jq -r ".hconfigs.package_mode")
