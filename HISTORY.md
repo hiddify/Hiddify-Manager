@@ -1,6 +1,71 @@
 # Changelog
 
 
+## v7.3.0 (2023-03-08)
+
+### New
+
+* Show finshed only if update. [hiddify]
+
+* Show error if imporant services not working well. [hiddify]
+
+* Reset nginx on error. [hiddify]
+
+* Support h2 , new path and more and more. [hiddify]
+
+* Add tcp/ws/grpc path. [hiddify]
+
+* Force update release or develop. [hiddify]
+
+* Listen h2 proto by haproxy. [hiddify]
+
+* Add custom path config to xray. [hiddify]
+
+* Add custom vmess_path. [hiddify]
+
+* Fix issue in faketls v2ray and check install packages when needed. [hiddify]
+
+### Changes
+
+* Add execute permission to all scripts. [hiddify]
+
+* Change nginx pid file. [hiddify]
+
+* Change nginx service to our nginx service. [hiddify]
+
+* Change xray configs in seperate files. [hiddify]
+
+### Fix
+
+* Nginx loading error. [hiddify]
+
+* Add new line to haproxy. [hiddify]
+
+* Comment all change to haproxy. [hiddify]
+
+* Typo. [hiddify]
+
+* Bug in new trojan path. [hiddify]
+
+* Bug in grpc. [hiddify]
+
+### Other
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Contact link updated. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+  change some arrangements to footer of the page
+
+
 ## v7.2.3 (2023-03-05)
 
 ### Fix
