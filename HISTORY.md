@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v7.4.0 (2023-03-08)
+
+### New
+
+* Add default update mode. [hiddify]
+
+* Add more options in menu. [hiddify]
+
+### Fix
+
+* Add check for broken installation. [hiddify]
+
+
 ## v7.3.0 (2023-03-08)
 
 ### New
