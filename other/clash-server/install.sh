@@ -2,7 +2,7 @@
 
 pkg=$(dpkg --print-architecture)
 
-wget -c https://github.com/MetaCubeX/Clash.Meta/releases/download/v1.14.2/clash.meta-linux-$pkg-v1.14.2.gz
+wget -c https://github.com/MetaCubeX/Clash.Meta/releases/download/v1.14.2/clash.meta-linux-$pkg-compatible-v1.14.2.gz
 
 gunzip -f clash.meta-linux-*
 rm -rf clash.meta-linux-*.gz
