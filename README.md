@@ -183,10 +183,10 @@ We also need financial support for our services (all of our activities are done 
 
 
 ## Collaborate with us &nbsp;&nbsp;&nbsp;&nbsp; با ما همکاری کنید
-We need your collaboration in order to develop this project. If you are specialists in these areas, please do not hesitate to [contact us]([https://github.com/hiddify/hiddify-config/wiki/_Footer/_edit#contact-us](https://github.com/hiddify/hiddify-config#contact-us--%D8%B1%D8%A7%D9%87%D9%87%D8%A7%DB%8C-%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7-%D8%A8%D8%A7-%D9%85%D8%A7)):
+We need your collaboration in order to develop this project. If you are specialists in these areas, please do not hesitate to [contact us](https://github.com/hiddify/hiddify-config#contact-us--%D8%B1%D8%A7%D9%87%D9%87%D8%A7%DB%8C-%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7-%D8%A8%D8%A7-%D9%85%D8%A7):
 <div dir="rtl" markdown="1">
 
-اگر در هر یک از زمینه‌های زیر توانایی دارید، با ما در [تماس ]https://github.com/hiddify/hiddify-config#contact-us--%D8%B1%D8%A7%D9%87%D9%87%D8%A7%DB%8C-%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7-%D8%A8%D8%A7-%D9%85%D8%A7)باشید:
+اگر در هر یک از زمینه‌های زیر توانایی دارید، با ما در [تماس]( https://github.com/hiddify/hiddify-config#contact-us--%D8%B1%D8%A7%D9%87%D9%87%D8%A7%DB%8C-%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7-%D8%A8%D8%A7-%D9%85%D8%A7)  باشید:
 </div>
 
 * Media production &nbsp;&nbsp;&nbsp;&nbsp; تولید محتوا
