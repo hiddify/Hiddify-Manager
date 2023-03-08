@@ -8,15 +8,13 @@ TITLE="Hiddify Panel"
 MENU="Choose one of the following options:"
 
 OPTIONS=(status "View status of system"
-         restart "Restart Services without changing the configs"
+         admin "Show admin link"
          log "view system logs"
+         restart "Restart Services without changing the configs"
          apply_configs "Apply the changed configs"
          update "Update "
-         admin "Show admin link"
          install "Reinstall"
-         disable "Disable showing this window on startup"
-         enable "enable showing this window on startup"
-         uninstall "Uninstall"
+         submenu "Uninstall, Disable/Enable showing this window on startup"
          )
 
 CHOICE=$(dialog --clear \
@@ -57,15 +55,50 @@ case $CHOICE in
         fi
         NEED_KEY=0
     ;;
-    "enable")
-        echo "/opt/hiddify-config/menu.sh">>~/.bashrc
-        echo "cd /opt/hiddify-config/">>~/.bashrc
-        NEED_KEY=0
+    "submenu")
+        
+        OPTIONS=(enable "show this menu on start up"
+                disable "disable this menu"
+                uninstall "Uninstall hiddify :("
+                purge "Uninstall completely and remove database :("
+                )
+        CHOICE=$(dialog --clear --backtitle "$BACKTITLE" --title "$TITLE" --menu "$MENU" $HEIGHT $WIDTH $CHOICE_HEIGHT "${OPTIONS[@]}" 2>&1 >/dev/tty)
+        case $CHOICE in 
+            "enable")
+                echo "/opt/hiddify-config/menu.sh">>~/.bashrc
+                echo "cd /opt/hiddify-config/">>~/.bashrc
+                NEED_KEY=0
+            ;;
+            "disable")
+                sed -i "s|/opt/hiddify-config/menu.sh||g" ~/.bashrc
+                sed -i "s|cd /opt/hiddify-config/||g" ~/.bashrc
+                NEED_KEY=0
+            ;;
+            "uninstall")
+                bash uninstall.sh 
+            ;;
+            "purge")
+                bash uninstall.sh purge
+            ;;
+            *)NEED_KEY=0;;
+        esac
         ;;
-    "disable")
-        sed -i "s|/opt/hiddify-config/menu.sh||g" ~/.bashrc
-        sed -i "s|cd /opt/hiddify-config/||g" ~/.bashrc
-        NEED_KEY=0
+
+    "update")
+        
+        OPTIONS=(release "Release (suggested)"
+                develop "Develop (may have some bugs)"
+                )
+        CHOICE=$(dialog --clear --backtitle "$BACKTITLE" --title "$TITLE" --menu "$MENU" $HEIGHT $WIDTH $CHOICE_HEIGHT "${OPTIONS[@]}" 2>&1 >/dev/tty)
+        case $CHOICE in 
+            "release")
+                bash update.sh release
+            ;;
+            "develop")
+                bash update.sh develop
+            ;;
+            *)NEED_KEY=0;;
+        esac
         ;;
     "admin")
         (cd hiddify-panel; python3 -m hiddifypanel admin-links)   
