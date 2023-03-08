@@ -254,13 +254,30 @@ function main(){
                         echo "Please open the following link in the browser for client setup"
                         
                         cat use-link
-                        echo "---------------------Finished!------------------------"
+                        
                 fi
         fi
 
+        for s in hiddify-xray hiddify-nginx haproxy;do
+	        s=${s##*/}
+	        s=${s%%.*}
+	        if [[ "$(systemctl is-active $s)" != "active" ]];then
+                        echo "an important service $s is not working yet"
+                        sleep 5
+                        echo "checking again..."
+                        if [[ "$(systemctl is-active $s)" != "active" ]];then
+                              echo "an important service $s is not working again"
+                              echo "Installation Failed!"
+                              exit 32
+                        fi
+                        
+                fi
+                
+        done
         if [ "$MODE" != "apply_users" ];then
                 systemctl restart hiddify-panel
         fi
+        echo "---------------------Finished!------------------------"
 }
 
 mkdir -p log/system/
