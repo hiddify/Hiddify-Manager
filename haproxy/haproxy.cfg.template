@@ -3,9 +3,6 @@ global
 
 defaults
     log global
-    mode tcp
-    option tcplog
-    option dontlognull
     timeout connect 5s
     timeout client 50s
     timeout client-fin 50s
@@ -26,6 +23,8 @@ listen stats
 frontend http-in
     bind *:80
     mode http
+    option httplog
+    option dontlognull
     acl app1_http_acl hdr(host) -i XRAY_DOMAIN
     acl app2_http_acl hdr(host) -i TELEGRAM_FAKE_TLS_DOMAIN
 
@@ -48,6 +47,8 @@ frontend http-in
 frontend https-in
     bind *:443
     mode tcp
+    option tcplog
+    option dontlognull
     tcp-request inspect-delay 5s
     tcp-request content accept if { req.ssl_hello_type 1 }
     acl tls1_2 req.ssl_ver 1.2
@@ -120,6 +121,7 @@ backend shadowtls_decoy_http
     server shadowtls_decoy_http shadowtlsdomain
 
 backend shadowtls_decoy
+    mode tcp
     server shadowtls_decoy shadowtlsdomain
 
 # backend ssrdecory
@@ -146,27 +148,26 @@ backend shadowtls_decoy
 
 
 
+frontend h2_frontend
+  bind abns@dispatcher_h2 
+  mode tcp
 
-
-frontend grpc_frontend
-  bind abns@dispatcher_h2 proto h2 accept-proxy
-  http-reuse always
-  mode http
   acl is_grpc_req hdr(content-type) -i application/grpc
-  acl vmessg path_beg PATH_VMESSg
-  acl vlessg path_beg PATH_VLESSg
-  acl v2rayg path_beg PATH_V2RAYg
-  acl trojang path_beg PATH_TROJANg
+  
+  acl vmessg path_beg /PATH_VMESSPATH_GRPC
+  acl vlessg path_beg /PATH_VLESSPATH_GRPC
+  acl v2rayg path_beg /PATH_SSPATH_GRPC
+  acl trojang path_beg /PATH_TROJANPATH_GRPC
 
-  acl vmesst path_beg /PATH_VMESSt
-  acl vlesst path_beg /PATH_VLESSt
-  acl v2rayt path_beg /PATH_V2RAYt
-  acl trojant path_beg /PATH_TROJANt
+  acl vmesst path_beg /PATH_VMESSPATH_TCP
+  acl vlesst path_beg /PATH_VLESSPATH_TCP
+  acl v2rayt path_beg /PATH_SSPATH_TCP
+  acl trojant path_beg /PATH_TROJANPATH_TCP
 
-  acl vmessw path_beg /PATH_VMESSw
-  acl vlessw path_beg /PATH_VLESSw
-  acl v2rayw path_beg /PATH_V2RAYw
-  acl trojanw path_beg /PATH_TROJANw
+  acl vmessw path_beg /PATH_VMESSPATH_WS
+  acl vlessw path_beg /PATH_VLESSPATH_WS
+  acl v2rayw path_beg /PATH_SSPATH_WS
+  acl trojanw path_beg /PATH_TROJANPATH_WS
 
   use_backend vmessg if vmessg
   use_backend vlessg if vlessg
@@ -185,54 +186,97 @@ frontend grpc_frontend
   default_backend h2_nginx_backend
 
 backend h2_nginx_backend
-    mode http
-    server nginx 127.0.0.1:502 proto h2 send-proxy-v2
+    mode tcp
+    server nginx 127.0.0.1:502  send-proxy-v2
 
 backend vmessg
-  mode http
-  server vmessg abns@vmess-grpc-new proto h2 send-proxy-v2
+  mode tcp
+  server vmessg abns@vmess-grpc-new  send-proxy-v2
 
 backend vlessg
-  mode http
-  server vlessg abns@vless-grpc-new proto h2  send-proxy-v2
+  mode tcp
+  server vlessg abns@vless-grpc-new   send-proxy-v2
 
 backend v2rayg
-  mode http
-  server v2rayg abns@v2ray-grpc-new proto h2 send-proxy-v2
+  mode tcp
+  server v2rayg abns@v2ray-grpc-new  send-proxy-v2
 
 backend trojang
-  mode http
-  server trojang abns@trojan-grpc-new proto h2 send-proxy-v2
+  mode tcp
+  server trojang abns@trojan-grpc-new  send-proxy-v2
 
 backend vmesst
-  mode http
-  server vmesst abns@vmess-tcp-new proto h2 send-proxy-v2
+  mode tcp
+  server vmesst abns@vmess-tcp-new  send-proxy-v2
 
 backend vlesst
-  mode http
-  server vlesst abns@vless-tcp-new proto h2 send-proxy-v2
+  mode tcp
+  server vlesst abns@vless-tcp-new  send-proxy-v2
 
 backend v2rayt
-  mode http
-  server v2rayt abns@v2ray-tcp-new proto h2 send-proxy-v2
+  mode tcp
+  server v2rayt abns@v2ray-tcp-new  send-proxy-v2
 
 backend trojant
-  mode http
-  server trojant abns@trojan-tcp-new proto h2 send-proxy-v2
+  mode tcp
+  server trojant abns@trojan-tcp-new  send-proxy-v2
 
 backend vmessw
-  mode http
-  server vmessw abns@vmess-ws-new proto h2 send-proxy-v2
+  mode tcp
+  server vmessw abns@vmess-ws-new  send-proxy-v2
 
 backend vlessw
-  mode http
-  server vlessw abns@vless-ws-new proto h2 send-proxy-v2
+  mode tcp
+  server vlessw abns@vless-ws-new  send-proxy-v2
 
 backend v2rayw
-  mode http
-  server v2rayw abns@v2ray-ws-new proto h2 send-proxy-v2
+  mode tcp
+  server v2rayw abns@v2ray-ws-new  send-proxy-v2
 
 backend trojanw
-  mode http
-  server trojanw abns@trojan-ws-new proto h2 send-proxy-v2
+  mode tcp
+  server trojanw abns@trojan-ws-new send-proxy-v2
 
+
+
+
+
+
+
+
+
+
+
+
+
+frontend http2-proxy
+  bind 127.0.0.1:502 proxy-v2 #H2C server monitor process and enable PROXY protocol reception
+  mode http
+  # grpc settings
+  http-request set-header X-Real-IP %[src]
+
+  acl is_trojan_grpc path_beg /BASE_PROXY_PATH-trgrpc
+  acl is_vless_grpc path_beg /BASE_PROXY_PATH-vlgrpc
+  acl is_vmess_grpc path_beg /BASE_PROXY_PATH-vmgrpc
+  acl is_shadowsocks_grpc path_beg /BASE_PROXY_PATH-ssgrpc
+
+  use_backend trojan_grpc_backend if is_trojan_grpc
+  use_backend vless_grpc_backend if is_vless_grpc
+  use_backend vmess_grpc_backend if is_vmess_grpc
+  use_backend shadowsocks_grpc_backend if is_shadowsocks_grpc
+
+backend trojan_grpc_backend
+  timeout server 1h
+  server trojan_grpc_server 127.0.0.1:3001
+
+backend vless_grpc_backend
+  timeout server 1h
+  server vless_grpc_server 127.0.0.1:3002
+
+backend vmess_grpc_backend
+  timeout server 1h
+  server vmess_grpc_server 127.0.0.1:3003
+
+backend shadowsocks_grpc_backend
+  timeout server 1h
+  server shadowsocks_grpc_server 127.0.0.1:3004

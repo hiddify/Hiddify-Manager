@@ -44,7 +44,12 @@ for template_file in $(find . -name "*.template"); do
     sed -i "s|PATH_VLESS|$PATH_VLESS|g" $out_file 
     sed -i "s|PATH_VMESS|$PATH_VMESS|g" $out_file 
     sed -i "s|PATH_TROJAN|$PATH_TROJAN|g" $out_file 
-    sed -i "s|PATH_V2RAY|$PATH_V2RAY|g" $out_file 
+    sed -i "s|PATH_SS|$PATH_SS|g" $out_file 
+
+    sed -i "s|PATH_TCP|$PATH_TCP|g" $out_file 
+    sed -i "s|PATH_WS|$PATH_WS|g" $out_file 
+    sed -i "s|PATH_GRPC|$PATH_GRPC|g" $out_file 
+    
 
     
 
