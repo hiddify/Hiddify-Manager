@@ -86,11 +86,15 @@ case $CHOICE in
 
     "update")
         
-        OPTIONS=(release "Release (suggested)"
+        OPTIONS=(default "Based on configuration in panel"
+                release "Release (suggested)"
                 develop "Develop (may have some bugs)"
                 )
         CHOICE=$(dialog --clear --backtitle "$BACKTITLE" --title "$TITLE" --menu "$MENU" $HEIGHT $WIDTH $CHOICE_HEIGHT "${OPTIONS[@]}" 2>&1 >/dev/tty)
         case $CHOICE in 
+            "default")
+                bash update.sh
+            ;;
             "release")
                 bash update.sh release
             ;;
