@@ -86,7 +86,7 @@ case $CHOICE in
 
     "update")
         
-        OPTIONS=(default "Based on configuration in panel"
+        OPTIONS=(default "Based on the configuration in panel"
                 release "Release (suggested)"
                 develop "Develop (may have some bugs)"
                 )
