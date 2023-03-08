@@ -7,9 +7,7 @@
 # guid="${1:0:8}-${1:8:4}-${1:12:4}-${1:16:4}-${1:20:12}"
 # cloudprovider=${4:-$DOMAIN}
 
-if [[ "$ENABLE_SPEED_TEST" == "true" ]];then
-	
-else
+if [[ "$ENABLE_SPEED_TEST" != "true" ]];then
 	rm conf.d/speedtest.conf
 fi
 
