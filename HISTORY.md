@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v7.4.1 (2023-03-08)
+
+### New
+
+* Remove sniproxy. [hiddify]
+
+### Fix
+
+* Typo. [hiddify]
+
+
 ## v7.4.0 (2023-03-08)
 
 ### New
