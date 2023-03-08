@@ -1,8 +1,9 @@
 {
 	"inbounds": [
 		{
-			"tag": "trojan-grpc-new",
-			"listen": "@@trojan-grpc-new", // listen on localhost
+			"tag": "h2-trojan-grpc-new",
+			//"listen": "@@trojan-grpc-new", // listen on localhost
+			"listen": "/opt/hiddify-config/xray/run/trojang.sock,666",
 			"protocol": "trojan",
 			"settings": {
 			  "clients": [
@@ -13,7 +14,7 @@
 			  "network": "grpc",
 			  "security": "none",
 			  "grpcSettings": {
-				"serviceName": "PATH_TROJANg"
+				"serviceName": "PATH_TROJANPATH_GRPC"
 			  }
 			}
 		  }

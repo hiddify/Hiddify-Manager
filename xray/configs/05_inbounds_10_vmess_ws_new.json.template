@@ -14,7 +14,7 @@
 			  "security": "none",
 			  "wsSettings": {
 				"acceptProxyProtocol": true,
-				"path": "/PATH_VMESSw"
+				"path": "/PATH_VMESSPATH_WS"
 			  }
 			},
 			"sniffing": {

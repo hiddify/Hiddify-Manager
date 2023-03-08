@@ -1,9 +1,9 @@
 {
 	"inbounds": [
 		{
-			"tag": "vmess-grpc-new",
-			"listen": "@vmess-grpc-new", // listen on localhost
-			
+			"tag": "h2-vmess-grpc-new",
+			//"listen": "@vmess-grpc-new", // listen on localhost
+			"listen": "/opt/hiddify-config/xray/run/vmessg.sock,666",
 			"protocol": "vmess",
 			"settings": {
 			  "clients": [
@@ -14,7 +14,7 @@
 			  "network": "grpc",
 			  "security": "none",
 			  "grpcSettings": {
-				"serviceName": "PATH_VMESSg"
+				"serviceName": "PATH_VMESSPATH_GRPC"
 			  }
 			}
 		  }	  

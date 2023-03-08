@@ -9,7 +9,7 @@ function get_commit_version(){
 }
 
 function main(){
-    rm  -rf sniproxy
+    
     if [[ "$1" == "" ]];then
         PACKAGE_MODE=$(cd hiddify-panel;python3 -m hiddifypanel all-configs|jq -r ".hconfigs.package_mode")
     else
@@ -46,9 +46,11 @@ function main(){
         echo "DEVELOP: Current Config Version=$CURRENT_CONFIG_VERSION -- Latest=$LAST_CONFIG_VERSION"
         if [[ "$CURRENT_CONFIG_VERSION" != "$LAST_CONFIG_VERSION" ]];then
             wget -c https://github.com/hiddify/hiddify-config/archive/refs/heads/main.tar.gz
+            rm  -rf nginx/ xray/
             tar xvzf main.tar.gz --strip-components=1
             rm main.tar.gz
             echo $LAST_CONFIG_VERSION > VERSION
+
             bash install.sh
         fi
     else 
@@ -57,6 +59,7 @@ function main(){
         if [[ "$CURRENT_CONFIG_VERSION" != "$LAST_CONFIG_VERSION" ]];then
             echo "Config is outdated! updating..."
             wget -c $(lastversion hiddify/hiddify-config --source)
+            rm  -rf nginx/ xray/
             tar xvzf hiddify-config-v$LAST_CONFIG_VERSION.tar.gz --strip-components=1
             rm hiddify-config-v$LAST_CONFIG_VERSION.tar.gz
             bash install.sh

@@ -1,8 +1,9 @@
 {
 	"inbounds": [
 		{
-			"tag": "vmess-new",
-			"listen": "@@vmess-tcp-new",
+			"tag":"h2-vmess-ws-new",
+			//"listen": "@@vmess-ws-new",
+			"listen": "/opt/hiddify-config/xray/run/vmessw.sock,666",
 			"protocol": "vmess",
 			"settings": {
 			  "clients": [
@@ -10,27 +11,17 @@
 			  ]
 			},
 			"streamSettings": {
-			  "network": "tcp",
+			  "network": "ws",
 			  "security": "none",
-			  "tcpSettings": {
+			  "wsSettings": {
 				"acceptProxyProtocol": true,
-				"header": {
-				  "type": "http",
-				  "request": {
-					"path": [
-					  "/PATH_VMESSPATH_TCP"
-					] //,
-					// "headers": {
-					//   "Host": ["www.varzesh3.com"]
-					// }
-				  }
-				}
+				"path": "/PATH_VMESSPATH_WS"
 			  }
 			},
 			"sniffing": {
 			  "enabled": true,
 			  "destOverride": ["http","tls"]
 			}
-		  }
-	]
+		  }	  
+	  ]
 }

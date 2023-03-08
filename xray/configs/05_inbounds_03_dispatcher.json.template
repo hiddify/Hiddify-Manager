@@ -10,38 +10,43 @@
 			  ],
 			  "fallbacks": [
 				  {
-					"path": "/PATH_VLESSw",
+					"path": "/PATH_VLESSPATH_WS",
 					"dest": "@@vless-ws-new",
 					"xver": 2 
 				  },
 				  {
-					"path": "/PATH_VMESSw",
+					"path": "/PATH_VMESSPATH_WS",
 					"dest": "@@vmess-ws-new",
 					"xver": 2
 				  },
 				  {
-					"path": "/PATH_TROJANw",
+					"path": "/PATH_TROJANPATH_WS",
 					"dest": "@@trojan-ws-new",
 					"xver": 2
 				  },
 				  {
-					"path": "/PATH_V2RAYw",
-					"dest": "@@v2ray-ws-new",
+					"path": "/PATH_SSPATH_WS",
+					"dest": "@@ss-ws-new",
 					"xver": 2
 				  },
 				  {
-					"path": "/PATH_VLESSt",
+					"path": "/PATH_VLESSPATH_TCP",
 					"dest": "@@vless-tcp-new",
 					"xver": 2
 				  },
 				  {
-					"path": "/PATH_VMESSt",
+					"path": "/PATH_VMESSPATH_TCP",
 					"dest": "@@vmess-tcp-new",
 					"xver": 2
 				  },
 				  {
-					"path": "/PATH_TROJANt",
+					"path": "/PATH_TROJANPATH_TCP",
 					"dest": "@@trojan-tcp-new",
+					"xver": 2
+				  },
+				  {
+					"path": "/PATH_SSPATH_TCP",
+					"dest": "@@ss-tcp-new",
 					"xver": 2
 				  },
 				  //old------
@@ -97,7 +102,7 @@
 				  },
 				  {
 					"alpn": "h2",
-					"dest": "@@dispatcher_h2",
+					"dest": "/opt/hiddify-config/nginx/run/h2.sock",
 					"xver": 2
 				  },
 				  {

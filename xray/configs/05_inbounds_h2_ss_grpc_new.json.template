@@ -1,8 +1,9 @@
 {
 	"inbounds": [
 		{
-			"tag": "v2ray-grpc-new",
-			"listen": "@@v2ray-grpc-new", //Only listen on localhost
+			"tag": "h2-ss-grpc-new",
+			//"listen": "@@v2ray-grpc-new", //Only listen on localhost
+			"listen": "/opt/hiddify-config/xray/run/ssg.sock,666",
 			"protocol": "shadowsocks",
 			"settings": {
 				"clients":[
@@ -13,7 +14,7 @@
 			  "network": "grpc",
 			  "security": "none",
 			  "grpcSettings": {
-				"serviceName": "PATH_V2RAYg" //Change to your own gRPC service name, similar to Path in HTTP/2.
+				"serviceName": "PATH_SSPATH_GRPC" //Change to your own gRPC service name, similar to Path in HTTP/2.
 			  }
 			},
 			"sniffing": {

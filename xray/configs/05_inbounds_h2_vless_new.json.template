@@ -1,8 +1,9 @@
 {
 	"inbounds": [
-		{
-			"tag":"vless-ws-new",
-			"listen": "@@vless-ws-new",
+				{
+			"tag": "h2-vless-new",
+			//"listen": "@@vless-tcp-new",
+			"listen": "/opt/hiddify-config/xray/run/vlesst.sock,666",
 			"protocol": "vless",
 			"settings": {
 			  "clients": [
@@ -11,17 +12,24 @@
 			  "decryption": "none"
 			},
 			"streamSettings": {
-			  "network": "ws",
+			  "network": "tcp",
 			  "security": "none",
-			  "wsSettings": {
+			  "tcpSettings": {
 				"acceptProxyProtocol": true,
-				"path": "/PATH_VLESSPATH_WS"
+				"header": {
+				  "type": "http",
+				  "request": {
+					"path": [
+					  "/PATH_VLESSPATH_TCP"
+					]
+				  }
+				}
 			  }
 			},
 			"sniffing": {
 			  "enabled": true,
 			  "destOverride": ["http","tls"]
 			}
-		  }
+		  }	  
 	  ]
 }

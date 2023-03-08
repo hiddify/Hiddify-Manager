@@ -72,8 +72,13 @@ function set_config_from_hpanel(){
         setenv ONLY_IPV4 ``hconfigs[only_ipv4]``
         setenv PATH_VMESS ``hconfigs[path_vmess]``
         setenv PATH_VLESS ``hconfigs[path_vless]``
-        setenv PATH_V2RAY ``hconfigs[path_v2ray]``
+        setenv PATH_SS ``hconfigs[path_v2ray]``
         setenv PATH_TROJAN ``hconfigs[path_trojan]``
+        setenv PATH_TCP ``hconfigs[path_tcp]``
+        setenv PATH_WS ``hconfigs[path_ws]``
+        setenv PATH_GRPC ``hconfigs[path_grpc]``
+
+    
 
         setenv SERVER_IP `curl --connect-timeout 1 -s https://v4.ident.me/`
         setenv SERVER_IPv6 `curl  --connect-timeout 1 -s https://v6.ident.me/`

@@ -19,7 +19,7 @@
 				  "type": "http",
 				  "request": {
 					"path": [
-					  "/PATH_VLESSt"
+					  "/PATH_VLESSPATH_TCP"
 					]
 				  }
 				}

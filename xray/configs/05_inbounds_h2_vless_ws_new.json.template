@@ -1,8 +1,9 @@
 {
 	"inbounds": [
 		{
-			"tag":"vless-ws-new",
-			"listen": "@@vless-ws-new",
+			"tag":"h2-vless-ws-new",
+			//"listen": "@@vless-ws-new",
+			"listen": "/opt/hiddify-config/xray/run/vlessw.sock,666",
 			"protocol": "vless",
 			"settings": {
 			  "clients": [

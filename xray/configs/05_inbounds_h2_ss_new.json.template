@@ -1,8 +1,9 @@
 {
 	"inbounds": [
 		{
-			"tag":"v2ray-ws-new",
-			"listen": "@@v2ray-ws-new",
+			"tag":"h2-ss-tcp-new",
+			//"listen": "@@v2ray-ws-new",
+			"listen": "/opt/hiddify-config/xray/run/sst.sock,666",
 			"protocol": "shadowsocks",
 			"settings": {
 				"clients":[
@@ -14,7 +15,7 @@
 			  "security": "none",
 			  "wsSettings": {
 				"acceptProxyProtocol": true,
-				"path": "/PATH_V2RAYw"
+				"path": "/PATH_SSPATH_TCP"
 			  }
 			},
 			"sniffing": {
