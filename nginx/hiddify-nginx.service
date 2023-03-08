@@ -1,0 +1,16 @@
+[Unit]
+Description=hiddify-nginx - high performance web server
+Documentation=https://nginx.org/en/docs/
+After=network-online.target remote-fs.target nss-lookup.target
+Wants=network-online.target
+
+[Service]
+Type=forking
+PIDFile=/opt/hiddify-config/nginx/run/hiddify-nginx.pid
+ExecStartPre=/opt/hiddify-config/nginx/pre-start.sh
+ExecStart=/usr/sbin/nginx -c /opt/hiddify-config/nginx/nginx.conf
+ExecReload=/bin/sh -c "/bin/kill -s HUP $(/bin/cat /opt/hiddify-config/nginx/run/hiddify-nginx.pid)"
+ExecStop=/bin/sh -c "/bin/kill -s TERM $(/bin/cat /opt/hiddify-config/nginx/run/hiddify-nginx.pid)"
+
+[Install]
+WantedBy=multi-user.target

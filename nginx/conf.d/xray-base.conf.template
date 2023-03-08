@@ -1,0 +1,99 @@
+# server {
+#     listen 501 proxy_protocol default_server;
+#     listen 502 http2 proxy_protocol default_server;
+#     server_name _;
+#     include /opt/GITHUB_REPOSITORY/nginx/hiddify.conf;
+# } #Restrict domain name access (prohibit access to the website by IP) and return 400
+
+# HTTP1 UDS listener
+server {
+    listen 127.0.0.1:501 proxy_protocol; #HTTP/1.1 server monitor process and enable PROXY protocol reception
+    # server_name defaultserverhost; 
+    include /opt/GITHUB_REPOSITORY/nginx/conf.d/parts/hiddify.conf;
+}
+
+# HTTP2 UDS listener
+server {
+    listen 127.0.0.1:502 http2 proxy_protocol; #H2C server monitor process and enable PROXY protocol reception
+    listen unix:/opt/hiddify-config/nginx/run/h2.sock http2 proxy_protocol;
+    # server_name defaultserverhost;
+
+    # grpc settings
+    grpc_read_timeout 1h;
+    grpc_send_timeout 1h;
+    grpc_set_header X-Real-IP $remote_addr;
+    location /PATH_VLESSPATH_GRPC {
+        include /opt/hiddify-config/nginx/conf.d/parts/grpc.conf;
+        grpc_pass unix:/opt/hiddify-config/xray/run/vlessg.sock;
+    }
+    location /PATH_VMESSPATH_GRPC {
+        include /opt/hiddify-config/nginx/conf.d/parts/grpc.conf;
+        grpc_pass unix:/opt/hiddify-config/xray/run/vmessg.sock;
+    }
+    location /PATH_SSPATH_GRPC {
+        include /opt/hiddify-config/nginx/conf.d/parts/grpc.conf;
+        grpc_pass unix:/opt/hiddify-config/xray/run/ssg.sock;
+    }
+    location /PATH_TROJANPATH_GRPC {
+        include /opt/hiddify-config/nginx/conf.d/parts/grpc.conf;
+        grpc_pass unix:/opt/hiddify-config/xray/run/trojang.sock;
+    }
+
+    location /PATH_VLESSPATH_TCP {
+        include /opt/hiddify-config/nginx/conf.d/parts/tcph2.conf;
+        proxy_pass http://unix:/opt/hiddify-config/xray/run/vlesst.sock;
+    }
+    location /PATH_VMESSPATH_TCP {
+        include /opt/hiddify-config/nginx/conf.d/parts/tcph2.conf;
+        proxy_pass http://unix:/opt/hiddify-config/xray/run/vmesst.sock;
+    }
+    location /PATH_SSPATH_TCP {
+        include /opt/hiddify-config/nginx/conf.d/parts/tcph2.conf;
+        proxy_pass http://unix:/opt/hiddify-config/xray/run/sst.sock;
+    }
+    location /PATH_TROJANPATH_TCP {
+        include /opt/hiddify-config/nginx/conf.d/parts/tcph2.conf;
+        proxy_pass http://unix:/opt/hiddify-config/xray/run/trojant.sock;
+    }
+
+    location /PATH_VLESSPATH_WS {
+        include /opt/hiddify-config/nginx/conf.d/parts/wsh2.conf;
+        proxy_pass http://unix:/opt/hiddify-config/xray/run/vlesst.sock;
+    }
+    location /PATH_VMESSPATH_WS {
+        include /opt/hiddify-config/nginx/conf.d/parts/wsh2.conf;
+        proxy_pass http://unix:/opt/hiddify-config/xray/run/vmessw.sock;
+    }
+    location /PATH_SSPATH_WS {
+        include /opt/hiddify-config/nginx/conf.d/parts/wsh2.conf;
+        proxy_pass http://unix:/opt/hiddify-config/xray/run/ssw.sock;
+    }
+    location /PATH_TROJANPATH_WS {
+        include /opt/hiddify-config/nginx/conf.d/parts/wsh2.conf;
+        proxy_pass http://unix:/opt/hiddify-config/xray/run/trojanw.sock;
+    }
+    location /BASE_PROXY_PATH-trgrpc { #corresponds to serviceName in trojan-grpc config of xray
+        include /opt/hiddify-config/nginx/conf.d/parts/grpc.conf;
+        grpc_pass grpc://127.0.0.1:3001;
+    }
+
+    location /BASE_PROXY_PATH-vlgrpc { #corresponds to serviceName in vless-grpc config of xray
+        include /opt/hiddify-config/nginx/conf.d/parts/grpc.conf;
+        grpc_pass grpc://127.0.0.1:3002;
+
+    }
+
+    location /BASE_PROXY_PATH-vmgrpc { #corresponds to serviceName in vmess-grpc config of xray
+        include /opt/hiddify-config/nginx/conf.d/parts/grpc.conf;
+        grpc_pass grpc://127.0.0.1:3003;
+
+    }
+    
+    location /BASE_PROXY_PATH-ssgrpc { #corresponds to serviceName in shadowsocks-grpc config of xray
+        include /opt/hiddify-config/nginx/conf.d/parts/grpc.conf;
+        grpc_pass grpc://127.0.0.1:3004;
+    }
+
+    # Decoy website
+    include /opt/GITHUB_REPOSITORY/nginx/conf.d/parts/hiddify.conf;
+}

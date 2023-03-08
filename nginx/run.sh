@@ -8,9 +8,9 @@
 # cloudprovider=${4:-$DOMAIN}
 
 if [[ "$ENABLE_SPEED_TEST" == "true" ]];then
-	ln -sf  $(pwd)/speedtest.conf /etc/nginx/conf.d/speedtest.conf
+	
 else
-	rm /etc/nginx/conf.d/speedtest.conf
+	rm conf.d/speedtest.conf
 fi
 
 if [[ "$FIRST_SETUP" == "true" ]];then
@@ -26,11 +26,5 @@ fi
 #         sed -i "s|access_log /opt/GITHUB_REPOSITORY/log/nginx.log proxy;|access_log off;|g" $out_file
 # fi
 
-systemctl stop nginx
-pkill -9 nginx
 
-
-
-
-# certbot certonly  --webroot -w $(pwd)/certbot --register-unsafely-without-email -d $MAIN_DOMAIN --non-interactive --agree-tos  --logs-dir $(pwd)/../log/system/certbot.log
- systemctl restart nginx
+systemctl restart hiddify-nginx
