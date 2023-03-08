@@ -42,5 +42,5 @@ systemctl start hiddify-panel.service
 systemctl status hiddify-panel.service
 
 
-echo "0 */6 * * * root $(pwd)/../update.sh" > /etc/cron.d/hiddify_auto_backup
+echo "0 */6 * * * root $(pwd)/backup.sh" > /etc/cron.d/hiddify_auto_backup
 service cron reload
