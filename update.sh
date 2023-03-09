@@ -4,8 +4,9 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 cd $( dirname -- "$0"; )
 
 function get_commit_version(){
-    COMMIT=$(curl -s https://api.github.com/repos/hiddify/$1/git/refs/heads/main|jq -r .object.sha)
-    echo ${COMMIT:0:7}
+    COMMIT_URL=$(curl -s https://api.github.com/repos/hiddify/$1/git/refs/heads/main|jq -r .object.url)
+    VERSION=$(curl -s $COMMIT_URL|jq -r .committer.date)
+    echo ${VERSION:5:11}
 }
 
 function main(){
