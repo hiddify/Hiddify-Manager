@@ -7,7 +7,7 @@
 			"protocol": "vmess",
 			"settings": {
 			  "clients": [
-				{"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com", "level": 0}
+				{"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com", "alterId": 0}
 			  ]
 			},
 			"streamSettings": {
