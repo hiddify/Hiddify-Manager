@@ -276,7 +276,7 @@ function main(){
                 fi
                 
         done
-        if [[ $(/usr/local/bin/xray run -test -confdir configs) ]];then
+        if [[ $(/usr/local/bin/xray run -test -confdir xray/configs) ]];then
                 echo "xray configuration failed "
                 exit 33
         fi
