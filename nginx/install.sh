@@ -1,4 +1,5 @@
 sudo apt install -y curl gnupg2 ca-certificates lsb-release ubuntu-keyring
+useradd nginx
 curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
     | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
 echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \

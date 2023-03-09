@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v7.5.0 (2023-03-08)
+
+### New
+
+* Autobackup every 6hour and before update. [hiddify]
+
+* Backup before update. [hiddify]
+
+* Add auto backup configs in hiddify-panel/backup. [hiddify]
+
+
+## v7.4.3 (2023-03-08)
+
+### Fix
+
+* Nginx user not exist. [hiddify]
+
+
 ## v7.4.1 (2023-03-08)
 
 ### New
