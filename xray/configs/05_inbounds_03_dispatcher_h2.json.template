@@ -1,7 +1,7 @@
 {
 	"inbounds": [
 		{
-			"tag":"dispatcher",
+			"tag":"dispatcher_h2",
 			"listen": "@dispatcher_h2", 
 			"protocol": "trojan",
 			"settings": {
