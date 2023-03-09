@@ -52,6 +52,9 @@ if [[ "$BLOCK_IR_SITES" != "true" ]];then
 		
 fi 
 
+if [[ "$HTTP_PORTS" != "" ]];then
+	sed -i 's|"port":"80"|"port":"80,'$HTTP_PORTS'"|g' configs/05_inbounds_02_http_main.json
+fi
 
 rm -rf /dev/shm/hiddify-xtls-main.sock
 systemct restart hiddify-xray.service

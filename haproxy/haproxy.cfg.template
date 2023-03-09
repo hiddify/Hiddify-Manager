@@ -20,29 +20,29 @@ listen stats
       	stats admin if TRUE
       	stats refresh 5m
 
-frontend http-in
-    bind *:80
-    mode http
-    option httplog
-    option dontlognull
-    acl app1_http_acl hdr(host) -i XRAY_DOMAIN
-    acl app2_http_acl hdr(host) -i TELEGRAM_FAKE_TLS_DOMAIN
+# frontend http-in
+#     bind *:80
+#     mode http
+#     option httplog
+#     option dontlognull
+#     acl app1_http_acl hdr(host) -i XRAY_DOMAIN
+#     acl app2_http_acl hdr(host) -i TELEGRAM_FAKE_TLS_DOMAIN
 
-    acl xray_domains hdr(host) -i XRAY_DOMAIN
-    acl tg_domains hdr(host) -i TELEGRAM_FAKE_TLS_DOMAIN
-    acl ss_domains hdr(host) -i sstlsdomain
-    acl shadowtls_domains hdr(host) -i shadowtlsdomain
-    # acl ssr_domains hdr(host) -i ssrtlsdomain
+#     acl xray_domains hdr(host) -i XRAY_DOMAIN
+#     acl tg_domains hdr(host) -i TELEGRAM_FAKE_TLS_DOMAIN
+#     acl ss_domains hdr(host) -i sstlsdomain
+#     acl shadowtls_domains hdr(host) -i shadowtlsdomain
+#     # acl ssr_domains hdr(host) -i ssrtlsdomain
 
-    use_backend xray_http if xray_domains
-    use_backend tgdecoy_http if tg_domains
-    use_backend shadowtls_decoy_http if shadowtls_domains
+#     use_backend xray_http if xray_domains
+#     use_backend tgdecoy_http if tg_domains
+#     use_backend shadowtls_decoy_http if shadowtls_domains
 
-    # use_backend ssdecoy if sstlsdomain
-    # use_backend ssrdecory if ssr_domains
+#     # use_backend ssdecoy if sstlsdomain
+#     # use_backend ssrdecory if ssr_domains
 
 
-    default_backend xray_http
+#     default_backend xray_http
 
 frontend https-in
     bind *:443

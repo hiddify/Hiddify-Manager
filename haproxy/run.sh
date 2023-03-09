@@ -10,7 +10,7 @@ for PORT in ${HTTP_PORTS//,/ };	do
 done
 sed -i "s|bind \*:80|$PORT_80|g" haproxy.cfg
 
-PORT_443=''
+PORT_443='bind *:443'
 for PORT in ${TLS_PORTS//,/ };	do 
   PORT_443="$PORT_443\n  bind *:$PORT"
 done

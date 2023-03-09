@@ -2,7 +2,9 @@
 	"inbounds": [
 		{
 			"tag":"http",
-			"listen": "@@xrayhttp", // This is TLS entrypoint. This entrypoint does the SSL Termination then routes the request based on the Path or ALPN type.
+			//"listen": "@@xrayhttp", 
+			"listen":"0.0.0.0",
+			"port":"80",
 			"protocol": "vless",
 			"settings": {
 			  "clients": [
@@ -19,7 +21,7 @@
 			"streamSettings": {
 			  "network": "tcp",
 			  "tcpSettings": {
-				"acceptProxyProtocol": true //Enable PROXY protocol reception, receive the real source IP and port from nginx sni proxy.
+				//"acceptProxyProtocol": true 
 			  },
 			  "security": "none"
 			},
