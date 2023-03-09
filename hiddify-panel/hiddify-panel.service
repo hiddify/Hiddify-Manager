@@ -6,9 +6,14 @@ Wants=network-online.target
 [Service]
 Type=simple
 #ExecStart=/usr/bin/gunicorn -b 127.0.0.1:9000 'hiddifypanel:create_app()'
-ExecStart=/usr/local/bin/uwsgi --reload-mercy 10 --http 127.0.0.1:9000 --master -p 1 --reload-on-as 100 --cheaper-rss-limit-soft 200 --cheaper-rss-limit-hard 250 -w 'hiddifypanel:create_app()'
-
+#ExecStart=/usr/local/bin/uwsgi --reload-mercy 10 --http 127.0.0.1:9000 --master -p 1 --reload-on-as 100 --cheaper-rss-limit-soft 200 --cheaper-rss-limit-hard 250 -w 'hiddifypanel:create_app()'
+#ExecStop=/bin/sh -c "/bin/pkill uwsgi"
+#WorkingDirectory=/opt/hiddify-config/hiddify-panel/
 WorkingDirectory=/opt/hiddify-config/hiddify-panel/
+Environment="PATH=/usr/local/bin"
+ExecStart=/usr/local/bin/uwsgi --ini /opt/hiddify-config/hiddify-panel/uwsgi.ini
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStop=/bin/kill -INT $MAINPID
 Restart=always
 StandardOutput=file:/opt/hiddify-config/log/system/hiddify_panel.out.log
 StandardError=file:/opt/hiddify-config/log/system/hiddify_panel.err.log
