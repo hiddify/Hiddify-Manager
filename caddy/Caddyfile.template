@@ -2,35 +2,31 @@ http://localhost:1000 {
 bind unix//var/run/caddy.sock
 
 
-    reverse_proxy /PATH_VLESSPATH_TCP unix:/opt/hiddify-config/xray/run/vlesst.sock {
+    reverse_proxy /PATH_VLESSPATH_TCP unix//opt/hiddify-config/xray/run/vlesst.sock {
         transport http {
             versions h2c
         }
     }
-    reverse_proxy /PATH_VMESSPATH_TCP unix:/opt/hiddify-config/xray/run/vmesst.sock {
+    reverse_proxy /PATH_VMESSPATH_TCP unix//opt/hiddify-config/xray/run/vmesst.sock {
         transport http {
             versions h2c
         }
     }
-    reverse_proxy /PATH_SSPATH_TCP unix:/opt/hiddify-config/xray/run/sst.sock {
+    reverse_proxy /PATH_SSPATH_TCP unix//opt/hiddify-config/xray/run/sst.sock {
         transport http {
             versions h2c
         }
     }
-    reverse_proxy /PATH_TROJANPATH_TCP unix:/opt/hiddify-config/xray/run/trojant.sock {
+    reverse_proxy /PATH_TROJANPATH_TCP unix//opt/hiddify-config/xray/run/trojant.sock {
         transport http {
             versions h2c
         }
     }
-    reverse_proxy /BASE_PROXY_PATH/* localhost:9000 {
+    reverse_proxy /BASE_PROXY_PATH/* 127.0.0.1:9000 {
         header_up Host {host}
         header_up X-Forwarded-For {remote}
         header_up X-Real-IP {remote}
-        to /BASE_PROXY_PATH/{uri}
-        try_files /{uri} @handle_redirect
     }
 
-    route @handle_redirect {
-        redir https://{host}{uri} {status}
-    }
+
 }
