@@ -282,9 +282,10 @@ function main(){
         # fi
         echo "---------------------Finished!------------------------"
         if [ "$MODE" != "apply_users" ];then
-                systemctl restart hiddify-panel
+                systemctl reload hiddify-panel
         fi
-}
+        echo "-"
+}       
 
 mkdir -p log/system/
 main $@|& tee log/system/0-install.log
