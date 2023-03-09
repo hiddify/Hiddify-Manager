@@ -10,13 +10,8 @@
 			  ],
 			  "fallbacks": [
 				  {
-					"alpn": "h2",
 					"dest": "/opt/hiddify-config/nginx/run/h2.sock",
 					"xver": 2
-				  },
-				  {
-					"dest": "@dispatcher",
-					"xver": 2 
 				  }  
 			  ]
 			},
