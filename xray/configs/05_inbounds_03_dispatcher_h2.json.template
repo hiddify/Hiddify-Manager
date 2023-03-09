@@ -1,0 +1,36 @@
+{
+	"inbounds": [
+		{
+			"tag":"dispatcher",
+			"listen": "@dispatcher_h2", 
+			"protocol": "trojan",
+			"settings": {
+			  "clients": [
+				{"password": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com"}
+			  ],
+			  "fallbacks": [
+				  {
+					"alpn": "h2",
+					"dest": "/opt/hiddify-config/nginx/run/h2.sock",
+					"xver": 2
+				  },
+				  {
+					"dest": "@dispatcher",
+					"xver": 2 
+				  }  
+			  ]
+			},
+			"streamSettings": {
+			  "network": "tcp",
+			  "security": "none",
+			  "tcpSettings": {
+				"acceptProxyProtocol": true 
+			  }
+			},
+			"sniffing": {
+			  "enabled": true,
+			  "destOverride": ["http","tls"]
+			}
+		  }
+	  ]
+}
