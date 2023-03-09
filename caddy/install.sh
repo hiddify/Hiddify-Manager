@@ -7,3 +7,6 @@ if [[ "$?" != 0 ]];then
     sudo apt install -y caddy
 
 fi
+
+ln -sf $(pwd)/hiddify-caddy.service /etc/systemd/system/hiddify-caddy.service
+systemctl enable hiddify-caddy.service

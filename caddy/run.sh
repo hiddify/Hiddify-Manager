@@ -1,7 +1,7 @@
-ln -sf $(pwd)/Caddyfile /etc/caddy/Caddyfile
 
 
 
 
-systemctl reload caddy
-systemctl start caddy
+
+systemctl reload hiddify-caddy
+systemctl start hiddify-caddy
