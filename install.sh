@@ -280,10 +280,10 @@ function main(){
         #         echo "xray configuration failed "
         #         exit 33
         # fi
+        echo "---------------------Finished!------------------------"
         if [ "$MODE" != "apply_users" ];then
                 systemctl restart hiddify-panel
         fi
-        echo "---------------------Finished!------------------------"
 }
 
 mkdir -p log/system/
