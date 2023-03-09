@@ -1,5 +1,15 @@
-http://127.0.0.1:1000 {
-bind unix//var/run/caddy.sock
+{
+log {
+        output stdout
+        level  debug
+}
+debug
+servers {
+        protocols h1 h2c
+}
+}
+http:// {
+bind unix//var/run/hiddify-caddy.sock
 
 
     reverse_proxy /PATH_VLESSPATH_TCP unix//opt/hiddify-config/xray/run/vlesst.sock {
@@ -18,6 +28,47 @@ bind unix//var/run/caddy.sock
         }
     }
     reverse_proxy /PATH_TROJANPATH_TCP unix//opt/hiddify-config/xray/run/trojant.sock {
+        transport http {
+            versions h2c
+        }
+    }
+
+        reverse_proxy /PATH_VLESSPATH_GRPC unix//opt/hiddify-config/xray/run/vlessg.sock {
+        transport http {
+            versions h2c
+        }
+    }
+    reverse_proxy /PATH_VMESSPATH_GRPC unix//opt/hiddify-config/xray/run/vmessg.sock {
+        transport http {
+            versions h2c
+        }
+    }
+    reverse_proxy /PATH_SSPATH_GRPC unix//opt/hiddify-config/xray/run/ssg.sock {
+        transport http {
+            versions h2c
+        }
+    }
+    reverse_proxy /PATH_TROJANPATH_GRPC unix//opt/hiddify-config/xray/run/trojang.sock {
+        transport http {
+            versions h2c
+        }
+    }
+        reverse_proxy /PATH_VLESSPATH_WS unix//opt/hiddify-config/xray/run/vlessw.sock {
+        transport http {
+            versions h2c
+        }
+    }
+    reverse_proxy /PATH_VMESSPATH_WS unix//opt/hiddify-config/xray/run/vmessw.sock {
+        transport http {
+            versions h2c
+        }
+    }
+    reverse_proxy /PATH_SSPATH_WS unix//opt/hiddify-config/xray/run/ssw.sock {
+        transport http {
+            versions h2c
+        }
+    }
+    reverse_proxy /PATH_TROJANPATH_WS unix//opt/hiddify-config/xray/run/trojanw.sock {
         transport http {
             versions h2c
         }
