@@ -1,4 +1,4 @@
-http://localhost:1000 {
+http://127.0.0.1:1000 {
 bind unix//var/run/caddy.sock
 
 
