@@ -276,6 +276,10 @@ function main(){
                 fi
                 
         done
+        if [[ $(/usr/local/bin/xray run -test -confdir configs) ]];then
+                echo "xray configuration failed "
+                exit 33
+        fi
         if [ "$MODE" != "apply_users" ];then
                 systemctl restart hiddify-panel
         fi
