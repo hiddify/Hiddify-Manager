@@ -1,4 +1,6 @@
-http://@dispatcher_h2c {
+http://localhost:1000 {
+bind unix//var/run/caddy.sock
+
 
     reverse_proxy /PATH_VLESSPATH_TCP unix:/opt/hiddify-config/xray/run/vlesst.sock {
         transport http {
