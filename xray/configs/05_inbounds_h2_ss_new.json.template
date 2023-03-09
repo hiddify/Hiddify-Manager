@@ -14,7 +14,7 @@
 			  "network": "ws",
 			  "security": "none",
 			  "wsSettings": {
-				"acceptProxyProtocol": true,
+				//"acceptProxyProtocol": true,
 				"path": "/PATH_SSPATH_TCP"
 			  }
 			},

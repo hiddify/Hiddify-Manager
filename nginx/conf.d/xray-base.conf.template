@@ -18,10 +18,7 @@ server {
     listen unix:/opt/hiddify-config/nginx/run/h2.sock http2 proxy_protocol;
     # server_name defaultserverhost;
 
-    # grpc settings
-    grpc_read_timeout 1h;
-    grpc_send_timeout 1h;
-    grpc_set_header X-Real-IP $remote_addr;
+    
     location /PATH_VLESSPATH_GRPC {
         include /opt/hiddify-config/nginx/conf.d/parts/grpc.conf;
         grpc_pass unix:/opt/hiddify-config/xray/run/vlessg.sock;

@@ -14,7 +14,7 @@
 			  "network": "ws",
 			  "security": "none",
 			  "wsSettings": {
-				"acceptProxyProtocol": true, //Enable PROXY protocol reception, receive the real source IP and port
+				//"acceptProxyProtocol": true, //Enable PROXY protocol reception, receive the real source IP and port
 				"path": "/PATH_TROJANPATH_WS" //Change to your own path
 			  }
 			},

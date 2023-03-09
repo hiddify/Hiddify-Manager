@@ -14,7 +14,7 @@
 			  "network": "tcp",
 			  "security": "none",
 			  "tcpSettings": {
-				"acceptProxyProtocol": true,
+				//"acceptProxyProtocol": true,
 				"header": {
 				  "type": "http",
 				  "request": {
