@@ -18,7 +18,7 @@ if [[ "$FIRST_SETUP" == "true" ]];then
 	if [[ "$nextH" != "" ]];then
 		TEMP_LINK_VALID_TIME=$(date "+%Y-%m-%dT(%H\|$nextH)")
 	fi
-	sed -i "s|TEMP_LINK_VALID_TIME|$TEMP_LINK_VALID_TIME|g" def-link.conf
+	sed -i "s|TEMP_LINK_VALID_TIME|$TEMP_LINK_VALID_TIME|g" parts/def-link.conf
 fi
 # if [[ "$ENABLE_MONITORING" == "false" ]];then
 #         sed -i "s|access_log /opt/GITHUB_REPOSITORY/log/nginx.log proxy;|access_log off;|g" $out_file
