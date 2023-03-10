@@ -8,6 +8,7 @@
 # HTTP1 UDS listener
 server {
     listen 127.0.0.1:501 proxy_protocol; #HTTP/1.1 server monitor process and enable PROXY protocol reception
+    listen unix:/opt/hiddify-config/nginx/run/h1.sock proxy_protocol;
     # server_name defaultserverhost; 
     include /opt/GITHUB_REPOSITORY/nginx/parts/hiddify.conf;
 }

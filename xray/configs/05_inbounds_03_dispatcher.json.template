@@ -106,7 +106,8 @@
 					"xver": 2
 				  },
 				  {
-					"dest": "501",
+					"dest": "/opt/hiddify-config/nginx/run/h1.sock",
+					//"dest": "501",
 					"xver": 2 
 				  }  
 			  ]
