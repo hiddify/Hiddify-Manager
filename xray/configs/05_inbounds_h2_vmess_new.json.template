@@ -16,7 +16,7 @@
 			  "httpSettings": {
           		"path": "/PATH_VMESSPATH_TCP"
         	   }
-			  }
+			  
 			},
 			"sniffing": {
 			  "enabled": true,
