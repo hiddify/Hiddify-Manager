@@ -11,6 +11,7 @@ function get_commit_version(){
 
 function main(){
     rm -rf sniproxy/*
+    rm -rf caddy/*
     ./hiddify-panel/backup.sh
     UPDATE=0
     if [[ "$1" == "" ]];then
