@@ -8,5 +8,5 @@ location @handle_redirect {
     set $saved_redirect_location '$upstream_http_location';
     proxy_pass $saved_redirect_location;
 }
-include /opt/GITHUB_REPOSITORY/nginx/conf.d/parts/def-link.conf;
-include /opt/GITHUB_REPOSITORY/nginx/conf.d/parts/common.conf;
+include /opt/GITHUB_REPOSITORY/nginx/parts/def-link.conf;
+include /opt/GITHUB_REPOSITORY/nginx/parts/common.conf;

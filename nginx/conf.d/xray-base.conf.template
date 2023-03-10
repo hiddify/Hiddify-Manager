@@ -92,5 +92,5 @@ server {
     }
 
     # Decoy website
-    include /opt/GITHUB_REPOSITORY/nginx/conf.d/parts/hiddify.conf;
+    include /opt/GITHUB_REPOSITORY/nginx/parts/hiddify.conf;
 }
