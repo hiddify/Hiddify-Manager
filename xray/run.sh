@@ -57,7 +57,7 @@ if [[ "$HTTP_PORTS" != "" ]];then
 fi
 
 rm -rf /dev/shm/hiddify-xtls-main.sock
-systemct restart hiddify-xray.service
+systemctl restart hiddify-xray.service
 systemctl start hiddify-xray.service
 systemctl status hiddify-xray.service
 
