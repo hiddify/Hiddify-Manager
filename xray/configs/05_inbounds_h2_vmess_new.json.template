@@ -13,19 +13,9 @@
 			"streamSettings": {
 			  "network": "h2",
 			  "security": "none",
-			  "tcpSettings": {
-				//"acceptProxyProtocol": true,
-				"header": {
-				  "type": "http",
-				  "request": {
-					"path": [
-					  "/PATH_VMESSPATH_TCP"
-					] //,
-					// "headers": {
-					//   "Host": ["www.varzesh3.com"]
-					// }
-				  }
-				}
+			  "httpSettings": {
+          		"path": "/PATH_VMESSPATH_TCP"
+        	   }
 			  }
 			},
 			"sniffing": {

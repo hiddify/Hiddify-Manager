@@ -11,18 +11,11 @@
 			  ]
 			},
 			"streamSettings": {
-			  "network": "tcp",
+			  "network": "h2",
 			  "security": "none",
-			  "tcpSettings": {
-				//"acceptProxyProtocol": true, //Enable PROXY protocol reception, receive the real source IP and port before vless+tcp+tls fallback.
-				"header": {
-				  "type": "http",
-				  "request": {
-					"path": [
-					  "/PATH_TROJANPATH_TCP"
-					]
-				  }
-				}
+			   "httpSettings": {
+          			"path": "/PATH_TROJANPATH_TCP"
+        		}
 			  }
 			},
 			"sniffing": {
