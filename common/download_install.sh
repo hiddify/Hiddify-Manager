@@ -14,7 +14,7 @@ GITHUB_REPOSITORY=hiddify-config
 GITHUB_USER=hiddify
 GITHUB_BRANCH_OR_TAG=main
 
-if [ ! -d "/opt/$GITHUB_REPOSITORY" ];then
+# if [ ! -d "/opt/$GITHUB_REPOSITORY" ];then
         apt update
         apt upgrade -y
         apt install -y wget python3-pip
@@ -27,7 +27,7 @@ if [ ! -d "/opt/$GITHUB_REPOSITORY" ];then
         cd /opt/$GITHUB_REPOSITORY
         bash install.sh
         # exit 0
-fi 
+# fi 
 
 read -p "Press any key to go  to menu" -n 1 key
 cd /opt/$GITHUB_REPOSITORY
