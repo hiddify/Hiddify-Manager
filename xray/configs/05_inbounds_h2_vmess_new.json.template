@@ -11,7 +11,7 @@
 			  ]
 			},
 			"streamSettings": {
-			  "network": "tcp",
+			  "network": "h2",
 			  "security": "none",
 			  "tcpSettings": {
 				//"acceptProxyProtocol": true,
