@@ -70,7 +70,9 @@ location /BASE_PROXY_PATH/ {
   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   proxy_set_header X-Real-IP $remote_addr;
   #proxy_pass http://localhost:9000/BASE_PROXY_PATH/; 
-  proxy_pass http://unix:/run/hiddifypanel.sock:/BASE_PROXY_PATH/;
+  #proxy_pass http://unix:/run/hiddifypanel.sock:/BASE_PROXY_PATH/;
+  include uwsgi_params;
+  uwsgi_pass localhost:9001;
   error_page 301 302 307 = @handle_redirect;
 }
 
