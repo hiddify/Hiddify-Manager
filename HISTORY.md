@@ -1,6 +1,117 @@
 # Changelog
 
 
+## v8.0.0 (2023-03-10)
+
+### New
+
+* Better uwsgi manager. [hiddify]
+
+* Add reuse port. [hiddify]
+
+* Uwsgi using domain socket. [hiddify]
+
+* Domain socket for nginx. [hiddify]
+
+* Automatic release workers if not needed. [hiddify]
+
+* Change develop version. [hiddify]
+
+* Add port 80 and 443 by default and resolve http proxies bug. [hiddify]
+
+* Show finish at the end. [hiddify]
+
+* Automatically detect ssh port and add to firewall. [hiddify]
+
+* Add reload to xray for better reloading configs. [hiddify]
+
+* Add reload to xray for better error checking. [hiddify]
+
+* Add support for multiple ports. [hiddify]
+
+### Changes
+
+* Simplify setup proccess. [hiddify]
+
+* Do not remove old clash-server. [hiddify]
+
+### Fix
+
+* Remove reuse port. [hiddify]
+
+* Bug. [hiddify]
+
+* H2 network. [hiddify]
+
+* Testing nginx h2. [hiddify]
+
+* Pre strat. [hiddify]
+
+* Default link. [hiddify]
+
+* First setup link. [hiddify]
+
+* Bug in restarting xray. [hiddify]
+
+* Incoming for the first time. [hiddify]
+
+* Caddy. [hiddify]
+
+* Caddy. [hiddify]
+
+* H2. [hiddify]
+
+* Dispatcher_h2. [hiddify]
+
+* Trojan h2 no path. [hiddify]
+
+* Remove haproxy to listen to ports. [hiddify]
+
+* Bug in haproxy. [hiddify]
+
+* Additional line. [hiddify]
+
+* Apply config. [hiddify]
+
+* Bug in nginx service. [hiddify]
+
+* Revert check before restart hiddify xray. [hiddify]
+
+* Haproxy. [hiddify]
+
+* Xray folder. [hiddify]
+
+* Temporary access. [hiddify]
+
+* Bug in restart xray. [hiddify]
+
+* Port in haproxy. [hiddify]
+
+### Other
+
+* Remove caddy, optimize nginx. [hiddify]
+
+* Add http2 dispatcher. [hiddify]
+
+* Fix. [hiddify]
+
+* Add to caddy. [hiddify]
+
+* Testing. [hiddify]
+
+* Testing caddy. [hiddify]
+
+* Fix caddyfile. [hiddify]
+
+* Testing caddy. [hiddify]
+
+* Testing caddy. [hiddify]
+
+* Nothign. [hiddify]
+
+* Better process panel. [hiddify]
+
+
 ## v7.5.0 (2023-03-08)
 
 ### New
