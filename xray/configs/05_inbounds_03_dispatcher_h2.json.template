@@ -10,6 +10,46 @@
 			  ],
 			  "fallbacks": [
 				  {
+					"path": "/PATH_VLESSPATH_WS",
+					"dest": "@@vless-ws-new",
+					"xver": 2 
+				  },
+				  {
+					"path": "/PATH_VMESSPATH_WS",
+					"dest": "@@vmess-ws-new",
+					"xver": 2
+				  },
+				  {
+					"path": "/PATH_TROJANPATH_WS",
+					"dest": "@@trojan-ws-new",
+					"xver": 2
+				  },
+				  {
+					"path": "/PATH_SSPATH_WS",
+					"dest": "@@ss-ws-new",
+					"xver": 2
+				  },
+				  {
+					"path": "/PATH_VLESSPATH_TCP",
+					"dest": "@@vless-tcp-new",
+					"xver": 2
+				  },
+				  {
+					"path": "/PATH_VMESSPATH_TCP",
+					"dest": "@@vmess-tcp-new",
+					"xver": 2
+				  },
+				  {
+					"path": "/PATH_TROJANPATH_TCP",
+					"dest": "@@trojan-tcp-new",
+					"xver": 2
+				  },
+				  {
+					"path": "/PATH_SSPATH_TCP",
+					"dest": "@@ss-tcp-new",
+					"xver": 2
+				  },
+				  {
 					"dest": "/opt/hiddify-config/nginx/run/h2.sock",
 					"xver": 2
 				  }  
