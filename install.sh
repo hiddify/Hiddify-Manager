@@ -284,6 +284,7 @@ function main(){
         if [ "$MODE" != "apply_users" ];then
                 systemctl reload hiddify-panel
         fi
+        systemctl start hiddify-panel
 
 }       
 
