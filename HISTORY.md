@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v8.0.4 (2023-03-11)
+
+### New
+
+* Add andorid webapp videos. [hiddify]
+
+
 ## v8.0.1 (2023-03-11)
 
 ### New
