@@ -1,6 +1,21 @@
 # Changelog
 
 
+## v8.0.1 (2023-03-11)
+
+### New
+
+* Force reinstall latest update on update release and update develop. [hiddify]
+
+* Download the latest package in any case. [hiddify]
+
+### Fix
+
+* Hiddify-xray run after renew certificate. [hiddify]
+
+* Acme.sh. [hiddify]
+
+
 ## v8.0.0 (2023-03-10)
 
 ### New
