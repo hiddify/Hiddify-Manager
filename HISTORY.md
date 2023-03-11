@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v8.0.5 (2023-03-11)
+
+### Fix
+
+* Bug in not loading hiddify settings. [hiddify]
+
+
 ## v8.0.4 (2023-03-11)
 
 ### New
