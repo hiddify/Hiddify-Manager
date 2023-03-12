@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v8.0.6 (2023-03-12)
+
+### Other
+
+* Disable panel develop mode. [hiddify]
+
+
 ## v8.0.5 (2023-03-11)
 
 ### Fix
