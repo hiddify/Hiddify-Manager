@@ -22,7 +22,7 @@ function main(){
         FORCE=true
     fi
     
-    if [[ "$PACKAGE_MODE" == "develop" ]];then
+    if [[ "$PACKAGE_MODE" == "1develop" ]];then
         echo "you are in develop mode"
         LATEST=$(get_commit_version HiddifyPanel)
         INSTALL_DIR=$(pip show hiddifypanel |grep Location |awk -F": " '{ print $2 }')
