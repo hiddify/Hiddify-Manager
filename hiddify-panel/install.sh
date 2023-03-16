@@ -63,6 +63,6 @@ for key in ${!arr[@]}; do
     dst=videos/$key.mp4
     link=${arr[${key}]}
     if [[ ! -f $dst ]];then
-        yt-dlp $link -o $dst    
+        yt-dlp $link -o $dst    &
     fi
 done
