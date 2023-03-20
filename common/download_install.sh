@@ -17,7 +17,7 @@ GITHUB_BRANCH_OR_TAG=main
 # if [ ! -d "/opt/$GITHUB_REPOSITORY" ];then
         apt update
         apt upgrade -y
-        apt install -y wget python3-pip
+        apt install -y wget python3-pip dialog
         pip3 install lastversion
         mkdir -p /opt/$GITHUB_REPOSITORY
         LAST_CONFIG_VERSION=$(lastversion $GITHUB_USER/$GITHUB_REPOSITORY)
