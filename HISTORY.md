@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v8.0.7 (2023-03-20)
+
+### New
+
+* Download  youtube in background. [hiddify]
+
+* Add AVX2 support for clashmeta. [hiddify]
+
+### Fix
+
+* Install  dialog on init. [hiddify]
+
+
 ## v8.0.6 (2023-03-12)
 
 ### Other
