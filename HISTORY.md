@@ -1,6 +1,25 @@
 # Changelog
 
 
+## v8.0.8 (2023-03-21)
+
+### New
+
+* Add country. [hiddify]
+
+* Remove the cn routing. [hiddify]
+
+### Fix
+
+* Problem with ipv6. [hiddify]
+
+### Other
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [lumanjre]
+
+
 ## v8.0.7 (2023-03-20)
 
 ### New
