@@ -45,7 +45,7 @@ listen stats
 #     default_backend xray_http
 
 frontend https-in
-    bind *:443
+    bind :443,:::443 v4v6
     mode tcp
     option tcplog
     option dontlognull
