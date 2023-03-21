@@ -9,13 +9,13 @@
             "type": "field", 
             //"inboundTag": ["xtls"], 
             "outboundTag": "forbidden_sites",
-            "ip": ["geoip:ir", "geoip:cn"] 
+            "ip": ["geoip:ir"] //, "geoip:cn"
         },
         {
             "type": "field",
             //"inboundTag": ["xtls"], 
             "outboundTag": "forbidden_sites",
-            "domain": ["geosite:cn","tld-cn","tld-ir"]
+            "domain": ["tld-ir"]//"geosite:cn","tld-cn"
         },
         // {
         //   "type": "field",
