@@ -57,6 +57,12 @@ function set_config_from_hpanel(){
         setenv SHADOWTLS_FAKEDOMAIN ``hconfigs[shadowtls_fakedomain]``
 
         setenv FAKE_CDN_DOMAIN ``hconfigs[fake_cdn_domain]``
+        c=``hconfigs[country]``
+        if [[ "$c" == "" ]];then 
+                c="ir"
+        fi
+        setenv COUNTRY  $c
+        
 
         setenv ENABLE_SSR ``hconfigs[ssr_enable]``
         setenv SSR_FAKEDOMAIN ``hconfigs[ssr_fakedomain]``
