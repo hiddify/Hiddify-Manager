@@ -16,8 +16,10 @@
 
 <div dir="ltr" markdown="1">
 
-## Introduction
-Hiddify multi-user anti-filtering panel, with an effortless installation and supporting more than 20 protocols to circumvent filtering plus the telegram proxy.  It is a X-UI replacement.
+![Hiddify Logo](https://user-images.githubusercontent.com/125398461/227720391-f6360e48-f211-4f56-a5b1-42522c30ecb7.png)
+
+## Welcome to Hiddify
+Hiddify is a powerful and professional anti-censorship toolbox, which is a multi-user panel with an effortless installation and supporting more than 20 protocols to circumvent filtering plus telegram proxy.  It's optimized for censorship circumvention in China, Russia and Iran. It is a great X-UI replacement.
 
 <details markdown="1"> <summary>Supported protocols</summary> 
 
@@ -31,11 +33,11 @@ Hiddify multi-user anti-filtering panel, with an effortless installation and sup
 </details>
 
 
-<details markdown="1"> <summary>Smart proxy for non-Iranian and filtered sites</summary>
+<details markdown="1"> <summary>Smart proxy for domestic and filtered sites</summary>
  
-You can connect to the internet in 3 modes using Clash client and Hiddify panel. 
-1. This method only circumvents the filtered websites via the anti-filter.
-2. This method circumvents all websites except for the Iranian websites, and they can be opened without ant-filter (recommended)
+You can connect to the internet in 3 modes using Hiddify(Clash) client and Hiddify panel. 
+1. This method only circumvents filtered websites via the proxies.
+2. This method circumvents all websites except domestic websites based in China, Russia and Iran. This way the domestic websites can be opened without any proxies (recommended)
 3. This method circumvents all websites. 
 
 At the same time, the proposed solution is resistant to detection by the internet filtering entities and prevents the usual attacks on the server i.e., the possibility of detection is minimal, however, do not forget to disable other ports except 22, 80 and 443.  
@@ -84,7 +86,7 @@ When you want to share Telegram proxy or Shadowsocks proxy through other program
 </details>
 </details>
 
-## Installation Guide
+## Installation and Configuration Guide
 
 
 ##### Quick and easy installation guide with no technical knowledge and ssh required
@@ -138,14 +140,16 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 
 </details>
 
+#### Configuration
+**Make best use of this panel using this** [guide](https://github.com/hiddify/hiddify-config/wiki/How-to-configure-Hiddify-Panel-properly).
 
 
 
-## User Interface
-- For users
+## Panel Interface
+- User Access
 ![Hiddify User Page](https://user-images.githubusercontent.com/114227601/220698460-c8b56096-f34d-413b-8129-cfd6dd29cc7e.png)
 
-- For admin
+- Admin Dashboard
 ![Hiddify Admin page](https://user-images.githubusercontent.com/114227601/220697943-b25af716-eb26-4220-867d-3c1eee4fc21b.png)
 
 
