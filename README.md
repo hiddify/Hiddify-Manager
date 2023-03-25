@@ -89,23 +89,21 @@ When you want to share Telegram proxy or Shadowsocks proxy through other program
 ## Installation and Configuration Guide
 
 
-##### Quick and easy installation guide with no technical knowledge and even without any ssh connection
+##### Quick and easy installation guide with no technical knowledge and even without any ssh connections
 
 - [Installation in Vultr (Recommended option to start) ](https://github.com/hiddify/hiddify-config/wiki/Vultr-نصب-خیلی-خیلی-سریع-در-ولتر)
 - [Installation in Oracle Cloud (four free servers)](https://github.com/hiddify/hiddify-config/wiki/Oracle-نصب-خیلی-خیلی-سریع-در-اوراکل-کلود)
 - [Installation in OVH ](https://github.com/hiddify/hiddify-config/wiki/OVH-نصب-خیلی-سریع-در-او-وی-اچ)
 - [Installation in Hetzner](https://github.com/hiddify/hiddify-config/wiki/Hetzner-نصب-خیلی-سریع-در-هتزنر)
 
-##### Installation guide on pre-prepared Ubuntu server with sshconnection
+##### Installation guide on pre-prepared Ubuntu server with ssh connection
 
 - [Installation on Ubuntu server (one command)](https://github.com/hiddify/hiddify-config/wiki/نصب-سریع-در-اوبونتو)
 - [Installation with Docker](https://github.com/hiddify/hiddify-config/wiki/نصب-با-داکر)
 
 
 <details  markdown="1"> <summary>Code for cloud-init</summary>
-On some server provider websites, you can automatically install the proxy using the following script. For example, see [Hetzner]
-
-(https://github.com/hiddify/hiddify-config/wiki/Hetzner-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D9%87%D8%AA%D8%B2%D9%86%D8%B1) and [OVH ](https://github.com/hiddify/hiddify-config/wiki/OVH-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D8%A7%D9%88-%D9%88%DB%8C-%D8%A7%DA%86)
+On some server provider websites, you can automatically install the proxy using the following script. For example, see [Hetzner](https://github.com/hiddify/hiddifycofig/wiki/Hetzner-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D9%87%D8%AA%D8%B2%D9%86%D8%B1) and [OVH ](https://github.com/hiddify/hiddify-config/wiki/OVH-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D8%A7%D9%88-%D9%88%DB%8C-%D8%A7%DA%86)
 
 
 And from `https://yourip.sslip.io`or `http://yourip` you can see the link of the user page, just put your IP instead of "yourip"
