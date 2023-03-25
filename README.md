@@ -89,14 +89,14 @@ When you want to share Telegram proxy or Shadowsocks proxy through other program
 ## Installation and Configuration Guide
 
 
-##### Quick and easy installation guide with no technical knowledge and ssh required
+##### Quick and easy installation guide with no technical knowledge and even without any ssh connection
 
 - [Installation in Vultr (Recommended option to start) ](https://github.com/hiddify/hiddify-config/wiki/Vultr-نصب-خیلی-خیلی-سریع-در-ولتر)
 - [Installation in Oracle Cloud (four free servers)](https://github.com/hiddify/hiddify-config/wiki/Oracle-نصب-خیلی-خیلی-سریع-در-اوراکل-کلود)
 - [Installation in OVH ](https://github.com/hiddify/hiddify-config/wiki/OVH-نصب-خیلی-سریع-در-او-وی-اچ)
 - [Installation in Hetzner](https://github.com/hiddify/hiddify-config/wiki/Hetzner-نصب-خیلی-سریع-در-هتزنر)
 
-##### Installation guide on pre-prepared Ubuntu server with ssh
+##### Installation guide on pre-prepared Ubuntu server with sshconnection
 
 - [Installation on Ubuntu server (one command)](https://github.com/hiddify/hiddify-config/wiki/نصب-سریع-در-اوبونتو)
 - [Installation with Docker](https://github.com/hiddify/hiddify-config/wiki/نصب-با-داکر)
@@ -141,7 +141,7 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 </details>
 
 #### Configuration
-**Make best use of this panel using this** [guide](https://github.com/hiddify/hiddify-config/wiki/How-to-configure-Hiddify-Panel-properly).
+**Make best use of this panel via this** [guide](https://github.com/hiddify/hiddify-config/wiki/How-to-configure-Hiddify-Panel-properly).
 
 
 
