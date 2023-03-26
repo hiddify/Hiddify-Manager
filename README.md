@@ -3,6 +3,7 @@
 
  [فارسی](https://github.com/hiddify/hiddify-config/wiki/Home_Fa)
 
+![Hiddify Logo](https://user-images.githubusercontent.com/125398461/227720391-f6360e48-f211-4f56-a5b1-42522c30ecb7.png)
 
 
 </div>
@@ -11,12 +12,25 @@
 
 <div dir="ltr" markdown="1">
 
-![Hiddify Logo](https://user-images.githubusercontent.com/125398461/227720391-f6360e48-f211-4f56-a5b1-42522c30ecb7.png)
-
 ## Welcome to Hiddify
-Hiddify is a powerful and professional anti-censorship toolbox, which is a multi-user panel with an effortless installation and supporting more than 20 protocols to circumvent filtering plus telegram proxy.  It's optimized for censorship circumvention in China, Russia and Iran. It is a great X-UI replacement.
+
+Hiddify is a powerful and professional anti-censorship toolbox, which is a multi-user panel with an effortless installation and supporting more than 20 protocols to circumvent filtering plus telegram proxy.  It's optimized for censorship circumvention in China, Russia and Iran and recommended by [xray](https://github.com/XTLS/Xray-core). It's a great replacement of X-UI.
+
+- User Access
+![Hiddify User Page](https://user-images.githubusercontent.com/114227601/220698460-c8b56096-f34d-413b-8129-cfd6dd29cc7e.png)
+
+- Admin Dashboard
+![Hiddify Admin page](https://user-images.githubusercontent.com/125398461/227756020-b1d827e3-d305-4c58-a7b3-3e316e80e6af.png)
 
 ***
+
+### Table of Contents
+- [Why Hiddify?](https://github.com/hiddify/hiddify-config/edit/main/README.md#why-hiddify)
+- [Installation Guide](https://github.com/hiddify/hiddify-config/edit/main/README.md#installation-guide)
+  - Installation without ssh
+  - installation with ssh
+- Configuration Guide
+- 
 [Installation Guide](https://github.com/hiddify/hiddify-config/wiki#%D8%B1%D8%A7%D9%87%D9%86%D9%85%D8%A7%DB%8C-%D9%86%D8%B5%D8%A8) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [User Interface](https://github.com/hiddify/hiddify-config/wiki#%D8%AF%D9%85%D9%88%DB%8C-%D8%B3%DB%8C%D8%B3%D8%AA%D9%85) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [FAQs](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [Report Bugs](https://github.com/hiddify/hiddify-config/issues)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Telegram Channel](https://t.me/hiddify)
 ***
 ## Why Hiddify?
@@ -87,17 +101,19 @@ When you want to share Telegram proxy or Shadowsocks proxy through other program
 </details>
 </details>
 
-## Installation and Configuration Guide
+## Installation Guide
 
 
-##### Quick and easy installation guide with no technical knowledge and even without any ssh connections
+##### Installation without ssh
+This way you can take advantage of quick and easy installation of this panel using cloud-init scripts with no technical knowledge and even without any ssh connections
 
 - [Installation in Vultr (Recommended option to start) ](https://github.com/hiddify/hiddify-config/wiki/Vultr-نصب-خیلی-خیلی-سریع-در-ولتر)
 - [Installation in Oracle Cloud (four free servers)](https://github.com/hiddify/hiddify-config/wiki/Oracle-نصب-خیلی-خیلی-سریع-در-اوراکل-کلود)
 - [Installation in OVH ](https://github.com/hiddify/hiddify-config/wiki/OVH-نصب-خیلی-سریع-در-او-وی-اچ)
 - [Installation in Hetzner](https://github.com/hiddify/hiddify-config/wiki/Hetzner-نصب-خیلی-سریع-در-هتزنر)
 
-##### Installation guide on pre-prepared Ubuntu server with ssh connection
+##### Installation with ssh
+Here you can use this guide on pre-prepared Ubuntu server with ssh connection
 
 - [Installation on Ubuntu server (one command)](https://github.com/hiddify/hiddify-config/wiki/نصب-سریع-در-اوبونتو)
 - [Installation with Docker](https://github.com/hiddify/hiddify-config/wiki/نصب-با-داکر)
@@ -107,40 +123,15 @@ When you want to share Telegram proxy or Shadowsocks proxy through other program
 
 
 
-#### Configuration
-**Make best use of this panel via this** [guide](https://github.com/hiddify/hiddify-config/wiki/How-to-configure-Hiddify-Panel-properly).
+## Configuration Guide
+**Making best use of this panel via this** [guide](https://github.com/hiddify/hiddify-config/wiki/How-to-configure-Hiddify-Panel-properly).
 
-
-
-## Panel Interface
-- User Access
-![Hiddify User Page](https://user-images.githubusercontent.com/114227601/220698460-c8b56096-f34d-413b-8129-cfd6dd29cc7e.png)
-
-- Admin Dashboard
-![Hiddify Admin page](https://user-images.githubusercontent.com/125398461/227756020-b1d827e3-d305-4c58-a7b3-3e316e80e6af.png)
-
-
-
-
-
-
-
-
-</div>
-
-***
-## Donation and support &nbsp;&nbsp;&nbsp;&nbsp; از ما حمایت کنید
+## Donation and support 
 The easiest way to support us is to click on the star (⭐) at the top of [GitHub page](https://github.com/hiddify/hiddify-config).
-<div dir="rtl" markdown="1">
 
-ساده‌ترین راه حمایت از ما کلیک کردن روی ستاره (⭐) بالای صفحه [گیتهاب](https://github.com/hiddify/hiddify-config) است.
-
-</div>
 We also need financial support for our services (all of our activities are done voluntarily and the financial support will be spent on the development of the project). 
 
-<div dir="rtl" markdown="1">
-ما برای سرویس هایمان به کمک مالی هم نیاز داریم (تمامی فعالیت‌های ما به صورت داوطلبانه انجام می‌شود و حمایت‌های مالی صرف توسعه پروژه می‌شود).
-</div>
+
 
  - [Credit card and PayPal](https://opencollective.com/hiddify/contribute/backer-50556/checkout?interval=month&amount=25)
   - Ton: [`EQCWnykA-YhavOXgH3sf-uxtXLjy83_9n5bJPGRPE8r2247_`](https://tonwhales.com/explorer/address/EQCWnykA-YhavOXgH3sf-uxtXLjy83_9n5bJPGRPE8r2247_)
@@ -153,20 +144,27 @@ We also need financial support for our services (all of our activities are done 
 
 
 
-## Collaborate with us &nbsp;&nbsp;&nbsp;&nbsp; با ما همکاری کنید
+## Collaborate with us 
 We need your collaboration in order to develop this project. If you are specialists in these areas, please do not hesitate to [contact us](https://github.com/hiddify/hiddify-config/blob/main/README.md#contact-us--%D8%B1%D8%A7%D9%87%D9%87%D8%A7%DB%8C-%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7-%D8%A8%D8%A7-%D9%85%D8%A7):
-<div dir="rtl" markdown="1">
 
-اگر در هر یک از زمینه‌های زیر توانایی دارید، با ما در [تماس](https://github.com/hiddify/hiddify-config/blob/main/README.md#contact-us--%D8%B1%D8%A7%D9%87%D9%87%D8%A7%DB%8C-%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7-%D8%A8%D8%A7-%D9%85%D8%A7)  باشید:
-</div>
-
-* Media production &nbsp;&nbsp;&nbsp;&nbsp; تولید محتوا
-* Python developing &nbsp;&nbsp;&nbsp;&nbsp; برنامه‌نویسی پایتون 
-* Kotlin developing &nbsp;&nbsp;&nbsp;&nbsp; برنامه‌نویسی کاتلین
-
-## Contact us &nbsp;&nbsp;&nbsp;&nbsp; راه‌های ارتباط با ما
+* Media production &nbsp;&nbsp;&nbsp;&nbsp;  
+* Python developing &nbsp;&nbsp;&nbsp;&nbsp; ‌  
+* Kotlin developing &nbsp;&nbsp;&nbsp;&nbsp; 
+## Contact us
 * Email: [hiddify@gmail.com](mailto:hiddify@gmail.com)
 * Annoncements: [Telegram Channel](https://t.me/hiddify)
 * Discussion: [Telegram Topics](https://t.me/hiddify_board)
 
-
+<p align=center>
+ We appreciate all people who are participating in this project. Some people here and many many more out of Github. It means a lot to us ♥
+ </p>
+ 
+<p align=center> 
+<a href="https://github.com/hiddify/hiddify-config/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=hiddify/hiddify-config" />
+</a>
+</p>
+<p align=center>
+Made with <a rel="" target="_blank" href="https://contrib.rocks">contrib.rocks</a
+ 
+</p>
