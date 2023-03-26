@@ -1,17 +1,12 @@
 
-<div dir="ltr" markdown="1">
+<div dir="ltr" align="center" markdown="1">
 
-### [توضیحات فارسی](https://github.com/hiddify/hiddify-config/wiki/Home_Fa)
+ [فارسی](https://github.com/hiddify/hiddify-config/wiki/Home_Fa)
 
 
 
 </div>
 
-
-
-***
-[Installation Guide](https://github.com/hiddify/hiddify-config/wiki#%D8%B1%D8%A7%D9%87%D9%86%D9%85%D8%A7%DB%8C-%D9%86%D8%B5%D8%A8) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [User Interface](https://github.com/hiddify/hiddify-config/wiki#%D8%AF%D9%85%D9%88%DB%8C-%D8%B3%DB%8C%D8%B3%D8%AA%D9%85) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [FAQs](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [Report Bugs](https://github.com/hiddify/hiddify-config/issues)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Telegram Channel](https://t.me/hiddify)
-***
 
 
 <div dir="ltr" markdown="1">
@@ -20,6 +15,12 @@
 
 ## Welcome to Hiddify
 Hiddify is a powerful and professional anti-censorship toolbox, which is a multi-user panel with an effortless installation and supporting more than 20 protocols to circumvent filtering plus telegram proxy.  It's optimized for censorship circumvention in China, Russia and Iran. It is a great X-UI replacement.
+
+***
+[Installation Guide](https://github.com/hiddify/hiddify-config/wiki#%D8%B1%D8%A7%D9%87%D9%86%D9%85%D8%A7%DB%8C-%D9%86%D8%B5%D8%A8) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [User Interface](https://github.com/hiddify/hiddify-config/wiki#%D8%AF%D9%85%D9%88%DB%8C-%D8%B3%DB%8C%D8%B3%D8%AA%D9%85) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [FAQs](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [Report Bugs](https://github.com/hiddify/hiddify-config/issues)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Telegram Channel](https://t.me/hiddify)
+***
+## Why Hiddify?
+Hiddify is a mixture of hidden and simplify. A feature-full panel with a wide range of capabilities that helps you enjoy surfing the internet with ease and peace of mind. 
 
 <details markdown="1"> <summary> <b>Supported protocols</b> </summary> 
 
@@ -44,7 +45,7 @@ At the same time, the proposed solution is resistant to detection by the interne
 
 </details>
 
-<details markdown="1"><summary><b>Other features</b></summary>
+<details markdown="1"><summary><b>Other fantastic features</b></summary>
 
 
 <details  markdown="1"> <summary>Supported operating systems</summary>
@@ -57,7 +58,7 @@ Hiddify has been tested on Ubuntu 20.04 and 22.04. Ubuntu arm64 or amd64
 
 In this way, you can check the speed of the server with and without anti-filter.
 
-![image](https://user-images.githubusercontent.com/114227601/210183115-4e1f4186-421e-4316-8082-3ce53275adc7.png)
+![speed_test](https://user-images.githubusercontent.com/114227601/210183115-4e1f4186-421e-4316-8082-3ce53275adc7.png)
 
 </details>
 
@@ -102,41 +103,9 @@ When you want to share Telegram proxy or Shadowsocks proxy through other program
 - [Installation with Docker](https://github.com/hiddify/hiddify-config/wiki/نصب-با-داکر)
 
 
-<details  markdown="1"> <summary>Code for cloud-init</summary>
-On some server provider websites, you can automatically install the proxy using the following script. For example, see [Hetzner](https://github.com/hiddify/hiddifycofig/wiki/Hetzner-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D9%87%D8%AA%D8%B2%D9%86%D8%B1) and [OVH ](https://github.com/hiddify/hiddify-config/wiki/OVH-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D8%A7%D9%88-%D9%88%DB%8C-%D8%A7%DA%86)
 
 
-And from `https://yourip.sslip.io`or `http://yourip` you can see the link of the user page, just put your IP instead of "yourip"
 
-Note that this temporary link will only be active for one hour, after which it will be deactivated. 
-<div dir="ltr" markdown="1">
-
-```
-#cloud-config
-package_upgrade: true
-packages:
-  - apt-transport-https
-  - ca-certificates
-  - curl
-  - wget
-  - gnupg-agent
-  - software-properties-common
-  - git
-
-runcmd:
-  - cd /opt
-  - git clone https://github.com/hiddify/hiddify-config/
-  - cd hiddify-config
-  - bash install.sh
-
-final_message: "The system is finally up, after $UPTIME seconds"
-output: { all: "| tee -a /root/cloud-init-output.log" }
-
-# you can see the generated link from the website by using http://yourip/ or https://yourip.sslip.io in one hour, after that, it will be disappeared. 
-```
-</div>
-
-</details>
 
 #### Configuration
 **Make best use of this panel via this** [guide](https://github.com/hiddify/hiddify-config/wiki/How-to-configure-Hiddify-Panel-properly).
@@ -148,10 +117,7 @@ output: { all: "| tee -a /root/cloud-init-output.log" }
 ![Hiddify User Page](https://user-images.githubusercontent.com/114227601/220698460-c8b56096-f34d-413b-8129-cfd6dd29cc7e.png)
 
 - Admin Dashboard
-![Hiddify Admin page](https://user-images.githubusercontent.com/114227601/220697943-b25af716-eb26-4220-867d-3c1eee4fc21b.png)
-
-
-
+![Hiddify Admin page](https://user-images.githubusercontent.com/125398461/227756020-b1d827e3-d305-4c58-a7b3-3e316e80e6af.png)
 
 
 
