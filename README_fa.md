@@ -1,15 +1,20 @@
 
-[English](https://github.com/hiddify/hiddify-config#readme)&nbsp;&nbsp;&nbsp; [ویکی فارسی]() &nbsp;&nbsp;&nbsp;[گزارش باگ]()&nbsp;&nbsp;&nbsp;[سوالات پرتکرار
+<div dir="ltr" markdown="1">
+
+[English](https://github.com/hiddify/hiddify-config#readme)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ویکی فارسی](https://github.com/hiddify/hiddify-config/wiki/Home_Fa)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[سوالات رایج](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[]()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[گزارش اشکالات](https://github.com/hiddify/hiddify-config/issues)
+
+</div>
 
 <div dir="rtl" markdown="1">
 
 <img src="https://user-images.githubusercontent.com/125398461/227777845-a4d0f86b-faa2-4f2b-a410-4aa5f68bfe19.png" dir="rtl" />
 
 ## به هیدیفای خوش آمدید
-هیدیفای یک ابزار قدرتمند و خرفه ای ضدسانسور اینترنت است که دارای پنل چند کاربره و نصب آسان است و به شما کمک می کند با بیش از ۲۰ پروتکل پشتیبانی شده فیلترینگ اینترنت را دور بزنید. این ابزار برای شبکه اینترنت ایران بهینه سازی شده است و توسط [xray](https://github.com/XTLS/Xray-core) توصیه شده است. این پنل یک جایگزین عالی برای X-UI می باشد.
+هیدیفای یک ابزار قدرتمند و خرفه ای ضدسانسور اینترنت است که دارای پنل چند کاربره و نصب آسان است و به شما کمک می کند با بیش از ۲۰ پروتکل پشتیبانی شده فیلترینگ اینترنت را دور بزنید همچنین می توانید از پروکسی تلگرام استفاده نمایید. این ابزار برای شبکه اینترنت ایران بهینه سازی شده است و توسط [xray](https://github.com/XTLS/Xray-core) توصیه شده است. این پنل یک جایگزین عالی برای X-UI می باشد.
 
-<img width="49%" src="https://user-images.githubusercontent.com/125398461/227777647-01d249bf-d3c2-4cc6-a591-543d9826f5b1.png" />
 <img width="49%" src="https://user-images.githubusercontent.com/125398461/227777629-47ca8877-40b2-43e8-b6c3-27a869c5d786.png" />
+<img width="49%" src="https://user-images.githubusercontent.com/125398461/227777647-01d249bf-d3c2-4cc6-a591-543d9826f5b1.png" />
+
 
 
 
@@ -27,6 +32,7 @@
 - [راه های ارتباط با ما](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D8%B1%D8%A7%D9%87-%D9%87%D8%A7%DB%8C-%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7-%D8%A8%D8%A7-%D9%85%D8%A7)
 ***
 ## چرا هیدیفای؟
+هیدیفای تلفیقی از دو کلمه مخفی و سادگی است. پنلی با ويژگی های فراوان با تعداد قابل توجهی از قابلیت ها که به شما کمک می کند با خیالی راحت و آسوده از اینترنت آزاد بهره ببرید.
 
 <details markdown="1"> <summary>کانفیگ‌های پشتیبانی شده</summary> 
 
