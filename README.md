@@ -1,5 +1,5 @@
 
-<div dir="ltr" align="center" markdown="1">
+<div dir="ltr" markdown="1">
 
  [فارسی](https://github.com/hiddify/hiddify-config/wiki/Home_Fa)
 
@@ -27,11 +27,15 @@ Hiddify is a powerful and professional anti-censorship toolbox, which is a multi
 ### Table of Contents
 - [Why Hiddify?](https://github.com/hiddify/hiddify-config/edit/main/README.md#why-hiddify)
 - [Installation Guide](https://github.com/hiddify/hiddify-config/edit/main/README.md#installation-guide)
-  - Installation without ssh
-  - installation with ssh
-- Configuration Guide
-- 
-[Installation Guide](https://github.com/hiddify/hiddify-config/wiki#%D8%B1%D8%A7%D9%87%D9%86%D9%85%D8%A7%DB%8C-%D9%86%D8%B5%D8%A8) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [User Interface](https://github.com/hiddify/hiddify-config/wiki#%D8%AF%D9%85%D9%88%DB%8C-%D8%B3%DB%8C%D8%B3%D8%AA%D9%85) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [FAQs](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [Report Bugs](https://github.com/hiddify/hiddify-config/issues)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Telegram Channel](https://t.me/hiddify)
+  - [Installation without ssh](https://github.com/hiddify/hiddify-config/edit/main/README.md#installation-without-ssh)
+  - [Installation with ssh](https://github.com/hiddify/hiddify-config/edit/main/README.md#installation-with-ssh)
+- [Configuration Guide](https://github.com/hiddify/hiddify-config/edit/main/README.md#configuration-guide)
+- [FAQ](https://github.com/hiddify/hiddify-config/edit/main/README.md#faq)
+- [Report Bugs](https://github.com/hiddify/hiddify-config/edit/main/README.md#report-bugs)
+- [Donation and Support](https://github.com/hiddify/hiddify-config/edit/main/README.md#donation-and-support)
+- [Collaborate with us](https://github.com/hiddify/hiddify-config/edit/main/README.md#collaborate-with-us)
+- [Contact us](https://github.com/hiddify/hiddify-config/edit/main/README.md#contact-us)
+
 ***
 ## Why Hiddify?
 Hiddify is a mixture of hidden and simplify. A feature-full panel with a wide range of capabilities that helps you enjoy surfing the internet with ease and peace of mind. 
@@ -97,9 +101,9 @@ When you want to share Telegram proxy or Shadowsocks proxy through other program
  
 </details>
 
+</details>
+</details>
 
-</details>
-</details>
 
 ## Installation Guide
 
@@ -125,6 +129,12 @@ Here you can use this guide on pre-prepared Ubuntu server with ssh connection
 
 ## Configuration Guide
 **Making best use of this panel via this** [guide](https://github.com/hiddify/hiddify-config/wiki/How-to-configure-Hiddify-Panel-properly).
+
+## FAQ
+use this [link](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC) in order to view most frequently asked questions.
+
+## Report Bugs
+If you find a bug in this application, please do not hesitate to report it [here](https://github.com/hiddify/hiddify-config/issues)
 
 ## Donation and support 
 The easiest way to support us is to click on the star (⭐) at the top of [GitHub page](https://github.com/hiddify/hiddify-config).
@@ -165,6 +175,5 @@ We need your collaboration in order to develop this project. If you are speciali
 </a>
 </p>
 <p align=center>
-Made with <a rel="" target="_blank" href="https://contrib.rocks">contrib.rocks</a
- 
+ Made with <a rel="" target="_blank" href="https://contrib.rocks">contrib.rocks</a> 
 </p>
