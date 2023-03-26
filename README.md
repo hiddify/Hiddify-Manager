@@ -1,7 +1,7 @@
 
 <div dir="ltr" markdown="1">
 
- [فارسی](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md)
+ [فارسی](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Wiki](https://github.com/hiddify/hiddify-config/wiki)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[FAQ](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Report Bugs](https://github.com/hiddify/hiddify-config/issues)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 ![Hiddify Logo](https://user-images.githubusercontent.com/125398461/227720391-f6360e48-f211-4f56-a5b1-42522c30ecb7.png)
 
@@ -16,11 +16,10 @@
 
 Hiddify is a powerful and professional anti-censorship toolbox, which is a multi-user panel with an effortless installation and supporting more than 20 protocols to circumvent filtering plus telegram proxy.  It's optimized for censorship circumvention in China, Russia and Iran and recommended by [xray](https://github.com/XTLS/Xray-core). It's a great replacement of X-UI.
 
-- User Access
-![Hiddify User Page](https://user-images.githubusercontent.com/114227601/220698460-c8b56096-f34d-413b-8129-cfd6dd29cc7e.png)
 
-- Admin Dashboard
-![Hiddify Admin page](https://user-images.githubusercontent.com/125398461/227756020-b1d827e3-d305-4c58-a7b3-3e316e80e6af.png)
+<img width="49%" src="https://user-images.githubusercontent.com/125398461/227756020-b1d827e3-d305-4c58-a7b3-3e316e80e6af.png" />
+<img width="49%" src="https://user-images.githubusercontent.com/114227601/220698460-c8b56096-f34d-413b-8129-cfd6dd29cc7e.png" />
+
 
 ***
 
@@ -30,8 +29,6 @@ Hiddify is a powerful and professional anti-censorship toolbox, which is a multi
   - [Installation without ssh](https://github.com/hiddify/hiddify-config/edit/main/README.md#installation-without-ssh)
   - [Installation with ssh](https://github.com/hiddify/hiddify-config/edit/main/README.md#installation-with-ssh)
 - [Configuration Guide](https://github.com/hiddify/hiddify-config/edit/main/README.md#configuration-guide)
-- [FAQ](https://github.com/hiddify/hiddify-config/edit/main/README.md#faq)
-- [Report Bugs](https://github.com/hiddify/hiddify-config/edit/main/README.md#report-bugs)
 - [Donation and Support](https://github.com/hiddify/hiddify-config/edit/main/README.md#donation-and-support)
 - [Collaborate with us](https://github.com/hiddify/hiddify-config/edit/main/README.md#collaborate-with-us)
 - [Contact us](https://github.com/hiddify/hiddify-config/edit/main/README.md#contact-us)
@@ -129,12 +126,6 @@ Here you can use this guide on pre-prepared Ubuntu server with ssh connection
 
 ## Configuration Guide
 **Making best use of this panel via this** [guide](https://github.com/hiddify/hiddify-config/wiki/How-to-configure-Hiddify-Panel-properly).
-
-## FAQ
-use this [link](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC) in order to view most frequently asked questions.
-
-## Report Bugs
-If you find a bug in this application, please do not hesitate to report it [here](https://github.com/hiddify/hiddify-config/issues)
 
 ## Donation and support 
 The easiest way to support us is to click on the star (⭐) at the top of [GitHub page](https://github.com/hiddify/hiddify-config).
