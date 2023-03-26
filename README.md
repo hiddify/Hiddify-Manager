@@ -163,7 +163,7 @@ We need your collaboration in order to develop this project. If you are speciali
 ## Contact us
 * Email: [hiddify@gmail.com](mailto:hiddify@gmail.com)
 * Annoncements: [Telegram Channel](https://t.me/hiddify)
-* Discussion: [Telegram Topics](https://t.me/hiddify_board)
+* Discussion: [Telegram Group](https://t.me/hiddify_board/5)
 
 <p align=center>
  We appreciate all people who are participating in this project. Some people here and many many more out of Github. It means a lot to us ♥
