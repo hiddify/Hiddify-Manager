@@ -1,7 +1,7 @@
 
 <div dir="ltr" markdown="1">
 
- [فارسی](https://github.com/hiddify/hiddify-config/ًREADME_Fa.md)
+ [فارسی](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md)
 
 ![Hiddify Logo](https://user-images.githubusercontent.com/125398461/227720391-f6360e48-f211-4f56-a5b1-42522c30ecb7.png)
 
