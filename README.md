@@ -1,5 +1,5 @@
-<!--
-[![Total Downloads](https://img.shields.io/github/downloads/hiddify/hiddify-config/total.svg)](https://github.com/hiddify/hiddify-config/)-->
+
+[![Total Downloads](https://img.shields.io/github/downloads/hiddify/hiddify-config/total?label=downloads%20after%202023%2F03%2F27%2011%3A00%20)](https://github.com/hiddify/hiddify-config/)
 [![Last Version](https://img.shields.io/github/release/hiddify/hiddify-config/all.svg)](https://github.com/hiddify/hiddify-config/)
 [![Last Release Date](https://img.shields.io/github/release-date/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
 <!--
