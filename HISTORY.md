@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v8.0.17 (2023-03-27)
+
+### Fix
+
+* Unzip bug. [hiddify]
+
+
 ## v8.0.16 (2023-03-27)
 
 ### Fix
