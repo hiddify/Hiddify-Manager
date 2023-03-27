@@ -130,11 +130,11 @@ Here you can use this guide on pre-prepared Ubuntu server with ssh connection
 ## Donation and support 
 The easiest way to support us is to click on the star (⭐) at the top of [GitHub page](https://github.com/hiddify/hiddify-config).
 
-We also need financial support for our services (all of our activities are done voluntarily and the financial support will be spent on the development of the project). 
+We also need financial support for our services.‌ All of our activities are done voluntarily and the financial support will be spent on the development of the project. 
 
 
 
- - [Credit card and PayPal](https://opencollective.com/hiddify/contribute/backer-50556/checkout?interval=month&amount=25)
+- [Credit card and PayPal](https://opencollective.com/hiddify/contribute/backer-50556/checkout?interval=month&amount=25)
 - <details markdown="1"> <summary>Crypto</summary> 
  
   - Ton: [`EQCWnykA-YhavOXgH3sf-uxtXLjy83_9n5bJPGRPE8r2247_`](https://tonwhales.com/explorer/address/EQCWnykA-YhavOXgH3sf-uxtXLjy83_9n5bJPGRPE8r2247_)
