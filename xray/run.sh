@@ -57,11 +57,17 @@ if [[ "$HTTP_PORTS" != "" ]];then
 fi
 
 xray run -test -confdir configs
+
 if  [[ $? == 0 ]];then
-	rm -rf /dev/shm/hiddify-xtls-main.sock
 	systemctl restart hiddify-xray.service
 	systemctl start hiddify-xray.service
 	systemctl status hiddify-xray.service
+else
+	echo "Error in Xray Config!!!! do not reload xray service"
+	sleep 60
+	xray run -test -confdir configs
+	echo "Error in Xray Config!!!! do not reload xray service"
+	sleep 60
 fi
 
 

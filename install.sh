@@ -204,7 +204,6 @@ function main(){
         export MODE="$1"
         
         if [ "$MODE" != "apply_users" ];then
-                rm /dev/shm/hiddify-xtls-main.sock
                 runsh install.sh hiddify-panel
         fi
         # source common/set_config_from_hpanel.sh
