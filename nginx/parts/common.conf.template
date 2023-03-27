@@ -69,6 +69,8 @@ location /BASE_PROXY_PATH/ {
   proxy_set_header Host $host;
   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   proxy_set_header X-Real-IP $remote_addr;
+  add_header X-Robots-Tag "noindex, nofollow";
+
   #proxy_pass http://localhost:9000/BASE_PROXY_PATH/; 
   #proxy_pass http://unix:/run/hiddifypanel.sock:/BASE_PROXY_PATH/;
   include uwsgi_params;
