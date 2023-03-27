@@ -1,6 +1,89 @@
 # Changelog
 
 
+## v8.0.11 (2023-03-27)
+
+### Other
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [Hiddify]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Create  README_fa.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+
 ## v8.0.10 (2023-03-27)
 
 ### New
