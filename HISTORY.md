@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v8.0.16 (2023-03-27)
+
+### Fix
+
+* Download issue. [hiddify]
+
+
 ## v8.0.13 (2023-03-27)
 
 ### Fix
