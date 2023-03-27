@@ -129,7 +129,7 @@ Ubuntu arm64 or amd64
 
 ## راهنمای نصب
 
-### راهنمای نصب بدون ssh
+<details markdown="1"> <summary><b>راهنمای نصب بدون ssh</b></summary> 
 در این روش به صورت خیلی سریع و آسان بدون نیاز به دانش فنی و ssh و با استفاده از قابلیت cloud-init نصب انجام می شود.
 
 - [نصب در ولتر Vultr (گزینه پیشنهادی برای شروع ) ](https://github.com/hiddify/hiddify-config/wiki/Vultr-%D9%86%D8%B5%D8%A8-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D9%88%D9%84%D8%AA%D8%B1)
@@ -138,9 +138,9 @@ Ubuntu arm64 or amd64
 - [نصب در هتزنر](https://github.com/hiddify/hiddify-config/wiki/Hetzner-نصب-خیلی-سریع-در-هتزنر)
 
 
+</details>
 
-
-### راهنمای نصب با ssh
+<details markdown="1"> <summary><b>راهنمای نصب با ssh</b></summary>
 
 در این حالت روی سرور از پیش آماده اوبونتو با ssh نصب انجام می شود.
 
@@ -160,13 +160,13 @@ Ubuntu arm64 or amd64
 ## راهنمای پیکربندی
 برای اینکه حداکثر استفاده را از مزایای این پنل ببرید؛ این [راهنما](https://github.com/hiddify/hiddify-config/wiki/%D9%86%D8%AD%D9%88%D9%87-%D9%BE%DB%8C%DA%A9%D8%B1%D8%A8%D9%86%D8%AF%DB%8C-%D9%BE%D9%86%D9%84-%D9%87%DB%8C%D8%AF%DB%8C%D9%81%D8%A7%DB%8C) را مطالعه کنید.
 
-## دونیت و حمایت از پروژه
+## حمایت از پروژه
 ساده‌ترین راه حمایت از ما کلیک کردن روی ستاره (⭐) بالای صفحه [گیتهاب](https://github.com/hiddify/hiddify-config) است.
 
 ما برای سرویس هایمان به کمک مالی هم نیاز داریم. تمامی فعالیت‌های ما به صورت داوطلبانه انجام می‌شود و حمایت‌های مالی صرف توسعه پروژه می‌شود.
 
-- [Credit card and PayPal](https://opencollective.com/hiddify/contribute/backer-50556/checkout?interval=month&amount=25)
-- <details markdown="1"> <summary>Crypto</summary> 
+- [کردیت کارت و پی پل](https://opencollective.com/hiddify/contribute/backer-50556/checkout?interval=month&amount=25)
+- <details markdown="1"> <summary>کریپتو</summary> 
  
   - Ton: [`EQCWnykA-YhavOXgH3sf-uxtXLjy83_9n5bJPGRPE8r2247_`](https://tonwhales.com/explorer/address/EQCWnykA-YhavOXgH3sf-uxtXLjy83_9n5bJPGRPE8r2247_)
   - USDT (TRC20): [`TXZtFUxyBPMSykAWogu7C4zmbjySKqMcDE`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=usdt:TXZtFUxyBPMSykAWogu7C4zmbjySKqMcDE&chld=H)
