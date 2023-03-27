@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v8.1.0 (2023-03-27)
+
+### New
+
+* Do not reload xray if there is a problem. [hiddify]
+
+### Changes
+
+* Check whether xray can start or not otherwise do not reset xray. [hiddify]
+
+
 ## v8.0.20 (2023-03-27)
 
 ### Other
