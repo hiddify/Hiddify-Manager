@@ -150,6 +150,7 @@ Ubuntu arm64 or amd64
 ما برای سرویس هایمان به کمک مالی هم نیاز داریم (تمامی فعالیت‌های ما به صورت داوطلبانه انجام می‌شود و حمایت‌های مالی صرف توسعه پروژه می‌شود).
 
 - [Credit card and PayPal](https://opencollective.com/hiddify/contribute/backer-50556/checkout?interval=month&amount=25)
+- <details markdown="1"> <summary>Crypto</summary>
   - Ton: [`EQCWnykA-YhavOXgH3sf-uxtXLjy83_9n5bJPGRPE8r2247_`](https://tonwhales.com/explorer/address/EQCWnykA-YhavOXgH3sf-uxtXLjy83_9n5bJPGRPE8r2247_)
   - USDT (TRC20): [`TXZtFUxyBPMSykAWogu7C4zmbjySKqMcDE`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=usdt:TXZtFUxyBPMSykAWogu7C4zmbjySKqMcDE&chld=H)
   - LiteCoin: [`MCHoh7xwaDBBnQgANPpBtXiekagV6KpdrM`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=litecoin:MCHoh7xwaDBBnQgANPpBtXiekagV6KpdrM&chld=H)
@@ -157,6 +158,9 @@ Ubuntu arm64 or amd64
   - Ethereum: [`0xF5CFc65ee336B377C2a37EA3BCD0CaD0d0F0CbA0`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=ethereum:0xF5CFc65ee336B377C2a37EA3BCD0CaD0d0F0CbA0&chld=H)
   - Bitcoin: [`bc1qkfp7n3wxu2zc9mdy20cf27d5pujj65myww8f60`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=bitcoin:bc1qkfp7n3wxu2zc9mdy20cf27d5pujj65myww8f60&chld=H)
   - DOGE (Dogecoin): [`DPerFS2vCu5XnE3He32BaPVTkUDcKLsEaj`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=doge:DPerFS2vCu5XnE3He32BaPVTkUDcKLsEaj&chld=H)
+
+</details>
+
 ## همکاری با ما
 اگر در هر یک از زمینه‌های زیر توانایی دارید، با ما در [تماس ](https://github.com/hiddify/hiddify-config/wiki/%D9%85%D9%81%D8%A7%D9%87%DB%8C%D9%85-%D9%BE%D8%A7%DB%8C%D9%87#contact-us--%D8%B1%D8%A7%D9%87%D9%87%D8%A7%DB%8C-%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7-%D8%A8%D8%A7-%D9%85%D8%A7)باشید:
 * تولید محتوا
