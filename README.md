@@ -135,7 +135,8 @@ We also need financial support for our services (all of our activities are done 
 
 
  - [Credit card and PayPal](https://opencollective.com/hiddify/contribute/backer-50556/checkout?interval=month&amount=25)
- <details markdown="1"> <summary>Crypto</summary> 
+- <details markdown="1"> <summary>Crypto</summary> 
+ 
   - Ton: [`EQCWnykA-YhavOXgH3sf-uxtXLjy83_9n5bJPGRPE8r2247_`](https://tonwhales.com/explorer/address/EQCWnykA-YhavOXgH3sf-uxtXLjy83_9n5bJPGRPE8r2247_)
   - USDT (TRC20): [`TXZtFUxyBPMSykAWogu7C4zmbjySKqMcDE`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=usdt:TXZtFUxyBPMSykAWogu7C4zmbjySKqMcDE&chld=H)
   - LiteCoin: [`MCHoh7xwaDBBnQgANPpBtXiekagV6KpdrM`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=litecoin:MCHoh7xwaDBBnQgANPpBtXiekagV6KpdrM&chld=H)
