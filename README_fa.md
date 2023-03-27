@@ -11,7 +11,6 @@
 
 </div>
 </br>
-
 <div align=center>
 
 [![Total Downloads](https://img.shields.io/github/downloads/hiddify/hiddify-config/total?label=downloads%20after%202023%2F03%2F27%2011%3A00%20)](https://github.com/hiddify/hiddify-config/)
