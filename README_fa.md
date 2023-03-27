@@ -1,13 +1,30 @@
 
-<div dir="ltr" markdown="1">
+<div align="left" markdown="1">
 
 [English](https://github.com/hiddify/hiddify-config#readme)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ویکی](https://github.com/hiddify/hiddify-config/wiki/Home_Fa)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[سوالات رایج](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[]()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[گزارش اشکالات](https://github.com/hiddify/hiddify-config/issues)
 
 </div>
-
-<div dir="rtl" markdown="1">
+</br>
+<div align=center markdown="1">
 
 <img src="https://user-images.githubusercontent.com/125398461/227777845-a4d0f86b-faa2-4f2b-a410-4aa5f68bfe19.png" dir="rtl" />
+
+</div>
+</br>
+
+<div align=center>
+
+[![Total Downloads](https://img.shields.io/github/downloads/hiddify/hiddify-config/total?label=downloads%20after%202023%2F03%2F27%2011%3A00%20)](https://github.com/hiddify/hiddify-config/)
+[![Last Version](https://img.shields.io/github/release/hiddify/hiddify-config/all.svg)](https://github.com/hiddify/hiddify-config/)
+[![Last Release Date](https://img.shields.io/github/release-date/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
+<!--
+[![GitHub Stars](https://img.shields.io/tokei/lines/github/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
+[![GitHub Stars](https://img.shields.io/github/stars/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
+[![GitHub Forks](https://img.shields.io/github/forks/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
+-->
+</div>
+
+<div dir="rtl" markdown="1">
 
 ## به هیدیفای خوش آمدید
 هیدیفای یک ابزار قدرتمند و خرفه ای ضدسانسور اینترنت است که دارای پنل چند کاربره و نصب آسان است و به شما کمک می کند با بیش از ۲۰ پروتکل پشتیبانی شده فیلترینگ اینترنت را دور بزنید همچنین می توانید از پروکسی تلگرام استفاده نمایید. این ابزار برای شبکه اینترنت ایران بهینه سازی شده است و توسط [xray](https://github.com/XTLS/Xray-core) توصیه شده است. این پنل یک جایگزین عالی برای X-UI می باشد.
