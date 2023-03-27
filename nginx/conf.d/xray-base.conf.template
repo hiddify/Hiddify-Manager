@@ -49,7 +49,7 @@ server {
         proxy_pass http://unix:/opt/hiddify-config/xray/run/vmesst.sock;
     }
     location /PATH_SSPATH_TCP {
-        include /opt/hiddify-chonfig/nginx/parts/tcph2.conf;
+        include /opt/hiddify-config/nginx/parts/tcph2.conf;
         proxy_pass http://unix:/opt/hiddify-config/xray/run/sst.sock;
     }
     location /PATH_TROJANPATH_TCP {
