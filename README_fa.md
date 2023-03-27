@@ -30,9 +30,7 @@
 
 
 
-<img width="97%" src="https://user-images.githubusercontent.com/125398461/227829358-5974c1fc-e304-49c2-91ec-733723197798.jpg" align="center" dir="ltr" />
-<img width="97%" src="https://user-images.githubusercontent.com/125398461/227829371-85b3e439-76f2-44b2-907a-4ad35a3de633.jpg" align="center" dir="ltr" />
-
+![farsi++png](https://user-images.githubusercontent.com/114227601/228013297-240d6945-874f-4836-9b0d-0e1ba072481f.png)
 
 
 
