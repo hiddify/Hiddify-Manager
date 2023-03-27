@@ -62,8 +62,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
+          files: hiddify-config.zip
           body_path: release_message.md
-      - name: publish
-        uses: actions/upload-artifact@v3
-        with:
-          path: ./hiddify-config.zip
+    
