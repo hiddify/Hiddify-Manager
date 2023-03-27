@@ -24,14 +24,14 @@ Hiddify is a powerful and professional anti-censorship toolbox, which is a multi
 ***
 
 ### Table of Contents
-- [Why Hiddify?](https://github.com/hiddify/hiddify-config/main/README.md#why-hiddify)
-- [Installation Guide](https://github.com/hiddify/hiddify-config/edit/main/README.md#installation-guide)
-  - [Installation without ssh](https://github.com/hiddify/hiddify-config/edit/main/README.md#installation-without-ssh)
-  - [Installation with ssh](https://github.com/hiddify/hiddify-config/edit/main/README.md#installation-with-ssh)
+- [Why Hiddify?](https://github.com/hiddify/hiddify-config/blob/main/README.md#why-hiddify)
+- [Installation Guide](https://github.com/hiddify/hiddify-config/blob/main/README.md#installation-guide)
+  - [Installation without ssh](https://github.com/hiddify/hiddify-config/blob/main/README.md#installation-without-ssh)
+  - [Installation with ssh](https://github.com/hiddify/hiddify-config/blob/main/README.md#installation-with-ssh)
 - [Configuration Guide](https://github.com/hiddify/hiddify-config/edit/main/README.md#configuration-guide)
-- [Donation and Support](https://github.com/hiddify/hiddify-config/edit/main/README.md#donation-and-support)
-- [Collaborate with us](https://github.com/hiddify/hiddify-config/edit/main/README.md#collaborate-with-us)
-- [Contact us](https://github.com/hiddify/hiddify-config/edit/main/README.md#contact-us)
+- [Donation and Support](https://github.com/hiddify/hiddify-config/blob/main/README.md#donation-and-support)
+- [Collaborate with us](https://github.com/hiddify/hiddify-config/blob/main/README.md#collaborate-with-us)
+- [Contact us](https://github.com/hiddify/hiddify-config/blob/main/README.md#contact-us)
 
 ***
 ## Why Hiddify?
