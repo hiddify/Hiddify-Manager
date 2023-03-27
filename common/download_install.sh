@@ -20,11 +20,11 @@ GITHUB_BRANCH_OR_TAG=main
         apt install -y wget python3-pip dialog
         pip3 install lastversion
         mkdir -p /opt/$GITHUB_REPOSITORY
-        LAST_CONFIG_VERSION=$(lastversion $GITHUB_USER/$GITHUB_REPOSITORY)
-        wget -c $(lastversion $GITHUB_USER/$GITHUB_REPOSITORY --source)
-        tar xvzf $GITHUB_REPOSITORY-v$LAST_CONFIG_VERSION.tar.gz --strip-components=1 --directory /opt/$GITHUB_REPOSITORY
-        rm $GITHUB_REPOSITORY-v$LAST_CONFIG_VERSION.tar.gz
         cd /opt/$GITHUB_REPOSITORY
+        wget  $(lastversion --at github --assets --filter hiddify-config.zip  hiddify/hiddify-config) -O hiddify-config.zip
+        unzip -o hiddify-config.zip
+        rm hiddify-config.zip
+        
         bash install.sh
         # exit 0
 # fi 

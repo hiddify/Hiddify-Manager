@@ -67,10 +67,10 @@ function main(){
         echo "Current Config Version=$CURRENT_CONFIG_VERSION -- Latest=$LAST_CONFIG_VERSION"
         if [[ FORCE == "true" || "$CURRENT_CONFIG_VERSION" != "$LAST_CONFIG_VERSION" ]];then
             echo "Config is outdated! updating..."
-            wget -c $(lastversion hiddify/hiddify-config --source)
+            wget  $(lastversion --at github --assets --filter hiddify-config.zip  hiddify/hiddify-config) -O hiddify-config.zip
             rm  -rf nginx/ xray/
-            tar xvzf hiddify-config-v$LAST_CONFIG_VERSION.tar.gz --strip-components=1
-            rm hiddify-config-v$LAST_CONFIG_VERSION.tar.gz
+            unzip -o hiddify-config.zip
+            rm hiddify-config.zip
             bash install.sh
             UPDATE=1
         fi
