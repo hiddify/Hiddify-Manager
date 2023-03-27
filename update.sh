@@ -69,6 +69,7 @@ function main(){
             echo "Config is outdated! updating..."
             wget  $(lastversion --at github --assets --filter hiddify-config.zip  hiddify/hiddify-config) -O hiddify-config.zip
             rm  -rf nginx/ xray/
+            apt install -y  unzip
             unzip -o hiddify-config.zip
             rm hiddify-config.zip
             bash install.sh
