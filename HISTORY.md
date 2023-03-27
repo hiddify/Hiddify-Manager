@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v8.0.10 (2023-03-27)
+
+### New
+
+* Add download assets. [hiddify]
+
+* Download videos in background. [hiddify]
+
+* Disable robot indexing. [hiddify]
+
+
 ## v8.0.8 (2023-03-21)
 
 ### New
