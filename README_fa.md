@@ -1,7 +1,7 @@
 
 <div dir="ltr" markdown="1">
 
-[English](https://github.com/hiddify/hiddify-config#readme)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ویکی فارسی](https://github.com/hiddify/hiddify-config/wiki/Home_Fa)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[سوالات رایج](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[]()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[گزارش اشکالات](https://github.com/hiddify/hiddify-config/issues)
+[English](https://github.com/hiddify/hiddify-config#readme)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ویکی](https://github.com/hiddify/hiddify-config/wiki/Home_Fa)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[سوالات رایج](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[]()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[گزارش اشکالات](https://github.com/hiddify/hiddify-config/issues)
 
 </div>
 
@@ -12,8 +12,11 @@
 ## به هیدیفای خوش آمدید
 هیدیفای یک ابزار قدرتمند و خرفه ای ضدسانسور اینترنت است که دارای پنل چند کاربره و نصب آسان است و به شما کمک می کند با بیش از ۲۰ پروتکل پشتیبانی شده فیلترینگ اینترنت را دور بزنید همچنین می توانید از پروکسی تلگرام استفاده نمایید. این ابزار برای شبکه اینترنت ایران بهینه سازی شده است و توسط [xray](https://github.com/XTLS/Xray-core) توصیه شده است. این پنل یک جایگزین عالی برای X-UI می باشد.
 
-<img width="49%" src="https://user-images.githubusercontent.com/125398461/227777629-47ca8877-40b2-43e8-b6c3-27a869c5d786.png" />
-<img width="49%" src="https://user-images.githubusercontent.com/125398461/227777647-01d249bf-d3c2-4cc6-a591-543d9826f5b1.png" />
+
+
+<img width="97%" src="https://user-images.githubusercontent.com/125398461/227829358-5974c1fc-e304-49c2-91ec-733723197798.jpg" align="center" dir="ltr" />
+<img width="97%" src="https://user-images.githubusercontent.com/125398461/227829371-85b3e439-76f2-44b2-907a-4ad35a3de633.jpg" align="center" dir="ltr" />
+
 
 
 
