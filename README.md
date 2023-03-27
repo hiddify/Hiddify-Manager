@@ -24,7 +24,7 @@ Hiddify is a powerful and professional anti-censorship toolbox, which is a multi
 ***
 
 ### Table of Contents
-- [Why Hiddify?](https://github.com/hiddify/hiddify-config/edit/main/README.md#why-hiddify)
+- [Why Hiddify?](https://github.com/hiddify/hiddify-config/main/README.md#why-hiddify)
 - [Installation Guide](https://github.com/hiddify/hiddify-config/edit/main/README.md#installation-guide)
   - [Installation without ssh](https://github.com/hiddify/hiddify-config/edit/main/README.md#installation-without-ssh)
   - [Installation with ssh](https://github.com/hiddify/hiddify-config/edit/main/README.md#installation-with-ssh)
