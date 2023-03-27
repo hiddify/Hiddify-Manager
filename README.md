@@ -1,4 +1,19 @@
 
+
+<div dir="ltr" markdown="1">
+
+ [فارسی](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Wiki](https://github.com/hiddify/hiddify-config/wiki)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[FAQ](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ReportBugs](https://github.com/hiddify/hiddify-config/issues)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</div>
+</br>
+<div align=center markdown="1">
+
+![Hiddify Logo](https://user-images.githubusercontent.com/125398461/227720391-f6360e48-f211-4f56-a5b1-42522c30ecb7.png)
+
+
+</div>
+</br>
+<div align=center>
+
 [![Total Downloads](https://img.shields.io/github/downloads/hiddify/hiddify-config/total?label=downloads%20after%202023%2F03%2F27%2011%3A00%20)](https://github.com/hiddify/hiddify-config/)
 [![Last Version](https://img.shields.io/github/release/hiddify/hiddify-config/all.svg)](https://github.com/hiddify/hiddify-config/)
 [![Last Release Date](https://img.shields.io/github/release-date/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
@@ -7,17 +22,7 @@
 [![GitHub Stars](https://img.shields.io/github/stars/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
 [![GitHub Forks](https://img.shields.io/github/forks/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
 -->
-
-<div dir="ltr" markdown="1">
-
- [فارسی](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Wiki](https://github.com/hiddify/hiddify-config/wiki)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[FAQ](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ReportBugs](https://github.com/hiddify/hiddify-config/issues)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-![Hiddify Logo](https://user-images.githubusercontent.com/125398461/227720391-f6360e48-f211-4f56-a5b1-42522c30ecb7.png)
-
-
 </div>
-
-
 
 <div dir="ltr" markdown="1">
 
@@ -25,9 +30,7 @@
 
 Hiddify is a powerful and professional anti-censorship toolbox, which is a multi-user panel with an effortless installation and supporting more than 20 protocols to circumvent filtering plus telegram proxy.  It's optimized for censorship circumvention in China, Russia and Iran and recommended by [xray](https://github.com/XTLS/Xray-core). It's a great replacement of X-UI.
 
-
-<img width="97%" src="https://user-images.githubusercontent.com/125398461/227835398-b21d1442-1c70-4208-98ea-dcf3898927b6.jpg" align="center" dir="ltr"/>
-<img width="97%" src="https://user-images.githubusercontent.com/125398461/227835402-5439eddc-48b0-4694-9bf2-d28c81b3740a.jpg" align="center" dir="ltr"/>
+![english++png](https://user-images.githubusercontent.com/114227601/228011984-83b1f981-aede-438e-920d-113d9894477a.png)
 
 
 ***
@@ -127,7 +130,7 @@ This way you can take advantage of quick and easy installation of this panel usi
 <details markdown="1"> <summary><b>Installation with ssh</b></summary>
 Here you can use this guide on pre-prepared Ubuntu server with ssh connection
 
-- [Installation on Ubuntu server (https://github-com.translate.goog/hiddify/hiddify-config/wiki/%D9%86%D8%B5%D8%A8-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D8%A7%D9%88%D8%A8%D9%88%D9%86%D8%AA%D9%88?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=wapp)
+- [Installation on Ubuntu server](https://github-com.translate.goog/hiddify/hiddify-config/wiki/%D9%86%D8%B5%D8%A8-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D8%A7%D9%88%D8%A8%D9%88%D9%86%D8%AA%D9%88?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=wapp)
 - [Installation with Docker](https://github-com.translate.goog/hiddify/hiddify-config/wiki/%D9%86%D8%B5%D8%A8-%D8%A8%D8%A7-%D8%AF%D8%A7%DA%A9%D8%B1?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=wapp)
 
 </details>
