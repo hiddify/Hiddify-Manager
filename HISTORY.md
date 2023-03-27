@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v8.0.12 (2023-03-27)
+
+### Fix
+
+* Workflow. [hiddify]
+
+
 ## v8.0.11 (2023-03-27)
 
 ### Other
