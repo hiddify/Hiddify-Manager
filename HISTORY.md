@@ -1,6 +1,21 @@
 # Changelog
 
 
+## v8.1.2 (2023-03-27)
+
+### Fix
+
+* Typo. [hiddify]
+
+### Other
+
+* Update README_fa.md. [Hiddify]
+
+* Update README.md. [Hiddify]
+
+* Update README.md. [Hiddify]
+
+
 ## v8.1.1 (2023-03-27)
 
 ### Other
