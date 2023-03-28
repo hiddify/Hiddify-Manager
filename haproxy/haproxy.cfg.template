@@ -8,6 +8,7 @@ defaults
     timeout client-fin 50s
     timeout server 50s
     timeout tunnel 1h
+    default-server init-addr none
     default-server inter 15s fastinter 2s downinter 5s rise 3 fall 3
 
 ### standalone stats page
