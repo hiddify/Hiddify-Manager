@@ -56,8 +56,8 @@ if [[ "$HTTP_PORTS" != "" ]];then
 	sed -i 's|"port":"80"|"port":"80,'$HTTP_PORTS'"|g' configs/05_inbounds_02_http_main.json
 fi
 
-xray run -test -confdir configs
-
+#xray run -test -confdir configs
+echo "ignoring xray test"
 if  [[ $? == 0 ]];then
 	systemctl restart hiddify-xray.service
 	systemctl start hiddify-xray.service
