@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v8.1.3 (2023-03-28)
+
+### Fix
+
+* Ignoring xray test due to memory limit. [hiddify]
+
+
 ## v8.1.2 (2023-03-27)
 
 ### Fix
