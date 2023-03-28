@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v8.2.1 (2023-03-28)
+
+### New
+
+* Add geolite database. [hiddify]
+
+
 ## v8.2.0 (2023-03-28)
 
 ### Fix
