@@ -6,7 +6,7 @@ fi
 declare -A arr
 arr["features"]="https://www.youtube.com/watch?v=-a4tfRUsrNY"
 arr["webapp-ios"]="https://youtube.com/shorts/GBywNl2KZMM"
-arr["webapp-android"]="https://youtube.com/shorts/LGXBh6Waw4E"
+arr["webapp-android"]="https://youtube.com/shorts/_-Iyr_RtIH0"
 arr["ios-fair"]="https://youtube.com/shorts/Q5HhA0oq4Mc"
 arr["ios-stash"]="https://www.youtube.com/watch?v=D0Xv54nRSY8"
 arr["ios-shadowrocket"]="https://youtube.com/shorts/5CyktpUePf0"
