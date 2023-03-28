@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v8.2.0 (2023-03-28)
+
+### Fix
+
+* Ssl cert for auto cdn ip. [hiddify]
+
+### Other
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README_fa.md. [Hiddify]
+
+* Update README.md. [Hiddify]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+
 ## v8.1.3 (2023-03-28)
 
 ### Fix
