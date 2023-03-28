@@ -176,7 +176,7 @@ We also need financial support for our services.‌ All of our activities are do
 </details>
 
 ## Collaborate with us 
-We need your collaboration in order to develop this project. If you are specialists in these areas, please do not hesitate to [contact us](https://github.com/hiddify/hiddify-config/blob/main/README.md#contact-us--%D8%B1%D8%A7%D9%87%D9%87%D8%A7%DB%8C-%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7-%D8%A8%D8%A7-%D9%85%D8%A7):
+We need your collaboration in order to develop this project. If you are specialists in these areas, please do not hesitate to contact us using links below:
 
 * Media production &nbsp;&nbsp;&nbsp;&nbsp;  
 * Python developing &nbsp;&nbsp;&nbsp;&nbsp; ‌  
@@ -192,7 +192,7 @@ We need your collaboration in order to develop this project. If you are speciali
 * Discussion: [Telegram Group](https://t.me/hiddify_board/5)
 
 -->
-
+[![Email](https://img.shields.io/badge/Email-hiddify@gmail.com-green?style=plastic&logo=gmail)](hiddify@gmail.com)
 [![Telegram Channel](https://img.shields.io/endpoint?label=Telegram&style=plastic&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify)](https://telegram.dog/hiddify)
 [![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=plastic&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
 [![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=plastic)](https://www.youtube.com/@hiddify)
