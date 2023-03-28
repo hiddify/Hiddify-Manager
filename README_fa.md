@@ -3,6 +3,7 @@
 
 [English](https://github.com/hiddify/hiddify-config#readme)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ویکی](https://github.com/hiddify/hiddify-config/wiki/Home_Fa)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[سوالات رایج](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[]()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[گزارش اشکالات](https://github.com/hiddify/hiddify-config/issues)
 
+
 </div>
 </br>
 <div align=center markdown="1">
@@ -21,6 +22,11 @@
 [![GitHub Stars](https://img.shields.io/github/stars/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
 [![GitHub Forks](https://img.shields.io/github/forks/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
 -->
+[![Telegram Channel](https://img.shields.io/endpoint?label=Telegram&style=plastic&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify)](https://telegram.dog/hiddify)
+[![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=plastic&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
+[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=plastic)](https://www.youtube.com/@hiddify)
+[![Twitter](https://img.shields.io/twitter/follow/hiddify1?label=Twitter&style=plastic)](https://twitter.com/intent/follow?screen_name=hiddify)
+
 </div>
 
 <div dir="rtl" markdown="1">
@@ -44,12 +50,12 @@
     - [راهنمای نصب بدون ssh](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%86%D8%B5%D8%A8-%D8%A8%D8%AF%D9%88%D9%86-ssh)
     - [راهنمای نصب با ssh](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%86%D8%B5%D8%A8-%D8%A8%D8%A7-ssh)
 - [راهنمای پیکربندی](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%86%D8%AD%D9%88%D9%87-%D9%BE%DB%8C%DA%A9%D8%B1%D8%A8%D9%86%D8%AF%DB%8C)
-- [دونیت و حمایت از پروژه](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D8%AF%D9%88%D9%86%DB%8C%D8%AA-%D9%88-%D8%AD%D9%85%D8%A7%DB%8C%D8%AA-%D8%A7%D8%B2-%D9%BE%D8%B1%D9%88%DA%98%D9%87)
+- [حمایت از پروژه](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D8%AF%D9%88%D9%86%DB%8C%D8%AA-%D9%88-%D8%AD%D9%85%D8%A7%DB%8C%D8%AA-%D8%A7%D8%B2-%D9%BE%D8%B1%D9%88%DA%98%D9%87)
 - [همکاری با ما](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%87%D9%85%DA%A9%D8%A7%D8%B1%DB%8C-%D8%A8%D8%A7-%D9%85%D8%A7)
 - [راه های ارتباط با ما](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D8%B1%D8%A7%D9%87-%D9%87%D8%A7%DB%8C-%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7-%D8%A8%D8%A7-%D9%85%D8%A7)
 ***
 ## چرا هیدیفای؟
-هیدیفای تلفیقی از دو کلمه مخفی و سادگی است. پنلی با ويژگی های فراوان با تعداد قابل توجهی از قابلیت ها که به شما کمک می کند با خیالی راحت و آسوده از اینترنت آزاد بهره ببرید.
+هیدیفای تلفیقی از دو کلمه مخفی و ساده سازی است. پنلی با ويژگی های فراوان با تعداد قابل توجهی از قابلیت ها که به شما کمک می کند با خیالی راحت و آسوده از اینترنت آزاد بهره ببرید.
 
 <details markdown="1"> <summary>کانفیگ‌های پشتیبانی شده</summary> 
 
