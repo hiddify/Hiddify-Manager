@@ -104,7 +104,7 @@ function set_config_from_hpanel(){
         for i in $(seq 0 ``domains.length()``); do
                 domain=$(get domains $i domain)
                 mode=$(get domains $i mode)
-                if [ "$mode"  == "direct" ] || [ "$mode"  == "cdn" ] || [ "$mode"  == "relay" ];then
+                if [ "$mode"  == "direct" ] || [ "$mode"  == "cdn" ] || [ "$mode"  == "relay" ] || [ "$mode"  == "auto_cdn_ip" ];then
                         MAIN_DOMAIN="$domain;$MAIN_DOMAIN"
                 fi
                 if [ "$mode"  = "ss_faketls" ];then
