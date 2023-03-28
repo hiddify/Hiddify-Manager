@@ -56,8 +56,8 @@ Hiddify is a powerful and professional anti-censorship toolbox, which is a multi
   - [Installation with ssh](https://github.com/hiddify/hiddify-config/blob/main/README.md#installation-with-ssh)
 - [Configuration Guide](https://github.com/hiddify/hiddify-config/blob/main/README.md#configuration-guide)
 - [Donation and Support](https://github.com/hiddify/hiddify-config/blob/main/README.md#donation-and-support)
-- [Collaborate with us](https://github.com/hiddify/hiddify-config/blob/main/README.md#collaborate-with-us)
-- [Contact us](https://github.com/hiddify/hiddify-config/blob/main/README.md#contact-us)
+- [Collaboration and Contact Information](https://github.com/hiddify/hiddify-config/blob/main/README.md#collaboration-and-contact-information)
+
 
 ***
 ## Why Hiddify?
@@ -189,13 +189,15 @@ We need your collaboration in order to develop this project. If you are speciali
 <div align=center>
 
 <!--
-## Contact us
+## Collaboration and Contact Information
 
 * Email: [hiddify@gmail.com](mailto:hiddify@gmail.com)
 * Annoncements: [Telegram Channel](https://t.me/hiddify)
 * Discussion: [Telegram Group](https://t.me/hiddify_board/5)
 
 -->
+</br>
+
 [![Email](https://img.shields.io/badge/Email-hiddify@gmail.com-green?style=plastic&logo=gmail)](hiddify@gmail.com)
 [![Telegram Channel](https://img.shields.io/endpoint?label=Telegram&style=plastic&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify)](https://telegram.dog/hiddify)
 [![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=plastic&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
