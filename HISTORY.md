@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v8.2.6 (2023-03-28)
+
+### New
+
+* New andorid webapp youtube link. [hiddify]
+
+
 ## v8.2.5 (2023-03-28)
 
 ### Other
