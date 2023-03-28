@@ -137,7 +137,7 @@ Here you can use this guide on pre-prepared Ubuntu server with ssh connection
 
 
 ## Configuration Guide
-**Making best use of this panel via this** [guide](https://github.com/hiddify/hiddify-config/wiki/How-to-configure-Hiddify-Panel-properly).
+**Making the best use of this panel via this** [guide](https://github.com/hiddify/hiddify-config/wiki/How-to-configure-Hiddify-Panel-properly).
 
 ## Donation and support 
 The easiest way to support us is to click on the star (⭐) at the top of [GitHub page](https://github.com/hiddify/hiddify-config).
