@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v8.2.3 (2023-03-28)
+
+### Other
+
+* No error in haproxy if decoy server not working. [hiddify]
+
+
 ## v8.2.2 (2023-03-28)
 
 ### Other
