@@ -47,4 +47,7 @@ service cron reload
 
 
 ##### download videos
-bash download_yt.sh &
+bash download_yt.sh & 
+
+wget -c https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb -O GeoLite2-ASN.mmdb &
+wget -c https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb -O GeoLite2-Country.mmdb &
