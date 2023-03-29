@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v8.2.7 (2023-03-29)
+
+### New
+
+* Automatically update IPs. [hiddify]
+
+
 ## v8.2.6 (2023-03-28)
 
 ### New
