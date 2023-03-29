@@ -58,7 +58,7 @@
 ## چرا هیدیفای؟
 هیدیفای تلفیقی از دو کلمه مخفی و ساده سازی است. پنلی با ويژگی های فراوان با تعداد قابل توجهی از قابلیت ها که به شما کمک می کند با خیالی راحت و آسوده از اینترنت آزاد بهره ببرید.
 
-<details markdown="1"> <summary>کانفیگ‌های پشتیبانی شده</summary> 
+<details markdown="1"> <summary><b>کانفیگ‌های پشتیبانی شده</b></summary> 
 
 | کانفیگ های پشتیبانی شده | Supported Configs |
 | - | - |
@@ -70,7 +70,7 @@
 </details>
 
 
-<details markdown="1"> <summary>پروکسی هوشمند برای سایت های غیر ایرانی و فیلترشده</summary>
+<details markdown="1"> <summary><b>پروکسی هوشمند برای سایت های غیر ایرانی و فیلترشده</b></summary>
  
 با استفاده از کلاینت کلش و پنل هایدیفای می‌تونین در ۳ حالت به اینترنت وصل بشید. 
 
@@ -84,7 +84,7 @@
 
 </details>
 
-<details markdown="1"><summary>سایر امکانات</summary>
+<details markdown="1"><summary><b>سایر امکانات</b></summary>
 
 
 <details  markdown="1"> <summary>سیستم‌عامل‌های پشتیبانی شده</summary>
@@ -134,7 +134,7 @@ Ubuntu arm64 or amd64
 
 ## راهنمای نصب
 
-<details markdown="1"> <summary><b>راهنمای نصب بدون ssh</b></summary> 
+<details markdown="1"> <summary><b>راهنمای نصب بدون SSH</b></summary> 
 در این روش به صورت خیلی سریع و آسان بدون نیاز به دانش فنی و ssh و با استفاده از قابلیت cloud-init نصب انجام می شود.
 
 - [نصب در ولتر Vultr (گزینه پیشنهادی برای شروع ) ](https://github.com/hiddify/hiddify-config/wiki/Vultr-%D9%86%D8%B5%D8%A8-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D9%88%D9%84%D8%AA%D8%B1)
@@ -145,7 +145,7 @@ Ubuntu arm64 or amd64
 
 </details>
 
-<details markdown="1"> <summary><b>راهنمای نصب با ssh</b></summary>
+<details markdown="1"> <summary><b>راهنمای نصب با SSH</b></summary>
 
 در این حالت روی سرور از پیش آماده اوبونتو با ssh نصب انجام می شود.
 
