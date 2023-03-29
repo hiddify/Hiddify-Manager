@@ -22,19 +22,21 @@ function main(){
         FORCE=true
     fi
     
-    if [[ "$PACKAGE_MODE" == "1develop" ]];then
+    if [[ "$PACKAGE_MODE" == "develop" ]];then
         echo "you are in develop mode"
-        LATEST=$(get_commit_version HiddifyPanel)
-        INSTALL_DIR=$(pip show hiddifypanel |grep Location |awk -F": " '{ print $2 }')
-        CURRENT=$(cat $INSTALL_DIR/hiddifypanel/VERSION)
-        echo "DEVLEOP: hiddify panel version current=$CURRENT latest=$LATEST"
-        if [[ FORCE == "true" || "$LATEST" != "$CURRENT" ]];then
-            pip3 uninstall -y hiddifypanel
-            pip3 install -U git+https://github.com/hiddify/HiddifyPanel
-            echo $LATEST>$INSTALL_DIR/hiddifypanel/VERSION
-            echo "__version__='$LATEST'">$INSTALL_DIR/hiddifypanel/VERSION.py
-            UPDATE=1
-        fi
+        #LATEST=$(get_commit_version HiddifyPanel)
+        #INSTALL_DIR=$(pip show hiddifypanel |grep Location |awk -F": " '{ print $2 }')
+        #CURRENT=$(cat $INSTALL_DIR/hiddifypanel/VERSION)
+        #echo "DEVLEOP: hiddify panel version current=$CURRENT latest=$LATEST"
+        #if [[ FORCE == "true" || "$LATEST" != "$CURRENT" ]];then
+        #    pip3 uninstall -y hiddifypanel
+        #    pip3 install -U git+https://github.com/hiddify/HiddifyPanel
+        #    echo $LATEST>$INSTALL_DIR/hiddifypanel/VERSION
+        #    echo "__version__='$LATEST'">$INSTALL_DIR/hiddifypanel/VERSION.py
+        #    UPDATE=1
+        #fi
+        pip install -U hiddifypanel --pre
+        UPDATE=1
     else 
         CURRENT=`pip3 freeze |grep hiddifypanel|awk -F"==" '{ print $2 }'`
         LATEST=`lastversion hiddifypanel --at pip`
