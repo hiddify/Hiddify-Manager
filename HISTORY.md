@@ -1,6 +1,33 @@
 # Changelog
 
 
+## v8.2.8 (2023-03-29)
+
+### New
+
+* Remove predefined asn db. [hiddify]
+
+### Other
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [lumanjre]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README_fa.md. [Hiddify]
+
+* Update README.md. [Hiddify]
+
+* Update README_fa.md. [Hiddify]
+
+* Update README.md. [Hiddify]
+
+
 ## v8.2.7 (2023-03-29)
 
 ### New
