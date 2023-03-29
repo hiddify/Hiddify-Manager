@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v8.3.0 (2023-03-29)
+
+### New
+
+* Add pre-release version update. [hiddify]
+
+
 ## v8.2.8 (2023-03-29)
 
 ### New
