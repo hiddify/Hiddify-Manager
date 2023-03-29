@@ -131,7 +131,7 @@ When you want to share Telegram proxy or Shadowsocks proxy through other program
 ## Installation Guide
 
 
-<details markdown="1"> <summary><b>Installation without ssh</b></summary>
+<details markdown="1"> <summary><b>Installation without SSH</b></summary>
 This way you can take advantage of quick and easy installation of this panel using cloud-init scripts with no technical knowledge and even without any ssh connections
 
 - [Installation in Vultr (Recommended option to start) ](https://github-com.translate.goog/hiddify/hiddify-config/wiki/Vultr-%D9%86%D8%B5%D8%A8-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D9%88%D9%84%D8%AA%D8%B1?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=wapp)
@@ -141,7 +141,7 @@ This way you can take advantage of quick and easy installation of this panel usi
 
 </details>
 
-<details markdown="1"> <summary><b>Installation with ssh</b></summary>
+<details markdown="1"> <summary><b>Installation with SSH</b></summary>
 Here you can use this guide on pre-prepared Ubuntu server with ssh connection
 
 - [Installation on Ubuntu server](https://github-com.translate.goog/hiddify/hiddify-config/wiki/%D9%86%D8%B5%D8%A8-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D8%A7%D9%88%D8%A8%D9%88%D9%86%D8%AA%D9%88?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=wapp)
