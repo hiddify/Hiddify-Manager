@@ -8,7 +8,7 @@
 </br>
 <div align=center markdown="1">
 
-<img src="https://user-images.githubusercontent.com/125398461/227777845-a4d0f86b-faa2-4f2b-a410-4aa5f68bfe19.png" dir="rtl" />
+![Hiddify Logo](https://user-images.githubusercontent.com/125398461/227777845-a4d0f86b-faa2-4f2b-a410-4aa5f68bfe19.png)
 
 </div>
 </br>
