@@ -8,7 +8,7 @@
 </br>
 <div align=center markdown="1">
 
-<img src="https://user-images.githubusercontent.com/125398461/227777845-a4d0f86b-faa2-4f2b-a410-4aa5f68bfe19.png" dir="rtl" />
+![Hiddify Logo](https://user-images.githubusercontent.com/125398461/227777845-a4d0f86b-faa2-4f2b-a410-4aa5f68bfe19.png)
 
 </div>
 </br>
@@ -17,7 +17,7 @@
 [![Total Downloads](https://img.shields.io/github/downloads/hiddify/hiddify-config/total?label=downloads%20after%202023%2F03%2F27%2011%3A00%20)](https://github.com/hiddify/hiddify-config/)
 [![Last Version](https://img.shields.io/github/release/hiddify/hiddify-config/all.svg)](https://github.com/hiddify/hiddify-config/)
 [![Last Release Date](https://img.shields.io/github/release-date/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
-[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=plastic)](https://www.youtube.com/@hiddify)
+[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=plastic)](https://www.youtube.com/@hiddify/videos)
 [![Telegram Channel](https://img.shields.io/endpoint?label=Telegram&style=plastic&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify)](https://telegram.dog/hiddify)
 [![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=plastic&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
 <!--
@@ -33,7 +33,7 @@
 <div dir="rtl" markdown="1">
 
 ## به هیدیفای خوش آمدید
-هیدیفای یک ابزار قدرتمند و خرفه ای ضدسانسور اینترنت است که دارای پنل چند کاربره و نصب آسان است و به شما کمک می کند با بیش از ۲۰ پروتکل پشتیبانی شده فیلترینگ اینترنت را دور بزنید همچنین می توانید از پروکسی تلگرام استفاده نمایید. این ابزار برای شبکه اینترنت ایران بهینه سازی شده است و توسط <a href="https://github.com/XTLS/Xray-core#installation" target="_blank">xray</a> توصیه شده است. این پنل یک جایگزین عالی برای X-UI می باشد.
+هیدیفای یک ابزار قدرتمند و حرفه ای ضدسانسور اینترنت است که دارای پنل چند کاربره و نصب آسان است و به شما کمک می کند با بیش از ۲۰ پروتکل پشتیبانی شده فیلترینگ اینترنت را دور بزنید همچنین می توانید از پروکسی تلگرام استفاده نمایید. این ابزار برای شبکه اینترنت ایران بهینه سازی شده است و توسط <a href="https://github.com/XTLS/Xray-core#installation" target="_blank">xray</a> توصیه شده است. این پنل یک جایگزین عالی برای X-UI می باشد.
 
 
 
@@ -58,7 +58,7 @@
 ## چرا هیدیفای؟
 هیدیفای تلفیقی از دو کلمه مخفی و ساده سازی است. پنلی با ويژگی های فراوان با تعداد قابل توجهی از قابلیت ها که به شما کمک می کند با خیالی راحت و آسوده از اینترنت آزاد بهره ببرید.
 
-<details markdown="1"> <summary>کانفیگ‌های پشتیبانی شده</summary> 
+<details markdown="1"> <summary><b>کانفیگ‌های پشتیبانی شده</b></summary> 
 
 | کانفیگ های پشتیبانی شده | Supported Configs |
 | - | - |
@@ -70,7 +70,7 @@
 </details>
 
 
-<details markdown="1"> <summary>پروکسی هوشمند برای سایت های غیر ایرانی و فیلترشده</summary>
+<details markdown="1"> <summary><b>پروکسی هوشمند برای سایت های غیر ایرانی و فیلترشده</b></summary>
  
 با استفاده از کلاینت کلش و پنل هایدیفای می‌تونین در ۳ حالت به اینترنت وصل بشید. 
 
@@ -84,7 +84,7 @@
 
 </details>
 
-<details markdown="1"><summary>سایر امکانات</summary>
+<details markdown="1"><summary><b>سایر امکانات</b></summary>
 
 
 <details  markdown="1"> <summary>سیستم‌عامل‌های پشتیبانی شده</summary>
@@ -134,7 +134,7 @@ Ubuntu arm64 or amd64
 
 ## راهنمای نصب
 
-<details markdown="1"> <summary><b>راهنمای نصب بدون ssh</b></summary> 
+<details markdown="1"> <summary><b>راهنمای نصب بدون SSH</b></summary> 
 در این روش به صورت خیلی سریع و آسان بدون نیاز به دانش فنی و ssh و با استفاده از قابلیت cloud-init نصب انجام می شود.
 
 - [نصب در ولتر Vultr (گزینه پیشنهادی برای شروع ) ](https://github.com/hiddify/hiddify-config/wiki/Vultr-%D9%86%D8%B5%D8%A8-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D9%88%D9%84%D8%AA%D8%B1)
@@ -145,7 +145,7 @@ Ubuntu arm64 or amd64
 
 </details>
 
-<details markdown="1"> <summary><b>راهنمای نصب با ssh</b></summary>
+<details markdown="1"> <summary><b>راهنمای نصب با SSH</b></summary>
 
 در این حالت روی سرور از پیش آماده اوبونتو با ssh نصب انجام می شود.
 
@@ -219,7 +219,7 @@ Ubuntu arm64 or amd64
 [![Telegram Channel](https://img.shields.io/endpoint?label=Telegram&style=plastic&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify)](https://telegram.dog/hiddify)
 [![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=plastic&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
 [![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=plastic)](https://www.youtube.com/@hiddify)
-[![Twitter](https://img.shields.io/twitter/follow/hiddify1?label=Twitter&style=plastic)](https://twitter.com/intent/follow?screen_name=hiddify)
+[![Twitter](https://img.shields.io/twitter/follow/hiddify_com?label=Twitter&style=plastic)](https://twitter.com/intent/follow?screen_name=hiddify_com)
 
  </div>
  
