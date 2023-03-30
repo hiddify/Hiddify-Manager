@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v8.3.3 (2023-03-30)
+
+### Other
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README.md. [lumanjre]
+
+* Update README.md. [Hiddify]
+
+
 ## v8.3.2 (2023-03-30)
 
 ### New
