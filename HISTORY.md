@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v8.3.2 (2023-03-30)
+
+### New
+
+* Add daily actions to release some memories. [hiddify]
+
+### Changes
+
+* Better code. [hiddify]
+
+### Other
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [Hiddify Official]
+
+* Update README.md. [Hiddify Official]
+
+* Better download GeoIP. [hiddify]
+
+
 ## v8.3.0 (2023-03-29)
 
 ### New
