@@ -21,7 +21,7 @@
 [![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=plastic)](https://www.youtube.com/@hiddify/videos)
 [![Telegram Channel](https://img.shields.io/endpoint?label=Telegram&style=plastic&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify)](https://telegram.dog/hiddify)
 [![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=plastic&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
-
+![commits](https://img.shields.io/github/commit-activity/m/hiddify/hiddify-config)
 <!--
 [![GitHub Stars](https://img.shields.io/tokei/lines/github/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
 [![GitHub Stars](https://img.shields.io/github/stars/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
