@@ -70,7 +70,7 @@ Hiddify is a Mixture Of Hidden And Simplify. A Feature-Full Panel With a Wide Ra
 | ♥ **Telegram Proxy** ♥ | **VLess + XTLS** |
 | **Web Socket (CDN Support)**:<br> - VLess+TLS+WS <br>- Trojan+TLS+WS <br> - VMess+TLS+WS | **h2 + TLS**:<br> - VLess+TLS<br> - Trojan+TLS<br> - VMess+TLS |
 | **gRPC + TLS**:<br> - VLess+gRPC+TLS<br> - Trojan+gRPC+TLS<br> - VMess+gRPC+TLS | **Http1.1 + TLS**:  <br>- Trojan+TLS <br> - VMess+TLS|
-| **Old Configs**: <br> - Trojan-Go (CDN Support) <br> - V2Ray+WS (CDN Support) <br> - VMess (CDN Support) <br> - SS+FakeTLS| **HTTP** <br> - Unsafe, Default Is Disable <br> - VLess<br> -VMess |
+| **Old Configs**: <br> - Trojan-Go (CDN Support) <br> - V2Ray+WS (CDN Support) <br> - VMess (CDN Support) <br> - SS+FakeTLS| **HTTP** <br> - Unsafe, Default Is Disable <br> - VLess<br> - VMess |
 
 </details>
 
