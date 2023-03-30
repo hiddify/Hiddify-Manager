@@ -21,6 +21,7 @@ bash google-bbr.sh
 sysctl -w net.ipv4.conf.all.route_localnet=1
 
 echo "@reboot root /opt/hiddify-config/install.sh >> /opt/hiddify-config/log/system/reboot.log 2>&1" > /etc/cron.d/hiddify_reinstall_on_reboot
+echo "@daily root /opt/hiddify-config/common/daily_actions.sh >> /opt/hiddify-config/log/system/daily_actions.log 2>&1" > /etc/cron.d/hiddify_daily_memory_release
 service cron reload
 
 
