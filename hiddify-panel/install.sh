@@ -39,7 +39,7 @@ echo "*/10 * * * * root $(pwd)/update_usage.sh" > /etc/cron.d/hiddify_usage_upda
 service cron reload
 
 systemctl start hiddify-panel.service
-systemctl status hiddify-panel.service
+systemctl status hiddify-panel.service --no-pager
 
 
 echo "0 */6 * * * root $(pwd)/backup.sh" > /etc/cron.d/hiddify_auto_backup
@@ -47,7 +47,10 @@ service cron reload
 
 
 ##### download videos
-bash download_yt.sh & 
 
-wget https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb -O GeoLite2-ASN.mmdb &
-wget https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb -O GeoLite2-Country.mmdb &
+
+wget https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb -O GeoLite2-ASN.mmdb 
+wget https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb -O GeoLite2-Country.mmdb 
+
+
+bash download_yt.sh & 
