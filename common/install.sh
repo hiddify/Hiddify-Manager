@@ -26,3 +26,6 @@ service cron reload
 
 
 localectl set-locale LANG=C.UTF-8
+
+wget -N https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh && bash warp-go.sh d
+
