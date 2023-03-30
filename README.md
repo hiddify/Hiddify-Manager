@@ -42,7 +42,7 @@
 
 ## Welcome to Hiddify
 
-Hiddify is a powerful and professional anti-censorship toolbox, which is a multi-user panel with an effortless installation and supporting more than 20 protocols to circumvent filtering plus telegram proxy.  It's optimized for censorship circumvention in China, Russia and Iran and recommended by <a href="https://github.com/XTLS/Xray-core#installation" target="_blank">xray</a>. It's a great replacement of X-UI.
+Hiddify is a powerful and professional anti-censorship toolbox, which is a multi-user panel with an effortless installation and supporting more than 20 protocols to circumvent filtering plus telegram proxy.  It's optimized for censorship circumvention in China, Russia and Iran and recommended by <a href="https://github.com/XTLS/Xray-core#installation" target="_blank">Xray</a>. It's a great replacement of X-UI.
 
 ![english++png](https://user-images.githubusercontent.com/114227601/228011984-83b1f981-aede-438e-920d-113d9894477a.png)
 
@@ -52,8 +52,8 @@ Hiddify is a powerful and professional anti-censorship toolbox, which is a multi
 ### Table of Contents
 - [Why Hiddify?](https://github.com/hiddify/hiddify-config/blob/main/README.md#why-hiddify)
 - [Installation Guide](https://github.com/hiddify/hiddify-config/blob/main/README.md#installation-guide)
-  - [Installation without ssh](https://github.com/hiddify/hiddify-config/blob/main/README.md#installation-without-ssh)
-  - [Installation with ssh](https://github.com/hiddify/hiddify-config/blob/main/README.md#installation-with-ssh)
+  - [Installation Without SSH](https://github.com/hiddify/hiddify-config/blob/main/README.md#installation-without-ssh)
+  - [Installation With SSH](https://github.com/hiddify/hiddify-config/blob/main/README.md#installation-with-ssh)
 - [Configuration Guide](https://github.com/hiddify/hiddify-config/blob/main/README.md#configuration-guide)
 - [Donation and Support](https://github.com/hiddify/hiddify-config/blob/main/README.md#donation-and-support)
 - [Collaboration and Contact Information](https://github.com/hiddify/hiddify-config/blob/main/README.md#collaboration-and-contact-information)
@@ -154,12 +154,12 @@ Here you can use this guide on pre-prepared Ubuntu server with ssh connection
 <b>Making the best use of this panel via [this guide](https://github-com.translate.goog/hiddify/hiddify-config/wiki/%D9%86%D8%AD%D9%88%D9%87-%D9%BE%DB%8C%DA%A9%D8%B1%D8%A8%D9%86%D8%AF%DB%8C-%D9%BE%D9%86%D9%84-%D9%87%DB%8C%D8%AF%DB%8C%D9%81%D8%A7%DB%8C?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=wapp).</b>
 
 ## Donation And Support 
-The easiest way to support us is to click on the star (⭐) at the top of [GitHub page](https://github.com/hiddify/hiddify-config).
+The easiest way to support us is to click on the star (⭐) at the top of [GitHub Page](https://github.com/hiddify/hiddify-config).
 
 We also need financial support for our services.‌ All of our activities are done voluntarily and the financial support will be spent on the development of the project. 
 
 
-<details markdown="1"> <summary><b>Credit card and PayPal</b></summary> 
+<details markdown="1"> <summary><b>Credit Card And PayPal</b></summary> 
 
   - [![Paypal](https://img.shields.io/badge/Donate-PayPal-blue?style=plastic&logo=paypal)](https://opencollective.com/hiddify/contribute/backer-50556/checkout?interval=month&amount=10)
   - [![Paypal](https://img.shields.io/badge/Donate-CreditCard-orange?style=plastic&logo=visa)](https://opencollective.com/hiddify/contribute/backer-50556/checkout?interval=month&amount=10)
@@ -182,9 +182,9 @@ We also need financial support for our services.‌ All of our activities are do
 ## Collaboration and Contact Information 
 We need your collaboration in order to develop this project. If you are specialists in these areas, please do not hesitate to contact us:
 
-* Media production &nbsp;&nbsp;&nbsp;&nbsp;  
-* Python developing &nbsp;&nbsp;&nbsp;&nbsp; ‌  
-* Kotlin developing &nbsp;&nbsp;&nbsp;&nbsp; 
+* Media Production &nbsp;&nbsp;&nbsp;&nbsp;  
+* Python Developing &nbsp;&nbsp;&nbsp;&nbsp; ‌  
+* Kotlin Developing &nbsp;&nbsp;&nbsp;&nbsp; 
 
 <div align=center>
 
@@ -218,5 +218,5 @@ We need your collaboration in order to develop this project. If you are speciali
 </a>
 </p>
 <p align=center>
- Made with <a rel="" target="_blank" href="https://contrib.rocks">contrib.rocks</a> 
+ Made With <a rel="" target="_blank" href="https://contrib.rocks">Contrib.Rocks</a> 
 </p>
