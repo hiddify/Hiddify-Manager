@@ -2,7 +2,7 @@
 # ln -sf $(pwd)/xtls-config.json /usr/local/etc/xray/config.json
 # ln -sf $(pwd)/xtls-sni-config.json /usr/local/etc/xray/config.json
 #sed -i "s/^User=/#User=/g" /etc/systemd/system/xray.service
-
+mkdir -p run
 ln -sf $(pwd)/hiddify-xray.service /etc/systemd/system/hiddify-xray.service
 systemctl enable hiddify-xray.service
 
