@@ -13,23 +13,23 @@
             //zh "ip": ["geoip:cn"]
         },
           
-          {
-                "type":"field",
-                "domain":[
-                    "domain:openai.com",
-                    "domain:ai.com"
-                ],
-                "outboundTag":"WARP-CHATGPT"
-            },
-         {
-                "type":"field",
-                "outboundTag":"WRAP",
-                "domain":[
-                    "geosite:google",
-                    "geosite:netflix",
-                    "domain:ip.gs"
-                ]
-            },
+        //   {
+        //         "type":"field",
+        //         "domain":[
+        //             "domain:openai.com",
+        //             "domain:ai.com"
+        //         ],
+        //         "outboundTag":"WARP-CHATGPT"
+        //     },
+        //  {
+        //         "type":"field",
+        //         "outboundTag":"WRAP",
+        //         "domain":[
+        //             "geosite:google",
+        //             "geosite:netflix",
+        //             "domain:ip.gs"
+        //         ]
+        //     },
         {
             "type": "field",
             //"inboundTag": ["xtls"], 
