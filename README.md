@@ -1,8 +1,8 @@
 <base target="_blank">
 
-<div dir="ltr" markdown="1">
+<div dir="ltr">
 
- [فارسی](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Wiki](https://github.com/hiddify/hiddify-config/wiki)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[FAQ](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ReportBugs](https://github.com/hiddify/hiddify-config/issues)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ ![Lang Logo](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/ir.png)&nbsp;[<b>فارسی</b>](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md)&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;[Wiki](https://github.com/hiddify/hiddify-config/wiki)&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;[FAQ](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;[ReportBugs](https://github.com/hiddify/hiddify-config/issues)&nbsp;&nbsp;&nbsp;
 </div>
 </br>
 <div align=center markdown="1">
@@ -42,7 +42,7 @@
 
 ## Welcome to Hiddify
 
-Hiddify is a powerful and professional anti-censorship toolbox, which is a multi-user panel with an effortless installation and supporting more than 20 protocols to circumvent filtering plus telegram proxy.  It's optimized for censorship circumvention in China, Russia and Iran and recommended by <a href="https://github.com/XTLS/Xray-core#installation" target="_blank">Xray</a>. It's a great replacement of X-UI.
+Hiddify Is a Powerful And Professional Anti-Censorship Toolbox, Which Is a Multi-User Panel With An Effortless Installation And <b>Supporting More Than 20 Protocols</b> To Circumvent Filtering Plus <b>Telegram Proxy.</b>  It's Optimized For Censorship Circumvention In <b>China</b>, <b>Russia</b> and <b>Iran</b> And Recommended By <a href="https://github.com/XTLS/Xray-core#installation" target="_blank"><b>Xray</b></a>. It's a Great Replacement Of X-UI.
 
 ![english++png](https://user-images.githubusercontent.com/114227601/228011984-83b1f981-aede-438e-920d-113d9894477a.png)
 
@@ -61,16 +61,16 @@ Hiddify is a powerful and professional anti-censorship toolbox, which is a multi
 
 ***
 ## Why Hiddify?
-Hiddify is a mixture of hidden and simplify. A feature-full panel with a wide range of capabilities that helps you enjoy surfing free internet with ease and peace of mind. 
+Hiddify is a Mixture Of Hidden And Simplify. A Feature-Full Panel With a Wide Range Pf Capabilities That Helps You Enjoy Surfing Free Internet With Ease And Peace Of Mind. 
 
 <details markdown="1"> <summary> <b>Supported Protocols</b> </summary> 
 
 | Supported Configs | Supported Configs |
 | - | - |
-| ♥ **Telegram Proxy** ♥ | **vless+xtls** |
-| **Web Socket (cdn support)**:<br> - vless+tls+ws <br>- trojan+tls+ws <br> - vmess+tls+ws | **h2+tls**:<br> - vless+tls<br> - trojan+tls<br> - vmess+tls |
-| **grpc+tls**:<br> - vless+grpc+tls<br> - trojan+grpc+tls<br> - vmess+grpc+tls | **http1.1+tls**:  <br>- trojan+tls <br> - vmess+tls|
-| **old configs**: <br> - trojango (cdn support) <br> - v2ray+ws (cdn support) <br> - vmess (cdn support) <br> - ss+faketls| **HTTP** <br> -unsafe, default is disable <br> - vless<br> -vmess |
+| ♥ **Telegram Proxy** ♥ | **VLess + XTLS** |
+| **Web Socket (CDN Support)**:<br> - VLess+TLS+WS <br>- Trojan+TLS+WS <br> - VMess+TLS+WS | **h2 + TLS**:<br> - VLess+TLS<br> - Trojan+TLS<br> - VMess+TLS |
+| **gRPC + TLS**:<br> - VLess+gRPC+TLS<br> - Trojan+gRPC+TLS<br> - VMess+gRPC+TLS | **Http1.1 + TLS**:  <br>- Trojan+TLS <br> - VMess+TLS|
+| **Old Configs**: <br> - Trojan-Go (CDN Support) <br> - V2Ray+WS (CDN Support) <br> - VMess (CDN Support) <br> - SS+FakeTLS| **HTTP** <br> - Unsafe, Default Is Disable <br> - VLess<br> - VMess |
 
 </details>
 
