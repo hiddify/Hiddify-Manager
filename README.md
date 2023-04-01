@@ -15,14 +15,17 @@
 <div align=center>
 
 
-[![Total Downloads](https://img.shields.io/github/downloads/hiddify/hiddify-config/total?label=downloads%20after%202023%2F03%2F27%2011%3A00%20)](https://github.com/hiddify/hiddify-config/)
-[![Last Version](https://img.shields.io/github/release/hiddify/hiddify-config/all.svg)](https://github.com/hiddify/hiddify-config/)
-[![Last Release Date](https://img.shields.io/github/release-date/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
-![commits](https://img.shields.io/github/commit-activity/m/hiddify/hiddify-config)
-[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=plastic)](https://www.youtube.com/@hiddify/videos)
-[![Telegram Channel](https://img.shields.io/endpoint?label=Telegram&style=plastic&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify)](https://telegram.dog/hiddify)
-[![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=plastic&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
+[![Total Downloads](https://img.shields.io/github/downloads/hiddify/hiddify-config/total?label=downloads%20after%202023%2F03%2F27%2011%3A00%20&style=flat-square)](https://github.com/hiddify/hiddify-config/)
+[![Last Version](https://img.shields.io/github/release/hiddify/hiddify-config/all.svg?style=flat-square)](https://github.com/hiddify/hiddify-config/)
+[![Last Release Date](https://img.shields.io/github/release-date/hiddify/hiddify-config.svg?style=flat-square)](https://github.com/hiddify/hiddify-config/)
+![commits](https://img.shields.io/github/commit-activity/m/hiddify/hiddify-config?style=flat-square)
+[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square&logo=youtube)](https://www.youtube.com/@hiddify)
+[![Telegram Channel](https://img.shields.io/endpoint?label=Channel&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify&color=blue)](https://telegram.dog/hiddify)
+[![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
 <!--
+[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square)](https://www.youtube.com/@hiddify/videos)
+[![Telegram Channel](https://img.shields.io/endpoint?label=Telegram&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify)](https://telegram.dog/hiddify)
+[![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
 [![GitHub Stars](https://img.shields.io/tokei/lines/github/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
 [![GitHub Stars](https://img.shields.io/github/stars/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
 [![GitHub Forks](https://img.shields.io/github/forks/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
@@ -161,8 +164,8 @@ We also need financial support for our services.‌ All of our activities are do
 
 <details markdown="1"> <summary><b>Credit Card And PayPal</b></summary> 
 
-  - [![Paypal](https://img.shields.io/badge/Donate-PayPal-blue?style=plastic&logo=paypal)](https://opencollective.com/hiddify/contribute/backer-50556/checkout?interval=month&amount=10)
-  - [![Paypal](https://img.shields.io/badge/Donate-CreditCard-orange?style=plastic&logo=visa)](https://opencollective.com/hiddify/contribute/backer-50556/checkout?interval=month&amount=10)
+  - [![Paypal](https://img.shields.io/badge/Donate-PayPal-blue?style=flat-square&logo=paypal)](https://opencollective.com/hiddify/contribute/backer-50556/checkout?interval=month&amount=10)
+  - [![Paypal](https://img.shields.io/badge/Donate-CreditCard-orange?style=flat-square&logo=visa)](https://opencollective.com/hiddify/contribute/backer-50556/checkout?interval=month&amount=10)
   
   </details>
 
@@ -170,12 +173,12 @@ We also need financial support for our services.‌ All of our activities are do
  
 
   - [![TON](https://img.shields.io/badge/Donate-Ton-informational) `EQCWnykA-YhavOXgH3sf-uxtXLjy83_9n5bJPGRPE8r2247_`](https://tonwhales.com/explorer/address/EQCWnykA-YhavOXgH3sf-uxtXLjy83_9n5bJPGRPE8r2247_)
-  - [![USDT (TRC20)](https://img.shields.io/badge/Donate-USDT%20(TRC20)-orange?style=plastic&logo=Tether) `TXZtFUxyBPMSykAWogu7C4zmbjySKqMcDE`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=usdt:TXZtFUxyBPMSykAWogu7C4zmbjySKqMcDE&chld=H)
-  - [![LiteCoin](https://img.shields.io/badge/Donate-LiteCoin-blue?style=plastic&logo=Litecoin) `MCHoh7xwaDBBnQgANPpBtXiekagV6KpdrM`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=litecoin:MCHoh7xwaDBBnQgANPpBtXiekagV6KpdrM&chld=H)
-  - [![BNB (smart chain)](https://img.shields.io/badge/Donate-BNB%20(smart%20chain)-lightgreen)  `0xF5CFc65ee336B377C2a37EA3BCD0CaD0d0F0CbA0`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=bnb:0xF5CFc65ee336B377C2a37EA3BCD0CaD0d0F0CbA0&chld=H)
-  - [![Ethereum](https://img.shields.io/badge/Donate-Ethereum-blueviolet?style=plastic&logo=Ethereum) `0xF5CFc65ee336B377C2a37EA3BCD0CaD0d0F0CbA0`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=ethereum:0xF5CFc65ee336B377C2a37EA3BCD0CaD0d0F0CbA0&chld=H)
-  - ![BitCoin](https://img.shields.io/badge/Donate-BitCoin-orange?style=plastic&logo=bitcoin) [`bc1qkfp7n3wxu2zc9mdy20cf27d5pujj65myww8f60`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=bitcoin:bc1qkfp7n3wxu2zc9mdy20cf27d5pujj65myww8f60&chld=H)
-  -  [![Doge](https://img.shields.io/badge/Donate-DOGE%20(Dogecoin)-yellow?style=plastic&logo=Dogecoin)`DPerFS2vCu5XnE3He32BaPVTkUDcKLsEaj`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=doge:DPerFS2vCu5XnE3He32BaPVTkUDcKLsEaj&chld=H)
+  - [![USDT (TRC20)](https://img.shields.io/badge/Donate-USDT%20(TRC20)-orange?style=flat-square&logo=Tether) `TXZtFUxyBPMSykAWogu7C4zmbjySKqMcDE`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=usdt:TXZtFUxyBPMSykAWogu7C4zmbjySKqMcDE&chld=H)
+  - [![LiteCoin](https://img.shields.io/badge/Donate-LiteCoin-blue?style=flat-square&logo=Litecoin) `MCHoh7xwaDBBnQgANPpBtXiekagV6KpdrM`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=litecoin:MCHoh7xwaDBBnQgANPpBtXiekagV6KpdrM&chld=H)
+  - [![BNB (smart chain)](https://img.shields.io/badge/Donate-BNB%20(smart%20chain?style=flat-square)-lightgreen)  `0xF5CFc65ee336B377C2a37EA3BCD0CaD0d0F0CbA0`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=bnb:0xF5CFc65ee336B377C2a37EA3BCD0CaD0d0F0CbA0&chld=H)
+  - [![Ethereum](https://img.shields.io/badge/Donate-Ethereum-blueviolet?style=flat-square&logo=Ethereum) `0xF5CFc65ee336B377C2a37EA3BCD0CaD0d0F0CbA0`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=ethereum:0xF5CFc65ee336B377C2a37EA3BCD0CaD0d0F0CbA0&chld=H)
+  - ![BitCoin](https://img.shields.io/badge/Donate-BitCoin-orange?style=flat-square&logo=bitcoin) [`bc1qkfp7n3wxu2zc9mdy20cf27d5pujj65myww8f60`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=bitcoin:bc1qkfp7n3wxu2zc9mdy20cf27d5pujj65myww8f60&chld=H)
+  -  [![Doge](https://img.shields.io/badge/Donate-DOGE%20(Dogecoin)-yellow?style=flat-square&logo=Dogecoin)`DPerFS2vCu5XnE3He32BaPVTkUDcKLsEaj`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=doge:DPerFS2vCu5XnE3He32BaPVTkUDcKLsEaj&chld=H)
 
 </details>
 
@@ -198,11 +201,11 @@ We need your collaboration in order to develop this project. If you are speciali
 -->
 </br>
 
-[![Email](https://img.shields.io/badge/Email-hiddify@gmail.com-green?style=plastic&logo=gmail)](hiddify@gmail.com)
-[![Telegram Channel](https://img.shields.io/endpoint?label=Telegram&style=plastic&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify)](https://telegram.dog/hiddify)
-[![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=plastic&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
-[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=plastic)](https://www.youtube.com/@hiddify)
-[![Twitter](https://img.shields.io/twitter/follow/hiddify1?label=Twitter&style=plastic)](https://twitter.com/intent/follow?screen_name=hiddify)
+[![Email](https://img.shields.io/badge/Gmail-hiddify@gmail.com-green?style=flat-square&logo=gmail)](mailto:hiddify@gmail.com)
+[![Telegram Channel](https://img.shields.io/endpoint?label=Channel&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify&color=blue)](https://telegram.dog/hiddify)
+[![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
+[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square&logo=youtube)](https://www.youtube.com/@hiddify)
+[![Twitter](https://img.shields.io/twitter/follow/hiddify_com?color=%231DA1F2&logo=twitter&logoColor=1DA1F2&style=flat-square)](https://twitter.com/intent/follow?screen_name=hiddify)
 
 </div>
 
