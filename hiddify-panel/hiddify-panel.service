@@ -20,3 +20,6 @@ StandardOutput=file:/opt/hiddify-config/log/system/hiddify_panel.out.log
 StandardError=file:/opt/hiddify-config/log/system/hiddify_panel.err.log
 [Install]
 WantedBy=multi-user.target
+
+
+#lsof | awk -v pattern="/hiddifypanel/" '$9 ~ pattern {print $2}'| sort -u| xargs echo kill
