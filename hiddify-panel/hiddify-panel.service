@@ -13,7 +13,7 @@ User=root
 WorkingDirectory=/opt/hiddify-config/hiddify-panel/
 #Environment="PATH=/usr/local/bin"
 ExecStart=/usr/local/bin/uwsgi --ini /opt/hiddify-config/hiddify-panel/uwsgi.ini
-ExecReload=/bin/pkill -9 python && /bin/kill -HUP $MAINPID
+ExecReload=/bin/kill -HUP $MAINPID
 ExecStop=/bin/kill -INT $MAINPID
 Restart=always
 StandardOutput=file:/opt/hiddify-config/log/system/hiddify_panel.out.log
