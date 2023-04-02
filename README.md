@@ -140,22 +140,27 @@ When you want to share Telegram proxy or Shadowsocks proxy through other program
 
 This way you can take advantage of quick and easy installation of this panel using cloud-init scripts with no technical knowledge and even without any SSH connections. Click the buttons based on your data-center.
 
+<div align=center>
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Hetzner-D50C2D?style=flat-square&logo=Hetzner)](https://github.com/hiddify/hiddify-config/wiki/Quick-installation-on-Hetzner-Servers)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Vultr-007BFC?style=flat-square&logo=vultr)](https://github.com/hiddify/hiddify-config/wiki/Quick-installation-on-Vultr-Servers)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Oracle%20Cloud-F80000?style=flat-square&logo=oracle)](https://github.com/hiddify/hiddify-config/wiki/Quick-Installation-on-Oracle-Cloud)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-OVH-123F6D?style=flat-square&logo=ovh)](https://github.com/hiddify/hiddify-config/wiki/Quick-Installation-on-OVH-Servers)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Azure-0078D4?style=flat-square&logo=microsoft-azure)](https://github.com/hiddify/hiddify-config/wiki/Quick-Installation-on-Microsoft-Azure)
 
-
+</div>
 
 <img src="https://img.shields.io/badge/Install-General-orange?style=flat-square&logo=addthis"/> **Installation with SSH**
 
 Here you can use these guides on prepared Ubuntu servers with SSH connection. Click on the buttons based on your desire.
+
 </br>
+<div align=center>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Ubuntu-E95420?style=flat-square&logo=ubuntu)](https://github.com/hiddify/hiddify-config/wiki/Quick-Installation-On-Ubuntu)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Docker-2496ED?style=flat-square&logo=docker)](https://github.com/hiddify/hiddify-config/wiki/Install-Hiddify-using-Docker)
 
-
+</div>
 
 
 ## Configuration Guide ![](https://img.shields.io/badge/Config-Hiddify-009688?style=flat-square&logo=Azure-Functions)
 <b>Making the best use of this panel via [this guide](https://github.com/hiddify/hiddify-config/wiki/How-to-configure-Hiddify-Panel-properly).</b>
+
 
 
 ## Donation And Support 
