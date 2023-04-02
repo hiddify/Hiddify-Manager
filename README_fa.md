@@ -89,7 +89,7 @@
 
 
 <details  markdown="1"> <summary>سیستم‌عامل‌های پشتیبانی شده</summary>
-هایدیفای روی اوبونتو ۲۰.۰۴ و ۲۲.۰۴ تست شده است.
+هایدیفای روی ابونتو ۲۰.۰۴ و ۲۲.۰۴ تست شده است.
 Ubuntu arm64 or amd64
 </details>
 
@@ -137,12 +137,33 @@ Ubuntu arm64 or amd64
 
 ## راهنمای نصب ![](https://img.shields.io/badge/Install-Hiddify-004E9F?style=flat-square&logo=Azure-Data-Explorer)
 
-###  پیش نیاز‌ها
-.......
+<details><summary><h3>پیش نیاز‌ها</h3></summary>
+
+قبل از نصب شما نیاز به یک سری پیش نیازها دارید:
+
+- ابتدا به یک سرور مجازی یا VPS نیاز دارید 
+    - می توانید با استفاده از کارت اعتباری یا روش های پرداخت واسط به صورت مستقیم از دیتاسنترهای معروف دنیا سرور مجازی خود را تهیه نمایید.
+    - یا اینکه می توانید از سایت های ایرانی سرور بخرید.
+
+
+- سیستم عامل این سرور مجازی باید ابونتو ۲۲.۰۴ یا ۲۰.۰۴ باشد.
+ابونتو یک توزیع از سیستم عامل لینوکس است که لوگوی آن بدین شکل است. ![](https://img.shields.io/badge/Ubuntu--E95420?style=flat-square&logo=ubuntu)
+
+جهت آشنایی بیشتر درباره روش خرید سرور از ایران این ویدپو را در کامل یوتوب ما تماشا کنید.
+
+<div align=center>
+
+<a href="https://youtu.be/tcd1wBUR3cY" />
+<img width="50%" src="https://user-images.githubusercontent.com/125398461/229348575-c564efe9-02dc-4b97-bf66-410060934a94.png" />
+</a>
+</div>
+
+
+</details>
 
 ###  نصب سریع
-اگر کارت اعتباری دارید یا میتوانید از سرویس فلان استفاده کنید با کلیک بر فلان همه مراحل برای شما اتوماتیک انجام میشه
-در این روش به صورت خیلی سریع و آسان بدون نیاز به دانش فنی نصب به صورت خودکار انجام می شود. جهت ادامه روی یکی از دکمه های زیر  کلیک کنید.
+اگر کارت اعتباری دارید یا می توانید از روش های پرداخت واسط استفاده کنید و سرور خود را به طور مستقیم از دیتاسنترهای معروف تهیه می کنید؛ ما برای شما کار را راحت و خودکار کردیم.
+در این روش به صورت خیلی سریع و آسان بدون نیاز به دانش فنی نصب به صورت خودکار انجام می شود. جهت ادامه روی یکی از دکمه های زیر کلیک کنید.
 <div align="center">
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Hetzner-D50C2D?style=flat-square&logo=Hetzner)](https://github.com/hiddify/hiddify-config/wiki/Hetzner-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Vultr-007BFC?style=flat-square&logo=vultr)](https://github.com/hiddify/hiddify-config/wiki/Vultr-%D9%86%D8%B5%D8%A8-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D9%88%D9%84%D8%AA%D8%B1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Oracle%20Cloud-F80000?style=flat-square&logo=oracle)](https://github.com/hiddify/hiddify-config/wiki/Oracle-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D8%A7%D9%88%D8%B1%D8%A7%DA%A9%D9%84-%DA%A9%D9%84%D9%88%D8%AF)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-OVH-123F6D?style=flat-square&logo=ovh)](https://github.com/hiddify/hiddify-config/wiki/OVH-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D8%A7%D9%88-%D9%88%DB%8C-%D8%A7%DA%86)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Azure-0078D4?style=flat-square&logo=microsoft-azure)](https://github.com/hiddify/hiddify-config/wiki/Azure-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D9%85%D8%A7%DB%8C%DA%A9%D8%B1%D9%88%D8%B3%D8%A7%D9%81%D8%AA-%D8%A2%DA%98%D9%88%D8%B1)
@@ -150,7 +171,7 @@ Ubuntu arm64 or amd64
 
 
 ### نصب معمول:
- برای نصب فقط کافیه یک سروس داشته باشید و پس از آن با یک دستور ساده نصب انجام میشه.
+ برای نصب فقط کافیه یک سرور مطابق با پیش نیاز داشته باشید و پس از آن با یک دستور تک خطی ساده نصب انجام میشه. بر اساس نیازتون یکی از دکمه های زیر را کلیک کنید.
 
 <div align=center >
     
