@@ -135,8 +135,7 @@ When you want to share Telegram proxy or Shadowsocks proxy through other program
 
 ## Installation Guide ![](https://img.shields.io/badge/Install-Hiddify-004E9F?style=flat-square&logo=Azure-Data-Explorer)
 
-
-<img src="https://img.shields.io/badge/Install-Beginner-orange?style=flat-square"/> **Installation without SSH**
+**Installation without SSH**
 
 This way you can take advantage of quick and easy installation of this panel using cloud-init scripts with no technical knowledge and even without any SSH connections. Click the buttons based on your data-center.
 
