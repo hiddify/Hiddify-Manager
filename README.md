@@ -145,7 +145,7 @@ This way you can take advantage of quick and easy installation of this panel usi
 
 </div>
 
-<img src="https://img.shields.io/badge/Install-General-orange?style=flat-square"/> **Installation with SSH**
+**Installation with SSH**
 
 Here you can use these guides on prepared Ubuntu servers with SSH connection. Click on the buttons based on your desire.
 
