@@ -150,7 +150,6 @@ This way you can take advantage of quick and easy installation of this panel usi
 
 Here you can use these guides on prepared Ubuntu servers with SSH connection. Click on the buttons based on your desire.
 
-</br>
 <div align=center>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Ubuntu-E95420?style=flat-square&logo=ubuntu)](https://github.com/hiddify/hiddify-config/wiki/Quick-Installation-On-Ubuntu)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Docker-2496ED?style=flat-square&logo=docker)](https://github.com/hiddify/hiddify-config/wiki/Install-Hiddify-using-Docker)
