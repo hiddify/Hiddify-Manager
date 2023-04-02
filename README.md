@@ -47,7 +47,7 @@
 
 ## Welcome to Hiddify
 
-Hiddify Is a Powerful And Professional Anti-Censorship Toolbox, Which Is a Multi-User Panel With An Effortless Installation And <b>Supporting More Than 20 Protocols</b> To Circumvent Filtering Plus <b>Telegram Proxy.</b>  It's Optimized For Censorship Circumvention In <b>China</b>, <b>Russia</b> and <b>Iran</b> And Recommended By <a href="https://github.com/XTLS/Xray-core#installation" target="_blank"><b>Xray</b></a>. It's a Great Replacement Of X-UI.
+Hiddify Is a Powerful And Professional Anti-Censorship Toolbox, Which Is a Multi-User Panel With An Effortless Installation And <b>Supporting More Than 20 Protocols</b> To Circumvent Filtering Plus <b>Telegram Proxy.</b>  It's Optimized For Censorship Circumvention In <b>China</b>, <b>Russia</b> and <b>Iran</b> And Recommended By <a href="https://github.com/XTLS/Xray-core#installation" target="_blank"><b>Xray</b></a>. It's a Great Replacement Of X-UI panel.
 
 ![english++png](https://user-images.githubusercontent.com/114227601/228011984-83b1f981-aede-438e-920d-113d9894477a.png)
 
@@ -135,31 +135,34 @@ When you want to share Telegram proxy or Shadowsocks proxy through other program
 
 ## Installation Guide ![](https://img.shields.io/badge/Install-Hiddify-004E9F?style=flat-square&logo=Azure-Data-Explorer)
 
-
-<img src="https://img.shields.io/badge/Install-Beginner-orange?style=flat-square&logo=AddThis"/> **Installation without SSH**
+**Installation without SSH**
 
 This way you can take advantage of quick and easy installation of this panel using cloud-init scripts with no technical knowledge and even without any SSH connections. Click the buttons based on your data-center.
 
+<div align=center>
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Hetzner-D50C2D?style=flat-square&logo=Hetzner)](https://github.com/hiddify/hiddify-config/wiki/Quick-installation-on-Hetzner-Servers)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Vultr-007BFC?style=flat-square&logo=vultr)](https://github.com/hiddify/hiddify-config/wiki/Quick-installation-on-Vultr-Servers)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Oracle%20Cloud-F80000?style=flat-square&logo=oracle)](https://github.com/hiddify/hiddify-config/wiki/Quick-Installation-on-Oracle-Cloud)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-OVH-123F6D?style=flat-square&logo=ovh)](https://github.com/hiddify/hiddify-config/wiki/Quick-Installation-on-OVH-Servers)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Azure-0078D4?style=flat-square&logo=microsoft-azure)](https://github.com/hiddify/hiddify-config/wiki/Quick-Installation-on-Microsoft-Azure)
 
+</div>
 
-
-<img src="https://img.shields.io/badge/Install-General-orange?style=flat-square&logo=addthis"/> **Installation with SSH**
+**Installation with SSH**
 
 Here you can use these guides on prepared Ubuntu servers with SSH connection. Click on the buttons based on your desire.
-</br>
+
+<div align=center>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Ubuntu-E95420?style=flat-square&logo=ubuntu)](https://github.com/hiddify/hiddify-config/wiki/Quick-Installation-On-Ubuntu)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Docker-2496ED?style=flat-square&logo=docker)](https://github.com/hiddify/hiddify-config/wiki/Install-Hiddify-using-Docker)
 
-
+</div>
 
 
 ## Configuration Guide ![](https://img.shields.io/badge/Config-Hiddify-009688?style=flat-square&logo=Azure-Functions)
 <b>Making the best use of this panel via [this guide](https://github.com/hiddify/hiddify-config/wiki/How-to-configure-Hiddify-Panel-properly).</b>
 
 
+
 ## Donation And Support 
-The easiest way to support us is to click on the star (⭐) at the top of [GitHub Page](https://github.com/hiddify/hiddify-config).
+The easiest way to support us is to click on the star (⭐) at the top of this page.
 
 We also need financial support for our services.‌ All of our activities are done voluntarily and the financial support will be spent on the development of the project. 
 
@@ -185,7 +188,7 @@ We also need financial support for our services.‌ All of our activities are do
 </details>
 
 ## Collaboration and Contact Information 
-We need your collaboration in order to develop this project. If you are specialists in these areas, please do not hesitate to contact us:
+We need your collaboration in order to develop this project. If you are specialists in these areas, please do not hesitate to contact us.
 
 * Media Production &nbsp;&nbsp;&nbsp;&nbsp;  
 * Python Developing &nbsp;&nbsp;&nbsp;&nbsp; ‌  

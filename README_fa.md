@@ -34,7 +34,7 @@
 <div dir="rtl" markdown="1">
 
 ## به هیدیفای خوش آمدید
-هیدیفای یک ابزار قدرتمند و حرفه ای ضدسانسور اینترنت است که دارای پنل چند کاربره و نصب آسان است و به شما کمک می کند با بیش از ۲۰ پروتکل پشتیبانی شده فیلترینگ اینترنت را دور بزنید همچنین می توانید از پروکسی تلگرام استفاده نمایید. این ابزار برای شبکه اینترنت ایران بهینه سازی شده است و توسط <a href="https://github.com/XTLS/Xray-core#installation" target="_blank">**Xray**</a> توصیه شده است. این پنل یک جایگزین عالی برای X-UI می باشد.
+هیدیفای یک ابزار قدرتمند و حرفه ای ضدسانسور اینترنت است که دارای پنل چند کاربره و نصب آسان است و به شما کمک می کند با بیش از ۲۰ پروتکل پشتیبانی شده فیلترینگ اینترنت را دور بزنید همچنین می توانید از پروکسی تلگرام استفاده نمایید. این ابزار برای شبکه اینترنت ایران بهینه سازی شده است و توسط <a href="https://github.com/XTLS/Xray-core#installation" target="_blank">**Xray**</a> توصیه شده است. این پنل یک جایگزین عالی برای پنل X-UI می باشد.
 
 
 
@@ -89,7 +89,7 @@
 
 
 <details  markdown="1"> <summary>سیستم‌عامل‌های پشتیبانی شده</summary>
-هایدیفای روی اوبونتو ۲۰.۰۴ و ۲۲.۰۴ تست شده است.
+هایدیفای روی ابونتو ۲۰.۰۴ و ۲۲.۰۴ تست شده است.
 Ubuntu arm64 or amd64
 </details>
 
@@ -133,41 +133,64 @@ Ubuntu arm64 or amd64
 </details>
 </details>
 
-## راهنمای نصب
+***
 
-<details markdown="1"> <summary><b>راهنمای نصب بدون SSH</b></summary> 
-در این روش به صورت خیلی سریع و آسان بدون نیاز به دانش فنی و ssh و با استفاده از قابلیت cloud-init نصب انجام می شود.
+## راهنمای نصب ![](https://img.shields.io/badge/Install-Hiddify-004E9F?style=flat-square&logo=Azure-Data-Explorer)
 
-- [نصب در ولتر Vultr (گزینه پیشنهادی برای شروع ) ](https://github.com/hiddify/hiddify-config/wiki/Vultr-%D9%86%D8%B5%D8%A8-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D9%88%D9%84%D8%AA%D8%B1)
-- [نصب در اوراکل کلود (چهار سرور رایگان)](https://github.com/hiddify/hiddify-config/wiki/Oracle-نصب-خیلی-خیلی-سریع-در-اوراکل-کلود)
-- [نصب در OVH ](https://github.com/hiddify/hiddify-config/wiki/OVH-نصب-خیلی-سریع-در-او-وی-اچ)
-- [نصب در هتزنر](https://github.com/hiddify/hiddify-config/wiki/Hetzner-نصب-خیلی-سریع-در-هتزنر)
+<details><summary><h3>پیش نیاز‌ها</h3></summary>
+
+قبل از نصب شما نیاز به یک سری پیش نیازها دارید:
+
+- ابتدا به یک سرور مجازی یا VPS نیاز دارید 
+    - می توانید با استفاده از کارت اعتباری یا روش های پرداخت واسط به صورت مستقیم از دیتاسنترهای معروف دنیا سرور مجازی خود را تهیه نمایید.
+    - یا اینکه می توانید از سایت های ایرانی سرور بخرید.
+
+
+- سیستم عامل این سرور مجازی باید ابونتو ۲۲.۰۴ یا ۲۰.۰۴ باشد.
+ابونتو یک توزیع از سیستم عامل لینوکس است که لوگوی آن بدین شکل است. ![](https://img.shields.io/badge/Ubuntu--E95420?style=flat-square&logo=ubuntu)
+
+جهت آشنایی بیشتر درباره روش خرید سرور از ایران این ویدئو را در کامل یوتوب ما تماشا کنید.
+
+<div align=center>
+
+<a href="https://youtu.be/tcd1wBUR3cY" />
+<img width="50%" src="https://user-images.githubusercontent.com/125398461/229348575-c564efe9-02dc-4b97-bf66-410060934a94.png" />
+</a>
+</div>
 
 
 </details>
 
-<details markdown="1"> <summary><b>راهنمای نصب با SSH</b></summary>
+###  نصب سریع
+اگر کارت اعتباری دارید یا می توانید از روش های پرداخت واسط استفاده کنید و سرور خود را به طور مستقیم از دیتاسنترهای معروف تهیه می کنید؛ ما برای شما کار را راحت و خودکار کردیم.
+در این روش به صورت خیلی سریع و آسان بدون نیاز به دانش فنی نصب به صورت خودکار انجام می شود. جهت ادامه روی یکی از دکمه های زیر کلیک کنید.
+<div align="center">
 
-در این حالت روی سرور از پیش آماده اوبونتو با ssh نصب انجام می شود.
-
-- [نصب با یک دستور در سرور اوبونتو](https://github.com/hiddify/hiddify-config/wiki/نصب-سریع-در-اوبونتو)
-- [نصب با داکر](https://github.com/hiddify/hiddify-config/wiki/نصب-با-داکر)
-
-
-
-
-</details>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Hetzner-D50C2D?style=flat-square&logo=Hetzner)](https://github.com/hiddify/hiddify-config/wiki/Hetzner-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Vultr-007BFC?style=flat-square&logo=vultr)](https://github.com/hiddify/hiddify-config/wiki/Vultr-%D9%86%D8%B5%D8%A8-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D9%88%D9%84%D8%AA%D8%B1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Oracle%20Cloud-F80000?style=flat-square&logo=oracle)](https://github.com/hiddify/hiddify-config/wiki/Oracle-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D8%A7%D9%88%D8%B1%D8%A7%DA%A9%D9%84-%DA%A9%D9%84%D9%88%D8%AF)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-OVH-123F6D?style=flat-square&logo=ovh)](https://github.com/hiddify/hiddify-config/wiki/OVH-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D8%A7%D9%88-%D9%88%DB%8C-%D8%A7%DA%86)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Azure-0078D4?style=flat-square&logo=microsoft-azure)](https://github.com/hiddify/hiddify-config/wiki/Azure-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D9%85%D8%A7%DB%8C%DA%A9%D8%B1%D9%88%D8%B3%D8%A7%D9%81%D8%AA-%D8%A2%DA%98%D9%88%D8%B1)
+</div>
 
 
+### نصب معمول:
+ برای نصب فقط کافیه یک سرور مطابق با پیش نیاز داشته باشید و پس از آن با یک دستور تک خطی ساده نصب انجام میشه. بر اساس نیازتون یکی از دکمه های زیر را کلیک کنید.
+
+<div align=center >
+    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Ubuntu-E95420?style=flat-square&logo=ubuntu)](https://github.com/hiddify/hiddify-config/wiki/نصب-سریع-در-اوبونتو)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Docker-2496ED?style=flat-square&logo=docker)](https://github.com/hiddify/hiddify-config/wiki/نصب-با-داکر)
+
+</div>
+
+***
 
 
 
 
-## راهنمای پیکربندی
-برای اینکه حداکثر استفاده را از مزایای این پنل ببرید؛ این [راهنما](https://github.com/hiddify/hiddify-config/wiki/%D9%86%D8%AD%D9%88%D9%87-%D9%BE%DB%8C%DA%A9%D8%B1%D8%A8%D9%86%D8%AF%DB%8C-%D9%BE%D9%86%D9%84-%D9%87%DB%8C%D8%AF%DB%8C%D9%81%D8%A7%DB%8C) را مطالعه کنید.
+
+
+## راهنمای پیکربندی 
+برای اینکه حداکثر استفاده را از مزایای این پنل ببرید؛ این [راهنما ![](https://img.shields.io/badge/Config-Hiddify-009688?style=flat-square&logo=Azure-Functions)](https://github.com/hiddify/hiddify-config/wiki/%D9%86%D8%AD%D9%88%D9%87-%D9%BE%DB%8C%DA%A9%D8%B1%D8%A8%D9%86%D8%AF%DB%8C-%D9%BE%D9%86%D9%84-%D9%87%DB%8C%D8%AF%DB%8C%D9%81%D8%A7%DB%8C) را مطالعه کنید.
 
 ## حمایت از پروژه
-ساده‌ترین راه حمایت از ما کلیک کردن روی ستاره (⭐) بالای صفحه [گیتهاب](https://github.com/hiddify/hiddify-config) است.
+ساده‌ترین راه حمایت از ما کلیک کردن روی ستاره (⭐) بالای همین صفحه است.
 
 ما برای سرویس هایمان به کمک مالی هم نیاز داریم. تمامی فعالیت‌های ما به صورت داوطلبانه انجام می‌شود و حمایت‌های مالی صرف توسعه پروژه می‌شود.
 
@@ -199,7 +222,7 @@ Ubuntu arm64 or amd64
 </div>
 
 ## راه های همکاری و ارتباط با ما
-اگر در هر یک از زمینه‌های زیر توانایی دارید، با ما در تماس باشید:
+اگر در هر یک از زمینه‌های زیر توانایی دارید، لطفا با ما در تماس باشید.
 * تولید محتوا
 * برنامه‌نویسی پایتون 
 * برنامه‌نویسی کاتلین
@@ -214,11 +237,11 @@ Ubuntu arm64 or amd64
 </br>
 <div align=center>
     
-[![Email](https://img.shields.io/badge/Email-hiddify@gmail.com-green?style=flat-square&logo=gmail)](hiddify@gmail.com)
-[![Telegram Channel](https://img.shields.io/endpoint?label=Telegram&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify)](https://telegram.dog/hiddify)
+[![Email](https://img.shields.io/badge/Gmail-hiddify@gmail.com-green?style=flat-square&logo=gmail)](mailto:hiddify@gmail.com)
+[![Telegram Channel](https://img.shields.io/endpoint?label=Channel&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify&color=blue)](https://telegram.dog/hiddify)
 [![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
-[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square)](https://www.youtube.com/@hiddify)
-[![Twitter](https://img.shields.io/twitter/follow/hiddify_com?label=Twitter&style=flat-square)](https://twitter.com/intent/follow?screen_name=hiddify_com)
+[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square&logo=youtube)](https://www.youtube.com/@hiddify)
+[![Twitter](https://img.shields.io/twitter/follow/hiddify_com?color=%231DA1F2&logo=twitter&logoColor=1DA1F2&style=flat-square)](https://twitter.com/intent/follow?screen_name=hiddify)
 
  </div>
  
