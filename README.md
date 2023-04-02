@@ -159,7 +159,7 @@ Here you can use these guides on prepared Ubuntu servers with SSH connection. Cl
 
 
 ## Donation And Support 
-The easiest way to support us is to click on the star (⭐) at the top of [GitHub Page](https://github.com/hiddify/hiddify-config).
+The easiest way to support us is to click on the star (⭐) at the top of [![](https://badgen.net/badge/icon/github?icon=github&label&style=flat-square)](https://github.com/hiddify/hiddify-config).
 
 We also need financial support for our services.‌ All of our activities are done voluntarily and the financial support will be spent on the development of the project. 
 
