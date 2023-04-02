@@ -169,7 +169,7 @@ Ubuntu arm64 or amd64
 برای اینکه حداکثر استفاده را از مزایای این پنل ببرید؛ این [راهنما ![](https://img.shields.io/badge/Config-Hiddify-009688?style=flat-square&logo=Azure-Functions)](https://github.com/hiddify/hiddify-config/wiki/%D9%86%D8%AD%D9%88%D9%87-%D9%BE%DB%8C%DA%A9%D8%B1%D8%A8%D9%86%D8%AF%DB%8C-%D9%BE%D9%86%D9%84-%D9%87%DB%8C%D8%AF%DB%8C%D9%81%D8%A7%DB%8C) را مطالعه کنید.
 
 ## حمایت از پروژه
-ساده‌ترین راه حمایت از ما کلیک کردن روی ستاره (⭐) بالای صفحه [![](https://badgen.net/badge/icon/github?icon=github&label&style=flat-square)](https://github.com/hiddify/hiddify-config) است.
+ساده‌ترین راه حمایت از ما کلیک کردن روی ستاره (⭐) بالای همین صفحه است.
 
 ما برای سرویس هایمان به کمک مالی هم نیاز داریم. تمامی فعالیت‌های ما به صورت داوطلبانه انجام می‌شود و حمایت‌های مالی صرف توسعه پروژه می‌شود.
 
