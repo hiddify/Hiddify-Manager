@@ -133,37 +133,38 @@ Ubuntu arm64 or amd64
 </details>
 </details>
 
-## راهنمای نصب
+## راهنمای نصب ![](https://img.shields.io/badge/Install-Hiddify-004E9F?style=flat-square&logo=Azure-Data-Explorer)
 
-<details markdown="1"> <summary><b>راهنمای نصب بدون SSH</b></summary> 
-در این روش به صورت خیلی سریع و آسان بدون نیاز به دانش فنی و ssh و با استفاده از قابلیت cloud-init نصب انجام می شود.
+<img src="https://img.shields.io/badge/Install-Beginner-orange?style=flat-square&logo=AddThis"/> <b>راهنمای نصب بدون SSH</b>
 
-- [نصب در ولتر Vultr (گزینه پیشنهادی برای شروع ) ](https://github.com/hiddify/hiddify-config/wiki/Vultr-%D9%86%D8%B5%D8%A8-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D9%88%D9%84%D8%AA%D8%B1)
-- [نصب در اوراکل کلود (چهار سرور رایگان)](https://github.com/hiddify/hiddify-config/wiki/Oracle-نصب-خیلی-خیلی-سریع-در-اوراکل-کلود)
-- [نصب در OVH ](https://github.com/hiddify/hiddify-config/wiki/OVH-نصب-خیلی-سریع-در-او-وی-اچ)
-- [نصب در هتزنر](https://github.com/hiddify/hiddify-config/wiki/Hetzner-نصب-خیلی-سریع-در-هتزنر)
-- [نصب در مایکروسافت Azure](https://github.com/hiddify/hiddify-config/wiki/Azure-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D9%85%D8%A7%DB%8C%DA%A9%D8%B1%D9%88%D8%B3%D8%A7%D9%81%D8%AA-%D8%A2%DA%98%D9%88%D8%B1)
+در این روش به صورت خیلی سریع و آسان بدون نیاز به دانش فنی و ssh و با استفاده از قابلیت cloud-init نصب انجام می شود. روی یکی از دکمه های زیر بر اساس دیتاسنتر مورد نظر خود کلیک کنید.
+</br>
+<div align=center >
 
-</details>
-
-<details markdown="1"> <summary><b>راهنمای نصب با SSH</b></summary>
-
-در این حالت روی سرور از پیش آماده اوبونتو با ssh نصب انجام می شود.
-
-- [نصب با یک دستور در سرور اوبونتو](https://github.com/hiddify/hiddify-config/wiki/نصب-سریع-در-اوبونتو)
-- [نصب با داکر](https://github.com/hiddify/hiddify-config/wiki/نصب-با-داکر)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Hetzner-D50C2D?style=flat-square&logo=Hetzner)](https://github.com/hiddify/hiddify-config/wiki/Hetzner-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Vultr-007BFC?style=flat-square&logo=vultr)](https://github.com/hiddify/hiddify-config/wiki/Vultr-%D9%86%D8%B5%D8%A8-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D9%88%D9%84%D8%AA%D8%B1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Oracle%20Cloud-F80000?style=flat-square&logo=oracle)](https://github.com/hiddify/hiddify-config/wiki/Oracle-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D8%A7%D9%88%D8%B1%D8%A7%DA%A9%D9%84-%DA%A9%D9%84%D9%88%D8%AF)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-OVH-123F6D?style=flat-square&logo=ovh)](https://github.com/hiddify/hiddify-config/wiki/OVH-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D8%A7%D9%88-%D9%88%DB%8C-%D8%A7%DA%86)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Azure-0078D4?style=flat-square&logo=microsoft-azure)](https://github.com/hiddify/hiddify-config/wiki/Azure-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D9%85%D8%A7%DB%8C%DA%A9%D8%B1%D9%88%D8%B3%D8%A7%D9%81%D8%AA-%D8%A2%DA%98%D9%88%D8%B1)
+</div>
 
 
 
+<img src="https://img.shields.io/badge/Install-General-orange?style=flat-square&logo=addthis"/> <b>راهنمای نصب با SSH</b>
 
-</details>
 
+در این حالت روی سرور از پیش آماده اوبونتو با ssh نصب انجام می شود. روی یکی از دکمه های زیر بر اساس نیاز خود کلیک کنید. 
+</br>
+<div align=center >
+    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Ubuntu-E95420?style=flat-square&logo=ubuntu)](https://github.com/hiddify/hiddify-config/wiki/نصب-سریع-در-اوبونتو)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Docker-2496ED?style=flat-square&logo=docker)](https://github.com/hiddify/hiddify-config/wiki/نصب-با-داکر)
+
+</div>
 
 
 
 
 
-## راهنمای پیکربندی
+
+
+
+## راهنمای پیکربندی ![](https://img.shields.io/badge/Config-Hiddify-009688?style=flat-square&logo=Azure-Functions)
 برای اینکه حداکثر استفاده را از مزایای این پنل ببرید؛ این [راهنما](https://github.com/hiddify/hiddify-config/wiki/%D9%86%D8%AD%D9%88%D9%87-%D9%BE%DB%8C%DA%A9%D8%B1%D8%A8%D9%86%D8%AF%DB%8C-%D9%BE%D9%86%D9%84-%D9%87%DB%8C%D8%AF%DB%8C%D9%81%D8%A7%DB%8C) را مطالعه کنید.
 
 ## حمایت از پروژه
