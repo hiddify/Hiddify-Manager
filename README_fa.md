@@ -167,6 +167,8 @@ Ubuntu arm64 or amd64
 ## راهنمای پیکربندی 
 برای اینکه حداکثر استفاده را از مزایای این پنل ببرید؛ این [راهنما ![](https://img.shields.io/badge/Config-Hiddify-009688?style=flat-square&logo=Azure-Functions)](https://github.com/hiddify/hiddify-config/wiki/%D9%86%D8%AD%D9%88%D9%87-%D9%BE%DB%8C%DA%A9%D8%B1%D8%A8%D9%86%D8%AF%DB%8C-%D9%BE%D9%86%D9%84-%D9%87%DB%8C%D8%AF%DB%8C%D9%81%D8%A7%DB%8C) را مطالعه کنید.
 
+## ویکی پروژه
+جهت آشنایی بیشتر با جزییات پیشنهاد می شود مطالب ما را در [ویکی](https://github.com/hiddify/hiddify-config/wiki) دنبال کنید.
 ## حمایت از پروژه
 ساده‌ترین راه حمایت از ما کلیک کردن روی ستاره (⭐) بالای همین صفحه است.
 
