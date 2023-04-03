@@ -104,7 +104,7 @@ Ubuntu arm64 or amd64
 </details>
 
  <details markdown="1"> <summary>صفحات راهنمای کاربران</summary> 
- با امکان تولید qrcode
+ با امکان تولید QR Code
 
  ![صفحه راهنمای کاربران](https://user-images.githubusercontent.com/114227601/206908372-db1fc206-4c6a-4206-ad39-e6b6b44a55c4.png)
 </details>
@@ -139,6 +139,8 @@ Ubuntu arm64 or amd64
 
 <details><summary><h3>پیش نیاز‌ها</h3></summary>
 
+<div dir="rtl">
+    
 قبل از نصب شما نیاز به یک سری پیش نیازها دارید:
 
 - ابتدا به یک سرور مجازی یا VPS نیاز دارید 
@@ -151,6 +153,9 @@ Ubuntu arm64 or amd64
 
 جهت آشنایی بیشتر درباره روش خرید سرور از ایران این ویدئو را در کامل یوتوب ما تماشا کنید.
 
+</div>
+    
+    
 <div align=center>
 
 <a href="https://youtu.be/tcd1wBUR3cY" />
