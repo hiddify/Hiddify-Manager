@@ -61,6 +61,7 @@ Hiddify Is a Powerful And Professional Anti-Censorship Toolbox, Which Is a Multi
   - [Quick installation](https://github.com/hiddify/hiddify-config/blob/main/README.md#quick-installation)
   - [Typical installation](https://github.com/hiddify/hiddify-config/blob/main/README.md#typical-installation)
 - [Configuration Guide](https://github.com/hiddify/hiddify-config/blob/main/README.md#configuration-guide)
+- [Wiki](https://github.com/hiddify/hiddify-config/blob/main/README.md#wiki)
 - [Donation and Support](https://github.com/hiddify/hiddify-config/blob/main/README.md#donation-and-support)
 - [Collaboration and Contact Information](https://github.com/hiddify/hiddify-config/blob/main/README.md#collaboration-and-contact-information)
 
