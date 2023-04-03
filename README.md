@@ -57,8 +57,9 @@ Hiddify Is a Powerful And Professional Anti-Censorship Toolbox, Which Is a Multi
 ### Table of Contents
 - [Why Hiddify?](https://github.com/hiddify/hiddify-config/blob/main/README.md#why-hiddify)
 - [Installation Guide](https://github.com/hiddify/hiddify-config/blob/main/README.md#installation-guide)
-  - [Installation Without SSH](https://github.com/hiddify/hiddify-config/blob/main/README.md#installation-without-ssh)
-  - [Installation With SSH](https://github.com/hiddify/hiddify-config/blob/main/README.md#installation-with-ssh)
+  - [Prerequisites](https://github.com/hiddify/hiddify-config/blob/main/README.md#prerequisites)
+  - [Quick installation](https://github.com/hiddify/hiddify-config/blob/main/README.md#quick-installation)
+  - [Typical installation](https://github.com/hiddify/hiddify-config/blob/main/README.md#typical-installation)
 - [Configuration Guide](https://github.com/hiddify/hiddify-config/blob/main/README.md#configuration-guide)
 - [Donation and Support](https://github.com/hiddify/hiddify-config/blob/main/README.md#donation-and-support)
 - [Collaboration and Contact Information](https://github.com/hiddify/hiddify-config/blob/main/README.md#collaboration-and-contact-information)
@@ -141,7 +142,7 @@ When you want to share Telegram proxy or Shadowsocks proxy through other program
 
 ## Installation Guide ![](https://img.shields.io/badge/Install-Hiddify-004E9F?style=flat-square&logo=Azure-Data-Explorer)
 
-### prerequisites
+### Prerequisites
 Before you start the installation; You need a series of prerequisites. Click [here](https://github.com/hiddify/hiddify-config/wiki/Installation-prerequisites) to get to know them.
 
 ### Quick installation
