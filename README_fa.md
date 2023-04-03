@@ -98,7 +98,7 @@
 
 </details>
 
-<details markdown="1"><summary><b>سایر امکانات</b></summary>
+<details markdown="1"><summary><b>سایر امکانات فوق العاده</b></summary>
 
 
 <details  markdown="1"> <summary>سیستم‌عامل‌های پشتیبانی شده</summary>
