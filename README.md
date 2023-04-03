@@ -68,16 +68,22 @@ Hiddify Is a Powerful And Professional Anti-Censorship Toolbox, Which Is a Multi
 ## Why Hiddify?
 Hiddify is a Mixture Of Hidden And Simplify. A Feature-Full Panel With a Wide Range Pf Capabilities That Helps You Enjoy Surfing Free Internet With Ease And Peace Of Mind. 
 
-<details markdown="1"> <summary> <b>Supported Protocols</b> </summary> 
+<details markdown="1"> <summary><b>Attractive features and supported protocols</b></summary> 
 
-| Supported Configs | Supported Configs |
-| - | - |
-| ♥ **Telegram Proxy** ♥ | **VLess + XTLS** |
-| **Web Socket (CDN Support)**:<br> - VLess+TLS+WS <br>- Trojan+TLS+WS <br> - VMess+TLS+WS | **h2 + TLS**:<br> - VLess+TLS<br> - Trojan+TLS<br> - VMess+TLS |
-| **gRPC + TLS**:<br> - VLess+gRPC+TLS<br> - Trojan+gRPC+TLS<br> - VMess+gRPC+TLS | **Http1.1 + TLS**:  <br>- Trojan+TLS <br> - VMess+TLS|
-| **Old Configs**: <br> - Trojan-Go (CDN Support) <br> - V2Ray+WS (CDN Support) <br> - VMess (CDN Support) <br> - SS+FakeTLS| **HTTP** <br> - Unsafe, Default Is Disable <br> - VLess<br> - VMess |
+- Quick installation
+- Smart proxy (Hidify and Clash client)
+- Automatic update
+- Automatic backup (every 6 hours)
+- Using multiple domains
+- Auto CDN IP configuration capability
+- Management of active configurations
+- User management
+- Definition of time and traffic limit for each user
+- Dedicated pages for users to view consumption and configurations
+- Dedicated and intelligent configurations
+- Dedicated client software
 
-</details>
+And dozens of other features that you will notice after installation
 
 
 <details markdown="1"> <summary><b>Smart Proxy For Domestic And Filtered Sites</b></summary>
