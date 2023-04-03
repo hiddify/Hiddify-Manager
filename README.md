@@ -135,9 +135,12 @@ When you want to share Telegram proxy or Shadowsocks proxy through other program
 
 ## Installation Guide ![](https://img.shields.io/badge/Install-Hiddify-004E9F?style=flat-square&logo=Azure-Data-Explorer)
 
-**Installation without SSH**
+### prerequisites
+Before you start the installation; You need a series of prerequisites. Click [here](https://github.com/hiddify/hiddify-config/wiki/Installation-prerequisites) to get to know them.
 
-This way you can take advantage of quick and easy installation of this panel using cloud-init scripts with no technical knowledge and even without any SSH connections. Click the buttons based on your data-center.
+### Quick installation
+
+If you get your server directly from famous data centers; we made it easy and automated for you. In this method, the installation is done automatically very quickly and easily without the need for technical knowledge. Click on one of the buttons below to continue.
 
 <div align=center>
 
@@ -145,9 +148,10 @@ This way you can take advantage of quick and easy installation of this panel usi
 
 </div>
 
-**Installation with SSH**
 
-Here you can use these guides on prepared Ubuntu servers with SSH connection. Click on the buttons based on your desire.
+### Typical installation
+
+To install, you only need to have a server according to the prerequisites, and then the installation is done with a simple one-line command. Click one of the following buttons according to your needs.
 
 <div align=center>
 
@@ -156,8 +160,8 @@ Here you can use these guides on prepared Ubuntu servers with SSH connection. Cl
 </div>
 
 
-## Configuration Guide ![](https://img.shields.io/badge/Config-Hiddify-009688?style=flat-square&logo=Azure-Functions)
-<b>Making the best use of this panel via [this guide](https://github.com/hiddify/hiddify-config/wiki/How-to-configure-Hiddify-Panel-properly).</b>
+## Configuration Guide 
+For making the best use of this panel, read [this guide ![](https://img.shields.io/badge/Config-Hiddify-009688?style=flat-square&logo=Azure-Functions)](https://github.com/hiddify/hiddify-config/wiki/How-to-configure-Hiddify-Panel-properly) .
 
 
 
