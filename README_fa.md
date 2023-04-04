@@ -14,13 +14,7 @@
 </br>
 <div align=center>
 
-[![Total Downloads](https://img.shields.io/github/downloads/hiddify/hiddify-config/total?label=downloads%20after%202023%2F03%2F27%2011%3A00%20&style=flat-square)](https://github.com/hiddify/hiddify-config/)
-[![Last Version](https://img.shields.io/github/release/hiddify/hiddify-config/all.svg?style=flat-square)](https://github.com/hiddify/hiddify-config/)
-[![Last Release Date](https://img.shields.io/github/release-date/hiddify/hiddify-config.svg?style=flat-square)](https://github.com/hiddify/hiddify-config/)
-![commits](https://img.shields.io/github/commit-activity/m/hiddify/hiddify-config?style=flat-square)
-[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square&logo=youtube)](https://www.youtube.com/@hiddify)
-[![Telegram Channel](https://img.shields.io/endpoint?label=Channel&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify&color=blue)](https://telegram.dog/hiddify)
-[![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
+[![Total Downloads](https://img.shields.io/github/downloads/hiddify/hiddify-config/total?label=downloads%20after%202023%2F03%2F27%2011%3A00%20&style=flat-square)](https://github.com/hiddify/hiddify-config/)[![Last Version](https://img.shields.io/github/release/hiddify/hiddify-config/all.svg?style=flat-square)](https://github.com/hiddify/hiddify-config/)[![Last Release Date](https://img.shields.io/github/release-date/hiddify/hiddify-config.svg?style=flat-square)](https://github.com/hiddify/hiddify-config/)![commits](https://img.shields.io/github/commit-activity/m/hiddify/hiddify-config?style=flat-square)[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square&logo=youtube)](https://www.youtube.com/@hiddify)[![Telegram Channel](https://img.shields.io/endpoint?label=Channel&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify&color=blue)](https://telegram.dog/hiddify)[![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
 <!--
 [![GitHub Stars](https://img.shields.io/tokei/lines/github/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
 [![GitHub Stars](https://img.shields.io/github/stars/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
