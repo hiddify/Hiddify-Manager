@@ -1,7 +1,7 @@
 
 <div align="left" markdown="1">
 
-[**![World Learning Splash Image](https://user-images.githubusercontent.com/125398461/229074810-599bd7f9-0bc1-44a9-b76e-90bf7e182314.png) English**](https://github.com/hiddify/hiddify-config/edit/main/README.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ویکی](https://github.com/hiddify/hiddify-config/wiki/Home_Fa)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[سوالات رایج](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[گزارش اشکالات](https://github.com/hiddify/hiddify-config/issues)
+[**![World Learning Splash Image](https://user-images.githubusercontent.com/125398461/229074810-599bd7f9-0bc1-44a9-b76e-90bf7e182314.png) English**](https://github.com/hiddify/hiddify-config/blob/main/README.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ویکی](https://github.com/hiddify/hiddify-config/wiki/Home_Fa)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[سوالات رایج](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[گزارش اشکالات](https://github.com/hiddify/hiddify-config/issues)
 
 
 </div>
@@ -14,13 +14,7 @@
 </br>
 <div align=center>
 
-[![Total Downloads](https://img.shields.io/github/downloads/hiddify/hiddify-config/total?label=downloads%20after%202023%2F03%2F27%2011%3A00%20&style=flat-square)](https://github.com/hiddify/hiddify-config/)
-[![Last Version](https://img.shields.io/github/release/hiddify/hiddify-config/all.svg?style=flat-square)](https://github.com/hiddify/hiddify-config/)
-[![Last Release Date](https://img.shields.io/github/release-date/hiddify/hiddify-config.svg?style=flat-square)](https://github.com/hiddify/hiddify-config/)
-![commits](https://img.shields.io/github/commit-activity/m/hiddify/hiddify-config?style=flat-square)
-[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square&logo=youtube)](https://www.youtube.com/@hiddify)
-[![Telegram Channel](https://img.shields.io/endpoint?label=Channel&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify&color=blue)](https://telegram.dog/hiddify)
-[![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
+[![Total Downloads](https://img.shields.io/github/downloads/hiddify/hiddify-config/total?label=downloads%20after%202023%2F03%2F27%2011%3A00%20&style=flat-square)](https://github.com/hiddify/hiddify-config/)[![Last Version](https://img.shields.io/github/release/hiddify/hiddify-config/all.svg?style=flat-square)](https://github.com/hiddify/hiddify-config/)[![Last Release Date](https://img.shields.io/github/release-date/hiddify/hiddify-config.svg?style=flat-square)](https://github.com/hiddify/hiddify-config/)![commits](https://img.shields.io/github/commit-activity/m/hiddify/hiddify-config?style=flat-square)[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square&logo=youtube)](https://www.youtube.com/@hiddify)[![Telegram Channel](https://img.shields.io/endpoint?label=Channel&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify&color=blue)](https://telegram.dog/hiddify)[![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
 <!--
 [![GitHub Stars](https://img.shields.io/tokei/lines/github/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
 [![GitHub Stars](https://img.shields.io/github/stars/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
@@ -38,20 +32,18 @@
 
 
 
-![farsi++png](https://user-images.githubusercontent.com/114227601/228013297-240d6945-874f-4836-9b0d-0e1ba072481f.png)
-
-
-
-
+![farsi_demo](https://user-images.githubusercontent.com/114227601/228013297-240d6945-874f-4836-9b0d-0e1ba072481f.png)
 
 
 ***
 ### فهرست مطالب
 - [چرا هیدیفای؟](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%DA%86%D8%B1%D8%A7-%D9%87%DB%8C%D8%AF%DB%8C%D9%81%D8%A7%DB%8C)
 - [راهنمای نصب](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%86%D8%AD%D9%88%D9%87-%D9%86%D8%B5%D8%A8) 
-    - [راهنمای نصب بدون ssh](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%86%D8%B5%D8%A8-%D8%A8%D8%AF%D9%88%D9%86-ssh)
-    - [راهنمای نصب با ssh](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%86%D8%B5%D8%A8-%D8%A8%D8%A7-ssh)
+  - [پیش نیازها](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%BE%DB%8C%D8%B4-%D9%86%DB%8C%D8%A7%D8%B2%D9%87%D8%A7)
+  - [نصب سریع](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%86%D8%B5%D8%A8-%D8%B3%D8%B1%DB%8C%D8%B9)
+  - [نصب معمول](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%86%D8%B5%D8%A8-%D9%85%D8%B9%D9%85%D9%88%D9%84)
 - [راهنمای پیکربندی](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%86%D8%AD%D9%88%D9%87-%D9%BE%DB%8C%DA%A9%D8%B1%D8%A8%D9%86%D8%AF%DB%8C)
+- [ویکی](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%88%DB%8C%DA%A9%DB%8C-%D9%BE%D8%B1%D9%88%DA%98%D9%87)
 - [حمایت از پروژه](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D8%AF%D9%88%D9%86%DB%8C%D8%AA-%D9%88-%D8%AD%D9%85%D8%A7%DB%8C%D8%AA-%D8%A7%D8%B2-%D9%BE%D8%B1%D9%88%DA%98%D9%87)
 - [همکاری با ما](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%87%D9%85%DA%A9%D8%A7%D8%B1%DB%8C-%D8%A8%D8%A7-%D9%85%D8%A7)
 - [راه های همکاری و ارتباط با ما](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D8%B1%D8%A7%D9%87-%D9%87%D8%A7%DB%8C-%D9%87%D9%85%DA%A9%D8%A7%D8%B1%DB%8C-%D9%88-%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7-%D8%A8%D8%A7-%D9%85%D8%A7)
@@ -59,7 +51,22 @@
 ## چرا هیدیفای؟
 هیدیفای تلفیقی از دو کلمه Hidden (مخفی شده) و Simplify (ساده سازی) است. پنلی با ويژگی های فراوان و تعداد قابل توجهی از قابلیت ها که به شما کمک می کند با خیالی راحت و آسوده از اینترنت آزاد بهره ببرید.
 
-<details markdown="1"> <summary><b>کانفیگ‌های پشتیبانی شده</b></summary> 
+<details markdown="1"> <summary><b>ویژگی های جذاب و پروتکل های پشتیبانی شده</b></summary> 
+
+- نصب سریع
+- پروکسی هوشمند (کلاینت هیدیفای و کلش)
+- بروزرسانی خودکار
+- بکاپ گیری خودکار (هر ۶ ساعت)
+- استفاده از چندین دامین
+- قابلیت کانفیگ آیپی خودکار Auto CDN
+- مدیریت کانفیگ‌های فعال
+- مدیریت کاربران
+- تعریف محدودیت زمان و میزان استفاده کاربران
+- صفحات اختصاصی کاربران برای مشاهده مصرف و کانفیگ‌ها
+- کانفیگ های اختصاصی و هوشمند
+- نرم‌افزار‌های کلاینت اختصاصی
+
+و ده ها قابلیت دیگر که بعد از نصب متوجه آن می شوید.
 
 | کانفیگ های پشتیبانی شده | Supported Configs |
 | - | - |
@@ -85,7 +92,7 @@
 
 </details>
 
-<details markdown="1"><summary><b>سایر امکانات</b></summary>
+<details markdown="1"><summary><b>سایر امکانات فوق العاده</b></summary>
 
 
 <details  markdown="1"> <summary>سیستم‌عامل‌های پشتیبانی شده</summary>
@@ -104,7 +111,7 @@ Ubuntu arm64 or amd64
 </details>
 
  <details markdown="1"> <summary>صفحات راهنمای کاربران</summary> 
- با امکان تولید qrcode
+ با امکان تولید QR Code
 
  ![صفحه راهنمای کاربران](https://user-images.githubusercontent.com/114227601/206908372-db1fc206-4c6a-4206-ad39-e6b6b44a55c4.png)
 </details>
@@ -134,35 +141,17 @@ Ubuntu arm64 or amd64
 </details>
 
 ***
+<div dir="rtl">
 
 ## راهنمای نصب ![](https://img.shields.io/badge/Install-Hiddify-004E9F?style=flat-square&logo=Azure-Data-Explorer)
 
-<details><summary><h3>پیش نیاز‌ها</h3></summary>
+### پیش نیاز‌ها
+قبل از اینکه بخواهید نصب را شروع کنید؛ به یک سری پیش نیازها احتیاج دارید. برای آشنایی با آنها [اینجا](https://github.com/hiddify/hiddify-config/wiki/%D9%BE%DB%8C%D8%B4-%D9%86%DB%8C%D8%A7%D8%B2%D9%87%D8%A7%DB%8C-%D9%86%D8%B5%D8%A8) کلیک کنید.
 
-قبل از نصب شما نیاز به یک سری پیش نیازها دارید:
-
-- ابتدا به یک سرور مجازی یا VPS نیاز دارید 
-    - می توانید با استفاده از کارت اعتباری یا روش های پرداخت واسط به صورت مستقیم از دیتاسنترهای معروف دنیا سرور مجازی خود را تهیه نمایید.
-    - یا اینکه می توانید از سایت های ایرانی سرور بخرید.
-
-
-- سیستم عامل این سرور مجازی باید ابونتو ۲۲.۰۴ یا ۲۰.۰۴ باشد.
-ابونتو یک توزیع از سیستم عامل لینوکس است که لوگوی آن بدین شکل است. ![](https://img.shields.io/badge/Ubuntu--E95420?style=flat-square&logo=ubuntu)
-
-جهت آشنایی بیشتر درباره روش خرید سرور از ایران این ویدئو را در کامل یوتوب ما تماشا کنید.
-
-<div align=center>
-
-<a href="https://youtu.be/tcd1wBUR3cY" />
-<img width="50%" src="https://user-images.githubusercontent.com/125398461/229348575-c564efe9-02dc-4b97-bf66-410060934a94.png" />
-</a>
-</div>
-
-
-</details>
+  
 
 ###  نصب سریع
-اگر کارت اعتباری دارید یا می توانید از روش های پرداخت واسط استفاده کنید و سرور خود را به طور مستقیم از دیتاسنترهای معروف تهیه می کنید؛ ما برای شما کار را راحت و خودکار کردیم.
+اگر سرور خود را به طور مستقیم از دیتاسنترهای معروف تهیه می کنید؛ ما برای شما کار را راحت و خودکار کردیم.
 در این روش به صورت خیلی سریع و آسان بدون نیاز به دانش فنی نصب به صورت خودکار انجام می شود. جهت ادامه روی یکی از دکمه های زیر کلیک کنید.
 <div align="center">
 
@@ -170,7 +159,7 @@ Ubuntu arm64 or amd64
 </div>
 
 
-### نصب معمول:
+### نصب معمول
  برای نصب فقط کافیه یک سرور مطابق با پیش نیاز داشته باشید و پس از آن با یک دستور تک خطی ساده نصب انجام میشه. بر اساس نیازتون یکی از دکمه های زیر را کلیک کنید.
 
 <div align=center >
@@ -189,6 +178,8 @@ Ubuntu arm64 or amd64
 ## راهنمای پیکربندی 
 برای اینکه حداکثر استفاده را از مزایای این پنل ببرید؛ این [راهنما ![](https://img.shields.io/badge/Config-Hiddify-009688?style=flat-square&logo=Azure-Functions)](https://github.com/hiddify/hiddify-config/wiki/%D9%86%D8%AD%D9%88%D9%87-%D9%BE%DB%8C%DA%A9%D8%B1%D8%A8%D9%86%D8%AF%DB%8C-%D9%BE%D9%86%D9%84-%D9%87%DB%8C%D8%AF%DB%8C%D9%81%D8%A7%DB%8C) را مطالعه کنید.
 
+## ویکی پروژه
+جهت آشنایی بیشتر با جزییات پیشنهاد می شود مطالب ما را در [ویکی](https://github.com/hiddify/hiddify-config/wiki/home_fa) دنبال کنید.
 ## حمایت از پروژه
 ساده‌ترین راه حمایت از ما کلیک کردن روی ستاره (⭐) بالای همین صفحه است.
 

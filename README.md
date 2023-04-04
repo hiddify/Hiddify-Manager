@@ -17,13 +17,7 @@
 <div align=center>
 
 
-[![Total Downloads](https://img.shields.io/github/downloads/hiddify/hiddify-config/total?label=downloads%20after%202023%2F03%2F27%2011%3A00%20&style=flat-square)](https://github.com/hiddify/hiddify-config/)
-[![Last Version](https://img.shields.io/github/release/hiddify/hiddify-config/all.svg?style=flat-square)](https://github.com/hiddify/hiddify-config/)
-[![Last Release Date](https://img.shields.io/github/release-date/hiddify/hiddify-config.svg?style=flat-square)](https://github.com/hiddify/hiddify-config/)
-![commits](https://img.shields.io/github/commit-activity/m/hiddify/hiddify-config?style=flat-square)
-[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square&logo=youtube)](https://www.youtube.com/@hiddify)
-[![Telegram Channel](https://img.shields.io/endpoint?label=Channel&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify&color=blue)](https://telegram.dog/hiddify)
-[![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
+[![Total Downloads](https://img.shields.io/github/downloads/hiddify/hiddify-config/total?label=downloads%20after%202023%2F03%2F27%2011%3A00%20&style=flat-square)](https://github.com/hiddify/hiddify-config/)[![Last Version](https://img.shields.io/github/release/hiddify/hiddify-config/all.svg?style=flat-square)](https://github.com/hiddify/hiddify-config/)[![Last Release Date](https://img.shields.io/github/release-date/hiddify/hiddify-config.svg?style=flat-square)](https://github.com/hiddify/hiddify-config/)![commits](https://img.shields.io/github/commit-activity/m/hiddify/hiddify-config?style=flat-square)[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square&logo=youtube)](https://www.youtube.com/@hiddify)[![Telegram Channel](https://img.shields.io/endpoint?label=Channel&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify&color=blue)](https://telegram.dog/hiddify)[![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
 <!--
 [![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square)](https://www.youtube.com/@hiddify/videos)
 [![Telegram Channel](https://img.shields.io/endpoint?label=Telegram&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify)](https://telegram.dog/hiddify)
@@ -57,9 +51,11 @@ Hiddify Is a Powerful And Professional Anti-Censorship Toolbox, Which Is a Multi
 ### Table of Contents
 - [Why Hiddify?](https://github.com/hiddify/hiddify-config/blob/main/README.md#why-hiddify)
 - [Installation Guide](https://github.com/hiddify/hiddify-config/blob/main/README.md#installation-guide)
-  - [Installation Without SSH](https://github.com/hiddify/hiddify-config/blob/main/README.md#installation-without-ssh)
-  - [Installation With SSH](https://github.com/hiddify/hiddify-config/blob/main/README.md#installation-with-ssh)
+  - [Prerequisites](https://github.com/hiddify/hiddify-config/blob/main/README.md#prerequisites)
+  - [Quick installation](https://github.com/hiddify/hiddify-config/blob/main/README.md#quick-installation)
+  - [Typical installation](https://github.com/hiddify/hiddify-config/blob/main/README.md#typical-installation)
 - [Configuration Guide](https://github.com/hiddify/hiddify-config/blob/main/README.md#configuration-guide)
+- [Wiki](https://github.com/hiddify/hiddify-config/blob/main/README.md#wiki)
 - [Donation and Support](https://github.com/hiddify/hiddify-config/blob/main/README.md#donation-and-support)
 - [Collaboration and Contact Information](https://github.com/hiddify/hiddify-config/blob/main/README.md#collaboration-and-contact-information)
 
@@ -68,17 +64,31 @@ Hiddify Is a Powerful And Professional Anti-Censorship Toolbox, Which Is a Multi
 ## Why Hiddify?
 Hiddify is a Mixture Of Hidden And Simplify. A Feature-Full Panel With a Wide Range Pf Capabilities That Helps You Enjoy Surfing Free Internet With Ease And Peace Of Mind. 
 
-<details markdown="1"> <summary> <b>Supported Protocols</b> </summary> 
+<details markdown="1"> <summary><b>Attractive features and supported protocols</b></summary> 
+
+- Quick installation
+- Smart proxy (Hidify and Clash client)
+- Automatic update
+- Automatic backup (every 6 hours)
+- Using multiple domains
+- Auto CDN IP configuration capability
+- Management of active configurations
+- User management
+- Definition of time and traffic limit for each user
+- Dedicated pages for users to view consumption and configurations
+- Dedicated and intelligent configurations
+- Dedicated client software
+
+And dozens of other features that you will notice after installation
 
 | Supported Configs | Supported Configs |
 | - | - |
-| ♥ **Telegram Proxy** ♥ | **VLess + XTLS** |
-| **Web Socket (CDN Support)**:<br> - VLess+TLS+WS <br>- Trojan+TLS+WS <br> - VMess+TLS+WS | **h2 + TLS**:<br> - VLess+TLS<br> - Trojan+TLS<br> - VMess+TLS |
-| **gRPC + TLS**:<br> - VLess+gRPC+TLS<br> - Trojan+gRPC+TLS<br> - VMess+gRPC+TLS | **Http1.1 + TLS**:  <br>- Trojan+TLS <br> - VMess+TLS|
-| **Old Configs**: <br> - Trojan-Go (CDN Support) <br> - V2Ray+WS (CDN Support) <br> - VMess (CDN Support) <br> - SS+FakeTLS| **HTTP** <br> - Unsafe, Default Is Disable <br> - VLess<br> - VMess |
+| ♥ **Telegram Proxy** ♥ | **vless+xtls** |
+| **Web Socket (cdn support)**:<br> - vless+tls+ws <br>- trojan+tls+ws <br> - vmess+tls+ws | **h2+tls**:<br> - vless+tls<br> - trojan+tls<br> - vmess+tls |
+| **grpc+tls**:<br> - vless+grpc+tls<br> - trojan+grpc+tls<br> - vmess+grpc+tls | **http1.1+tls**:  <br>- trojan+tls <br> - vmess+tls|
+| **old configs**: <br> - trojango (cdn support) <br> - v2ray+ws (cdn support) <br> - vmess (cdn support) <br> - ss+faketls| **HTTP** <br> -unsafe, default is disable <br> - vless<br> -vmess |
 
 </details>
-
 
 <details markdown="1"> <summary><b>Smart Proxy For Domestic And Filtered Sites</b></summary>
  
@@ -135,9 +145,12 @@ When you want to share Telegram proxy or Shadowsocks proxy through other program
 
 ## Installation Guide ![](https://img.shields.io/badge/Install-Hiddify-004E9F?style=flat-square&logo=Azure-Data-Explorer)
 
-**Installation without SSH**
+### Prerequisites
+Before you start the installation; You need a series of prerequisites. Click [here](https://github.com/hiddify/hiddify-config/wiki/Installation-prerequisites) to get to know them.
 
-This way you can take advantage of quick and easy installation of this panel using cloud-init scripts with no technical knowledge and even without any SSH connections. Click the buttons based on your data-center.
+### Quick installation
+
+If you get your server directly from famous data centers; we made it easy and automated for you. In this method, the installation is done automatically very quickly and easily without the need for technical knowledge. Click on one of the buttons below to continue.
 
 <div align=center>
 
@@ -145,9 +158,10 @@ This way you can take advantage of quick and easy installation of this panel usi
 
 </div>
 
-**Installation with SSH**
 
-Here you can use these guides on prepared Ubuntu servers with SSH connection. Click on the buttons based on your desire.
+### Typical installation
+
+To install, you only need to have a server according to the prerequisites, and then the installation is done with a simple one-line command. Click one of the following buttons according to your needs.
 
 <div align=center>
 
@@ -156,10 +170,11 @@ Here you can use these guides on prepared Ubuntu servers with SSH connection. Cl
 </div>
 
 
-## Configuration Guide ![](https://img.shields.io/badge/Config-Hiddify-009688?style=flat-square&logo=Azure-Functions)
-<b>Making the best use of this panel via [this guide](https://github.com/hiddify/hiddify-config/wiki/How-to-configure-Hiddify-Panel-properly).</b>
+## Configuration Guide 
+For making the best use of this panel, read [this guide ![](https://img.shields.io/badge/Config-Hiddify-009688?style=flat-square&logo=Azure-Functions)](https://github.com/hiddify/hiddify-config/wiki/How-to-configure-Hiddify-Panel-properly) .
 
-
+## Wiki
+To learn more about the details, it is recommended to follow our content in the [wiki](https://github.com/hiddify/hiddify-config/wiki) .
 
 ## Donation And Support 
 The easiest way to support us is to click on the star (⭐) at the top of this page.
