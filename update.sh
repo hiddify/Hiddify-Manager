@@ -43,7 +43,7 @@ function main(){
         echo "hiddify panel version current=$CURRENT latest=$LATEST"
         if [[ FORCE == "true" || "$CURRENT" != "$LATEST" ]];then
             echo "panel is outdated! updating...."
-            pip3 install -U hiddifypanel
+            pip3 install -U hiddifypanel==$LATEST
             UPDATE=1
         fi
     fi
