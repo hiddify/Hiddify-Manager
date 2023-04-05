@@ -11,7 +11,7 @@ Type=simple
 #WorkingDirectory=/opt/hiddify-config/hiddify-panel/
 User=root
 WorkingDirectory=/opt/hiddify-config/hiddify-panel/
-#Environment="PATH=/usr/local/bin"
+Environment="LANG=en_US.utf8"
 ExecStart=/usr/local/bin/uwsgi --ini /opt/hiddify-config/hiddify-panel/uwsgi.ini
 ExecReload=/bin/kill -HUP $MAINPID
 ExecStop=/bin/kill -INT $MAINPID
