@@ -14,6 +14,7 @@ function main(){
     rm -rf caddy
     ./hiddify-panel/backup.sh
     UPDATE=0
+    PANEL_UPDATE=0
     if [[ "$1" == "" ]];then
         PACKAGE_MODE=$(cd hiddify-panel;python3 -m hiddifypanel all-configs|jq -r ".hconfigs.package_mode")
         FORCE=false
@@ -36,7 +37,7 @@ function main(){
         #    UPDATE=1
         #fi
         pip install -U hiddifypanel --pre
-        UPDATE=1
+        PANEL_UPDATE=1
     else 
         CURRENT=`pip3 freeze |grep hiddifypanel|awk -F"==" '{ print $2 }'`
         LATEST=`lastversion hiddifypanel --at pip`
@@ -44,7 +45,7 @@ function main(){
         if [[ FORCE == "true" || "$CURRENT" != "$LATEST" ]];then
             echo "panel is outdated! updating...."
             pip3 install -U hiddifypanel==$LATEST
-            UPDATE=1
+            PANEL_UPDATE=1
         fi
     fi
 
@@ -81,7 +82,7 @@ function main(){
     if [[ $UPDATE == 0 ]];then
         echo "---------------------Finished!------------------------"
     fi
-    if [[ "$CURRENT" != "$LATEST" ]];then
+    if [[ "$PANEL_UPDATE" == 1 ]];then
         systemctl restart hiddify-panel
     fi
 }
