@@ -8,7 +8,7 @@
 			"settings": {
 			  "decryption": "none",
 			  "clients": [
-				{"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com","flow": "xtls-rprx-vision,none"}
+				{"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com","flow": "xtls-rprx-vision"}
 			  ],
 			  "fallbacks": [
 				{

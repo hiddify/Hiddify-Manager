@@ -35,7 +35,7 @@ if [ -f "../config.env" ]; then
     fi
 fi
 systemctl daemon-reload
-echo "*/10 * * * * root $(pwd)/update_usage.sh" > /etc/cron.d/hiddify_usage_update
+echo "*/1 * * * * root $(pwd)/update_usage.sh" > /etc/cron.d/hiddify_usage_update
 service cron reload
 
 systemctl start hiddify-panel.service

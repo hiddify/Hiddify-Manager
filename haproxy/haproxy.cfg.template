@@ -52,8 +52,8 @@ frontend https-in
     option dontlognull
     tcp-request inspect-delay 5s
     tcp-request content accept if { req.ssl_hello_type 1 }
-    acl tls1_2 req.ssl_ver 1.2
-    acl tls1_3 req.ssl_ver 1.3
+    acl tls1_2 req.ssl_ver 3.3
+    acl tls1_3 req.ssl_ver 3.4
     
     acl xray_domains req.ssl_sni -i XRAY_DOMAIN
     acl tg_domains req.ssl_sni -i TELEGRAM_FAKE_TLS_DOMAIN

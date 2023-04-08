@@ -13,8 +13,9 @@ User=root
 WorkingDirectory=/opt/hiddify-config/hiddify-panel/
 Environment="LANG=en_US.utf8"
 ExecStart=/usr/local/bin/uwsgi --ini /opt/hiddify-config/hiddify-panel/uwsgi.ini
-ExecReload=/bin/kill -HUP $MAINPID
-ExecStop=/bin/kill -INT $MAINPID
+#ExecReload=/bin/kill -HUP $MAINPID
+ExecStop=/bin/kill -INT $(/usr/bin/pgrep -f "hiddifypanel")
+#ExecStop=/bin/kill -INT $MAINPID
 Restart=always
 StandardOutput=file:/opt/hiddify-config/log/system/hiddify_panel.out.log
 StandardError=file:/opt/hiddify-config/log/system/hiddify_panel.err.log

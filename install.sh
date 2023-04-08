@@ -288,7 +288,7 @@ function main(){
         # fi
         echo "---------------------Finished!------------------------"
         if [ "$MODE" != "apply_users" ];then
-                systemctl reload hiddify-panel
+                systemctl restart hiddify-panel
         fi
         systemctl start hiddify-panel
 
