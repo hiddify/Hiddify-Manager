@@ -11,6 +11,7 @@
             "outboundTag": "forbidden_sites",
             //ir "ip": ["geoip:ir"]
             //zh "ip": ["geoip:cn"]
+            //other "ip": ["geoip:cn"]
         },
           
         //   {
