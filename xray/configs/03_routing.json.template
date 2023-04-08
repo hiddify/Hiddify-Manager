@@ -37,6 +37,7 @@
             "outboundTag": "forbidden_sites",
             //ir "domain": ["tld-ir"]
             //zh "domain": ["geosite:cn","tld-cn"] 
+            //other "ip": ["geoip:cn"]
         },
         // {
         //   "type": "field",
