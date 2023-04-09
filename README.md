@@ -51,15 +51,15 @@ Hiddify Is a Powerful And Professional Anti-Censorship Toolbox, Which Is a Multi
 ***
 
 ### Table of Contents
-- [Why Hiddify?](https://github.com/hiddify/hiddify-config/blob/main/README.md#why-hiddify)
-- [Installation Guide](https://github.com/hiddify/hiddify-config/blob/main/README.md#installation-guide)
-  - [Prerequisites](https://github.com/hiddify/hiddify-config/blob/main/README.md#prerequisites)
-  - [Quick installation](https://github.com/hiddify/hiddify-config/blob/main/README.md#quick-installation)
-  - [Typical installation](https://github.com/hiddify/hiddify-config/blob/main/README.md#typical-installation)
-- [Configuration Guide](https://github.com/hiddify/hiddify-config/blob/main/README.md#configuration-guide)
+- [Why Hiddify?](https://github.com/hiddify/hiddify-config#why-hiddify)
+- [Installation Guide](https://github.com/hiddify/hiddify-config/main/README.md#installation-guide)
+  - [Prerequisites](https://github.com/hiddify/hiddify-config/main/README.md#prerequisites)
+  - [Quick installation](https://github.com/hiddify/hiddify-config/main/README.md#quick-installation)
+  - [Typical installation](https://github.com/hiddify/hiddify-config/main/README.md#typical-installation)
+- [Configuration Guide](https://github.com/hiddify/hiddify-config/main/README.md#configuration-guide)
 - [Wiki](https://github.com/hiddify/hiddify-config/blob/main/README.md#wiki)
-- [Donation and Support](https://github.com/hiddify/hiddify-config/blob/main/README.md#donation-and-support)
-- [Collaboration and Contact Information](https://github.com/hiddify/hiddify-config/blob/main/README.md#collaboration-and-contact-information)
+- [Donation and Support](https://github.com/hiddify/hiddify-config/main/README.md#donation-and-support)
+- [Collaboration and Contact Information](https://github.com/hiddify/hiddify-config/main/README.md#collaboration-and-contact-information)
 
 
 ***
