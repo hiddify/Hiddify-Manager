@@ -38,9 +38,9 @@ for DOMAIN in $DOMAINS;	do
 	# --server  letsencrypt 
 	
 	
-	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --server letsencrypt --pre-hook "systemctl stop hiddify-xray||kill -9 $(lsof -t -i:80) || echo 'nothing to kill'"
+	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --server letsencrypt --pre-hook "/usr/bin/systemctl stop hiddify-xray;/usr/bin/kill -9 $(/usr/bin/lsof -t -i:80) || echo 'nothing to kill'"
 	#if [[ $? != 130 && $? != 0 ]];then 
-	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --pre-hook "systemctl stop hiddify-xray||kill -9 $(lsof -t -i:80) || echo 'nothing to kill'"
+	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --pre-hook "/usr/bin/systemctl stop hiddify-xray;/usr/bin/kill -9 $(/usr/bin/lsof -t -i:80) || echo 'nothing to kill'"
 	#fi
 	./lib/acme.sh  --installcert  -d $DOMAIN  \
 			--fullchainpath $ssl_cert_path/$DOMAIN.crt \
