@@ -37,7 +37,7 @@ for DOMAIN in $DOMAINS;	do
 	fi
 	# --server  letsencrypt 
 	
-	pids="$( /usr/bin/lsof -t -i:80 2>/dev/null | tr '\n' ' ') "
+	pids=$( /usr/bin/lsof -t -i:80 2>/dev/null | tr '\n' ' ')
 	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --server letsencrypt --pre-hook "/usr/bin/systemctl stop hiddify-xray;if [ -n '$pids' ]; then /usr/bin/kill -9 $pids; fi || echo 'nothing to kill'"
 	pids=$( /usr/bin/lsof -t -i:80 2>/dev/null | tr '\n' ' '); 
 	#if [[ $? != 130 && $? != 0 ]];then 
