@@ -37,10 +37,11 @@ for DOMAIN in $DOMAINS;	do
 	fi
 	# --server  letsencrypt 
 	
-	
-	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --server letsencrypt --pre-hook "/usr/bin/systemctl stop hiddify-xray;/usr/bin/kill -9 $(/usr/bin/lsof -t -i:80) || echo 'nothing to kill'"
+	pids=$( /usr/bin/lsof -t -i:80 2>/dev/null | tr '\n' ' '); 
+	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --server letsencrypt --pre-hook "/usr/bin/systemctl stop hiddify-xray;if [ -n "$pids" ]; then /usr/bin/kill -9 $pids; fi || echo 'nothing to kill'"
+	pids=$( /usr/bin/lsof -t -i:80 2>/dev/null | tr '\n' ' '); 
 	#if [[ $? != 130 && $? != 0 ]];then 
-	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --pre-hook "/usr/bin/systemctl stop hiddify-xray;/usr/bin/kill -9 $(/usr/bin/lsof -t -i:80) || echo 'nothing to kill'"
+	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --pre-hook "/usr/bin/systemctl stop hiddify-xray;if [ -n "$pids" ]; then /usr/bin/kill -9 $pids; fi || echo 'nothing to kill'"
 	#fi
 	./lib/acme.sh  --installcert  -d $DOMAIN  \
 			--fullchainpath $ssl_cert_path/$DOMAIN.crt \
