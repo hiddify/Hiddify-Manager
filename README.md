@@ -4,7 +4,7 @@
 
 
 
- ![Lang Logo](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/ir.png)&nbsp;[<b>فارسی</b>](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/%20Wiki-Page-808080?style=flat-square)](https://github.com/hiddify/hiddify-config/wiki)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/FAQ-Here-512DA8?style=flat-square&logo=Favro)](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Report-Bugs-F67909?style=flat-square&logo=Open-Bug-Bounty)](https://github.com/hiddify/hiddify-config/issues)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ ![Lang Logo](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/ir.png)&nbsp;[<b>فارسی</b>](https://github.com/hiddify/hiddify-config/wiki/Home_fa)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/%20Wiki-Page-808080?style=flat-square)](https://github.com/hiddify/hiddify-config/wiki)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/FAQ-Here-512DA8?style=flat-square&logo=Favro)](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Report-Bugs-F67909?style=flat-square&logo=Open-Bug-Bounty)](https://github.com/hiddify/hiddify-config/issues)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 </br>
 <div align=center markdown="1">
@@ -51,15 +51,15 @@ Hiddify Is a Powerful And Professional Anti-Censorship Toolbox, Which Is a Multi
 ***
 
 ### Table of Contents
-- [Why Hiddify?](https://github.com/hiddify/hiddify-config/blob/main/README.md#why-hiddify)
-- [Installation Guide](https://github.com/hiddify/hiddify-config/blob/main/README.md#installation-guide)
-  - [Prerequisites](https://github.com/hiddify/hiddify-config/blob/main/README.md#prerequisites)
-  - [Quick installation](https://github.com/hiddify/hiddify-config/blob/main/README.md#quick-installation)
-  - [Typical installation](https://github.com/hiddify/hiddify-config/blob/main/README.md#typical-installation)
-- [Configuration Guide](https://github.com/hiddify/hiddify-config/blob/main/README.md#configuration-guide)
-- [Wiki](https://github.com/hiddify/hiddify-config/blob/main/README.md#wiki)
-- [Donation and Support](https://github.com/hiddify/hiddify-config/blob/main/README.md#donation-and-support)
-- [Collaboration and Contact Information](https://github.com/hiddify/hiddify-config/blob/main/README.md#collaboration-and-contact-information)
+- [Why Hiddify?](#why-hiddify)
+- [Installation Guide](#installation-guide)
+  - [Prerequisites](#prerequisites)
+  - [Quick installation](#quick-installation)
+  - [Typical installation](#typical-installation)
+- [Configuration Guide](#configuration-guide)
+- [Wiki](#wiki)
+- [Donation and Support](#donation-and-support)
+- [Collaboration and Contact Information](#collaboration-and-contact-information)
 
 
 ***
