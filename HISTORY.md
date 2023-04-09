@@ -1,6 +1,21 @@
 # Changelog
 
 
+## v8.5.2 (2023-04-09)
+
+### Other
+
+* Fix acme.sh. [hiddify]
+
+* Fix. [hiddify]
+
+* Fix. [hiddify]
+
+* Better fix acme.sh. [hiddify]
+
+* Better manage cert. [hiddify]
+
+
 ## v8.5.1 (2023-04-09)
 
 ### Other
