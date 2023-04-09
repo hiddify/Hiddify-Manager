@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v8.5.3 (2023-04-09)
+
+### Other
+
+* Uninstall netdata. [hiddify]
+
+
 ## v8.5.2 (2023-04-09)
 
 ### Other
