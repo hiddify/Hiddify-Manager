@@ -1,6 +1,195 @@
 # Changelog
 
 
+## v8.5.0 (2023-04-08)
+
+### New
+
+* Update fixing memory issue in panel. [hiddify]
+
+* Force release package. [hiddify]
+
+* Add wrap for netflix, chatgpt and google captcha. [hiddify]
+
+### Changes
+
+* Remove old configs. [hiddify]
+
+### Fix
+
+* Other. [hiddify]
+
+* Other countries. [hiddify]
+
+* Issue with latin-1. [hiddify]
+
+* Blocking iran sites. [hiddify]
+
+* Panel not restart. [hiddify]
+
+* Remove warp. [hiddify]
+
+* Warp not activated. [hiddify]
+
+* Bug. [hiddify]
+
+### Other
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [Hiddify]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README_fa.md. [Hiddify]
+
+* Update README_fa.md. [Hiddify]
+
+* Update README.md. [Hiddify]
+
+* Update README.md. [Hiddify]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [lymanjre]
+
+* Fix restart panel after update. [hiddify]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [Hiddify]
+
+* Update README_fa.md. [Hiddify]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update. [hiddify]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Optimize uwsgi. [hiddify]
+
+* Disable wrap. [hiddify]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README_fa.md. [lumanjre]
+
+* Update README.md. [Hiddify Official]
+
+* Update README.md. [Hiddify Official]
+
+* Update README.md. [Hiddify Official]
+
+
 ## v8.3.3 (2023-03-30)
 
 ### Other
