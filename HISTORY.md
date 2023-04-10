@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v8.5.4 (2023-04-10)
+
+### Other
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [Hiddify]
+
+* Update usage only if previous update finish. [hiddify]
+
+
 ## v8.5.3 (2023-04-09)
 
 ### Other
