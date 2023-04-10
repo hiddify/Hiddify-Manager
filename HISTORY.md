@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v8.5.6 (2023-04-10)
+
+### Fix
+
+* Unicode. [hiddify]
+
+
 ## v8.5.5 (2023-04-10)
 
 ### Fix
