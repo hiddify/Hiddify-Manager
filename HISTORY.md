@@ -1,6 +1,15 @@
 # Changelog
 
 
+## v8.5.7 (2023-04-10)
+
+### Other
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update FUNDING.yml. [Hiddify]
+
+
 ## v8.5.6 (2023-04-10)
 
 ### Fix
