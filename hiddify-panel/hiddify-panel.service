@@ -8,10 +8,10 @@ Type=simple
 User=root
 WorkingDirectory=/opt/hiddify-config/hiddify-panel/
 Environment="LANG=C.UTF-8"
-ExecStartPre=/bin/bash -c "/bin/kill -INT $(/usr/bin/pgrep -f 'hiddifypanel')"
+ExecStartPre=/bin/bash -c "/bin/kill -INT $(/usr/bin/pgrep -f 'hiddifypanel')||echo 'nothing to kill'"
 ExecStart=/usr/local/bin/uwsgi --ini /opt/hiddify-config/hiddify-panel/uwsgi.ini
 #ExecReload=/bin/kill -HUP $MAINPID
-ExecStop=/bin/bash -c "/bin/kill -INT $(/usr/bin/pgrep -f 'hiddifypanel')"
+ExecStop=/bin/bash -c "/bin/kill -INT $(/usr/bin/pgrep -f 'hiddifypanel')||echo 'nothing to kill'"
 #ExecStop=/bin/kill -INT $MAINPID
 Restart=always
 StandardOutput=file:/opt/hiddify-config/log/system/hiddify_panel.out.log
