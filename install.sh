@@ -185,7 +185,7 @@ function do_for_all() {
                 runsh uninstall.sh deprecated/vmess
                 # runsh $1.sh deprecated/monitoring $ENABLE_MONITORING
                 runsh uninstall.sh deprecated/monitoring
-                runsh $1.sh other/netdata false #$ENABLE_NETDATA
+                runsh $1.sh other/netdata false $ENABLE_NETDATA
                 runsh $1.sh deprecated/trojan-go  $ENABLE_TROJAN_GO
         fi
 
