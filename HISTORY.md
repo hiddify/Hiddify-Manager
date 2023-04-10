@@ -1,6 +1,15 @@
 # Changelog
 
 
+## v8.5.8 (2023-04-10)
+
+### Fix
+
+* No commit message. [hiddify]
+
+* Not stopping old hiddifypanel instances. [hiddify]
+
+
 ## v8.5.7 (2023-04-10)
 
 ### Other
