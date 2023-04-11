@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v8.6.0 (2023-04-11)
+
+### Fix
+
+* Python3-dev. [hiddify]
+
+
 ## v8.5.9 (2023-04-10)
 
 ### Other
