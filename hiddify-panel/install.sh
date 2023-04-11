@@ -1,14 +1,14 @@
 
 systemctl kill hiddify-admin.service
 systemctl disable hiddify-admin.service
-
+apt install -y python3-dev
 for req in pip3 uwsgi  python3 hiddifypanel lastversion jq;do
     which $req
     if [[ "$?" != 0 ]];then
             apt --fix-broken install -y
             apt update
-            apt install -y python3-pip jq
-            pip3 install pip
+            apt install -y python3-pip jq python3-dev
+            pip3 install pip 
             pip3 install -U hiddifypanel lastversion  uwsgi
             break
     fi
