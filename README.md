@@ -68,7 +68,7 @@ Hiddify is a mixture Of Hidden and Simplify. A feature-full panel with a wide ra
 
 ### Attractive features
 - Quick installation
-- Smart proxy (Hidify and Clash client)
+- Smart proxy (Hiddify and Clash client)
 - Automatic update
 - Automatic backup (every 6 hours)
 - Using multiple domains
