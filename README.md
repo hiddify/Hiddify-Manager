@@ -75,7 +75,7 @@ Hiddify is a mixture Of Hidden and Simplify. A feature-full panel with a wide ra
 - Auto CDN IP configuration capability
 - Management of active configurations
 - User management
-- Definition of time and traffic limit for each user
+- Applying time and traffic limit for each user
 - Dedicated pages for users to view consumption and configurations
 - Dedicated and intelligent configurations
 - Dedicated client software
