@@ -29,7 +29,7 @@
 <div dir="rtl" markdown="1">
 
 ## به هیدیفای خوش آمدید
-هیدیفای یک ابزار قدرتمند و حرفه ای ضدسانسور اینترنت است که دارای پنل چند کاربره و نصب آسان است و به شما کمک می کند با بیش از ۲۰ پروتکل پشتیبانی شده فیلترینگ اینترنت را دور بزنید همچنین می توانید از پروکسی تلگرام استفاده نمایید. این ابزار برای شبکه اینترنت ایران بهینه سازی شده است و توسط <a href="https://github.com/XTLS/Xray-core#installation" target="_blank">**Xray**</a> توصیه شده است. این پنل یک جایگزین عالی برای پنل X-UI می باشد.
+هیدیفای یک ابزار قدرتمند و حرفه ای ضدسانسور اینترنت است که دارای پنل چند کاربره و نصب آسان است و به شما کمک می‌کند با بیش از ۲۰ پروتکل پشتیبانی شده فیلترینگ اینترنت را دور بزنید همچنین می‌توانید از پروکسی تلگرام استفاده نمایید. این ابزار برای شبکه اینترنت ایران بهینه سازی شده است و توسط <a href="https://github.com/XTLS/Xray-core#installation" target="_blank">**Xray**</a> توصیه شده است. این پنل یک جایگزین عالی برای پنل X-UI می‌باشد.
 
 
 
@@ -52,7 +52,7 @@
 ## چرا هیدیفای؟
 هیدیفای تلفیقی از دو کلمه Hidden (مخفی شده) و Simplify (ساده سازی) است. پنلی با ويژگی های فراوان و تعداد قابل توجهی از قابلیت ها که به شما کمک می کند با خیالی راحت و آسوده از اینترنت آزاد بهره ببرید.
 
-<details markdown="1"> <summary><b>ویژگی های جذاب و پروتکل های پشتیبانی شده</b></summary> 
+### ویژگی های جذاب 
 
 - نصب سریع
 - پروکسی هوشمند (کلاینت هیدیفای و کلش)
@@ -66,15 +66,32 @@
 - صفحات اختصاصی کاربران برای مشاهده مصرف و کانفیگ‌ها
 - کانفیگ های اختصاصی و هوشمند
 - نرم‌افزار‌های کلاینت اختصاصی
+- پروکسی تلگرام با استفاده از کتابخانه های مختلف
+- DNS بر روی HTTPS یا DoH
+
 
 و ده ها قابلیت دیگر که بعد از نصب متوجه آن می شوید.
+<details markdown="1"> <summary><b>پروتکل های پشتیبانی شده</b></summary> 
 
-| کانفیگ های پشتیبانی شده | Supported Configs |
+
+| Supported Configs | Supported Configs | Supported Configs |
+| - | - | - |
+| **Direct** | **CDN** | **Domain Fronting** |
+|Trojan:<br>- TLS WS<br>- TLS TCP<br>- TLS gRPC<br>- TLS H2 WS<br>- TLS H2 TCP<br>- TLS H2 gRPC<br> |  Trojan:<br>- TLS WS<br>- TLS gRPC<br>- TLS H2 WS<br>- TLS H2 gRPC<br><br><br>| Trojan:<br>- TLS WS Fake<br><br><br><br><br><br> |
+| Vless:<br>- TLS WS<br>- HTTP WS<br>- TLS XTLS<br>- TLS gRPC<br>- TLS H2 TLS<br>- TLS H2 WS<br>- TLS H2 gRPC | Vless:<br>- TLS WS<br>- TLS gRPC<br>- HTTP WS<br>- TLS H2 WS<br>- TLS H2 gRPC<br><br><br>| Vless:<br>- TLS WS Fake<br>- HTTP WS Fake<br><br><br><br><br><br> |
+| Vmess:<br>- TLS WS<br>- TLS TCP<br>- HTTP WS<br>- HTTP TCP<br>- TLS gRPC<br>- TLS H2 WS<br>- TLS H2 TCP<br> | Vmess:<br>- TLS WS<br>- TLS gRPC<br>- HTTP WS<br>- TLS H2 WS<br>- TLS H2 gRPC<br><br><br> | Vmess:<br>- TLS WS Fake<br>- HTTP WS Fake<br><br><br><br><br><br> |
+| V2ray:<br>- TLS WS<br>- HTTP WS<br>- TLS H2 |  V2ray:<br>- TLS WS<br>- HTTP WS<br>- TLS H2 | |
+| Shadowsocks:<br>- TLS Shadowtls<br>- HTTP Shadowtls<br>- TLS H2 Shadowtls | | |
+
+<!--
+| Supported Configs | Supported Configs |
 | - | - |
 | ♥ **Telegram Proxy** ♥ | **vless+xtls** |
 | **Web Socket (cdn support)**:<br> - vless+tls+ws <br>- trojan+tls+ws <br> - vmess+tls+ws | **h2+tls**:<br> - vless+tls<br> - trojan+tls<br> - vmess+tls |
 | **grpc+tls**:<br> - vless+grpc+tls<br> - trojan+grpc+tls<br> - vmess+grpc+tls | **http1.1+tls**:  <br>- trojan+tls <br> - vmess+tls|
 | **old configs**: <br> - trojango (cdn support) <br> - v2ray+ws (cdn support) <br> - vmess (cdn support) <br> - ss+faketls| **HTTP** <br> -unsafe, default is disable <br> - vless<br> -vmess |
+-->
+
 
 </details>
 
@@ -97,7 +114,7 @@
 
 
 <details  markdown="1"> <summary>سیستم‌عامل‌های پشتیبانی شده</summary>
-هایدیفای روی ابونتو ۲۰.۰۴ و ۲۲.۰۴ تست شده است.
+هایدیفای روی اوبونتو ۲۰.۰۴ و ۲۲.۰۴ تست شده است.
 Ubuntu arm64 or amd64
 </details>
 
@@ -112,7 +129,7 @@ Ubuntu arm64 or amd64
 </details>
 
  <details markdown="1"> <summary>صفحات راهنمای کاربران</summary> 
- با امکان تولید QR Code
+ با امکان تولید qrcode
 
  ![صفحه راهنمای کاربران](https://user-images.githubusercontent.com/114227601/206908372-db1fc206-4c6a-4206-ad39-e6b6b44a55c4.png)
 </details>
@@ -140,6 +157,8 @@ Ubuntu arm64 or amd64
 
 </details>
 </details>
+
+</div>
 
 ***
 <div dir="rtl">
