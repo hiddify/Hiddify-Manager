@@ -11,7 +11,7 @@
 ![Hiddify Logo](https://user-images.githubusercontent.com/125398461/227777845-a4d0f86b-faa2-4f2b-a410-4aa5f68bfe19.png)
 
 </div>
-</br>
+<br>
 <div align=center>
 
 <!--[![Total Downloads](https://img.shields.io/github/downloads/hiddify/hiddify-config/total?label=downloads%20after%202023%2F03%2F27%2011%3A00%20&style=flat-square)](https://github.com/hiddify/hiddify-config/)-->
