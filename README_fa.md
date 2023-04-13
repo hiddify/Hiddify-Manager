@@ -41,13 +41,13 @@
 - [چرا هیدیفای؟](#%DA%86%D8%B1%D8%A7-%D9%87%DB%8C%D8%AF%DB%8C%D9%81%D8%A7%DB%8C)
 - [راهنمای نصب](#راهنمای-نصب-) 
   - [پیش نیازها](#%D9%BE%DB%8C%D8%B4-%D9%86%DB%8C%D8%A7%D8%B2%D9%87%D8%A7)
-  - [نصب سریع](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%86%D8%B5%D8%A8-%D8%B3%D8%B1%DB%8C%D8%B9)
-  - [نصب معمول](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%86%D8%B5%D8%A8-%D9%85%D8%B9%D9%85%D9%88%D9%84)
-- [راهنمای پیکربندی](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%86%D8%AD%D9%88%D9%87-%D9%BE%DB%8C%DA%A9%D8%B1%D8%A8%D9%86%D8%AF%DB%8C)
-- [ویکی](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%88%DB%8C%DA%A9%DB%8C-%D9%BE%D8%B1%D9%88%DA%98%D9%87)
-- [حمایت از پروژه](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D8%AF%D9%88%D9%86%DB%8C%D8%AA-%D9%88-%D8%AD%D9%85%D8%A7%DB%8C%D8%AA-%D8%A7%D8%B2-%D9%BE%D8%B1%D9%88%DA%98%D9%87)
-- [همکاری با ما](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%87%D9%85%DA%A9%D8%A7%D8%B1%DB%8C-%D8%A8%D8%A7-%D9%85%D8%A7)
-- [راه های همکاری و ارتباط با ما](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D8%B1%D8%A7%D9%87-%D9%87%D8%A7%DB%8C-%D9%87%D9%85%DA%A9%D8%A7%D8%B1%DB%8C-%D9%88-%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7-%D8%A8%D8%A7-%D9%85%D8%A7)
+  - [نصب سریع](#%D9%86%D8%B5%D8%A8-%D8%B3%D8%B1%DB%8C%D8%B9)
+  - [نصب معمول](#%D9%86%D8%B5%D8%A8-%D9%85%D8%B9%D9%85%D9%88%D9%84)
+- [راهنمای پیکربندی](#%D9%86%D8%AD%D9%88%D9%87-%D9%BE%DB%8C%DA%A9%D8%B1%D8%A8%D9%86%D8%AF%DB%8C)
+- [ویکی](#%D9%88%DB%8C%DA%A9%DB%8C-%D9%BE%D8%B1%D9%88%DA%98%D9%87)
+- [حمایت از پروژه](#%D8%AF%D9%88%D9%86%DB%8C%D8%AA-%D9%88-%D8%AD%D9%85%D8%A7%DB%8C%D8%AA-%D8%A7%D8%B2-%D9%BE%D8%B1%D9%88%DA%98%D9%87)
+- [همکاری با ما](#%D9%87%D9%85%DA%A9%D8%A7%D8%B1%DB%8C-%D8%A8%D8%A7-%D9%85%D8%A7)
+- [راه های همکاری و ارتباط با ما](#%D8%B1%D8%A7%D9%87-%D9%87%D8%A7%DB%8C-%D9%87%D9%85%DA%A9%D8%A7%D8%B1%DB%8C-%D9%88-%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7-%D8%A8%D8%A7-%D9%85%D8%A7)
 ***
 ## چرا هیدیفای؟
 هیدیفای تلفیقی از دو کلمه Hidden (مخفی شده) و Simplify (ساده سازی) است. پنلی با ويژگی های فراوان و تعداد قابل توجهی از قابلیت ها که به شما کمک می کند با خیالی راحت و آسوده از اینترنت آزاد بهره ببرید.
