@@ -39,7 +39,7 @@
 ***
 ### فهرست مطالب
 - [چرا هیدیفای؟](#%DA%86%D8%B1%D8%A7-%D9%87%DB%8C%D8%AF%DB%8C%D9%81%D8%A7%DB%8C)
-- [راهنمای نصب](#%D9%86%D8%AD%D9%88%D9%87-%D9%86%D8%B5%D8%A8) 
+- [راهنمای نصب](#راهنمای-نصب) 
   - [پیش نیازها](#%D9%BE%DB%8C%D8%B4-%D9%86%DB%8C%D8%A7%D8%B2%D9%87%D8%A7)
   - [نصب سریع](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%86%D8%B5%D8%A8-%D8%B3%D8%B1%DB%8C%D8%B9)
   - [نصب معمول](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%86%D8%B5%D8%A8-%D9%85%D8%B9%D9%85%D9%88%D9%84)
