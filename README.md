@@ -67,20 +67,20 @@ Hiddify is a powerful and professional anti-censorship toolbox, which is a multi
 Hiddify is a mixture Of Hidden and Simplify. A feature-full panel with a wide range of capabilities that helps you enjoy surfing free internet with ease and peace Of mind. 
 
 ### Attractive features
-- Quick installation
-- Smart proxy (Hiddify and Clash client)
-- Automatic update
-- Automatic backup (every 6 hours)
-- Using multiple domains
-- Auto CDN IP configuration capability
-- Management of active configurations
-- User management
-- Applying time and traffic limit for each user
-- Dedicated pages for users to view consumption and configurations
-- Dedicated and intelligent configurations
-- Dedicated client software
-- Telegram proxy using different libraries
-- DNS over HTTPS (DoH)
+- **Quick installation**
+- **Smart proxy** (Hiddify and Clash client)
+- **Automatic update**
+- **Automatic backup** (every 6 hours)
+- Using **multiple domains**
+- **Auto CDN IP** configuration capability
+- Management of **active configurations**
+- **User management**
+- Applying **time and traffic limit** for each user
+- **Dedicated pages for users** to view consumption and configurations
+- Dedicated and **intelligent configurations**
+- **Dedicated client software**
+- **Telegram proxy** using different libraries
+- **DNS over HTTPS** (DoH)
 
 And dozens of other features that you will notice after installation
 
