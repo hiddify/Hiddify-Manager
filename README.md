@@ -43,7 +43,7 @@
 
 ## Welcome to Hiddify
 
-Hiddify Is a Powerful And Professional Anti-Censorship Toolbox, Which Is a Multi-User Panel With An Effortless Installation And <b>Supporting More Than 20 Protocols</b> To Circumvent Filtering Plus <b>Telegram Proxy.</b>  It's Optimized For Censorship Circumvention In <b>China</b>, <b>Russia</b> and <b>Iran</b> And Recommended By <a href="https://github.com/XTLS/Xray-core#installation" target="_blank"><b>Xray</b></a>. It's a Great Replacement Of X-UI panel.
+Hiddify is a powerful and professional anti-censorship toolbox, which is a multi-user panel with an effortless installation and <b>supporting more than 20 protocols</b> to circumvent filtering plus <b>Telegram proxy.</b>  It's optimized for censorship circumvention in <b>China</b>, <b>Russia</b> and <b>Iran</b> and Recommended by <a href="https://github.com/XTLS/Xray-core#installation" target="_blank"><b>Xray</b></a>. It's a great replacement of X-UI panel.
 
 ![english++png](https://user-images.githubusercontent.com/114227601/228011984-83b1f981-aede-438e-920d-113d9894477a.png)
 
@@ -52,7 +52,7 @@ Hiddify Is a Powerful And Professional Anti-Censorship Toolbox, Which Is a Multi
 
 ### Table of Contents
 - [Why Hiddify?](#why-hiddify)
-- [Installation Guide](#installation-guide)
+- [Installation Guide](#installation-guide-)
   - [Prerequisites](#prerequisites)
   - [Quick installation](#quick-installation)
   - [Typical installation](#typical-installation)
@@ -64,35 +64,50 @@ Hiddify Is a Powerful And Professional Anti-Censorship Toolbox, Which Is a Multi
 
 ***
 ## Why Hiddify?
-Hiddify is a Mixture Of Hidden And Simplify. A Feature-Full Panel With a Wide Range of Capabilities That Helps You Enjoy Surfing Free Internet With Ease And Peace Of Mind. 
+Hiddify is a mixture of Hidden and Simplify. A feature-full panel with a wide range of capabilities that helps you enjoy surfing free internet with ease and peace Of mind. 
 
-<details markdown="1"> <summary><b>Attractive features and supported protocols</b></summary> 
-
-- Quick installation
-- Smart proxy (Hidify and Clash client)
-- Automatic update
-- Automatic backup (every 6 hours)
-- Using multiple domains
-- Auto CDN IP configuration capability
-- Management of active configurations
-- User management
-- Definition of time and traffic limit for each user
-- Dedicated pages for users to view consumption and configurations
-- Dedicated and intelligent configurations
-- Dedicated client software
+### Attractive features
+- **Quick installation**
+- **Smart proxy** (Hiddify and Clash client)
+- **Automatic update**
+- **Automatic backup** (every 6 hours)
+- Using **multiple domains**
+- **Auto CDN IP** configuration capability
+- Management of **active configurations**
+- **User management**
+- Applying **time and traffic limit** for each user
+- **Dedicated pages for users** to view consumption and configurations
+- Dedicated and **intelligent configurations**
+- **Dedicated client software**
+- **Telegram proxy** using different libraries
+- **DNS over HTTPS** (DoH)
+- User management using **Telegram Bot**
 
 And dozens of other features that you will notice after installation
 
+<details markdown="1"> <summary><h3>Supported protocols</h3> (click here)</summary> 
+
+| Supported Configs | Supported Configs | Supported Configs |
+| - | - | - |
+| **Direct** | **CDN** | **Domain Fronting** |
+|Trojan:<br>- TLS WS<br>- TLS TCP<br>- TLS gRPC<br>- TLS H2 WS<br>- TLS H2 TCP<br>- TLS H2 gRPC<br> |  Trojan:<br>- TLS WS<br>- TLS gRPC<br>- TLS H2 WS<br>- TLS H2 gRPC<br><br><br>| Trojan:<br>- TLS WS Fake<br><br><br><br><br><br> |
+| Vless:<br>- TLS WS<br>- HTTP WS<br>- TLS XTLS<br>- TLS gRPC<br>- TLS H2 TLS<br>- TLS H2 WS<br>- TLS H2 gRPC | Vless:<br>- TLS WS<br>- TLS gRPC<br>- HTTP WS<br>- TLS H2 WS<br>- TLS H2 gRPC<br><br><br>| Vless:<br>- TLS WS Fake<br>- HTTP WS Fake<br><br><br><br><br><br> |
+| Vmess:<br>- TLS WS<br>- TLS TCP<br>- HTTP WS<br>- HTTP TCP<br>- TLS gRPC<br>- TLS H2 WS<br>- TLS H2 TCP<br> | Vmess:<br>- TLS WS<br>- TLS gRPC<br>- HTTP WS<br>- TLS H2 WS<br>- TLS H2 gRPC<br><br><br> | Vmess:<br>- TLS WS Fake<br>- HTTP WS Fake<br><br><br><br><br><br> |
+| V2ray:<br>- TLS WS<br>- HTTP WS<br>- TLS H2 |  V2ray:<br>- TLS WS<br>- HTTP WS<br>- TLS H2 | |
+| Shadowsocks:<br>- TLS Shadowtls<br>- HTTP Shadowtls<br>- TLS H2 Shadowtls | | |
+
+<!--
 | Supported Configs | Supported Configs |
 | - | - |
 | ♥ **Telegram Proxy** ♥ | **vless+xtls** |
 | **Web Socket (cdn support)**:<br> - vless+tls+ws <br>- trojan+tls+ws <br> - vmess+tls+ws | **h2+tls**:<br> - vless+tls<br> - trojan+tls<br> - vmess+tls |
 | **grpc+tls**:<br> - vless+grpc+tls<br> - trojan+grpc+tls<br> - vmess+grpc+tls | **http1.1+tls**:  <br>- trojan+tls <br> - vmess+tls|
 | **old configs**: <br> - trojango (cdn support) <br> - v2ray+ws (cdn support) <br> - vmess (cdn support) <br> - ss+faketls| **HTTP** <br> -unsafe, default is disable <br> - vless<br> -vmess |
+-->
 
 </details>
 
-<details markdown="1"> <summary><b>Smart Proxy For Domestic And Filtered Sites</b></summary>
+<details markdown="1"> <summary><h3>Smart Proxy For Domestic And Filtered Sites</h3></summary>
  
 You can connect to the internet in 3 modes using Hiddify(Clash) client and Hiddify panel. 
 1. This method only circumvents filtered websites via the proxies.
@@ -103,7 +118,7 @@ At the same time, the proposed solution is resistant to detection by the interne
 
 </details>
 
-<details markdown="1"><summary><b>Other Fantastic Features</b></summary>
+<details markdown="1"><summary><h3>Other Fantastic Features</h3></summary>
 
 
 <details  markdown="1"> <summary>Supported operating systems</summary>
@@ -167,8 +182,11 @@ To install, you only need to have a server according to the prerequisites, and t
 
 <div align=center>
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Ubuntu-E95420?style=flat-square&logo=ubuntu)](https://github.com/hiddify/hiddify-config/wiki/Quick-Installation-On-Ubuntu)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Docker-2496ED?style=flat-square&logo=docker)](https://github.com/hiddify/hiddify-config/wiki/Install-Hiddify-using-Docker)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Ubuntu-E95420?style=flat-square&logo=ubuntu)](https://github.com/hiddify/hiddify-config/wiki/Quick-Installation-On-Ubuntu)
 
+<!--
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Docker-2496ED?style=flat-square&logo=docker)](https://github.com/hiddify/hiddify-config/wiki/Install-Hiddify-using-Docker)
+-->
 </div>
 
 

@@ -5,17 +5,17 @@
 
 
 </div>
-</br>
+
 <div align=center markdown="1">
 
 ![Hiddify Logo](https://user-images.githubusercontent.com/125398461/227777845-a4d0f86b-faa2-4f2b-a410-4aa5f68bfe19.png)
 
 </div>
-</br>
+<br>
 <div align=center>
 
 <!--[![Total Downloads](https://img.shields.io/github/downloads/hiddify/hiddify-config/total?label=downloads%20after%202023%2F03%2F27%2011%3A00%20&style=flat-square)](https://github.com/hiddify/hiddify-config/)-->
-[![Downloads](https://img.shields.io/pypi/dm/hiddifypanel?style=flat-square)](https://pypistats.org/packages/hiddifypanel)[![Last Version](https://img.shields.io/github/release/hiddify/hiddify-config/all.svg?style=flat-square)](https://github.com/hiddify/hiddify-config/)[![Last Release Date](https://img.shields.io/github/release-date/hiddify/hiddify-config.svg?style=flat-square)](https://github.com/hiddify/hiddify-config/)![commits](https://img.shields.io/github/commit-activity/m/hiddify/hiddify-config?style=flat-square)[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square&logo=youtube)](https://www.youtube.com/@hiddify)[![Telegram Channel](https://img.shields.io/endpoint?label=Channel&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify&color=blue)](https://telegram.dog/hiddify)[![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
+[![Downloads](https://static.pepy.tech/badge/hiddifypanel?style=flat-square&v3)](https://pepy.tech/project/hiddifypanel?display=monthly&versions=2.*&versions=1.*&versions=3.*)[![Last Version](https://img.shields.io/github/release/hiddify/hiddify-config/all.svg?style=flat-square)](https://github.com/hiddify/hiddify-config/)[![Last Release Date](https://img.shields.io/github/release-date/hiddify/hiddify-config.svg?style=flat-square)](https://github.com/hiddify/hiddify-config/)![commits](https://img.shields.io/github/commit-activity/m/hiddify/hiddify-config?style=flat-square)[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square&logo=youtube)](https://www.youtube.com/@hiddify)[![Telegram Channel](https://img.shields.io/endpoint?label=Channel&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify&color=blue)](https://telegram.dog/hiddify)[![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
 <!--
 [![GitHub Stars](https://img.shields.io/tokei/lines/github/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
 [![GitHub Stars](https://img.shields.io/github/stars/hiddify/hiddify-config.svg)](https://github.com/hiddify/hiddify-config/)
@@ -29,7 +29,7 @@
 <div dir="rtl" markdown="1">
 
 ## به هیدیفای خوش آمدید
-هیدیفای یک ابزار قدرتمند و حرفه ای ضدسانسور اینترنت است که دارای پنل چند کاربره و نصب آسان است و به شما کمک می کند با بیش از ۲۰ پروتکل پشتیبانی شده فیلترینگ اینترنت را دور بزنید همچنین می توانید از پروکسی تلگرام استفاده نمایید. این ابزار برای شبکه اینترنت ایران بهینه سازی شده است و توسط <a href="https://github.com/XTLS/Xray-core#installation" target="_blank">**Xray**</a> توصیه شده است. این پنل یک جایگزین عالی برای پنل X-UI می باشد.
+هیدیفای یک ابزار قدرتمند و حرفه‌ای ضدسانسور اینترنت است که دارای پنل چند کاربره و نصب آسان است و به شما کمک می‌کند با بیش از ۲۰ پروتکل پشتیبانی شده فیلترینگ اینترنت را دور بزنید همچنین می‌توانید از پروکسی تلگرام استفاده نمایید. این ابزار برای شبکه اینترنت ایران بهینه سازی شده است و توسط <a href="https://github.com/XTLS/Xray-core#installation" target="_blank">**Xray**</a> توصیه شده است. این پنل یک جایگزین عالی برای پنل X-UI می‌باشد.
 
 
 
@@ -38,48 +38,64 @@
 
 ***
 ### فهرست مطالب
-- [چرا هیدیفای؟](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%DA%86%D8%B1%D8%A7-%D9%87%DB%8C%D8%AF%DB%8C%D9%81%D8%A7%DB%8C)
-- [راهنمای نصب](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%86%D8%AD%D9%88%D9%87-%D9%86%D8%B5%D8%A8) 
-  - [پیش نیازها](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%BE%DB%8C%D8%B4-%D9%86%DB%8C%D8%A7%D8%B2%D9%87%D8%A7)
-  - [نصب سریع](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%86%D8%B5%D8%A8-%D8%B3%D8%B1%DB%8C%D8%B9)
-  - [نصب معمول](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%86%D8%B5%D8%A8-%D9%85%D8%B9%D9%85%D9%88%D9%84)
-- [راهنمای پیکربندی](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%86%D8%AD%D9%88%D9%87-%D9%BE%DB%8C%DA%A9%D8%B1%D8%A8%D9%86%D8%AF%DB%8C)
-- [ویکی](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%88%DB%8C%DA%A9%DB%8C-%D9%BE%D8%B1%D9%88%DA%98%D9%87)
-- [حمایت از پروژه](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D8%AF%D9%88%D9%86%DB%8C%D8%AA-%D9%88-%D8%AD%D9%85%D8%A7%DB%8C%D8%AA-%D8%A7%D8%B2-%D9%BE%D8%B1%D9%88%DA%98%D9%87)
-- [همکاری با ما](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D9%87%D9%85%DA%A9%D8%A7%D8%B1%DB%8C-%D8%A8%D8%A7-%D9%85%D8%A7)
-- [راه های همکاری و ارتباط با ما](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md#%D8%B1%D8%A7%D9%87-%D9%87%D8%A7%DB%8C-%D9%87%D9%85%DA%A9%D8%A7%D8%B1%DB%8C-%D9%88-%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7-%D8%A8%D8%A7-%D9%85%D8%A7)
+- [چرا هیدیفای؟](#%DA%86%D8%B1%D8%A7-%D9%87%DB%8C%D8%AF%DB%8C%D9%81%D8%A7%DB%8C)
+- [راهنمای نصب](#راهنمای-نصب-) 
+  - [پیش نیازها](#%D9%BE%DB%8C%D8%B4-%D9%86%DB%8C%D8%A7%D8%B2%D9%87%D8%A7)
+  - [نصب سریع](#%D9%86%D8%B5%D8%A8-%D8%B3%D8%B1%DB%8C%D8%B9)
+  - [نصب معمول](#%D9%86%D8%B5%D8%A8-%D9%85%D8%B9%D9%85%D9%88%D9%84)
+- [راهنمای پیکربندی](#%D8%B1%D8%A7%D9%87%D9%86%D9%85%D8%A7%DB%8C-%D9%BE%DB%8C%DA%A9%D8%B1%D8%A8%D9%86%D8%AF%DB%8C)
+- [ویکی پروژه](#%D9%88%DB%8C%DA%A9%DB%8C-%D9%BE%D8%B1%D9%88%DA%98%D9%87)
+- [حمایت از پروژه](#حمایت-از-پروژه)
+- [راه های همکاری و ارتباط با ما](#%D8%B1%D8%A7%D9%87-%D9%87%D8%A7%DB%8C-%D9%87%D9%85%DA%A9%D8%A7%D8%B1%DB%8C-%D9%88-%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7-%D8%A8%D8%A7-%D9%85%D8%A7)
 ***
 ## چرا هیدیفای؟
 هیدیفای تلفیقی از دو کلمه Hidden (مخفی شده) و Simplify (ساده سازی) است. پنلی با ويژگی های فراوان و تعداد قابل توجهی از قابلیت ها که به شما کمک می کند با خیالی راحت و آسوده از اینترنت آزاد بهره ببرید.
 
-<details markdown="1"> <summary><b>ویژگی های جذاب و پروتکل های پشتیبانی شده</b></summary> 
+### ویژگی‌های جذاب 
 
-- نصب سریع
-- پروکسی هوشمند (کلاینت هیدیفای و کلش)
-- بروزرسانی خودکار
-- بکاپ گیری خودکار (هر ۶ ساعت)
-- استفاده از چندین دامین
-- قابلیت کانفیگ آیپی خودکار Auto CDN
-- مدیریت کانفیگ‌های فعال
-- مدیریت کاربران
-- تعریف محدودیت زمان و میزان استفاده کاربران
-- صفحات اختصاصی کاربران برای مشاهده مصرف و کانفیگ‌ها
-- کانفیگ های اختصاصی و هوشمند
-- نرم‌افزار‌های کلاینت اختصاصی
+- **نصب سریع**
+- **پروکسی هوشمند** (کلاینت هیدیفای و کلش)
+- **بروزرسانی خودکار**
+- **بکاپ‌گیری خودکار** (هر ۶ ساعت)
+- استفاده از **چندین دامین**
+- قابلیت کانفیگ **آیپی خودکار Auto CDN**
+- مدیریت **کانفیگ‌های فعال**
+- **مدیریت کاربران**
+- تعریف **محدودیت زمان و میزان استفاده کاربران**
+- **صفحات اختصاصی کاربران** برای مشاهده مصرف و کانفیگ‌ها
+- **کانفیگ های اختصاصی و هوشمند**
+- **نرم‌افزار‌های کلاینت اختصاصی**
+- **پروکسی تلگرام** با استفاده از کتابخانه های مختلف
+- **DNS بر روی HTTPS** یا DoH
 
-و ده ها قابلیت دیگر که بعد از نصب متوجه آن می شوید.
 
-| کانفیگ های پشتیبانی شده | Supported Configs |
+و ده ها قابلیت دیگر که بعد از نصب متوجه آن‌ها می‌شوید.
+<details markdown="1"> <summary><h3>پروتکل‌های پشتیبانی شده</h3></summary> 
+
+
+| پروتکل‌های پشتیبانی شده | پروتکل‌های پشتیبانی شده | پروتکل‌های پشتیبانی شده |
+| - | - | - |
+| **دایرکت** | **CDN** | **دامین فرانتینگ** |
+|Trojan:<br>- TLS WS<br>- TLS TCP<br>- TLS gRPC<br>- TLS H2 WS<br>- TLS H2 TCP<br>- TLS H2 gRPC<br> |  Trojan:<br>- TLS WS<br>- TLS gRPC<br>- TLS H2 WS<br>- TLS H2 gRPC<br><br><br>| Trojan:<br>- TLS WS Fake<br><br><br><br><br><br> |
+| Vless:<br>- TLS WS<br>- HTTP WS<br>- TLS XTLS<br>- TLS gRPC<br>- TLS H2 TLS<br>- TLS H2 WS<br>- TLS H2 gRPC | Vless:<br>- TLS WS<br>- TLS gRPC<br>- HTTP WS<br>- TLS H2 WS<br>- TLS H2 gRPC<br><br><br>| Vless:<br>- TLS WS Fake<br>- HTTP WS Fake<br><br><br><br><br><br> |
+| Vmess:<br>- TLS WS<br>- TLS TCP<br>- HTTP WS<br>- HTTP TCP<br>- TLS gRPC<br>- TLS H2 WS<br>- TLS H2 TCP<br> | Vmess:<br>- TLS WS<br>- TLS gRPC<br>- HTTP WS<br>- TLS H2 WS<br>- TLS H2 gRPC<br><br><br> | Vmess:<br>- TLS WS Fake<br>- HTTP WS Fake<br><br><br><br><br><br> |
+| V2ray:<br>- TLS WS<br>- HTTP WS<br>- TLS H2 |  V2ray:<br>- TLS WS<br>- HTTP WS<br>- TLS H2 | |
+| Shadowsocks:<br>- TLS Shadowtls<br>- HTTP Shadowtls<br>- TLS H2 Shadowtls | | |
+
+<!--
+| Supported Configs | Supported Configs |
 | - | - |
 | ♥ **Telegram Proxy** ♥ | **vless+xtls** |
 | **Web Socket (cdn support)**:<br> - vless+tls+ws <br>- trojan+tls+ws <br> - vmess+tls+ws | **h2+tls**:<br> - vless+tls<br> - trojan+tls<br> - vmess+tls |
 | **grpc+tls**:<br> - vless+grpc+tls<br> - trojan+grpc+tls<br> - vmess+grpc+tls | **http1.1+tls**:  <br>- trojan+tls <br> - vmess+tls|
 | **old configs**: <br> - trojango (cdn support) <br> - v2ray+ws (cdn support) <br> - vmess (cdn support) <br> - ss+faketls| **HTTP** <br> -unsafe, default is disable <br> - vless<br> -vmess |
+-->
+
 
 </details>
 
 
-<details markdown="1"> <summary><b>پروکسی هوشمند برای سایت های غیر ایرانی و فیلترشده</b></summary>
+<details markdown="1"> <summary><h3>پروکسی هوشمند برای سایت های غیر ایرانی و فیلترشده</h3></summary>
  
 با استفاده از کلاینت کلش و پنل هایدیفای می‌تونین در ۳ حالت به اینترنت وصل بشید. 
 
@@ -93,11 +109,11 @@
 
 </details>
 
-<details markdown="1"><summary><b>سایر امکانات فوق العاده</b></summary>
+<details markdown="1"><summary><h3>سایر امکانات فوق العاده</h3></summary>
 
 
 <details  markdown="1"> <summary>سیستم‌عامل‌های پشتیبانی شده</summary>
-هایدیفای روی ابونتو ۲۰.۰۴ و ۲۲.۰۴ تست شده است.
+هایدیفای روی اوبونتو ۲۰.۰۴ و ۲۲.۰۴ تست شده است.
 Ubuntu arm64 or amd64
 </details>
 
@@ -112,7 +128,7 @@ Ubuntu arm64 or amd64
 </details>
 
  <details markdown="1"> <summary>صفحات راهنمای کاربران</summary> 
- با امکان تولید QR Code
+ با امکان تولید qrcode
 
  ![صفحه راهنمای کاربران](https://user-images.githubusercontent.com/114227601/206908372-db1fc206-4c6a-4206-ad39-e6b6b44a55c4.png)
 </details>
@@ -141,6 +157,8 @@ Ubuntu arm64 or amd64
 </details>
 </details>
 
+</div>
+
 ***
 <div dir="rtl">
 
@@ -165,8 +183,10 @@ Ubuntu arm64 or amd64
 
 <div align=center >
     
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Ubuntu-E95420?style=flat-square&logo=ubuntu)](https://github.com/hiddify/hiddify-config/wiki/نصب-سریع-در-اوبونتو)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Docker-2496ED?style=flat-square&logo=docker)](https://github.com/hiddify/hiddify-config/wiki/نصب-با-داکر)
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Ubuntu-E95420?style=flat-square&logo=ubuntu)](https://github.com/hiddify/hiddify-config/wiki/نصب-سریع-در-اوبونتو)
+  <!--
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Docker-2496ED?style=flat-square&logo=docker)](https://github.com/hiddify/hiddify-config/wiki/نصب-با-داکر)
+-->
 </div>
 
 ***
