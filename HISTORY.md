@@ -1,6 +1,67 @@
 # Changelog
 
 
+## v8.6.2 (2023-04-16)
+
+### Other
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Delete 13.png. [TheTraxex]
+
+* Add files via upload. [TheTraxex]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [TheTraxex]
+
+* Update README.md. [TheTraxex]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+
 ## v8.6.1 (2023-04-16)
 
 ### Changes
