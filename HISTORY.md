@@ -1,6 +1,15 @@
 # Changelog
 
 
+## v8.6.1 (2023-04-16)
+
+### Changes
+
+* Disable let's encrypt. [hiddify]
+
+* Add more memory for panel. [hiddify]
+
+
 ## v8.6.0 (2023-04-11)
 
 ### Fix
