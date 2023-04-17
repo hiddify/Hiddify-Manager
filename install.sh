@@ -13,6 +13,10 @@ source ./common/ticktick.sh
 function set_config_from_hpanel(){
 
         hiddify=`cd hiddify-panel;python3 -m hiddifypanel all-configs`
+        if [[ $? != 0 ]];then
+                echo "Exception in Hiddify Panel. Please send the log to hiddify@gmail.com"
+                exit 1
+        fi
         tickParse  "$hiddify"
         tickVars
 
@@ -86,7 +90,10 @@ function set_config_from_hpanel(){
         setenv PATH_WS ``hconfigs[path_ws]``
         setenv PATH_GRPC ``hconfigs[path_grpc]``
 
-    
+        setenv REALITY_SERVER_NAMES ``hconfigs[reality_server_names]``
+        setenv REALITY_FALLBACK_DOMAIN ``hconfigs[reality_fallback_domain]``
+        setenv REALITY_PRIVATE_KEY ``hconfigs[reality_private_key]``
+        setenv REALITY_SHORT_IDS ``hconfigs[reality_short_ids]``
 
         setenv SERVER_IP `curl --connect-timeout 1 -s https://v4.ident.me/`
         setenv SERVER_IPv6 `curl  --connect-timeout 1 -s https://v6.ident.me/`
@@ -195,15 +202,12 @@ function do_for_all() {
 
 
 function main(){
-        which hiddifypanel
-        if [[ "$?" != 0 ]];then
-            echo "/opt/hiddify-config/menu.sh">>~/.bashrc
-            echo "cd /opt/hiddify-config/">>~/.bashrc
-        fi
+        
 
         export MODE="$1"
         
         if [ "$MODE" != "apply_users" ];then
+                bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.0
                 runsh install.sh hiddify-panel
         fi
         # source common/set_config_from_hpanel.sh

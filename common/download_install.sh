@@ -29,6 +29,10 @@ GITHUB_BRANCH_OR_TAG=main
         # exit 0
 # fi 
 
+
+echo "/opt/hiddify-config/menu.sh">>~/.bashrc
+echo "cd /opt/hiddify-config/">>~/.bashrc
+
 read -p "Press any key to go  to menu" -n 1 key
 cd /opt/$GITHUB_REPOSITORY
 bash menu.sh

@@ -4,6 +4,8 @@ sed -i "s|server shadowtls_decoy_http |server shadowtls_decoy_http no.com|g" hap
 sed -i "s|server shadowtls_decoy |server shadowtls_decoy no.com|g" haproxy.cfg
 fi
 
+REALITY_SERVER_NAMES_HAPROXY=$(echo "$REALITY_SERVER_NAMES" | sed 's/,/ || /g')
+sed -i "s|REALITY_SERVER_NAMES|server $REALITY_SERVER_NAMES_HAPROXY|g" haproxy.cfg
 PORT_80=''
 for PORT in ${HTTP_PORTS//,/ };	do 
   PORT_80="$PORT_80\n  bind *:$PORT"

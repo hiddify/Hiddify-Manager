@@ -56,6 +56,7 @@ frontend https-in
     acl tls1_3 req.ssl_ver 3.4
     
     acl xray_domains req.ssl_sni -i XRAY_DOMAIN
+    acl reality_domains req.ssl_sni -i REALITY_SERVER_NAMES
     acl tg_domains req.ssl_sni -i TELEGRAM_FAKE_TLS_DOMAIN
     acl ss_domains req.ssl_sni -i sstlsdomain
     acl shadowtls_domains req.ssl_sni -i shadowtlsdomain
@@ -73,6 +74,7 @@ frontend https-in
     # use_backend ssdecoy if ss_domains
     
     use_backend shadowtls if shadowtls_domains
+    use_backend reality if reality_domains
 
     # use_backend ssr if tls1_3 ssr_domains
     # use_backend ssr if ssr_domains
@@ -88,6 +90,11 @@ backend xray
     mode tcp
     # server xray unix@/dev/shm/hiddify-xtls-main.sock
     server xray abns@xtlsin send-proxy-v2
+
+backend reality
+    mode tcp
+    # server xray unix@/dev/shm/hiddify-xtls-main.sock
+    server xray abns@realityin send-proxy-v2
 
 backend xraydecoy
     mode tcp
