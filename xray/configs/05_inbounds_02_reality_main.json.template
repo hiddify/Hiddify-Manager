@@ -37,7 +37,7 @@
                     ],
                     "privateKey": "REALITY_PRIVATE_KEY", 
                     "shortIds": [ 
-                        REALITY_SHORT_IDS 
+                        "", REALITY_SHORT_IDS 
                     ]
               }
 			},
