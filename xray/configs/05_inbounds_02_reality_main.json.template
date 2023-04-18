@@ -13,7 +13,7 @@
 			  "fallbacks": [
 				{
 					"alpn": "h2",
-					"dest": "@dispatcher_h2",
+					"dest": "/opt/hiddify-config/xray/run/vlessg.sock",
 					"xver": 2
 				},
 				{
