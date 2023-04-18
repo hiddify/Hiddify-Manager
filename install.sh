@@ -207,7 +207,7 @@ function main(){
         export MODE="$1"
         
         if [ "$MODE" != "apply_users" ];then
-                bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.0
+                bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.1
                 runsh install.sh hiddify-panel
         fi
         # source common/set_config_from_hpanel.sh
