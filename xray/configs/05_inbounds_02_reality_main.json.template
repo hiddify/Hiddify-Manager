@@ -27,7 +27,7 @@
 			  "tcpSettings": {
 				"acceptProxyProtocol": true //Enable PROXY protocol reception, receive the real source IP and port from nginx sni proxy.
 			  },
-			  "security": "tls", 
+			  "security": "reality", 
 			  "realitySettings": {
                     "show": false, 
                     "dest": "REALITY_FALLBACK_DOMAIN:443", 
