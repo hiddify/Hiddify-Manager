@@ -14,11 +14,11 @@
 				{
 					"alpn": "h2",
 					"dest": "/opt/hiddify-config/xray/run/vlessg.sock",
-					"xver": 2
+					"xver": 0
 				},
 				{
-				  "dest": "@dispatcher",
-				  "xver": 2
+				  "dest": "/opt/hiddify-config/xray/run/vlessg.sock",
+				  "xver": 0
 				}
 			  ]
 			},
