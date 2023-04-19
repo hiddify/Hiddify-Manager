@@ -1,6 +1,29 @@
 # Changelog
 
 
+## v9.0.0 (2023-04-18)
+
+### New
+
+* Increase max memory of panel. [hiddify]
+
+* Add empty short id. [hiddify]
+
+* Update 1.8.1. [hiddify]
+
+* Reality!!!! [hiddify]
+
+### Fix
+
+* Reality grpc. [hiddify]
+
+* Reality. [hiddify]
+
+### Other
+
+* Reality, grpc. [hiddify]
+
+
 ## v8.6.2 (2023-04-16)
 
 ### Other
