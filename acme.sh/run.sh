@@ -26,17 +26,16 @@ for DOMAIN in $DOMAINS;	do
 			#sleep 10
 	fi
 
-
-	if [[ ! -f $ssl_cert_path/$DOMAIN.key || ! -f $ssl_cert_path/$DOMAIN.crt ]];then
-		rm $ssl_cert_path/$DOMAIN.key $ssl_cert_path/$DOMAIN.crt
-		openssl req -x509 -newkey rsa:2048 -keyout $ssl_cert_path/$DOMAIN.key -out $ssl_cert_path/$DOMAIN.crt -days 3650 -nodes -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=www.google.com"
-	fi
+	
 	flags=
 	if [ "$SERVER_IPv6" != "" ];then
 		flags="--listen-v6"
 	fi
 	# --server  letsencrypt 
 	
+	./lib/acme.sh --issue  --nginx  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --server letsencrypt 
+	./lib/acme.sh --issue  --nginx  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags 
+
 	pids=$( /usr/bin/lsof -t -i:80 2>/dev/null | tr '\n' ' ')
 	./lib/acme.sh --issue  --standalone  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --server letsencrypt --pre-hook "/usr/bin/systemctl stop hiddify-xray;if [ -n '$pids' ]; then /usr/bin/kill -9 $pids; fi || echo 'nothing to kill'"
 	pids=$( /usr/bin/lsof -t -i:80 2>/dev/null | tr '\n' ' '); 
@@ -49,7 +48,11 @@ for DOMAIN in $DOMAINS;	do
 			--reloadcmd  "echo success"
 
 	# if [[ $(dig +short -t a $DOMAIN.) ]];then
-		
+	openssl x509 -in $ssl_cert_path/$DOMAIN.crt -text -noout
+	if [[ $? != 0 ]];then
+		rm $ssl_cert_path/$DOMAIN.key $ssl_cert_path/$DOMAIN.crt
+		openssl req -x509 -newkey rsa:2048 -keyout $ssl_cert_path/$DOMAIN.key -out $ssl_cert_path/$DOMAIN.crt -days 3650 -nodes -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=www.google.com"
+	fi	
 	# 	certbot certonly --standalone --http-01-port 80 --register-unsafely-without-email -d $DOMAIN --non-interactive --agree-tos --logs-dir $(pwd)/../log/system/
 	# fi
 	# if [[ -f /etc/letsencrypt/live/$DOMAIN/fullchain.pem && -f /etc/letsencrypt/live/$DOMAIN/privkey.pem ]];then
