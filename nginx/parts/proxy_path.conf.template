@@ -1,0 +1,71 @@
+    location /PATH_VLESSPATH_GRPC {
+        include /opt/hiddify-config/nginx/parts/grpc.conf;
+        grpc_pass unix:/opt/hiddify-config/xray/run/vlessg.sock;
+    }
+    location /PATH_VMESSPATH_GRPC {
+        include /opt/hiddify-config/nginx/parts/grpc.conf;
+        grpc_pass unix:/opt/hiddify-config/xray/run/vmessg.sock;
+    }
+    location /PATH_SSPATH_GRPC {
+        include /opt/hiddify-config/nginx/parts/grpc.conf;
+        grpc_pass unix:/opt/hiddify-config/xray/run/ssg.sock;
+    }
+    location /PATH_TROJANPATH_GRPC {
+        include /opt/hiddify-config/nginx/parts/grpc.conf;
+        grpc_pass unix:/opt/hiddify-config/xray/run/trojang.sock;
+    }
+
+    location /PATH_VLESSPATH_TCP {
+        include /opt/hiddify-config/nginx/parts/tcph2.conf;
+        proxy_pass http://unix:/opt/hiddify-config/xray/run/vlesst.sock;
+    }
+    location /PATH_VMESSPATH_TCP {
+        include /opt/hiddify-config/nginx/parts/tcph2.conf;
+        proxy_pass http://unix:/opt/hiddify-config/xray/run/vmesst.sock;
+    }
+    location /PATH_SSPATH_TCP {
+        include /opt/hiddify-config/nginx/parts/tcph2.conf;
+        proxy_pass http://unix:/opt/hiddify-config/xray/run/sst.sock;
+    }
+    location /PATH_TROJANPATH_TCP {
+        include /opt/hiddify-config/nginx/parts/tcph2.conf;
+        proxy_pass http://unix:/opt/hiddify-config/xray/run/trojant.sock;
+    }
+
+    location /PATH_VLESSPATH_WS {
+        include /opt/hiddify-config/nginx/parts/wsh2.conf;
+        proxy_pass http://unix:/opt/hiddify-config/xray/run/vlesst.sock;
+    }
+    location /PATH_VMESSPATH_WS {
+        include /opt/hiddify-config/nginx/parts/wsh2.conf;
+        proxy_pass http://unix:/opt/hiddify-config/xray/run/vmessw.sock;
+    }
+    location /PATH_SSPATH_WS {
+        include /opt/hiddify-config/nginx/parts/wsh2.conf;
+        proxy_pass http://unix:/opt/hiddify-config/xray/run/ssw.sock;
+    }
+    location /PATH_TROJANPATH_WS {
+        include /opt/hiddify-config/nginx/parts/wsh2.conf;
+        proxy_pass http://unix:/opt/hiddify-config/xray/run/trojanw.sock;
+    }
+    location /BASE_PROXY_PATH-trgrpc { #corresponds to serviceName in trojan-grpc config of xray
+        include /opt/hiddify-config/nginx/parts/grpc.conf;
+        grpc_pass grpc://127.0.0.1:3001;
+    }
+
+    location /BASE_PROXY_PATH-vlgrpc { #corresponds to serviceName in vless-grpc config of xray
+        include /opt/hiddify-config/nginx/parts/grpc.conf;
+        grpc_pass grpc://127.0.0.1:3002;
+
+    }
+
+    location /BASE_PROXY_PATH-vmgrpc { #corresponds to serviceName in vmess-grpc config of xray
+        include /opt/hiddify-config/nginx/parts/grpc.conf;
+        grpc_pass grpc://127.0.0.1:3003;
+
+    }
+    
+    location /BASE_PROXY_PATH-ssgrpc { #corresponds to serviceName in shadowsocks-grpc config of xray
+        include /opt/hiddify-config/nginx/parts/grpc.conf;
+        grpc_pass grpc://127.0.0.1:3004;
+    }
