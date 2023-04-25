@@ -42,7 +42,7 @@
 
 ## Welcome to Hiddify
 
-Hiddify is a powerful and professional anti-censorship toolbox, which is a multi-user panel with an effortless installation and <b>supporting more than 20 protocols</b> to circumvent filtering plus <b>Telegram proxy.</b>  It's optimized for censorship circumvention in <b>China</b>, <b>Russia</b> and <b>Iran</b> and Recommended by <a href="https://github.com/XTLS/Xray-core#installation" target="_blank"><b>Xray</b></a>. It's a great replacement of X-UI panel.
+Hiddify is a powerful and professional anti-censorship toolbox, which is a multi-user panel with an effortless installation and <b>supporting more than 20 protocols</b> including <b>Reality</b> and <b>Telegram proxy</b> to circumvent filtering.  It's optimized for censorship circumvention in <b>China</b>, <b>Russia</b> and <b>Iran</b> and Recommended by <a href="https://github.com/XTLS/Xray-core#installation" target="_blank"><b>Xray</b></a>. It's a great replacement of X-UI panel.
 
 
 ![English new](https://user-images.githubusercontent.com/125398461/234178583-ad520732-4cf3-411a-abec-0dfb42387869.png)
