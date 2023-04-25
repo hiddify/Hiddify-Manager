@@ -63,8 +63,8 @@ if [[ "$HTTP_PORTS" != "" ]];then
 	sed -i 's|"port":"80"|"port":"80,'$HTTP_PORTS'"|g' configs/05_inbounds_02_http_main.json
 fi
 
-#xray run -test -confdir configs
-echo "ignoring xray test"
+xray run -test -confdir configs
+# echo "ignoring xray test"
 if  [[ $? == 0 ]];then
 	systemctl restart hiddify-xray.service
 	systemctl start hiddify-xray.service
@@ -73,8 +73,14 @@ else
 	echo "Error in Xray Config!!!! do not reload xray service"
 	sleep 60
 	xray run -test -confdir configs
-	echo "Error in Xray Config!!!! do not reload xray service"
-	sleep 60
+	if  [[ $? == 0 ]];then
+		systemctl restart hiddify-xray.service
+		systemctl start hiddify-xray.service
+		systemctl status hiddify-xray.service
+	else
+		echo "Error in Xray Config!!!! do not reload xray service"
+		sleep 60
+	fi
 fi
 
 
