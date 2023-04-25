@@ -32,9 +32,11 @@
 هیدیفای یک ابزار قدرتمند و حرفه‌ای ضد سانسور اینترنت است که دارای پنل چند کاربره و نصب آسان است و به شما کمک می‌کند <b>با بیش از ۲۰ پروتکل پشتیبانی شده</b> شامل <b>ریالیتی</b> فیلترینگ اینترنت را دور بزنید همچنین می‌توانید از <b>پروکسی تلگرام</b> استفاده نمایید. این ابزار <b>برای شبکه اینترنت ایران بهینه سازی شده</b> است و توسط <a href="https://github.com/XTLS/Xray-core#installation" target="_blank">**Xray**</a> توصیه شده است. این پنل یک جایگزین عالی برای پنل X-UI می‌باشد.
 
 
+![Persian new 2](https://user-images.githubusercontent.com/125398461/234265877-56660d3c-6185-4948-b676-77f317834372.png)
+<!--
 ![Persian new](https://user-images.githubusercontent.com/125398461/234179101-0dec8ade-29f7-49a4-8a77-4ce1ead1e04f.png)
 
-<!--
+
 ![farsi_demo](https://user-images.githubusercontent.com/114227601/228013297-240d6945-874f-4836-9b0d-0e1ba072481f.png)
 
 ![farsi_demo](https://user-images.githubusercontent.com/125398461/233846669-9a18a866-6c6e-49bd-9513-b2caa74be01d.png)
