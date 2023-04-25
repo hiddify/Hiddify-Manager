@@ -10,7 +10,6 @@
 <div align=center markdown="1">
 
 
-![English new](https://user-images.githubusercontent.com/125398461/234178437-13aa7935-f316-4344-b49f-ced2b10bb871.png)
 
 </div>
 </br>
