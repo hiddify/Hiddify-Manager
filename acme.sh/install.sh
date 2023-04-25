@@ -1,4 +1,4 @@
-sudo apt-get install socat
+sudo apt-get install -y socat
 sudo apt-get remove -y certbot
 rm -rf /opt/hiddify/
 
