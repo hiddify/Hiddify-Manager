@@ -61,7 +61,7 @@ function main(){
             tar xvzf main.tar.gz --strip-components=1
             rm main.tar.gz
             echo $LAST_CONFIG_VERSION > VERSION
-
+            rm -rf other/netdata
             bash install.sh
             UPDATE=1
         fi

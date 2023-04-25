@@ -1,7 +1,7 @@
 {
 	"inbounds": [
 		{
-			"tag":"reality",
+			"tag":"realityin",
 			// "port": 400, // This is TLS entrypoint. This entrypoint does the SSL Termination then routes the request based on the Path or ALPN type.
 			"listen": "@@realityin",
 			"protocol": "vless",

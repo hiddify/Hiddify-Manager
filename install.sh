@@ -74,7 +74,7 @@ function set_config_from_hpanel(){
         setenv ENABLE_VMESS ``hconfigs[vmess_enable]``
         setenv ENABLE_MONITORING false
         setenv ENABLE_FIREWALL ``hconfigs[firewall]``
-        setenv ENABLE_NETDATA ``hconfigs[netdata]``
+        # setenv ENABLE_NETDATA ``hconfigs[netdata]``
         setenv ENABLE_HTTP_PROXY ``hconfigs[http_proxy]`` # UNSAFE to enable, use proxy also in unencrypted 80 port
         setenv ALLOW_ALL_SNI_TO_USE_PROXY ``hconfigs[allow_invalid_sni]`` #UNSAFE to enable, true=only MAIN domain is allowed to use proxy
         setenv ENABLE_AUTO_UPDATE ``hconfigs[auto_update]``
@@ -189,11 +189,11 @@ function do_for_all() {
                 runsh $1.sh other/shadowtls $ENABLE_SHADOWTLS
                 runsh $1.sh other/clash-server $ENABLE_TUIC
                 # runsh $1.sh deprecated/vmess $ENABLE_VMESS
-                runsh uninstall.sh deprecated/vmess
+                # runsh uninstall.sh deprecated/vmess
                 # runsh $1.sh deprecated/monitoring $ENABLE_MONITORING
-                runsh uninstall.sh deprecated/monitoring
-                runsh $1.sh other/netdata false $ENABLE_NETDATA
-                runsh $1.sh deprecated/trojan-go  $ENABLE_TROJAN_GO
+                # runsh uninstall.sh deprecated/monitoring
+                # runsh $1.sh other/netdata false $ENABLE_NETDATA
+                # runsh $1.sh deprecated/trojan-go  $ENABLE_TROJAN_GO
         fi
 
         runsh $1.sh xray
