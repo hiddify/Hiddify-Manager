@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v9.0.4 (2023-04-26)
+
+### Other
+
+* Disable cdn detection. [hiddify]
+
+
 ## v9.0.3 (2023-04-26)
 
 ### Other
