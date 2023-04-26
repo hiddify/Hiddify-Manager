@@ -80,7 +80,7 @@ frontend https-in
     # use_backend ssr if ssr_domains
     # use_backend ssrdecory if ssr_domains
     acl is_cdn src -f /opt/hiddify-config/haproxy/cloudflare.lst -f /opt/hiddify-config/haproxy/arvan.lst -f /opt/hiddify-config/haproxy/cloudfront.lst
-    use_backend to_https_in_ssl if is_cdn
+    # use_backend to_https_in_ssl if is_cdn
     # default sni behavior
     default_backend xray
 
