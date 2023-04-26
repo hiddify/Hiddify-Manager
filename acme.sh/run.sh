@@ -13,7 +13,13 @@ echo -e "Permanent Admin link: \n   http://$SERVER_IP/$BASE_PROXY_PATH/$ADMIN_SE
 echo -e "Secure Admin links: \n" >>$DST
 
 ssl_cert_path=../ssl
-
+for file in "$ssl_cert_path"/*; do
+    filename=$(basename "$file")
+    if [[ ! " ${DOMAINS[*]} " =~ " ${filename} " ]]; then
+        echo "Removing $filename"
+        rm "$file"
+    fi
+done
 for DOMAIN in $DOMAINS;	do
 	echo -e "   https://$DOMAIN/$BASE_PROXY_PATH/$ADMIN_SECRET/admin/\n" >>$DST
 
