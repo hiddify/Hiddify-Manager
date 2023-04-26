@@ -15,7 +15,7 @@ echo -e "Secure Admin links: \n" >>$DST
 ssl_cert_path=../ssl
 for file in "$ssl_cert_path"/*; do
     filename=$(basename "$file")
-    if [[ ! " ${DOMAINS[*]} " =~ " ${filename} " ]]; then
+    if [[ ! " ${DOMAINS[*]} " =~ "${filename}" ]]; then
         echo "Removing $filename"
         rm "$file"
     fi
