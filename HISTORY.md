@@ -1,6 +1,71 @@
 # Changelog
 
 
+## v9.0.2 (2023-04-26)
+
+### New
+
+* Test xray before reload. [hiddify]
+
+* Remove netdata, update shadowtls. [hiddify]
+
+* Better configs. [hiddify]
+
+* Better ip. [hiddify]
+
+* Better cert management. [hiddify]
+
+### Fix
+
+* Shadowtls v3. [hiddify]
+
+* Bug with old certificates. [hiddify]
+
+* No commit message. [hiddify]
+
+### Other
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Fix bug. [hiddify]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+
 ## v9.0.1 (2023-04-22)
 
 ### Fix
