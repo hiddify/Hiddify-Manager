@@ -8,8 +8,16 @@
       "protocol": "blackhole",
       "tag": "blackhole"
     },
-    {//do not change the following line since it will be replaced.
-      "tag": "forbidden_sites", "protocol": "blackhole"
+    // {//do not change the following line since it will be replaced.
+    //   "tag": "forbidden_sites", "protocol": "blackhole"
+    // },
+    {
+      "tag": "forbidden_sites",
+      "protocol": "freedom",
+      "settings": {
+        "domainStrategy": "UseIPv4"
+      },
+      "sendThrough": "172.16.0.2"
     },
     // {
     //   "tag": "WARP-CHATGPT",
