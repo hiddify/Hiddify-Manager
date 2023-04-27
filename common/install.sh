@@ -49,5 +49,18 @@ service cron reload
 
 localectl set-locale LANG=C.UTF-8
 update-locale LANG=C.UTF-8
-#wget -N https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh && echo "13"| bash warp-go.sh d
+
+which warp-go
+if [ $? != 0 ];then
+  wget -N https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh && echo "13"| bash warp-go.sh n
+fi
+
+ping 8.8.8.0  -I 172.16.0.2 -c 4 -W 0.5
+first_test=$?
+nslookup yahoo.com
+if [ $? != 0 || $first_test != 0 ];then
+  warp-go u
+fi
+
+
 

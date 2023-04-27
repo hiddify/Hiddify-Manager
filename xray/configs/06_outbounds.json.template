@@ -29,16 +29,29 @@
     //   }
     // },
     // {
-    //   "tag": "WRAP",
-    //   "protocol": "freedom",
+    //   "tag": "warp",
+    //   "protocol": "socks",
     //   "settings": {
-    //     "domainStrategy": "UseIPv4"
-    //   },
-    //   "sendThrough": "172.16.0.2"
-    // },
-    // {
-    //   "tag": "localhost-xtls", "protocol": "freedom", "settings": { "redirect": "127.0.0.1:400" }
-    // },
+    //       "servers": [
+    //           {
+    //               "address": "127.0.0.1",
+    //               "port": 1080, 
+    //               "users": []
+    //           }
+    //       ]
+    //   }
+  // },
+    {
+      "tag": "WRAP",
+      "protocol": "freedom",
+      "settings": {
+        "domainStrategy": "UseIPv4"
+      },
+      "sendThrough": "172.16.0.2"
+    },
+    {
+      "tag": "localhost-xtls", "protocol": "freedom", "settings": { "redirect": "127.0.0.1:400" }
+    },
     // {
     //   "tag": "localhost-tgproxy", "protocol": "freedom", "settings": {"redirect": "127.0.0.1:1001"}
     // },
