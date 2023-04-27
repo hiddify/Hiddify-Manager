@@ -12,8 +12,7 @@
     //   "tag": "forbidden_sites", "protocol": "blackhole"
     // },
     {
-      "tag": "forbidden_sites",
-      "protocol": "freedom",
+      "tag": "forbidden_sites", "protocol": "blackhole",
       "settings": {
         "domainStrategy": "UseIPv4"
       },
