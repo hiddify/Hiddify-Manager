@@ -81,9 +81,11 @@ Hiddify is a mixture of Hidden and Simplify. A feature-full panel with a wide ra
 - **Smart proxy** (Hiddify and Clash client)
 - **Automatic update**
 - **Automatic backup** (every 6 hours)
+- **Automatic connection to Cloudflare**
 - Using **multiple domains**
 - **Auto CDN IP** configuration capability
 - Management of **active configurations**
+- **Multiple admin privileges**
 - **User management**
 - Applying **time and traffic limit** for each user
 - **Dedicated pages for users** to view consumption and configurations
@@ -104,7 +106,7 @@ And dozens of other features that you will notice after installation
 | Vless:<br>- TLS WS<br>- HTTP WS<br>- TLS XTLS<br>- TLS gRPC<br>- TLS H2 TLS<br>- TLS H2 WS<br>- TLS H2 gRPC<br>- Reality XTLS<br>- Reality gRPC | Vless:<br>- TLS WS<br>- TLS gRPC<br>- HTTP WS<br>- TLS H2 WS<br>- TLS H2 gRPC<br><br><br><br><br>| Vless:<br>- TLS WS Fake<br>- HTTP WS Fake<br><br><br><br><br><br><br><br> |
 | Vmess:<br>- TLS WS<br>- TLS TCP<br>- HTTP WS<br>- HTTP TCP<br>- TLS gRPC<br>- TLS H2 WS<br>- TLS H2 TCP<br> | Vmess:<br>- TLS WS<br>- TLS gRPC<br>- HTTP WS<br>- TLS H2 WS<br>- TLS H2 gRPC<br><br><br> | Vmess:<br>- TLS WS Fake<br>- HTTP WS Fake<br><br><br><br><br><br> |
 | V2ray:<br>- TLS WS<br>- HTTP WS<br>- TLS H2 |  V2ray:<br>- TLS WS<br>- HTTP WS<br>- TLS H2 | |
-| Shadowsocks:<br>- TLS Shadowtls<br>- HTTP Shadowtls<br>- TLS H2 Shadowtls | | |
+| Shadowsocks:<br>- TLS Shadowtls<br>- HTTP Shadowtls<br>- TLS H2 Shadowtls<br>- TLS H3 Shadowtls | | |
 
 <!--
 | Supported Configs | Supported Configs |
