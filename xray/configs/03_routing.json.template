@@ -28,7 +28,9 @@
                 "domain":[
                     "geosite:google",
                     "geosite:netflix",
-                    "domain:ip.gs"
+                    "domain:ip.gs",
+                    "domain:openai.com",
+                    "domain:ai.com"
                 ]
             },
         {
