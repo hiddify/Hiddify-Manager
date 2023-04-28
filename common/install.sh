@@ -54,6 +54,7 @@ which warp-go
 if [ $? != 0 ];then
   wget -N https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh && echo "13"| bash warp-go.sh n
 fi
+echo 3|warp-go a
 
 ping 8.8.8.0  -I 172.16.0.2 -c 4 -W 0.5
 first_test=$?
