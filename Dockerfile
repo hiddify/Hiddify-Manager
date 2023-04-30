@@ -1,12 +1,13 @@
 FROM ubuntu:22.04
 
-RUN apt-get update && apt-get install -y dialog apt-utils curl sudo systemd python2 xxd lsof
-
+RUN apt-get update && \
+    apt-get install -y dialog apt-utils curl systemd python2 xxd lsof && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 ENV TERM xterm
 ENV TZ Etc/UTC
 ENV DEBIAN_FRONTEND noninteractive
 
-USER root
 WORKDIR /opt/hiddify-config/
 COPY . .
 # RUN mkdir -p ~/.ssh && echo "StrictHostKeyChecking no " > ~/.ssh/config
