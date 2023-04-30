@@ -201,102 +201,79 @@ function do_for_all() {
 }
 
 
-function main(){
-        
+function main() {
+    set -e
 
-        export MODE="$1"
-        
-        if [ "$MODE" != "apply_users" ];then
-                bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.1
-                runsh install.sh hiddify-panel
-        fi
-        # source common/set_config_from_hpanel.sh
-        set_config_from_hpanel
-        if [[ $DB_VERSION == "" ]];then
-                echo "ERROR!!!! There is an error in the installation of python panel. Exit...."
-                exit 1
-        fi
-        
-        # check_req
-        
-        
-        # set_env_if_empty config.env.default
-        # set_env_if_empty config.env      
+    export MODE="${1:-}"
 
-        # if [[ "$BASE_PROXY_PATH" == "" ]]; then
-        #         replace_empty_env BASE_PROXY_PATH "" $USER_SECRET ".*"
-        # fi
-        # if [[ "$TELEGRAM_USER_SECRET" == "" ]]; then
-        #         replace_empty_env TELEGRAM_USER_SECRET "" $USER_SECRET ".*"
-        # fi
-        
-        # cd /opt/$GITHUB_REPOSITORY
-        # git pull
+    if [[ $MODE != "apply_users" ]]; then
+        curl -fsSL https://github.com/XTLS/Xray-install/raw/main/install-release.sh | bash -s -- install --version 1.8.1
+        runsh install.sh hiddify-panel
+    fi
 
-        # if [[ -z "config.env $FIRST_SETUP" == "" ]];then
-        #         replace_empty_env FIRST_SETUP "First Setup Detected!" false ".*"
-        #         export FIRST_SETUP="true"
-        # fi
+    set_config_from_hpanel
 
-        if [ "$MODE" == "install-docker" ];then
-                echo "install-docker"
-                export DO_NOT_RUN=true
-                export ENABLE_SS=true
-                export ENABLE_TELEGRAM=true
-                export ENABLE_FIREWALL=false
-                export ENABLE_AUTO_UPDATE=false
-                export ONLY_IPV4=false
-        fi
-        if [ "$MODE" == "apply_users" ];then
-                export DO_NOT_INSTALL=true
-        fi
-        if [[ -z "$DO_NOT_INSTALL" || "$DO_NOT_INSTALL" == false  ]];then
-                do_for_all install
-                systemctl daemon-reload
-        fi
+    if [[ -z $DB_VERSION ]]; then
+        printf "ERROR!!!! There is an error in the installation of python panel. Exit....\n"
+        exit 1
+    fi
 
-        if [[ -z "$DO_NOT_RUN" || "$DO_NOT_RUN" == false ]];then
-                do_for_all run
-                if [ "$MODE" != "apply_users" ];then        
-                        echo ""
-                        echo ""
-                        bash status.sh
-                        echo "==========================================================="
-                        echo "Finished! Thank you for helping Iranians to skip filternet."
-                        echo "Please open the following link in the browser for client setup"
-                        
-                        cat use-link
-                        
-                fi
-        fi
+    case $MODE in
+        install-docker)
+            printf "install-docker\n"
+            export DO_NOT_RUN=true
+            export ENABLE_SS=true
+            export ENABLE_TELEGRAM=true
+            export ENABLE_FIREWALL=false
+            export ENABLE_AUTO_UPDATE=false
+            export ONLY_IPV4=false
+            ;;
+        apply_users)
+            export DO_NOT_INSTALL=true
+            ;;
+    esac
 
-        for s in hiddify-xray hiddify-nginx haproxy;do
-	        s=${s##*/}
-	        s=${s%%.*}
-	        if [[ "$(systemctl is-active $s)" != "active" ]];then
-                        echo "an important service $s is not working yet"
-                        sleep 5
-                        echo "checking again..."
-                        if [[ "$(systemctl is-active $s)" != "active" ]];then
-                              echo "an important service $s is not working again"
-                              echo "Installation Failed!"
-                              exit 32
-                        fi
-                        
-                fi
-                
-        done
-        # if [[ $(/usr/local/bin/xray run -test -confdir xray/configs) ]];then
-        #         echo "xray configuration failed "
-        #         exit 33
-        # fi
-        echo "---------------------Finished!------------------------"
-        if [ "$MODE" != "apply_users" ];then
-                systemctl restart hiddify-panel
-        fi
-        systemctl start hiddify-panel
+    if [[ -z "$DO_NOT_INSTALL" || "$DO_NOT_INSTALL" == false ]]; then
+        do_for_all install
+        systemctl daemon-reload
+    fi
 
-}       
+    if [[ -z "$DO_NOT_RUN" || "$DO_NOT_RUN" == false ]]; then
+        do_for_all run
+        if [[ $MODE != "apply_users" ]]; then        
+            printf "\n\n"
+            bash status.sh
+            printf "===========================================================\n"
+            printf "Finished! Thank you for helping Iranians to skip filternet.\n"
+            printf "Please open the following link in the browser for client setup:\n"
+            cat use-link
+        fi
+    fi
+
+    for service in hiddify-xray hiddify-nginx haproxy; do
+        if systemctl is-active --quiet "${service##*/}"; then
+            continue
+        else
+            printf "An important service %s is not working yet\n" "$service"
+            sleep 5
+            printf "Checking again...\n"
+            if systemctl is-active --quiet "${service##*/}"; then
+                continue
+            else
+                printf "An important service %s is not working again\n" "$service"
+                printf "Installation Failed!\n"
+                exit 32
+            fi
+        fi         
+    done
+
+    printf "---------------------Finished!------------------------\n"
+    if [[ $MODE != "apply_users" ]]; then
+        systemctl restart hiddify-panel
+    fi
+    systemctl start hiddify-panel
+}
+     
 
 mkdir -p log/system/
 main $@|& tee log/system/0-install.log
