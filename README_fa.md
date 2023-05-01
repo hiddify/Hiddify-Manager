@@ -1,7 +1,7 @@
 
 <div align="left" markdown="1">
 
-[**![World Learning Splash Image](https://user-images.githubusercontent.com/125398461/229074810-599bd7f9-0bc1-44a9-b76e-90bf7e182314.png) English**](https://github.com/hiddify/hiddify-config/blob/main/README.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ویکی](https://github.com/hiddify/hiddify-config/wiki/Home_Fa)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[سوالات رایج](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[گزارش اشکالات](https://github.com/hiddify/hiddify-config/issues)
+[**![Lang_English](https://user-images.githubusercontent.com/125398461/229074810-599bd7f9-0bc1-44a9-b76e-90bf7e182314.png) English**](https://github.com/hiddify/hiddify-config/blob/main/README.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ویکی](https://github.com/hiddify/hiddify-config/wiki/Home_Fa)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[سوالات رایج](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[گزارش اشکالات](https://github.com/hiddify/hiddify-config/issues)
 
 
 </div>
@@ -258,7 +258,7 @@ Ubuntu arm64 or amd64
 [![Telegram Channel](https://img.shields.io/endpoint?label=Channel&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify&color=blue)](https://telegram.dog/hiddify)
 [![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
 [![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square&logo=youtube)](https://www.youtube.com/@hiddify)
-[![Twitter](https://img.shields.io/twitter/follow/hiddify_com?color=%231DA1F2&logo=twitter&logoColor=1DA1F2&style=flat-square)](https://twitter.com/intent/follow?screen_name=hiddify)
+[![Twitter](https://img.shields.io/twitter/follow/hiddify_com?color=%231DA1F2&logo=twitter&logoColor=1DA1F2&style=flat-square)](https://twitter.com/intent/follow?screen_name=hiddify_com)
 
  </div>
  
