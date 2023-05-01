@@ -70,6 +70,7 @@ function main(){
         echo "Current Config Version=$CURRENT_CONFIG_VERSION -- Latest=$LAST_CONFIG_VERSION"
         if [[ FORCE == "true" || "$CURRENT_CONFIG_VERSION" != "$LAST_CONFIG_VERSION" ]];then
             echo "Config is outdated! updating..."
+            rm -rf log/system/xray*
             wget  $(lastversion --at github --assets --filter hiddify-config.zip  hiddify/hiddify-config) -O hiddify-config.zip
             # rm  -rf nginx/ xray/
             apt install -y  unzip
@@ -77,6 +78,7 @@ function main(){
             rm hiddify-config.zip
             bash install.sh
             UPDATE=1
+            
         fi
     fi
     if [[ $UPDATE == 0 ]];then

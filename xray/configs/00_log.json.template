@@ -1,9 +1,10 @@
 {
         "log": {
-                "loglevel": "debug",
-                "output": "/opt/hiddify-config/log/system/xray.out.log",
-                "error": "/opt/hiddify-config/log/system/xray.err.log",
-                "access": "/opt/hiddify-config/log/system/xray.access.log",
+                "loglevel": "error",
+                //"loglevel": "debug",
+                //"output": "/opt/hiddify-config/log/system/xray.out.log",
+                //"error": "/opt/hiddify-config/log/system/xray.err.log",
+                //"access": "/opt/hiddify-config/log/system/xray.access.log",
                 "logid": true,
                 "header": true
         }
