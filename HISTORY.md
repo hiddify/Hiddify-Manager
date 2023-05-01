@@ -1,6 +1,51 @@
 # Changelog
 
 
+## v9.0.6 (2023-05-01)
+
+### New
+
+* Warp. [hiddify]
+
+### Fix
+
+* Xray logs. [hiddify]
+
+### Other
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Use warp team account. [hiddify]
+
+* Add chatgpt to use cloudflare. [hiddify]
+
+* Always use warp for forbidden sites. [hiddify]
+
+* Always allow iranian sites too. [hiddify]
+
+* Merge pull request #838 from randomguy-on-internet/main. [Hiddify]
+
+  fix Issue#837
+
+* Update install.sh. [randomguy-on-internet]
+
+  [Issue#837](https://github.com/hiddify/hiddify-config/issues/837)
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+
 ## v9.0.5 (2023-04-26)
 
 ### Changes
