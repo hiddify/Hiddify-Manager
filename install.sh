@@ -202,7 +202,7 @@ function do_for_all() {
 
 
 function main(){
-        
+        rm -rf log/system/xray*
 
         export MODE="$1"
         
