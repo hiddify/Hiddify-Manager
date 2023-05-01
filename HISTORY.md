@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v9.0.7 (2023-05-01)
+
+### Changes
+
+* Remove logs. [hiddify]
+
+
 ## v9.0.6 (2023-05-01)
 
 ### New
