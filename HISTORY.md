@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v9.0.8 (2023-05-01)
+
+### Other
+
+* Remove: warp. [hiddify]
+
+
 ## v9.0.7 (2023-05-01)
 
 ### Changes
