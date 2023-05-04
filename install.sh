@@ -187,13 +187,14 @@ function do_for_all() {
                 runsh $1.sh other/ssfaketls $ENABLE_SS
                 runsh $1.sh other/v2ray $ENABLE_V2RAY
                 runsh $1.sh other/shadowtls $ENABLE_SHADOWTLS
-                runsh $1.sh other/clash-server $ENABLE_TUIC
+                # runsh $1.sh other/clash-server $ENABLE_TUIC
                 # runsh $1.sh deprecated/vmess $ENABLE_VMESS
                 # runsh uninstall.sh deprecated/vmess
                 # runsh $1.sh deprecated/monitoring $ENABLE_MONITORING
                 # runsh uninstall.sh deprecated/monitoring
                 # runsh $1.sh other/netdata false $ENABLE_NETDATA
                 # runsh $1.sh deprecated/trojan-go  $ENABLE_TROJAN_GO
+                runsh $1.sh other/warp  true
         fi
 
         runsh $1.sh xray
