@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v9.1.1 (2023-05-04)
+
+### New
+
+* Add support for warp plus code. [hiddify]
+
+
 ## v9.1.0 (2023-05-04)
 
 ### New
