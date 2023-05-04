@@ -1,4 +1,6 @@
 #!/bin/bash
+
+export WGCF_LICENSE_KEY=$WARP_PLUS_CODE
 wgcf update
 
 while read -r line; do

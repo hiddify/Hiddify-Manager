@@ -45,6 +45,7 @@ function set_config_from_hpanel(){
 
         setenv ENABLE_V2RAY ``hconfigs[v2ray_enable]``
         setenv ENABLE_WARP ``hconfigs[warp_enable]``
+        setenv WARP_PLUS_CODE ``hconfigs[warp_plus_code]``
         setenv ENABLE_SS ``hconfigs[ssfaketls_enable]``
         setenv SS_FAKE_TLS_DOMAIN ``hconfigs[ssfaketls_fakedomain]``
         
