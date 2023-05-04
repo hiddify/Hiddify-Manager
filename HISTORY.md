@@ -1,6 +1,31 @@
 # Changelog
 
 
+## v9.1.0 (2023-05-04)
+
+### New
+
+* Warp. [hiddify]
+
+* Add warp. [hiddify]
+
+* Add new warp. [hiddify]
+
+### Fix
+
+* Warp. [hiddify]
+
+* Typo. [hiddify]
+
+* No commit message. [hiddify]
+
+* Typo. [hiddify]
+
+### Other
+
+* Enable warp from config. [hiddify]
+
+
 ## v9.0.8 (2023-05-01)
 
 ### Other
