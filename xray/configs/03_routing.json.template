@@ -28,7 +28,9 @@
                 "domain":[
                     "geosite:google",
                     "geosite:netflix",
+                    "geosite:spotify",
                     "domain:ip.gs",
+                    "domain:ipinfo.io",
                     "domain:openai.com",
                     "domain:ai.com"
                 ]

@@ -1,0 +1,1 @@
+rm xray_warp_conf.json
