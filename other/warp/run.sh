@@ -38,7 +38,7 @@ EOM
 warp_conf=$(cat xray_warp_conf.json)
 warp_conf=$(echo "$warp_conf" | tr '\n' ' ')
 escaped_warp_conf=$(printf '%s\n' "$warp_conf" | sed -e 's/[\/&]/\\&/g')
-sed "s|\"outbounds\": \[\]|\"outbounds\": [$escaped_warp_conf]|g"  xray_demo.json.template > xray_demo.json
+sed "s|//hiddify_warp|$escaped_warp_conf|g"  xray_demo.json.template > xray_demo.json
 xray -c xray_demo.json &
 pid=$!
 sleep 3
