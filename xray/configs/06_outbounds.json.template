@@ -5,6 +5,11 @@
       "settings": {}
     },
     {
+      "tag": "freedom"
+      "protocol": "freedom",
+      "settings": {}
+    },
+    {
       "protocol": "blackhole",
       "tag": "blackhole"
     },
@@ -48,14 +53,14 @@
     //       ]
     //   }
   // },
-    {
-      "tag": "WRAP",
-      "protocol": "freedom",
-      "settings": {
-        "domainStrategy": "UseIPv4"
-      },
-      "sendThrough": "172.16.0.2"
-    },
+    // {
+    //   "tag": "WRAP",
+    //   "protocol": "freedom",
+    //   "settings": {
+    //     "domainStrategy": "UseIPv4"
+    //   },
+    //   "sendThrough": "172.16.0.2"
+    // },
     {
       "tag": "localhost-xtls", "protocol": "freedom", "settings": { "redirect": "127.0.0.1:400" }
     },

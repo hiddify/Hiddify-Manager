@@ -63,6 +63,22 @@ if [[ "$HTTP_PORTS" != "" ]];then
 	sed -i 's|"port":"80"|"port":"80,'$HTTP_PORTS'"|g' configs/05_inbounds_02_http_main.json
 fi
 
+
+
+
+rm configs/warp_conf.json
+
+cp ../other/warp/xray/warp_conf.json configs
+
+if [ -f "configs/warp_conf.json" ];then
+	sed -i 's|"outboundTag": "forbidden_sites"|"outboundTag": "WARP-free"|g' configs/03_routing.json
+	sed -i 's|"outboundTag": "WARP"|"outboundTag": "WARP-free"|g' configs/03_routing.json
+else 
+	sed -i 's|"outboundTag": "WARP"|"outboundTag": "freedom"|g' configs/03_routing.json
+fi
+
+
+
 xray run -test -confdir configs
 # echo "ignoring xray test"
 if  [[ $? == 0 ]];then

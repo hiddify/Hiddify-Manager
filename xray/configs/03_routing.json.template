@@ -22,17 +22,17 @@
         //         ],
         //         "outboundTag":"WARP-CHATGPT"
         //     },
-        //  {
-        //         "type":"field",
-        //         "outboundTag":"WRAP",
-        //         "domain":[
-        //             "geosite:google",
-        //             "geosite:netflix",
-        //             "domain:ip.gs",
-        //             "domain:openai.com",
-        //             "domain:ai.com"
-        //         ]
-        //     },
+         {
+                "type":"field",
+                "outboundTag": "WARP",
+                "domain":[
+                    "geosite:google",
+                    "geosite:netflix",
+                    "domain:ip.gs",
+                    "domain:openai.com",
+                    "domain:ai.com"
+                ]
+            },
         {
             "type": "field",
             //"inboundTag": ["xtls"], 

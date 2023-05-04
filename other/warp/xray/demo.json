@@ -1,0 +1,24 @@
+{
+    "log": {
+        "loglevel": "warning"
+    },
+    "inbounds": [
+        {
+            "listen": "127.0.0.1",
+            "port": 1234,
+            "protocol": "socks",
+            "settings": {
+                "auth": "",
+                "accounts": [
+                    {
+                        "user": "",
+                        "pass": ""
+                    }
+                ],
+                "udp": true,
+                "ip": "127.0.0.1"
+            }
+            
+        }
+    ]
+}
