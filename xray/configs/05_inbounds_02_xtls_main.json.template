@@ -12,6 +12,14 @@
 			  ],
 			  "fallbacks": [
 				{
+					"alpn": "h3",
+					"dest": "@dispatcher_h2","xver": 2
+				},
+				{
+					"alpn": "h4",
+					"dest": "@dispatcher_h2","xver": 2
+				},
+				{
 					"alpn": "h2",
 					"dest": "@dispatcher_h2","xver": 2
 					//"dest":"/opt/hiddify-config/nginx/run/h2.sock","xver": 2
@@ -38,13 +46,15 @@
 				"cipherSuites": "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256", 
 				"alpn": [
 				  "h2", 
-				  "http/1.1" 
+				  "http/1.1",
+				  "h3",
+				  "h4"
 				]
 			  }
 			},
 			"sniffing": {
 			  "enabled": true,
-			  "destOverride": ["http","tls"]
+			  "destOverride": ["http","tls","quic"]
 			}
 		  }
 	]
