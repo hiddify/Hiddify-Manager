@@ -6,7 +6,7 @@
 
 [**![Lang_farsi](https://user-images.githubusercontent.com/125398461/234186932-52f1fa82-52c6-417f-8b37-08fe9250a55f.png) &nbsp;فارسی**](https://github.com/hiddify/hiddify-config/wiki/Home_fa)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/%20Wiki-Page-808080?style=flat-square)](https://github.com/hiddify/hiddify-config/wiki)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/FAQ-Here-512DA8?style=flat-square&logo=Favro)](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Report-Bugs-F67909?style=flat-square&logo=Open-Bug-Bounty)](https://github.com/hiddify/hiddify-config/issues)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
-</br>
+<br>
 <div align=center markdown="1">
 
 ![Hiddify Logo](https://user-images.githubusercontent.com/125398461/227777845-a4d0f86b-faa2-4f2b-a410-4aa5f68bfe19.png)
@@ -207,7 +207,7 @@ For making the best use of this panel, read [this guide ![](https://img.shields.
 
 ## All tutorials and videos
 
-All tutorial contents of this project are accessible in wiki. Please visit [this link](https://github.com/hiddify/hiddify-config/wiki/home) and find `pages` in the up-right corner on Desktop or in the bottom of this page on mobile.
+All tutorial contents of this project are accessible in wiki. Please visit [this link](https://github.com/hiddify/hiddify-config/wiki/home) and find `pages` in the up-right corner on desktop or in the bottom of this page on mobile.
 
 Also, all tutorials and videos can be accessed by clicking on the image below.
 </div>
