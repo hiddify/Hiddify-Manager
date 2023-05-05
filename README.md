@@ -227,28 +227,9 @@ Also, all tutorials and videos can be accessed by clicking on the image below.
 ## Donation And Support 
 The easiest way to support us is to click on the star (⭐) at the top of this page.
 
-We also need financial support for our services.‌ All of our activities are done voluntarily and the financial support will be spent on the development of the project. 
+We also need financial support for our services. All of our activities are done voluntarily and financial support will be spent on the development of the project. You can view our support addresses [here](https://github.com/hiddify/hiddify-config/wiki/support). 
 
 
-<details markdown="1"> <summary><b>Credit Card And PayPal</b></summary> 
-
-  - [![Paypal](https://img.shields.io/badge/Donate-PayPal-blue?style=flat-square&logo=paypal)](https://opencollective.com/hiddify/contribute/backer-50556/checkout?interval=month&amount=10)
-  - [![Paypal](https://img.shields.io/badge/Donate-CreditCard-orange?style=flat-square&logo=visa)](https://opencollective.com/hiddify/contribute/backer-50556/checkout?interval=month&amount=10)
-  
-  </details>
-
-<details markdown="1"> <summary><b>Crypto</b></summary> 
- 
-
-  - [![TON](https://img.shields.io/badge/Donate-Ton-informational) `EQCWnykA-YhavOXgH3sf-uxtXLjy83_9n5bJPGRPE8r2247_`](https://tonwhales.com/explorer/address/EQCWnykA-YhavOXgH3sf-uxtXLjy83_9n5bJPGRPE8r2247_)
-  - [![USDT (TRC20)](https://img.shields.io/badge/Donate-USDT%20(TRC20)-orange?style=flat-square&logo=Tether) `TXZtFUxyBPMSykAWogu7C4zmbjySKqMcDE`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=usdt:TXZtFUxyBPMSykAWogu7C4zmbjySKqMcDE&chld=H)
-  - [![LiteCoin](https://img.shields.io/badge/Donate-LiteCoin-blue?style=flat-square&logo=Litecoin) `MCHoh7xwaDBBnQgANPpBtXiekagV6KpdrM`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=litecoin:MCHoh7xwaDBBnQgANPpBtXiekagV6KpdrM&chld=H)
-  - [![BNB (smart chain)](https://img.shields.io/badge/Donate-BNB%20(smart%20chain?style=flat-square)-lightgreen)  `0xF5CFc65ee336B377C2a37EA3BCD0CaD0d0F0CbA0`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=bnb:0xF5CFc65ee336B377C2a37EA3BCD0CaD0d0F0CbA0&chld=H)
-  - [![Ethereum](https://img.shields.io/badge/Donate-Ethereum-blueviolet?style=flat-square&logo=Ethereum) `0xF5CFc65ee336B377C2a37EA3BCD0CaD0d0F0CbA0`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=ethereum:0xF5CFc65ee336B377C2a37EA3BCD0CaD0d0F0CbA0&chld=H)
-  - ![BitCoin](https://img.shields.io/badge/Donate-BitCoin-orange?style=flat-square&logo=bitcoin) [`bc1qkfp7n3wxu2zc9mdy20cf27d5pujj65myww8f60`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=bitcoin:bc1qkfp7n3wxu2zc9mdy20cf27d5pujj65myww8f60&chld=H)
-  -  [![Doge](https://img.shields.io/badge/Donate-DOGE%20(Dogecoin)-yellow?style=flat-square&logo=Dogecoin)`DPerFS2vCu5XnE3He32BaPVTkUDcKLsEaj`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=doge:DPerFS2vCu5XnE3He32BaPVTkUDcKLsEaj&chld=H)
-
-</details>
 
 ## Collaboration and Contact Information 
 We need your collaboration in order to develop this project. If you are specialists in these areas, please do not hesitate to contact us.
