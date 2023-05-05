@@ -13,15 +13,6 @@
             //zh "ip": ["geoip:cn"]
             //other "ip": ["geoip:cn"]
         },
-          
-        //   {
-        //         "type":"field",
-        //         "domain":[
-        //             "domain:openai.com",
-        //             "domain:ai.com"
-        //         ],
-        //         "outboundTag":"WARP-CHATGPT"
-        //     },
          {
                 "type":"field",
                 "outboundTag": "WARP",
@@ -29,10 +20,16 @@
                     "geosite:google",
                     "geosite:netflix",
                     "geosite:spotify",
+                    "geosite:nvidia",
+                    "geosite:bytedance",
                     "domain:ip.gs",
+                    "domain:kmplayer.com",
                     "domain:ipinfo.io",
                     "domain:openai.com",
-                    "domain:ai.com"
+                    "domain:ai.com",
+                    "domain:freepik.com",
+                    "domain:developer.mozilla.org",
+                    "domain:behance.net"
                 ]
             },
         {
@@ -43,29 +40,6 @@
             //zh "domain": ["geosite:cn","tld-cn"] 
             //other "ip": ["geoip:cn"]
         },
-        // {
-        //   "type": "field",
-        //   "inboundTag": ["sniproxy-in"],
-        //   "outboundTag": "localhost-xtls",
-        //   "domain": ["domain:defaultserverhost"]
-        // },
-        // {
-        //   "type": "field",
-        //   "inboundTag": ["sniproxy-in"],
-        //   "outboundTag": "localhost-tgproxy",
-        //   "domain": ["domain:TELEGRAM_FAKE_TLS_DOMAIN"]
-        // },
-        // {
-        //   "type": "field",
-        //   "inboundTag": ["sniproxy-in"],
-        //   "outboundTag": "localhost-faketls",
-        //   "domain": ["domain:sstlsdomain"]
-        // },
-        // {
-        //   "type": "field", "inboundTag": ["sniproxy-in"], "outboundTag": "other-sni",
-        //   "_comment": "default sni"
-        // },
-        
         {
           "inboundTag": ["api"], "outboundTag": "api", "type": "field"
         },

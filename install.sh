@@ -18,13 +18,15 @@ function set_config_from_hpanel(){
                 exit 1
         fi
         tickParse  "$hiddify"
-        tickVars
+        # tickVars
 
         function setenv () {
                 echo $1=$2
                 export $1="$2"
         }
-
+        for x in ``hconfigs.items()``; do
+                setenv "${x/__tick_data_hconfigs_/}" "${!x}" 
+        done
 
         setenv GITHUB_USER hiddify
         setenv GITHUB_REPOSITORY hiddify-config

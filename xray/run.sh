@@ -65,6 +65,10 @@ rm configs/warp_conf.json
 
 warp_conf=$(cat ../other/warp/xray_warp_conf.json)
 
+if [ -n "$dns_server" ];then
+	sed -i "s|127.0.0.53|$dns_server|g"  configs/06_outbounds.json
+fi
+
 if [ -n "$warp_conf" ];then
 	warp_conf=$(echo "$warp_conf" | tr '\n' ' ')
 	escaped_warp_conf=$(printf '%s\n' "$warp_conf" | sed -e 's/[\/&]/\\&/g')
@@ -73,7 +77,7 @@ if [ -n "$warp_conf" ];then
 	sed -i 's|"outboundTag": "forbidden_sites"|"outboundTag": "WARP"|g' configs/03_routing.json
 else 
 	sed -i 's|"outboundTag": "WARP"|"outboundTag": "freedom"|g' configs/03_routing.json
-	
+
 	if [[ "$BLOCK_IR_SITES" != "true" ]];then
         sed -i 's|"tag": "forbidden_sites", "protocol": "blackhole"|"tag": "forbidden_sites", "protocol": "freedom"|g' configs/06_outbounds.json
 		# sed -i 's|"inboundTag": ["Experimental"],||g' configs/03_routing.json	
