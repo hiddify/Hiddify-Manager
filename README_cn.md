@@ -81,7 +81,7 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 | V2ray:<br>- TLS WS<br>- HTTP WS<br>- TLS H2 |  V2ray:<br>- TLS WS<br>- HTTP WS<br>- TLS H2 | |
 | Shadowsocks:<br>- TLS Shadowtls<br>- HTTP Shadowtls<br>- TLS H2 Shadowtls<br>- TLS H3 Shadowtls | | |
 
-<details>
+</details>
 
 <details markdown="1"> <summary><h3>国内和过滤网站的智能代理</h3> (点击这里)</summary>
 
