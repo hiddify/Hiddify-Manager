@@ -1,6 +1,15 @@
 # Changelog
 
 
+## v9.2.0 (2023-05-05)
+
+### New
+
+* Add mode for warp. [hiddify]
+
+* Add warp state. [hiddify]
+
+
 ## v9.1.1 (2023-05-04)
 
 ### New
