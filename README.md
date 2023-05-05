@@ -205,8 +205,24 @@ To install, you only need to have a server according to the prerequisites, and t
 ## Configuration Guide 
 For making the best use of this panel, read [this guide ![](https://img.shields.io/badge/Config-Hiddify-009688?style=flat-square&logo=Azure-Functions)](https://github.com/hiddify/hiddify-config/wiki/How-to-configure-Hiddify-Panel-properly) .
 
-## Wiki
-To learn more about the details, it is recommended to follow our content in the [wiki](https://github.com/hiddify/hiddify-config/wiki) .
+## All tutorials and videos
+
+All tutorial contents of this project are accessible in wiki. Please visit [this link](https://github.com/hiddify/hiddify-config/wiki/home) and find `pages` in the up-right corner on Desktop or in the bottom of this page on mobile.
+
+Also, all tutorials and videos can be accessed by clicking on the image below.
+</div>
+
+<div align=center>
+
+<a href="https://github.com/hiddify/hiddify-config/wiki/All-tutorials-and-videos"><img width="70%" src="https://user-images.githubusercontent.com/125398461/235845087-645212c1-097f-4f93-a924-7a40828891e7.png"></a>
+
+</div>
+
+<br>
+
+</div>
+
+***
 
 ## Donation And Support 
 The easiest way to support us is to click on the star (⭐) at the top of this page.
