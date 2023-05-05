@@ -6,9 +6,9 @@ XRAY_NEW_CONFIG_OK=$?
 
 	systemctl status --no-pager hiddify-nginx hiddify-xray haproxy|cat
 
-warp_conf=$(cat other/warp/xray_warp_conf.json)
 
-if [ -n "$warp_conf" ];then
+
+if [ -f "other/warp/xray_warp_conf.json" ];then
 	(cd other/warp&& wgcf update)
 	echo "Your IP for custom WARP:"
 	curl -x socks://127.0.0.1:1234 www.ipinfo.io

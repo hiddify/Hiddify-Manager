@@ -195,7 +195,8 @@ function do_for_all() {
                 # runsh uninstall.sh deprecated/monitoring
                 # runsh $1.sh other/netdata false $ENABLE_NETDATA
                 # runsh $1.sh deprecated/trojan-go  $ENABLE_TROJAN_GO
-                runsh $1.sh other/warp  [ "$WARP_MODE" != 'disable' ] | "false"
+                WARP_ENABLE=$([ "$WARP_MODE" != 'disable' ] || echo "false")
+                runsh $1.sh other/warp  $WARP_ENABLE
         fi
 
         runsh $1.sh xray
