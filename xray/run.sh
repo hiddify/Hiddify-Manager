@@ -53,11 +53,6 @@ if [[ "$ALLOW_ALL_SNI_TO_USE_PROXY" == "true" ]];then
         sed -i 's|"redirect": "127.0.0.1:445"|"redirect": "127.0.0.1:400"|g' configs/05_inbounds_02_sni_proxy.json
 fi
 
-if [[ "$BLOCK_IR_SITES" != "true" ]];then
-        sed -i 's|"tag": "forbidden_sites", "protocol": "blackhole"|"tag": "forbidden_sites", "protocol": "freedom"|g' configs/06_outbounds.json
-		# sed -i 's|"inboundTag": ["Experimental"],||g' configs/03_routing.json
-		
-fi 
 
 if [[ "$HTTP_PORTS" != "" ]];then
 	sed -i 's|"port":"80"|"port":"80,'$HTTP_PORTS'"|g' configs/05_inbounds_02_http_main.json
@@ -78,6 +73,12 @@ if [ -n "$warp_conf" ];then
 	sed -i 's|"outboundTag": "forbidden_sites"|"outboundTag": "WARP"|g' configs/03_routing.json
 else 
 	sed -i 's|"outboundTag": "WARP"|"outboundTag": "freedom"|g' configs/03_routing.json
+	
+	if [[ "$BLOCK_IR_SITES" != "true" ]];then
+        sed -i 's|"tag": "forbidden_sites", "protocol": "blackhole"|"tag": "forbidden_sites", "protocol": "freedom"|g' configs/06_outbounds.json
+		# sed -i 's|"inboundTag": ["Experimental"],||g' configs/03_routing.json	
+	fi 
+
 fi
 
 
