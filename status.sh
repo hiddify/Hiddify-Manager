@@ -10,6 +10,11 @@ warp_conf=$(cat other/warp/xray_warp_conf.json)
 
 if [ -n "$warp_conf" ];then
 	(cd other/warp&& wgcf update)
+	echo "Your IP for custom WARP:"
+	curl -x socks://127.0.0.1:1234 www.ipinfo.io
+
+	echo "Your Global IP"
+	curl -x socks://127.0.0.1:1234 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
 fi
 
 
@@ -23,7 +28,7 @@ done
 # echo "ignoring xray test"
 
 
-if [ $XRAY_NEW_CONFIG_ERROR == "0" ];then
+if [ "$XRAY_NEW_CONFIG_ERROR" != "0" ];then
 	xray run -test -confdir xray/configs 
 	echo "There is a big error in xray configuration."
 fi

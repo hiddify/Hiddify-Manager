@@ -44,7 +44,7 @@ function set_config_from_hpanel(){
         setenv ADMIN_SECRET ``hconfigs[admin_secret]``
 
         setenv ENABLE_V2RAY ``hconfigs[v2ray_enable]``
-        setenv ENABLE_WARP ``hconfigs[warp_enable]``
+        setenv WARP_MODE ``hconfigs[warp_mode]``
         setenv WARP_PLUS_CODE ``hconfigs[warp_plus_code]``
         setenv ENABLE_SS ``hconfigs[ssfaketls_enable]``
         setenv SS_FAKE_TLS_DOMAIN ``hconfigs[ssfaketls_fakedomain]``
@@ -195,7 +195,7 @@ function do_for_all() {
                 # runsh uninstall.sh deprecated/monitoring
                 # runsh $1.sh other/netdata false $ENABLE_NETDATA
                 # runsh $1.sh deprecated/trojan-go  $ENABLE_TROJAN_GO
-                runsh $1.sh other/warp  $ENABLE_WARP
+                runsh $1.sh other/warp  [ "$WARP_MODE" != 'disable' ] | "false"
         fi
 
         runsh $1.sh xray

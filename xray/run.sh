@@ -74,11 +74,8 @@ if [ -n "$warp_conf" ];then
 	warp_conf=$(echo "$warp_conf" | tr '\n' ' ')
 	escaped_warp_conf=$(printf '%s\n' "$warp_conf" | sed -e 's/[\/&]/\\&/g')
 	# sed -i "s|\"outbounds\": \[|\"outbounds\": [$escaped_warp_conf,|g"  configs/06_outbounds.json
-	sed -i "s|//hiddify_warp|$escaped_warp_conf,|g"  configs/06_outbounds.json
-	
-
-	sed -i 's|"outboundTag": "forbidden_sites"|"outboundTag": "WARP-free"|g' configs/03_routing.json
-	sed -i 's|"outboundTag": "WARP"|"outboundTag": "WARP-free"|g' configs/03_routing.json
+	sed -i "s|//hiddify_${WARP_MODE}_warp|$escaped_warp_conf,|g"  configs/06_outbounds.json
+	sed -i 's|"outboundTag": "forbidden_sites"|"outboundTag": "WARP"|g' configs/03_routing.json
 else 
 	sed -i 's|"outboundTag": "WARP"|"outboundTag": "freedom"|g' configs/03_routing.json
 fi

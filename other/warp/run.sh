@@ -2,6 +2,10 @@
 
 export WGCF_LICENSE_KEY=$WARP_PLUS_CODE
 wgcf update
+if [ $? != 0 ];then
+  mv wgcf-account.toml wgcf-account.toml.backup
+  wgcf update
+fi 
 
 while read -r line; do
     if [[ "$line" == \[*] ]]; then
@@ -19,7 +23,7 @@ done < "wgcf-profile.conf"
 
 cat > xray_warp_conf.json << EOM
     {
-      "tag": "WARP-free",
+      "tag": "WARP",
       "protocol": "wireguard",
       "settings": {
         "secretKey": "$Interface_PrivateKey",
@@ -41,14 +45,16 @@ warp_conf=$(cat xray_warp_conf.json)
 warp_conf=$(echo "$warp_conf" | tr '\n' ' ')
 escaped_warp_conf=$(printf '%s\n' "$warp_conf" | sed -e 's/[\/&]/\\&/g')
 sed "s|//hiddify_warp|$escaped_warp_conf|g"  xray_demo.json.template > xray_demo.json
-xray -c xray_demo.json &
+xray -c xray_demo.json >/dev/null  &
 pid=$!
 sleep 3
 curl -x socks://127.0.0.1:1234 www.ipinfo.io
+curl -x socks://127.0.0.1:1234 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
 if [ $? != 0 ];then
     rm xray_warp_conf.json
 else
-   echo "Congrat!!! WARP is working"
+   echo ""
+   echo "==========WARP is working=============="
 fi
 kill -9 $pid
 

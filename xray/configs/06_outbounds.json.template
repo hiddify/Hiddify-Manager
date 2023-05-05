@@ -1,7 +1,8 @@
 {
   "outbounds": [
+    //hiddify_all_warp
     {"protocol": "freedom","settings": {}},
-    //hiddify_warp
+    //hiddify_custom_warp
     {
       "tag": "freedom",
       "protocol": "freedom",
