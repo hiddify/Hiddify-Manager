@@ -5,12 +5,16 @@
     "domainMatcher":"hybrid",
     "settings": {
       "rules": [
-        {
-          "type": "field", 
-          "outboundTag": "freedom",
-          "domain":[
-            "www.google.com"
-          ]
+        // {
+        //   "type": "field", 
+        //   "outboundTag": "freedom",
+        //   "domain":[
+        //     "www.google.com",
+        //     "cp.cloudflare.com"
+        //   ]
+        // },
+        { //DNS Cache rule
+          "type": "field", "port": 53, "network": "tcp,udp", "outboundTag": "DNS-Internal"
         },
         {
             "type": "field", 
@@ -20,6 +24,14 @@
             //zh "ip": ["geoip:cn"]
             //other "ip": ["geoip:cn"]
         },
+        {
+          "type": "field",
+          //"inboundTag": ["xtls"], 
+          "outboundTag": "forbidden_sites",
+          //ir "domain": ["tld-ir"]
+          //zh "domain": ["geosite:cn","tld-cn"] 
+          //other "ip": ["geoip:cn"]
+      },
          {
                 "type":"field",
                 "outboundTag": "WARP",
@@ -39,25 +51,20 @@
                     "domain:behance.net"
                 ]
             },
-        {
-            "type": "field",
-            //"inboundTag": ["xtls"], 
-            "outboundTag": "forbidden_sites",
-            //ir "domain": ["tld-ir"]
-            //zh "domain": ["geosite:cn","tld-cn"] 
-            //other "ip": ["geoip:cn"]
-        },
+        
         {
           "inboundTag": ["api"], "outboundTag": "api", "type": "field"
         },
         {
           "type": "field", "outboundTag": "blackhole", "ip": ["geoip:private"]
         },
-        { //DNS Cache rule
-          "type": "field", "port": 53, "network": "tcp,udp", "outboundTag": "DNS-Internal"
-        },
         {// Block BitTorrent protocol
           "type": "field", "outboundTag": "blackhole", "protocol": ["bittorrent"]
+        },
+        {
+          "type": "field",
+          "port": "0-65535",
+          "outboundTag": "freedom"
         }
       ]
     }

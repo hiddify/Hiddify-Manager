@@ -1,13 +1,11 @@
 {
   "outbounds": [
-    //hiddify_all_warp
-    {"protocol": "freedom","settings": {}},
-    //hiddify_custom_warp
     {
       "tag": "freedom",
       "protocol": "freedom",
       "settings": {}
     },
+    //hiddify_custom_warp
     {
       "protocol": "blackhole",
       "tag": "blackhole"
@@ -77,7 +75,7 @@
       "tag": "DNS-Internal",
       "protocol": "dns",
       "settings": {
-        "address": "127.0.0.53",
+        "address": "1.1.1.1",
         "port": 53
       }
     }
