@@ -6,6 +6,13 @@
     "settings": {
       "rules": [
         {
+          "type": "field", 
+          "outboundTag": "freedom",
+          "domain":[
+            "www.google.com"
+          ]
+        },
+        {
             "type": "field", 
             //"inboundTag": ["xtls"], 
             "outboundTag": "forbidden_sites",
