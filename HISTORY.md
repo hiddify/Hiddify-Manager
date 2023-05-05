@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v9.3.0 (2023-05-05)
+
+### Changes
+
+* Better  warp. [hiddify]
+
+### Fix
+
+* Warp enable. [hiddify]
+
+
 ## v9.2.0 (2023-05-05)
 
 ### New
