@@ -62,12 +62,11 @@ Hiddify is a powerful and professional anti-censorship toolbox, which is a multi
 
 ### Table of Contents
 - [Why Hiddify?](#why-hiddify)
-- [Installation Guide](#installation-guide-)
-  - [Prerequisites](#prerequisites)
-  - [Quick installation](#quick-installation)
-  - [Typical installation](#typical-installation)
-- [Configuration Guide](#configuration-guide)
-- [All tutorials and videos](#all-tutorials-and-videos)
+  - [Attractive features](#attractive-features)
+  - [Supported protocols](#supported-protocols)
+  - [Smart Proxy For Domestic And Filtered Sites](#smart-proxy-for-domestic-and-filtered-sites)
+  - [Other fantastic features](#other-fantastic-features)
+- [Installation and tutorials](#installation-and-tutorials)
 - [Donation and Support](#donation-and-support)
 - [Collaboration and Contact Information](#collaboration-and-contact-information)
 
@@ -119,7 +118,7 @@ And dozens of other features that you will notice after installation
 
 </details>
 
-<details markdown="1"> <summary><h3>Smart Proxy For Domestic And Filtered Sites</h3></summary>
+<details markdown="1"> <summary><h3>smart proxy for domestic and filtered sites</h3></summary>
  
 You can connect to the internet in 3 modes using Hiddify(Clash) client and Hiddify panel. 
 1. This method only circumvents filtered websites via the proxies.
@@ -130,7 +129,7 @@ At the same time, the proposed solution is resistant to detection by the interne
 
 </details>
 
-<details markdown="1"><summary><h3>Other Fantastic Features</h3></summary>
+<details markdown="1"><summary><h3>Other fantastic features</h3></summary>
 
 
 <details  markdown="1"> <summary>Supported operating systems</summary>
@@ -171,58 +170,8 @@ When you want to share Telegram proxy or Shadowsocks proxy through other program
 </details>
 </details>
 
-
-## Installation Guide ![](https://img.shields.io/badge/Install-Hiddify-004E9F?style=flat-square&logo=Azure-Data-Explorer)
-
-### Prerequisites
-Before you start the installation; You need a series of prerequisites. Click [here](https://github.com/hiddify/hiddify-config/wiki/Installation-prerequisites) to get to know them.
-
-### Quick installation
-
-If you get your server directly from famous data centers; we made it easy and automated for you. In this method, the installation is done automatically very quickly and easily without the need for technical knowledge. Click on one of the buttons below to continue.
-
-<div align=center>
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Hetzner-D50C2D?style=flat-square&logo=Hetzner)](https://github.com/hiddify/hiddify-config/wiki/Quick-installation-on-Hetzner-Servers)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Vultr-007BFC?style=flat-square&logo=vultr)](https://github.com/hiddify/hiddify-config/wiki/Quick-installation-on-Vultr-Servers)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Oracle%20Cloud-F80000?style=flat-square&logo=oracle)](https://github.com/hiddify/hiddify-config/wiki/Quick-Installation-on-Oracle-Cloud)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-OVH-123F6D?style=flat-square&logo=ovh)](https://github.com/hiddify/hiddify-config/wiki/Quick-Installation-on-OVH-Servers)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Azure-0078D4?style=flat-square&logo=microsoft-azure)](https://github.com/hiddify/hiddify-config/wiki/Quick-Installation-on-Microsoft-Azure)
-
-</div>
-
-
-### Typical installation
-
-To install, you only need to have a server according to the prerequisites, and then the installation is done with a simple one-line command. Click one of the following buttons according to your needs.
-
-<div align=center>
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Ubuntu-E95420?style=flat-square&logo=ubuntu)](https://github.com/hiddify/hiddify-config/wiki/Quick-Installation-On-Ubuntu)
-
-<!--
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Docker-2496ED?style=flat-square&logo=docker)](https://github.com/hiddify/hiddify-config/wiki/Install-Hiddify-using-Docker)
--->
-</div>
-
-
-## Configuration Guide 
-For making the best use of this panel, read [this guide ![](https://img.shields.io/badge/Config-Hiddify-009688?style=flat-square&logo=Azure-Functions)](https://github.com/hiddify/hiddify-config/wiki/How-to-configure-Hiddify-Panel-properly) .
-
-## All tutorials and videos
-
-All tutorial contents of this project are accessible in wiki. Please visit [this link](https://github.com/hiddify/hiddify-config/wiki/home) and find `pages` in the up-right corner on desktop or in the bottom of this page on mobile.
-
-Also, all tutorials and videos can be accessed by clicking on the image below.
-</div>
-
-<div align=center>
-
-<a href="https://github.com/hiddify/hiddify-config/wiki/All-tutorials-and-videos"><img width="70%" src="https://user-images.githubusercontent.com/125398461/235845087-645212c1-097f-4f93-a924-7a40828891e7.png"></a>
-
-</div>
-
-<br>
-
-</div>
-
-***
+## Installation and tutorials
+**Please find related information [here in wiki page](https://github.com/hiddify/hiddify-config/wiki)**
 
 ## Donation And Support 
 The easiest way to support us is to click on the star (⭐) at the top of this page.
