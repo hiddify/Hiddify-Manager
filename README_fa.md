@@ -1,11 +1,18 @@
 
 <div align="left" markdown="1">
 
-[**![Lang_English](https://user-images.githubusercontent.com/125398461/229074810-599bd7f9-0bc1-44a9-b76e-90bf7e182314.png) English**](https://github.com/hiddify/hiddify-config/blob/main/README.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ویکی](https://github.com/hiddify/hiddify-config/wiki/Home_Fa)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[سوالات رایج](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[گزارش اشکالات](https://github.com/hiddify/hiddify-config/issues)
+[**![Lang_English](https://user-images.githubusercontent.com/125398461/229074810-599bd7f9-0bc1-44a9-b76e-90bf7e182314.png) English**](https://github.com/hiddify/hiddify-config/blob/main/README.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[**![Lang_Chinese](https://user-images.githubusercontent.com/125398461/236453142-16f3a81e-8f40-403d-a452-34c4c9ed8f64.png) 中国人**](https://github.com/hiddify/hiddify-config/blob/main/README_cn.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ویکی](https://github.com/hiddify/hiddify-config/wiki/Home_Fa)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[سوالات رایج](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[گزارش اشکالات](https://github.com/hiddify/hiddify-config/issues)
 
 
 </div>
 
+<div align="left" markdown="1">
+
+
+
+
+</div>
+<br>
 <div align=center markdown="1">
 
 ![Hiddify Logo](https://user-images.githubusercontent.com/125398461/227777845-a4d0f86b-faa2-4f2b-a410-4aa5f68bfe19.png)
@@ -29,29 +36,27 @@
 <div dir="rtl" markdown="1">
 
 ## به هیدیفای خوش آمدید
-هیدیفای یک ابزار قدرتمند و حرفه‌ای ضد سانسور اینترنت است که دارای پنل چند کاربره و نصب آسان است و به شما کمک می‌کند <b>با بیش از ۲۰ پروتکل پشتیبانی شده</b> شامل <b>ریالیتی</b> فیلترینگ اینترنت را دور بزنید همچنین می‌توانید از <b>پروکسی تلگرام</b> استفاده نمایید. این ابزار <b>برای شبکه اینترنت ایران بهینه سازی شده</b> است و توسط <a href="https://github.com/XTLS/Xray-core#installation" target="_blank">**Xray**</a> توصیه شده است. این پنل یک جایگزین عالی برای پنل X-UI می‌باشد.
-
+هیدیفای یک ابزار قدرتمند و حرفه‌ای ضد سانسور اینترنت است که دارای پنل چند کاربره و نصب آسان است و به شما کمک می‌کند با **بیش از ۲۰ پروتکل پشتیبانی شده** شامل **ریالیتی** فیلترینگ اینترنت را دور بزنید همچنین می‌توانید از **پروکسی تلگرام** استفاده نمایید. این ابزار برای شبکه اینترنت **ایران** بهینه سازی شده است و توسط <a href="https://github.com/XTLS/Xray-core#installation" target="_blank">**Xray**</a> توصیه شده است. این پنل یک جایگزین عالی برای پنل X-UI می‌باشد.
 
 ![Persian new 2](https://user-images.githubusercontent.com/125398461/234265877-56660d3c-6185-4948-b676-77f317834372.png)
+
 <!--
 ![Persian new](https://user-images.githubusercontent.com/125398461/234179101-0dec8ade-29f7-49a4-8a77-4ce1ead1e04f.png)
-
-
 ![farsi_demo](https://user-images.githubusercontent.com/114227601/228013297-240d6945-874f-4836-9b0d-0e1ba072481f.png)
 
 ![farsi_demo](https://user-images.githubusercontent.com/125398461/233846669-9a18a866-6c6e-49bd-9513-b2caa74be01d.png)
 -->
+
+
 ***
 ### فهرست مطالب
 - [چرا هیدیفای؟](#%DA%86%D8%B1%D8%A7-%D9%87%DB%8C%D8%AF%DB%8C%D9%81%D8%A7%DB%8C)
-- [راهنمای نصب](#راهنمای-نصب-) 
-  - [پیش نیازها](#%D9%BE%DB%8C%D8%B4-%D9%86%DB%8C%D8%A7%D8%B2%D9%87%D8%A7)
-  - [نصب سریع](#%D9%86%D8%B5%D8%A8-%D8%B3%D8%B1%DB%8C%D8%B9)
-  - [نصب معمول](#%D9%86%D8%B5%D8%A8-%D9%85%D8%B9%D9%85%D9%88%D9%84)
-- [راهنمای پیکربندی](#%D8%B1%D8%A7%D9%87%D9%86%D9%85%D8%A7%DB%8C-%D9%BE%DB%8C%DA%A9%D8%B1%D8%A8%D9%86%D8%AF%DB%8C)
-- [ویکی پروژه](#%D9%88%DB%8C%DA%A9%DB%8C-%D9%BE%D8%B1%D9%88%DA%98%D9%87)
-- [حمایت از پروژه](#حمایت-از-پروژه)
-- [راه های همکاری و ارتباط با ما](#%D8%B1%D8%A7%D9%87-%D9%87%D8%A7%DB%8C-%D9%87%D9%85%DA%A9%D8%A7%D8%B1%DB%8C-%D9%88-%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7-%D8%A8%D8%A7-%D9%85%D8%A7)
+  - [ویژگی‌های جذاب](#%D9%88%DB%8C%DA%98%DA%AF%DB%8C%D9%87%D8%A7%DB%8C-%D8%AC%D8%B0%D8%A7%D8%A8)
+  - [پروتکل‌های پشتیبانی شده](#%D9%BE%D8%B1%D9%88%D8%AA%DA%A9%D9%84%D9%87%D8%A7%DB%8C-%D9%BE%D8%B4%D8%AA%DB%8C%D8%A8%D8%A7%D9%86%DB%8C-%D8%B4%D8%AF%D9%87)
+  - [پروکسی هوشمند برای سایت های غیر ایرانی و فیلترشده](#%D9%BE%D8%B1%D9%88%DA%A9%D8%B3%DB%8C-%D9%87%D9%88%D8%B4%D9%85%D9%86%D8%AF-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%B3%D8%A7%DB%8C%D8%AA-%D9%87%D8%A7%DB%8C-%D8%BA%DB%8C%D8%B1-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86%DB%8C-%D9%88-%D9%81%DB%8C%D9%84%D8%AA%D8%B1%D8%B4%D8%AF%D9%87)
+  - [سایر امکانات فوق العاده](#%D8%B3%D8%A7%DB%8C%D8%B1-%D8%A7%D9%85%DA%A9%D8%A7%D9%86%D8%A7%D8%AA-%D9%81%D9%88%D9%82-%D8%A7%D9%84%D8%B9%D8%A7%D8%AF%D9%87)
+- [نصب و آموزش‌ها](#)
+
 ***
 ## چرا هیدیفای؟
 هیدیفای تلفیقی از دو کلمه Hidden (مخفی شده) و Simplify (ساده سازی) است. پنلی با ويژگی های فراوان و تعداد قابل توجهی از قابلیت ها که به شما کمک می کند با خیالی راحت و آسوده از اینترنت آزاد بهره ببرید.
@@ -62,9 +67,11 @@
 - **پروکسی هوشمند** (کلاینت هیدیفای و کلش)
 - **بروزرسانی خودکار**
 - **بکاپ‌گیری خودکار** (هر ۶ ساعت)
+- **اتصال خودکار به کلادفلر**
 - استفاده از **چندین دامین**
 - قابلیت کانفیگ **آیپی خودکار Auto CDN**
 - مدیریت **کانفیگ‌های فعال**
+- امکان **مالتی ادمین** به سطوح دسترسی متفاوت
 - **مدیریت کاربران**
 - تعریف **محدودیت زمان و میزان استفاده کاربران**
 - **صفحات اختصاصی کاربران** برای مشاهده مصرف و کانفیگ‌ها
@@ -164,79 +171,18 @@ Ubuntu arm64 or amd64
 
 </div>
 
-***
-<div dir="rtl">
+<!--
+<a href="https://www.youtube.com/watch?v=-a4tfRUsrNY">
+  <img width="50%" src="https://user-images.githubusercontent.com/125398461/227990194-e20b67dc-6cda-4b05-bd26-b7147d830a12.png" />
+</a>
 
-## راهنمای نصب ![](https://img.shields.io/badge/Install-Hiddify-004E9F?style=flat-square&logo=Azure-Data-Explorer)
-
-### پیش نیاز‌ها
-قبل از اینکه بخواهید نصب را شروع کنید؛ به یک سری پیش نیازها احتیاج دارید. برای آشنایی با آنها [اینجا](https://github.com/hiddify/hiddify-config/wiki/%D9%BE%DB%8C%D8%B4-%D9%86%DB%8C%D8%A7%D8%B2%D9%87%D8%A7%DB%8C-%D9%86%D8%B5%D8%A8) کلیک کنید.
-
-  
-
-###  نصب سریع
-اگر سرور خود را به طور مستقیم از دیتاسنترهای معروف تهیه می کنید؛ ما برای شما کار را راحت و خودکار کردیم.
-در این روش به صورت خیلی سریع و آسان بدون نیاز به دانش فنی نصب به صورت خودکار انجام می شود. جهت ادامه روی یکی از دکمه های زیر کلیک کنید.
-<div align="center">
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Hetzner-D50C2D?style=flat-square&logo=Hetzner)](https://github.com/hiddify/hiddify-config/wiki/Hetzner-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Vultr-007BFC?style=flat-square&logo=vultr)](https://github.com/hiddify/hiddify-config/wiki/Vultr-%D9%86%D8%B5%D8%A8-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D9%88%D9%84%D8%AA%D8%B1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Oracle%20Cloud-F80000?style=flat-square&logo=oracle)](https://github.com/hiddify/hiddify-config/wiki/Oracle-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D8%A7%D9%88%D8%B1%D8%A7%DA%A9%D9%84-%DA%A9%D9%84%D9%88%D8%AF)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-OVH-123F6D?style=flat-square&logo=ovh)](https://github.com/hiddify/hiddify-config/wiki/OVH-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D8%A7%D9%88-%D9%88%DB%8C-%D8%A7%DA%86)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Azure-0078D4?style=flat-square&logo=microsoft-azure)](https://github.com/hiddify/hiddify-config/wiki/Azure-%D9%86%D8%B5%D8%A8-%D8%AE%DB%8C%D9%84%DB%8C-%D8%AE%DB%8C%D9%84%DB%8C-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D9%85%D8%A7%DB%8C%DA%A9%D8%B1%D9%88%D8%B3%D8%A7%D9%81%D8%AA-%D8%A2%DA%98%D9%88%D8%B1)
-</div>
-
-
-### نصب معمول
- برای نصب فقط کافیه یک سرور مطابق با پیش نیاز داشته باشید و پس از آن با یک دستور تک خطی ساده نصب انجام میشه. بر اساس نیازتون یکی از دکمه های زیر را کلیک کنید.
-
-<div align=center >
-    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Ubuntu-E95420?style=flat-square&logo=ubuntu)](https://github.com/hiddify/hiddify-config/wiki/نصب-سریع-در-اوبونتو)
-  <!--
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Install%20On-Docker-2496ED?style=flat-square&logo=docker)](https://github.com/hiddify/hiddify-config/wiki/نصب-با-داکر)
 -->
-</div>
 
-***
+<div align=right dir="rtl">
 
+## نصب پنل و آموزش
+**برای نصب پنل و مطالعه مطالب آموزشی در این رابطه به [صفحه ویکی پروژه در اینجا](https://github.com/hiddify/hiddify-config/wiki/Home_fa) مراجعه کنید.**
 
-
-
-
-
-## راهنمای پیکربندی 
-برای اینکه حداکثر استفاده را از مزایای این پنل ببرید؛ این [راهنما ![](https://img.shields.io/badge/Config-Hiddify-009688?style=flat-square&logo=Azure-Functions)](https://github.com/hiddify/hiddify-config/wiki/%D9%86%D8%AD%D9%88%D9%87-%D9%BE%DB%8C%DA%A9%D8%B1%D8%A8%D9%86%D8%AF%DB%8C-%D9%BE%D9%86%D9%84-%D9%87%DB%8C%D8%AF%DB%8C%D9%81%D8%A7%DB%8C) را مطالعه کنید.
-
-## ویکی پروژه
-جهت آشنایی بیشتر با جزییات پیشنهاد می شود مطالب ما را در [ویکی](https://github.com/hiddify/hiddify-config/wiki/home_fa) دنبال کنید.
-## حمایت از پروژه
-ساده‌ترین راه حمایت از ما کلیک کردن روی ستاره (⭐) بالای همین صفحه است.
-
-ما برای سرویس هایمان به کمک مالی هم نیاز داریم. تمامی فعالیت‌های ما به صورت داوطلبانه انجام می‌شود و حمایت‌های مالی صرف توسعه پروژه می‌شود.
-
-
-
-<details dir="rtl" markdown="1"> <summary><b>کردیت کارت و پی پل</b></summary>
-
-- [![Paypal](https://img.shields.io/badge/Donate-PayPal-blue?style=flat-square&logo=paypal)](https://opencollective.com/hiddify/contribute/backer-50556/checkout?interval=month&amount=10)
-- [![Paypal](https://img.shields.io/badge/Donate-CreditCard-orange?style=flat-square&logo=visa)](https://opencollective.com/hiddify/contribute/backer-50556/checkout?interval=month&amount=10)
-  
-</details>
-
-
-
-<details markdown="1"> <summary><b>کریپتو</b></summary> 
-
- - [![TON](https://img.shields.io/badge/Donate-Ton-informational?style=flat-square) `EQCWnykA-YhavOXgH3sf-uxtXLjy83_9n5bJPGRPE8r2247_`](https://tonwhales.com/explorer/address/EQCWnykA-YhavOXgH3sf-uxtXLjy83_9n5bJPGRPE8r2247_)
-  - [![USDT (TRC20)](https://img.shields.io/badge/Donate-USDT%20(TRC20)-orange?style=flat-square&logo=Tether) `TXZtFUxyBPMSykAWogu7C4zmbjySKqMcDE`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=usdt:TXZtFUxyBPMSykAWogu7C4zmbjySKqMcDE&chld=H)
-  - [![LiteCoin](https://img.shields.io/badge/Donate-LiteCoin-blue?style=flat-square&logo=Litecoin) `MCHoh7xwaDBBnQgANPpBtXiekagV6KpdrM`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=litecoin:MCHoh7xwaDBBnQgANPpBtXiekagV6KpdrM&chld=H)
-  - [![BNB (smart chain)](https://img.shields.io/badge/Donate-BNB%20(smart%20chain?style=flat-square)-lightgreen)  `0xF5CFc65ee336B377C2a37EA3BCD0CaD0d0F0CbA0`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=bnb:0xF5CFc65ee336B377C2a37EA3BCD0CaD0d0F0CbA0&chld=H)
-  - [![Ethereum](https://img.shields.io/badge/Donate-Ethereum-blueviolet?style=flat-square&logo=Ethereum) `0xF5CFc65ee336B377C2a37EA3BCD0CaD0d0F0CbA0`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=ethereum:0xF5CFc65ee336B377C2a37EA3BCD0CaD0d0F0CbA0&chld=H)
-  - ![BitCoin](https://img.shields.io/badge/Donate-BitCoin-orange?style=flat-square&logo=bitcoin) [`bc1qkfp7n3wxu2zc9mdy20cf27d5pujj65myww8f60`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=bitcoin:bc1qkfp7n3wxu2zc9mdy20cf27d5pujj65myww8f60&chld=H)
-  - [![Doge](https://img.shields.io/badge/Donate-DOGE%20(Dogecoin)-yellow?style=flat-square&logo=Dogecoin)`DPerFS2vCu5XnE3He32BaPVTkUDcKLsEaj`](https://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=doge:DPerFS2vCu5XnE3He32BaPVTkUDcKLsEaj&chld=H)
-
-
-    
-</details>
-
-</div>
 
 ## راه های همکاری و ارتباط با ما
 اگر در هر یک از زمینه‌های زیر توانایی دارید، لطفا با ما در تماس باشید.
