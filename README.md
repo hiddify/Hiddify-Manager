@@ -88,13 +88,13 @@ Hiddify is a mixture of Hidden and Simplify. A feature-full panel with a wide ra
 - **User management**
 - Applying **time and traffic limit** for each user
 - **Dedicated pages for users** to view consumption and configurations
-- Dedicated and **intelligent configurations**
+- Dedicated and **smart configurations**
 - **Dedicated client software**
 - **Telegram proxy** using different libraries
 - **DNS over HTTPS** (DoH)
 - User management using **Telegram Bot**
 
-And dozens of other features that you will notice after installation
+And dozens of other features that you will notice after installation.
 
 <details markdown="1"> <summary><h3>Supported protocols</h3> (click here)</summary> 
 
