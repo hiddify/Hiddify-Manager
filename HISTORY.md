@@ -1,6 +1,65 @@
 # Changelog
 
 
+## v9.4.0 (2023-05-06)
+
+### New
+
+* Speedup warp on ipv6. [hiddify]
+
+* Warp rules. [hiddify]
+
+* Force google direct. [hiddify]
+
+* Add dns. [hiddify]
+
+### Other
+
+* Bypass google and cloudflare from WARP. [hiddify]
+
+* Add quic and h3. [hiddify]
+
+* Merge pull request #882 from zoheirkabuli/patch-1. [Hiddify]
+
+  add quic to sniffing for better security
+
+* Add quic to sniffing for better security. [zoheir kabuli]
+
+* Update README_cn.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_cn.md. [lymanjre]
+
+* Create README_cn.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+
 ## v9.3.0 (2023-05-05)
 
 ### Changes
