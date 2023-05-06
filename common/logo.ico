@@ -22,4 +22,5 @@ END
 )
 
 center_text  "$text"
+echo -e "\033[39m\\033[49m"
 #echo -e "\033[0;34m $text"
