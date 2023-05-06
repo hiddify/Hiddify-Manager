@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v9.4.3 (2023-05-06)
+
+### New
+
+* Fix "requests<=2.29.0" [hiddify]
+
+* Add logo. [hiddify]
+
+### Other
+
+* Add: logo. [hiddify]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README_fa.md. [lymanjre]
+
+
 ## v9.4.2 (2023-05-06)
 
 ### Fix
