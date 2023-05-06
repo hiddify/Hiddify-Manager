@@ -5,14 +5,14 @@
     "domainMatcher":"hybrid",
     "settings": {
       "rules": [
-        {
-          "type": "field", 
-          "outboundTag": "freedom",
-          "domain":[
-            "www.google.com",
-            "cp.cloudflare.com"
-          ]
-        },
+        // {
+        //   "type": "field", 
+        //   "outboundTag": "freedom",
+        //   "domain":[
+        //     "www.google.com",
+        //     "cp.cloudflare.com"
+        //   ]
+        // },
         { //DNS Cache rule
           "type": "field", "port": 53, "network": "tcp,udp", "outboundTag": "DNS-Internal"
         },
