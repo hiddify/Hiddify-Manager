@@ -267,7 +267,8 @@ function main(){
                         echo ""
                         bash status.sh
                         echo "==========================================================="
-                        echo "Finished! Thank you for helping Iranians to skip filternet."
+                        bash common/logo.ico
+                        echo "Finished! Thank you for helping to skip filternet."
                         echo "Please open the following link in the browser for client setup"
                         
                         cat use-link
