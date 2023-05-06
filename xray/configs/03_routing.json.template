@@ -63,6 +63,12 @@
         },
         {
           "type": "field",
+          "port": "443",
+          "network": "udp",
+          "outboundTag": "block"
+        },
+        {
+          "type": "field",
           "port": "0-65535",
           "outboundTag": "freedom"
         }
