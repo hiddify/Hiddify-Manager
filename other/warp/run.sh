@@ -29,14 +29,16 @@ cat > xray_warp_conf.json << EOM
         "secretKey": "$Interface_PrivateKey",
         "address": [
           "172.16.0.2/32",
-          "fd01:5ca1:ab1e:823e:e094:eb1c:ff87:1fab/128"
+          "$Interface_Address"
         ],
         "peers": [
           {
             "publicKey": "$Peer_PublicKey",
             "endpoint": "$Peer_Endpoint"
           }
-        ]
+        ],
+        "reserved":[0, 0, 0], 
+        "mtu": 1280
       }
     }
 EOM
