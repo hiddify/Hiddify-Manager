@@ -5,7 +5,7 @@
       "protocol": "freedom",
       "settings": {}
     },
-    // hiddify_warp
+    //hiddify_warp
     {
       "protocol": "blackhole",
       "tag": "blackhole"
