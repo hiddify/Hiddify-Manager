@@ -38,7 +38,8 @@
 ## 欢迎来到 Hiddify
 Hiddify 是一个强大而专业的反审查工具箱，它是一个多用户面板，安装简单，<b>支持 20 多种协议</b>，包括 <b>Reality</b> 和 <b>Telegram 代理 </b> 规避过滤。 它针对<b>中国</b>、<b>俄罗斯</b>和<b>伊朗</b>的审查规避进行了优化，并由<a href="https://github.com/XTLS/Xray-core#installation" target="_blank"><b>Xray</b></a>。 它是 X-UI 面板的绝佳替代品。
 
-![English new 2](https://user-images.githubusercontent.com/125398461/234265624-36ee0a18-d4e8-4803-a9ad-331a7c5998e3.png)
+![Chinese](https://user-images.githubusercontent.com/125398461/236637780-5795c30f-f8a9-4b1a-ac0d-90774fff50b8.png)
+
 
 ***
 
