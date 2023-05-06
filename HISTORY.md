@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v9.4.1 (2023-05-06)
+
+### Other
+
+* Fix bug. [hiddify]
+
+
 ## v9.4.0 (2023-05-06)
 
 ### New
