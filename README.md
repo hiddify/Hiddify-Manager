@@ -210,7 +210,7 @@ We need your collaboration in order to develop this project. If you are speciali
 
 
 <p align=center>
- We appreciate all people who are participating in this project. Some people here and many many more out of Github. It means a lot to us. ♥
+ We appreciate all people who are participating in this project. Some people here and many many more outside of Github. It means a lot to us. ♥
  </p>
  
 <p align=center> 
