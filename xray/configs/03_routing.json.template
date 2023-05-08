@@ -48,7 +48,29 @@
                     "domain:ai.com",
                     "domain:freepik.com",
                     "domain:developer.mozilla.org",
-                    "domain:behance.net"
+                    "domain:behance.net",
+                    "domain:remini.com",
+                    "domain:snapchat.com",
+                    
+                    "geosite:tiktok",
+                    "geosite:unity",
+                    "geosite:reddit",
+                    "geosite:openai",
+                    "domain:myanimelist.net",
+                    "domain:sourcemod.net",
+                    "domain:alliedmods.net",
+                    "domain:pagespeed.web.dev",
+                    "domain:axieinfinity.com",
+                    "domain:clubhouse.com",
+                    "domain:omegle.com",
+                    "domain:alldatasheet.com",
+                    "domain:flaticon.com",
+                    "domain:xda-developers.com",
+                    "domain:giglio.com",
+                    "domain:lookmovie2.to",
+                    "domain:adbtc.top",
+                    "domain:homedepot.com",
+                    "domain:flutter.dev"
                 ]
             },
         
