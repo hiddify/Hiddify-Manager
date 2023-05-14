@@ -80,6 +80,8 @@ singbox_warp_conf=$(echo "$singbox_warp_conf" | tr '\n' ' ')
 escaped_singbox_warp_conf=$(printf '%s\n' "$singbox_warp_conf" | sed -e 's/[\/&]/\\&/g')
 sed "s|//hiddify_warp|$escaped_singbox_warp_conf|g"  singbox_demo.json.template > singbox_demo.json
 
+
+
 xray -c xray_demo.json >/dev/null  &
 pid=$!
 sleep 3
@@ -87,6 +89,23 @@ curl -x socks://127.0.0.1:1234 www.ipinfo.io
 curl -x socks://127.0.0.1:1234 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
 if [ $? != 0 ];then
     rm xray_warp_conf.json
+else
+   echo ""
+   echo "==========WARP is working=============="
+fi
+kill -9 $pid
+
+
+
+echo "Testing singbox warp"
+
+sing-box run -c singbox_demo.json >/dev/null  &
+pid=$!
+sleep 3
+curl -x socks://127.0.0.1:1234 www.ipinfo.io
+curl -x socks://127.0.0.1:1234 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
+if [ $? != 0 ];then
+    rm singbox_warp_conf.json
 else
    echo ""
    echo "==========WARP is working=============="

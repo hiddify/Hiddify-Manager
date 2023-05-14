@@ -4,6 +4,10 @@
       "tag": "freedom",
       "type": "direct"
     },
+    {
+      "tag": "direct",
+      "type": "direct"
+    },
     //hiddify_warp
     {
       "type": "block",

@@ -7,12 +7,16 @@
     },
     "geosite": {
       "path": "geosite.db",
-      "download_url": "https://github.com/SagerNet/sing-geosite/releases/latest/download/geosite.db"
+      "download_url": "https://github.com/hiddify/sing-geosite/releases/latest/download/geosite.db"
       // ,"download_detour": ""
     },
     // "domainStrategy": "AsIs",
     "final": "freedom",
       "rules": [
+        {
+            "outbound": "direct",
+            "port": [53]
+        },
         {
             
             //"inboundTag": ["xtls"], 

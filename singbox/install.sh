@@ -1,7 +1,9 @@
-curl -Lo sb.tar.gz https://github.com/SagerNet/sing-box/releases/download/v1.3-beta11/sing-box-1.3-beta11-linux-amd64.tar.gz 
-tar -xzf sb.tar.gz 
+pkg=$(dpkg --print-architecture)
+
+curl -Lo sb.zip https://github.com/hiddify/hiddify-sing-box/releases/latest/download/sing-box-linux-$pkg.zip
+unzip sb.zip
 cp -f sing-box-*/sing-box .
-rm -r sb.tar.gz sing-box-*
+rm -r sb.zip sing-box-*
 chown root:root sing-box
 chmod +x sing-box
 
