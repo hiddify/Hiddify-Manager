@@ -43,10 +43,45 @@ cat > xray_warp_conf.json << EOM
     }
 EOM
 
+
+peer_domain="${Peer_Endpoint%%:*}"
+peer_port="${Peer_Endpoint#*:}"
+
+cat > singbox_warp_conf.json << EOM
+{
+  "type": "wireguard",
+  "tag": "WARP",
+  "server": "$peer_domain",
+  "server_port": $peer_port,
+  "system_interface": false,
+  //"interface_name": "wg0",
+  "local_address": [
+    "172.16.0.2/32",
+    "$Interface_Address"
+  ],
+  "private_key": "$Interface_PrivateKey",
+  "peer_public_key": "$Peer_PublicKey",
+  //"pre_shared_key": "31aIhAPwktDGpH4JDhA8GNvjFXEf/a6+UaQRyOAiyfM=",
+  "reserved": [0, 0, 0],
+  //"workers": 8,
+  "mtu": 1280,
+  "network": "tcp",
+}
+
+EOM
+
+
+
 warp_conf=$(cat xray_warp_conf.json)
 warp_conf=$(echo "$warp_conf" | tr '\n' ' ')
 escaped_warp_conf=$(printf '%s\n' "$warp_conf" | sed -e 's/[\/&]/\\&/g')
 sed "s|//hiddify_warp|$escaped_warp_conf|g"  xray_demo.json.template > xray_demo.json
+
+singbox_warp_conf=$(cat singbox_warp_conf.json)
+singbox_warp_conf=$(echo "$singbox_warp_conf" | tr '\n' ' ')
+escaped_singbox_warp_conf=$(printf '%s\n' "$singbox_warp_conf" | sed -e 's/[\/&]/\\&/g')
+sed "s|//hiddify_warp|$escaped_singbox_warp_conf|g"  singbox_demo.json.template > singbox_demo.json
+
 xray -c xray_demo.json >/dev/null  &
 pid=$!
 sleep 3

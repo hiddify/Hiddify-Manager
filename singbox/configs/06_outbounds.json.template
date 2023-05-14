@@ -1,0 +1,22 @@
+{
+  "outbounds": [
+    {
+      "tag": "freedom",
+      "type": "direct",
+      "settings": {}
+    },
+    //hiddify_warp
+    {
+      "type": "block",
+      "tag": "blackhole"
+    },
+    {//do not change the following line since it will be replaced.
+      "tag": "forbidden_sites", "type": "block"
+    },
+    {
+      // A DNS Cache can be setup and added here to imporve performance (the corresponding rule should be uncommented)
+      "tag": "DNS-Internal",
+      "type": "dns"
+    }
+  ]
+}

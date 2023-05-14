@@ -1,0 +1,17 @@
+{
+    "log": {
+        "loglevel": "warning"
+    },
+    "inbounds": [
+        {
+            "listen": "127.0.0.1",
+            "listen_port": 1234,
+            "type": "socks",
+            "tag": "socks-in",
+            
+        }
+    ],
+    "outbounds": [
+        //hiddify_warp
+    ]
+}

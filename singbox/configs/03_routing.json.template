@@ -1,0 +1,47 @@
+{
+  "route": {
+    "geoip": {
+      "path": "geoip.db",
+      "download_url": "https://github.com/SagerNet/sing-geoip/releases/latest/download/geoip.db"
+      //,"download_detour": ""
+    },
+    "geosite": {
+      "path": "geosite.db",
+      "download_url": "https://github.com/SagerNet/sing-geosite/releases/latest/download/geosite.db"
+      // ,"download_detour": ""
+    },
+    // "domainStrategy": "AsIs",
+    "final": "freedom",
+      "rules": [
+        {
+            
+            //"inboundTag": ["xtls"], 
+            "outbound": "forbidden_sites",
+            //ir "geoip": ["ir"]
+            //zh "geoip": ["cn"]
+            //other "geoip": ["cn"]
+        },
+        {
+          "outbound": "forbidden_sites",
+          //ir "geosite": ["ir"]
+          //zh "geosite": ["cn"] 
+          //other "geosite": ["cn"]
+      },
+         {
+                "outbound": "WARP",
+                "geosite":[
+                    "hiddify-hetzner-warp"
+                ]
+            },
+        
+        {
+          "type": "field", "outbound": "blackhole", "geoip": ["private"]
+        }
+        // {// Block BitTorrent protocol
+        //   "type": "field", "outboundTag": "blackhole", "protocol": ["bittorrent"]
+        // },
+      ]
+    }
+  
+
+}

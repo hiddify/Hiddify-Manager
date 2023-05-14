@@ -83,38 +83,44 @@ frontend https-in
     # use_backend to_https_in_ssl if is_cdn
     # default sni behavior
     default_backend xray
+    #default_backend singbox
+
+backend to_https_in_ssl
+    mode tcp
+    server haproxy abns@https_in_ssl send-proxy-v2
 
 # backend to_https_in_ssl
 #     mode tcp
 #     server xray abns@https_in_ssl send-proxy-v2
 
-# frontend https-in-ssl
-#     mode http
-#     bind abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h2,http/1.1
+frontend https-in-ssl
+    mode http
+    bind abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h2,http/1.1
     
-#     acl is_cloudflare src -f /opt/hiddify-config/haproxy/cloudflare.lst
-#     acl is_arvan src -f /opt/hiddify-config/haproxy/arvan.lst
-#     acl is_cloudfront src -f /opt/hiddify-config/haproxy/cloudfront.lst
+    acl is_cloudflare src -f /opt/hiddify-config/haproxy/cloudflare.lst
+    acl is_arvan src -f /opt/hiddify-config/haproxy/arvan.lst
+    acl is_cloudfront src -f /opt/hiddify-config/haproxy/cloudfront.lst
 
-#     http-request set-header Hiddify-Real-IP %[req.hdr(CF-Connecting-IP)] if is_cloudflare
-#     http-request set-header Hiddify-Real-IP %[req.hdr(X-Forward-For)] if is_cloudfront
-#     http-request set-header Hiddify-Real-IP %[req.hdr(X-Forward-For)] if is_arvan
-#     http-request set-header Hiddify-Real-IP %[src] if !is_cloudflare !is_arvan !is_cloudfront
-#     acl speak_alpn_h2 ssl_fc_alpn -i h2
-#     use_backend nginx_dispatcher_h2 if speak_alpn_h2
-#     default_backend nginx_dispatcher
+    http-request set-header Hiddify-Real-IP %[req.hdr(CF-Connecting-IP)] if is_cloudflare
+    http-request set-header Hiddify-Real-IP %[req.hdr(X-Forward-For)] if is_cloudfront
+    http-request set-header Hiddify-Real-IP %[req.hdr(X-Forward-For)] if is_arvan
+    http-request set-header Hiddify-Real-IP %[src] if !is_cloudflare !is_arvan !is_cloudfront
+    acl speak_alpn_h2 ssl_fc_alpn -i h2
+    use_backend nginx_dispatcher_h2 if speak_alpn_h2
+    default_backend nginx_dispatcher
 
-# backend nginx_dispatcher_h2
-#     mode http
-#     server nginx unix@/opt/hiddify-config/nginx/run/nginx_cdn_dispatcher_h2.sock proto h2
+backend nginx_dispatcher_h2
+    mode http
+    server nginx unix@/opt/hiddify-config/nginx/run/nginx_cdn_dispatcher_h2.sock proto h2
 
-# backend nginx_dispatcher
-#     mode http
-#     server nginx unix@/opt/hiddify-config/nginx/run/nginx_cdn_dispatcher.sock
+backend nginx_dispatcher
+    mode http
+    server nginx unix@/opt/hiddify-config/nginx/run/nginx_cdn_dispatcher.sock
 
 backend xray_http
     mode http
     server xray_http abns@xrayhttp send-proxy-v2
+    
 backend xray
     mode tcp
     # server xray unix@/dev/shm/hiddify-xtls-main.sock

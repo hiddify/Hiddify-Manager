@@ -1,0 +1,233 @@
+
+frontend http-in
+    bind *:80
+    mode http
+    option httplog
+    option dontlognull
+    acl app1_http_acl hdr(host) -i XRAY_DOMAIN
+    acl app2_http_acl hdr(host) -i TELEGRAM_FAKE_TLS_DOMAIN
+
+    acl xray_domains hdr(host) -i XRAY_DOMAIN
+    acl tg_domains hdr(host) -i TELEGRAM_FAKE_TLS_DOMAIN
+    acl ss_domains hdr(host) -i sstlsdomain
+    acl shadowtls_domains hdr(host) -i shadowtlsdomain
+    # acl ssr_domains hdr(host) -i ssrtlsdomain
+
+    use_backend xray_http if xray_domains
+    use_backend tgdecoy_http if tg_domains
+    use_backend shadowtls_decoy_http if shadowtls_domains
+
+    # use_backend ssdecoy if sstlsdomain
+    # use_backend ssrdecory if ssr_domains
+
+
+    default_backend singbox-http
+
+frontend https-in
+    bind :443,:::443 v4v6
+    mode tcp
+    option tcplog
+    option dontlognull
+    tcp-request inspect-delay 5s
+    tcp-request content accept if { req.ssl_hello_type 1 }
+    acl tls1_2 req.ssl_ver 3.3
+    acl tls1_3 req.ssl_ver 3.4
+    
+    acl xray_domains req.ssl_sni -i XRAY_DOMAIN
+    acl reality_domains req.ssl_sni -i REALITY_SERVER_NAMES
+    acl tg_domains req.ssl_sni -i TELEGRAM_FAKE_TLS_DOMAIN
+    acl ss_domains req.ssl_sni -i sstlsdomain
+    acl shadowtls_domains req.ssl_sni -i shadowtlsdomain
+
+    # # acl ssr_domains req.ssl_sni -i ssrtlsdomain
+
+    # use_backend xray if tls1_3 xray_domains
+    # use_backend xraydecoy if xray_domains
+    use_backend telegram if tls1_3 tg_domains
+    use_backend telegram if tg_domains
+    # use_backend tgdecoy if tg_domains
+
+    use_backend ssfake if tls1_3 ss_domains
+    use_backend ssfake if ss_domains
+    # use_backend ssdecoy if ss_domains
+    
+    use_backend shadowtls if shadowtls_domains
+    use_backend singbox_reality if reality_domains
+
+    # use_backend ssr if tls1_3 ssr_domains
+    # use_backend ssr if ssr_domains
+    # use_backend ssrdecory if ssr_domains
+    acl is_cdn src -f /opt/hiddify-config/haproxy/cloudflare.lst -f /opt/hiddify-config/haproxy/arvan.lst -f /opt/hiddify-config/haproxy/cloudfront.lst
+    # use_backend to_https_in_ssl if is_cdn
+    # default sni behavior
+    default_backend to_https_in_ssl
+
+backend to_https_in_ssl
+    mode tcp
+    server haproxy abns@https_in_ssl send-proxy-v2
+
+frontend https-in-ssl
+    mode http
+    bind abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h2,http/1.1
+    
+    acl is_cloudflare src -f /opt/hiddify-config/haproxy/cloudflare.lst
+    acl is_arvan src -f /opt/hiddify-config/haproxy/arvan.lst
+    acl is_cloudfront src -f /opt/hiddify-config/haproxy/cloudfront.lst
+
+    http-request set-header X-Real-IP %[req.hdr(CF-Connecting-IP)] if is_cloudflare
+    http-request set-header X-Real-IP %[req.hdr(X-Forward-For)] if is_cloudfront
+    http-request set-header X-Real-IP %[req.hdr(X-Forward-For)] if is_arvan
+    http-request set-header X-Real-IP %[src] if !is_cloudflare !is_arvan !is_cloudfront
+    
+    
+
+  acl is_grpc_req hdr(content-type) -i application/grpc
+  
+  acl vmessg path_beg /PATH_VMESSPATH_GRPC
+  acl vlessg path_beg /PATH_VLESSPATH_GRPC
+  acl v2rayg path_beg /PATH_SSPATH_GRPC
+  acl trojang path_beg /PATH_TROJANPATH_GRPC
+
+  acl vmesst path_beg /PATH_VMESSPATH_TCP
+  acl vlesst path_beg /PATH_VLESSPATH_TCP
+  acl v2rayt path_beg /PATH_SSPATH_TCP
+  acl trojant path_beg /PATH_TROJANPATH_TCP
+
+  acl vmessw path_beg /PATH_VMESSPATH_WS
+  acl vlessw path_beg /PATH_VLESSPATH_WS
+  acl v2rayw path_beg /PATH_SSPATH_WS
+  acl trojanw path_beg /PATH_TROJANPATH_WS
+
+  use_backend vmessg if vmessg
+  use_backend vlessg if vlessg
+  use_backend v2rayg if v2rayg
+  use_backend trojang if trojang
+
+  use_backend vmesst if vmesst
+  use_backend vlesst if vlesst
+  use_backend v2rayt if v2rayt
+  use_backend trojant if trojant
+
+  use_backend vmessw if vmessw
+  use_backend vlessw if vlessw
+  use_backend v2rayw if v2rayw
+  use_backend trojanw if trojanw
+
+
+
+    #acl other path_beg /BASE_PROXY_PATH
+
+
+
+
+    # acl speak_alpn_h2 ssl_fc_alpn -i h2
+    # use_backend nginx_dispatcher_h2 if speak_alpn_h2
+
+    default_backend nginx_dispatcher_h2
+    
+backend nginx_dispatcher_h2
+    mode http
+    server nginx unix@/opt/hiddify-config/nginx/run/h2.sock proto h2
+
+backend nginx_dispatcher
+    mode http
+    server nginx unix@/opt/hiddify-config/nginx/run/h1.sock
+
+backend singbox_dispatcher
+    mode http
+    server nginx unix@/opt/hiddify-config/nginx/run/nginx_cdn_dispatcher_h2.sock proto h2
+
+backend nginx_dispatcher
+    mode http
+    server nginx unix@/opt/hiddify-config/nginx/run/nginx_cdn_dispatcher.sock
+
+
+backend singbox_reality
+    mode tcp
+    server singbox 127.0.0.1:2001 send-proxy-v2
+
+
+
+backend singbox_shadowtls
+    mode tcp
+    server singbox 127.0.0.1:2041 send-proxy-v2
+
+backend shadowtls_decoy_http
+    mode http
+    server shadowtls_decoy_http shadowtlsdomain
+
+backend shadowtls_decoy
+    mode tcp
+    server shadowtls_decoy shadowtlsdomain
+
+
+
+
+
+
+
+
+backend vmessg
+  mode http
+  timeout server 1h
+  server vmessg 127.0.0.1:2033  send-proxy-v2 proto h2
+
+backend vlessg
+  mode http
+  timeout server 1h
+  server vlessg 127.0.0.1:2023   send-proxy-v2 proto h2
+
+backend v2rayg
+  mode http
+  timeout server 1h
+  server v2rayg 127.0.0.1:2053  send-proxy-v2 proto h2
+
+backend trojang
+  mode http
+  timeout server 1h
+  server trojang 127.0.0.1:2013  send-proxy-v2 proto h2
+
+backend vmesst
+  mode http
+  server vmesst 127.0.0.1:2031  send-proxy-v2 proto h2
+
+backend vlesst
+  mode http
+  server vlesst 127.0.0.1:2021  send-proxy-v2 proto h2
+
+backend v2rayt
+  mode http
+  server v2rayt 127.0.0.1:2051  send-proxy-v2 proto h2
+
+backend trojant
+  mode http
+  server trojant 127.0.0.1:2011  send-proxy-v2 proto h2
+
+backend vmessw
+  mode http
+  server vmessw 127.0.0.1:2032  send-proxy-v2 proto h2
+
+backend vlessw
+  mode http
+  server vlessw 127.0.0.1:2022  send-proxy-v2 proto h2
+
+backend v2rayw
+  mode http
+  server v2rayw 127.0.0.1:2052  send-proxy-v2 proto h2
+
+backend trojanw
+  mode http
+  server trojanw 127.0.0.1:2012 send-proxy-v2 proto h2
+
+
+
+
+
+
+
+
+
+
+
+
+

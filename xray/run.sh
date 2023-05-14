@@ -66,7 +66,7 @@ rm configs/warp_conf.json
 warp_conf=$(cat ../other/warp/xray_warp_conf.json)
 
 if [ -n "$dns_server" ];then
-	sed -i "s|127.0.0.53|$dns_server|g"  configs/06_outbounds.json
+	sed -i "s|1.1.1.1|$dns_server|g"  configs/06_outbounds.json
 fi
 
 if [ -n "$warp_conf" ];then

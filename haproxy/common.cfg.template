@@ -1,0 +1,65 @@
+global
+    log /dev/log local0
+
+defaults
+    log global
+    timeout connect 5s
+    timeout client 50s
+    timeout client-fin 50s
+    timeout server 50s
+    timeout tunnel 1h
+    default-server init-addr none
+    default-server inter 15s fastinter 2s downinter 5s rise 3 fall 3
+
+### standalone stats page
+listen stats
+        # accessible at http://192.168.1.100/haproxy?stats
+        bind 0.0.0.0:8181
+      	mode http
+      	option httplog
+      	stats enable
+      	stats admin if TRUE
+      	stats refresh 5m
+
+
+backend decoy
+    mode tcp
+    server xraydecoy abns@xtlsindecoy send-proxy-v2
+
+backend tgdecoy
+    mode tcp
+    server tgdecoy TELEGRAM_FAKE_TLS_DOMAIN
+
+backend tgdecoy_http
+    mode http
+    server tgdecoy_http TELEGRAM_FAKE_TLS_DOMAIN
+
+backend telegram
+    mode tcp
+    server telegram 127.0.0.1:1001
+
+backend ssdecoy_http
+    mode http
+    server ssdecoy sstlsdomain
+
+backend ssfake
+    mode tcp
+    server ssfake 127.0.0.1:1002
+
+
+# # Access logs
+# log-format %ci:%cp\ [%t]\ %ft\ %b/%s\ %Tcc\ %Tw/%Tc/%Tr/%Ta\ %ST\ %B\ %CC\ %CS\ %tsc\ %ac/%fc/%bc/%sc/%rc\ %sq/%bq\ %hr\ %hs\ %{+Q}r
+# option httplog
+# option http-server-close
+# option forwardfor except 127.0.0.1  # Add X-Forwarded-For header except for HAProxy itself
+# log /opt/hiddify/hiddify-config/log/system/haproxy.log local0
+
+# # Error logs
+# option dontlog-normal
+# log /opt/hiddify/hiddify-config/log/system/haproxy.err.log local0
+
+
+
+
+
+
