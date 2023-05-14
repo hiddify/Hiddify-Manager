@@ -219,5 +219,5 @@ We need your collaboration in order to develop this project. If you are speciali
 </a>
 </p>
 <p align=center>
- Made With <a rel="" target="_blank" href="https://contrib.rocks">Contrib.Rocks</a> 
+ Made with <a rel="" target="_blank" href="https://contrib.rocks">Contrib.Rocks</a> 
 </p>
