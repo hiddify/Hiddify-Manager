@@ -35,7 +35,7 @@
             },
         
         {
-          "type": "field", "outbound": "blackhole", "geoip": ["private"]
+          "outbound": "blackhole", "geoip": ["private"]
         }
         // {// Block BitTorrent protocol
         //   "type": "field", "outboundTag": "blackhole", "protocol": ["bittorrent"]

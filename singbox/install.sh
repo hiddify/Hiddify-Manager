@@ -5,4 +5,4 @@ rm -r sb.tar.gz sing-box-*
 chown root:root sing-box
 chmod +x sing-box
 
-ln -s /opt/hiddify-config/sing-box /usr/bin/sing-box
+ln -s /opt/hiddify-config/singbox/sing-box /usr/bin/sing-box

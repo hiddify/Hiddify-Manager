@@ -4,6 +4,12 @@ systemctl enable hiddify-singbox.service
 DOMAINS=${MAIN_DOMAIN//;/ }
 USERS=${USER_SECRET//;/ }
 
+for USER in $USERS; do
+	GUID_USER="${USER:0:8}-${USER:8:4}-${USER:12:4}-${USER:16:4}-${USER:20:12}@hiddify.com"
+	final=$final,\"$GUID_USER\"
+done
+final=${final:1}
+sed -i "s|USERSLIST|$final|g" configs/01_api.json
 
 REALITY_SERVER_NAMES_XRAY=$(echo "$REALITY_SERVER_NAMES" | sed 's/,/\", \"/g; s/^/\"/; s/$/\"/')
 REALITY_SHORT_IDS_XRAY=$(echo "$REALITY_SHORT_IDS" | sed 's/,/\", \"/g; s/^/\"/; s/$/\"/')

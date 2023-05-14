@@ -199,6 +199,7 @@ function do_for_all() {
                 # runsh $1.sh deprecated/trojan-go  $ENABLE_TROJAN_GO
                 WARP_ENABLE=$([ "$WARP_MODE" != 'disable' ] || echo "false")
                 runsh $1.sh other/warp  $WARP_ENABLE
+                runsh $1.sh singbox
         fi
 
         runsh $1.sh xray
