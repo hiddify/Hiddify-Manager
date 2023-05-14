@@ -54,24 +54,22 @@ cat > singbox_warp_conf.json << EOM
   "server": "$peer_domain",
   "server_port": $peer_port,
   "system_interface": false,
-  //"interface_name": "wg0",
+
   "local_address": [
     "172.16.0.2/32",
     "$Interface_Address"
   ],
   "private_key": "$Interface_PrivateKey",
   "peer_public_key": "$Peer_PublicKey",
-  //"pre_shared_key": "31aIhAPwktDGpH4JDhA8GNvjFXEf/a6+UaQRyOAiyfM=",
   "reserved": [0, 0, 0],
-  //"workers": 8,
   "mtu": 1280,
-  "network": "tcp",
+  "network": "tcp"
 }
 
 EOM
-
-
-
+#"interface_name": "wg0",
+#"pre_shared_key": "31aIhAPwktDGpH4JDhA8GNvjFXEf/a6+UaQRyOAiyfM=",
+#"workers": 8,
 warp_conf=$(cat xray_warp_conf.json)
 warp_conf=$(echo "$warp_conf" | tr '\n' ' ')
 escaped_warp_conf=$(printf '%s\n' "$warp_conf" | sed -e 's/[\/&]/\\&/g')

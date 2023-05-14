@@ -2,8 +2,7 @@
   "outbounds": [
     {
       "tag": "freedom",
-      "type": "direct",
-      "settings": {}
+      "type": "direct"
     },
     //hiddify_warp
     {

@@ -2,7 +2,7 @@
   "dns": {
     //"servers": ["1.1.1.1"],
     //"rules": [],
-    "final": "8.8.88",
+    "final": "8.8.8.8",
     "strategy": "prefer_ipv4"
   }
 }
