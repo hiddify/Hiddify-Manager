@@ -98,6 +98,8 @@ function set_config_from_hpanel(){
         setenv REALITY_PRIVATE_KEY ``hconfigs[reality_private_key]``
         setenv REALITY_SHORT_IDS ``hconfigs[reality_short_ids]``
 
+        
+
         setenv SERVER_IP `curl --connect-timeout 1 -s https://v4.ident.me/`
         setenv SERVER_IPv6 `curl  --connect-timeout 1 -s https://v6.ident.me/`
 
@@ -109,13 +111,17 @@ function set_config_from_hpanel(){
                 var="__tick_data_${group}_${index}_${member}";
                 echo ${!var}
         }
-
+        REALITY_MULTI=
         MAIN_DOMAIN=
         for i in $(seq 0 ``domains.length()``); do
                 domain=$(get domains $i domain)
+                servernames=$(get domains $i servernames)
                 mode=$(get domains $i mode)
                 if [ "$mode"  == "direct" ] || [ "$mode"  == "cdn" ] || [ "$mode"  == "relay" ] || [ "$mode"  == "auto_cdn_ip" ];then
                         MAIN_DOMAIN="$domain;$MAIN_DOMAIN"
+                fi
+                if [ "$mode"  == "reality" ];then
+                        REALITY_MULTI="$domain:$servernames;$MAIN_DOMAIN"
                 fi
                 if [ "$mode"  = "ss_faketls" ];then
                         setenv SS_FAKE_TLS_DOMAIN $domain

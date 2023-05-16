@@ -2,9 +2,9 @@
 	"inbounds": [
 		{
 			"tag":"http",
-			//"listen": "@@xrayhttp", 
-			"listen":"0.0.0.0",
-			"port":"80",
+			"listen": "@@xrayhttp", 
+			//"listen":"0.0.0.0",
+			//"port":"80",
 			"protocol": "vless",
 			"settings": {
 			  "clients": [

@@ -1,14 +1,10 @@
 {
-    "log": {
-        "loglevel": "warning"
-    },
     "inbounds": [
         {
             "listen": "127.0.0.1",
-            "listen_port": 1234,
+            "listen_port": 1235,
             "type": "socks",
-            "tag": "socks-in",
-            
+            "tag": "socks-in"
         }
     ],
     "outbounds": [

@@ -11,12 +11,38 @@ DOMAINS=${MAIN_DOMAIN//;/ }
 USERS=${USER_SECRET//;/ }
 
 
-REALITY_SERVER_NAMES_XRAY=$(echo "$REALITY_SERVER_NAMES" | sed 's/,/\", \"/g; s/^/\"/; s/$/\"/')
+
 REALITY_SHORT_IDS_XRAY=$(echo "$REALITY_SHORT_IDS" | sed 's/,/\", \"/g; s/^/\"/; s/$/\"/')
-sed -i "s|REALITY_SERVER_NAMES|$REALITY_SERVER_NAMES_XRAY|g" configs/05_inbounds_02_reality_main.json
+
 sed -i "s|REALITY_SHORT_IDS|$REALITY_SHORT_IDS_XRAY|g" configs/05_inbounds_02_reality_main.json
-sed -i "s|REALITY_FALLBACK_DOMAIN|$REALITY_FALLBACK_DOMAIN|g" configs/05_inbounds_02_reality_main.json
+# sed -i "s|REALITY_FALLBACK_DOMAIN|$REALITY_FALLBACK_DOMAIN|g" configs/05_inbounds_02_reality_main.json
 sed -i "s|REALITY_PRIVATE_KEY|$REALITY_PRIVATE_KEY|g" configs/05_inbounds_02_reality_main.json
+
+
+
+REALITY_DOMAINS=${REALITY_MULTI//;/ }
+i=1
+for REALITY in $REALITY_DOMAINS;	do
+  IFS=':' read -ra PARTS <<< "$REALITY"
+  cp configs/05_inbounds_02_reality_main.json configs/05_inbounds_02_reality_$i.json
+
+  FALLBACK_DOMAIN="${PARTS[0]}"
+  #SERVER_NAMES="${PARTS[1]}"
+#   SERVER_NAMES="${PARTS[1]//,/ }"  # Replace commas with spaces
+  REALITY_SERVER_NAMES_XRAY=$(echo "${PARTS[1]}" | sed 's/,/\", \"/g; s/^/\"/; s/$/\"/')
+  
+  sed -i "s|REALITY_FALLBACK_DOMAIN|$FALLBACK_DOMAIN|g" configs/05_inbounds_02_reality_$i.json
+  sed -i "s|REALITY_SERVER_NAMES|$REALITY_SERVER_NAMES_XRAY|g" configs/05_inbounds_02_reality_$i.json  
+  sed -i "s|abns@realityin|abns@realityin_$i|g" configs/05_inbounds_02_reality_$i.json  
+  
+
+  i=$((i+1))
+done
+rm configs/05_inbounds_02_reality_main.json
+
+
+
+
 
 
 #adding certs for all domains

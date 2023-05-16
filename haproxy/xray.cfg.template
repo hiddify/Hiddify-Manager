@@ -1,0 +1,115 @@
+    
+backend xray
+    mode tcp
+    # server xray unix@/dev/shm/hiddify-xtls-main.sock
+    server xray abns@xtlsin send-proxy-v2
+
+backend reality
+    mode tcp
+    server xray abns@realityin send-proxy-v2
+
+backend shadowtls
+    mode tcp
+    server shadowtls 127.0.0.1:1003
+
+
+
+
+
+
+
+backend vmessg
+  mode http
+  timeout server 1h
+  server vmessg abns@vmess-grpc-new  send-proxy-v2
+
+backend vlessg
+  mode http
+  timeout server 1h
+  server vlessg abns@vless-grpc-new   send-proxy-v2
+
+backend v2rayg
+  mode http
+  timeout server 1h
+  server v2rayg abns@v2ray-grpc-new  send-proxy-v2
+
+backend trojang
+  mode http
+  timeout server 1h
+  server trojang abns@trojan-grpc-new  send-proxy-v2
+
+backend vmesst
+  mode tcp
+  server vmesst abns@vmess-tcp-new  send-proxy-v2
+
+backend vlesst
+  mode tcp
+  server vlesst abns@vless-tcp-new  send-proxy-v2
+
+backend v2rayt
+  mode tcp
+  server v2rayt abns@v2ray-tcp-new  send-proxy-v2
+
+backend trojant
+  mode tcp
+  server trojant abns@trojan-tcp-new  send-proxy-v2
+
+backend vmessw
+  mode tcp
+  server vmessw abns@vmess-ws-new  send-proxy-v2
+
+backend vlessw
+  mode tcp
+  server vlessw abns@vless-ws-new  send-proxy-v2
+
+backend v2rayw
+  mode tcp
+  server v2rayw abns@v2ray-ws-new  send-proxy-v2
+
+backend trojanw
+  mode tcp
+  server trojanw abns@trojan-ws-new send-proxy-v2
+
+
+
+
+
+
+
+
+
+
+
+
+
+# frontend http2-proxy
+#   bind 127.0.0.1:502 accept-proxy #H2C server monitor process and enable PROXY protocol reception
+#   mode http
+#   # grpc settings
+#   http-request set-header X-Real-IP %[src]
+
+#   acl is_trojan_grpc path_beg /BASE_PROXY_PATH-trgrpc
+#   acl is_vless_grpc path_beg /BASE_PROXY_PATH-vlgrpc
+#   acl is_vmess_grpc path_beg /BASE_PROXY_PATH-vmgrpc
+#   acl is_shadowsocks_grpc path_beg /BASE_PROXY_PATH-ssgrpc
+
+#   use_backend trojan_grpc_backend if is_trojan_grpc
+#   use_backend vless_grpc_backend if is_vless_grpc
+#   use_backend vmess_grpc_backend if is_vmess_grpc
+#   use_backend shadowsocks_grpc_backend if is_shadowsocks_grpc
+
+# backend trojan_grpc_backend
+#   timeout server 1h
+#   server trojan_grpc_server 127.0.0.1:3001
+
+# backend vless_grpc_backend
+#   timeout server 1h
+#   server vless_grpc_server 127.0.0.1:3002
+
+# backend vmess_grpc_backend
+#   timeout server 1h
+#   server vmess_grpc_server 127.0.0.1:3003
+
+# backend shadowsocks_grpc_backend
+#   timeout server 1h
+#   server shadowsocks_grpc_server 127.0.0.1:3004
