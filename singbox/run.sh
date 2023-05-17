@@ -97,7 +97,7 @@ if  [[ $? == 0 ]];then
 	systemctl status hiddify-singbox.service
 else
 	echo "Error in singbox Config!!!! do not reload singbox service"
-	sleep 60
+	sleep 3
 	singbox check -C configs
 	if  [[ $? == 0 ]];then
 		systemctl reload hiddify-singbox.service
@@ -105,7 +105,6 @@ else
         systemctl status hiddify-singbox.service
 	else
 		echo "Error in singbox Config!!!! do not reload singbox service"
-		sleep 60
 	fi
 fi
 

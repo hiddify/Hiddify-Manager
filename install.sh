@@ -283,7 +283,7 @@ function main(){
                 fi
         fi
 
-        for s in hiddify-xray hiddify-nginx haproxy;do
+        for s in hiddify-xray hiddify-singbox hiddify-nginx hiddify-haproxy;do
 	        s=${s##*/}
 	        s=${s%%.*}
 	        if [[ "$(systemctl is-active $s)" != "active" ]];then
