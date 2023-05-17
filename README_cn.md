@@ -36,7 +36,7 @@
 
 
 ## 欢迎来到 Hiddify
-Hiddify 是一个强大而专业的反审查工具箱，它是一个多用户面板，安装简单，<b>支持 20 多种协议</b>，包括 <b>Reality</b> 和 <b>Telegram 代理 </b> 规避过滤。 它针对<b>中国</b>、<b>俄罗斯</b>和<b>伊朗</b>的审查规避进行了优化，并由<a href="https://github.com/XTLS/Xray-core#installation" target="_blank"><b>Xray</b></a>。 它是 X-UI 面板的绝佳替代品。
+Hiddify是一个强大而专业的反审查工具箱，它是一个多用户面板，安装简单，<b>支持超过 20 种协议</b>，包括 <b>Reality</b> 和 <b>Telegram 代理 </b>以绕过过滤。它针对<b>中国</b>、<b>俄罗斯</b>和<b>伊朗</b>的审查规避进行了优化，的审查进行了优化，并得到了<a href="https://github.com/XTLS/Xray-core#installation" target="_blank"><b>Xray</b></a>的推荐。它是X-UI面板的一个很好的替代品。
 
 ![Chinese](https://user-images.githubusercontent.com/125398461/236637780-5795c30f-f8a9-4b1a-ac0d-90774fff50b8.png)
 
@@ -61,21 +61,21 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 
 ### 吸引人的特点
 - **快速安装**
-- **智能代理** (Hiddify 和 Clash 客户)
+- **智能代理** （Hiddify 和 Clash 客户端）
 - **自动更新**
-- **自动备份**
+- **自动备份** （每6小时一次）
 - 自动连接到 Cloudflare
 - 使用**多个域**
 - **自动CDN IP**配置能力
 - 管理**活动配置**
-- **多重管理员权限**
+- **多个管理员权限**
 - **用户管理**
 - 为每个用户应用**时间和流量限制**
-- **用户专用页面**查看消费和配置
+- **专属页面供用户**查看消费和配置
 - 专用和**智能配置**
 - **专用客户端软件**
-- **电报代理**使用不同的库
-- **DNS 超过 HTTPS** (DoH)
+- **Telegram代理**使用不同的库
+- **DNS over HTTPS** (DoH)
 - 使用 **Telegram Bot** 进行用户管理
 
 以及安装后您会注意到的许多其他功能。
