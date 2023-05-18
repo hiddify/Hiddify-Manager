@@ -70,7 +70,7 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 - **自动备份** （每6小时一次）
 - 自动连接到 Cloudflare
 - 使用**多个域**
-- **自动CDN IP**配置能力
+- **自动 CDN IP **配置能力
 - 管理**活动配置**
 - **多个管理员权限**
 - **用户管理**
@@ -78,7 +78,7 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 - **专属页面供用户**查看消费和配置
 - 专用和**智能配置**
 - **专用客户端软件**
-- **Telegram代理**使用不同的库
+- **Telegram 代理**使用不同的库
 - **DNS over HTTPS** （DoH）
 - 使用 **Telegram Bot** 进行用户管理
 
@@ -129,10 +129,10 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 </details>
 
 <details markdown="1"> <summary>Redirector （CDN支持）</summary> 
-当你想要通过其他程序分享Telegram代理或Shadowsocks代理时，可以使用CDN支持进行重定向。例如，如果你在"fullURL"的位置放置Shadowsocks的配置，点击这个链接会打开Shadowsocks应用并在上面激活代理。例如：
+当你想要通过其他程序分享 Telegram 代理或 Shadowsocks 代理时，可以使用 CDN 支持进行重定向。例如，如果你在"fullURL"的位置放置 Shadowsocks 的配置，点击这个链接会打开 Shadowsocks 应用并在上面激活代理。例如：
  `https://yourdomain.com/yoursecret/redirect/fullURL` 
 
- 把"fullURL"替换成Shadowsocks的配置。 
+ 把"fullURL"替换成 Shadowsocks 的配置。 
 
  
  `https://yourdomain.com/yoursecret/redirect/ss://secret/` 
@@ -156,9 +156,9 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 ## 协作和联系信息
 我们需要您的合作才能开发此项目。 如果您是这些领域的专家，请随时与我们联系。
 
-- 媒体制作
-- Python 开发
-- Kotlin 开发
+* 媒体制作 &nbsp;&nbsp;&nbsp;&nbsp;  
+* Python 开发 &nbsp;&nbsp;&nbsp;&nbsp; ‌  
+* Kotlin 开发 &nbsp;&nbsp;&nbsp;&nbsp; 
   
 <div align=center>
 
