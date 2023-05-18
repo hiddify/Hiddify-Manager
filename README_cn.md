@@ -84,7 +84,7 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 
 | 支持的配置 | 支持的配置 | 支持的配置 |
 | - | - | - |
-| **直接的** | **CDN** | **域名前端** |
+| **直连** | **CDN** | **域前置** |
 |Trojan:<br>- TLS WS<br>- TLS TCP<br>- TLS gRPC<br>- TLS H2 WS<br>- TLS H2 TCP<br>- TLS H2 gRPC<br> |  Trojan:<br>- TLS WS<br>- TLS gRPC<br>- TLS H2 WS<br>- TLS H2 gRPC<br><br><br>| Trojan:<br>- TLS WS Fake<br><br><br><br><br><br> |
 | Vless:<br>- TLS WS<br>- HTTP WS<br>- TLS XTLS<br>- TLS gRPC<br>- TLS H2 TLS<br>- TLS H2 WS<br>- TLS H2 gRPC<br>- Reality XTLS<br>- Reality gRPC | Vless:<br>- TLS WS<br>- TLS gRPC<br>- HTTP WS<br>- TLS H2 WS<br>- TLS H2 gRPC<br><br><br><br><br>| Vless:<br>- TLS WS Fake<br>- HTTP WS Fake<br><br><br><br><br><br><br><br> |
 | Vmess:<br>- TLS WS<br>- TLS TCP<br>- HTTP WS<br>- HTTP TCP<br>- TLS gRPC<br>- TLS H2 WS<br>- TLS H2 TCP<br> | Vmess:<br>- TLS WS<br>- TLS gRPC<br>- HTTP WS<br>- TLS H2 WS<br>- TLS H2 gRPC<br><br><br> | Vmess:<br>- TLS WS Fake<br>- HTTP WS Fake<br><br><br><br><br><br> |
@@ -96,7 +96,7 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 <details markdown="1"> <summary><h3>国内和过滤网站的智能代理</h3> (点击这里)</summary>
 
 您可以使用 Hiddify(Clash) 客户端和 Hiddify 面板以 3 种模式连接到互联网。
-1. 此方法仅通过代理绕过过滤网站。
+1. 此方法仅通过代理绕过被墙网站。
 2、该方法规避除中国、俄罗斯、伊朗等国内网站外的所有网站。 这样就可以不用代理打开国内网站了（推荐）
 3、该方法绕过所有网站。
 
@@ -118,7 +118,7 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 
 </details>
 
-<details markdown="1"> <summary>DNS 超过 HTTPS (CDN支持)</summary>
+<details markdown="1"> <summary>DNS over HTTPS (CDN支持)</summary>
 要通过 HTTPS 使用 DNS，只需在浏览器中使用以下 DNS。
    `https://yourdomain.com/yoursecret/dns/dns-query{?dns}`
 
@@ -144,7 +144,7 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 
 - 媒体制作
 - Python 开发
-- Kotlin 开发 (每6小时)
+- Kotlin 开发
   
 <div align=center>
 
