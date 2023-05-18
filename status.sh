@@ -2,9 +2,15 @@
 function main(){
 XRAY_NEW_CONFIG_ERROR=0
 xray run -test -confdir xray/configs > /dev/null 2>&1
-XRAY_NEW_CONFIG_OK=$?
+XRAY_NEW_CONFIG_ERROR=$?
 
-	systemctl status --no-pager hiddify-nginx hiddify-xray haproxy|cat
+
+SINGBOX_NEW_CONFIG_ERROR=0
+xray run -test -confdir xray/configs > /dev/null 2>&1
+SINGBOX_NEW_CONFIG_ERROR=$?
+
+
+systemctl status --no-pager hiddify-nginx hiddify-xray hiddify-singbox hiddify-haproxy|cat
 
 
 
@@ -18,7 +24,7 @@ if [ -f "other/warp/xray_warp_conf.json" ];then
 fi
 
 
-for s in other/**/*.service **/*.service haproxy ;do
+for s in other/**/*.service **/*.service ;do
 	s=${s##*/}
 	s=${s%%.*}
 	printf "%-30s %-30s \n" $s $(systemctl is-active $s)
@@ -30,6 +36,11 @@ done
 
 if [ "$XRAY_NEW_CONFIG_ERROR" != "0" ];then
 	xray run -test -confdir xray/configs 
+	echo "There is a big error in xray configuration."
+fi
+
+if [ "$SINGBOX_NEW_CONFIG_ERROR" != "0" ];then
+	sing-box check -C singbox/configs 
 	echo "There is a big error in xray configuration."
 fi
 }
