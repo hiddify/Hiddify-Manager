@@ -75,12 +75,12 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 - 专用和**智能配置**
 - **专用客户端软件**
 - **Telegram代理**使用不同的库
-- **DNS over HTTPS** (DoH)
+- **DNS over HTTPS** （DoH）
 - 使用 **Telegram Bot** 进行用户管理
 
 以及安装后您会注意到的许多其他功能。
 
-<details markdown="1"> <summary><h3>支持的协议</h3> (点击这里)</summary> 
+<details markdown="1"> <summary><h3>支持的协议</h3> （点击这里）</summary> 
 
 | 支持的配置 | 支持的配置 | 支持的配置 |
 | - | - | - |
@@ -93,7 +93,7 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 
 </details>
 
-<details markdown="1"> <summary><h3>国内和过滤网站的智能代理</h3> (click here)</summary>
+<details markdown="1"> <summary><h3>国内和过滤网站的智能代理</h3> （点击这里）</summary>
  
 您可以使用 Hiddify（Clash） 客户端和 Hiddify 面板以 3 种模式连接到互联网。
 1. 此方法仅通过代理绕过被墙网站。
@@ -105,7 +105,7 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 </details>
   
 
-<details markdown="1"><summary><h3>其他奇妙的功能</h3> (点击这里)</summary>
+<details markdown="1"><summary><h3>其他奇妙的功能</h3> （点击这里）</summary>
 
 <details  markdown="1"> <summary>支持的操作系统</summary>
   Hiddify 已经在 Ubuntu 20.04 和 22.04 上进行了测试。 Ubuntu arm64 或 amd64
@@ -118,7 +118,7 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 
 </details>
 
-<details markdown="1"> <summary>DNS over HTTPS (CDN支持)</summary>
+<details markdown="1"> <summary>DNS over HTTPS （CDN支持）</summary>
 要通过 HTTPS 使用 DNS，只需在浏览器中使用以下 DNS。
    `https://yourdomain.com/yoursecret/dns/dns-query{?dns}`
 
@@ -135,7 +135,7 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 
 
 ## 捐赠与支持
-支持我们的最简单方法是单击此页面顶部的星号 (⭐)。
+支持我们的最简单方法是单击此页面顶部的星号 （⭐）。
 
 我们的服务也需要资金支持。 我们所有的活动都是自愿进行的，财政支持将用于项目的开发。 您可以在 [此处](https://github.com/hiddify/hiddify-config/wiki/support) 查看我们的支持地址。
 
