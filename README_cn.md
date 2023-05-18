@@ -36,7 +36,7 @@
 
 
 ## 欢迎来到 Hiddify
-Hiddify是一个强大而专业的反审查工具箱，它是一个多用户面板，安装简单，<b>支持超过 20 种协议</b>，包括 <b>Reality</b> 和 <b>Telegram 代理 </b>以绕过过滤。它针对<b>中国</b>、<b>俄罗斯</b>和<b>伊朗</b>的审查规避进行了优化，的审查进行了优化，并得到了<a href="https://github.com/XTLS/Xray-core#installation" target="_blank"><b>Xray</b></a>的推荐。它是X-UI面板的一个很好的替代品。
+Hiddify 是一个强大而专业的反审查工具箱，它是一个多用户面板，安装简单，<b>支持超过 20 种协议</b>，包括 <b>Reality</b> 和 <b>Telegram 代理 </b>以绕过过滤。它针对<b>中国</b>、<b>俄罗斯</b>和<b>伊朗</b>的审查规避进行了优化，的审查进行了优化，并得到了<a href="https://github.com/XTLS/Xray-core#installation" target="_blank"><b>Xray</b></a>的推荐。它是X-UI面板的一个很好的替代品。
 
 ![Chinese](https://user-images.githubusercontent.com/125398461/236637780-5795c30f-f8a9-4b1a-ac0d-90774fff50b8.png)
 
@@ -93,15 +93,15 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 
 </details>
 
-<details markdown="1"> <summary><h3>国内和过滤网站的智能代理</h3> (点击这里)</summary>
-
-您可以使用 Hiddify(Clash) 客户端和 Hiddify 面板以 3 种模式连接到互联网。
+<details markdown="1"> <summary><h3>国内和过滤网站的智能代理</h3> (click here)</summary>
+ 
+您可以使用 Hiddify（Clash） 客户端和 Hiddify 面板以 3 种模式连接到互联网。
 1. 此方法仅通过代理绕过被墙网站。
-2、该方法规避除中国、俄罗斯、伊朗等国内网站外的所有网站。 这样就可以不用代理打开国内网站了（推荐）
-3、该方法绕过所有网站。
+2. 该方法规避除中国、俄罗斯、伊朗等国内网站外的所有网站。 这样就可以不用代理打开国内网站了（推荐）
+3. 该方法绕过所有网站。
 
-同时，所提出的解决方案可以抵抗 Internet 过滤实体的检测，并防止对服务器的常见攻击，即检测的可能性很小，但是，不要忘记禁用除 22、80 和 443 之外的其他端口。
-  
+同时，所提出的解决方案可以抵抗 Internet 过滤实体的检测，并防止对服务器的常见攻击，即检测的可能性很小，但是，不要忘记禁用除 22、80 和 443 之外的其他端口。  
+
 </details>
   
 
