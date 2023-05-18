@@ -8,7 +8,14 @@
       "tag": "direct",
       "type": "direct"
     },
-    //hiddify_warp
+    {
+      "tag":"WARP",
+      "type":"socks",
+      "version": "5",
+      "address":"127.0.0.1",
+      "port":3000
+    },
+    //hiddify!!!!_warp
     {
       "type": "block",
       "tag": "blackhole"

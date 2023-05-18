@@ -61,20 +61,22 @@ for CONFIG_FILE in $(find configs/ -name "*.json"); do
 done
 
 
-warp_conf=$(cat ../other/warp/singbox_warp_conf.json)
+# warp_conf=$(cat ../other/warp/singbox_warp_conf.json)
+
 
 if [ -n "$dns_server" ];then
 	sed -i "s|1.1.1.1|$dns_server|g"  configs/02_dns.json
 fi
 
-if [ -n "$warp_conf" ];then
-	warp_conf=$(echo "$warp_conf" | tr '\n' ' ')
-	escaped_warp_conf=$(printf '%s\n' "$warp_conf" | sed -e 's/[\/&]/\\&/g')
+curl -s -x socks://127.0.0.1:3000 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
+if [  "$?"  == "0" ];then
+	# warp_conf=$(echo "$warp_conf" | tr '\n' ' ')
+	# escaped_warp_conf=$(printf '%s\n' "$warp_conf" | sed -e 's/[\/&]/\\&/g')
 	# sed -i "s|\"outbounds\": \[|\"outbounds\": [$escaped_warp_conf,|g"  configs/06_outbounds.json
+	# sed -i "s|//hiddify_warp|$escaped_warp_conf,|g"  configs/06_outbounds.json
 	if [ $WARP_MODE == 'all' ];then
 		sed -i 's|"final": "freedom"|"final": "WARP"|g' configs/03_routing.json
 	fi
-	sed -i "s|//hiddify_warp|$escaped_warp_conf,|g"  configs/06_outbounds.json
 	sed -i 's|"outbound": "forbidden_sites"|"outbound": "WARP"|g' configs/03_routing.json
 else 
 	sed -i 's|"outbound": "WARP"|"outbound": "freedom"|g' configs/03_routing.json

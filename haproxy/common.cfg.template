@@ -71,7 +71,6 @@ frontend https-in
     
     use_backend shadowtls if shadowtls_domains
     
-
     # use_backend ssr if tls1_3 ssr_domains
     # use_backend ssr if ssr_domains
     # use_backend ssrdecory if ssr_domains
@@ -94,6 +93,13 @@ frontend http-https-in
     mode http
     bind *:80
     bind abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h2,http/1.1
+    
+    
+    # acl singbox_domains req.ssl_sni -i SINGBOX_DOMAINS
+    # acl xray_domains req.ssl_sni -i XRAY_DOMAINS
+
+    # use_backend xray if xray_domains
+    # use_backend to_https_in_ssl if singbox_domains
     
     acl is_cloudflare src -f /opt/hiddify-config/haproxy/cloudflare.lst
     acl is_arvan src -f /opt/hiddify-config/haproxy/arvan.lst

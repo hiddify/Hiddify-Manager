@@ -1,0 +1,14 @@
+{
+    "inbounds": [
+        {
+            "listen": "127.0.0.1",
+            "listen_port": 3000,
+            "version": "5",
+            "type": "socks",
+            "tag": "socks-in"
+        }
+    ],
+    "outbounds": [
+        //hiddify_warp
+    ]
+}

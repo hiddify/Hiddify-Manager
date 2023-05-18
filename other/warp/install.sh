@@ -1,3 +1,4 @@
+
 if ! [ -f "wgcf-profile.conf" ];then
     TAR="https://api.github.com/repos/ViRb3/wgcf/releases/latest"
     ARCH=$(dpkg --print-architecture)

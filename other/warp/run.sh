@@ -1,4 +1,6 @@
 #!/bin/bash
+ln -sf $(pwd)/hiddify-warp.service /etc/systemd/system/hiddify-warp.service
+systemctl enable hiddify-warp.service
 
 export WGCF_LICENSE_KEY=$WARP_PLUS_CODE
 wgcf update
@@ -79,21 +81,22 @@ singbox_warp_conf=$(cat singbox_warp_conf.json)
 singbox_warp_conf=$(echo "$singbox_warp_conf" | tr '\n' ' ')
 escaped_singbox_warp_conf=$(printf '%s\n' "$singbox_warp_conf" | sed -e 's/[\/&]/\\&/g')
 sed "s|//hiddify_warp|$escaped_singbox_warp_conf|g"  singbox_demo.json.template > singbox_demo.json
+sed "s|//hiddify_warp|$escaped_singbox_warp_conf|g"  warp-singbox.json.template > warp-singbox.json
 
 
 
-xray -c xray_demo.json >/dev/null  &
-pid=$!
-sleep 3
-curl -x socks://127.0.0.1:1230 www.ipinfo.io
-curl -x socks://127.0.0.1:1230 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
-if [ $? != 0 ];then
-    rm xray_warp_conf.json
-else
-   echo ""
-   echo "==========WARP is working=============="
-fi
-kill -9 $pid
+# xray -c xray_demo.json >/dev/null  &
+# pid=$!
+# sleep 3
+# curl -x socks://127.0.0.1:1230 www.ipinfo.io
+# curl -x socks://127.0.0.1:1230 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
+# if [ $? != 0 ];then
+#     rm xray_warp_conf.json
+# else
+#    echo ""
+#    echo "==========WARP is working=============="
+# fi
+# kill -9 $pid
 
 
 
@@ -112,3 +115,8 @@ else
 fi
 kill -9 $pid
 
+
+
+systemctl reload hiddify-warp.service
+systemctl start  hiddify-warp.service
+systemctl status hiddify-warp.service
