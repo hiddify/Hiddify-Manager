@@ -180,5 +180,5 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 </a>
 </p>
 <p align=center>
- 用 <a rel="" target="_blank" href="https://contrib.rocks">Contrib.Rocks</a> 
+ 使用 <a rel="" target="_blank" href="https://contrib.rocks">Contrib.Rocks</a> 制作
 </p>
