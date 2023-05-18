@@ -183,8 +183,14 @@ Ubuntu arm64 or amd64
 <div align=right dir="rtl">
 
 ## نصب پنل و آموزش
-**برای نصب پنل و مطالعه مطالب آموزشی در این رابطه به [صفحه ویکی پروژه در اینجا](https://github.com/hiddify/hiddify-config/wiki/Home_fa) مراجعه کنید.**
+**برای نصب پنل و مطالعه همه مطالب آموزشی در این رابطه، با کلیک روی تصویر زیر به صفحه ویکی پروژه مراجعه کنید.**
+<div align=center>
+  
+<a href="https://github.com/hiddify/hiddify-config/wiki/Home_fa"><img width="40%" src="https://github.com/hiddify/hiddify-config/assets/125398461/6ce5d04f-d324-4e9a-9b64-41f2176e20c7" /></a>
 
+  </div>
+
+  
   
 ## حمایت از پروژه
 
