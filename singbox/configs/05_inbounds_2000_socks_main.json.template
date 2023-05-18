@@ -1,0 +1,10 @@
+{
+	"inbounds": [
+		{
+			"listen": "127.0.0.1",
+            "listen_port": 2000,
+            "type": "socks",
+            "tag": "socks-in"
+		}
+	]
+}
