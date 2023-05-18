@@ -100,7 +100,7 @@ frontend http-https-in
 
     # use_backend xray if xray_domains
     # use_backend to_https_in_ssl if singbox_domains
-    
+
     acl is_cloudflare src -f /opt/hiddify-config/haproxy/cloudflare.lst
     acl is_arvan src -f /opt/hiddify-config/haproxy/arvan.lst
     acl is_cloudfront src -f /opt/hiddify-config/haproxy/cloudfront.lst
@@ -178,11 +178,11 @@ frontend http-https-in
     
 backend nginx_dispatcher_h2
     mode http
-    server nginx unix@/opt/hiddify-config/nginx/run/h2.sock proto h2
+    server nginx unix@/opt/hiddify-config/nginx/run/h2.sock proto h2 send-proxy-v2
 
 backend nginx_dispatcher
     mode http
-    server nginx unix@/opt/hiddify-config/nginx/run/h1.sock
+    server nginx unix@/opt/hiddify-config/nginx/run/h1.sock send-proxy-v2
 
 
 
