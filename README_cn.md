@@ -1,5 +1,9 @@
+<base target="_blank">
 
+<div dir="ltr">
+ 
 
+ 
 [**![Lang_farsi](https://user-images.githubusercontent.com/125398461/234186932-52f1fa82-52c6-417f-8b37-08fe9250a55f.png) &nbsp;فارسی**](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[**![Lang_English](https://user-images.githubusercontent.com/125398461/229074810-599bd7f9-0bc1-44a9-b76e-90bf7e182314.png) English**](https://github.com/hiddify/hiddify-config/blob/main/README.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/%20Wiki-Page-808080?style=flat-square)](https://github.com/hiddify/hiddify-config/wiki)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/FAQ-Here-512DA8?style=flat-square&logo=Favro)](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Report-Bugs-F67909?style=flat-square&logo=Open-Bug-Bounty)](https://github.com/hiddify/hiddify-config/issues)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 <br>
@@ -123,8 +127,18 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
    `https://yourdomain.com/yoursecret/dns/dns-query{?dns}`
 
 </details>
+
+<details markdown="1"> <summary>Redirector （CDN支持）</summary> 
+当你想要通过其他程序分享Telegram代理或Shadowsocks代理时，可以使用CDN支持进行重定向。例如，如果你在"fullURL"的位置放置Shadowsocks的配置，点击这个链接会打开Shadowsocks应用并在上面激活代理。例如：
+ `https://yourdomain.com/yoursecret/redirect/fullURL` 
+
+ 把"fullURL"替换成Shadowsocks的配置。 
+
+ 
+ `https://yourdomain.com/yoursecret/redirect/ss://secret/` 
+ 
 </details>
-  
+</details>
 </detials>
 
 
