@@ -12,3 +12,5 @@ apt install haproxy -y
 
 ln -sf $(pwd)/hiddify-haproxy.service /etc/systemd/system/hiddify-haproxy.service
 systemctl enable hiddify-haproxy.service
+
+rm haproxy.cfg*

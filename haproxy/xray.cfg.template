@@ -39,35 +39,35 @@ backend trojang
   server trojang abns@trojan-grpc-new  send-proxy-v2
 
 backend vmesst
-  mode tcp
+  mode http
   server vmesst abns@vmess-tcp-new  send-proxy-v2
 
 backend vlesst
-  mode tcp
+  mode http
   server vlesst abns@vless-tcp-new  send-proxy-v2
 
 backend v2rayt
-  mode tcp
+  mode http
   server v2rayt abns@v2ray-tcp-new  send-proxy-v2
 
 backend trojant
-  mode tcp
+  mode http
   server trojant abns@trojan-tcp-new  send-proxy-v2
 
 backend vmessw
-  mode tcp
+  mode http
   server vmessw abns@vmess-ws-new  send-proxy-v2
 
 backend vlessw
-  mode tcp
+  mode http
   server vlessw abns@vless-ws-new  send-proxy-v2
 
 backend v2rayw
-  mode tcp
+  mode http
   server v2rayw abns@v2ray-ws-new  send-proxy-v2
 
 backend trojanw
-  mode tcp
+  mode http
   server trojanw abns@trojan-ws-new send-proxy-v2
 
 
