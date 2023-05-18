@@ -11,6 +11,7 @@ Environment="LANG=C.UTF-8"
 ExecStartPre=/bin/bash -c "/bin/kill -INT $(/usr/bin/pgrep -f 'hiddifypanel')||echo 'nothing to kill'"
 ExecStart=/usr/local/bin/uwsgi --ini /opt/hiddify-config/hiddify-panel/uwsgi.ini
 #ExecReload=/bin/kill -HUP $MAINPID
+RestartSec=5
 ExecStop=/bin/bash -c "/bin/kill -INT $(/usr/bin/pgrep -f 'hiddifypanel')||echo 'nothing to kill'"
 #ExecStop=/bin/kill -INT $MAINPID
 Restart=always

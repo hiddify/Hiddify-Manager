@@ -11,6 +11,7 @@ AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
 NoNewPrivileges=true
 ExecStartPre=/opt/hiddify-config/xray/pre-start.sh
 ExecStart=/usr/local/bin/xray run -confdir /opt/GITHUB_REPOSITORY/xray/configs/
+RestartSec=5
 #ExecReload=/bin/sh -c "/usr/local/bin/xray run -test -confdir /opt/GITHUB_REPOSITORY/xray/configs/ && systemctl restart hiddify-xray"
 Restart=always
 #RestartPreventExitStatus=23
