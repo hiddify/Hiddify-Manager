@@ -149,9 +149,9 @@ sed -i "s|2000|3000|g" warp-singbox.json
 
 systemctl reload hiddify-warp.service
 systemctl start  hiddify-warp.service
-systemctl status hiddify-warp.service
+#systemctl status hiddify-warp.service
 
-
+sleep 5
 echo "Testing singbox warp"
 
 
@@ -165,4 +165,4 @@ else
 fi
 
 echo "Remaining..."
-bash check_quota
+bash check_quota.sh

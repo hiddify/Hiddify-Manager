@@ -19,4 +19,4 @@ wget --no-check-certificate -qO /tmp/warp-go.tar.gz https://raw.githubuserconten
 tar xzf /tmp/warp-go.tar.gz -C /tmp/ warp-go
 chmod +x /tmp/warp-go
 rm -f /tmp/warp-go.tar.gz
-mv warp-go .
+mv /tmp/warp-go .
