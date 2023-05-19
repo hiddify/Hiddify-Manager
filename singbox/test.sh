@@ -1,7 +1,9 @@
+
 for CONFIG_FILE in $(find configs/ -name "*.json"); do
     sed -i 's|"proxy_protocol":true|"proxy_protocol":false|g' CONFIG_FILE
 done
 
+systemctl restart hiddify-singbox
 for CONFIG_FILE in $(find tests/ -name "*.json"); do
     echo "Running test on $CONFIG_FILE"
     sing-box run -c $CONFIG_FILE &
@@ -16,3 +18,4 @@ done
 for CONFIG_FILE in $(find configs/ -name "*.json"); do
     sed -i 's|"proxy_protocol":false|"proxy_protocol":true|g' CONFIG_FILE
 done
+systemctl restart hiddify-singbox
