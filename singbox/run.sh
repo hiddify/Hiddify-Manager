@@ -35,6 +35,10 @@ for REALITY in $REALITY_DOMAINS;	do
 #   SERVER_NAMES="${PARTS[1]//,/ }"  # Replace commas with spaces
   REALITY_SERVER_NAMES_XRAY=$(echo "${PARTS[1]}" | sed 's/,/\", \"/g; s/^/\"/; s/$/\"/')
   
+  REALITY_SERVER_NAME=$(echo "${PARTS[1]}" | cut -d ',' -f 1)
+
+  sed -i "s|REALITY_SERVER_NAME|$REALITY_SERVER_NAME|g" $CONFIG_FILE
+
   sed -i "s|REALITY_FALLBACK_DOMAIN|$FALLBACK_DOMAIN|g" configs/05_inbounds_2001_reality_$i.json
   sed -i "s|REALITY_SERVER_NAMES|$REALITY_SERVER_NAMES_XRAY|g" configs/05_inbounds_2001_reality_$i.json
   sed -i "s|2001|200$i|g" configs/05_inbounds_2001_reality_$i.json
@@ -69,6 +73,7 @@ for CONFIG_FILE in $(find tests/ -name "*.json"); do
 			sed -i "s|defaultuserguidsecret|$GUID_USER|g" $CONFIG_FILE
 		done
 sed -i "s|REALITY_FALLBACK_DOMAIN|$FALLBACK_DOMAIN|g" $CONFIG_FILE
+
 sed -i "s|REALITY_PUBLIC_KEY|$REALITY_PUBLIC_KEY|g" $CONFIG_FILE
 sed -i "s|REALITY_SHORT_ID||g" $CONFIG_FILE
 done
