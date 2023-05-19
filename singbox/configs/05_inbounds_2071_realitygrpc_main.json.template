@@ -18,7 +18,7 @@
 				"service_name": "PATH_VLESSPATH_GRPC",
 				"idle_timeout": "15s",
 				"ping_timeout": "15s"
-			}
+			},
 			"tls":{
 				"enabled": true,
 				"server_name": "REALITY_SERVER_NAME",
