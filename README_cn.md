@@ -1,5 +1,9 @@
+<base target="_blank">
 
+<div dir="ltr">
+ 
 
+ 
 [**![Lang_farsi](https://user-images.githubusercontent.com/125398461/234186932-52f1fa82-52c6-417f-8b37-08fe9250a55f.png) &nbsp;فارسی**](https://github.com/hiddify/hiddify-config/blob/main/README_fa.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[**![Lang_English](https://user-images.githubusercontent.com/125398461/229074810-599bd7f9-0bc1-44a9-b76e-90bf7e182314.png) English**](https://github.com/hiddify/hiddify-config/blob/main/README.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/%20Wiki-Page-808080?style=flat-square)](https://github.com/hiddify/hiddify-config/wiki)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/FAQ-Here-512DA8?style=flat-square&logo=Favro)](https://github.com/hiddify/hiddify-config/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Report-Bugs-F67909?style=flat-square&logo=Open-Bug-Bounty)](https://github.com/hiddify/hiddify-config/issues)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 <br>
@@ -36,7 +40,7 @@
 
 
 ## 欢迎来到 Hiddify
-Hiddify 是一个强大而专业的反审查工具箱，它是一个多用户面板，安装简单，<b>支持 20 多种协议</b>，包括 <b>Reality</b> 和 <b>Telegram 代理 </b> 规避过滤。 它针对<b>中国</b>、<b>俄罗斯</b>和<b>伊朗</b>的审查规避进行了优化，并由<a href="https://github.com/XTLS/Xray-core#installation" target="_blank"><b>Xray</b></a>。 它是 X-UI 面板的绝佳替代品。
+Hiddify 是一个强大而专业的反审查工具箱，它是一个多用户面板，安装简单，<b>支持超过 20 种协议</b>，包括 <b>Reality</b> 和 <b>Telegram 代理 </b>以绕过过滤。它针对<b>中国</b>、<b>俄罗斯</b>和<b>伊朗</b>的审查规避进行了优化，的审查进行了优化，并得到了<a href="https://github.com/XTLS/Xray-core#installation" target="_blank"><b> Xray </b></a>的推荐。它是 X-UI 面板的一个很好的替代品。
 
 ![Chinese](https://user-images.githubusercontent.com/125398461/236637780-5795c30f-f8a9-4b1a-ac0d-90774fff50b8.png)
 
@@ -61,30 +65,30 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 
 ### 吸引人的特点
 - **快速安装**
-- **智能代理** (Hiddify 和 Clash 客户)
+- **智能代理** （Hiddify 和 Clash 客户端）
 - **自动更新**
-- **自动备份**
+- **自动备份** （每6小时一次）
 - 自动连接到 Cloudflare
 - 使用**多个域**
-- **自动CDN IP**配置能力
+- **自动 CDN IP** 配置能力
 - 管理**活动配置**
-- **多重管理员权限**
+- **多个管理员权限**
 - **用户管理**
 - 为每个用户应用**时间和流量限制**
-- **用户专用页面**查看消费和配置
+- **专属页面供用户**查看消费和配置
 - 专用和**智能配置**
 - **专用客户端软件**
-- **电报代理**使用不同的库
-- **DNS 超过 HTTPS** (DoH)
+- **Telegram 代理**使用不同的库
+- **DNS over HTTPS** （DoH）
 - 使用 **Telegram Bot** 进行用户管理
 
 以及安装后您会注意到的许多其他功能。
 
-<details markdown="1"> <summary><h3>支持的协议</h3> (点击这里)</summary> 
+<details markdown="1"> <summary><h3>支持的协议</h3> （点击这里）</summary> 
 
 | 支持的配置 | 支持的配置 | 支持的配置 |
 | - | - | - |
-| **直接的** | **CDN** | **域名前端** |
+| **直连** | **CDN** | **域前置** |
 |Trojan:<br>- TLS WS<br>- TLS TCP<br>- TLS gRPC<br>- TLS H2 WS<br>- TLS H2 TCP<br>- TLS H2 gRPC<br> |  Trojan:<br>- TLS WS<br>- TLS gRPC<br>- TLS H2 WS<br>- TLS H2 gRPC<br><br><br>| Trojan:<br>- TLS WS Fake<br><br><br><br><br><br> |
 | Vless:<br>- TLS WS<br>- HTTP WS<br>- TLS XTLS<br>- TLS gRPC<br>- TLS H2 TLS<br>- TLS H2 WS<br>- TLS H2 gRPC<br>- Reality XTLS<br>- Reality gRPC | Vless:<br>- TLS WS<br>- TLS gRPC<br>- HTTP WS<br>- TLS H2 WS<br>- TLS H2 gRPC<br><br><br><br><br>| Vless:<br>- TLS WS Fake<br>- HTTP WS Fake<br><br><br><br><br><br><br><br> |
 | Vmess:<br>- TLS WS<br>- TLS TCP<br>- HTTP WS<br>- HTTP TCP<br>- TLS gRPC<br>- TLS H2 WS<br>- TLS H2 TCP<br> | Vmess:<br>- TLS WS<br>- TLS gRPC<br>- HTTP WS<br>- TLS H2 WS<br>- TLS H2 gRPC<br><br><br> | Vmess:<br>- TLS WS Fake<br>- HTTP WS Fake<br><br><br><br><br><br> |
@@ -93,19 +97,19 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 
 </details>
 
-<details markdown="1"> <summary><h3>国内和过滤网站的智能代理</h3> (点击这里)</summary>
+<details markdown="1"> <summary><h3>国内和过滤网站的智能代理</h3> （点击这里）</summary>
+ 
+您可以使用 Hiddify（Clash） 客户端和 Hiddify 面板以 3 种模式连接到互联网。
+1. 此方法仅通过代理绕过被墙网站。
+2. 该方法规避除中国、俄罗斯、伊朗等国内网站外的所有网站。 这样就可以不用代理打开国内网站了（推荐）
+3. 该方法绕过所有网站。
 
-您可以使用 Hiddify(Clash) 客户端和 Hiddify 面板以 3 种模式连接到互联网。
-1. 此方法仅通过代理绕过过滤网站。
-2、该方法规避除中国、俄罗斯、伊朗等国内网站外的所有网站。 这样就可以不用代理打开国内网站了（推荐）
-3、该方法绕过所有网站。
+同时，所提出的解决方案可以抵抗 Internet 过滤实体的检测，并防止对服务器的常见攻击，即检测的可能性很小，但是，不要忘记禁用除 22、80 和 443 之外的其他端口。  
 
-同时，所提出的解决方案可以抵抗 Internet 过滤实体的检测，并防止对服务器的常见攻击，即检测的可能性很小，但是，不要忘记禁用除 22、80 和 443 之外的其他端口。
-  
 </details>
   
 
-<details markdown="1"><summary><h3>其他奇妙的功能</h3> (点击这里)</summary>
+<details markdown="1"><summary><h3>其他奇妙的功能</h3> （点击这里）</summary>
 
 <details  markdown="1"> <summary>支持的操作系统</summary>
   Hiddify 已经在 Ubuntu 20.04 和 22.04 上进行了测试。 Ubuntu arm64 或 amd64
@@ -118,13 +122,23 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 
 </details>
 
-<details markdown="1"> <summary>DNS 超过 HTTPS (CDN支持)</summary>
+<details markdown="1"> <summary>DNS over HTTPS （CDN支持）</summary>
 要通过 HTTPS 使用 DNS，只需在浏览器中使用以下 DNS。
    `https://yourdomain.com/yoursecret/dns/dns-query{?dns}`
 
 </details>
+
+<details markdown="1"> <summary>Redirector （CDN支持）</summary> 
+当你想要通过其他程序分享 Telegram 代理或 Shadowsocks 代理时，可以使用 CDN 支持进行重定向。例如，如果你在"fullURL"的位置放置 Shadowsocks 的配置，点击这个链接会打开 Shadowsocks 应用并在上面激活代理。例如：
+ `https://yourdomain.com/yoursecret/redirect/fullURL` 
+
+ 把"fullURL"替换成 Shadowsocks 的配置。 
+
+ 
+ `https://yourdomain.com/yoursecret/redirect/ss://secret/` 
+ 
 </details>
-  
+</details>
 </detials>
 
 
@@ -135,16 +149,16 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 
 
 ## 捐赠与支持
-支持我们的最简单方法是单击此页面顶部的星号 (⭐)。
+支持我们的最简单方法是单击此页面顶部的星号 （⭐）。
 
 我们的服务也需要资金支持。 我们所有的活动都是自愿进行的，财政支持将用于项目的开发。 您可以在 [此处](https://github.com/hiddify/hiddify-config/wiki/support) 查看我们的支持地址。
 
 ## 协作和联系信息
 我们需要您的合作才能开发此项目。 如果您是这些领域的专家，请随时与我们联系。
 
-- 媒体制作
-- Python 开发
-- Kotlin 开发 (每6小时)
+* 媒体制作 &nbsp;&nbsp;&nbsp;&nbsp;  
+* Python 开发 &nbsp;&nbsp;&nbsp;&nbsp; ‌  
+* Kotlin 开发 &nbsp;&nbsp;&nbsp;&nbsp; 
   
 <div align=center>
 
@@ -166,5 +180,5 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 </a>
 </p>
 <p align=center>
- 用 <a rel="" target="_blank" href="https://contrib.rocks">Contrib.Rocks</a> 
+ 使用 <a rel="" target="_blank" href="https://contrib.rocks">Contrib.Rocks</a> 制作
 </p>
