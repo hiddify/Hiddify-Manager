@@ -17,7 +17,7 @@
             "type": "vless",
             "tag": "vless-out",
             "server": "127.0.0.1",
-            "server_port": 2001,
+            "server_port": 2061,
             "uuid": "defaultuserguidsecret",
             "flow": "xtls-rprx-vision",
             "network": "tcp",

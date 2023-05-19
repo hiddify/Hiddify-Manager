@@ -44,7 +44,12 @@ EOF
   cat >> singbox.cfg << EOF
 backend reality_$i
     mode tcp
-    server singbox 127.0.0.1:200$i send-proxy-v2
+    server singbox 127.0.0.1:206$i send-proxy-v2
+EOF
+  cat >> singbox.cfg << EOF
+backend reality_grpc_$i
+    mode tcp
+    server singbox 127.0.0.1:207$i send-proxy-v2
 EOF
 
   i=$((i+1))
