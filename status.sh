@@ -17,10 +17,10 @@ systemctl status --no-pager hiddify-nginx hiddify-xray hiddify-singbox hiddify-h
 if [ -f "other/warp/xray_warp_conf.json" ];then
 	(cd other/warp&& wgcf update)
 	echo "Your IP for custom WARP:"
-	curl -s -x socks://127.0.0.1:1234 www.ipinfo.io
+	curl -s -x socks://127.0.0.1:1234 --connect-timeout 4 www.ipinfo.io
 
 	echo "Your Global IP"
-	curl -s -x socks://127.0.0.1:1234 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
+	curl -s -x socks://127.0.0.1:1234 --connect-timeout 4 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
 fi
 
 

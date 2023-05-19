@@ -38,6 +38,7 @@ for REALITY in $REALITY_DOMAINS;	do
 backend reality_http_$i
     mode http
     server reality_$i $FALLBACK_DOMAIN:80 
+    
 EOF
 
   cat >> xray.cfg << EOF
