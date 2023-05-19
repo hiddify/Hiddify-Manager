@@ -122,7 +122,7 @@ function set_config_from_hpanel(){
                         MAIN_DOMAIN="$domain;$MAIN_DOMAIN"
                 fi
                 if [ "$mode"  == "reality" ];then
-                        REALITY_MULTI="$domain:$servernames;$MAIN_DOMAIN"
+                        REALITY_MULTI="$domain:${servernames:-$domain};$REALITY_MULTI"
                 fi
                 if [ "$mode"  = "ss_faketls" ];then
                         setenv SS_FAKE_TLS_DOMAIN $domain
@@ -135,7 +135,7 @@ function set_config_from_hpanel(){
                         setenv FAKE_CDN_DOMAIN $domain
                 fi
         done
-
+        setenv REALITY_MULTI $REALITY_MULTI
         setenv MAIN_DOMAIN $MAIN_DOMAIN
 
         USER_SECRET=

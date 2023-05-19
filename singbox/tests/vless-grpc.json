@@ -1,0 +1,35 @@
+{
+    "log": {
+        "level": "trace"
+    },
+    "inbounds": [
+        {
+            "type": "mixed",
+            "tag": "mixed-in",
+            "listen": "::",
+            "listen_port": 10000,
+            "domain_strategy": "ipv4_only",
+            "set_system_proxy": false
+        }
+    ],
+    "outbounds": [
+        {
+            "type": "vless",
+            "tag": "vless-out",
+            "server": "127.0.0.1",
+            "server_port": 2023,
+            "uuid": "defaultuserguidsecret",
+            "flow": "xtls-rprx-vision",
+            "global_padding": false,
+            "network": "tcp",
+            "transport": {
+                "type": "grpc",
+				"service_name": "PATH_VLESSPATH_GRPC",
+				"idle_timeout": "15s",
+				"ping_timeout": "15s"
+            }
+          
+           
+          }
+    ]
+}

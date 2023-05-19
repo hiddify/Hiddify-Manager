@@ -1,0 +1,37 @@
+{
+    "log": {
+        "level": "trace"
+    },
+    "inbounds": [
+        {
+            "type": "mixed",
+            "tag": "mixed-in",
+            "listen": "::",
+            "listen_port": 10000,
+            "domain_strategy": "ipv4_only",
+            "set_system_proxy": false
+        }
+    ],
+    "outbounds": [
+        {
+            "type": "vmess",
+            "tag": "vmess-out",
+            "server": "127.0.0.1",
+            "server_port": 2033,
+            "uuid": "defaultuserguidsecret",
+            "security": "auto",
+            "alter_id": 0,
+            "global_padding": false,
+            "authenticated_length": true,
+            "network": "tcp",
+            "transport": {
+                "type": "grpc",
+				"service_name": "PATH_VMESSPATH_GRPC",
+				"idle_timeout": "15s",
+				"ping_timeout": "15s"
+            }
+          
+           
+          }
+    ]
+}

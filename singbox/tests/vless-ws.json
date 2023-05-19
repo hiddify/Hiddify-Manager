@@ -1,0 +1,33 @@
+{
+    "log": {
+        "level": "trace"
+    },
+    "inbounds": [
+        {
+            "type": "mixed",
+            "tag": "mixed-in",
+            "listen": "::",
+            "listen_port": 10000,
+            "domain_strategy": "ipv4_only",
+            "set_system_proxy": false
+        }
+    ],
+    "outbounds": [
+        {
+            "type": "vless",
+            "tag": "vless-out",
+            "server": "127.0.0.1",
+            "server_port": 2022,
+            "uuid": "defaultuserguidsecret",
+            "flow": "xtls-rprx-vision",
+            "network": "tcp",
+            "transport": {
+                "type": "ws",
+				"path": "/PATH_VLESSPATH_WS",
+				"early_data_header_name": "Sec-WebSocket-Protocol"
+            }
+          
+           
+          }
+    ]
+}

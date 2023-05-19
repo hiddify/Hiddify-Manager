@@ -1,0 +1,42 @@
+{
+    "log": {
+        "level": "trace"
+    },
+    "inbounds": [
+        {
+            "type": "mixed",
+            "tag": "mixed-in",
+            "listen": "::",
+            "listen_port": 10000,
+            "domain_strategy": "ipv4_only",
+            "set_system_proxy": false
+        }
+    ],
+    "outbounds": [
+        {
+            "type": "vless",
+            "tag": "vless-out",
+            "server": "127.0.0.1",
+            "server_port": 2001,
+            "uuid": "defaultuserguidsecret",
+            "flow": "xtls-rprx-vision",
+            "global_padding": false,
+            "network": "tcp",
+            "tls": {
+                "enabled": true,
+                "server_name": "REALITY_FALLBACK_DOMAIN", 
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome" 
+                },
+                "reality": {
+                    "enabled": true,
+                    "public_key": "REALITY_PUBLIC_KEY", 
+                    "short_id": "REALITY_SHORT_ID" 
+                }
+            },
+            "packet_encoding": "xudp"
+            
+          }
+    ]
+}

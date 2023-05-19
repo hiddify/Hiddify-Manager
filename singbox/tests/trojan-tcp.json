@@ -1,0 +1,34 @@
+{
+    "log": {
+        "level": "trace"
+    },
+    "inbounds": [
+        {
+            "type": "mixed",
+            "tag": "mixed-in",
+            "listen": "::",
+            "listen_port": 10000,
+            "domain_strategy": "ipv4_only",
+            "set_system_proxy": false
+        }
+    ],
+    "outbounds": [
+        {
+            "type": "trojan",
+            "tag": "trojan-out",
+            "server": "127.0.0.1",
+            "server_port": 2011,
+            "password": "defaultuserguidsecret",           
+            
+            "network": "tcp",
+            "transport": {
+                "type": "http",
+				"path": "/PATH_TROJANPATH_TCP",
+				"idle_timeout": "15s",
+				"ping_timeout": "15s"
+            }
+          
+           
+          }
+    ]
+}

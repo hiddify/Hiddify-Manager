@@ -26,7 +26,7 @@ for REALITY in $REALITY_DOMAINS;	do
   sed -i "s|#reality_http_configs|\
     #reality_http_configs\n\
     acl reality_domains_$i hdr(host) -i $SERVER_NAMES\n\
-    use_backend reality_$i if reality_domains_$i|g" common.cfg
+    use_backend reality_http_$i if reality_domains_$i|g" common.cfg
 
 
   cat >> common.cfg << EOF
@@ -44,7 +44,7 @@ EOF
   cat >> singbox.cfg << EOF
   backend reality_$i
       mode tcp
-      server xray 200$i send-proxy-v2
+      server singbox 127.0.0.1:200$i send-proxy-v2
 EOF
 
   i=$((i+1))

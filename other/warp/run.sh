@@ -1,7 +1,7 @@
 #!/bin/bash
 ln -sf $(pwd)/hiddify-warp.service /etc/systemd/system/hiddify-warp.service
 systemctl enable hiddify-warp.service
-
+#api.zeroteam.top/warp?format=wgcf for change warp
 export WGCF_LICENSE_KEY=$WARP_PLUS_CODE
 wgcf update
 if [ $? != 0 ];then

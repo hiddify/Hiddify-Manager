@@ -40,20 +40,20 @@ backend v2rayt
 
 backend trojant
   mode http
-  server trojant 127.0.0.1:2011  send-proxy-v2 proto h2
+  server trojant 127.0.0.1:2011  send-proxy-v2 
 
 backend vmessw
   mode http
-  server vmessw 127.0.0.1:2032  send-proxy-v2 proto h2
+  server vmessw 127.0.0.1:2032  send-proxy-v2 
 
 backend vlessw
   mode http
-  server vlessw 127.0.0.1:2022  send-proxy-v2 proto h2
+  server vlessw 127.0.0.1:2022  send-proxy-v2 
 
 backend v2rayw
   mode http
-  server v2rayw 127.0.0.1:2052  send-proxy-v2 proto h2
+  server v2rayw 127.0.0.1:2052  send-proxy-v2 
 
 backend trojanw
   mode http
-  server trojanw 127.0.0.1:2012 send-proxy-v2 proto h2
+  server trojanw 127.0.0.1:2012 send-proxy-v2 

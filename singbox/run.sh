@@ -21,6 +21,7 @@ sed -i "s|REALITY_PRIVATE_KEY|$REALITY_PRIVATE_KEY|g" configs/05_inbounds_2001_r
 
 
 
+find configs -name "05_inbounds_2001_reality_*.json" ! -name "05_inbounds_2001_reality_main.json" -type f -exec rm {} +
 
 
 REALITY_DOMAINS=${REALITY_MULTI//;/ }
@@ -37,11 +38,13 @@ for REALITY in $REALITY_DOMAINS;	do
   sed -i "s|REALITY_FALLBACK_DOMAIN|$FALLBACK_DOMAIN|g" configs/05_inbounds_2001_reality_$i.json
   sed -i "s|REALITY_SERVER_NAMES|$REALITY_SERVER_NAMES_XRAY|g" configs/05_inbounds_2001_reality_$i.json
   sed -i "s|2001|200$i|g" configs/05_inbounds_2001_reality_$i.json
+  sed -i "s|realityin|realityin_$i|g" configs/05_inbounds_2001_reality_$i.json
   
 
   i=$((i+1))
 done
 rm configs/05_inbounds_2001_reality_main.json
+
 
 
 
@@ -58,6 +61,16 @@ for CONFIG_FILE in $(find configs/ -name "*.json"); do
 		sed -i "s|$line|$final|g" $CONFIG_FILE
 	done
 
+done
+
+for CONFIG_FILE in $(find tests/ -name "*.json"); do
+		for USER in $USERS; do
+			GUID_USER="${USER:0:8}-${USER:8:4}-${USER:12:4}-${USER:16:4}-${USER:20:12}"
+			sed -i "s|defaultuserguidsecret|$GUID_USER|g" $CONFIG_FILE
+		done
+sed -i "s|REALITY_FALLBACK_DOMAIN|$FALLBACK_DOMAIN|g" $CONFIG_FILE
+sed -i "s|REALITY_PUBLIC_KEY|$REALITY_PUBLIC_KEY|g" $CONFIG_FILE
+sed -i "s|REALITY_SHORT_ID||g" $CONFIG_FILE
 done
 
 
