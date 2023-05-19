@@ -28,15 +28,19 @@ backend trojang
 
 backend vmesst
   mode http
-  server vmesst 127.0.0.1:2031  send-proxy-v2 proto h2
+  server vmesst 127.0.0.1:2031  send-proxy-v2 
+
+backend vmesst_get
+  mode http
+  server vmesst 127.0.0.1:2039  send-proxy-v2 
 
 backend vlesst
   mode http
-  server vlesst 127.0.0.1:2021  send-proxy-v2 proto h2
+  server vlesst 127.0.0.1:2021  send-proxy-v2 
 
 backend v2rayt
   mode http
-  server v2rayt 127.0.0.1:2051  send-proxy-v2 proto h2
+  server v2rayt 127.0.0.1:2051  send-proxy-v2 
 
 backend trojant
   mode http

@@ -16,6 +16,7 @@
 			"transport": {
 				"type": "http",
 				"path": "/PATH_VMESSPATH_TCP",
+				"method":"GET",
 				"idle_timeout": "15s",
 				"ping_timeout": "15s"
 			}

@@ -19,7 +19,6 @@
             "server": "127.0.0.1",
             "server_port": 2021,
             "uuid": "defaultuserguidsecret",           
-            "flow": "xtls-rprx-vision",
             "network": "tcp",
             "transport": {
                 "type": "http",

@@ -42,6 +42,12 @@ backend vmesst
   mode http
   server vmesst abns@vmess-tcp-new  send-proxy-v2
 
+
+backend vmesst_get
+  mode http
+  server vmesst abns@vmess-tcp-new  send-proxy-v2
+
+
 backend vlesst
   mode http
   server vlesst abns@vless-tcp-new  send-proxy-v2

@@ -9,9 +9,9 @@
 			"sniff_override_destination": true,
 			"domain_strategy": "prefer_ipv4",
 			"proxy_protocol":true,	
-			"type": "trojan",
+			"type": "vless",
 			"users": [
-    			{"name": "defaultuserguidsecret@hiddify.com", "password": "defaultuserguidsecret"}
+    			{"name": "defaultuserguidsecret@hiddify.com", "uuid": "defaultuserguidsecret"}
   			],
 			"transport": {
 				"type": "grpc",

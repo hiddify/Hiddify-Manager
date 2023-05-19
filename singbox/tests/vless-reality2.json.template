@@ -20,7 +20,6 @@
             "server_port": 2001,
             "uuid": "defaultuserguidsecret",
             "flow": "xtls-rprx-vision",
-            "global_padding": false,
             "network": "tcp",
             "tls": {
                 "enabled": true,

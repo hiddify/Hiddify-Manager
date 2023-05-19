@@ -30,21 +30,21 @@ for REALITY in $REALITY_DOMAINS;	do
 
 
   cat >> common.cfg << EOF
-  backend reality_http_$i
-      mode http
-      server reality_$i $FALLBACK_DOMAIN:80 
+backend reality_http_$i
+    mode http
+    server reality_$i $FALLBACK_DOMAIN:80 
 EOF
 
   cat >> xray.cfg << EOF
-  backend reality_$i
-      mode tcp
-      server xray abns@realityin_$i send-proxy-v2
+backend reality_$i
+    mode tcp
+    server xray abns@realityin_$i send-proxy-v2
 EOF
 
   cat >> singbox.cfg << EOF
-  backend reality_$i
-      mode tcp
-      server singbox 127.0.0.1:200$i send-proxy-v2
+backend reality_$i
+    mode tcp
+    server singbox 127.0.0.1:200$i send-proxy-v2
 EOF
 
   i=$((i+1))
