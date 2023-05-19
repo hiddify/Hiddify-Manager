@@ -8,6 +8,7 @@ fi
 # sed -i "s|REALITY_SERVER_NAMES|server $REALITY_SERVER_NAMES_HAPROXY|g" haproxy.cfg
 
 REALITY_DOMAINS=${REALITY_MULTI//;/ }
+REALITY_DOMAINS_GRPC=${REALITY_MULTI_GRPC//;/ }
 
 
 i=1
@@ -21,9 +22,9 @@ for REALITY in $REALITY_DOMAINS;	do
   sed -i "s|#reality_configs|\
     #reality_configs\n\
     acl reality_domains_$i req.ssl_sni -i $SERVER_NAMES\n\
-    use_backend reality_grpc_$i if reality_domains_$i alpnh2\n\
     use_backend reality_$i if reality_domains_$i|g" common.cfg
- 
+
+
   sed -i "s|#reality_http_configs|\
     #reality_http_configs\n\
     acl reality_domains_$i hdr(host) -i $SERVER_NAMES\n\
@@ -40,15 +41,55 @@ EOF
 backend reality_$i
     mode tcp
     server xray abns@realityin_$i send-proxy-v2
-backend reality_grpc_$i
-    mode tcp
-    server xray abns@realityin_$i send-proxy-v2
+
 EOF
 
   cat >> singbox.cfg << EOF
 backend reality_$i
     mode tcp
     server singbox 127.0.0.1:206$i send-proxy-v2
+
+EOF
+
+  i=$((i+1))
+done
+
+
+
+
+
+i=1
+for REALITY in $REALITY_DOMAINS_GRPC;	do
+  IFS=':' read -ra PARTS <<< "$REALITY"
+  
+  FALLBACK_DOMAIN="${PARTS[0]}"
+  #SERVER_NAMES="${PARTS[1]}"
+  SERVER_NAMES="${PARTS[1]//,/ }"  # Replace commas with spaces
+  
+  sed -i "s|#reality_configs|\
+    #reality_configs\n\
+    acl reality_domains_grpc_$i req.ssl_sni -i $SERVER_NAMES\n\
+    use_backend reality_grpc_$i if reality_domains_grpc_$i|g" common.cfg
+
+  sed -i "s|#reality_http_configs|\
+    #reality_http_configs\n\
+    acl reality_domains_grpc_$i hdr(host) -i $SERVER_NAMES\n\
+    use_backend reality_grpc_http_$i if reality_domains_grpc_$i|g" common.cfg
+
+
+  cat >> common.cfg << EOF
+backend reality_grpc_http_$i
+    mode http
+    server reality_$i $FALLBACK_DOMAIN:80 
+EOF
+
+  cat >> xray.cfg << EOF
+backend reality_grpc_$i
+    mode tcp
+    server xray abns@realityingrpc_$i send-proxy-v2
+EOF
+
+  cat >> singbox.cfg << EOF
 backend reality_grpc_$i
     mode tcp
     server singbox 127.0.0.1:207$i send-proxy-v2
@@ -56,6 +97,9 @@ EOF
 
   i=$((i+1))
 done
+
+
+
 
 if [ "$core_type" == "xray" ];then
   rm singbox.cfg

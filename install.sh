@@ -112,17 +112,24 @@ function set_config_from_hpanel(){
                 echo ${!var}
         }
         REALITY_MULTI=
+        REALITY_MULTI_GRPC=
         FORCE_XRAY_DOMAINS_MULTI=
         MAIN_DOMAIN=
         for i in $(seq 0 ``domains.length()``); do
                 domain=$(get domains $i domain)
                 servernames=$(get domains $i servernames)
                 mode=$(get domains $i mode)
+                grpc=$(get domains $i grpc)
                 if [ "$mode"  == "direct" ] || [ "$mode"  == "cdn" ] || [ "$mode"  == "relay" ] || [ "$mode"  == "auto_cdn_ip" ];then
                         MAIN_DOMAIN="$domain;$MAIN_DOMAIN"
                 fi
                 if [ "$mode"  == "reality" ];then
-                        REALITY_MULTI="$domain:${servernames:-$domain};$REALITY_MULTI"
+                        if [ "$grpc" == "True" ];then
+                                REALITY_MULTI_GRPC="$domain:${servernames:-$domain};$REALITY_MULTI_GRPC"
+                        else 
+                                REALITY_MULTI="$domain:${servernames:-$domain};$REALITY_MULTI"
+                        fi
+                        
                 fi
                 if [ "$mode"  = "ss_faketls" ];then
                         setenv SS_FAKE_TLS_DOMAIN $domain
@@ -136,6 +143,7 @@ function set_config_from_hpanel(){
                 fi
         done
         setenv REALITY_MULTI $REALITY_MULTI
+        setenv REALITY_MULTI_GRPC $REALITY_MULTI_GRPC
         setenv MAIN_DOMAIN $MAIN_DOMAIN
 
         USER_SECRET=
