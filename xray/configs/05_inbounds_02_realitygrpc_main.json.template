@@ -34,11 +34,9 @@
 			},
 			"streamSettings": {
 			  "network": "grpc",
-			  "security": "none",
 			  "grpcSettings": {
 				"serviceName": "PATH_VLESSPATH_GRPC"
-			  }
-			},
+			  },
 			  "security": "reality", 
 			  "realitySettings": {
                     "show": false, 
