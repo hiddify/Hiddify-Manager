@@ -1,6 +1,6 @@
 
 for CONFIG_FILE in $(find configs/ -name "*.json"); do
-    sed -i 's|"proxy_protocol":true|"proxy_protocol":false|g' CONFIG_FILE
+    sed -i 's|"proxy_protocol":true|"proxy_protocol":false|g' $CONFIG_FILE
 done
 
 systemctl restart hiddify-singbox
@@ -16,6 +16,6 @@ for CONFIG_FILE in $(find tests/ -name "*.json"); do
 done
 
 for CONFIG_FILE in $(find configs/ -name "*.json"); do
-    sed -i 's|"proxy_protocol":false|"proxy_protocol":true|g' CONFIG_FILE
+    sed -i 's|"proxy_protocol":false|"proxy_protocol":true|g' $CONFIG_FILE
 done
 systemctl restart hiddify-singbox

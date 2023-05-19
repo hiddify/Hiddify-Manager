@@ -14,17 +14,16 @@
     ],
     "outbounds": [
         {
-            "type": "trojan",
-            "tag": "trojan-out",
+            "type": "vless",
+            "tag": "vless-out",
             "server": "127.0.0.1",
-            "server_port": 2013,
-            "password": "defaultuserguidsecret",
-            
-            "global_padding": false,
+            "server_port": 2023,
+            "uuid": "defaultuserguidsecret",
+            "flow": "xtls-rprx-vision",
             "network": "tcp",
             "transport": {
                 "type": "grpc",
-				"service_name": "PATH_TROJANPATH_GRPC",
+				"service_name": "PATH_VLESSPATH_GRPC",
 				"idle_timeout": "15s",
 				"ping_timeout": "15s"
             }
