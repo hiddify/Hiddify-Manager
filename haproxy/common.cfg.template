@@ -47,6 +47,8 @@ frontend https-in
     acl tls1_2 req.ssl_ver 3.3
     acl tls1_3 req.ssl_ver 3.4
     
+    acl alpnh2 req.ssl_alpn h2 
+
     #reality_configs
     acl reality_domains req.ssl_sni -i REALITY_SERVER_NAMES
     use_backend reality if reality_domains

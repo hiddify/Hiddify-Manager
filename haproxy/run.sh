@@ -21,6 +21,7 @@ for REALITY in $REALITY_DOMAINS;	do
   sed -i "s|#reality_configs|\
     #reality_configs\n\
     acl reality_domains_$i req.ssl_sni -i $SERVER_NAMES\n\
+    use_backend reality_grpc_$i if reality_domains_$i alpnh2\n\
     use_backend reality_$i if reality_domains_$i|g" common.cfg
  
   sed -i "s|#reality_http_configs|\
@@ -39,14 +40,15 @@ EOF
 backend reality_$i
     mode tcp
     server xray abns@realityin_$i send-proxy-v2
+backend reality_grpc_$i
+    mode tcp
+    server xray abns@realityin_$i send-proxy-v2
 EOF
 
   cat >> singbox.cfg << EOF
 backend reality_$i
     mode tcp
     server singbox 127.0.0.1:206$i send-proxy-v2
-EOF
-  cat >> singbox.cfg << EOF
 backend reality_grpc_$i
     mode tcp
     server singbox 127.0.0.1:207$i send-proxy-v2
