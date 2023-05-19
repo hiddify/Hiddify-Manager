@@ -90,7 +90,7 @@ fi
 
 
 
-singbox check -C configs
+sing-box check -C configs
 # echo "ignoring xray test"
 if  [[ $? == 0 ]];then
 	#systemctl restart hiddify-singbox.service
