@@ -20,6 +20,8 @@ sed -i "s|REALITY_PRIVATE_KEY|$REALITY_PRIVATE_KEY|g" configs/05_inbounds_02_rea
 
 
 
+find configs -name "05_inbounds_02_reality_*.json" ! -name "05_inbounds_02_reality_main.json" -type f -exec rm {} +
+
 REALITY_DOMAINS=${REALITY_MULTI//;/ }
 i=1
 for REALITY in $REALITY_DOMAINS;	do
@@ -33,7 +35,9 @@ for REALITY in $REALITY_DOMAINS;	do
   
   sed -i "s|REALITY_FALLBACK_DOMAIN|$FALLBACK_DOMAIN|g" configs/05_inbounds_02_reality_$i.json
   sed -i "s|REALITY_SERVER_NAMES|$REALITY_SERVER_NAMES_XRAY|g" configs/05_inbounds_02_reality_$i.json  
-  sed -i "s|abns@realityin|abns@realityin_$i|g" configs/05_inbounds_02_reality_$i.json  
+  sed -i "s|realityin|realityin_$i|g" configs/05_inbounds_02_reality_$i.json
+  #sed -i "s|abns@realityin|abns@realityin_$i|g" configs/05_inbounds_02_reality_$i.json  
+  
   
 
   i=$((i+1))
@@ -100,7 +104,7 @@ if [ -n "$warp_conf" ];then
 	# escaped_warp_conf=$(printf '%s\n' "$warp_conf" | sed -e 's/[\/&]/\\&/g')
 	# sed -i "s|\"outbounds\": \[|\"outbounds\": [$escaped_warp_conf,|g"  configs/06_outbounds.json
 	# sed -i "s|//hiddify_warp|$escaped_warp_conf,|g"  configs/06_outbounds.json
-	
+
 	if [ $WARP_MODE == 'all' ];then
 		sed -i 's|"outboundTag": "freedom"|"outboundTag": "WARP"|g' configs/03_routing.json
 	fi
