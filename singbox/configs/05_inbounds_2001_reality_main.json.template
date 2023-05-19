@@ -15,9 +15,9 @@
 			],
 			"tls":{
 				"enabled": true,
+				"server_name": "REALITY_SERVER_NAME",
 				"reality": {
 					"enabled": true,
-					"server_name": "REALITY_SERVER_NAME",
 					"handshake": {
 						"server": "REALITY_FALLBACK_DOMAIN",
 						"server_port": 443

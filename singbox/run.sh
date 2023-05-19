@@ -37,7 +37,7 @@ for REALITY in $REALITY_DOMAINS;	do
   
   REALITY_SERVER_NAME=$(echo "${PARTS[1]}" | cut -d ',' -f 1)
 
-  sed -i "s|REALITY_SERVER_NAME|$REALITY_SERVER_NAME|g" $CONFIG_FILE
+  sed -i "s|REALITY_SERVER_NAME|$REALITY_SERVER_NAME|g" configs/05_inbounds_2001_reality_$i.json
 
   sed -i "s|REALITY_FALLBACK_DOMAIN|$FALLBACK_DOMAIN|g" configs/05_inbounds_2001_reality_$i.json
   sed -i "s|REALITY_SERVER_NAMES|$REALITY_SERVER_NAMES_XRAY|g" configs/05_inbounds_2001_reality_$i.json
