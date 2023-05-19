@@ -120,31 +120,39 @@ function set_config_from_hpanel(){
                 servernames=$(get domains $i servernames)
                 mode=$(get domains $i mode)
                 grpc=$(get domains $i grpc)
-                if [ "$mode"  == "direct" ] || [ "$mode"  == "cdn" ] || [ "$mode"  == "relay" ] || [ "$mode"  == "auto_cdn_ip" ];then
+                case $mode in
+                direct|cdn|worker|relay|auto_cdn_ip|old_xtls_direct)
                         MAIN_DOMAIN="$domain;$MAIN_DOMAIN"
-                fi
-                if [ "$mode"  == "reality" ];then
+                        if [ "$mode" == "old_xtls_direct" ];then
+                                FORCE_XRAY_DOMAINS_MULTI="$domain:${servernames:-$domain};$FORCE_XRAY_DOMAINS_MULTI"
+                        fi 
+                        ;;
+                reality)
                         if [ "$grpc" == "True" ];then
                                 REALITY_MULTI_GRPC="$domain:${servernames:-$domain};$REALITY_MULTI_GRPC"
                         else 
                                 REALITY_MULTI="$domain:${servernames:-$domain};$REALITY_MULTI"
                         fi
-                        
-                fi
-                if [ "$mode"  = "ss_faketls" ];then
+                        ;;
+                ss_faketls)
                         setenv SS_FAKE_TLS_DOMAIN $domain
-                fi
-                if [ "$mode"  = "telegram_faketls" ];then
-                        setenv TELEGRAM_FAKE_TLS_DOMAIN $domain
-                fi
-
-                if [ "$mode"  = "fake_cdn" ];then
+                        ;;
+                telegram_faketls)
+                        setenv TELEGRAM_FAKE_TLS_DOMAIN $domain                        
+                        ;;
+                fake_cdn)
                         setenv FAKE_CDN_DOMAIN $domain
-                fi
+                        ;;
+                *)
+                        # Code block to execute for other cases (optional)
+                        ;;
+                esac
+
         done
         setenv REALITY_MULTI $REALITY_MULTI
         setenv REALITY_MULTI_GRPC $REALITY_MULTI_GRPC
         setenv MAIN_DOMAIN $MAIN_DOMAIN
+        setenv FORCE_XRAY_DOMAINS_MULTI $FORCE_XRAY_DOMAINS_MULTI
 
         USER_SECRET=
         for i in $(seq 0 ``users.length()``); do
