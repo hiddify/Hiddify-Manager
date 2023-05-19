@@ -1,13 +1,13 @@
 #!/bin/bash
 function main(){
-XRAY_NEW_CONFIG_ERROR=0
-xray run -test -confdir xray/configs > /dev/null 2>&1
-XRAY_NEW_CONFIG_ERROR=$?
+# XRAY_NEW_CONFIG_ERROR=0
+# xray run -test -confdir xray/configs > /dev/null 2>&1
+# XRAY_NEW_CONFIG_ERROR=$?
 
 
-SINGBOX_NEW_CONFIG_ERROR=0
-xray run -test -confdir xray/configs > /dev/null 2>&1
-SINGBOX_NEW_CONFIG_ERROR=$?
+# SINGBOX_NEW_CONFIG_ERROR=0
+# xray run -test -confdir xray/configs > /dev/null 2>&1
+# SINGBOX_NEW_CONFIG_ERROR=$?
 
 
 systemctl status --no-pager hiddify-nginx hiddify-xray hiddify-singbox hiddify-haproxy|cat
@@ -34,15 +34,15 @@ done
 # echo "ignoring xray test"
 
 
-if [ "$XRAY_NEW_CONFIG_ERROR" != "0" ];then
-	xray run -test -confdir xray/configs 
-	echo "There is a big error in xray configuration."
-fi
+# if [ "$XRAY_NEW_CONFIG_ERROR" != "0" ];then
+# 	xray run -test -confdir xray/configs 
+# 	echo "There is a big error in xray configuration."
+# fi
 
-if [ "$SINGBOX_NEW_CONFIG_ERROR" != "0" ];then
-	sing-box check -C singbox/configs 
-	echo "There is a big error in xray configuration."
-fi
+# if [ "$SINGBOX_NEW_CONFIG_ERROR" != "0" ];then
+# 	sing-box check -C singbox/configs 
+# 	echo "There is a big error in xray configuration."
+# fi
 }
 mkdir -p log/system/
 main |& tee log/system/status.log

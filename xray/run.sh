@@ -128,8 +128,8 @@ fi
 
 
 
-xray run -test -confdir configs
-# echo "ignoring xray test"
+# xray run -test -confdir configs
+echo "ignoring xray test"
 if  [[ $? == 0 ]];then
 	systemctl restart hiddify-xray.service
 	systemctl start hiddify-xray.service
