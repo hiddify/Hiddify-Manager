@@ -8,7 +8,7 @@
         "detour": "direct"
       }
     ],
-    //"rules": [],
+    "rules": [],
     "final": "cloudflare",
     "strategy": "prefer_ipv4"
   }
