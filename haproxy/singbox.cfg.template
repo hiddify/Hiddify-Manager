@@ -1,7 +1,7 @@
 backend grpc_dispatcher
     mode http
-    server nginx unix@/opt/hiddify-config/nginx/run/h2.sock proto h2 send-proxy-v2
-    
+    server nginx unix@/opt/hiddify-config/nginx/run/grpc-singbox.sock proto h2 send-proxy-v2
+
 backend reality
     mode tcp
     server singbox 127.0.0.1:2001 send-proxy-v2
