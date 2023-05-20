@@ -33,7 +33,7 @@ server {
     listen unix:/opt/hiddify-config/nginx/run/nginx_cdn_dispatcher.sock;
     # server_name defaultserverhost;
     set_real_ip_from unix:;
-    real_ip_header "Hiddify-Real-IP";
+    real_ip_header "X-Real-IP";
     include /opt/GITHUB_REPOSITORY/nginx/parts/proxy_path.conf;   
     # Decoy website
     include /opt/GITHUB_REPOSITORY/nginx/parts/hiddify.conf;

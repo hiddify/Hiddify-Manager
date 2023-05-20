@@ -15,6 +15,9 @@ backend shadowtls
 
 
 
+backend grpc_dispatcher
+    mode http
+    server nginx unix@/opt/hiddify-config/nginx/run/grpc-singbox.sock proto h2 send-proxy-v2
 
 
 

@@ -135,18 +135,22 @@ frontend http-https-in
 
 
 
-    acl grpc_multi path_end TunMulti
+    # acl grpc_multi path_end TunMulti
     # acl grpc_multi path_end PATH_GRPC/TunMulti
-    use_backend nginx_dispatcher_h2 if grpc_multi 
+    # use_backend nginx_dispatcher_h2 if grpc_multi 
 
     acl is_grpc_req hdr(content-type) -i application/grpc
-    
+    use_backend grpc_dispatcher if is_grpc_req
     
 
-    acl vmessg path_beg /PATH_VMESSPATH_GRPC
-    acl vlessg path_beg /PATH_VLESSPATH_GRPC
-    acl v2rayg path_beg /PATH_SSPATH_GRPC
-    acl trojang path_beg /PATH_TROJANPATH_GRPC
+    # acl vmessg path_beg /PATH_VMESSPATH_GRPC
+    # acl vlessg path_beg /PATH_VLESSPATH_GRPC
+    # acl v2rayg path_beg /PATH_SSPATH_GRPC
+    # acl trojang path_beg /PATH_TROJANPATH_GRPC
+    # use_backend vmessg if vmessg
+    # use_backend vlessg if vlessg
+    # use_backend v2rayg if v2rayg
+    # use_backend trojang if trojang
 
      acl is_put_request method PUT
     
@@ -161,10 +165,7 @@ frontend http-https-in
     acl trojanw path_beg /PATH_TROJANPATH_WS
     
     
-    use_backend vmessg if vmessg
-    use_backend vlessg if vlessg
-    use_backend v2rayg if v2rayg
-    use_backend trojang if trojang
+    
 
     use_backend vmesst if vmesst is_put_request
     use_backend vmesst_get if vmesst 

@@ -1,7 +1,7 @@
 {
 	"inbounds": [
 		{
-			"tag": "h2-ss-grpc-new",
+			"tag": "h2-ss-grpc-proxy",
 			"listen": "@@v2ray-grpc-proxy", //Only listen on localhost
 			//"listen": "/opt/hiddify-config/xray/run/ssg.sock,666",
 			"protocol": "shadowsocks",
