@@ -175,7 +175,7 @@ When you want to share Telegram proxy or Shadowsocks proxy through other program
 
 <div align="center" width="40%">
  
- [![tutorial](https://raw.githubusercontent.com/hiddify/hiddify-config/main/docs/tutorials.webp)](https://github.com/hiddify/hiddify-config/wiki)
+ [![Tutorials](https://raw.githubusercontent.com/hiddify/hiddify-config/main/docs/tutorials.webp)](https://github.com/hiddify/hiddify-config/wiki)
  
  
  <!--
