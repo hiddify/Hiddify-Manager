@@ -145,8 +145,14 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 
 
 ## 安装和教程
-**请找到相关信息 [在 wiki 页面中](https://github.com/hiddify/hiddify-config/wiki)**
+**请单击下面的图片在我们的维基页面上找到相关信息。**
 
+<div align=center>
+ 
+  [![tutorial_cn](https://github.com/hiddify/hiddify-config/blob/main/docs/Tutorials_cn.webp)](https://github.com/hiddify/hiddify-config/wiki)
+
+ 
+ </div>
 
 ## 捐赠与支持
 支持我们的最简单方法是单击此页面顶部的星号 （⭐）。
