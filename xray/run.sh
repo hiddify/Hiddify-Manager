@@ -135,7 +135,7 @@ echo "ignoring xray test"
 if  [[ $? == 0 ]];then
 	systemctl restart hiddify-xray.service
 	systemctl start hiddify-xray.service
-	systemctl status hiddify-xray.service
+	systemctl status hiddify-xray.service --no-pager
 else
 	echo "Error in Xray Config!!!! do not reload xray service"
 	sleep 60
@@ -143,7 +143,7 @@ else
 	if  [[ $? == 0 ]];then
 		systemctl restart hiddify-xray.service
 		systemctl start hiddify-xray.service
-		systemctl status hiddify-xray.service
+		systemctl status hiddify-xray.service --no-pager
 	else
 		echo "Error in Xray Config!!!! do not reload xray service"
 		sleep 60

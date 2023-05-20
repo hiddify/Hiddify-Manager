@@ -128,7 +128,7 @@ if  [[ $? == 0 ]];then
 	#systemctl restart hiddify-singbox.service
     systemctl reload hiddify-singbox.service
 	systemctl start hiddify-singbox.service
-	systemctl status hiddify-singbox.service
+	systemctl status hiddify-singbox.service --no-pager
 else
 	echo "Error in singbox Config!!!! do not reload singbox service"
 	sleep 3
@@ -136,7 +136,7 @@ else
 	if  [[ $? == 0 ]];then
 		systemctl reload hiddify-singbox.service
         systemctl start hiddify-singbox.service
-        systemctl status hiddify-singbox.service
+        systemctl status hiddify-singbox.service --no-pager
 	else
 		echo "Error in singbox Config!!!! do not reload singbox service"
 	fi
