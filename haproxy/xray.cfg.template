@@ -21,22 +21,22 @@ backend shadowtls
 backend vmessg
   mode http
   timeout server 1h
-  server vmessg abns@vmess-grpc-new  alpn h2  send-proxy-v2
+  server vmessg abns@vmess-grpc-proxy  alpn h2  send-proxy-v2
 
 backend vlessg
   mode http
   timeout server 1h
-  server vlessg abns@vless-grpc-new   alpn h2  send-proxy-v2
+  server vlessg abns@vless-grpc-proxy   alpn h2  send-proxy-v2
 
 backend v2rayg
   mode http
   timeout server 1h
-  server v2rayg abns@v2ray-grpc-new  alpn h2  send-proxy-v2
+  server v2rayg abns@v2ray-grpc-proxy  alpn h2  send-proxy-v2
 
 backend trojang
   mode http
   timeout server 1h
-  server trojang abns@trojan-grpc-new  alpn h2  send-proxy-v2
+  server trojang abns@trojan-grpc-proxy  alpn h2  send-proxy-v2
 
 backend vmesst
   mode http

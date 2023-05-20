@@ -10,32 +10,15 @@
 			  "clients": [
 				{"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com","flow": "xtls-rprx-vision"}
 			  ],
-			  "fallbacks": [
-				{
-					"alpn": "h4",
-					"dest": "/opt/hiddify-config/xray/run/vlessg.sock",
-					"xver": 0
-				},
-				{
-					"alpn": "h3",
-					"dest": "/opt/hiddify-config/xray/run/vlessg.sock",
-					"xver": 0
-				},
-				{
-					"alpn": "h2",
-					"dest": "/opt/hiddify-config/xray/run/vlessg.sock",
-					"xver": 0
-				},
-				{
-				  "dest": "/opt/hiddify-config/xray/run/vlessg.sock",
-				  "xver": 0
-				}
-			  ]
+			  "fallbacks": []
 			},
 			"streamSettings": {
 			  "network": "grpc",
 			  "grpcSettings": {
 				"serviceName": "PATH_VLESSPATH_GRPC"
+			  },
+			  "tcpSettings": {
+				"acceptProxyProtocol": true 
 			  },
 			  "security": "reality", 
 			  "realitySettings": {
