@@ -11,7 +11,7 @@
 			"proxy_protocol":true,
 			"type": "vless",
 			"users": [
-				{"uuid": "defaultuserguidsecret", "name": "defaultuserguidsecret@hiddify.com","flow": "xtls-rprx-vision"}
+				{"uuid": "defaultuserguidsecret", "name": "defaultuserguidsecret@hiddify.com","flow": ""}
 			],
 			"transport": {
 				"type": "grpc",
