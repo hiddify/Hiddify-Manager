@@ -128,7 +128,7 @@ function set_config_from_hpanel(){
                         fi 
                         ;;
                 reality)
-                        if [ "$grpc" == "True" ];then
+                        if [ "$grpc" == "true" ];then
                                 REALITY_MULTI_GRPC="$domain:${servernames:-$domain};$REALITY_MULTI_GRPC"
                         else 
                                 REALITY_MULTI="$domain:${servernames:-$domain};$REALITY_MULTI"
