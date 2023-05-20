@@ -33,31 +33,37 @@ i=1
 for REALITY in $REALITY_DOMAINS;	do
   IFS=':' read -ra PARTS <<< "$REALITY"
   cp configs/05_inbounds_2061_reality_main.json configs/05_inbounds_2061_reality_$i.json
-  cp configs/05_inbounds_2071_realitygrpc_main.json configs/05_inbounds_2071_realitygrpc_$i.json
-
+  
   FALLBACK_DOMAIN="${PARTS[0]}"
   #SERVER_NAMES="${PARTS[1]}"
 #   SERVER_NAMES="${PARTS[1]//,/ }"  # Replace commas with spaces
   REALITY_SERVER_NAMES_XRAY=$(echo "${PARTS[1]}" | sed 's/,/\", \"/g; s/^/\"/; s/$/\"/')
-  
   REALITY_SERVER_NAME=$(echo "${PARTS[1]}" | cut -d ',' -f 1)
-
   sed -i "s|REALITY_SERVER_NAME|$REALITY_SERVER_NAME|g" configs/05_inbounds_2061_reality_$i.json
-  sed -i "s|REALITY_SERVER_NAME|$REALITY_SERVER_NAME|g" configs/05_inbounds_2071_realitygrpc_$i.json
-
   sed -i "s|REALITY_FALLBACK_DOMAIN|$FALLBACK_DOMAIN|g" configs/05_inbounds_2061_reality_$i.json
-  sed -i "s|REALITY_FALLBACK_DOMAIN|$FALLBACK_DOMAIN|g" configs/05_inbounds_2071_realitygrpc_$i.json
-
   sed -i "s|REALITY_SERVER_NAMES|$REALITY_SERVER_NAMES_XRAY|g" configs/05_inbounds_2061_reality_$i.json
-  sed -i "s|REALITY_SERVER_NAMES|$REALITY_SERVER_NAMES_XRAY|g" configs/05_inbounds_2071_realitygrpc_$i.json
-  
   sed -i "s|2061|206$i|g" configs/05_inbounds_2061_reality_$i.json
-  sed -i "s|2071|207$i|g" configs/05_inbounds_2071_realitygrpc_$i.json
-
   sed -i "s|realityin|realityin_$i|g" configs/05_inbounds_2061_reality_$i.json
-  sed -i "s|realityingrpc|realityingrpc_$i|g" configs/05_inbounds_2071_realitygrpc_$i.json
-  
 
+  i=$((i+1))
+done
+
+
+REALITY_DOMAINS=${REALITY_MULTI//;/ }
+i=1
+for REALITY in $REALITY_DOMAINS;	do
+  IFS=':' read -ra PARTS <<< "$REALITY"
+  cp configs/05_inbounds_2071_realitygrpc_main.json configs/05_inbounds_2071_realitygrpc_$i.json
+  FALLBACK_DOMAIN="${PARTS[0]}"
+  #SERVER_NAMES="${PARTS[1]}"
+#   SERVER_NAMES="${PARTS[1]//,/ }"  # Replace commas with spaces
+  REALITY_SERVER_NAMES_XRAY=$(echo "${PARTS[1]}" | sed 's/,/\", \"/g; s/^/\"/; s/$/\"/')
+  REALITY_SERVER_NAME=$(echo "${PARTS[1]}" | cut -d ',' -f 1)
+  sed -i "s|REALITY_SERVER_NAME|$REALITY_SERVER_NAME|g" configs/05_inbounds_2071_realitygrpc_$i.json
+  sed -i "s|REALITY_FALLBACK_DOMAIN|$FALLBACK_DOMAIN|g" configs/05_inbounds_2071_realitygrpc_$i.json
+  sed -i "s|REALITY_SERVER_NAMES|$REALITY_SERVER_NAMES_XRAY|g" configs/05_inbounds_2071_realitygrpc_$i.json
+  sed -i "s|2071|207$i|g" configs/05_inbounds_2071_realitygrpc_$i.json
+  sed -i "s|realityingrpc|realityingrpc_$i|g" configs/05_inbounds_2071_realitygrpc_$i.json
   i=$((i+1))
 done
 rm configs/05_inbounds_2061_reality_main.json
