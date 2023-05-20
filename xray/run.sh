@@ -116,15 +116,13 @@ fi
 
 
 
-rm configs/warp_conf.json
-
-warp_conf=$(cat ../other/warp/xray_warp_conf.json)
 
 if [ -n "$dns_server" ];then
 	sed -i "s|1.1.1.1|$dns_server|g"  configs/06_outbounds.json
 fi
 
-if [ -n "$warp_conf" ];then
+curl -s -x socks://127.0.0.1:3000 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
+if [ $WARP_MODE != 'disable' && "$?"  == "0" ];then
 	# warp_conf=$(echo "$warp_conf" | tr '\n' ' ')
 	# escaped_warp_conf=$(printf '%s\n' "$warp_conf" | sed -e 's/[\/&]/\\&/g')
 	# sed -i "s|\"outbounds\": \[|\"outbounds\": [$escaped_warp_conf,|g"  configs/06_outbounds.json
