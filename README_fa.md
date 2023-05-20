@@ -38,7 +38,7 @@
 ## به هیدیفای خوش آمدید
 هیدیفای یک ابزار قدرتمند و حرفه‌ای ضد سانسور اینترنت است که دارای پنل چند کاربره و نصب آسان است و به شما کمک می‌کند با **بیش از ۲۰ پروتکل پشتیبانی شده** شامل **ریالیتی** فیلترینگ اینترنت را دور بزنید همچنین می‌توانید از **پروکسی تلگرام** استفاده نمایید. این ابزار برای شبکه اینترنت **ایران** بهینه سازی شده است و توسط <a href="https://github.com/XTLS/Xray-core#installation" target="_blank">**Xray**</a> توصیه شده است. این پنل یک جایگزین عالی برای پنل X-UI می‌باشد.
 
-![Persian new 2](https://user-images.githubusercontent.com/125398461/234265877-56660d3c-6185-4948-b676-77f317834372.png)
+![Persian Demo](https://user-images.githubusercontent.com/125398461/234265877-56660d3c-6185-4948-b676-77f317834372.png)
 
 <!--
 ![Persian new](https://user-images.githubusercontent.com/125398461/234179101-0dec8ade-29f7-49a4-8a77-4ce1ead1e04f.png)
@@ -185,9 +185,13 @@ Ubuntu arm64 or amd64
 ## نصب پنل و آموزش
 **برای نصب پنل و مطالعه همه مطالب آموزشی در این رابطه، با کلیک روی تصویر زیر به صفحه ویکی پروژه مراجعه کنید.**
 <div align=center>
-  
-<a href="https://github.com/hiddify/hiddify-config/wiki/Home_fa"><img width="40%" src="https://github.com/hiddify/hiddify-config/assets/125398461/6ce5d04f-d324-4e9a-9b64-41f2176e20c7" /></a>
 
+ [![tutorial](https://github.com/hiddify/hiddify-config/blob/main/docs/Tutorials_fa.webp)](https://github.com/hiddify/hiddify-config/wiki/home_fa)
+ 
+<!--
+<a href="https://github.com/hiddify/hiddify-config/wiki/Home_fa"><img width="40%" src="https://github.com/hiddify/hiddify-config/assets/125398461/6ce5d04f-d324-4e9a-9b64-41f2176e20c7" /></a>
+-->
+  
   </div>
 
   
