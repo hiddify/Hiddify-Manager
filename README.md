@@ -119,7 +119,7 @@ And dozens of other features that you will notice after installation.
 
 </details>
 
-<details markdown="1"> <summary><h3>smart proxy for domestic and filtered sites</h3> (click here)</summary>
+<details markdown="1"> <summary><h3>Smart proxy for domestic and filtered sites</h3> (click here)</summary>
  
 You can connect to the internet in 3 modes using Hiddify(Clash) client and Hiddify panel. 
 1. This method only circumvents filtered websites via the proxies.
