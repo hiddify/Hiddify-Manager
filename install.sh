@@ -121,7 +121,7 @@ function set_config_from_hpanel(){
                 mode=$(get domains $i mode)
                 grpc=$(get domains $i grpc)
                 case $mode in
-                direct|cdn|worker|relay|auto_cdn_ip|old_xtls_direct,sub_link_only)
+                direct|cdn|worker|relay|auto_cdn_ip|old_xtls_direct|sub_link_only)
                         MAIN_DOMAIN="$domain;$MAIN_DOMAIN"
                         if [ "$mode" == "old_xtls_direct" ];then
                                 FORCE_XRAY_DOMAINS_MULTI="$domain:${servernames:-$domain};$FORCE_XRAY_DOMAINS_MULTI"
