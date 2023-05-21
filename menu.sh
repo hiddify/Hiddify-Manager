@@ -51,7 +51,7 @@ case $CHOICE in
         clear
         echo -e "\033[0m"
         if [[ $LOG != "" ]];then    
-            less  -P"Press q to exit" +G "log/system/$LOG"
+            less -r  -P"Press q to exit" +G "log/system/$LOG"
         fi
         NEED_KEY=0
     ;;
@@ -108,7 +108,7 @@ case $CHOICE in
         (cd hiddify-panel; python3 -m hiddifypanel admin-links)   
         ;;
     "status")
-        bash status.sh |less -P"Press q to exit" +G
+        bash status.sh |less -r -P"Press q to exit" +G
         NEED_KEY=0
         ;;
     *)
