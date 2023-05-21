@@ -95,7 +95,7 @@ Hiddify is a mixture of Hidden and Simplify. A panel with a wide range of featur
 - **DNS over HTTPS** (DoH)
 - User management using **Telegram Bot**
 
-And dozens of other features that you will notice after installation.
+And dozens of other features that you will notice upon installation.
 
 <details markdown="1"> <summary><h3>Supported protocols</h3> (click here)</summary> 
 
