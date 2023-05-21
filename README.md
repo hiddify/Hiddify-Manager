@@ -73,7 +73,7 @@ Hiddify is a powerful and professional anti-censorship toolbox, which is a multi
 
 ***
 ## Why Hiddify?
-Hiddify is a mixture of Hidden and Simplify. A feature-full panel with a wide range of capabilities that helps you enjoy surfing free internet with ease and peace Of mind. 
+Hiddify is a mixture of Hidden and Simplify. A panel with a wide range of features and capabilities that helps you enjoy surfing free internet with ease and peace of mind. 
 
 ### Attractive features
 - **Quick installation**
@@ -95,7 +95,7 @@ Hiddify is a mixture of Hidden and Simplify. A feature-full panel with a wide ra
 - **DNS over HTTPS** (DoH)
 - User management using **Telegram Bot**
 
-And dozens of other features that you will notice after installation.
+And dozens of other features that you will notice upon installation.
 
 <details markdown="1"> <summary><h3>Supported protocols</h3> (click here)</summary> 
 
@@ -119,7 +119,7 @@ And dozens of other features that you will notice after installation.
 
 </details>
 
-<details markdown="1"> <summary><h3>smart proxy for domestic and filtered sites</h3> (click here)</summary>
+<details markdown="1"> <summary><h3>Smart proxy for domestic and filtered sites</h3> (click here)</summary>
  
 You can connect to the internet in 3 modes using Hiddify(Clash) client and Hiddify panel. 
 1. This method only circumvents filtered websites via the proxies.
