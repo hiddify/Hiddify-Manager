@@ -22,7 +22,7 @@
         "security": "tls",
         "tlsSettings": {
           "certificates": [
-            {"ocspStapling": 3600, "certificateFile": "ssl.crt", "keyFile": "ssl.key"}
+            {"ocspStapling": 3600, "certificateFile": "ssl.crt", "keyFile": "ssl.crt.key"}
           ]
         }
       }

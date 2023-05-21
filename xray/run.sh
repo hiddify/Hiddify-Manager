@@ -76,7 +76,7 @@ rm configs/05_inbounds_02_realitygrpc_main.json
 
 #adding certs for all domains
 final=""
-TEMPLATE_LINE='{"ocspStapling": 3600, "certificateFile": "ssl.crt", "keyFile": "ssl.key"}'
+TEMPLATE_LINE='{"ocspStapling": 3600, "certificateFile": "ssl.crt", "keyFile": "ssl.crt.key"}'
 for DOMAIN in $DOMAINS;do
 	echo $DOMAIN
 	NEW_LINE=${TEMPLATE_LINE//ssl/"/opt/$GITHUB_REPOSITORY/ssl/$DOMAIN"}	

@@ -50,16 +50,16 @@ for DOMAIN in $DOMAINS;	do
 	#fi
 	./lib/acme.sh  --installcert  -d $DOMAIN  \
 			--fullchainpath $ssl_cert_path/$DOMAIN.crt \
-			--keypath $ssl_cert_path/$DOMAIN.key  \
+			--keypath $ssl_cert_path/$DOMAIN.crt.key  \
 			--reloadcmd  "echo success"
 
 	# if [[ $(dig +short -t a $DOMAIN.) ]];then
 	openssl x509 -in $ssl_cert_path/$DOMAIN.crt -text -noout
 	if [[ $? != 0 ]];then
 		rm $ssl_cert_path/$DOMAIN.key $ssl_cert_path/$DOMAIN.crt
-		openssl req -x509 -newkey rsa:2048 -keyout $ssl_cert_path/$DOMAIN.key -out $ssl_cert_path/$DOMAIN.crt -days 3650 -nodes -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=www.google.com"
+		openssl req -x509 -newkey rsa:2048 -keyout $ssl_cert_path/$DOMAIN.crt.key -out $ssl_cert_path/$DOMAIN.crt -days 3650 -nodes -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=www.google.com"
 	fi	
-	cp $ssl_cert_path/$DOMAIN.key $ssl_cert_path/$DOMAIN.crt.key
+	rm $ssl_cert_path/$DOMAIN.key 
 	# 	certbot certonly --standalone --http-01-port 80 --register-unsafely-without-email -d $DOMAIN --non-interactive --agree-tos --logs-dir $(pwd)/../log/system/
 	# fi
 	# if [[ -f /etc/letsencrypt/live/$DOMAIN/fullchain.pem && -f /etc/letsencrypt/live/$DOMAIN/privkey.pem ]];then
