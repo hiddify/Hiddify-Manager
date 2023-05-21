@@ -40,6 +40,7 @@ function main(){
         PANEL_UPDATE=1
     else 
         hiddify=`cd hiddify-panel;python3 -m hiddifypanel downgrade`
+        rm xray/configs/*
         CURRENT=`pip3 freeze |grep hiddifypanel|awk -F"==" '{ print $2 }'`
         LATEST=`lastversion hiddifypanel --at pip`
         echo "hiddify panel version current=$CURRENT latest=$LATEST"
