@@ -96,10 +96,11 @@ backend to_https_in_ssl
 
 frontend http-https-in
     mode http
-    bind *:80
-    bind abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h2,http/1.1
-    
-    
+    bind :80,:::80 v4v6
+    bind abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h2,http/1.1,h3
+    #bind quic4@abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h3    
+    # http-response set-header alt-svc "h3=\":443\";ma=900;"
+
     # acl singbox_domains req.ssl_sni -i SINGBOX_DOMAINS
     # acl xray_domains req.ssl_sni -i XRAY_DOMAINS
 
