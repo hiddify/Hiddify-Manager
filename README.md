@@ -77,6 +77,8 @@ Hiddify is a mixture of Hidden and Simplify. A feature-full panel with a wide ra
 
 ### Attractive features
 - **Quick installation**
+- Dual core **Xray** and **SingBox**
+- Only **SingBox** panel with **user management** feature
 - **Smart proxy** (Hiddify and Clash client)
 - **Automatic update**
 - **Automatic backup** (every 6 hours)
