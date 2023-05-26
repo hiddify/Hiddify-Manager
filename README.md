@@ -196,7 +196,7 @@ We need your collaboration in order to develop this project. If you are speciali
 
 * Media Production &nbsp;&nbsp;&nbsp;&nbsp;  
 * Python Developing &nbsp;&nbsp;&nbsp;&nbsp; ‌  
-* Kotlin Developing &nbsp;&nbsp;&nbsp;&nbsp; 
+* Flutter Developing &nbsp;&nbsp;&nbsp;&nbsp; 
 
 <div align=center>
 
