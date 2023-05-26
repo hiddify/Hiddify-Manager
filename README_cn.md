@@ -164,6 +164,7 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 它是一个具有广泛特性�
 
 * 媒体制作 &nbsp;&nbsp;&nbsp;&nbsp;  
 * Python 开发 &nbsp;&nbsp;&nbsp;&nbsp; ‌  
+* Kotlin 开发 &nbsp;&nbsp;&nbsp;&nbsp;
 * Flutter 开发 &nbsp;&nbsp;&nbsp;&nbsp; 
   
 <div align=center>
