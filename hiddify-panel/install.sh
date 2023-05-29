@@ -50,10 +50,10 @@ service cron reload
 
 ##### download videos
 
-if [[ $(find "GeoLite2-ASN.mmdb" -mtime +1) ]]; then
+if [[ -e "GeoLite2-ASN.mmdb" && $(find "GeoLite2-ASN.mmdb" -mtime +1) ]]; then
     wget -O GeoLite2-ASN.mmdb      https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb  
 fi
-if [[ $(find "GeoLite2-Country.mmdb" -mtime +1) ]]; then
+if [[ -e "GeoLite2-Country.mmdb" && $(find "GeoLite2-Country.mmdb" -mtime +1) ]]; then
     wget -O GeoLite2-Country.mmdb  https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb 
 fi
 
