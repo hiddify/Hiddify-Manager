@@ -106,7 +106,6 @@ frontend http-https-in
     # use_backend xray if xray_domains
     # use_backend to_https_in_ssl if singbox_domains
     acl h2 ssl_fc_alpn -i h2
-    acl h2 HTTP { ssl_fc_alpn -i h2 }
     acl is_cloudflare src -f /opt/hiddify-config/haproxy/cloudflare.lst
     acl is_arvan src -f /opt/hiddify-config/haproxy/arvan.lst
     acl is_cloudfront src -f /opt/hiddify-config/haproxy/cloudfront.lst
