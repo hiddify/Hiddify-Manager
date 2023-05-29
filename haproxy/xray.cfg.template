@@ -9,13 +9,8 @@ backend reality
 backend shadowtls
     server shadowtls 127.0.0.1:1003
 
-
-
-
 backend grpc_dispatcher
     server nginx unix@/opt/hiddify-config/nginx/run/h2.sock send-proxy-v2
-
-
 
 backend vmessg
   timeout server 1h
@@ -26,78 +21,68 @@ backend vlessg
   server vlessg abns@vless-grpc-proxy    send-proxy-v2
 
 backend v2rayg
-  
   timeout server 1h
   server v2rayg abns@v2ray-grpc-proxy  send-proxy-v2
 
 backend trojang
-  
   timeout server 1h
   server trojang abns@trojan-grpc-proxy  send-proxy-v2
 
 backend vmesst
-  
   server vmesst abns@vmess-tcp-new  send-proxy-v2
 
 backend vmesst_h2
-  
   server vmesst abns@vmess-tcp-new-h2  send-proxy-v2
 
 
 backend vmesst_get
-  
   server vmesst abns@vmess-tcp-new  send-proxy-v2
 
 backend vmesst_get_h2
-  
   server vmesst abns@vmess-tcp-new-h2  send-proxy-v2  
 
 
 backend vlesst
-  
   server vlesst abns@vless-tcp-new  send-proxy-v2
 
 backend vlesst_h2
-  
   server vlesst abns@vless-tcp-new-h2  send-proxy-v2
 
 backend v2rayt
-  
   server v2rayt abns@v2ray-tcp-new  send-proxy-v2
 
 backend v2rayt_h2
-  
   server v2rayt abns@v2ray-tcp-new-h2  send-proxy-v2
 
 backend trojant
-  
   server trojant abns@trojan-tcp-new  send-proxy-v2
 
 backend trojant_h2
-  
   server trojant abns@trojan-tcp-new-h2  send-proxy-v2  
 
 backend vmessw
-  
   server vmessw abns@vmess-ws-new  send-proxy-v2
 
-backend vmessw
-  
+backend vmessw_h2
   server vmessw abns@vmess-ws-new-h2  send-proxy-v2
 
 backend vlessw
-  
   server vlessw abns@vless-ws-new  send-proxy-v2
 
+backend vlessw_h2
+  server vlessw abns@vless-ws-new-h2  send-proxy-v2
+
 backend v2rayw
-  
   server v2rayw abns@v2ray-ws-new  send-proxy-v2
 
+backend v2rayw_h2
+  server v2rayw abns@v2ray-ws-new-h2  send-proxy-v2
+
 backend trojanw
-  
   server trojanw abns@trojan-ws-new send-proxy-v2
 
-
+backend trojanw_h2
+  server trojanw abns@trojan-ws-new-h2 send-proxy-v2
 
 
 
