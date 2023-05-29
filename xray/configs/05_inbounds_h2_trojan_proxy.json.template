@@ -1,8 +1,9 @@
 {
 	"inbounds": [
-		{
-			"tag":"trojan-ws-new",
-			"listen": "@@trojan-ws-new", //trojan+ws listener process
+				{
+			"tag":"h2-trojan-new",
+			"listen": "@@trojan-tcp-new-h2", //trojan+tcp listening process
+			//"listen": "/opt/hiddify-config/xray/run/trojant.sock,666",
 			"protocol": "trojan",
 			"settings": {
 			  "clients": [
@@ -10,17 +11,16 @@
 			  ]
 			},
 			"streamSettings": {
-			  "network": "ws",
+			  "network": "h2",
 			  "security": "none",
-			  "wsSettings": {
-				"acceptProxyProtocol": true, 
-				"path": "/PATH_TROJANPATH_WS" //Change to your own path
-			  }
+			   "httpSettings": {
+          			"path": "/PATH_TROJANPATH_TCP"
+        		}
 			},
 			"sniffing": {
 			  "enabled": true,
 			  "destOverride": ["http","tls", "quic"]
 			}
-		  }
-	  ]
+		  }	  
+	]
 }

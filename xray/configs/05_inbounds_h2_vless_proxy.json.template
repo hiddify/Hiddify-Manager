@@ -1,14 +1,15 @@
 {
 	"inbounds": [
 				{
-			"tag":"h2-trojan-new",
-			//"listen": "@@trojan-tcp-new", //trojan+tcp listening process
-			"listen": "/opt/hiddify-config/xray/run/trojant.sock,666",
-			"protocol": "trojan",
+			"tag": "h2-vless-new",
+			"listen": "@@vless-tcp-new-h2",
+			//"listen": "/opt/hiddify-config/xray/run/vlesst.sock,666",
+			"protocol": "vless",
 			"settings": {
 			  "clients": [
-				{"password": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com"}
-			  ]
+				{"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com"}
+			  ],
+			  "decryption": "none"
 			},
 			"streamSettings": {
 			  "network": "h2",
@@ -17,13 +18,14 @@
 				"acceptProxyProtocol": true
 				},
 			   "httpSettings": {
-          			"path": "/PATH_TROJANPATH_TCP"
+         		 "path": "/PATH_VLESSPATH_TCP"
         		}
+			  
 			},
 			"sniffing": {
 			  "enabled": true,
 			  "destOverride": ["http","tls", "quic"]
 			}
 		  }	  
-	]
+	  ]
 }

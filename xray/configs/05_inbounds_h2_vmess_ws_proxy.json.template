@@ -1,9 +1,9 @@
 {
 	"inbounds": [
 		{
-			"tag": "h2-vmess-new",
-			//"listen": "@@vmess-tcp-new-h2",
-			"listen": "/opt/hiddify-config/xray/run/vmesst.sock,666",
+			"tag":"h2-vmess-ws-new",
+			"listen": "@@vmess-ws-new-h2",
+			//"listen": "/opt/hiddify-config/xray/run/vmessw.sock,666",
 			"protocol": "vmess",
 			"settings": {
 			  "clients": [
@@ -11,17 +11,17 @@
 			  ]
 			},
 			"streamSettings": {
-			  "network": "h2",
+			  "network": "ws",
 			  "security": "none",
-			  "httpSettings": {
-          		"path": "/PATH_VMESSPATH_TCP"
-        	   }
-			  
+			  "wsSettings": {
+				"acceptProxyProtocol": true,
+				"path": "/PATH_VMESSPATH_WS"
+			  }
 			},
 			"sniffing": {
 			  "enabled": true,
 			  "destOverride": ["http","tls", "quic"]
 			}
-		  }
-	]
+		  }	  
+	  ]
 }

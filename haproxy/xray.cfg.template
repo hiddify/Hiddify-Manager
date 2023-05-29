@@ -1,82 +1,96 @@
     
 backend xray
-    mode tcp
     # server xray unix@/dev/shm/hiddify-xtls-main.sock
     server xray abns@xtlsin send-proxy-v2
 
 backend reality
-    mode tcp
     server xray abns@realityin send-proxy-v2
 
 backend shadowtls
-    mode tcp
     server shadowtls 127.0.0.1:1003
 
 
 
 
 backend grpc_dispatcher
-    mode http
     server nginx unix@/opt/hiddify-config/nginx/run/h2.sock proto h2 send-proxy-v2
 
 
 
 backend vmessg
-  mode http
   timeout server 1h
-  server vmessg abns@vmess-grpc-proxy  alpn h2  send-proxy-v2
+  server vmessg abns@vmess-grpc-proxy send-proxy-v2
 
 backend vlessg
-  mode http
   timeout server 1h
-  server vlessg abns@vless-grpc-proxy   alpn h2  send-proxy-v2
+  server vlessg abns@vless-grpc-proxy    send-proxy-v2
 
 backend v2rayg
-  mode http
+  
   timeout server 1h
-  server v2rayg abns@v2ray-grpc-proxy  alpn h2  send-proxy-v2
+  server v2rayg abns@v2ray-grpc-proxy  send-proxy-v2
 
 backend trojang
-  mode http
+  
   timeout server 1h
-  server trojang abns@trojan-grpc-proxy  alpn h2  send-proxy-v2
+  server trojang abns@trojan-grpc-proxy  send-proxy-v2
 
 backend vmesst
-  mode http
+  
   server vmesst abns@vmess-tcp-new  send-proxy-v2
+
+backend vmesst_h2
+  
+  server vmesst abns@vmess-tcp-new-h2  send-proxy-v2
 
 
 backend vmesst_get
-  mode http
+  
   server vmesst abns@vmess-tcp-new  send-proxy-v2
 
 
 backend vlesst
-  mode http
+  
   server vlesst abns@vless-tcp-new  send-proxy-v2
 
+backend vlesst_h2
+  
+  server vlesst abns@vless-tcp-new-h2  send-proxy-v2
+
 backend v2rayt
-  mode http
+  
   server v2rayt abns@v2ray-tcp-new  send-proxy-v2
 
+backend v2rayt_h2
+  
+  server v2rayt abns@v2ray-tcp-new-h2  send-proxy-v2
+
 backend trojant
-  mode http
+  
   server trojant abns@trojan-tcp-new  send-proxy-v2
 
+backend trojant_h2
+  
+  server trojant abns@trojan-tcp-new-h2  send-proxy-v2  
+
 backend vmessw
-  mode http
+  
   server vmessw abns@vmess-ws-new  send-proxy-v2
 
+backend vmessw
+  
+  server vmessw abns@vmess-ws-new-h2  send-proxy-v2
+
 backend vlessw
-  mode http
+  
   server vlessw abns@vless-ws-new  send-proxy-v2
 
 backend v2rayw
-  mode http
+  
   server v2rayw abns@v2ray-ws-new  send-proxy-v2
 
 backend trojanw
-  mode http
+  
   server trojanw abns@trojan-ws-new send-proxy-v2
 
 
@@ -93,7 +107,7 @@ backend trojanw
 
 # frontend http2-proxy
 #   bind 127.0.0.1:502 accept-proxy #H2C server monitor process and enable PROXY protocol reception
-#   mode http
+#   
 #   # grpc settings
 #   http-request set-header X-Real-IP %[src]
 

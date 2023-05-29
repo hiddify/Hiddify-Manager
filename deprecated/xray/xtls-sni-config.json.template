@@ -99,14 +99,14 @@
           {
             // if it was not a valid trojan reuqest, for example the trojan password was wrong, pass it to the NGINX HTTP2 cleartext UDS
             "dest": "501",
-            "xver": 2 //Enable PROXY protocol sending, and send the real source IP and port to Nginx. 1 or 2 indicates the PROXY protocol version. Consistent with the above, configuration 2 is recommended.
+            "xver": 2 
           }
         ]
       },
       "streamSettings": {
         "network": "tcp",
         "tcpSettings": {
-          //"acceptProxyProtocol": true //Enable PROXY protocol reception, receive the real source IP and port from nginx sni proxy.
+          //"acceptProxyProtocol": true 
         },
         "security": "xtls", //If XTLS Direct is enabled, tls must be changed to xtls; otherwise, tls will be restored.
         "xtlsSettings": {
@@ -204,7 +204,7 @@
         "network": "ws",
         "security": "none",
         "wsSettings": {
-          "acceptProxyProtocol": true, //Enable PROXY protocol reception, receive the real source IP and port
+          "acceptProxyProtocol": true, 
           "path": "/defaultusersecret/trojanws" //Change to your own path
         }
       },
@@ -230,7 +230,7 @@
           {
             // if it was not a valid trojan reuqest, for example the trojan password was wrong, pass it to the NGINX HTTP2 cleartext UDS
             "dest": "502",
-            "xver": 2 //Enable PROXY protocol sending, and send the real source IP and port to Nginx. 1 or 2 indicates the PROXY protocol version. Consistent with the above, configuration 2 is recommended.
+            "xver": 2 
           }
         ]
       },
@@ -238,7 +238,7 @@
         "network": "tcp",
         "security": "none",
         "tcpSettings": {
-          "acceptProxyProtocol": true //Enable PROXY protocol reception, receive the real source IP and port before vless+tcp+tls fallback.
+          "acceptProxyProtocol": true 
         }
       },
       "sniffing": {
@@ -261,7 +261,7 @@
         "network": "tcp",
         "security": "none",
         "tcpSettings": {
-          "acceptProxyProtocol": true, //Enable PROXY protocol reception, receive the real source IP and port before vless+tcp+tls fallback.
+          "acceptProxyProtocol": true, 
           "header": {
             "type": "http",
             "request": {
