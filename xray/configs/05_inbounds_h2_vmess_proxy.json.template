@@ -1,7 +1,7 @@
 {
 	"inbounds": [
 		{
-			"tag": "h2-vmess-new",
+			"tag": "h2-vmess-new-proxy",
 			"listen": "@@vmess-tcp-new-h2",
 			//"listen": "/opt/hiddify-config/xray/run/vmesst.sock,666",
 			"protocol": "vmess",

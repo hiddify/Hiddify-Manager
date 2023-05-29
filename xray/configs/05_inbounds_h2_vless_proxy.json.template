@@ -1,7 +1,7 @@
 {
 	"inbounds": [
 				{
-			"tag": "h2-vless-new",
+			"tag": "h2-vless-new-proxy",
 			"listen": "@@vless-tcp-new-h2",
 			//"listen": "/opt/hiddify-config/xray/run/vlesst.sock,666",
 			"protocol": "vless",
