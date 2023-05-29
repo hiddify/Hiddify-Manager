@@ -10,12 +10,13 @@ defaults
     timeout tunnel 1h
     default-server init-addr none
     default-server inter 15s fastinter 2s downinter 5s rise 3 fall 3
+    mode tcp
 
 ### standalone stats page
 listen stats
         # accessible at http://192.168.1.100/haproxy?stats
         bind 0.0.0.0:8181
-      	mode http
+      	
       	option httplog
       	stats enable
       	stats admin if TRUE
@@ -39,7 +40,6 @@ listen stats
 
 frontend https-in
     bind :443,:::443 v4v6
-    mode tcp
     option tcplog
     option dontlognull
     tcp-request inspect-delay 5s
@@ -87,15 +87,13 @@ frontend https-in
     
 
 backend to_https_in_ssl
-    mode tcp
     server haproxy abns@https_in_ssl send-proxy-v2
 
 # backend to_https_in_ssl
-#     mode tcp
-#     server xray abns@https_in_ssl send-proxy-v2
+# #     server xray abns@https_in_ssl send-proxy-v2
 
 frontend http-https-in
-    mode http
+    
     bind :80,:::80 v4v6
     bind abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h2,http/1.1,h3
     #bind quic4@abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h3    
@@ -103,18 +101,19 @@ frontend http-https-in
 
     # acl singbox_domains req.ssl_sni -i SINGBOX_DOMAINS
     # acl xray_domains req.ssl_sni -i XRAY_DOMAINS
-
+    tcp-request inspect-delay 5s
+    tcp-request content accept if HTTP
     # use_backend xray if xray_domains
     # use_backend to_https_in_ssl if singbox_domains
-
+    acl h2 ssl_fc_alpn -i h2
     acl is_cloudflare src -f /opt/hiddify-config/haproxy/cloudflare.lst
     acl is_arvan src -f /opt/hiddify-config/haproxy/arvan.lst
     acl is_cloudfront src -f /opt/hiddify-config/haproxy/cloudfront.lst
 
-    http-request set-header X-Real-IP %[req.hdr(CF-Connecting-IP)] if is_cloudflare
-    http-request set-header X-Real-IP %[req.hdr(X-Forward-For)] if is_cloudfront
-    http-request set-header X-Real-IP %[req.hdr(X-Forward-For)] if is_arvan
-    http-request set-header X-Real-IP %[src] if !is_cloudflare !is_arvan !is_cloudfront
+    # http-request set-header X-Real-IP %[req.hdr(CF-Connecting-IP)] if is_cloudflare
+    # http-request set-header X-Real-IP %[req.hdr(X-Forward-For)] if is_cloudfront
+    # http-request set-header X-Real-IP %[req.hdr(X-Forward-For)] if is_arvan
+    # http-request set-header X-Real-IP %[src] if !is_cloudflare !is_arvan !is_cloudfront
 
     #reality_http_configs
 
@@ -166,6 +165,11 @@ frontend http-https-in
     acl trojanw path_beg /PATH_TROJANPATH_WS
     
     
+    use_backend vmesst_h2 if vmesst is_put_request h2
+    use_backend vmesst_get_h2 if vmesst h2
+    use_backend vlesst_h2 if vlesst h2
+    use_backend v2rayt_h2 if v2rayt h2
+    use_backend trojant_h2 if trojant h2
     
 
     use_backend vmesst if vmesst is_put_request
@@ -173,6 +177,12 @@ frontend http-https-in
     use_backend vlesst if vlesst
     use_backend v2rayt if v2rayt
     use_backend trojant if trojant
+
+
+    use_backend vmessw_h2 if vmessw h2
+    use_backend vlessw_h2 if vlessw h2
+    use_backend v2rayw_h2 if v2rayw h2
+    use_backend trojanw_h2 if trojanw h2
 
     use_backend vmessw if vmessw
     use_backend vlessw if vlessw
@@ -186,20 +196,20 @@ frontend http-https-in
 
 
 
-    acl speak_alpn_h2 ssl_fc_alpn -i h2
-    use_backend nginx_dispatcher_h2 if speak_alpn_h2
+    
+    use_backend nginx_dispatcher_h2 if h2
 
 # acl speak_alpn_h2 ssl_fc_alpn -i h2
     # use_backend nginx_dispatcher_h2 if speak_alpn_h2
 
-    default_backend nginx_dispatcher_h2
+    default_backend nginx_dispatcher
     
 backend nginx_dispatcher_h2
-    mode http
-    server nginx unix@/opt/hiddify-config/nginx/run/h2.sock proto h2 send-proxy-v2
+    
+    server nginx unix@/opt/hiddify-config/nginx/run/h2.sock send-proxy-v2
 
 backend nginx_dispatcher
-    mode http
+    
     server nginx unix@/opt/hiddify-config/nginx/run/h1.sock send-proxy-v2
 
 
@@ -212,27 +222,23 @@ backend nginx_dispatcher
 
 
 backend decoy
-    mode tcp
     server xraydecoy abns@xtlsindecoy send-proxy-v2
 
 backend tgdecoy
-    mode tcp
     server tgdecoy TELEGRAM_FAKE_TLS_DOMAIN
 
 backend tgdecoy_http
-    mode http
+    
     server tgdecoy_http TELEGRAM_FAKE_TLS_DOMAIN
 
 backend telegram
-    mode tcp
     server telegram 127.0.0.1:1001
 
 backend ssdecoy_http
-    mode http
+    
     server ssdecoy sstlsdomain
 
 backend ssfake
-    mode tcp
     server ssfake 127.0.0.1:1002
 
 
@@ -253,11 +259,10 @@ backend ssfake
 
 
 backend shadowtls_decoy_http
-    mode http
+    
     server shadowtls_decoy_http shadowtlsdomain
 
 backend shadowtls_decoy
-    mode tcp
     server shadowtls_decoy shadowtlsdomain
 
 
@@ -269,7 +274,6 @@ backend shadowtls_decoy
 
 
 backend xray_force
-    mode tcp
     # server xray unix@/dev/shm/hiddify-xtls-main.sock
     server xray abns@xtlsin send-proxy-v2
 

@@ -13,7 +13,7 @@ backend shadowtls
 
 
 backend grpc_dispatcher
-    server nginx unix@/opt/hiddify-config/nginx/run/h2.sock proto h2 send-proxy-v2
+    server nginx unix@/opt/hiddify-config/nginx/run/h2.sock send-proxy-v2
 
 
 
@@ -47,6 +47,10 @@ backend vmesst_h2
 backend vmesst_get
   
   server vmesst abns@vmess-tcp-new  send-proxy-v2
+
+backend vmesst_get_h2
+  
+  server vmesst abns@vmess-tcp-new-h2  send-proxy-v2  
 
 
 backend vlesst
