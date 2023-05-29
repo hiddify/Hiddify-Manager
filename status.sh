@@ -20,7 +20,7 @@ if [ -f "other/warp/xray_warp_conf.json" ];then
 	# curl -s -x socks://127.0.0.1:1234 --connect-timeout 4 www.ipinfo.io
 
 	echo "Your Global IP"
-	curl -s -x socks://127.0.0.1:1234 --connect-timeout 4 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
+	curl -s -x socks://127.0.0.1:1234 --connect-timeout 1 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
 fi
 
 
