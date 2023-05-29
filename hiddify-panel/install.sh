@@ -1,4 +1,3 @@
-
 systemctl kill hiddify-admin.service  > /dev/null 2>&1
 systemctl disable hiddify-admin.service > /dev/null 2>&1
 # apt install -y python3-dev

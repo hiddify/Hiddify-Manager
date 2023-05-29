@@ -11,10 +11,10 @@ apt-get install -y nginx
 #  certbot python3-certbot-nginx python3-pip
 # pip3 install pip pyopenssl --upgrade
 
-systemctl kill nginx
-systemctl disable nginx
-systemctl kill apache2
-systemctl disable apache2
+systemctl kill nginx > /dev/null 2>&1
+systemctl disable nginx > /dev/null 2>&1
+systemctl kill apache2 > /dev/null 2>&1
+systemctl disable apache2 > /dev/null 2>&1
 # pkill -9 nginx
 
 rm /etc/nginx/conf.d/web.conf

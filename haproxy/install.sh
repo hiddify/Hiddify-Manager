@@ -1,12 +1,12 @@
-systemctl kill hiddify-sniproxy
-systemctl stop hiddify-sniproxy
-systemctl disable hiddify-sniproxy
+systemctl kill hiddify-sniproxy > /dev/null 2>&1
+systemctl stop hiddify-sniproxy > /dev/null 2>&1
+systemctl disable hiddify-sniproxy > /dev/null 2>&1
 
-systemctl kill haproxy
-systemctl stop haproxy
-systemctl disable haproxy
-pkill -9 haproxy
-pkill -9 sniproxy
+systemctl kill haproxy > /dev/null 2>&1
+systemctl stop haproxy > /dev/null 2>&1
+systemctl disable haproxy > /dev/null 2>&1
+# pkill -9 haproxy
+pkill -9 sniproxy > /dev/null 2>&1
 
 add-apt-repository ppa:vbernat/haproxy-2.7 -y
 apt update
