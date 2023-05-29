@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v10.0.8 (2023-05-29)
+
+### Fix
+
+* Update remove configs. [hiddify]
+
+
 ## v10.0.7 (2023-05-29)
 
 ### Fix
