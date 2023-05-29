@@ -85,9 +85,9 @@ systemctl restart systemd-resolved
 
 
 
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/install.sh > /etc/sudoers.d/hiddify"
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/status.sh >> /etc/sudoers.d/hiddify"
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/update.sh >> /etc/sudoers.d/hiddify"
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/apply_configs.sh >> /etc/sudoers.d/hiddify"
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/hiddify-panel/temporary_access.sh >> /etc/sudoers.d/hiddify"
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/hiddify-panel/update_usage.sh >> /etc/sudoers.d/hiddify"
+echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/install.sh" > /etc/sudoers.d/hiddify
+echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/status.sh" >> /etc/sudoers.d/hiddify
+echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/update.sh" >> /etc/sudoers.d/hiddify
+echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/apply_configs.sh" >> /etc/sudoers.d/hiddify
+echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/hiddify-panel/temporary_access.sh" >> /etc/sudoers.d/hiddify
+echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/hiddify-panel/update_usage.sh" >> /etc/sudoers.d/hiddify
