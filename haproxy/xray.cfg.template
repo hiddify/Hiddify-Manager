@@ -1,88 +1,88 @@
     
 backend xray
     # server xray unix@/dev/shm/hiddify-xtls-main.sock
-    server xray abns@xtlsin send-proxy-v2
+    server xray abns@xtlsin send-proxy-v2 tfo 
 
 backend reality
-    server xray abns@realityin send-proxy-v2
+    server xray abns@realityin send-proxy-v2 tfo 
 
 backend shadowtls
-    server shadowtls 127.0.0.1:1003
+    server shadowtls 127.0.0.1:1003 tfo 
 
 backend grpc_dispatcher
-    server nginx unix@/opt/hiddify-config/nginx/run/h2.sock send-proxy-v2
+    server nginx unix@/opt/hiddify-config/nginx/run/h2.sock send-proxy-v2 tfo 
 
 backend vmessg
   timeout server 1h
-  server vmessg abns@vmess-grpc-proxy send-proxy-v2
+  server vmessg abns@vmess-grpc-proxy send-proxy-v2 tfo 
 
 backend vlessg
   timeout server 1h
-  server vlessg abns@vless-grpc-proxy    send-proxy-v2
+  server vlessg abns@vless-grpc-proxy    send-proxy-v2 tfo 
 
 backend v2rayg
   timeout server 1h
-  server v2rayg abns@v2ray-grpc-proxy  send-proxy-v2
+  server v2rayg abns@v2ray-grpc-proxy  send-proxy-v2 tfo 
 
 backend trojang
   timeout server 1h
-  server trojang abns@trojan-grpc-proxy  send-proxy-v2
+  server trojang abns@trojan-grpc-proxy  send-proxy-v2 tfo 
 
 backend vmesst
-  server vmesst abns@vmess-tcp-new  send-proxy-v2
+  server vmesst abns@vmess-tcp-new  send-proxy-v2 tfo 
 
 backend vmesst_h2
-  server vmesst abns@vmess-tcp-new-h2  send-proxy-v2
+  server vmesst abns@vmess-tcp-new-h2  send-proxy-v2 tfo 
 
 
 backend vmesst_get
-  server vmesst abns@vmess-tcp-new  send-proxy-v2
+  server vmesst abns@vmess-tcp-new  send-proxy-v2 tfo 
 
 backend vmesst_get_h2
-  server vmesst abns@vmess-tcp-new-h2  send-proxy-v2  
+  server vmesst abns@vmess-tcp-new-h2  send-proxy-v2 tfo   
 
 
 backend vlesst
-  server vlesst abns@vless-tcp-new  send-proxy-v2
+  server vlesst abns@vless-tcp-new  send-proxy-v2 tfo 
 
 backend vlesst_h2
-  server vlesst abns@vless-tcp-new-h2  send-proxy-v2
+  server vlesst abns@vless-tcp-new-h2  send-proxy-v2 tfo 
 
 backend v2rayt
-  server v2rayt abns@v2ray-tcp-new  send-proxy-v2
+  server v2rayt abns@v2ray-tcp-new  send-proxy-v2 tfo 
 
 backend v2rayt_h2
-  server v2rayt abns@v2ray-tcp-new-h2  send-proxy-v2
+  server v2rayt abns@v2ray-tcp-new-h2  send-proxy-v2 tfo 
 
 backend trojant
-  server trojant abns@trojan-tcp-new  send-proxy-v2
+  server trojant abns@trojan-tcp-new  send-proxy-v2 tfo 
 
 backend trojant_h2
-  server trojant abns@trojan-tcp-new-h2  send-proxy-v2  
+  server trojant abns@trojan-tcp-new-h2  send-proxy-v2 tfo   
 
 backend vmessw
-  server vmessw abns@vmess-ws-new  send-proxy-v2
+  server vmessw abns@vmess-ws-new  send-proxy-v2 tfo 
 
 backend vmessw_h2
-  server vmessw abns@vmess-ws-new-h2  send-proxy-v2
+  server vmessw abns@vmess-ws-new-h2  send-proxy-v2 tfo 
 
 backend vlessw
-  server vlessw abns@vless-ws-new  send-proxy-v2
+  server vlessw abns@vless-ws-new  send-proxy-v2 tfo 
 
 backend vlessw_h2
-  server vlessw abns@vless-ws-new-h2  send-proxy-v2
+  server vlessw abns@vless-ws-new-h2  send-proxy-v2 tfo 
 
 backend v2rayw
-  server v2rayw abns@v2ray-ws-new  send-proxy-v2
+  server v2rayw abns@v2ray-ws-new  send-proxy-v2 tfo 
 
 backend v2rayw_h2
-  server v2rayw abns@v2ray-ws-new-h2  send-proxy-v2
+  server v2rayw abns@v2ray-ws-new-h2  send-proxy-v2 tfo 
 
 backend trojanw
-  server trojanw abns@trojan-ws-new send-proxy-v2
+  server trojanw abns@trojan-ws-new send-proxy-v2 tfo 
 
 backend trojanw_h2
-  server trojanw abns@trojan-ws-new-h2 send-proxy-v2
+  server trojanw abns@trojan-ws-new-h2 send-proxy-v2 tfo 
 
 
 

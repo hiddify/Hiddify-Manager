@@ -87,7 +87,7 @@ frontend https-in
     
 
 backend to_https_in_ssl
-    server haproxy abns@https_in_ssl send-proxy-v2
+    server haproxy abns@https_in_ssl send-proxy-v2 tfo
 
 # backend to_https_in_ssl
 # #     server xray abns@https_in_ssl send-proxy-v2
@@ -95,7 +95,7 @@ backend to_https_in_ssl
 frontend http-https-in
     
     bind :80,:::80 v4v6 tfo 
-    bind abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h2,http/1.1,h3
+    bind abns@https_in_ssl tfo accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h2,http/1.1,h3
     #bind quic4@abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h3    
     # http-response set-header alt-svc "h3=\":443\";ma=900;"
 
@@ -205,10 +205,10 @@ frontend http-https-in
     default_backend nginx_dispatcher
     
 backend nginx_dispatcher_h2
-    server nginx unix@/opt/hiddify-config/nginx/run/h2.sock send-proxy-v2
+    server nginx unix@/opt/hiddify-config/nginx/run/h2.sock send-proxy-v2 tfo
 
 backend nginx_dispatcher
-    server nginx unix@/opt/hiddify-config/nginx/run/h1.sock send-proxy-v2
+    server nginx unix@/opt/hiddify-config/nginx/run/h1.sock send-proxy-v2 tfo
 
 
 
