@@ -73,7 +73,7 @@ Hiddify is a powerful and professional anti-censorship toolbox, which is a multi
 
 ***
 ## Why Hiddify?
-Hiddify is a mixture of Hidden and Simplify. A panel with a wide range of features and capabilities that helps you enjoy surfing free internet with ease and peace of mind. 
+Hiddify is a mixture of Hidden and Simplify. It is a panel with a wide range of features and capabilities that helps you enjoy hassle-free and secure internet browsing. Serving as a user-friendly VPN solution, Hiddify ensures that you can access the free internet with ease and peace of mind. 
 
 ### Attractive features
 - **Quick installation**
@@ -195,8 +195,9 @@ We also need financial support for our services. All of our activities are done 
 We need your collaboration in order to develop this project. If you are specialists in these areas, please do not hesitate to contact us.
 
 * Media Production &nbsp;&nbsp;&nbsp;&nbsp;  
-* Python Developing &nbsp;&nbsp;&nbsp;&nbsp; ‌  
-* Kotlin Developing &nbsp;&nbsp;&nbsp;&nbsp; 
+* Python Developing &nbsp;&nbsp;&nbsp;&nbsp; ‌
+* Kotlin Developing  
+* Flutter Developing &nbsp;&nbsp;&nbsp;&nbsp; 
 
 <div align=center>
 

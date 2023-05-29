@@ -61,7 +61,7 @@ Hiddify 是一个强大而专业的反审查工具箱，它是一个多用户面
 
 
 ## 为什么 Hiddify？
-Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多种功能，可帮助您轻松、安心地享受免费上网冲浪。
+Hiddify 是 Hidden 和 Simplify 的混合体。 它是一个具有广泛特性和功能的面板，可帮助您享受无忧且安全的互联网浏览。 作为用户友好的 VPN 解决方案，Hiddify 确保您可以轻松、安心地访问免费互联网。
 
 ### 吸引人的特点
 - **快速安装**
@@ -164,7 +164,8 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 功能齐全的面板具有多�
 
 * 媒体制作 &nbsp;&nbsp;&nbsp;&nbsp;  
 * Python 开发 &nbsp;&nbsp;&nbsp;&nbsp; ‌  
-* Kotlin 开发 &nbsp;&nbsp;&nbsp;&nbsp; 
+* Kotlin 开发 &nbsp;&nbsp;&nbsp;&nbsp;
+* Flutter 开发 &nbsp;&nbsp;&nbsp;&nbsp; 
   
 <div align=center>
 

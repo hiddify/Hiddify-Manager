@@ -11,13 +11,7 @@ packages:
 
 runcmd:
   - cd /opt
-  - git clone https://github.com/hiddify/hiddify-config/
-  - cd hiddify-config
-  - echo "ADMIN_SECRET=${guid}" >config.env
-  - echo "MAIN_DOMAIN=${domain}" >>config.env
-  - echo "TELEGRAM_AD_TAG=${telegram_adtag}" >>config.env
-  - bash install.sh
-  - DO_NOT_INSTALL=true bash install.sh
+  - bash -c "$(curl -Lfo- https://raw.githubusercontent.com/hiddify/hiddify-config/main/common/download_install.sh)"
 
 final_message: "The system is finally up, after $UPTIME seconds"
 output: { all: "| tee -a /root/cloud-init-output.log" }
