@@ -106,10 +106,10 @@ done
 
 
 
-if [ "$core_type" == "xray" ];then
-  rm singbox.cfg
-elif [ "$core_type" == "singbox" ];then
+if [ "$core_type" == "singbox" ];then
   rm xray.cfg
+else
+  rm singbox.cfg
 fi
 
 
