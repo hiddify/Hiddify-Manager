@@ -1,6 +1,15 @@
 # Changelog
 
 
+## v10.0.9 (2023-05-29)
+
+### Fix
+
+* Locale problem. [hiddify]
+
+* Checking ipv6. [hiddify]
+
+
 ## v10.0.8 (2023-05-29)
 
 ### Fix
