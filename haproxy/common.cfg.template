@@ -3,6 +3,8 @@ global
 
 defaults
     log global
+    retry-on all-retryable-errors
+
     timeout connect 5s
     timeout client 50s
     timeout client-fin 50s
@@ -40,8 +42,8 @@ listen stats
 
 frontend https-in
     bind :443,:::443 v4v6 tfo 
-    option tcplog
-    option dontlognull
+    # option tcplog
+    # option dontlognull
     tcp-request inspect-delay 5s
     tcp-request content accept if { req.ssl_hello_type 1 }
     acl tls1_2 req.ssl_ver 3.3
