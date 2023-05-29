@@ -4,7 +4,7 @@
         {
         "tag": "cloudflare",
         "address": "1.1.1.1",
-        "strategy": "prefer_ipv4",
+        "strategy": "ipv4_only",
         "detour": "direct"
       }
     ],
