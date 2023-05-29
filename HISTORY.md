@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v10.0.4 (2023-05-29)
+
+### Fix
+
+* Downgrade. [hiddify]
+
+
 ## v10.0.3 (2023-05-29)
 
 ### Fix
