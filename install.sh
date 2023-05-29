@@ -124,7 +124,7 @@ function set_config_from_hpanel(){
                 direct|cdn|worker|relay|auto_cdn_ip|old_xtls_direct|sub_link_only)
                         MAIN_DOMAIN="$domain;$MAIN_DOMAIN"
                         if [ "$mode" == "old_xtls_direct" ];then
-                                FORCE_XRAY_DOMAINS_MULTI="$domain:${servernames:-$domain};$FORCE_XRAY_DOMAINS_MULTI"
+                                FORCE_XRAY_DOMAINS_MULTI="$domain;$FORCE_XRAY_DOMAINS_MULTI"
                         fi 
                         ;;
                 reality)
