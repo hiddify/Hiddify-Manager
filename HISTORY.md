@@ -1,6 +1,321 @@
 # Changelog
 
 
+## v10.0.0 (2023-05-29)
+
+### New
+
+* Make hiddify with hiddify-panel user. [hiddify]
+
+* Only ipv4 for singbox. [hiddify]
+
+* Disable logs on haproxy. [hiddify]
+
+* Enable tfo. [hiddify]
+
+* Add support for singbox. [hiddify]
+
+* Add h2 pure. [hiddify]
+
+* Update xray protocols. [hiddify]
+
+* Add python dev in the req. [hiddify]
+
+* Update reality time difference to 2h. [hiddify]
+
+* Add warp status. [hiddify]
+
+* Update haproxy to 2.7.0. [hiddify]
+
+* Update haproxy to version 2.4. [hiddify]
+
+* Fix: pager. [hiddify]
+
+* Add singbox update. [hiddify]
+
+* Add old-xtls-domains. [hiddify]
+
+* Remove singbox and xray test due to the memory issues. [hiddify]
+
+* Add reality grpc. [hiddify]
+
+* Add grpc singbox reality. [hiddify]
+
+* Fix warp singbox. [hiddify]
+
+* Singbox vmess 2039 get. [hiddify]
+
+* Add tests, add warp change ip,fix bugs. [hiddify]
+
+* Fix bugs. [hiddify]
+
+* Update warp to singbox. [hiddify]
+
+* Add check to haproxy. [hiddify]
+
+* Add delay for restart service automatically. [hiddify]
+
+* Add socks in for singbox. [hiddify]
+
+* Add downgrade. [hiddify]
+
+* Singbox checker. [hiddify]
+
+* Add multi domain reality support. better haproxy. [hiddify]
+
+* Add singbox to install. [hiddify]
+
+* Add singbox core. [hiddify]
+
+* Update warp list. [hiddify]
+
+### Changes
+
+* Port of singbox reality to 2061. [hiddify]
+
+* Test to template. [hiddify]
+
+### Fix
+
+* Forced old xray domains. [hiddify]
+
+* It. [hiddify]
+
+* Force xray domains. [hiddify]
+
+* Warp bug. [hiddify]
+
+* Disable ipv6 if the server do not work with it. [hiddify]
+
+* Warp. [hiddify]
+
+* Typo. [hiddify]
+
+* Typo. [hiddify]
+
+* Vmess. [hiddify]
+
+* Typo. [hiddify]
+
+* Sublink only domains. [hiddify]
+
+* Sublink domains. [hiddify]
+
+* Xray error. [hiddify]
+
+* Port 80 ipv6. [hiddify]
+
+* Update. [hiddify]
+
+* Cert issue. [hiddify]
+
+* Color in menu. [hiddify]
+
+* Grpc and domain. [hiddify]
+
+* Grpc. [hiddify]
+
+* Grpcrelity. [hiddify]
+
+* Grpc singbox. [hiddify]
+
+* Reality grpc. [hiddify]
+
+* Grpc issue. [hiddify]
+
+* Grpc. [hiddify]
+
+* Grpc. [hiddify]
+
+* Bug. [hiddify]
+
+* Singbox grpc. [hiddify]
+
+* Singbox. [hiddify]
+
+* Vmess. [hiddify]
+
+* Bug. [hiddify]
+
+* Reality bug. [hiddify]
+
+* Xray realiyt. [hiddify]
+
+* Bugs. [hiddify]
+
+* Test singbox. [hiddify]
+
+* Grpc. [hiddify]
+
+* Warp. [hiddify]
+
+* Haproxy. [hiddify]
+
+* Singbox. [hiddify]
+
+* Warp. [hiddify]
+
+* Typo. [hiddify]
+
+### Other
+
+* Enable tcp fast open. [hiddify]
+
+* Merge pull request #1037 from HoMa431/main. [Hiddify]
+
+  Update run.sh
+
+* Update run.sh. [HoMa431]
+
+  change firewall setting & adding ipv6 support
+
+* Fix all protocols. [hiddify]
+
+* Hidden errors. [hiddify]
+
+* Only download geolite database once a day. [hiddify]
+
+* Add timeout. [hiddify]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README_cn.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_cn.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update cloud-config.template.yaml. [Hiddify]
+
+* Update README_cn.md. [TheTraxex]
+
+* Update README_fa.md. [TheTraxex]
+
+* Update README_fa.md. [TheTraxex]
+
+* Update README.md. [TheTraxex]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [TheTraxex]
+
+* Update README.md. [TheTraxex]
+
+* Update README.md. [TheTraxex]
+
+* Update README.md. [TheTraxex]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Warp mode checker in xray. [hiddify]
+
+* Remove geosite. [hiddify]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Delete tutorials.webp. [lymanjre]
+
+* Force our sing-box. [hiddify]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [lymanjre]
+
+* Add files via upload. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_cn.md. [lymanjre]
+
+* Update README_cn.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Add files via upload. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Add files via upload. [lymanjre]
+
+* Ygrpc. [hiddify]
+
+* Fix reality grpc. [hiddify]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Merge pull request #1070 from WorldEndSukaSuka/main. [Hiddify]
+
+  FIX Chinese README
+
+* Update README_cn.md. [末日时在做什么？有没有空？可以来拯救吗？]
+
+* Update README_cn.md. [末日时在做什么？有没有空？可以来拯救吗？]
+
+* Update README_cn.md. [末日时在做什么？有没有空？可以来拯救吗？]
+
+* Update README_cn.md. [末日时在做什么？有没有空？可以来拯救吗？]
+
+* Update README_cn.md. [末日时在做什么？有没有空？可以来拯救吗？]
+
+* Update README_cn.md. [末日时在做什么？有没有空？可以来拯救吗？]
+
+* Update README_fa.md. [末日时在做什么？有没有空？可以来拯救吗？]
+
+* Update README.md. [末日时在做什么？有没有空？可以来拯救吗？]
+
+* Update README_cn.md. [末日时在做什么？有没有空？可以来拯救吗？]
+
+* Update README_cn.md. [末日时在做什么？有没有空？可以来拯救吗？]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [Hiddify]
+
+* Add files via upload. [Hiddify]
+
+* Update run.sh. [Hiddify]
+
+* Fix. [hiddify]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [lymanjre]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [lymanjre]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [TheTraxex]
+
+* Update README_cn.md. [lymanjre]
+
+* Update README_cn.md. [lymanjre]
+
+
 ## v9.4.3 (2023-05-06)
 
 ### New
