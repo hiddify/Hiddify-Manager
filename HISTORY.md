@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v10.0.6 (2023-05-29)
+
+### Fix
+
+* Warp in no ipv6. [hiddify]
+
+
 ## v10.0.5 (2023-05-29)
 
 ### Other
