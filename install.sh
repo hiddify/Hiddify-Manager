@@ -168,11 +168,11 @@ function set_config_from_hpanel(){
 }
 function check_req(){
         
-   for req in hexdump dig curl git;do
+   for req in hexdump dig curl git python3;do
         which $req
         if [[ "$?" != 0 ]];then
                 apt update
-                apt install -y dnsutils bsdmainutils curl git
+                apt install -y dnsutils bsdmainutils curl git python3-dev
                 break
         fi
    done
