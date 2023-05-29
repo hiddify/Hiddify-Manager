@@ -39,7 +39,7 @@ listen stats
 
 
 frontend https-in
-    bind :443,:::443 v4v6
+    bind :443,:::443 v4v6 tfo 
     option tcplog
     option dontlognull
     tcp-request inspect-delay 5s
@@ -94,7 +94,7 @@ backend to_https_in_ssl
 
 frontend http-https-in
     
-    bind :80,:::80 v4v6
+    bind :80,:::80 v4v6 tfo 
     bind abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h2,http/1.1,h3
     #bind quic4@abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h3    
     # http-response set-header alt-svc "h3=\":443\";ma=900;"
