@@ -1,6 +1,21 @@
 # Changelog
 
 
+## v10.0.1 (2023-05-29)
+
+### Fix
+
+* Bugs. [hiddify]
+
+* Bugs. [hiddify]
+
+* Geolite. [hiddify]
+
+### Other
+
+* Fix sudo. [hiddify]
+
+
 ## v10.0.0 (2023-05-29)
 
 ### New
