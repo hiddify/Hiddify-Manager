@@ -5,7 +5,7 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-User=root
+User=hiddify-panel
 WorkingDirectory=/opt/hiddify-config/hiddify-panel/
 Environment="LANG=C.UTF-8"
 ExecStartPre=/bin/bash -c "/bin/kill -INT $(/usr/bin/pgrep -f 'hiddifypanel')||echo 'nothing to kill'"

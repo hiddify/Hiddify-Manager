@@ -1,5 +1,8 @@
 systemctl kill hiddify-admin.service  > /dev/null 2>&1
 systemctl disable hiddify-admin.service > /dev/null 2>&1
+
+useradd hiddify-panel
+chown -R hiddify-panel:hiddify-panel  .
 # apt install -y python3-dev
 for req in pip3 uwsgi  python3 hiddifypanel lastversion jq;do
     which $req > /dev/null 2>&1
@@ -27,7 +30,7 @@ ln -sf $(which uwsgi) /usr/local/bin/uwsgi
 ln -sf $(pwd)/hiddify-panel.service /etc/systemd/system/hiddify-panel.service
 systemctl enable hiddify-panel.service
 if [ -f "../config.env" ]; then
-    hiddifypanel import-config -c $(pwd)/../config.env
+    su hiddify-panel -c "hiddifypanel import-config -c $(pwd)/../config.env"
     if [ "$?" == 0 ];then
             rm -f config.env
             # echo "temporary disable removing config.env"
@@ -41,7 +44,7 @@ systemctl start hiddify-panel.service
 systemctl status hiddify-panel.service --no-pager
 
 
-echo "0 */6 * * * root $(pwd)/backup.sh" > /etc/cron.d/hiddify_auto_backup
+echo "0 */6 * * * hiddify-panel $(pwd)/backup.sh" > /etc/cron.d/hiddify_auto_backup
 service cron reload
 
 
