@@ -67,5 +67,6 @@ update-locale LANG=C.UTF-8
 
 
 
+grep -qxF 'DNS=resolve ipv4' /etc/systemd/resolved.conf || echo "DNS=resolve ipv4" >> /etc/systemd/resolved.conf
 
-
+systemctl restart systemd-resolved

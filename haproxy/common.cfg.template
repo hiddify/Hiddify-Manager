@@ -106,6 +106,7 @@ frontend http-https-in
     # use_backend xray if xray_domains
     # use_backend to_https_in_ssl if singbox_domains
     acl h2 ssl_fc_alpn -i h2
+    acl h2 HTTP { ssl_fc_alpn -i h2 }
     acl is_cloudflare src -f /opt/hiddify-config/haproxy/cloudflare.lst
     acl is_arvan src -f /opt/hiddify-config/haproxy/arvan.lst
     acl is_cloudfront src -f /opt/hiddify-config/haproxy/cloudfront.lst
@@ -139,18 +140,18 @@ frontend http-https-in
     # acl grpc_multi path_end PATH_GRPC/TunMulti
     # use_backend nginx_dispatcher_h2 if grpc_multi 
 
-    acl is_grpc_req hdr(content-type) -i application/grpc
-    use_backend grpc_dispatcher if is_grpc_req
+    # acl is_grpc_req hdr(content-type) -i application/grpc
+    # use_backend grpc_dispatcher if is_grpc_req
     
 
-    # acl vmessg path_beg /PATH_VMESSPATH_GRPC
-    # acl vlessg path_beg /PATH_VLESSPATH_GRPC
-    # acl v2rayg path_beg /PATH_SSPATH_GRPC
-    # acl trojang path_beg /PATH_TROJANPATH_GRPC
-    # use_backend vmessg if vmessg
-    # use_backend vlessg if vlessg
-    # use_backend v2rayg if v2rayg
-    # use_backend trojang if trojang
+    acl vmessg path_beg /PATH_VMESSPATH_GRPC
+    acl vlessg path_beg /PATH_VLESSPATH_GRPC
+    acl v2rayg path_beg /PATH_SSPATH_GRPC
+    acl trojang path_beg /PATH_TROJANPATH_GRPC
+    use_backend vmessg if vmessg
+    use_backend vlessg if vlessg
+    use_backend v2rayg if v2rayg
+    use_backend trojang if trojang
 
      acl is_put_request method PUT
     
@@ -165,8 +166,8 @@ frontend http-https-in
     acl trojanw path_beg /PATH_TROJANPATH_WS
     
     
-    use_backend vmesst_h2 if vmesst is_put_request h2
-    use_backend vmesst_get_h2 if vmesst h2
+    # use_backend vmesst_h2 if vmesst is_put_request h2
+    # use_backend vmesst_get_h2 if vmesst h2
     use_backend vlesst_h2 if vlesst h2
     use_backend v2rayt_h2 if v2rayt h2
     use_backend trojant_h2 if trojant h2
@@ -205,11 +206,9 @@ frontend http-https-in
     default_backend nginx_dispatcher
     
 backend nginx_dispatcher_h2
-    
     server nginx unix@/opt/hiddify-config/nginx/run/h2.sock send-proxy-v2
 
 backend nginx_dispatcher
-    
     server nginx unix@/opt/hiddify-config/nginx/run/h1.sock send-proxy-v2
 
 
