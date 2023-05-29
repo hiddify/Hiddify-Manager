@@ -32,7 +32,7 @@
 					"short_id": [
 						"", REALITY_SHORT_IDS
 					],
-					"max_time_difference": "1m"
+					"max_time_difference": "2h"
 				}
 			}
 		}
