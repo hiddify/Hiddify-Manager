@@ -107,7 +107,7 @@ if [ -n "$dns_server" ];then
 fi
 
 curl -s -x socks://127.0.0.1:3000 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
-if [ $WARP_MODE != 'disable' && "$?"  == "0" ];then
+if [ "$WARP_MODE" != 'disable' && "$?"  == "0" ];then
 	# warp_conf=$(echo "$warp_conf" | tr '\n' ' ')
 	# escaped_warp_conf=$(printf '%s\n' "$warp_conf" | sed -e 's/[\/&]/\\&/g')
 	# sed -i "s|\"outbounds\": \[|\"outbounds\": [$escaped_warp_conf,|g"  configs/06_outbounds.json

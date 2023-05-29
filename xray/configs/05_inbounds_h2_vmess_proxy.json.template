@@ -13,6 +13,9 @@
 			"streamSettings": {
 			  "network": "h2",
 			  "security": "none",
+			  "tcpSettings": {
+				"acceptProxyProtocol": true
+				},
 			  "httpSettings": {
           		"path": "/PATH_VMESSPATH_TCP"
         	   }
