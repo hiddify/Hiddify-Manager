@@ -1,6 +1,12 @@
 #!/bin/bash
 ln -sf $(pwd)/hiddify-warp.service /etc/systemd/system/hiddify-warp.service
 systemctl enable hiddify-warp.service
+
+if ! [ -f "wgcf-account.toml" ];then
+    mv wgcf-account.toml wgcf-account.toml.backup
+    wgcf register --accept-tos && wgcf generate   
+fi
+
 #api.zeroteam.top/warp?format=wgcf for change warp
 export WGCF_LICENSE_KEY=$WARP_PLUS_CODE
 wgcf update
@@ -168,5 +174,5 @@ else
    echo "==========WARP is working=============="
 fi
 
-echo "Remaining..."
-bash check_quota.sh
+# echo "Remaining..."
+# bash check-quota.sh

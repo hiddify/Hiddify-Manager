@@ -2,5 +2,5 @@
 
 
 mv wgcf-account.toml wgcf-account.toml.backup
-curl -Lo wgcf.zip api.zeroteam.top/warp?format=wgcf
+curl --connect-timeout 1 -Lo wgcf.zip https://api.zeroteam.top/warp?format=wgcf
 unzip wgcf.zip

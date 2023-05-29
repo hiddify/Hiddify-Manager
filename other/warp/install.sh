@@ -5,7 +5,6 @@ if ! [ -f "wgcf-account.toml" ];then
     ARCH=$(dpkg --print-architecture)
     URL=$(curl --connect-timeout 10 -fsSL ${TAR} | grep 'browser_download_url' | cut -d'"' -f4 | grep linux | grep "${ARCH}")
     curl --connect-timeout 10 -fsSL "${URL}" -o ./wgcf && chmod +x ./wgcf && mv ./wgcf /usr/bin
-    wgcf register --accept-tos && wgcf generate   
 fi
 
 
