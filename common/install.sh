@@ -11,7 +11,7 @@ sysctl -w net.ipv6.conf.all.disable_ipv6=0
 sysctl -w net.ipv6.conf.default.disable_ipv6=0
 sysctl -w net.ipv6.conf.lo.disable_ipv6=0
 
-curl --connect-timeout 1 -q http://ipv6.google.com
+curl --connect-timeout 1 -s http://ipv6.google.com 2>&1 >/dev/null
 if [ $? != 0 ]; then
   ONLY_IPV4=true
 fi
