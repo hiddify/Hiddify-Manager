@@ -37,7 +37,10 @@ echo "$new_toml" > warp.conf
 
 
 sed -i "s|2000|3000|g" warp-singbox.json
-
+curl --connect-timeout 1 -q http://ipv6.google.com
+if [ $? != 0 ]; then
+sed -i 's/"local_address":\["[^"]*"\]/"local_address":\["172.16.0.2\/32"\]/' warp-singbox.json 
+fi
 
 
 # while read -r line; do

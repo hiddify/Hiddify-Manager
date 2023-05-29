@@ -5,7 +5,7 @@ apt install -y at dialog apt-transport-https dnsutils ca-certificates git curl w
 sudo apt -y remove needrestart apache2
 ln -sf $(pwd)/sysctl.conf /etc/sysctl.d/ss-opt.conf
 sysctl --system
-
+python3 -m pip config set global.index-url https://pypi.org/simple
 if [[ "$ONLY_IPV4" != true ]];then
 sysctl -w net.ipv6.conf.all.disable_ipv6=0
 sysctl -w net.ipv6.conf.default.disable_ipv6=0
