@@ -2,6 +2,9 @@ systemctl kill hiddify-admin.service  > /dev/null 2>&1
 systemctl disable hiddify-admin.service > /dev/null 2>&1
 userdel -f hiddify-panel
 useradd -m hiddify-panel
+su hiddify-panel -c localectl set-locale LANG=C.UTF-8
+su hiddify-panel -c update-locale LANG=C.UTF-8
+
 chown -R hiddify-panel:hiddify-panel  .
 # apt install -y python3-dev
 for req in pip3 uwsgi  python3 hiddifypanel lastversion jq;do
