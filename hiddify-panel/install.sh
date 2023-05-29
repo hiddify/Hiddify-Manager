@@ -1,7 +1,7 @@
 
 systemctl kill hiddify-admin.service
 systemctl disable hiddify-admin.service
-apt install -y python3-dev
+# apt install -y python3-dev
 for req in pip3 uwsgi  python3 hiddifypanel lastversion jq;do
     which $req
     if [[ "$?" != 0 ]];then
@@ -23,8 +23,8 @@ done
 # pip --disable-pip-version-check install -q -U git+https://github.com/hiddify/HiddifyPanel
 
 # ln -sf $(which gunicorn) /usr/bin/gunicorn
-ln -sf $(uwsgi) /usr/local/bin/uwsgi
-hiddifypanel init-db
+ln -sf $(which uwsgi) /usr/local/bin/uwsgi
+# hiddifypanel init-db
 ln -sf $(pwd)/hiddify-panel.service /etc/systemd/system/hiddify-panel.service
 systemctl enable hiddify-panel.service
 if [ -f "../config.env" ]; then
@@ -48,9 +48,12 @@ service cron reload
 
 ##### download videos
 
-
-wget -O GeoLite2-ASN.mmdb      https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb  
-wget -O GeoLite2-Country.mmdb  https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb 
+if [[ $(find "GeoLite2-ASN.mmdb" -mtime +1) ]]; then
+    wget -O GeoLite2-ASN.mmdb      https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb  
+fi
+if [[ $(find "GeoLite2-Country.mmdb" -mtime +1) ]]; then
+    wget -O GeoLite2-Country.mmdb  https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb 
+fi
 
 
 bash download_yt.sh & 
