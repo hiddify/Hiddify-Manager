@@ -6,14 +6,25 @@ sudo apt -y remove needrestart apache2
 ln -sf $(pwd)/sysctl.conf /etc/sysctl.d/ss-opt.conf
 sysctl --system
 
-if [[ $ONLY_IPV4 == true ]];then
+if [[ "$ONLY_IPV4" != true ]];then
+sysctl -w net.ipv6.conf.all.disable_ipv6=0
+sysctl -w net.ipv6.conf.default.disable_ipv6=0
+sysctl -w net.ipv6.conf.lo.disable_ipv6=0
+
+curl --connect-timeout 1 -q http://ipv6.google.com
+if [ $? != 0 ]; then
+  ONLY_IPV4=true
+fi
+fi
+
+if [[ "$ONLY_IPV4" == true ]];then
   sysctl -w net.ipv6.conf.all.disable_ipv6=1
   sysctl -w net.ipv6.conf.default.disable_ipv6=1
   sysctl -w net.ipv6.conf.lo.disable_ipv6=1
-else
-  sysctl -w net.ipv6.conf.all.disable_ipv6=0
-  sysctl -w net.ipv6.conf.default.disable_ipv6=0
-  sysctl -w net.ipv6.conf.lo.disable_ipv6=0
+# else
+#   sysctl -w net.ipv6.conf.all.disable_ipv6=0
+#   sysctl -w net.ipv6.conf.default.disable_ipv6=0
+#   sysctl -w net.ipv6.conf.lo.disable_ipv6=0
 fi
 sysctl -w fs.file-max=51200
 sysctl -w net.core.rmem_max=67108864
