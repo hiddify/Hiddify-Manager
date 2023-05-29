@@ -1,7 +1,7 @@
 systemctl kill hiddify-admin.service  > /dev/null 2>&1
 systemctl disable hiddify-admin.service > /dev/null 2>&1
 
-useradd hiddify-panel
+useradd -m hiddify-panel
 chown -R hiddify-panel:hiddify-panel  .
 # apt install -y python3-dev
 for req in pip3 uwsgi  python3 hiddifypanel lastversion jq;do
