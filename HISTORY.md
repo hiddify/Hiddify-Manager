@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v10.0.10 (2023-05-30)
+
+### Fix
+
+* When domain is empty. [hiddify]
+
+
 ## v10.0.9 (2023-05-29)
 
 ### Fix
