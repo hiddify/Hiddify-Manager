@@ -29,12 +29,12 @@ for template_file in $(find . -name "*.template"); do
     sed -i "s|NO_CDN_DOMAIN|$NO_CDN_DOMAIN|g" $out_file 
     sed -i "s|defaultserverhost|$MAIN_DOMAIN|g" $out_file 
     sed -i "s|TELEGRAM_AD_TAG|$TELEGRAM_AD_TAG|g" $out_file 
-    sed -i "s|TELEGRAM_FAKE_TLS_DOMAIN|$TELEGRAM_FAKE_TLS_DOMAIN|g" $out_file 
+    sed -i "s|TELEGRAM_FAKE_TLS_DOMAIN|${TELEGRAM_FAKE_TLS_DOMAIN:-localhost}|g" $out_file 
 
-    sed -i "s|sstlsdomain|$SS_FAKE_TLS_DOMAIN|g" $out_file 
-    sed -i "s|shadowtlsdomain|$SHADOWTLS_FAKEDOMAIN|g" $out_file 
-    sed -i "s|ssrtlsdomain|$SSR_FAKEDOMAIN|g" $out_file 
-    sed -i "s|hextelegramdomain|$HEX_TELEGRAM_DOMAIN|g" $out_file 
+    sed -i "s|sstlsdomain|${SS_FAKE_TLS_DOMAIN:-localhost}|g" $out_file 
+    sed -i "s|shadowtlsdomain|${SHADOWTLS_FAKEDOMAIN:-localhost}|g" $out_file 
+    sed -i "s|ssrtlsdomain|${SSR_FAKEDOMAIN:-localhost}|g" $out_file 
+    sed -i "s|hextelegramdomain|${HEX_TELEGRAM_DOMAIN:-localhost}|g" $out_file 
     sed -i "s|CDN_NAME|${CDN_NAME:-ar}|g" $out_file 
     sed -i "s|GITHUB_REPOSITORY|$GITHUB_REPOSITORY|g" $out_file 
     sed -i "s|GITHUB_USER|$GITHUB_USER|g" $out_file 
