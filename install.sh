@@ -207,7 +207,7 @@ function do_for_all() {
                 runsh $1.sh acme.sh
                 runsh $1.sh nginx
                 # runsh $1.sh sniproxy
-                runsh $1.sh haproxy
+                
                 runsh $1.sh other/speedtest
                 runsh $1.sh other/telegram $ENABLE_TELEGRAM
                 runsh $1.sh other/ssfaketls $ENABLE_SS
@@ -222,9 +222,10 @@ function do_for_all() {
                 # runsh $1.sh deprecated/trojan-go  $ENABLE_TROJAN_GO
                 #WARP_ENABLE=$([ "$WARP_MODE" != 'disable' ] || echo "false")
                 runsh $1.sh other/warp  
-                runsh $1.sh xray
         fi
+        runsh $1.sh haproxy
         runsh $1.sh singbox
+        runsh $1.sh xray
         
         
 }

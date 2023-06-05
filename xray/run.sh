@@ -143,18 +143,10 @@ else
 
 fi
 
+if [ "$MODE" != "apply_users" ];then
 
-
-# xray run -test -confdir configs
-echo "ignoring xray test"
-if  [[ $? == 0 ]];then
-	systemctl restart hiddify-xray.service
-	systemctl start hiddify-xray.service
-	systemctl status hiddify-xray.service --no-pager
-else
-	echo "Error in Xray Config!!!! do not reload xray service"
-	sleep 60
-	xray run -test -confdir configs
+	# xray run -test -confdir configs
+	echo "ignoring xray test"
 	if  [[ $? == 0 ]];then
 		systemctl restart hiddify-xray.service
 		systemctl start hiddify-xray.service
@@ -162,8 +154,17 @@ else
 	else
 		echo "Error in Xray Config!!!! do not reload xray service"
 		sleep 60
+		xray run -test -confdir configs
+		if  [[ $? == 0 ]];then
+			systemctl restart hiddify-xray.service
+			systemctl start hiddify-xray.service
+			systemctl status hiddify-xray.service --no-pager
+		else
+			echo "Error in Xray Config!!!! do not reload xray service"
+			sleep 60
+		fi
 	fi
+
+
+
 fi
-
-
-

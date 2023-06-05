@@ -25,5 +25,5 @@ fi
 # fi
 
 
-systemctl restart hiddify-nginx
+systemctl reload hiddify-nginx
 systemctl start hiddify-nginx
