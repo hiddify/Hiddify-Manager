@@ -119,7 +119,9 @@ fi
 
 if [ -n "$dns_server" ];then
 	sed -i "s|1.1.1.1|$dns_server|g"  configs/06_outbounds.json
+	sed -i "s|1.1.1.1|$dns_server|g"  configs/02_dns.json
 fi
+
 
 curl -s -x socks://127.0.0.1:3000 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
 if [ "$WARP_MODE" != 'disable' ] && [ "$?"  == "0" ];then
