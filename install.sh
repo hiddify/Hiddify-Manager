@@ -233,6 +233,7 @@ function do_for_all() {
 
 function main(){
         rm -rf log/system/xray*
+        
 
         export MODE="$1"
         
@@ -322,6 +323,7 @@ function main(){
         #         exit 33
         # fi
         echo "---------------------Finished!------------------------"
+        rm log/install.lock
         if [ "$MODE" != "apply_users" ];then
                 systemctl restart hiddify-panel
         fi
@@ -330,4 +332,10 @@ function main(){
 }       
 
 mkdir -p log/system/
+if [ -f log/install.lock && $(( $(date +%s) - $(cat log/install.lock) )) -lt 120 ]; then
+    echo "Another installation is running.... Please wait until it finishes or wait 5 minutes or execute "rm -f log/install.lock"
+    exit 1
+fi
+
+echo "$(date +%s)" > log/install.lock
 main $@|& tee log/system/0-install.log
