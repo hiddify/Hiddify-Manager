@@ -332,8 +332,9 @@ function main(){
 }       
 
 mkdir -p log/system/
+
 if [ -f log/install.lock && $(( $(date +%s) - $(cat log/install.lock) )) -lt 120 ]; then
-    echo "Another installation is running.... Please wait until it finishes or wait 5 minutes or execute "rm -f log/install.lock"
+    echo "Another installation is running.... Please wait until it finishes or wait 5 minutes or execute 'rm -f log/install.lock'"
     exit 1
 fi
 
