@@ -20,6 +20,9 @@ for key in ${!arr[@]}; do
     dst=videos/$key.mp4
     link=${arr[${key}]}
     if [[ ! -f $dst ]];then
-        yt-dlp $link -o $dst   
+        yt-dlp --socket-timeout 10 $link -o $dst   
+    fi
+    if [[ ! -f $dst ]];then
+        yt-dlp --socket-timeout 10 --proxy socks5://127.0.0.1:3000/  $link -o $dst   
     fi
 done
