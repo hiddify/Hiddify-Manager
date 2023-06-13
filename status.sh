@@ -27,7 +27,9 @@ fi
 for s in other/**/*.service **/*.service ;do
 	s=${s##*/}
 	s=${s%%.*}
+	if systemctl is-enabled $s >/dev/null; then
 	printf "%-30s %-30s \n" $s $(systemctl is-active $s)
+	fi
 done
 
 
