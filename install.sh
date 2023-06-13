@@ -206,6 +206,7 @@ function do_for_all() {
         systemctl daemon-reload
         if [ "$MODE" != "apply_users" ];then
                 runsh $1.sh common
+                runsh $1.sh other/warp  
                 #runsh $1.sh certbot
                 runsh $1.sh acme.sh
                 runsh $1.sh nginx
@@ -224,7 +225,7 @@ function do_for_all() {
                 # runsh $1.sh other/netdata false $ENABLE_NETDATA
                 # runsh $1.sh deprecated/trojan-go  $ENABLE_TROJAN_GO
                 #WARP_ENABLE=$([ "$WARP_MODE" != 'disable' ] || echo "false")
-                runsh $1.sh other/warp  
+                
         fi
         runsh $1.sh haproxy
         runsh $1.sh singbox
