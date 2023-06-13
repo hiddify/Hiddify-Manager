@@ -172,7 +172,10 @@ function check_req(){
         which $req
         if [[ "$?" != 0 ]];then
                 apt update
-                apt install -y dnsutils bsdmainutils curl git python3-dev
+                apt install -y add-apt-repository
+                add-apt-repository -y ppa:deadsnakes/ppa
+
+                apt install -y dnsutils bsdmainutils curl git python3.10 python3.10-dev
                 break
         fi
    done
