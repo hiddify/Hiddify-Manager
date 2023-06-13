@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v10.1.1 (2023-06-13)
+
+### Fix
+
+* Different permission in panel. [hiddify]
+
+
 ## v10.1.0 (2023-06-13)
 
 ### New
