@@ -203,8 +203,8 @@ function runsh() {
 function do_for_all() {
         #cd /opt/$GITHUB_REPOSITORY
         bash common/replace_variables.sh
-        systemctl daemon-reload
         if [ "$MODE" != "apply_users" ];then
+                systemctl daemon-reload
                 runsh $1.sh common
                 runsh $1.sh other/warp  
                 #runsh $1.sh certbot
