@@ -1,7 +1,8 @@
 systemctl kill hiddify-admin.service  > /dev/null 2>&1
 systemctl disable hiddify-admin.service > /dev/null 2>&1
-userdel -f hiddify-panel 2>&1
-useradd -m hiddify-panel 2>&1
+#userdel -f hiddify-panel 2>&1
+useradd -m hiddify-panel -s /bin/bash 2>&1
+chown -R hiddify-panel:hiddify-panel  /home/hiddify-panel/ 2>&1
 su hiddify-panel -c localectl set-locale LANG=C.UTF-8 2>&1
 su hiddify-panel -c update-locale LANG=C.UTF-8 2>&1
 
