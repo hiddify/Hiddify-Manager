@@ -100,7 +100,7 @@ function main(){
 mkdir -p log/system/
 
 
-if [ -f log/update.lock && $(( $(date +%s) - $(cat log/update.lock) )) -lt 120 ]; then
+if [[ -f log/update.lock && $(( $(date +%s) - $(cat log/update.lock) )) -lt 120 ]]; then
     echo "Another installation is running.... Please wait until it finishes or wait 5 minutes or execute 'rm -f log/update.lock'"
     exit 1
 fi

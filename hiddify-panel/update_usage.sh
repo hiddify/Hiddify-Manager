@@ -8,7 +8,7 @@ function main(){
 }
 
 
-if [ -f ../log/update_usage.lock && $(( $(date +%s) - $(cat ../log/update_usage.lock) )) -lt 300 ]; then
+if [[ -f ../log/update_usage.lock && $(( $(date +%s) - $(cat ../log/update_usage.lock) )) -lt 300 ]]; then
     echo "Another usage update is running.... Please wait until it finishes or wait 5 minutes or execute 'rm -f ../log/update_usage.lock'"
     exit 1
 fi
