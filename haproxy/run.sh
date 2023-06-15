@@ -91,7 +91,7 @@ EOF
   cat >> xray.cfg << EOF
 backend reality_grpc_$i
     mode tcp
-    server xray abns@realityingrpc_$i send-proxy-v2
+    server xray abns@realityingrpc_$i #send-proxy-v2
 EOF
 
   cat >> singbox.cfg << EOF

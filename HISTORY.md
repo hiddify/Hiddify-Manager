@@ -1,6 +1,62 @@
 # Changelog
 
 
+## v10.1.1 (2023-06-13)
+
+### Fix
+
+* Different permission in panel. [hiddify]
+
+
+## v10.1.0 (2023-06-13)
+
+### New
+
+* Show status only for enabled services. [hiddify]
+
+* Add download yt by warp. [hiddify]
+
+* Use warp if youtube not working. [hiddify]
+
+* Force python3.10. [hiddify]
+
+* Add lock to prevent concurrent installation and update. [hiddify]
+
+* Add lock for installation. [hiddify]
+
+* Resolve restart.sh. [hiddify]
+
+### Changes
+
+* Remove daily actions. [hiddify]
+
+### Fix
+
+* Lock. [hiddify]
+
+* Grpc issue with xray. [hiddify]
+
+* Typo. [hiddify]
+
+* Autocdn. [hiddify]
+
+* Xray bugs. [hiddify]
+
+### Other
+
+* Update. [hiddify]
+
+* Remove: daily actions. [hiddify]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [lymanjre]
+
+* Merge branch 'main' of github.com:hiddify/hiddify-config. [hiddify]
+
+* Update README.md. [lymanjre]
+
+
 ## v10.0.10 (2023-05-30)
 
 ### Fix

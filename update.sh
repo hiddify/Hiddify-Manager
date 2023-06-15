@@ -94,7 +94,17 @@ function main(){
     if [[ "$PANEL_UPDATE" == 1 &&  $UPDATE == 0 ]];then
         bash apply_configs.sh
     fi
+    rm log/update.lock
 }
 
 mkdir -p log/system/
+
+
+if [[ -f log/update.lock && $(( $(date +%s) - $(cat log/update.lock) )) -lt 120 ]]; then
+    echo "Another installation is running.... Please wait until it finishes or wait 5 minutes or execute 'rm -f log/update.lock'"
+    exit 1
+fi
+
+echo "$(date +%s)" > log/update.lock
+
 main $@|& tee log/system/update.log

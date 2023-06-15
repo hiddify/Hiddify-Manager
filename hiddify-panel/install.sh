@@ -1,11 +1,12 @@
 systemctl kill hiddify-admin.service  > /dev/null 2>&1
 systemctl disable hiddify-admin.service > /dev/null 2>&1
-userdel -f hiddify-panel
-useradd -m hiddify-panel
-su hiddify-panel -c localectl set-locale LANG=C.UTF-8
-su hiddify-panel -c update-locale LANG=C.UTF-8
+#userdel -f hiddify-panel 2>&1
+useradd -m hiddify-panel -s /bin/bash 2>&1
+chown -R hiddify-panel:hiddify-panel  /home/hiddify-panel/ 2>&1
+su hiddify-panel -c localectl set-locale LANG=C.UTF-8 2>&1
+su hiddify-panel -c update-locale LANG=C.UTF-8 2>&1
 
-chown -R hiddify-panel:hiddify-panel  .
+chown -R hiddify-panel:hiddify-panel  . 2>&1
 # apt install -y python3-dev
 for req in pip3 uwsgi  python3 hiddifypanel lastversion jq;do
     which $req > /dev/null 2>&1
@@ -28,7 +29,7 @@ done
 # pip --disable-pip-version-check install -q -U git+https://github.com/hiddify/HiddifyPanel
 
 # ln -sf $(which gunicorn) /usr/bin/gunicorn
-ln -sf $(which uwsgi) /usr/local/bin/uwsgi
+ln -sf $(which uwsgi) /usr/local/bin/uwsgi 2>&1
 # hiddifypanel init-db
 ln -sf $(pwd)/hiddify-panel.service /etc/systemd/system/hiddify-panel.service
 systemctl enable hiddify-panel.service
@@ -53,10 +54,10 @@ service cron reload
 
 ##### download videos
 
-if [[ -e "GeoLite2-ASN.mmdb" && $(find "GeoLite2-ASN.mmdb" -mtime +1) ]]; then
+if [[ ! -e "GeoLite2-ASN.mmdb" || $(find "GeoLite2-ASN.mmdb" -mtime +1) ]]; then
     wget -O GeoLite2-ASN.mmdb      https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb  
 fi
-if [[ -e "GeoLite2-Country.mmdb" && $(find "GeoLite2-Country.mmdb" -mtime +1) ]]; then
+if [[ ! -e "GeoLite2-Country.mmdb" || $(find "GeoLite2-Country.mmdb" -mtime +1) ]]; then
     wget -O GeoLite2-Country.mmdb  https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb 
 fi
 

@@ -172,7 +172,10 @@ function check_req(){
         which $req
         if [[ "$?" != 0 ]];then
                 apt update
-                apt install -y dnsutils bsdmainutils curl git python3-dev
+                apt install -y add-apt-repository
+                add-apt-repository -y ppa:deadsnakes/ppa
+
+                apt install -y dnsutils bsdmainutils curl git python3.10 python3.10-dev
                 break
         fi
    done
@@ -200,9 +203,10 @@ function runsh() {
 function do_for_all() {
         #cd /opt/$GITHUB_REPOSITORY
         bash common/replace_variables.sh
-        systemctl daemon-reload
         if [ "$MODE" != "apply_users" ];then
+                systemctl daemon-reload
                 runsh $1.sh common
+                runsh $1.sh other/warp  
                 #runsh $1.sh certbot
                 runsh $1.sh acme.sh
                 runsh $1.sh nginx
@@ -221,7 +225,7 @@ function do_for_all() {
                 # runsh $1.sh other/netdata false $ENABLE_NETDATA
                 # runsh $1.sh deprecated/trojan-go  $ENABLE_TROJAN_GO
                 #WARP_ENABLE=$([ "$WARP_MODE" != 'disable' ] || echo "false")
-                runsh $1.sh other/warp  
+                
         fi
         runsh $1.sh haproxy
         runsh $1.sh singbox
@@ -233,6 +237,7 @@ function do_for_all() {
 
 function main(){
         rm -rf log/system/xray*
+        
 
         export MODE="$1"
         
@@ -322,6 +327,7 @@ function main(){
         #         exit 33
         # fi
         echo "---------------------Finished!------------------------"
+        rm log/install.lock
         if [ "$MODE" != "apply_users" ];then
                 systemctl restart hiddify-panel
         fi
@@ -330,4 +336,11 @@ function main(){
 }       
 
 mkdir -p log/system/
+
+if [[ -f log/install.lock && $(( $(date +%s) - $(cat log/install.lock) )) -lt 120 ]]; then
+    echo "Another installation is running.... Please wait until it finishes or wait 5 minutes or execute 'rm -f log/install.lock'"
+    exit 1
+fi
+
+echo "$(date +%s)" > log/install.lock
 main $@|& tee log/system/0-install.log
