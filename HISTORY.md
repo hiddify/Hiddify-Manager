@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v10.1.2 (2023-06-24)
+
+### Fix
+
+* Hiddify-xray stop hook. [hiddify]
+
+
 ## v10.1.1 (2023-06-13)
 
 ### Fix
