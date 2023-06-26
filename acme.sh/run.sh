@@ -39,6 +39,7 @@ for DOMAIN in $DOMAINS;	do
 	fi
 	# --server  letsencrypt 
 	
+	
 	./lib/acme.sh --issue  --nginx  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --server letsencrypt 
 	./lib/acme.sh --issue  --nginx  -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags 
 
@@ -56,7 +57,7 @@ for DOMAIN in $DOMAINS;	do
 			--reloadcmd  "echo success"
 
 	# if [[ $(dig +short -t a $DOMAIN.) ]];then
-	openssl x509 -in $ssl_cert_path/$DOMAIN.crt -text -noout
+	
 	if [[ $? != 0 ]];then
 		rm $ssl_cert_path/$DOMAIN.key $ssl_cert_path/$DOMAIN.crt
 		openssl req -x509 -newkey rsa:2048 -keyout $ssl_cert_path/$DOMAIN.crt.key -out $ssl_cert_path/$DOMAIN.crt -days 3650 -nodes -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=www.google.com"
@@ -80,3 +81,6 @@ systemctl start hiddify-xray
 # 	echo  -e "   http://$SERVER_IP/$BASE_PROXY_PATH/$ADMIN_SECRET/admin/quick-setup/" >>$DST
 # 	echo  -e "   https://$SERVER_IP.sslip.io/$BASE_PROXY_PATH/$ADMIN_SECRET/admin/quick-setup/" >>$DST
 # fi
+
+
+./lib/acme.sh --uninstall-cronjob
