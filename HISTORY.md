@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v10.1.3 (2023-06-26)
+
+### New
+
+* Remove cronjob by acme.sh. [hiddify]
+
+
 ## v10.1.2 (2023-06-24)
 
 ### Fix
