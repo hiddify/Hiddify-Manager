@@ -1,0 +1,16 @@
+name: delete opened issue
+on:
+  issue_comment:
+    types: [created]
+jobs:
+  delete-issue:
+    if: |
+      github.event_name == 'issue_comment' &&
+      (github.event.comment.user.login == 'hiddify1' || github.event.comment.user.login == 'zZedix' ||  github.event.comment.user.login == 'Mrclocks' )&&
+      contains(github.event.comment.body, 'delete')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: vtcaregorodtcev/delete-issue@main
+        with:
+          github_token: ${{ secrets.PERSONAL_TOKEN }}
+          issue_node_id: ${{ github.event.issue.node_id }}

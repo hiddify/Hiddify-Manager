@@ -2,7 +2,7 @@
 cd $( dirname -- "$0"; )
 check_quota() {
   if [ -e wgcf-account.toml ];then
-    file_content=$(cat wgcf-account)
+    file_content=$(cat wgcf-account.toml)
     DEVICE_ID=$(echo "$file_content" | grep -oP "device_id = '\K[^']+") 
     ACCESS_TOKEN=$(echo "$file_content" | grep -oP "access_token = '\K[^']+")
 
@@ -25,7 +25,7 @@ check_quota() {
     QUOTA_DECIMALS=${QUOTA:0-$(( ${#CONVERSION[o]} - 1 )):2}
     QUOTA="$QUOTA_INTEGER.$QUOTA_DECIMALS ${UNIT[o]}"
   fi
-  echo QUOTA
+  echo $QUOTA
 }
 check_quota
 
