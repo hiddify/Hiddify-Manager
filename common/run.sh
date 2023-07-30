@@ -1,7 +1,12 @@
-
 function add2iptables(){
   iptables -C $1 || echo "adding rule $1" && iptables -I $1
+  add2ip6tables $1
 }
+
+function add2ip6tables(){
+  ip6tables -C $1 || echo "adding rule $1" && ip6tables -I $1
+}
+
 function allow_apps_ports(){
    service_name=$1
 
@@ -15,14 +20,24 @@ function allow_apps_ports(){
     for p in $port;do
       echo "Service is running on port $p and path $path"
       add2iptables "INPUT -p tcp --dport $port -j ACCEPT"
+      # if [[ $1 == 'sshd' ]];then
+      #   add2iptables "INPUT -p tcp -m tcp --dport $PORT -m conntrack --ctstate NEW -j SSHBRUTE"
+      #   add2ip6tables "INPUT -p tcp -m tcp --dport $PORT -m conntrack --ctstate NEW -j SSHBRUTE"
+      # else
+      # add2iptables "INPUT -p tcp -m tcp --dport $PORT -m conntrack --ctstate NEW -j ACCEPT"
+      # add2ip6tables "INPUT -p tcp -m tcp --dport $PORT -m conntrack --ctstate NEW -j ACCEPT"
+      # fi
     done
   fi
 }
+
+mkdir -p /etc/iptables/
+
 add2iptables "INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT"
 add2iptables "INPUT -i lo -j ACCEPT"
 add2iptables "INPUT -p tcp --dport 443 -j ACCEPT"
 # add2iptables "INPUT -p udp --dport 443 -j ACCEPT"
-add2iptables "INPUT -p udp --dport 3478 -j ACCEPT"
+# add2iptables "INPUT -p udp --dport 3478 -j ACCEPT"
 add2iptables "INPUT -p udp --dport 53 -j ACCEPT"
 add2iptables "INPUT -p tcp --dport 80 -j ACCEPT"
 add2iptables "INPUT -p tcp --dport 22 -j ACCEPT"
@@ -37,16 +52,15 @@ done
 
 
 mkdir -p /etc/iptables/
-
-
-
- if [[ $ENABLE_FIREWALL == true ]]; then
+if [[ $ENABLE_FIREWALL == true ]]; then
   iptables -P INPUT DROP
-  iptables-save > /etc/iptables/rules.v4 
+  ip6tables -P INPUT DROP
 else 
   iptables -P INPUT ACCEPT
-  iptables-save > /etc/iptables/rules.v4 
+  ip6tables -P INPUT ACCEPT
 fi
+iptables-save > /etc/iptables/rules.v4 
+ip6tables-save > /etc/iptables/rules.v6 
 #add2iptables "INPUT -p tcp --dport 9000 -j DROP"
 
 if [[ $ENABLE_AUTO_UPDATE == true ]]; then
