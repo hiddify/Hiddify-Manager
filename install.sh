@@ -206,6 +206,7 @@ function do_for_all() {
         if [ "$MODE" != "apply_users" ];then
                 systemctl daemon-reload
                 runsh $1.sh common
+                runsh $1.sh other/redis
                 runsh $1.sh other/warp  
                 #runsh $1.sh certbot
                 runsh $1.sh acme.sh
