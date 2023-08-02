@@ -217,6 +217,7 @@ function do_for_all() {
                 runsh $1.sh other/telegram $ENABLE_TELEGRAM
                 runsh $1.sh other/ssfaketls $ENABLE_SS
                 runsh $1.sh other/v2ray $ENABLE_V2RAY
+                runsh $1.sh other/ssh $ssh_server_enable
                 runsh $1.sh other/shadowtls $ENABLE_SHADOWTLS
                 # runsh $1.sh other/clash-server $ENABLE_TUIC
                 # runsh $1.sh deprecated/vmess $ENABLE_VMESS
