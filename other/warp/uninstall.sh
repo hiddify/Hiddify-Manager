@@ -1,1 +1,3 @@
-rm xray_warp_conf.json
+
+systemctl stop hiddify-warp
+systemctl disable hiddify-warp

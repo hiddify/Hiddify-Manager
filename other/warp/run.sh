@@ -2,6 +2,10 @@
 ln -sf $(pwd)/hiddify-warp.service /etc/systemd/system/hiddify-warp.service
 systemctl enable hiddify-warp.service
 
+# if [[ $warp_mode == 'disabled' ]];then
+#   bash uninstall.sh
+# else
+
 if ! [ -f "wgcf-account.toml" ];then
     mv wgcf-account.toml wgcf-account.toml.backup
     wgcf register --accept-tos && wgcf generate   
@@ -176,3 +180,4 @@ fi
 
 # echo "Remaining..."
 # bash check-quota.sh
+# fi
