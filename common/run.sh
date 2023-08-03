@@ -38,7 +38,11 @@ add2iptables "INPUT -i lo -j ACCEPT"
 add2iptables "INPUT -p tcp --dport 443 -j ACCEPT"
 # add2iptables "INPUT -p udp --dport 443 -j ACCEPT"
 # add2iptables "INPUT -p udp --dport 3478 -j ACCEPT"
-add2iptables "INPUT -p tcp --dport ${ssh_server_port} -j ACCEPT"
+if [[ $ssh_server_enable == 'true' ]];then
+  add2iptables "INPUT -p tcp --dport ${ssh_server_port} -j ACCEPT"
+else 
+  iptables -D INPUT -p tcp --dport ${ssh_server_port}
+fi
 add2iptables "INPUT -p udp --dport 53 -j ACCEPT"
 add2iptables "INPUT -p tcp --dport 80 -j ACCEPT"
 add2iptables "INPUT -p tcp --dport 22 -j ACCEPT"
