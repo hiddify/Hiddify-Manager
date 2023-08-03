@@ -11,7 +11,7 @@ TimeoutStopSec=0
 Restart=always
 User=redis
 Group=redis
-RuntimeDirectory=redis
+RuntimeDirectory=hiddify-redis
 RuntimeDirectoryMode=2755
 
 UMask=007
@@ -23,8 +23,8 @@ ReadOnlyDirectories=/
 ReadWritePaths=-/var/lib/redis
 ReadWritePaths=-/var/log/redis
 ReadWritePaths=-/var/run/redis
-ReadWritePaths=-/opt/hiddify-config/other/redis/
-ReadWritePaths=-/opt/hiddify-config/log/system/
+ReadWritePaths=-/opt/hiddify-config/other/redis
+ReadWritePaths=-/opt/hiddify-config/log/system
 
 NoNewPrivileges=true
 CapabilityBoundingSet=CAP_SETGID CAP_SETUID CAP_SYS_RESOURCE

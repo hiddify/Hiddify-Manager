@@ -1,0 +1,1 @@
+systemctl start hiddify-redis
