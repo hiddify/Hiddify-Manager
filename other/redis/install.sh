@@ -1,7 +1,7 @@
 
 
 
-if [[ ! command -v redis-server ]];then
+if ! command -v redis-server ;then
     sudo add-apt-repository -y universe
     # sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
     sudo apt install -y redis-server
