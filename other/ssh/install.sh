@@ -5,6 +5,8 @@ wget https://github.com/hiddify/ssh-liberty-bridge/releases/latest/download/ssh-
 mv ssh-liberty-bridge-* ssh-liberty-bridge
 chmod +x ssh-liberty-bridge
 
+useradd liberty-bridge
+
 
 if [[ ! -d host_key ]];then
     mkdir -p ./tmp/etc/ssh/
@@ -15,3 +17,4 @@ if [[ ! -d host_key ]];then
     cp ./tmp/etc/ssh/* host_key/
     rm -rf ./tmp 
 fi 
+chown -r liberty-bridge host_key
