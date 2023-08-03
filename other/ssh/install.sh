@@ -17,4 +17,4 @@ if [[ ! -d host_key ]];then
     cp ./tmp/etc/ssh/* host_key/
     rm -rf ./tmp 
 fi 
-chown -r liberty-bridge host_key
+chown -R liberty-bridge host_key
