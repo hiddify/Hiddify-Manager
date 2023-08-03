@@ -1,0 +1,21 @@
+{
+	"disable_nodelay": false,
+	"fastopen": true,
+	"v3": true,
+	"strict": true,
+	"server": {
+		"listen": "localhost:1003",
+		"server_addr": "localhost:3005",
+		"tls_addr": {
+			"wildcard_sni": "off",
+			"dispatch": {
+				//"cloudflare.com": "1.1.1.1:443",
+				//"captive.apple.com": "captive.apple.com:443",
+				"shadowtlsdomain": "shadowtlsdomain:443"
+			},
+			"fallback": "shadowtlsdomain:443"
+		},
+		"password": "BASE_PROXY_PATH",
+		"wildcard_sni": "authed"
+	}
+}

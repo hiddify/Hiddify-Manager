@@ -7,11 +7,11 @@ systemctl stop haproxy > /dev/null 2>&1
 systemctl disable haproxy > /dev/null 2>&1
 # pkill -9 haproxy
 pkill -9 sniproxy > /dev/null 2>&1
-
-add-apt-repository ppa:vbernat/haproxy-2.7 -y
-apt update
-apt install haproxy=2.7.\* -y
-
+if ! command -v haproxy ;then
+    add-apt-repository ppa:vbernat/haproxy-2.7 -y
+    apt update
+    apt install haproxy=2.7.\* -y
+fi
 ln -sf $(pwd)/hiddify-haproxy.service /etc/systemd/system/hiddify-haproxy.service
 systemctl enable hiddify-haproxy.service
 
