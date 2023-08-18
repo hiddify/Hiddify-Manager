@@ -6,6 +6,7 @@ chown -R hiddify-panel:hiddify-panel  /home/hiddify-panel/ 2>&1
 su hiddify-panel -c localectl set-locale LANG=C.UTF-8 2>&1
 su hiddify-panel -c update-locale LANG=C.UTF-8 2>&1
 
+(cd ../other/redis/&&bash install.sh)
 chown -R hiddify-panel:hiddify-panel  . 2>&1
 # apt install -y python3-dev
 for req in pip3 uwsgi  python3 hiddifypanel lastversion jq;do
