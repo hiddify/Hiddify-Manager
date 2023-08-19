@@ -28,7 +28,9 @@ fi
 
 wgcf generate
 sed -i 's/\[Peer\]/Table = off\n\[Peer\]/g'  wgcf-profile.conf
-
+if [ $ONLY_IPV4 == 'true' ];then
+  sed -i '/Address = [0-9a-fA-F:]\{4,\}/s/^/# /' wgcf-profile.conf
+fi
 mkdir -p /etc/wireguard/
 ln -sf $(pwd)/wgcf-profile.conf /etc/wireguard/warp.conf  
 systemctl enable --now wg-quick@warp
