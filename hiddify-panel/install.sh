@@ -33,7 +33,7 @@ done
 ln -sf $(which uwsgi) /usr/local/bin/uwsgi 2>&1
 # hiddifypanel init-db
 ln -sf $(pwd)/hiddify-panel.service /etc/systemd/system/hiddify-panel.service
-systemctl enable hiddify-panel.service
+systemctl enable hiddify-panel.service 
 if [ -f "../config.env" ]; then
     su hiddify-panel -c "hiddifypanel import-config -c $(pwd)/../config.env"
     if [ "$?" == 0 ];then
@@ -41,12 +41,12 @@ if [ -f "../config.env" ]; then
             # echo "temporary disable removing config.env"
     fi
 fi
-systemctl daemon-reload
+systemctl daemon-reload > /dev/null 2>&1
 echo "*/1 * * * * root $(pwd)/update_usage.sh" > /etc/cron.d/hiddify_usage_update
-service cron reload
+service cron reload > /dev/null 2>&1
 
 systemctl start hiddify-panel.service
-systemctl status hiddify-panel.service --no-pager
+# systemctl status hiddify-panel.service --no-pager > /dev/null 2>&1
 
 
 echo "0 */6 * * * hiddify-panel $(pwd)/backup.sh" > /etc/cron.d/hiddify_auto_backup
@@ -56,10 +56,10 @@ service cron reload
 ##### download videos
 
 if [[ ! -e "GeoLite2-ASN.mmdb" || $(find "GeoLite2-ASN.mmdb" -mtime +1) ]]; then
-    wget -O GeoLite2-ASN.mmdb1      https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb  &&  mv GeoLite2-ASN.mmdb1 GeoLite2-ASN.mmdb
+    curl --connect-timeout 10 -L -o GeoLite2-ASN.mmdb1      https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb  &&  mv GeoLite2-ASN.mmdb1 GeoLite2-ASN.mmdb
 fi
 if [[ ! -e "GeoLite2-Country.mmdb" || $(find "GeoLite2-Country.mmdb" -mtime +1) ]]; then
-    wget -O GeoLite2-Country.mmdb1  https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb && mv GeoLite2-Country.mmdb1 GeoLite2-Country.mmdb
+    curl --connect-timeout 10 -L -o  GeoLite2-Country.mmdb1  https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb && mv GeoLite2-Country.mmdb1 GeoLite2-Country.mmdb
 fi
 
 
