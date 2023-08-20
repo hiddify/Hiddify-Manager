@@ -29,7 +29,8 @@ fi
 wgcf generate
 sed -i 's/\[Peer\]/Table = off\n\[Peer\]/g'  wgcf-profile.conf
 
-if [[ "$ONLY_IPV4" == true ]];then
+curl --connect-timeout 1 -s http://ipv6.google.com 2>&1 >/dev/null
+if [ $? != 0 ]; then
   sed -i '/Address = [0-9a-fA-F:]\{4,\}/s/^/# /' wgcf-profile.conf
 fi
 
