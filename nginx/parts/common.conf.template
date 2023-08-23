@@ -35,8 +35,8 @@ location /BASE_PROXY_PATH/gho/ {
 location /BASE_PROXY_PATH/gh/ {
   #for proxy github
   proxy_set_header Host github.com;
-  set $upstream https://github.com:443/;
-  proxy_pass $upstream;
+  proxy_pass https://github.com:443/;
+  #proxy_pass $upstream;
   proxy_redirect https://raw.githubusercontent.com/ https://$host/BASE_PROXY_PATH/ghr/;
   proxy_redirect https://objects.githubusercontent.com/ https://$host/BASE_PROXY_PATH/gho/;
 
