@@ -13,6 +13,7 @@ OPTIONS=(status "View status of system"
          restart "Restart Services without changing the configs"
          apply_configs "Apply the changed configs"
          update "Update "
+         warp "Check Warp Status"
          install "Reinstall"
          submenu "Uninstall, Disable/Enable showing this window on startup"
          )
@@ -109,6 +110,10 @@ case $CHOICE in
         ;;
     "status")
         bash status.sh |less -r -P"Press q to exit" +G
+        NEED_KEY=0
+        ;;
+    "warp")
+        (cd other/warp/;bash status.sh |less -r -P"Press q to exit" +G)
         NEED_KEY=0
         ;;
     *)
