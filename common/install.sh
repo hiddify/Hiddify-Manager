@@ -13,14 +13,32 @@ sysctl -w net.ipv6.conf.lo.disable_ipv6=0
 
 curl --connect-timeout 1 -s http://ipv6.google.com 2>&1 >/dev/null
 if [ $? != 0 ]; then
-  ONLY_IPV4=true
+  ONLY_IPV4=true1
 fi
 fi
 
-if [[ "$ONLY_IPV41" == true ]];then
-  sysctl -w net.ipv6.conf.all.disable_ipv6=1
-  sysctl -w net.ipv6.conf.default.disable_ipv6=1
-  sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+if [[ "$ONLY_IPV4" == true ]];then
+declare -a excluded_interfaces=("warp" "lo")
+
+for interface_name in $(ip link | awk -F': ' '$2 ~ /^[[:alnum:]]+$/ {print $2}'); do
+    if [[ " ${excluded_interfaces[@]} " =~ " ${interface_name} " ]]; then
+        continue
+    fi
+
+    # Disable IPv6 for the current interface
+    sysctl -q -w "net.ipv6.conf.$interface_name.disable_ipv6=1"
+
+    if [ $? -eq 0 ]; then
+        echo "IPv6 disabled for $interface_name"
+    else
+        echo "Failed to disable IPv6 for $interface_name"
+    fi
+done
+
+
+  # sysctl -w net.ipv6.conf.all.disable_ipv6=1
+  # sysctl -w net.ipv6.conf.default.disable_ipv6=1
+  # sysctl -w net.ipv6.conf.lo.disable_ipv6=1
 # else
 #   sysctl -w net.ipv6.conf.all.disable_ipv6=0
 #   sysctl -w net.ipv6.conf.default.disable_ipv6=0
