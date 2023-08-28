@@ -17,7 +17,13 @@ if [ $? != 0 ]; then
 fi
 fi
 
+INT_STAT=0
+INT_STAT_STR='Enable'
 if [[ "$ONLY_IPV4" == true ]];then
+INT_STAT=1
+INT_STAT_STR="Disable"
+fi
+
 declare -a excluded_interfaces=("warp" "lo")
 
 for interface_name in $(ip link | awk -F': ' '$2 ~ /^[[:alnum:]]+$/ {print $2}'); do
@@ -26,12 +32,12 @@ for interface_name in $(ip link | awk -F': ' '$2 ~ /^[[:alnum:]]+$/ {print $2}')
     fi
 
     # Disable IPv6 for the current interface
-    sysctl -q -w "net.ipv6.conf.$interface_name.disable_ipv6=1"
+    sysctl -q -w "net.ipv6.conf.$interface_name.disable_ipv6=$INT_STAT"
 
     if [ $? -eq 0 ]; then
-        echo "IPv6 disabled for $interface_name"
+        echo "IPv6 ${INT_STAT_STR}d for $interface_name"
     else
-        echo "Failed to disable IPv6 for $interface_name"
+        echo "Failed to $INT_STAT_STR IPv6 for $interface_name"
     fi
 done
 
