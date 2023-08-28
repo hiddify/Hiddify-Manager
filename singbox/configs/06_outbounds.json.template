@@ -11,8 +11,7 @@
     {
       "tag": "WARP",
       "type": "direct",
-      "bind_interface": "warp",
-      "tcp_fast_open": true
+      "bind_interface": "warp"
     },
     // {
     //   "tag":"WARP",

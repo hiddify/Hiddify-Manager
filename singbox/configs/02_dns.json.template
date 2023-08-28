@@ -1,9 +1,6 @@
 {
   "dns": {
-    "servers": [{
-        "tag": "local",
-        "address": "local"
-      },
+    "servers": [
         {
         "tag": "cloudflare",
         "address": "1.1.1.1",
