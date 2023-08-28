@@ -92,7 +92,7 @@ echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/apply_configs.sh" >
 echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/hiddify-panel/temporary_access.sh" >> /etc/sudoers.d/hiddify
 echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/hiddify-panel/update_usage.sh" >> /etc/sudoers.d/hiddify
 echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/hiddify-panel/restart.sh" >> /etc/sudoers.d/hiddify
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/hiddify-panel/nginx/add2shortlink.sh" >> /etc/sudoers.d/hiddify
+echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/nginx/add2shortlink.sh" >> /etc/sudoers.d/hiddify
 
 
 
