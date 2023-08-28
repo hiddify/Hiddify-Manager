@@ -17,12 +17,12 @@ GITHUB_BRANCH_OR_TAG=main
 # if [ ! -d "/opt/$GITHUB_REPOSITORY" ];then
         apt update
         apt upgrade -y
-        apt install -y wget python3-pip dialog unzip
-        pip3 install lastversion "requests<=2.29.0"
-        pip install lastversion "requests<=2.29.0"
+        apt install -y curl unzip
+        # pip3 install lastversion "requests<=2.29.0"
+        # pip install lastversion "requests<=2.29.0"
         mkdir -p /opt/$GITHUB_REPOSITORY
         cd /opt/$GITHUB_REPOSITORY
-        wget  $(lastversion --at github --assets --filter hiddify-config.zip  hiddify/hiddify-config) -O hiddify-config.zip
+        curl -L -o hiddify-config.zip https://github.com/hiddify/hiddify-config/releases/latest/download/hiddify-config.zip
         unzip -o hiddify-config.zip
         rm hiddify-config.zip
         
