@@ -17,7 +17,7 @@ if [ $? != 0 ]; then
 fi
 fi
 
-if [[ "$ONLY_IPV4" == true ]];then
+if [[ "$ONLY_IPV41" == true ]];then
   sysctl -w net.ipv6.conf.all.disable_ipv6=1
   sysctl -w net.ipv6.conf.default.disable_ipv6=1
   sysctl -w net.ipv6.conf.lo.disable_ipv6=1

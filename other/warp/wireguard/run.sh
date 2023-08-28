@@ -30,7 +30,10 @@ wgcf generate
 sed -i 's/\[Peer\]/Table = off\n\[Peer\]/g'  wgcf-profile.conf
 
 curl --connect-timeout 1 -s http://ipv6.google.com 2>&1 >/dev/null
-if [ $? != 0 ]; then
+
+#if [ $? != 0 ]; then
+ipv6_exists=$(ip addr | grep -o 'inet6')
+if [ ! -n "$ipv6_exists" ]; then
   sed -i '/Address = [0-9a-fA-F:]\{4,\}/s/^/# /' wgcf-profile.conf
 fi
 
