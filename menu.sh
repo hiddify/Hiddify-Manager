@@ -1,5 +1,6 @@
 #!/bin/bash
 cd $( dirname -- "$0"; )
+cd /opt/hiddify-config/
 HEIGHT=20
 WIDTH=60
 CHOICE_HEIGHT=10

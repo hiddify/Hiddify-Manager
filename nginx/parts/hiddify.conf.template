@@ -10,3 +10,5 @@ location @handle_redirect {
 }
 include /opt/GITHUB_REPOSITORY/nginx/parts/def-link.conf;
 include /opt/GITHUB_REPOSITORY/nginx/parts/common.conf;
+include /opt/GITHUB_REPOSITORY/nginx/parts/short-link.conf;
+

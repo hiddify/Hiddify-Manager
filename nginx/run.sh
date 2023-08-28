@@ -10,6 +10,7 @@
 if [[ "$ENABLE_SPEED_TEST" != "true" ]];then
 	rm conf.d/speedtest.conf
 fi
+echo "">parts/short-link.conf
 
 if [[ "$FIRST_SETUP" == "true" ]];then
 	
