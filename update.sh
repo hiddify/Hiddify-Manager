@@ -58,11 +58,12 @@ function main(){
         LAST_CONFIG_VERSION=$(get_commit_version hiddify-config)
         echo "DEVELOP: Current Config Version=$CURRENT_CONFIG_VERSION -- Latest=$LAST_CONFIG_VERSION"
         if [[ $FORCE == "true" || "$CURRENT_CONFIG_VERSION" != "$LAST_CONFIG_VERSION" ]];then
-            wget -c https://github.com/hiddify/hiddify-config/archive/refs/heads/main.tar.gz
+            curl -L -o main.tar.gz https://github.com/hiddify/hiddify-config/archive/refs/heads/main.tar.gz
             # rm  -rf nginx/ xray/
-            tar xvzf main.tar.gz --strip-components=1
+            tar xvzf main.tar.gz --strip-components=1 && echo $LAST_CONFIG_VERSION > VERSION
+            
+            
             rm main.tar.gz
-            echo $LAST_CONFIG_VERSION > VERSION
             rm -rf other/netdata
             bash install.sh
             UPDATE=1
@@ -73,7 +74,7 @@ function main(){
         if [[ $FORCE == "true" || "$CURRENT_CONFIG_VERSION" != "$LAST_CONFIG_VERSION" ]];then
             echo "Config is outdated! updating..."
             
-            wget  $(lastversion --at github --assets --filter hiddify-config.zip  hiddify/hiddify-config) -O hiddify-config.zip && rm xray/configs/*
+            curl -L -o hiddify-config.zip   $(lastversion --at github --assets --filter hiddify-config.zip  hiddify/hiddify-config)  && rm xray/configs/*
             # rm  -rf nginx/ xray/
             
             apt install -y  unzip
