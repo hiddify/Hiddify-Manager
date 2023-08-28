@@ -16,6 +16,9 @@
         { //DNS Cache rule
           "type": "field", "port": 53, "network": "tcp,udp", "outboundTag": "DNS-Internal"
         },
+        { //block quic
+          "type": "field", "port": 443, "network": "udp", "outboundTag": "blackhole"
+        },
         {
             "type": "field", 
             //"inboundTag": ["xtls"], 

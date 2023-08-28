@@ -18,6 +18,11 @@
             "port": [53]
         },
         {
+				"protocol": "quic",
+				"port": [443],
+				"outbound": "blackhole"
+			},
+        {
             
             //"inboundTag": ["xtls"], 
             "outbound": "forbidden_sites",
