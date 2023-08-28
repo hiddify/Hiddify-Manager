@@ -1,11 +1,14 @@
 {
   "dns": {
-    "servers": [
+    "servers": [{
+        "tag": "local",
+        "address": "local"
+      },
         {
         "tag": "cloudflare",
         "address": "1.1.1.1",
-        "strategy": "ipv4_only",
-        "detour": "direct"
+        "strategy": "prefer_ipv4",
+        "detour": "freedom"
       }
     ],
     "rules": [],

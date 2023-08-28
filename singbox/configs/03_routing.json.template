@@ -14,7 +14,7 @@
     "final": "freedom",
       "rules": [
         {
-            "outbound": "direct",
+            "outbound": "freedom",
             "port": [53]
         },
         {
