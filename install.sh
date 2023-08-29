@@ -152,6 +152,9 @@ function set_config_from_hpanel(){
                         if [ "$mode" == "old_xtls_direct" ];then
                                 FORCE_XRAY_DOMAINS_MULTI="$domain;$FORCE_XRAY_DOMAINS_MULTI"
                         fi 
+                        if [ "$mode" == "sub_link_only" ];then
+                                FORCE_SUBLINK_ONLY="$domain;$FORCE_SUBLINK_ONLY"
+                        fi 
                         ;;
                 reality)
                         if [ "$grpc" == "true" ];then
@@ -179,6 +182,7 @@ function set_config_from_hpanel(){
         setenv REALITY_MULTI_GRPC $REALITY_MULTI_GRPC
         setenv MAIN_DOMAIN $MAIN_DOMAIN
         setenv FORCE_XRAY_DOMAINS_MULTI $FORCE_XRAY_DOMAINS_MULTI
+        setenv FORCE_SUBLINK_ONLY $FORCE_SUBLINK_ONLY
 
         USER_SECRET=
         for i in $(seq 0 ``users.length()``); do

@@ -51,6 +51,10 @@ frontend https-in
     
     acl alpnh2 req.ssl_alpn h2 
 
+   
+    acl panel_domains req.ssl_sni -i PANEL_DOMAINS
+    use_backend to_panel_only if panel_domains
+
     #reality_configs
     acl reality_domains req.ssl_sni -i REALITY_SERVER_NAMES
     use_backend reality if reality_domains
@@ -94,17 +98,38 @@ backend to_https_in_ssl
 # backend to_https_in_ssl
 # #     server xray abns@https_in_ssl send-proxy-v2
 
-frontend http-https-in
+frontend onlypanel_in
+    mode http
+    bind abns@onlypanel_in tfo accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h2,http/1.1,h3
+
     
+    acl hpanel path_reg ^/BASE_PROXY_PATH/[1-9a-f][1-9a-f]
+    use_backend hiddifypanel if hpanel
+
+    default_backend nginx_dispatcher_http
+
+backend to_panel_only
+    server to_panel_only abns@onlypanel_in send-proxy-v2 tfo
+
+frontend http-https-in
     bind :80,:::80 v4v6 tfo 
     bind abns@https_in_ssl tfo accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h2,http/1.1,h3
     #bind quic4@abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h3    
     # http-response set-header alt-svc "h3=\":443\";ma=900;"
-
-    # acl singbox_domains req.ssl_sni -i SINGBOX_DOMAINS
-    # acl xray_domains req.ssl_sni -i XRAY_DOMAINS
     tcp-request inspect-delay 5s
     tcp-request content accept if HTTP
+
+    acl base_proxy_path path_beg /BASE_PROXY_PATH/
+    acl hpanel path_reg ^/BASE_PROXY_PATH/[1-9a-f][1-9a-f]
+    use_backend hiddifypanel if hpanel
+    use_backend nginx_dispatcher_http if base_proxy_path
+
+    acl panel_domains hdr(:authority) -i PANEL_DOMAINS
+    acl panel_domains hdr(host) -i PANEL_DOMAINS
+    use_backend to_panel_only if panel_domains
+    # acl singbox_domains req.ssl_sni -i SINGBOX_DOMAINS
+    # acl xray_domains req.ssl_sni -i XRAY_DOMAINS
+
     # use_backend xray if xray_domains
     # use_backend to_https_in_ssl if singbox_domains
     acl h2 ssl_fc_alpn -i h2
@@ -212,6 +237,10 @@ backend nginx_dispatcher_h2
 backend nginx_dispatcher
     server nginx unix@/opt/hiddify-config/nginx/run/h1.sock send-proxy-v2 tfo
 
+backend nginx_dispatcher_http
+    mode http
+    server nginx unix@/opt/hiddify-config/nginx/run/h1.sock send-proxy-v2 tfo
+
 
 
 
@@ -276,4 +305,14 @@ backend shadowtls_decoy
 backend xray_force
     # server xray unix@/dev/shm/hiddify-xtls-main.sock
     server xray abns@xtlsin send-proxy-v2
+
+
+backend hiddifypanel
+    mode http
+    http-request set-header X-Forwarded-For %[src]
+    server hpanel 127.0.0.1:9000
+
+backend nginx_dispatcher_http
+    mode http
+    server nginx unix@/opt/hiddify-config/nginx/run/h1.sock send-proxy-v2 tfo
 
