@@ -1,8 +1,8 @@
 #!/bin/bash
-cd $( dirname -- "$0"; )
+cd "$(dirname -- "$0")"
 cd /opt/hiddify-config/
 HEIGHT=20
-WIDTH=60
+WIDTH=70
 CHOICE_HEIGHT=10
 BACKTITLE="Welcome to Hiddify Panel (config version=$(cat VERSION))"
 TITLE="Hiddify Panel"
@@ -16,59 +16,58 @@ OPTIONS=(status "View status of system"
          update "Update "
          warp "Check Warp Status"
          install "Reinstall"
-         submenu "Uninstall, Disable/Enable showing this window on startup"
+         submenu "Uninstall, Disable/Enable menu on startup"
          )
 
-CHOICE=$(dialog --clear \
+CHOICE=$(whiptail --clear \
                 --backtitle "$BACKTITLE" \
                 --title "$TITLE" \
                 --menu "$MENU" \
                 $HEIGHT $WIDTH $CHOICE_HEIGHT \
                 "${OPTIONS[@]}" \
-                2>&1 >/dev/tty)
+                3>&1 1>&2 2>&3)
 
-if [[ $? != 0 ]];then 
-clear
-exit 
+if [[ $? != 0 ]]; then
+    clear
+    exit
 fi
 clear
 echo "Hiddify: Command $CHOICE"
 echo "=========================================="
 NEED_KEY=1
-case $CHOICE in 
+case $CHOICE in
     "") exit;;
     'log')
-        W=() # define working array
-        while read -r line; do # process file by file
-            size=$(ls -lah log/system/$line | awk -F " " {'print $5'})
-            W+=($line "$size")
-        done < <( ls -1 log/system )
-        LOG=$(dialog --clear \
+        W=()
+        while read -r line; do
+            size=$(ls -lah log/system/"$line" | awk -F " " '{print $5}')
+            W+=("$line" "$size")
+        done < <(ls -1 log/system)
+        LOG=$(whiptail --clear \
                 --backtitle "$BACKTITLE" \
                 --title "$TITLE" \
                 --menu "$MENU" \
                 $HEIGHT $WIDTH $CHOICE_HEIGHT \
                 "${W[@]}" \
-                2>&1 >/dev/tty)
+                3>&1 1>&2 2>&3)
         clear
         echo -e "\033[0m"
-        if [[ $LOG != "" ]];then    
-            less -r  -P"Press q to exit" +G "log/system/$LOG"
+        if [[ $LOG != "" ]]; then
+            less -r -P"Press q to exit" +G "log/system/$LOG"
         fi
         NEED_KEY=0
     ;;
     "submenu")
-        
         OPTIONS=(enable "show this menu on start up"
                 disable "disable this menu"
                 uninstall "Uninstall hiddify :("
                 purge "Uninstall completely and remove database :("
                 )
-        CHOICE=$(dialog --clear --backtitle "$BACKTITLE" --title "$TITLE" --menu "$MENU" $HEIGHT $WIDTH $CHOICE_HEIGHT "${OPTIONS[@]}" 2>&1 >/dev/tty)
-        case $CHOICE in 
+        CHOICE=$(whiptail --clear --backtitle "$BACKTITLE" --title "$TITLE" --menu "$MENU" $HEIGHT $WIDTH $CHOICE_HEIGHT "${OPTIONS[@]}" 3>&1 1>&2 2>&3)
+        case $CHOICE in
             "enable")
-                echo "/opt/hiddify-config/menu.sh">>~/.bashrc
-                echo "cd /opt/hiddify-config/">>~/.bashrc
+                echo "/opt/hiddify-config/menu.sh" >> ~/.bashrc
+                echo "cd /opt/hiddify-config/" >> ~/.bashrc
                 NEED_KEY=0
             ;;
             "disable")
@@ -77,23 +76,22 @@ case $CHOICE in
                 NEED_KEY=0
             ;;
             "uninstall")
-                bash uninstall.sh 
+                bash uninstall.sh
             ;;
             "purge")
                 bash uninstall.sh purge
             ;;
-            *)NEED_KEY=0;;
+            *) NEED_KEY=0;;
         esac
-        ;;
+    ;;
 
     "update")
-        
         OPTIONS=(default "Based on the configuration in panel"
                 release "Release (suggested)"
                 develop "Develop (may have some bugs)"
                 )
-        CHOICE=$(dialog --clear --backtitle "$BACKTITLE" --title "$TITLE" --menu "$MENU" $HEIGHT $WIDTH $CHOICE_HEIGHT "${OPTIONS[@]}" 2>&1 >/dev/tty)
-        case $CHOICE in 
+        CHOICE=$(whiptail --clear --backtitle "$BACKTITLE" --title "$TITLE" --menu "$MENU" $HEIGHT $WIDTH $CHOICE_HEIGHT "${OPTIONS[@]}" 3>&1 1>&2 2>&3)
+        case $CHOICE in
             "default")
                 bash update.sh
             ;;
@@ -103,30 +101,25 @@ case $CHOICE in
             "develop")
                 bash update.sh develop
             ;;
-            *)NEED_KEY=0;;
+            *) NEED_KEY=0;;
         esac
-        ;;
+    ;;
     "admin")
-        (cd hiddify-panel; python3 -m hiddifypanel admin-links)   
-        ;;
+        (cd hiddify-panel; python3 -m hiddifypanel admin-links)
+    ;;
     "status")
-        bash status.sh |less -r -P"Press q to exit" +G
+        bash status.sh | less -r -P"Press q to exit" +G
         NEED_KEY=0
-        ;;
+    ;;
     "warp")
-        (cd other/warp/;bash status.sh |less -r -P"Press q to exit" +G)
+        (cd other/warp/;bash status.sh | less -r -P"Press q to exit" +G)
         NEED_KEY=0
-        ;;
+    ;;
     *)
-        bash $CHOICE.sh
+        bash "$CHOICE.sh"
 esac
 
-if [[ $NEED_KEY == 1 ]];then
+if [[ $NEED_KEY == 1 ]]; then
     read -p "Press any key to return to menu" -n 1 key
-
-    # if [[ $key == 'q' ]];then
-    #     echo ""
-    #     exit; 
-    # fi
 fi
 ./menu.sh

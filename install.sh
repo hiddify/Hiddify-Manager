@@ -7,15 +7,41 @@ if [ "$(id -u)" -ne 0 ]; then
 #        exit 1
 
 fi
+function error(){
+   echo -e "\033[91m$1\033[0m">&2
+
+}
+function cleanup() {
+    error "Script interrupted. Exiting..."
+    rm log/install.lock
+    pkill -9 dialog
+    echo "1">log/error.lock
+
+    exit 1
+}
+
+# Trap the Ctrl+C signal and call the cleanup function
+trap cleanup SIGINT
+
 
 source ./common/ticktick.sh
+function update_progress() {
+    #title="\033[92m\033[1m${1^}\033[0m\033[0m"
+    title="${1^}"
+    text="$2"
+    percentage="$3"
+    echo -e "XXX\n$percentage\n$title\n$text\nXXX"
+
+}
+
 
 function set_config_from_hpanel(){
 
         hiddify=`cd hiddify-panel;python3 -m hiddifypanel all-configs`
         if [[ $? != 0 ]];then
-                echo "Exception in Hiddify Panel. Please send the log to hiddify@gmail.com"
-                exit 1
+                error "Exception in Hiddify Panel. Please send the log to hiddify@gmail.com"
+                echo "4">log/error.lock
+                exit 4
         fi
         tickParse  "$hiddify"
         # tickVars
@@ -205,19 +231,29 @@ function do_for_all() {
         bash common/replace_variables.sh
         if [ "$MODE" != "apply_users" ];then
                 systemctl daemon-reload
+                update_progress "${1}ing..." "Common Tools" 5
                 runsh $1.sh common
+                update_progress "${1}ing..." "Redis" 10
                 runsh $1.sh other/redis
+                update_progress "${1}ing..." "Warp" 15
                 runsh $1.sh other/warp $([ "$WARP_MODE" != 'disable' ] || echo "false")
                 #runsh $1.sh certbot
+                update_progress "${1}ing..." "Getting Certificates" 20
                 runsh $1.sh acme.sh
+                update_progress "${1}ing..." "Nginx" 30
                 runsh $1.sh nginx
                 # runsh $1.sh sniproxy
-                
+                update_progress "${1}ing..." "Personal SpeedTest" 35
                 runsh $1.sh other/speedtest
+                update_progress "${1}ing..." "Telegram Proxy" 40
                 runsh $1.sh other/telegram $ENABLE_TELEGRAM
+                update_progress "${1}ing..." "FakeTlS Proxy" 45
                 runsh $1.sh other/ssfaketls $ENABLE_SS
+                update_progress "${1}ing..." "V2ray WS Proxy" 50
                 runsh $1.sh other/v2ray $ENABLE_V2RAY
+                update_progress "${1}ing..." "SSH Proxy" 55
                 runsh $1.sh other/ssh $ssh_server_enable
+                update_progress "${1}ing..." "ShadowTLS" 60
                 runsh $1.sh other/shadowtls $ENABLE_SHADOWTLS
                 # runsh $1.sh other/clash-server $ENABLE_TUIC
                 # runsh $1.sh deprecated/vmess $ENABLE_VMESS
@@ -229,29 +265,37 @@ function do_for_all() {
                 #WARP_ENABLE=$([ "$WARP_MODE" != 'disable' ] || echo "false")
                 
         fi
+        update_progress "${1}ing..." "Haproxy for Spliting Traffic" 70
         runsh $1.sh haproxy
+        update_progress "${1}ing..." "Singbox" 80
         runsh $1.sh singbox
+        update_progress "${1}ing..." "Xray" 90
         runsh $1.sh xray
         
-        
+        update_progress "${1}ing..." "Finished" 100
 }
 
 
 function main(){
+        update_progress "Please wait..." "We are going to install Hiddify..."  0
+        export ERROR=0
         rm -rf log/system/xray*
         
 
         export MODE="$1"
         
         if [ "$MODE" != "apply_users" ];then
-                bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.1
+                bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.3
                 runsh install.sh hiddify-panel
         fi
         # source common/set_config_from_hpanel.sh
-        set_config_from_hpanel
+        update_progress "" "Reading Configs from Panel..." 5
+     #   set_config_from_hpanel
         if [[ $DB_VERSION == "" ]];then
-                echo "ERROR!!!! There is an error in the installation of python panel. Exit...."
-                exit 1
+                error "ERROR!!!! There is an error in the installation of python panel. Exit...."
+                echo "5">log/error.lock
+
+                exit 5
         fi
         
         # check_req
@@ -293,37 +337,11 @@ function main(){
         fi
 
         if [[ -z "$DO_NOT_RUN" || "$DO_NOT_RUN" == false ]];then
+                update_progress "Applying Configs" "..." 0
                 do_for_all run
-                if [ "$MODE" != "apply_users" ];then        
-                        echo ""
-                        echo ""
-                        bash status.sh
-                        echo "==========================================================="
-                        bash common/logo.ico
-                        echo "Finished! Thank you for helping to skip filternet."
-                        echo "Please open the following link in the browser for client setup"
-                        
-                        cat use-link
-                        
-                fi
         fi
 
-        for s in hiddify-xray hiddify-singbox hiddify-nginx hiddify-haproxy;do
-	        s=${s##*/}
-	        s=${s%%.*}
-	        if [[ "$(systemctl is-active $s)" != "active" ]];then
-                        echo "an important service $s is not working yet"
-                        sleep 5
-                        echo "checking again..."
-                        if [[ "$(systemctl is-active $s)" != "active" ]];then
-                              echo "an important service $s is not working again"
-                              echo "Installation Failed!"
-                              exit 32
-                        fi
-                        
-                fi
-                
-        done
+        
         # if [[ $(/usr/local/bin/xray run -test -confdir xray/configs) ]];then
         #         echo "xray configuration failed "
         #         exit 33
@@ -337,12 +355,63 @@ function main(){
 
 }       
 
+
+
+function check(){
+        export MODE="$1"
+        if [ "$MODE" != "apply_users" ];then        
+                echo ""
+                echo ""
+                bash status.sh
+                echo "==========================================================="
+                bash common/logo.ico
+                echo "Finished! Thank you for helping to skip filternet."
+                echo "Please open the following link in the browser for client setup"
+                
+                cat use-link
+                        
+        fi
+        for s in hiddify-xray hiddify-singbox hiddify-nginx hiddify-haproxy;do
+                s=${s##*/}
+                s=${s%%.*}
+                if [[ "$(systemctl is-active $s)" != "active" ]];then
+                        error "an important service $s is not working yet"
+                        sleep 5
+                        error "checking again..."
+                        if [[ "$(systemctl is-active $s)" != "active" ]];then
+                                error "an important service $s is not working again"
+                                error "Installation Failed!"
+                                echo "32">log/error.lock
+                                exit 32
+                        fi
+                        
+                fi
+                
+        done
+}
 mkdir -p log/system/
 
 if [[ -f log/install.lock && $(( $(date +%s) - $(cat log/install.lock) )) -lt 120 ]]; then
-    echo "Another installation is running.... Please wait until it finishes or wait 5 minutes or execute 'rm -f log/install.lock'"
-    exit 1
+    error "Another installation is running.... Please wait until it finishes or wait 5 minutes or execute 'rm -f log/install.lock'"
+    echo "12">log/error.lock
+    exit 12
 fi
 
+
 echo "$(date +%s)" > log/install.lock
-main $@|& tee log/system/0-install.log
+
+which dialog >/dev/null 2>&1
+if [[ "$?" != 0 ]];then
+        apt install -y dialog
+fi
+rm log/error.lock
+main $@|& tee log/system/0-install.log|dialog --title "Installing Hiddify" --gauge "Please wait..., We are going to install Hiddify" 8 60 0
+
+rm log/install.lock 
+
+if [ $(cat log/error.lock) != "0" ];then
+        less -r -P"Installation Failed! Press q to exit" +G "log/system/0-install.log"
+else
+        check $@|& tee -a log/system/0-install.log
+fi
+pkill -9 dialog
