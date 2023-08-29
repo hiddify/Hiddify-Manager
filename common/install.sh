@@ -108,6 +108,9 @@ sudo systemctl disable systemd-resolved
 
 echo "nameserver 1.1.1.1" >/etc/resolv.conf
 echo "nameserver 8.8.8.8" >>/etc/resolv.conf
+echo "nameserver 1.1.1.1" > /etc/resolvconf/resolv.conf.d/base 
+echo "nameserver 8.8.8.8" >> /etc/resolvconf/resolv.conf.d/base 
+resolvconf -u
 #systemctl restart systemd-resolved
 
 

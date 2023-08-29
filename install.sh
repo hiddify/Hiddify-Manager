@@ -331,13 +331,13 @@ function main(){
         if [ "$MODE" == "apply_users" ];then
                 export DO_NOT_INSTALL=true
         fi
-        if [[ -z "$DO_NOT_INSTALL" || "$DO_NOT_INSTALL" == false  ]];then
+        if [[ $MODE != "apply_configs" && -z "$DO_NOT_INSTALL" || "$DO_NOT_INSTALL" == false  ]];then
                 do_for_all install
                 systemctl daemon-reload
         fi
 
         if [[ -z "$DO_NOT_RUN" || "$DO_NOT_RUN" == false ]];then
-                update_progress "Applying Configs" "..." 0
+                update_progress "Applying Configs" "..." 5
                 do_for_all run
         fi
 
@@ -414,6 +414,7 @@ if [[ $log_h < 0 ]];then
 log_h=0
 fi
 log_file=log/system/0-install.log
+
 main $@|& tee $log_file|dialog \
         --backtitle "$BACKTITLE" \
         --title "Installing Hiddify" \
