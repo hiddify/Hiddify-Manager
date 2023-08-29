@@ -1,5 +1,5 @@
 
-bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.3
+bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.4
 
 systemctl stop xray > /dev/null 2>&1
 systemctl disable xray > /dev/null 2>&1

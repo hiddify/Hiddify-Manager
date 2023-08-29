@@ -34,6 +34,7 @@ location /BASE_PROXY_PATH/gho/ {
 
 location /BASE_PROXY_PATH/gh/ {
   #for proxy github
+  resolver 8.8.8.8;
   proxy_set_header Host github.com;
   proxy_pass https://github.com:443/;
   #proxy_pass $upstream;
