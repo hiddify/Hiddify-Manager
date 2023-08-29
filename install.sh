@@ -405,7 +405,8 @@ if [[ "$?" != 0 ]];then
         apt install -y dialog
 fi
 rm log/error.lock
-main $@|& tee log/system/0-install.log|dialog --title "Installing Hiddify" --gauge "Please wait..., We are going to install Hiddify" 8 60 0
+BACKTITLE="Welcome to Hiddify Panel (config version=$(cat VERSION))"
+main $@|& tee log/system/0-install.log|dialog --title "Installing Hiddify" --backtitle "$BACKTITLE" --gauge "Please wait..., We are going to install Hiddify" 8 60 0
 
 rm log/install.lock 
 
