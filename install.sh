@@ -408,17 +408,17 @@ if [[ "$?" != 0 ]];then
 fi
 echo "0"> log/error.lock
 BACKTITLE="Welcome to Hiddify Panel (config version=$(cat VERSION))"
-let width=$(tput cols)
+width=$(tput cols)
 if [[ "$?" != "0" || $width < 7 ]];then 
         width=7
 fi
-let height=$(tput lines)
+height=$(tput lines)
 if [[  "$?" != "0" || $height < 10 ]];then 
         height=10
 fi
 
-log_h=$((height - 10))
-log_w=$((width - 6))
+log_h=$(($height - 10))
+log_w=$(($width - 6))
 
 log_file=log/system/0-install.log
 
