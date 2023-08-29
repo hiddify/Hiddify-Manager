@@ -411,18 +411,24 @@ let height=$(tput lines)
 
 log_h=$((height - 10))
 if [[ $log_h < 0 ]];then 
-log_h=0
+        log_h=0
 fi
+
+log_w=$((width - 6))
+if [[ $log_w < 0 ]];then 
+        log_w=1
+fi
+
 log_file=log/system/0-install.log
 
 main $@|& tee $log_file|dialog \
         --backtitle "$BACKTITLE" \
         --title "Installing Hiddify" \
         --begin 2 2 \
-        --tailboxbg $log_file $log_h $((width - 6)) \
+        --tailboxbg $log_file $log_h $log_w \
         --and-widget \
         --begin $(($log_h + 2)) 2 \
-        --gauge "Please wait..., We are going to install Hiddify" 7 $((width - 6)) 0
+        --gauge "Please wait..., We are going to install Hiddify" 7 $log_w 0
 
 
 #dialog --title "Installing Hiddify" --backtitle "$BACKTITLE" --gauge "Please wait..., We are going to install Hiddify" 8 60 0
