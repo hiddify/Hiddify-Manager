@@ -74,7 +74,7 @@ function main(){
         if [[ $FORCE == "true" || "$CURRENT_CONFIG_VERSION" != "$LAST_CONFIG_VERSION" ]];then
             echo "Config is outdated! updating..."
             
-            curl -L -o hiddify-config.zip   $(lastversion --at github --assets --filter hiddify-config.zip  hiddify/hiddify-config)  && rm xray/configs/*
+            curl -L -o hiddify-config.zip   https://github.com/hiddify/hiddify-config/releases/latest/download/hiddify-config.zip  && rm xray/configs/*
             # rm  -rf nginx/ xray/
             
             apt install -y  unzip
