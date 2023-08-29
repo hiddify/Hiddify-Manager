@@ -231,7 +231,7 @@ function do_for_all() {
         bash common/replace_variables.sh
         if [ "$MODE" != "apply_users" ];then
                 systemctl daemon-reload
-                update_progress "${1}ing..." "Common Tools" 5
+                update_progress "${1}ing..." "Common Tools" 8
                 runsh $1.sh common
                 update_progress "${1}ing..." "Redis" 10
                 runsh $1.sh other/redis
@@ -404,7 +404,7 @@ which dialog >/dev/null 2>&1
 if [[ "$?" != 0 ]];then
         apt install -y dialog
 fi
-rm log/error.lock
+echo "0"> log/error.lock
 BACKTITLE="Welcome to Hiddify Panel (config version=$(cat VERSION))"
 let width=$(tput cols)
 let height=$(tput lines)
@@ -413,12 +413,12 @@ log_h=$((height - 10))
 if [[ $log_h < 0 ]];then 
 log_h=0
 fi
-
-main $@|& tee log/system/0-install.log|dialog \
+log_file=log/system/0-install.log
+main $@|& tee $log_file|dialog \
         --backtitle "$BACKTITLE" \
         --title "Installing Hiddify" \
         --begin 2 2 \
-        --tailboxbg log/system/0-install.log $log_h $((width - 6)) \
+        --tailboxbg $log_file $log_h $((width - 6)) \
         --and-widget \
         --begin $(($log_h + 2)) 2 \
         --gauge "Please wait..., We are going to install Hiddify" 7 $((width - 6)) 0
@@ -426,11 +426,11 @@ main $@|& tee log/system/0-install.log|dialog \
 
 #dialog --title "Installing Hiddify" --backtitle "$BACKTITLE" --gauge "Please wait..., We are going to install Hiddify" 8 60 0
 
-rm log/install.lock 
+rm -f log/install.lock  >/dev/null 2>&1
 
-if [ $(cat log/error.lock) != "0" ];then
-        less -r -P"Installation Failed! Press q to exit" +G "log/system/0-install.log"
+if [[ $(cat log/error.lock) != "0" ]];then
+        less -r -P"Installation Failed! Press q to exit" +G "$log_file"
 else
-        check $@|& tee -a log/system/0-install.log
+        check $@|& tee -a $log_file
 fi
 pkill -9 dialog
