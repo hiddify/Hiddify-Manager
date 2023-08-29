@@ -106,8 +106,8 @@ update-locale LANG=C.UTF-8
 sudo systemctl stop systemd-resolved
 sudo systemctl disable systemd-resolved
 
-echo "nameserver 1.1.1.1" >/etc/resolve.conf
-echo "nameserver 8.8.8.8" >>/etc/resolve.conf
+echo "nameserver 1.1.1.1" >/etc/resolv.conf
+echo "nameserver 8.8.8.8" >>/etc/resolv.conf
 #systemctl restart systemd-resolved
 
 
