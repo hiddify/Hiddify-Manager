@@ -36,7 +36,7 @@ ipv6_exists=$(ip addr | grep -o 'inet6')
 if [ ! -n "$ipv6_exists" ]; then
   sed -i '/Address = [0-9a-fA-F:]\{4,\}/s/^/# /' wgcf-profile.conf
 fi
-
+sed -i '/DNS = 1.1.1.1/s/^/# /' wgcf-profile.conf
 mkdir -p /etc/wireguard/
 ln -sf $(pwd)/wgcf-profile.conf /etc/wireguard/warp.conf  
 systemctl enable --now wg-quick@warp
