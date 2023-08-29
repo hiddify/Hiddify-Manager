@@ -102,9 +102,13 @@ update-locale LANG=C.UTF-8
 
 
 
-grep -qxF 'DNS=resolve ipv4' /etc/systemd/resolved.conf || echo "DNS=resolve ipv4" >> /etc/systemd/resolved.conf
+#grep -qxF 'DNS=resolve ipv4' /etc/systemd/resolved.conf || echo "DNS=resolve ipv4" >> /etc/systemd/resolved.conf
+sudo systemctl stop systemd-resolved
+sudo systemctl disable systemd-resolved
+
 echo "nameserver 1.1.1.1" >/etc/resolve.conf
-systemctl restart systemd-resolved
+echo "nameserver 8.8.8.8" >>/etc/resolve.conf
+#systemctl restart systemd-resolved
 
 
 
