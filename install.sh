@@ -409,12 +409,12 @@ fi
 echo "0"> log/error.lock
 BACKTITLE="Welcome to Hiddify Panel (config version=$(cat VERSION))"
 width=$(tput cols)
-if [[ "$?" != "0" || $width < 7 ]];then 
-        width=7
+if [[ $? != 0 ]] || (( $width < 20 ));then 
+        width=20
 fi
 height=$(tput lines)
-if [[  "$?" != "0" || $height < 10 ]];then 
-        height=10
+if [[  $? != 0 ]] || (( $height < 20 ));then 
+        height=20
 fi
 
 log_h=$(($height - 10))
