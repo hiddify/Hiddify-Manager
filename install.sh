@@ -406,7 +406,25 @@ if [[ "$?" != 0 ]];then
 fi
 rm log/error.lock
 BACKTITLE="Welcome to Hiddify Panel (config version=$(cat VERSION))"
-main $@|& tee log/system/0-install.log|dialog --title "Installing Hiddify" --backtitle "$BACKTITLE" --gauge "Please wait..., We are going to install Hiddify" 8 60 0
+let width=$(tput cols)
+let height=$(tput lines)
+
+log_h=$((height - 14))
+if [[ $log_h < 0 ]];then 
+log_h=0
+fi
+
+main $@|& tee log/system/0-install.log|dialog \
+        --backtitle "$BACKTITLE"
+        --title "Installing Hiddify" \
+        --begin 2 2 \
+        --tailboxbg $log $log_h $((width - 6)) \
+        --and-widget \
+        --begin $(($log_h + 2)) 2 \
+        --gauge "Please wait..., We are going to install Hiddify" 8 $((width - 6)) 0
+
+
+#dialog --title "Installing Hiddify" --backtitle "$BACKTITLE" --gauge "Please wait..., We are going to install Hiddify" 8 60 0
 
 rm log/install.lock 
 
