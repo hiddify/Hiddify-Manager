@@ -409,7 +409,7 @@ BACKTITLE="Welcome to Hiddify Panel (config version=$(cat VERSION))"
 let width=$(tput cols)
 let height=$(tput lines)
 
-log_h=$((height - 14))
+log_h=$((height - 10))
 if [[ $log_h < 0 ]];then 
 log_h=0
 fi
@@ -421,7 +421,7 @@ main $@|& tee log/system/0-install.log|dialog \
         --tailboxbg log/system/0-install.log $log_h $((width - 6)) \
         --and-widget \
         --begin $(($log_h + 2)) 2 \
-        --gauge "Please wait..., We are going to install Hiddify" 8 $((width - 6)) 0
+        --gauge "Please wait..., We are going to install Hiddify" 7 $((width - 6)) 0
 
 
 #dialog --title "Installing Hiddify" --backtitle "$BACKTITLE" --gauge "Please wait..., We are going to install Hiddify" 8 60 0
