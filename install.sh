@@ -415,10 +415,10 @@ log_h=0
 fi
 
 main $@|& tee log/system/0-install.log|dialog \
-        --backtitle "$BACKTITLE"
+        --backtitle "$BACKTITLE" \
         --title "Installing Hiddify" \
         --begin 2 2 \
-        --tailboxbg $log $log_h $((width - 6)) \
+        --tailboxbg log/system/0-install.log $log_h $((width - 6)) \
         --and-widget \
         --begin $(($log_h + 2)) 2 \
         --gauge "Please wait..., We are going to install Hiddify" 8 $((width - 6)) 0
