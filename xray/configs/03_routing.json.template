@@ -5,6 +5,15 @@
     "domainMatcher":"hybrid",
     "settings": {
       "rules": [
+        {
+          "type":"field",
+          "outboundTag": "freedom",
+          "ip": [
+            "127.0.0.1"
+            //local_ips
+          ],
+          "port":"443,80,53"
+        },
         // {
         //   "type": "field", 
         //   "outboundTag": "freedom",

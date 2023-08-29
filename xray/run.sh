@@ -123,6 +123,14 @@ if [ -n "$dns_server" ];then
 fi
 
 
+
+local_ips=$(ip -o -4 addr show | awk '{print $4}' | cut -d/ -f1 | sed 's/.*/"&"/' | tr '\n' ',' | sed 's/,$/\n/')
+
+
+sed -i "s|//local_ips|,$local_ips|g" configs/03_routing.json
+
+
+
 curl -s -x socks://127.0.0.1:3000 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
 if [ "$WARP_MODE" != 'disable' ] && [ "$?"  == "0" ];then
 	# warp_conf=$(echo "$warp_conf" | tr '\n' ' ')
