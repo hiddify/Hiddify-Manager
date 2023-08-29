@@ -290,7 +290,7 @@ function main(){
         fi
         # source common/set_config_from_hpanel.sh
         update_progress "" "Reading Configs from Panel..." 5
-     #   set_config_from_hpanel
+        set_config_from_hpanel
         if [[ $DB_VERSION == "" ]];then
                 error "ERROR!!!! There is an error in the installation of python panel. Exit...."
                 echo "5">log/error.lock
