@@ -22,7 +22,7 @@ done
 (cd ../other/redis/ && bash install.sh)
 (cd ../other/mysql/ && bash install.sh)
 
-grep -v "SQLALCHEMY_DATABASE_URI" settings.toml >settings.toml
+sed -i '/SQLALCHEMY_DATABASE_URI/d' settings.toml
 MYSQL_PASS=$(cat ../other/mysql/mysql_pass)
 echo "SQLALCHEMY_DATABASE_URI = 'mysql://hiddifypanel:$MYSQL_PASS@127.0.0.1/hiddifypanel'" >>settings.toml
 
