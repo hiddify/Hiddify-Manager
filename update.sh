@@ -3,13 +3,12 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 cd $( dirname -- "$0"; )
 
-function get_commit_version(){
-    COMMIT_URL=$(curl -s https://api.github.com/repos/hiddify/$1/git/refs/heads/main|jq -r .object.url)
-    VERSION=$(curl -s $COMMIT_URL|jq -r .committer.date)
-    echo ${VERSION:5:11}
-}
+source common/utils.sh
 
 function main(){
+    CURRENT_CONFIG_VERSION=$(get_installed_config_version)
+    CURRENT_PANEL_VERSION=$(get_installed_panel_version)
+
     rm -rf sniproxy
     rm -rf caddy
     ./hiddify-panel/backup.sh
@@ -41,8 +40,9 @@ function main(){
     else 
         #hiddify=`cd hiddify-panel;python3 -m hiddifypanel downgrade`
         
-        CURRENT=`pip3 freeze |grep hiddifypanel|awk -F"==" '{ print $2 }'`
-        LATEST=`lastversion hiddifypanel --at pip`
+        CURRENT=$CURRENT_PANEL_VERSION
+        #LATEST=`lastversion hiddifypanel --at pip`
+        LATEST=$(get_release_version hiddifypanel)
         echo "hiddify panel version current=$CURRENT latest=$LATEST"
         if [[ $FORCE == "true" || "$CURRENT" != "$LATEST" ]];then
             echo "panel is outdated! updating...."
@@ -53,11 +53,11 @@ function main(){
 
     
     
-    CURRENT_CONFIG_VERSION=$(cat VERSION)
+    
     if [[ "$PACKAGE_MODE" == "develop" ]];then
-        LAST_CONFIG_VERSION=$(get_commit_version hiddify-config)
-        echo "DEVELOP: Current Config Version=$CURRENT_CONFIG_VERSION -- Latest=$LAST_CONFIG_VERSION"
-        if [[ $FORCE == "true" || "$CURRENT_CONFIG_VERSION" != "$LAST_CONFIG_VERSION" ]];then
+        LATEST_CONFIG_VERSION=$(get_commit_version hiddify-config)
+        echo "DEVELOP: Current Config Version=$CURRENT_CONFIG_VERSION -- Latest=$LATEST_CONFIG_VERSION"
+        if [[ $FORCE == "true" || "$CURRENT_CONFIG_VERSION" != "$LATEST_CONFIG_VERSION" ]];then
             curl -L -o main.tar.gz https://github.com/hiddify/hiddify-config/archive/refs/heads/main.tar.gz
             # rm  -rf nginx/ xray/
             tar xvzf main.tar.gz --strip-components=1 && echo $LAST_CONFIG_VERSION > VERSION
@@ -69,9 +69,9 @@ function main(){
             UPDATE=1
         fi
     else 
-        LAST_CONFIG_VERSION=$(lastversion hiddify/hiddify-config)
-        echo "Current Config Version=$CURRENT_CONFIG_VERSION -- Latest=$LAST_CONFIG_VERSION"
-        if [[ $FORCE == "true" || "$CURRENT_CONFIG_VERSION" != "$LAST_CONFIG_VERSION" ]];then
+        LATEST_CONFIG_VERSION=$(get_release_version hiddify-config)
+        echo "Current Config Version=$CURRENT_CONFIG_VERSION -- Latest=$LATEST_CONFIG_VERSION"
+        if [[ $FORCE == "true" || "$CURRENT_CONFIG_VERSION" != "$LATEST_CONFIG_VERSION" ]];then
             echo "Config is outdated! updating..."
             
             curl -L -o hiddify-config.zip   https://github.com/hiddify/hiddify-config/releases/latest/download/hiddify-config.zip  && rm xray/configs/*
