@@ -289,7 +289,7 @@ function main(){
         export MODE="$1"
         
         if [ "$MODE" != "apply_users" ];then
-                bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.4
+                bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.4 || echo "error in updating xray"
                 runsh install.sh hiddify-panel
         fi
         # source common/set_config_from_hpanel.sh
@@ -423,8 +423,8 @@ log_h=$(($height - 10))
 log_w=$(($width - 6))
 
 log_file=log/system/0-install.log
-
-main $@|& tee $log_file|dialog \
+echo "console size=$log_h $log_w" |tee $log_file
+main $@|& tee -a $log_file |dialog \
         --backtitle "$BACKTITLE" \
         --title "Installing Hiddify" \
         --begin 2 2 \
