@@ -5,8 +5,9 @@ function get_commit_version() {
 }
 
 function get_release_version() {
-    COMMIT_URL=https://api.github.com/repos/hiddify/$1/releases/latest
-    VERSION=$(curl -s --connect-timeout 1 $COMMIT_URL | jq -r .tag_name)
+    # COMMIT_URL=https://api.github.com/repos/hiddify/$1/releases/latest
+    # VERSION=$(curl -s --connect-timeout 1 $COMMIT_URL | jq -r .tag_name)
+    curl -sI https://github.com/hiddify/$1/releases/latest | grep -i location | rev | awk -F/ '{print $1}' | rev
     echo ${VERSION//v/}
 }
 
@@ -17,8 +18,7 @@ function get_installed_config_version() {
     cat /opt/hiddify-config/VERSION
 }
 
-
-function get_package_mode(){
+function get_package_mode() {
     cd /opt/hiddify-config/hiddify-panel
     python3 -m hiddifypanel all-configs | jq -r ".hconfigs.package_mode"
 }

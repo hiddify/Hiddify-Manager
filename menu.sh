@@ -3,17 +3,17 @@
 source common/utils.sh
 
 PACKAGE_MODE=$(get_package_mode)
-LATEST_CONFIG_VERSION=$(get_release_version hiddify-config)
-LATEST_PANEL_VERSION=$(get_release_version hiddifypanel)
+#LATEST_CONFIG_VERSION=$(get_release_version hiddify-config)
+#LATEST_PANEL_VERSION=$(get_release_version hiddifypanel)
 
 CURRENT_CONFIG_VERSION=$(get_installed_config_version)
 CURRENT_PANEL_VERSION=$(get_installed_panel_version)
 
-if [[ "$PACKAGE_MODE" == "develop" ]] || [[ "$CURRENT_CONFIG_VERSION" == "$LATEST_CONFIG_VERSION" && "$CURRENT_PANEL_VERSION" == "$LATEST_PANEL_VERSION" ]]; then
-    UPDATE_NEED=""
-else
-    UPDATE_NEED="*UPDATE AVAILABLE* Config=v$LATEST_CONFIG_VERSION Panel=v$LATEST_PANEL_VERSION"
-fi
+# if [[ "$PACKAGE_MODE" == "develop" ]] || [[ "$CURRENT_CONFIG_VERSION" == "$LATEST_CONFIG_VERSION" && "$CURRENT_PANEL_VERSION" == "$LATEST_PANEL_VERSION" ]]; then
+#     UPDATE_NEED=""
+# else
+#     UPDATE_NEED="*UPDATE AVAILABLE* Config=v$LATEST_CONFIG_VERSION Panel=v$LATEST_PANEL_VERSION"
+# fi
 
 cd "$(dirname -- "$0")"
 cd /opt/hiddify-config/
