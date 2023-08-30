@@ -7,10 +7,8 @@ if [ "$(id -u)" -ne 0 ]; then
 #        exit 1
 
 fi
-function error(){
-   echo -e "\033[91m$1\033[0m">&2
+source common/utils.sh
 
-}
 function cleanup() {
     error "Script interrupted. Exiting..."
     rm log/install.lock

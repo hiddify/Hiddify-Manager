@@ -3,6 +3,17 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 cd $(dirname -- "$0")
 
+function cleanup() {
+    error "Script interrupted. Exiting..."
+    rm log/update.lock
+    pkill -9 dialog
+    echo "1" >log/error.lock
+    exit 1
+}
+
+# Trap the Ctrl+C signal and call the cleanup function
+trap cleanup SIGINT
+
 source common/utils.sh
 
 function main() {

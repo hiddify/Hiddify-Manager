@@ -22,3 +22,7 @@ function get_package_mode() {
     cd /opt/hiddify-config/hiddify-panel
     python3 -m hiddifypanel all-configs | jq -r ".hconfigs.package_mode"
 }
+
+function error() {
+    echo -e "\033[91m$1\033[0m" >&2
+}
