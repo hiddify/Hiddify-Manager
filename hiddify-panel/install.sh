@@ -22,9 +22,9 @@ done
 (cd ../other/redis/ && bash install.sh)
 (cd ../other/mysql/ && bash install.sh)
 
-sed -i '/SQLALCHEMY_DATABASE_URI/d' settings.toml
+sed -i '/SQLALCHEMY_DATABASE_URI/d' app.cfg
 MYSQL_PASS=$(cat ../other/mysql/mysql_pass)
-echo "SQLALCHEMY_DATABASE_URI = 'mysql://hiddifypanel:$MYSQL_PASS@127.0.0.1/hiddifypanel'" >>settings.toml
+echo "SQLALCHEMY_DATABASE_URI = 'mysql://hiddifypanel:$MYSQL_PASS@127.0.0.1/hiddifypanel'" >>app.cfg
 
 if [ -f hiddifypanel.db ]; then
     sqlite3mysql -f hiddifypanel.db -d hiddifypanel -u hiddifypanel -h 127.0.0.1 --mysql-password $MYSQL_PASS
