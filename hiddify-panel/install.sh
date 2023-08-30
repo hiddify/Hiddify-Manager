@@ -28,6 +28,7 @@ echo "SQLALCHEMY_DATABASE_URI = 'mysql://hiddifypanel:$MYSQL_PASS@127.0.0.1/hidd
 
 if [ -f hiddifypanel.db ]; then
     sqlite3mysql -f hiddifypanel.db -d hiddifypanel -u hiddifypanel -h 127.0.0.1 --mysql-password $MYSQL_PASS
+    mv hiddifypanel.db hiddifypanel.db.old
 fi
 
 # ln -sf $(which gunicorn) /usr/bin/gunicorn
