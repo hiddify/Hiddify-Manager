@@ -7,7 +7,7 @@ function get_commit_version() {
 function get_release_version() {
     # COMMIT_URL=https://api.github.com/repos/hiddify/$1/releases/latest
     # VERSION=$(curl -s --connect-timeout 1 $COMMIT_URL | jq -r .tag_name)
-    curl -sI https://github.com/hiddify/$1/releases/latest | grep -i location | rev | awk -F/ '{print $1}' | rev
+    VERSION=$(curl -sI https://github.com/hiddify/$1/releases/latest | grep -i location | rev | awk -F/ '{print $1}' | rev)
     echo ${VERSION//v/}
 }
 
