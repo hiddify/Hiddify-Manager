@@ -3,7 +3,7 @@ cd "$(dirname -- "$0")"
 cd /opt/hiddify-config/
 HEIGHT=20
 WIDTH=70
-CHOICE_HEIGHT=10
+CHOICE_HEIGHT=12
 BACKTITLE="Welcome to Hiddify Panel (config version=$(cat VERSION))"
 TITLE="Hiddify Panel"
 MENU="Choose one of the following options:"
@@ -14,9 +14,9 @@ OPTIONS=(status "View status of system"
          restart "Restart Services without changing the configs"
          apply_configs "Apply the changed configs"
          update "Update "
-         warp "Check Warp Status"
          install "Reinstall"
-         submenu "Uninstall, Disable/Enable menu on startup"
+         advanced "Uninstall, Remote Assistant, Downgrade,..."
+         exit  ""
          )
 
 CHOICE=$(whiptail --clear \
@@ -29,14 +29,15 @@ CHOICE=$(whiptail --clear \
 
 if [[ $? != 0 ]]; then
     clear
-    exit
+    exit 1
 fi
 clear
 echo "Hiddify: Command $CHOICE"
 echo "=========================================="
 NEED_KEY=1
 case $CHOICE in
-    "") exit;;
+    "") exit 1;;
+    "exit") exit 1;;
     'log')
         W=()
         while read -r line; do
@@ -57,8 +58,13 @@ case $CHOICE in
         fi
         NEED_KEY=0
     ;;
-    "submenu")
-        OPTIONS=(enable "show this menu on start up"
+    "advanced")
+        OPTIONS=(
+                warp "Check Warp Status"
+                add_remote "Add remote assistant access to this server"
+                remove_remote "Remove remote assistant access to this server"
+                downgrade "Downgrade to Version 7"
+                enable "show this menu on start up"
                 disable "disable this menu"
                 uninstall "Uninstall hiddify :("
                 purge "Uninstall completely and remove database :("
@@ -80,6 +86,19 @@ case $CHOICE in
             ;;
             "purge")
                 bash uninstall.sh purge
+            ;;
+            "downgrade")
+                bash common/downgrade.sh
+            ;;
+            "add_remote")
+                bash add_remote_assistant.sh
+            ;;
+            "remove_remote")
+                bash remove_remote_assistant.sh
+            ;;
+            "warp")
+                (cd other/warp/;bash status.sh | less -r -P"Press q to exit" +G)
+                NEED_KEY=0
             ;;
             *) NEED_KEY=0;;
         esac
@@ -109,10 +128,6 @@ case $CHOICE in
     ;;
     "status")
         bash status.sh | less -r -P"Press q to exit" +G
-        NEED_KEY=0
-    ;;
-    "warp")
-        (cd other/warp/;bash status.sh | less -r -P"Press q to exit" +G)
         NEED_KEY=0
     ;;
     *)

@@ -100,7 +100,7 @@ backend to_https_in_ssl
 
 frontend onlypanel_in
     mode http
-    bind abns@onlypanel_in tfo accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h2,http/1.1,h3
+    bind abns@onlypanel_in accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h2,http/1.1,h3
 
     
     acl hpanel path_reg ^/BASE_PROXY_PATH/[1-9a-f][1-9a-f]
@@ -109,7 +109,7 @@ frontend onlypanel_in
     default_backend nginx_dispatcher_http
 
 backend to_panel_only
-    server to_panel_only abns@onlypanel_in send-proxy-v2 tfo
+    server to_panel_only abns@onlypanel_in send-proxy-v2
 
 frontend http-https-in
     bind :80,:::80 v4v6 tfo 
