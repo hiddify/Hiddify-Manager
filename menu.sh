@@ -19,6 +19,7 @@ cd "$(dirname -- "$0")"
 cd /opt/hiddify-config/
 
 function menu() {
+
     HEIGHT=20
     WIDTH=70
     CHOICE_HEIGHT=12
@@ -163,6 +164,6 @@ function menu() {
         read -p "Press any key to return to menu" -n 1 key
     fi
 
-    $(menu)
+    menu
 }
 menu
