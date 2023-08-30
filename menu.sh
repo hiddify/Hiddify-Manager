@@ -2,16 +2,17 @@
 
 source common/utils.sh
 
+PACKAGE_MODE=$(get_package_mode)
 LATEST_CONFIG_VERSION=$(get_release_version hiddify-config)
 LATEST_PANEL_VERSION=$(get_release_version hiddifypanel)
-PACKAGE_MODE=$(get_package_mode)
+
 CURRENT_CONFIG_VERSION=$(get_installed_config_version)
 CURRENT_PANEL_VERSION=$(get_installed_panel_version)
 
 if [[ "$PACKAGE_MODE" == "develop" ]] || [[ "$CURRENT_CONFIG_VERSION" == "$LATEST_CONFIG_VERSION" && "$CURRENT_PANEL_VERSION" == "$LATEST_PANEL_VERSION" ]]; then
     UPDATE_NEED=""
 else
-    UPDATE_NEED="*RELEASE UPDATE AVAILABLE*"
+    UPDATE_NEED="*UPDATE AVAILABLE* Config=v$LATEST_CONFIG_VERSION Panel=v$LATEST_PANEL_VERSION"
 fi
 
 cd "$(dirname -- "$0")"
@@ -19,7 +20,7 @@ cd /opt/hiddify-config/
 HEIGHT=20
 WIDTH=70
 CHOICE_HEIGHT=12
-BACKTITLE="Hiddify Panel ($PACKAGE_MODE Config=v$CURRENT_CONFIG_VERSION Panel=v$CURRENT_PANEL_VERSION)   $UPDATE_NEED     Latest Release Config=v$LATEST_CONFIG_VERSION Panel=v$LATEST_PANEL_VERSION"
+BACKTITLE="Hiddify Panel ($PACKAGE_MODE Config=v$CURRENT_CONFIG_VERSION Panel=v$CURRENT_PANEL_VERSION)   $UPDATE_NEED  "
 TITLE="Hiddify Panel"
 MENU="Choose one of the following options:"
 
