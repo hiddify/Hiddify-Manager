@@ -24,7 +24,7 @@ done
 
 sed -i '/SQLALCHEMY_DATABASE_URI/d' app.cfg
 MYSQL_PASS=$(cat ../other/mysql/mysql_pass)
-echo "SQLALCHEMY_DATABASE_URI = 'mysql://hiddifypanel:$MYSQL_PASS@127.0.0.1/hiddifypanel'" >>app.cfg
+echo "SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://hiddifypanel:$MYSQL_PASS@127.0.0.1/hiddifypanel'" >>app.cfg
 
 if [ -f hiddifypanel.db ]; then
     sqlite3mysql -f hiddifypanel.db -d hiddifypanel -u hiddifypanel -h 127.0.0.1 --mysql-password $MYSQL_PASS
