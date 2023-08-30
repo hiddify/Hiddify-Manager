@@ -3,7 +3,7 @@
 if ! command -v mysql; then
     sudo apt install -y mariadb-server
 fi
-if [ ! -f "$password_file" ]; then
+if [ ! -f "mysql_pass" ]; then
     echo "Generating a random password..."
     random_password=$(openssl rand -base64 40)
     echo "$random_password" >"mysql_pass"
