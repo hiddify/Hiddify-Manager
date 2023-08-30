@@ -91,10 +91,10 @@ case $CHOICE in
                 bash common/downgrade.sh
             ;;
             "add_remote")
-                bash commmon/add_remote_assistant.sh
+                bash common/add_remote_assistant.sh
             ;;
             "remove_remote")
-                bash commmon/remove_remote_assistant.sh
+                bash common/remove_remote_assistant.sh
             ;;
             "warp")
                 (cd other/warp/;bash status.sh | less -r -P"Press q to exit" +G)
