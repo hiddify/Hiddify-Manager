@@ -14,14 +14,12 @@ else
     UPDATE_NEED="*RELEASE UPDATE AVAILABLE*"
 fi
 
-echo "UPDATE_NEED: $UPDATE_NEED"
-
 cd "$(dirname -- "$0")"
 cd /opt/hiddify-config/
 HEIGHT=20
 WIDTH=70
 CHOICE_HEIGHT=12
-BACKTITLE="Welcome to Hiddify Panel (config=$CURRENT_CONFIG_VERSION panel=$CURRENT_PANEL_VERSION)   $UPDATE_NEED Latest Release CONFIG=$LATEST_CONFIG_VERSION PANEL=$LATEST_PANEL_VERSION"
+BACKTITLE="Hiddify Panel (Config=v$CURRENT_CONFIG_VERSION Panel=v$CURRENT_PANEL_VERSION)   $UPDATE_NEED     Latest Release Config=v$LATEST_CONFIG_VERSION Panel=v$LATEST_PANEL_VERSION"
 TITLE="Hiddify Panel"
 MENU="Choose one of the following options:"
 
@@ -33,7 +31,7 @@ OPTIONS=(status "View status of system"
     update "Update $UPDATE_NEED"
     install "Reinstall"
     advanced "Uninstall, Remote Assistant, Downgrade,..."
-    exit ""
+    Exit ""
 )
 
 CHOICE=$(whiptail --clear \
@@ -54,7 +52,7 @@ echo "=========================================="
 NEED_KEY=1
 case $CHOICE in
 "") exit 1 ;;
-"exit") exit 1 ;;
+"Exit") exit 1 ;;
 'log')
     W=()
     while read -r line; do
@@ -126,7 +124,7 @@ case $CHOICE in
 
 "update")
     OPTIONS=(default "Based on the configuration in panel"
-        release "Release (suggested)"
+        release "(suggested) $UPDATE_NEED"
         develop "Develop (may have some bugs)"
     )
     CHOICE=$(whiptail --clear --backtitle "$BACKTITLE" --title "$TITLE" --menu "$MENU" $HEIGHT $WIDTH $CHOICE_HEIGHT "${OPTIONS[@]}" 3>&1 1>&2 2>&3)
