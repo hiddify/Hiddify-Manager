@@ -70,7 +70,16 @@ location /BASE_PROXY_PATH/speedtest/ {
   client_max_body_size 10000M;
   proxy_pass          http://localhost:438/;
 }
-
+location /BASE_PROXY_PATH/static/ {
+  tcp_nodelay       on;
+  keepalive_timeout 65;
+  add_header X-Robots-Tag "noindex, nofollow";
+  expires 1y;
+  etag off;
+  if_modified_since off;
+  add_header Cache-Control "public, no-transform";
+  alias PANEL_STATIC_ROOT;
+}
 location /BASE_PROXY_PATH/ {
   proxy_set_header Host $host;
   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -83,5 +92,6 @@ location /BASE_PROXY_PATH/ {
   uwsgi_pass localhost:9001;
   error_page 301 302 307 = @handle_redirect;
 }
+
 
 resolver 8.8.8.8;
