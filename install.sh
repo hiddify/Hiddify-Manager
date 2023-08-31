@@ -424,14 +424,15 @@ log_w=$(($width - 6))
 
 log_file=log/system/0-install.log
 
-main $@|& tee $log_file|dialog \
-        --backtitle "$BACKTITLE" \
-        --title "Installing Hiddify" \
-        --begin 2 2 \
-        --tailboxbg $log_file $log_h $log_w \
-        --and-widget \
-        --begin $(($log_h + 2)) 2 \
-        --gauge "Please wait..., We are going to install Hiddify" 7 $log_w 0
+main $@|& tee $log_file
+# |dialog \
+#         --backtitle "$BACKTITLE" \
+#         --title "Installing Hiddify" \
+#         --begin 2 2 \
+#         --tailboxbg $log_file $log_h $log_w \
+#         --and-widget \
+#         --begin $(($log_h + 2)) 2 \
+#         --gauge "Please wait..., We are going to install Hiddify" 7 $log_w 0
 
 
 #dialog --title "Installing Hiddify" --backtitle "$BACKTITLE" --gauge "Please wait..., We are going to install Hiddify" 8 60 0
