@@ -13,6 +13,14 @@
       },
       "tag": "api"
     },
+    {
+        "ip": [
+          "geoip:private",
+          "geoip:ir"
+        ],
+        "outboundTag": "blocked",
+        "type": "field"
+      },
     //{
     //   "port": 443,
     //   "protocol": "vless",
