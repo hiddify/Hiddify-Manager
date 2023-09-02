@@ -47,6 +47,7 @@ add2iptables "INPUT -p tcp --dport 80 -j ACCEPT"
 add2iptables "INPUT -p tcp --dport 22 -j ACCEPT"
 allow_apps_ports "sshd"
 allow_apps_ports "x-ui"
+# allow_apps_ports "ssh-liberty-bridge"
 for PORT in ${HTTP_PORTS//,/ }; do
   add2iptables "INPUT -p tcp --dport $PORT -j ACCEPT"
 done
@@ -65,6 +66,11 @@ fi
 iptables-save >/etc/iptables/rules.v4
 awk -i inplace '!seen[$0]++' /etc/iptables/rules.v4
 ip6tables-save >/etc/iptables/rules.v6
+awk -i inplace '!seen[$0]++' /etc/iptables/rules.v6
+ip6tables-restore</etc/iptables/rules.v6
+iptables-restore</etc/iptables/rules.v4
+
+
 awk -i inplace '!seen[$0]++' /etc/iptables/rules.v6
 #add2iptables "INPUT -p tcp --dport 9000 -j DROP"
 
