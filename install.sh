@@ -25,6 +25,7 @@ trap cleanup SIGINT
 source ./common/ticktick.sh
 function update_progress() {
     #title="\033[92m\033[1m${1^}\033[0m\033[0m"
+    add_DNS_if_failed
     title="${1^}"
     text="$2"
     percentage="$3"
@@ -284,6 +285,7 @@ function main(){
         update_progress "Please wait..." "We are going to install Hiddify..."  0
         export ERROR=0
         rm -rf log/system/xray*
+        add_DNS_if_failed
         
 
         export MODE="$1"
