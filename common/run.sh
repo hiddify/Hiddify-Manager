@@ -1,6 +1,6 @@
 function add2iptables() {
   iptables -C $1 || echo "adding rule $1" && iptables -I $1
-  add2ip6tables $1
+  add2ip6tables "$1"
 }
 
 function add2ip6tables() {
