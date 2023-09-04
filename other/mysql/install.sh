@@ -37,3 +37,40 @@ MYSQL_SCRIPT
     echo "MariaDB setup complete."
 
 fi
+
+
+
+
+# Path to the MariaDB configuration file
+MARIADB_CONF="/etc/mysql/mariadb.conf.d/50-server.cnf"
+
+# Check if the MariaDB configuration file exists
+if [ ! -f "$MARIADB_CONF" ]; then
+  echo "MariaDB configuration file ($MARIADB_CONF) not found."
+  exit 1
+fi
+
+
+
+# Check if bind-address is already set to 127.0.0.1
+if grep -q "^[^#]*bind-address\s*=\s*127.0.0.1" "$MARIADB_CONF"; then
+  echo "bind-address is already set to 127.0.0.1"
+else
+  # Add or modify bind-address in the configuration file
+  if grep -q "^#\+bind-address" "$MARIADB_CONF"; then
+    # Uncomment and modify existing bind-address
+    sed -i "s/^#\+bind-address\s*=\s*[0-9.]*/bind-address = 127.0.0.1/" "$MARIADB_CONF"
+  else
+    # Add new bind-address under [mysqld]
+    sed -i "/\[mysqld\]/a bind-address = 127.0.0.1" "$MARIADB_CONF"
+  fi
+  echo "bind-address set to 127.0.0.1 in $MARIADB_CONF"
+
+  # Restart the MariaDB service
+  if systemctl is-active --quiet mariadb; then
+    sudo systemctl restart mariadb
+    echo "MariaDB service restarted"
+  else
+    echo "MariaDB service is not running. Please start it manually."
+  fi
+fi
