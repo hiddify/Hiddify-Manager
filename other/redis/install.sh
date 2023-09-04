@@ -1,7 +1,4 @@
-
-
-
-if ! command -v redis-server ;then
+if ! command -v redis-server; then
     sudo add-apt-repository -y universe
     # sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
     sudo apt install -y redis-server
@@ -12,4 +9,4 @@ touch /opt/hiddify-config/log/system/redis-server.log
 chown redis:redis /opt/hiddify-config/log/system/redis-server.log
 chown redis:redis /opt/hiddify-config/other/redis
 systemctl enable hiddify-redis
-systemctl start hiddify-redis
+systemctl restart hiddify-redis
