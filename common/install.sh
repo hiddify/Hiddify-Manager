@@ -117,3 +117,7 @@ echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/hiddify-panel/resta
 echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/nginx/add2shortlink.sh" >>/etc/sudoers.d/hiddify
 
 ln -sf /opt/hiddify-config/menu.sh /usr/bin/hiddify
+
+systemctl disable --now rpcbind.socket
+systemctl disable --now rpcbind
+

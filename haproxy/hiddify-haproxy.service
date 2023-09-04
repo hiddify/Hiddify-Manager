@@ -25,15 +25,15 @@ Type=notify
 # reduced performance. See systemd.service(5) and systemd.exec(5) for further
 # information.
 
-# NoNewPrivileges=true
-# ProtectHome=true
+NoNewPrivileges=true
+ProtectHome=true
 # If you want to use 'ProtectSystem=strict' you should whitelist the PIDFILE,
 # any state files and any other files written using 'ReadWritePaths' or
 # 'RuntimeDirectory'.
-# ProtectSystem=true
-# ProtectKernelTunables=true
-# ProtectKernelModules=true
-# ProtectControlGroups=true
+ProtectSystem=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
 # If your SystemD version supports them, you can add: @reboot, @swap, @sync
 # SystemCallFilter=~@cpu-emulation @keyring @module @obsolete @raw-io
 
