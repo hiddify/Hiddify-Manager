@@ -4,7 +4,7 @@ CLOUD_PROVIDER=${CLOUD_PROVIDER:-$MAIN_DOMAIN}
 GUID_SECRET="${USER_SECRET:0:8}-${USER_SECRET:8:4}-${USER_SECRET:12:4}-${USER_SECRET:16:4}-${USER_SECRET:20:12}"
 
 
-
+PANEL_STATIC_ROOT=$(python3 -c 'import os,hiddifypanel;print(os.path.dirname(hiddifypanel.__file__)+"/static")')
 
 
 for template_file in $(find . -name "*.template"); do
@@ -30,7 +30,7 @@ for template_file in $(find . -name "*.template"); do
     sed -i "s|defaultserverhost|$MAIN_DOMAIN|g" $out_file 
     sed -i "s|TELEGRAM_AD_TAG|$TELEGRAM_AD_TAG|g" $out_file 
     sed -i "s|TELEGRAM_FAKE_TLS_DOMAIN|${TELEGRAM_FAKE_TLS_DOMAIN:-localhost}|g" $out_file 
-
+    sed -i "s|PANEL_STATIC_ROOT|${PANEL_STATIC_ROOT:-/usr/local/lib/python3.10/dist-packages/hiddifypanel/static/}|g" $out_file 
     sed -i "s|sstlsdomain|${SS_FAKE_TLS_DOMAIN:-localhost}|g" $out_file 
     sed -i "s|shadowtlsdomain|${SHADOWTLS_FAKEDOMAIN:-localhost}|g" $out_file 
     sed -i "s|ssrtlsdomain|${SSR_FAKEDOMAIN:-localhost}|g" $out_file 

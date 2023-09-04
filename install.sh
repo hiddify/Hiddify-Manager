@@ -25,6 +25,7 @@ trap cleanup SIGINT
 source ./common/ticktick.sh
 function update_progress() {
     #title="\033[92m\033[1m${1^}\033[0m\033[0m"
+    add_DNS_if_failed
     title="${1^}"
     text="$2"
     percentage="$3"
@@ -284,6 +285,7 @@ function main(){
         update_progress "Please wait..." "We are going to install Hiddify..."  0
         export ERROR=0
         rm -rf log/system/xray*
+        add_DNS_if_failed
         
 
         export MODE="$1"
@@ -424,14 +426,15 @@ log_w=$(($width - 6))
 
 log_file=log/system/0-install.log
 echo "console size=$log_h $log_w" |tee $log_file
-main $@|& tee -a $log_file |dialog \
-        --backtitle "$BACKTITLE" \
-        --title "Installing Hiddify" \
-        --begin 2 2 \
-        --tailboxbg $log_file $log_h $log_w \
-        --and-widget \
-        --begin $(($log_h + 2)) 2 \
-        --gauge "Please wait..., We are going to install Hiddify" 7 $log_w 0
+main $@|& tee -a $log_file
+# |dialog \
+#         --backtitle "$BACKTITLE" \
+#         --title "Installing Hiddify" \
+#         --begin 2 2 \
+#         --tailboxbg $log_file $log_h $log_w \
+#         --and-widget \
+#         --begin $(($log_h + 2)) 2 \
+#         --gauge "Please wait..., We are going to install Hiddify" 7 $log_w 0
 
 
 #dialog --title "Installing Hiddify" --backtitle "$BACKTITLE" --gauge "Please wait..., We are going to install Hiddify" 8 60 0

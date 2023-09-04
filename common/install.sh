@@ -1,7 +1,7 @@
 apt --fix-broken install -y
 sudo timedatectl set-timezone Asia/Tehran
 apt update
-apt install -y at whiptail apt-transport-https dnsutils ca-certificates git curl wget gnupg-agent software-properties-common iptables locales lsof cron libssl-dev curl gnupg2 ca-certificates lsb-release ubuntu-keyring
+apt install -y at whiptail apt-transport-https dnsutils ca-certificates git curl wget gnupg-agent software-properties-common iptables locales lsof cron libssl-dev curl gnupg2 ca-certificates lsb-release ubuntu-keyring resolvconf
 sudo apt -y remove needrestart apache2
 ln -sf $(pwd)/sysctl.conf /etc/sysctl.d/ss-opt.conf
 sysctl --system
@@ -117,3 +117,7 @@ echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/hiddify-panel/resta
 echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/nginx/add2shortlink.sh" >>/etc/sudoers.d/hiddify
 
 ln -sf /opt/hiddify-config/menu.sh /usr/bin/hiddify
+
+systemctl disable --now rpcbind.socket
+systemctl disable --now rpcbind
+

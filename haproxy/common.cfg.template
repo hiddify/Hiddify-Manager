@@ -17,7 +17,7 @@ defaults
 ### standalone stats page
 listen stats
         # accessible at http://192.168.1.100/haproxy?stats
-        bind 0.0.0.0:8181
+        bind 127.0.0.1:8181
       	
       	option httplog
       	stats enable
