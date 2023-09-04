@@ -3,6 +3,7 @@
     {
       "tag": "quic",
       "port": 443,
+      "listen":"127.0.0.1",
       "protocol": "vless",
       "settings": {
         "clients": [

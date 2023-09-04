@@ -3,6 +3,7 @@
     {
 	  "tag":"kcp",
       "port": 88, #xbox port
+      "listen":"127.0.0.1",
       "protocol": "vless",
       "settings": {
         "clients": [
