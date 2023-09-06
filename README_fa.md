@@ -210,7 +210,7 @@ Ubuntu arm64 or amd64
 * برنامه‌نویسی فلاتر
 <!--
 ## راه های ارتباط با ما
-* ایمیل: [hiddify@gmail.com](mailto:hiddify@gmail.com)
+* ایمیل: [contribute@hiddify.com](mailto:contribute@hiddify.com)
 * اطلاع رسانی: [کانال تلگرام](https://t.me/hiddify)
 * رفع مشکل: [گروه تلگرام](https://t.me/hiddify_board)
 
@@ -219,7 +219,7 @@ Ubuntu arm64 or amd64
 </br>
 <div align=center>
     
-[![Email](https://img.shields.io/badge/Gmail-hiddify@gmail.com-green?style=flat-square&logo=gmail)](mailto:hiddify@gmail.com)
+[![Email](https://img.shields.io/badge/Gmail-contribute@hiddify.com-green?style=flat-square&logo=gmail)](mailto:contribute@hiddify.com)
 [![Telegram Channel](https://img.shields.io/endpoint?label=Channel&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify&color=blue)](https://telegram.dog/hiddify)
 [![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
 [![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square&logo=youtube)](https://www.youtube.com/@hiddify)
