@@ -13,6 +13,8 @@ defaults
     default-server init-addr none
     default-server inter 15s fastinter 2s downinter 5s rise 3 fall 3
     mode tcp
+    #tune.h2.initial-window-size 536870912
+    #tune.h2.max-concurrent-streams 512
 
 ### standalone stats page
 listen stats

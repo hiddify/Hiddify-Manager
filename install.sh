@@ -268,14 +268,14 @@ function do_for_all() {
                 # runsh $1.sh other/netdata false $ENABLE_NETDATA
                 # runsh $1.sh deprecated/trojan-go  $ENABLE_TROJAN_GO
                 #WARP_ENABLE=$([ "$WARP_MODE" != 'disable' ] || echo "false")
-                
+                update_progress "${1}ing..." "Haproxy for Spliting Traffic" 70
+                runsh $1.sh haproxy        
+                update_progress "${1}ing..." "Xray" 90
+                runsh $1.sh xray
         fi
-        update_progress "${1}ing..." "Haproxy for Spliting Traffic" 70
-        runsh $1.sh haproxy
+        
         update_progress "${1}ing..." "Singbox" 80
         runsh $1.sh singbox
-        update_progress "${1}ing..." "Xray" 90
-        runsh $1.sh xray
         
         update_progress "${1}ing..." "Finished" 100
 }
@@ -376,24 +376,25 @@ function check(){
                 
                 cat use-link
                         
-        fi
-        for s in hiddify-xray hiddify-singbox hiddify-nginx hiddify-haproxy;do
-                s=${s##*/}
-                s=${s%%.*}
-                if [[ "$(systemctl is-active $s)" != "active" ]];then
-                        error "an important service $s is not working yet"
-                        sleep 5
-                        error "checking again..."
+        
+                for s in hiddify-xray hiddify-singbox hiddify-nginx hiddify-haproxy;do
+                        s=${s##*/}
+                        s=${s%%.*}
                         if [[ "$(systemctl is-active $s)" != "active" ]];then
-                                error "an important service $s is not working again"
-                                error "Installation Failed!"
-                                echo "32">log/error.lock
-                                exit 32
+                                error "an important service $s is not working yet"
+                                sleep 5
+                                error "checking again..."
+                                if [[ "$(systemctl is-active $s)" != "active" ]];then
+                                        error "an important service $s is not working again"
+                                        error "Installation Failed!"
+                                        echo "32">log/error.lock
+                                        exit 32
+                                fi
+                                
                         fi
                         
-                fi
-                
-        done
+                done
+        fi
 }
 mkdir -p log/system/
 
