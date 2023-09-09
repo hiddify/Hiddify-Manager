@@ -4,6 +4,7 @@ source ./lib/acme.sh.env
 DOMAINS=${MAIN_DOMAIN//;/ }
 
 #echo "location /.well-known/acme-challenge {proxy_pass http://127.0.0.1:81;}" >/opt/hiddify-config/nginx/parts/acme.conf
+mkdir -p /opt/hiddify-config/acme.sh/www/.well-known/acme-challenge
 echo "location /.well-known/acme-challenge {root /opt/hiddify-config/acme.sh/www/;}" >/opt/hiddify-config/nginx/parts/acme.conf
 systemctl reload hiddify-nginx
 
