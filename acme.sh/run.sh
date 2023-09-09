@@ -3,7 +3,8 @@ source ./lib/acme.sh.env
 # MAIN_DOMAIN="$MAIN_DOMAIN;$SERVER_IP.sslip.io"
 DOMAINS=${MAIN_DOMAIN//;/ }
 
-echo "location /.well-known/acme-challenge {proxy_pass http://127.0.0.1:81;}" >/opt/hiddify-config/nginx/parts/acme.conf
+#echo "location /.well-known/acme-challenge {proxy_pass http://127.0.0.1:81;}" >/opt/hiddify-config/nginx/parts/acme.conf
+echo "location /.well-known/acme-challenge {root /opt/hiddify-config/acme.sh/www/;}" >/opt/hiddify-config/nginx/parts/acme.conf
 systemctl reload hiddify-nginx
 
 # echo -e "Permanent Admin link: \n   http://$SERVER_IP/$BASE_PROXY_PATH/$ADMIN_SECRET/admin/ \n" >>$DST
@@ -30,8 +31,10 @@ for DOMAIN in $DOMAINS; do
 		flags="--listen-v6"
 	fi
 	# --server  letsencrypt
-	./lib/acme.sh --issue --standalone --local-address 127.0.0.1 --httpport 81 -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt
-	./lib/acme.sh --issue --standalone --local-address 127.0.0.1 --httpport 81 -d $DOMAIN --log $(pwd)/../log/system/acme.log
+	# ./lib/acme.sh --issue --standalone --local-address 127.0.0.1 --httpport 81 -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt
+	# ./lib/acme.sh --issue --standalone --local-address 127.0.0.1 --httpport 81 -d $DOMAIN --log $(pwd)/../log/system/acme.log
+	./lib/acme.sh --issue -w /opt/hiddify-config/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt
+	./lib/acme.sh --issue -w /opt/hiddify-config/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log
 
 	# ./lib/acme.sh --issue --nginx -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --server letsencrypt
 	# ./lib/acme.sh --issue --nginx -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags
