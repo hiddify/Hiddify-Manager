@@ -6,8 +6,8 @@ DOMAINS=${MAIN_DOMAIN//;/ }
 echo "location /.well-known/acme-challenge {proxy_pass http://127.0.0.1:81;}" >/opt/hiddify-config/nginx/parts/acme.conf
 systemctl reload hiddify-nginx
 
-echo -e "Permanent Admin link: \n   http://$SERVER_IP/$BASE_PROXY_PATH/$ADMIN_SECRET/admin/ \n" >>$DST
-echo -e "Secure Admin links: \n" >>$DST
+# echo -e "Permanent Admin link: \n   http://$SERVER_IP/$BASE_PROXY_PATH/$ADMIN_SECRET/admin/ \n" >>$DST
+# echo -e "Secure Admin links: \n" >>$DST
 
 ssl_cert_path=../ssl
 for file in "$ssl_cert_path"/*; do
@@ -64,10 +64,10 @@ for DOMAIN in $DOMAINS; do
 	# 	ln -sf /etc/letsencrypt/live/$DOMAIN/privkey.pem $ssl_cert_path/$DOMAIN.key
 
 	# fi
-	chmod 644 $ssl_cert_path/$DOMAIN.key
+	chmod 644 $ssl_cert_path/$DOMAIN.crt.key
 done
 # systemctl start hiddify-xray
-systemctl reload haproxy
+systemctl reload hiddify-haproxy
 
 ./lib/acme.sh --uninstall-cronjob
 echo "" >/opt/hiddify-config/nginx/parts/acme.conf

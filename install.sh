@@ -379,7 +379,7 @@ function check(){
                 echo "Finished! Thank you for helping to skip filternet."
                 echo "Please open the following link in the browser for client setup"
                 
-                cat use-link
+                (cd hiddify-panel&&python3 -m hiddifypanel admin-links)
                         
         
                 for s in hiddify-xray hiddify-singbox hiddify-nginx hiddify-haproxy;do
