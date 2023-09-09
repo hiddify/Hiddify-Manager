@@ -10,3 +10,4 @@ curl -L https://get.acme.sh| sh -s -- home /opt/hiddify-config/acme.sh/lib \
 sed -i 's|_sleep_overload_retry_sec=$_retryafter|_sleep_overload_retry_sec=$_retryafter; if [[ "$_retryafter" > 20 ]];then return 10; fi|g' lib/acme.sh
 ./lib/acme.sh --register-account -m my@example.com
 mkdir -p ../ssl/
+./lib/acme.sh --uninstall-cronjob

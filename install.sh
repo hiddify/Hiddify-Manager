@@ -243,10 +243,16 @@ function do_for_all() {
                 #$([ "$WARP_MODE" != 'disable' ] || echo "false")
                 runsh $1.sh other/warp 
                 #runsh $1.sh certbot
-                update_progress "${1}ing..." "Getting Certificates" 20
-                runsh $1.sh acme.sh
+                update_progress "${1}ing..." "Haproxy for Spliting Traffic" 70
+                runsh $1.sh haproxy        
+                
                 update_progress "${1}ing..." "Nginx" 30
                 runsh $1.sh nginx
+
+                update_progress "${1}ing..." "Getting Certificates" 20
+                runsh $1.sh acme.sh
+                
+                
                 # runsh $1.sh sniproxy
                 update_progress "${1}ing..." "Personal SpeedTest" 35
                 runsh $1.sh other/speedtest
@@ -268,8 +274,7 @@ function do_for_all() {
                 # runsh $1.sh other/netdata false $ENABLE_NETDATA
                 # runsh $1.sh deprecated/trojan-go  $ENABLE_TROJAN_GO
                 #WARP_ENABLE=$([ "$WARP_MODE" != 'disable' ] || echo "false")
-                update_progress "${1}ing..." "Haproxy for Spliting Traffic" 70
-                runsh $1.sh haproxy        
+                
                 update_progress "${1}ing..." "Xray" 90
                 runsh $1.sh xray
         fi
