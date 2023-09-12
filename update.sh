@@ -233,5 +233,9 @@ else
         --and-widget \
         --begin $((log_h + 2)) 2 \
         --gauge "Please wait..., We are going to Update Hiddify" 7 $log_w 0
+
+    dialog --title "Update Complete" \
+        --msgbox "The update has successfully completed. Press OK to continue." 10 40
+    clear
 fi
 disable_ansii_modes

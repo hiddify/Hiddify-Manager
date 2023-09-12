@@ -390,6 +390,7 @@ log_file=log/system/0-install.log
 
 if [[ " $@ " == *" --no-gui "* ]]; then
         main $@ |& tee $log_file
+        rm -f log/install.lock >/dev/null 2>&1
 else
         install_if_not_installed dialog
 
@@ -415,15 +416,19 @@ else
                 --and-widget \
                 --begin $(($log_h + 2)) 2 \
                 --gauge "Please wait..., We are going to install Hiddify" 7 $log_w 0
+        rm -f log/install.lock >/dev/null 2>&1
+        
+        if [[ $(cat log/error.lock) != "0" ]]; then
+                less -r -P"Installation Failed! Press q to exit" +G "$log_file"
+        else
+                dialog --title "Installation Complete" \
+                        --msgbox "The installation has successfully completed. Press OK to continue." 10 40
+                check $@ |& tee -a $log_file
+        fi
 fi
 
 #dialog --title "Installing Hiddify" --backtitle "$BACKTITLE" --gauge "Please wait..., We are going to install Hiddify" 8 60 0
 
-rm -f log/install.lock >/dev/null 2>&1
 
-if [[ $(cat log/error.lock) != "0" ]]; then
-        less -r -P"Installation Failed! Press q to exit" +G "$log_file"
-else
-        check $@ |& tee -a $log_file
-fi
+
 disable_ansii_modes
