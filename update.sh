@@ -45,8 +45,10 @@ function main() {
     echo "Creating a backup ..."
     ./hiddify-panel/backup.sh
 
-    panel_update=$(update_panel "$package_mode" "$force")
-    config_update=$(update_config "$package_mode" "$force")
+    update_panel "$package_mode" "$force"
+    panel_update=$?
+    update_config "$package_mode" "$force"
+    config_update=$?
 
     post_update_tasks "$panel_update" "$config_update"
 }
@@ -56,7 +58,7 @@ function update_panel() {
     local package_mode=$1
     local force=$2
     local current_panel_version=$(get_installed_panel_version)
-    local panel_update=0
+
 
     # Your existing logic for checking and updating the panel version based on the package mode
     # Set panel_update to 1 if an update is performed
@@ -73,8 +75,8 @@ function update_panel() {
             pip3 install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel
             echo $latest >$panel_path/VERSION
             sed -i "s/__version__='[^']*'/__version__='$latest'/" $panel_path/VERSION.py
-            panel_update=1
             update_progress "Updated..." "Hiddify Panel to $latest" 50
+            return 0
         fi
         ;;
     beta)
@@ -84,8 +86,8 @@ function update_panel() {
             update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
             echo "panel is outdated! updating...."
             pip install -U hiddifypanel==$latest
-            panel_update=1
             update_progress "Updated..." "Hiddify Panel to $latest" 50
+            return 0
         fi
         ;;
     release)
@@ -95,8 +97,8 @@ function update_panel() {
             update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
             echo "panel is outdated! updating...."
             pip3 install -U hiddifypanel==$latest
-            panel_update=1
             update_progress "Updated..." "Hiddify Panel to $latest" 50
+            return 0
         fi
         ;;
     *)
@@ -105,7 +107,7 @@ function update_panel() {
         ;;
     esac
 
-    return $panel_update
+    return 1
 }
 
 function update_config() {
@@ -113,10 +115,7 @@ function update_config() {
     local package_mode=$1
     local force=$2
     local current_config_version=$(get_installed_config_version)
-    local update=0
 
-    # Your existing logic for checking and updating the config version based on the package mode
-    # Set update to 1 if an update is performed
 
     case "$package_mode" in
     develop)
@@ -126,8 +125,8 @@ function update_config() {
             update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
             update_from_github "hiddify-config.tar.gz" "https://github.com/hiddify/hiddify-config/archive/refs/heads/main.tar.gz"
             echo "$latest" >VERSION
-            update=1
             update_progress "Updated..." "Hiddify Config to $latest" 100
+            return 0
         fi
         ;;
     beta)
@@ -136,8 +135,8 @@ function update_config() {
         if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
             update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
             update_from_github "hiddify-config.zip" "https://github.com/hiddify/hiddify-config/releases/download/$latest/hiddify-config.zip"
-            update=1
             update_progress "Updated..." "Hiddify Config to $latest" 100
+            return 0
         fi
         ;;
     release)
@@ -145,8 +144,8 @@ function update_config() {
         if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
             update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
             update_from_github "hiddify-config.zip" "https://github.com/hiddify/hiddify-config/releases/latest/download/hiddify-config.zip"
-            update=1
             update_progress "Updated..." "Hiddify Config to $latest" 100
+            return 0
         fi
 
         ;;
@@ -156,22 +155,22 @@ function update_config() {
         ;;
     esac
 
-    return $update
+    return 1
 }
 
 function post_update_tasks() {
     local panel_update=$1
     local config_update=$2
 
-    if [[ $config_update -eq 0 ]]; then
+    if [[ $config_update != 0 ]]; then
         echo "---------------------Finished!------------------------"
     fi
 
-    if [[ $panel_update -eq 1 ]]; then
+    if [[ $panel_update == 0 ]]; then
         systemctl restart hiddify-panel
     fi
 
-    if [[ $panel_update -eq 1 && $config_update -eq 0 ]]; then
+    if [[ $panel_update == 0 && $config_update != 0 ]]; then
         bash apply_configs.sh --no-gui
     fi
 
