@@ -29,7 +29,7 @@ for REALITY in $REALITY_DOMAINS; do
   sed -i "s|#reality_configs|\
     #reality_configs\n\
     acl reality_domains_$i req.ssl_sni -i $SERVER_NAMES\n\
-    use_backend reality_h2_$i if reality_domains_$i h2\n\
+    use_backend reality_h2_$i if reality_domains_$i alpnh2\n\
     use_backend reality_$i if reality_domains_$i|g" common.cfg
 
   sed -i "s|#reality_http_configs|\
