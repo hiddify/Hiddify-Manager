@@ -4,6 +4,10 @@ function get_commit_version() {
     echo ${VERSION:5:11}
 }
 
+function get_pre_release_version() {
+    lastversion $1 --pre --at github
+}
+
 function get_release_version() {
     # COMMIT_URL=https://api.github.com/repos/hiddify/$1/releases/latest
     # VERSION=$(curl -s --connect-timeout 1 $COMMIT_URL | jq -r .tag_name)
@@ -11,9 +15,11 @@ function get_release_version() {
     VERSION=${VERSION//v/}
     echo ${VERSION//$'\r'/}
 }
-
+function hiddifypanel_path() {
+    python3 -c "import site, os; package_name = 'hiddifypanel'; package_path = next((os.path.join(p, package_name) for p in site.getsitepackages() if os.path.isdir(os.path.join(p, package_name))), None); print(package_path)"
+}
 function get_installed_panel_version() {
-    echo $(pip3 freeze | grep hiddifypanel | awk -F"==" '{ print $2 }')
+    cat "$(hiddifypanel_path)/VERSION"
 }
 function get_installed_config_version() {
     cat /opt/hiddify-config/VERSION
@@ -44,4 +50,19 @@ function add_DNS_if_failed() {
         # echo "Dig resolved $DOMAIN successfully!"
     fi
 
+}
+
+function install_if_not_installed() {
+    install_packge=${2:-$1}
+    if ! command -v "$1" >/dev/null 2>&1; then
+        echo "Installing $1..."
+        sudo apt install -y "$install_packge"
+    fi
+}
+
+
+function disable_ansii_modes() {
+    echo -e "\033[?25l"
+    echo -e "\e[?1003l"
+    tput sgr0
 }

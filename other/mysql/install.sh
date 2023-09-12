@@ -1,15 +1,15 @@
 #!/bin/bash
 
 if ! command -v mysql; then
-    sudo apt install -y mariadb-server
+  sudo apt install -y mariadb-server
 fi
 if [ ! -f "mysql_pass" ]; then
-    echo "Generating a random password..."
-    random_password=$(openssl rand -base64 40)
-    echo "$random_password" >"mysql_pass"
-    chmod 600 "mysql_pass"
-    # Secure MariaDB installation
-    sudo mysql_secure_installation <<EOF
+  echo "Generating a random password..."
+  random_password=$(openssl rand -base64 40)
+  echo "$random_password" >"mysql_pass"
+  chmod 600 "mysql_pass"
+  # Secure MariaDB installation
+  sudo mysql_secure_installation <<EOF
 y
 $random_password
 $random_password
@@ -19,27 +19,24 @@ y
 y
 EOF
 
-    # Disable external access
-    sudo sed -i 's/bind-address/#bind-address/' /etc/mysql/mariadb.conf.d/50-server.cnf
-    sudo systemctl restart mariadb
+  # Disable external access
+  sudo sed -i 's/bind-address/#bind-address/' /etc/mysql/mariadb.conf.d/50-server.cnf
+  sudo systemctl restart mariadb
 
-    # Create user with localhost access
-    sudo mysql -u root -f <<MYSQL_SCRIPT
+  # Create user with localhost access
+  sudo mysql -u root -f <<MYSQL_SCRIPT
 CREATE USER 'hiddifypanel'@'localhost' IDENTIFIED BY '$random_password';
 ALTER USER 'hiddifypanel'@'localhost' IDENTIFIED BY '$random_password';
 
 GRANT ALL PRIVILEGES ON *.* TO 'hiddifypanel'@'localhost';
-CREATE DATABASE hiddifypanel;
+CREATE DATABASE hiddifypanel CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;;
 GRANT ALL PRIVILEGES ON hiddifypanel.* TO 'hiddifypanel'@'localhost';
 FLUSH PRIVILEGES;
 MYSQL_SCRIPT
 
-    echo "MariaDB setup complete."
+  echo "MariaDB setup complete."
 
 fi
-
-
-
 
 # Path to the MariaDB configuration file
 MARIADB_CONF="/etc/mysql/mariadb.conf.d/50-server.cnf"
@@ -49,8 +46,6 @@ if [ ! -f "$MARIADB_CONF" ]; then
   echo "MariaDB configuration file ($MARIADB_CONF) not found."
   exit 1
 fi
-
-
 
 # Check if bind-address is already set to 127.0.0.1
 if grep -q "^[^#]*bind-address\s*=\s*127.0.0.1" "$MARIADB_CONF"; then
