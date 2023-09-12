@@ -210,7 +210,7 @@ date +%s >$LOCK_FILE
 
 # Run the main function and log the output
 if [[ " $@ " == *" --no-gui "* ]]; then
-    main "$@" 2>&1 | tee -a $LOG_FILE
+    main "$@" 2>&1 | tee $LOG_FILE
 else
     # Get terminal dimensions with fallback values
     width=$(tput cols 2>/dev/null || echo 20)
