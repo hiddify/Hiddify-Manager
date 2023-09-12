@@ -63,7 +63,11 @@ function install_if_not_installed() {
 function disable_ansii_modes() {
     echo -e "\033[?25l"
     echo -e "\e[?1003l"
+    echo -e '\033c'
+    echo -e '\e[?25h'
+    reset
     tput sgr0
+    
     pkill -9 dialog
 }
 

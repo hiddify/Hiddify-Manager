@@ -236,6 +236,6 @@ else
 
     dialog --title "Update Complete" \
         --msgbox "The update has successfully completed. Press OK to continue." 10 40
-    clear
+    reset
 fi
 disable_ansii_modes
