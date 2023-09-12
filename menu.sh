@@ -89,7 +89,7 @@ function menu() {
             warp "Check Warp Status"
             add_remote "Add remote assistant access to this server"
             remove_remote "Remove remote assistant access to this server"
-            downgrade "Downgrade to Version 7"
+            downgrade "Downgrade from develop to release"
             enable "show this menu on start up"
             disable "disable this menu"
             uninstall "Uninstall hiddify :("
