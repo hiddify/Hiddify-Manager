@@ -42,7 +42,7 @@ function menu() {
         update "Update $UPDATE_NEED"
         install "Reinstall"
         advanced "Uninstall, Remote Assistant, Downgrade,..."
-        Exit ""
+        Quit ""
     )
 
     CHOICE=$(whiptail --clear \
