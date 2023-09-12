@@ -16,7 +16,6 @@ function cleanup() {
     error "Script interrupted. Exiting..."
     disable_ansii_modes
     rm "$LOCK_FILE"
-    pkill -9 dialog
     echo "1" >"$ERROR_LOCK_FILE"
     exit 1
 }
@@ -52,6 +51,7 @@ function main() {
 }
 
 function update_panel() {
+    update_progress "Checking for Update..." "Hiddify Panel" 5
     local package_mode=$1
     local force=$2
     local current_panel_version=$(get_installed_panel_version)
@@ -67,30 +67,36 @@ function update_panel() {
 
         echo "DEVLEOP: hiddify panel version current=$current_panel_version latest=$latest"
         if [[ FORCE == "true" || "$latest" != "$current_panel_version" ]]; then
+            update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
             panel_path=$(hiddifypanel_path)
             pip3 uninstall -y hiddifypanel
             pip3 install -U git+https://github.com/hiddify/HiddifyPanel
             echo $latest >$panel_path/VERSION
             echo "__version__='$latest'" >$panel_path/VERSION.py
             panel_update=1
+            update_progress "Updated..." "Hiddify Panel to $latest" 50
         fi
         ;;
     beta)
         latest=$(get_pre_release_version hiddifypanel)
         echo "BETA: hiddify panel version current=$current_panel_version latest=$latest"
         if [[ $force == "true" || "$current_panel_version" != "$latest" ]]; then
+            update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
             echo "panel is outdated! updating...."
             pip install -U hiddifypanel==$latest
             panel_update=1
+            update_progress "Updated..." "Hiddify Panel to $latest" 50
         fi
         ;;
     release)
         latest=$(get_release_version hiddifypanel)
         echo "hiddify panel version current=$current_panel_version latest=$latest"
         if [[ $force == "true" || "$current_panel_version" != "$latest" ]]; then
+            update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
             echo "panel is outdated! updating...."
             pip3 install -U hiddifypanel==$latest
             panel_update=1
+            update_progress "Updated..." "Hiddify Panel to $latest" 50
         fi
         ;;
     *)
@@ -103,6 +109,7 @@ function update_panel() {
 }
 
 function update_config() {
+    update_progress "Checking for Update..." "Hiddify Config" 55
     local package_mode=$1
     local force=$2
     local current_config_version=$(get_installed_config_version)
@@ -116,24 +123,30 @@ function update_config() {
         local latest=$(get_commit_version hiddify-config)
         echo "DEVELOP: Current Config Version=$current_config_version -- Latest=$latest"
         if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
+            update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
             update_from_github "hiddify-config.tar.gz" "https://github.com/hiddify/hiddify-config/archive/refs/heads/main.tar.gz"
             echo "$latest" >VERSION
             update=1
+            update_progress "Updated..." "Hiddify Config to $latest" 100
         fi
         ;;
     beta)
         local latest=$(get_pre_release_version hiddifypanel)
         echo "BETA: Current Config Version=$current_config_version -- Latest=$latest"
         if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
+            update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
             update_from_github "hiddify-config.zip" "https://github.com/hiddify/hiddify-config/releases/download/$latest/hiddify-config.zip"
             update=1
+            update_progress "Updated..." "Hiddify Config to $latest" 100
         fi
         ;;
     release)
         echo "RELEASE: Current Config Version=$current_config_version -- Latest=$latest"
         if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
+            update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
             update_from_github "hiddify-config.zip" "https://github.com/hiddify/hiddify-config/releases/latest/download/hiddify-config.zip"
             update=1
+            update_progress "Updated..." "Hiddify Config to $latest" 100
         fi
 
         ;;
@@ -159,7 +172,7 @@ function post_update_tasks() {
     fi
 
     if [[ $panel_update -eq 1 && $config_update -eq 0 ]]; then
-        bash apply_configs.sh
+        bash apply_configs.sh --no-gui
     fi
 
     rm "$LOCK_FILE"
@@ -183,7 +196,7 @@ function update_from_github() {
     fi
 
     rm "$file_name"
-    bash install.sh
+    bash install.sh --no-gui
 }
 
 # Check if another installation is running

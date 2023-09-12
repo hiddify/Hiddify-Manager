@@ -60,9 +60,18 @@ function install_if_not_installed() {
     fi
 }
 
-
 function disable_ansii_modes() {
     echo -e "\033[?25l"
     echo -e "\e[?1003l"
     tput sgr0
+    pkill -9 dialog
+}
+
+function update_progress() {
+    add_DNS_if_failed
+    #title="\033[92m\033[1m${1^}\033[0m\033[0m"
+    title="${1^}"
+    text="$2"
+    percentage="$3"
+    echo -e "XXX\n$percentage\n$title\n$text\nXXX"
 }

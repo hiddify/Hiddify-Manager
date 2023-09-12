@@ -4,19 +4,15 @@ echo "we are going to install :)"
 export DEBIAN_FRONTEND=noninteractive
 if [ "$(id -u)" -ne 0 ]; then
         echo 'This script must be run by root' >&2
-#        exit 1
-
+        exit 1
 fi
 source common/utils.sh
 
 function cleanup() {
     error "Script interrupted. Exiting..."
-    echo -e "\e[?1003l"
-    tput sgr0;
+    disable_ansii_modes
     rm log/install.lock
-    pkill -9 dialog
     echo "1">log/error.lock
-
     exit 1
 }
 
@@ -411,52 +407,47 @@ if [[ -f log/install.lock && $(( $(date +%s) - $(cat log/install.lock) )) -lt 12
     exit 12
 fi
 
+echo "$(date +%s)" >log/install.lock
 
-echo "$(date +%s)" > log/install.lock
-
-which dialog >/dev/null 2>&1
-if [[ "$?" != 0 ]];then
-        apt install -y dialog
-fi
-echo "0"> log/error.lock
-BACKTITLE="Welcome to Hiddify Panel (config version=$(cat VERSION))"
-width=$(tput cols)
-if [[ $? != 0 ]] || (( $width < 20 ));then 
-        width=20
-fi
-height=$(tput lines)
-if [[  $? != 0 ]] || (( $height < 20 ));then 
-        height=20
-fi
-
-log_h=$(($height - 10))
-log_w=$(($width - 6))
-
+echo "0" >log/error.lock
 log_file=log/system/0-install.log
-echo "console size=$log_h $log_w" |tee $log_file
+
 if [[ " $@ " == *" --no-gui "* ]]; then
-        main $@|& tee -a $log_file
+        main $@ |& tee $log_file
 else
-        main $@|& tee -a $log_file |dialog \
-        --backtitle "$BACKTITLE" \
-        --title "Installing Hiddify" \
-        --begin 2 2 \
-        --tailboxbg $log_file $log_h $log_w \
-        --and-widget \
-        --begin $(($log_h + 2)) 2 \
-        --gauge "Please wait..., We are going to install Hiddify" 7 $log_w 0
+        install_if_not_installed dialog
+
+        BACKTITLE="Welcome to Hiddify Panel (config version=$(cat VERSION))"
+        width=$(tput cols 2>/dev/null || echo 20)
+        height=$(tput lines 2>/dev/null || echo 20)
+        width=$((width < 20 ? 20 : width))
+        height=$((height < 20 ? 20 : height))
+
+        # Calculate log dimensions
+        log_h=$((height - 10))
+        log_w=$((width - 6))
+
+        # Log the console size
+        echo "console size=$log_h $log_w" | tee $LOG_FILE
+
+        echo "console size=$log_h $log_w" | tee $log_file
+        main $@ |& tee -a $log_file | dialog \
+                --backtitle "$BACKTITLE" \
+                --title "Installing Hiddify" \
+                --begin 2 2 \
+                --tailboxbg $log_file $log_h $log_w \
+                --and-widget \
+                --begin $(($log_h + 2)) 2 \
+                --gauge "Please wait..., We are going to install Hiddify" 7 $log_w 0
 fi
-
-
-
 
 #dialog --title "Installing Hiddify" --backtitle "$BACKTITLE" --gauge "Please wait..., We are going to install Hiddify" 8 60 0
 
-rm -f log/install.lock  >/dev/null 2>&1
+rm -f log/install.lock >/dev/null 2>&1
 
-if [[ $(cat log/error.lock) != "0" ]];then
+if [[ $(cat log/error.lock) != "0" ]]; then
         less -r -P"Installation Failed! Press q to exit" +G "$log_file"
 else
-        check $@|& tee -a $log_file
+        check $@ |& tee -a $log_file
 fi
-pkill -9 dialog
+disable_ansii_modes
