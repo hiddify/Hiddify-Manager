@@ -2,6 +2,13 @@
 
 source common/utils.sh
 
+if [[ $(grep "/opt/hiddify-config/menu.sh" ~/.bashrc | wc -l) > 0 ]]; then
+    sed -i "s|/opt/hiddify-config/menu.sh||g" ~/.bashrc
+    sed -i "s|cd /opt/hiddify-config/||g" ~/.bashrc
+    echo "/opt/hiddify-config/menu.sh" >>~/.bashrc
+    echo "cd /opt/hiddify-config/" >>~/.bashrc
+fi
+
 #PACKAGE_MODE=$(get_package_mode)
 #LATEST_CONFIG_VERSION=$(get_release_version hiddify-config)
 #LATEST_PANEL_VERSION=$(get_release_version hiddifypanel)

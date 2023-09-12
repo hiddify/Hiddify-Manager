@@ -13,6 +13,8 @@ defaults
     default-server init-addr none
     default-server inter 15s fastinter 2s downinter 5s rise 3 fall 3
     mode tcp
+    #tune.h2.initial-window-size 536870912
+    #tune.h2.max-concurrent-streams 512
 
 ### standalone stats page
 listen stats
@@ -56,8 +58,9 @@ frontend https-in
     use_backend to_panel_only if panel_domains
 
     #reality_configs
-    acl reality_domains req.ssl_sni -i REALITY_SERVER_NAMES
-    use_backend reality if reality_domains
+    #acl reality_domains req.ssl_sni -i REALITY_SERVER_NAMES
+    #use_backend reality_h2 if reality_domains h2
+    #use_backend reality if reality_domains
 
     
     
@@ -126,7 +129,7 @@ frontend http-https-in
 
     acl panel_domains hdr(:authority) -i PANEL_DOMAINS
     acl panel_domains hdr(host) -i PANEL_DOMAINS
-    use_backend to_panel_only if panel_domains
+    #use_backend to_panel_only if panel_domains
     # acl singbox_domains req.ssl_sni -i SINGBOX_DOMAINS
     # acl xray_domains req.ssl_sni -i XRAY_DOMAINS
 
