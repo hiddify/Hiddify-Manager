@@ -5,6 +5,8 @@ cd $(dirname -- "$0")
 
 function cleanup() {
     error "Script interrupted. Exiting..."
+    echo -e "\e[?1003l"
+    tput sgr0;
     rm log/update.lock
     pkill -9 dialog
     echo "1" >log/error.lock
