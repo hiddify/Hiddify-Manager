@@ -15,7 +15,7 @@ source common/utils.sh
 function cleanup() {
     error "Script interrupted. Exiting..."
     disable_ansii_modes
-    reset
+    #    reset
     rm "$LOCK_FILE"
     echo "1" >"$ERROR_LOCK_FILE"
     exit 1
@@ -238,7 +238,6 @@ else
 
     dialog --title "Update Complete" \
         --msgbox "The update has successfully completed. Press OK to continue." 10 40
-    reset
     disable_ansii_modes
     reset
 fi

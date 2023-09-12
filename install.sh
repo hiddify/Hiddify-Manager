@@ -405,9 +405,6 @@ else
         log_h=$((height - 10))
         log_w=$((width - 6))
 
-        # Log the console size
-        echo "console size=$log_h $log_w" | tee $LOG_FILE
-
         echo "console size=$log_h $log_w" | tee $log_file
         main $@ |& tee -a $log_file | dialog \
                 --backtitle "$BACKTITLE" \
@@ -417,6 +414,7 @@ else
                 --and-widget \
                 --begin $(($log_h + 2)) 2 \
                 --gauge "Please wait..., We are going to install Hiddify" 7 $log_w 0
+                
         rm -f log/install.lock >/dev/null 2>&1
         disable_ansii_modes
         if [[ $(cat log/error.lock) != "0" ]]; then
