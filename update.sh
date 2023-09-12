@@ -59,7 +59,6 @@ function update_panel() {
     local force=$2
     local current_panel_version=$(get_installed_panel_version)
 
-
     # Your existing logic for checking and updating the panel version based on the package mode
     # Set panel_update to 1 if an update is performed
 
@@ -69,7 +68,7 @@ function update_panel() {
         latest=$(get_commit_version HiddifyPanel)
 
         echo "DEVLEOP: hiddify panel version current=$current_panel_version latest=$latest"
-        if [[ FORCE == "true" || "$latest" != "$current_panel_version" ]]; then
+        if [[ $force == "true" || "$latest" != "$current_panel_version" ]]; then
             update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
             panel_path=$(hiddifypanel_path)
             pip3 install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel
@@ -115,7 +114,6 @@ function update_config() {
     local package_mode=$1
     local force=$2
     local current_config_version=$(get_installed_config_version)
-
 
     case "$package_mode" in
     develop)
