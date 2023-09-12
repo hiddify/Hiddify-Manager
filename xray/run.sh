@@ -26,6 +26,7 @@ i=1
 for REALITY in $REALITY_DOMAINS; do
 	IFS=':' read -ra PARTS <<<"$REALITY"
 	cp configs/05_inbounds_02_reality_main.json configs/05_inbounds_02_reality_$i.json
+	cp configs/05_inbounds_02_realityh2_main.json configs/05_inbounds_02_realityh2_$i.json
 
 	FALLBACK_DOMAIN="${PARTS[0]}"
 	#SERVER_NAMES="${PARTS[1]}"
