@@ -14,9 +14,11 @@ REALITY_SHORT_IDS_XRAY=$(echo "$REALITY_SHORT_IDS" | sed 's/,/\", \"/g; s/^/\"/;
 
 sed -i "s|REALITY_SHORT_IDS|$REALITY_SHORT_IDS_XRAY|g" configs/05_inbounds_02_reality_main.json
 sed -i "s|REALITY_SHORT_IDS|$REALITY_SHORT_IDS_XRAY|g" configs/05_inbounds_02_realitygrpc_main.json
+sed -i "s|REALITY_SHORT_IDS|$REALITY_SHORT_IDS_XRAY|g" configs/05_inbounds_02_realityh2_main.json
 # sed -i "s|REALITY_FALLBACK_DOMAIN|$REALITY_FALLBACK_DOMAIN|g" configs/05_inbounds_02_reality_main.json
 sed -i "s|REALITY_PRIVATE_KEY|$REALITY_PRIVATE_KEY|g" configs/05_inbounds_02_reality_main.json
 sed -i "s|REALITY_PRIVATE_KEY|$REALITY_PRIVATE_KEY|g" configs/05_inbounds_02_realitygrpc_main.json
+sed -i "s|REALITY_PRIVATE_KEY|$REALITY_PRIVATE_KEY|g" configs/05_inbounds_02_realityh2_main.json
 
 find configs -name "05_inbounds_02_reality_*.json" ! -name "05_inbounds_02_reality_main.json" -type f -exec rm {} +
 find configs -name "05_inbounds_02_realitygrpc_*.json" ! -name "05_inbounds_02_realitygrpc_main.json" -type f -exec rm {} +
