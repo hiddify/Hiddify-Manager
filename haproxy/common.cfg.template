@@ -59,6 +59,7 @@ frontend https-in
 
     #reality_configs
     acl reality_domains req.ssl_sni -i REALITY_SERVER_NAMES
+    use_backend reality_h2 if reality_domains h2
     use_backend reality if reality_domains
 
     
