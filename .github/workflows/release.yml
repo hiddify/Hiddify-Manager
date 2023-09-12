@@ -62,6 +62,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
+          prerelease: ${{ contains(github.ref_name,'dev') }}
           files: hiddify-config.zip
           body_path: release_message.md
     
