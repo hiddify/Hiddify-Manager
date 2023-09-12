@@ -73,8 +73,6 @@ function update_panel() {
             pip3 install -U git+https://github.com/hiddify/HiddifyPanel
             echo $latest >$panel_path/VERSION
             sed -i "s/__version__='[^']*'/__version__='$latest'/" $panel_path/VERSION.py
-
-            echo "__version__='$latest'" >$panel_path/VERSION.py
             panel_update=1
             update_progress "Updated..." "Hiddify Panel to $latest" 50
         fi
