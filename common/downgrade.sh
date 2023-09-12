@@ -1,5 +1,8 @@
 cd /opt/hiddify-config/hiddify-panel
 python3 -m hiddifypanel downgrade
+if [ ! -f hiddifypanel.db ] && [ -f hiddifypanel.db.old ]; then
+    mv hiddifypanel.db.old hiddifypanel.db
+fi
 cd ..
 
 source common/utils.sh
