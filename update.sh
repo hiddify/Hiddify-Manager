@@ -70,8 +70,7 @@ function update_panel() {
         if [[ FORCE == "true" || "$latest" != "$current_panel_version" ]]; then
             update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
             panel_path=$(hiddifypanel_path)
-            pip3 uninstall -y hiddifypanel
-            pip3 install -U git+https://github.com/hiddify/HiddifyPanel
+            pip3 install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel
             echo $latest >$panel_path/VERSION
             sed -i "s/__version__='[^']*'/__version__='$latest'/" $panel_path/VERSION.py
             panel_update=1
