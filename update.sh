@@ -33,6 +33,10 @@ function main() {
         PACKAGE_MODE=$1
         FORCE=true
     fi
+    if [[ ! $CURRENT_CONFIG_VERSION == 10* ]] && [[ $PACKAGE_MODE == "release" ]]; then
+        bash common/downgrade.sh
+        exit 0
+    fi
 
     if [[ "$PACKAGE_MODE" == "develop" ]]; then
         echo "you are in develop mode"
