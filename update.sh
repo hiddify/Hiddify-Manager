@@ -115,4 +115,30 @@ fi
 
 echo "$(date +%s)" >log/update.lock
 
-main $@ |& tee log/system/update.log
+BACKTITLE="Welcome to Hiddify Panel Updater"
+width=$(tput cols)
+if [[ $? != 0 ]] || (($width < 20)); then
+    width=20
+fi
+height=$(tput lines)
+if [[ $? != 0 ]] || (($height < 20)); then
+    height=20
+fi
+
+log_h=$(($height - 10))
+log_w=$(($width - 6))
+
+log_file=log/system/update.log
+echo "console size=$log_h $log_w" | tee $log_file
+if [[ " $@ " == *" --no-gui "* ]]; then
+    main $@ |& tee -a $log_file
+else
+    main $@ |& tee -a $log_file | dialog \
+        --backtitle "$BACKTITLE" \
+        --title "Installing Hiddify" \
+        --begin 2 2 \
+        --tailboxbg $log_file $log_h $log_w \
+        --and-widget \
+        --begin $(($log_h + 2)) 2 \
+        --gauge "Please wait..., We are going to Update Hiddify" 7 $log_w 0
+fi

@@ -432,15 +432,20 @@ log_w=$(($width - 6))
 
 log_file=log/system/0-install.log
 echo "console size=$log_h $log_w" |tee $log_file
-main $@|& tee -a $log_file
-# |dialog \
-#         --backtitle "$BACKTITLE" \
-#         --title "Installing Hiddify" \
-#         --begin 2 2 \
-#         --tailboxbg $log_file $log_h $log_w \
-#         --and-widget \
-#         --begin $(($log_h + 2)) 2 \
-#         --gauge "Please wait..., We are going to install Hiddify" 7 $log_w 0
+if [[ " $@ " == *" --no-gui "* ]]; then
+        main $@|& tee -a $log_file
+else
+        main $@|& tee -a $log_file |dialog \
+        --backtitle "$BACKTITLE" \
+        --title "Installing Hiddify" \
+        --begin 2 2 \
+        --tailboxbg $log_file $log_h $log_w \
+        --and-widget \
+        --begin $(($log_h + 2)) 2 \
+        --gauge "Please wait..., We are going to install Hiddify" 7 $log_w 0
+fi
+
+
 
 
 #dialog --title "Installing Hiddify" --backtitle "$BACKTITLE" --gauge "Please wait..., We are going to install Hiddify" 8 60 0
