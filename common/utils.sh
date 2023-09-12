@@ -67,9 +67,7 @@ function disable_ansii_modes() {
     echo -e "\e[?1003l"
     echo -e '\033c'
     echo -e '\e[?25h'
-    reset
     tput sgr0
-    
     pkill -9 dialog
 }
 

@@ -15,6 +15,7 @@ source common/utils.sh
 function cleanup() {
     error "Script interrupted. Exiting..."
     disable_ansii_modes
+    reset
     rm "$LOCK_FILE"
     echo "1" >"$ERROR_LOCK_FILE"
     exit 1
@@ -211,6 +212,7 @@ date +%s >$LOCK_FILE
 # Run the main function and log the output
 if [[ " $@ " == *" --no-gui "* ]]; then
     main "$@" 2>&1 | tee $LOG_FILE
+    disable_ansii_modes
 else
     # Get terminal dimensions with fallback values
     width=$(tput cols 2>/dev/null || echo 20)
@@ -237,5 +239,6 @@ else
     dialog --title "Update Complete" \
         --msgbox "The update has successfully completed. Press OK to continue." 10 40
     reset
+    disable_ansii_modes
+    reset
 fi
-disable_ansii_modes
