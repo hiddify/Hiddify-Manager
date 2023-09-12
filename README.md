@@ -205,14 +205,14 @@ We need your collaboration in order to develop this project. If you are speciali
 <!--
 ## Collaboration and Contact Information
 
-* Email: [hiddify@gmail.com](mailto:hiddify@gmail.com)
+* Email: [contribute@hiddify.com](mailto:contribute@hiddify.com)
 * Annoncements: [Telegram Channel](https://t.me/hiddify)
 * Discussion: [Telegram Group](https://t.me/hiddify_board/5)
 
 -->
 </br>
 
-[![Email](https://img.shields.io/badge/Gmail-hiddify@gmail.com-green?style=flat-square&logo=gmail)](mailto:hiddify@gmail.com)
+[![Email](https://img.shields.io/badge/Gmail-contribute@hiddify.com-green?style=flat-square&logo=gmail)](mailto:contribute@hiddify.com)
 [![Telegram Channel](https://img.shields.io/endpoint?label=Channel&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify&color=blue)](https://telegram.dog/hiddify)
 [![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
 [![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square&logo=youtube)](https://www.youtube.com/@hiddify)
