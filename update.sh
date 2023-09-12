@@ -34,7 +34,7 @@ function main() {
         local package_mode=$(get_package_mode)
     fi
     local current_config_version=$(get_installed_config_version)
-    if [[ $current_config_version == *"dev"* || ! $current_config_version == 10* ]]; then
+    if [[ $package_mode == "release" ]] && [[ $current_config_version == *"dev"* || ! $current_config_version == 10* ]]; then
         bash common/downgrade.sh
         return 0
     fi
@@ -188,7 +188,7 @@ function update_from_github() {
     if [[ "$file_type" == "zip" ]]; then
         install_if_not_installed unzip
         unzip -o "$file_name"
-    elif [[ "$file_type" == "tar.gz" ]]; then
+    elif [[ "$file_type" == "gz" ]]; then
         tar xvzf "$file_name" --strip-components=1
     else
         echo "Unsupported file type: $file_type"

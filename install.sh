@@ -307,26 +307,6 @@ function main(){
                 exit 5
         fi
         
-        # check_req
-        
-        
-        # set_env_if_empty config.env.default
-        # set_env_if_empty config.env      
-
-        # if [[ "$BASE_PROXY_PATH" == "" ]]; then
-        #         replace_empty_env BASE_PROXY_PATH "" $USER_SECRET ".*"
-        # fi
-        # if [[ "$TELEGRAM_USER_SECRET" == "" ]]; then
-        #         replace_empty_env TELEGRAM_USER_SECRET "" $USER_SECRET ".*"
-        # fi
-        
-        # cd /opt/$GITHUB_REPOSITORY
-        # git pull
-
-        # if [[ -z "config.env $FIRST_SETUP" == "" ]];then
-        #         replace_empty_env FIRST_SETUP "First Setup Detected!" false ".*"
-        #         export FIRST_SETUP="true"
-        # fi
 
         if [ "$MODE" == "install-docker" ];then
                 echo "install-docker"
@@ -351,10 +331,6 @@ function main(){
         fi
 
         
-        # if [[ $(/usr/local/bin/xray run -test -confdir xray/configs) ]];then
-        #         echo "xray configuration failed "
-        #         exit 33
-        # fi
         echo "---------------------Finished!------------------------"
         rm log/install.lock
         if [ "$MODE" != "apply_users" ];then
