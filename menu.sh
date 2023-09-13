@@ -136,7 +136,8 @@ function menu() {
     "update")
         OPTIONS=(default "Based on the configuration in panel"
             release "(suggested) $UPDATE_NEED"
-            develop "Develop (may have some bugs)"
+            beta "pre-release version - may have bugs"
+            develop "for testing purposes (not recommended)"
         )
         CHOICE=$(whiptail --clear --backtitle "$BACKTITLE" --title "$TITLE" --menu "$MENU" $HEIGHT $WIDTH $CHOICE_HEIGHT "${OPTIONS[@]}" 3>&1 1>&2 2>&3)
         case $CHOICE in
