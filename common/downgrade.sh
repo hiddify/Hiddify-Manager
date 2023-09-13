@@ -1,8 +1,8 @@
-cd /opt/hiddify-config/hiddify-panel
+cd /opt/hiddify-server/hiddify-panel
 python3 -m hiddifypanel downgrade
 cd ..
 pip install hiddifypanel==7.2.0
-curl -L -o hiddify-config.zip https://github.com/hiddify/hiddify-config/releases/download/v10.1.3/hiddify-config.zip
-unzip -o hiddify-config.zip
-rm hiddify-config.zip
+curl -L -o hiddify-server.zip https://github.com/hiddify/hiddify-server/releases/download/v10.1.3/hiddify-server.zip
+unzip -o hiddify-server.zip
+rm hiddify-server.zip
 bash install.sh

@@ -12,11 +12,11 @@
 			  "fallbacks": [
 				{
 					"alpn": "h2",
-					"dest": "/opt/hiddify-config/nginx/run/h2.sock",
+					"dest": "/opt/hiddify-server/nginx/run/h2.sock",
 					"xver": 2
 				},
 				{
-				  "dest": "/opt/hiddify-config/nginx/run/h1.sock",
+				  "dest": "/opt/hiddify-server/nginx/run/h1.sock",
 				  "xver": 2
 				}
 			  ]

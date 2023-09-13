@@ -3,7 +3,7 @@
 				{
 			"tag":"h2-trojan-new",
 			//"listen": "@@trojan-tcp-new", //trojan+tcp listening process
-			"listen": "/opt/hiddify-config/xray/run/trojant.sock,666",
+			"listen": "/opt/hiddify-server/xray/run/trojant.sock,666",
 			"protocol": "trojan",
 			"settings": {
 			  "clients": [

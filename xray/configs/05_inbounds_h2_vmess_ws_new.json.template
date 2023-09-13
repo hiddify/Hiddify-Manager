@@ -3,7 +3,7 @@
 		{
 			"tag":"h2-vmess-ws-new",
 			//"listen": "@@vmess-ws-new",
-			"listen": "/opt/hiddify-config/xray/run/vmessw.sock,666",
+			"listen": "/opt/hiddify-server/xray/run/vmessw.sock,666",
 			"protocol": "vmess",
 			"settings": {
 			  "clients": [

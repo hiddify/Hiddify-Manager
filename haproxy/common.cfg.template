@@ -85,7 +85,7 @@ frontend https-in
     # use_backend ssr if tls1_3 ssr_domains
     # use_backend ssr if ssr_domains
     # use_backend ssrdecory if ssr_domains
-    acl is_cdn src -f /opt/hiddify-config/haproxy/cloudflare.lst -f /opt/hiddify-config/haproxy/arvan.lst -f /opt/hiddify-config/haproxy/cloudfront.lst
+    acl is_cdn src -f /opt/hiddify-server/haproxy/cloudflare.lst -f /opt/hiddify-server/haproxy/arvan.lst -f /opt/hiddify-server/haproxy/cloudfront.lst
     use_backend to_https_in_ssl if is_cdn
     # default sni behavior
     # default_backend xray
@@ -103,7 +103,7 @@ backend to_https_in_ssl
 
 frontend onlypanel_in
     mode http
-    bind abns@onlypanel_in accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h2,http/1.1,h3
+    bind abns@onlypanel_in accept-proxy ssl crt /opt/hiddify-server/ssl/ alpn h2,http/1.1,h3
 
     
     acl hpanel path_reg ^/BASE_PROXY_PATH/[1-9a-f][1-9a-f]
@@ -116,8 +116,8 @@ backend to_panel_only
 
 frontend http-https-in
     bind :80,:::80 v4v6 tfo 
-    bind abns@https_in_ssl tfo accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h2,http/1.1,h3
-    #bind quic4@abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-config/ssl/ alpn h3    
+    bind abns@https_in_ssl tfo accept-proxy ssl crt /opt/hiddify-server/ssl/ alpn h2,http/1.1,h3
+    #bind quic4@abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-server/ssl/ alpn h3    
     # http-response set-header alt-svc "h3=\":443\";ma=900;"
     tcp-request inspect-delay 5s
     tcp-request content accept if HTTP
@@ -136,9 +136,9 @@ frontend http-https-in
     # use_backend xray if xray_domains
     # use_backend to_https_in_ssl if singbox_domains
     acl h2 ssl_fc_alpn -i h2
-    acl is_cloudflare src -f /opt/hiddify-config/haproxy/cloudflare.lst
-    acl is_arvan src -f /opt/hiddify-config/haproxy/arvan.lst
-    acl is_cloudfront src -f /opt/hiddify-config/haproxy/cloudfront.lst
+    acl is_cloudflare src -f /opt/hiddify-server/haproxy/cloudflare.lst
+    acl is_arvan src -f /opt/hiddify-server/haproxy/arvan.lst
+    acl is_cloudfront src -f /opt/hiddify-server/haproxy/cloudfront.lst
 
     # http-request set-header X-Real-IP %[req.hdr(CF-Connecting-IP)] if is_cloudflare
     # http-request set-header X-Real-IP %[req.hdr(X-Forward-For)] if is_cloudfront
@@ -235,14 +235,14 @@ frontend http-https-in
     default_backend nginx_dispatcher
     
 backend nginx_dispatcher_h2
-    server nginx unix@/opt/hiddify-config/nginx/run/h2.sock send-proxy-v2 tfo
+    server nginx unix@/opt/hiddify-server/nginx/run/h2.sock send-proxy-v2 tfo
 
 backend nginx_dispatcher
-    server nginx unix@/opt/hiddify-config/nginx/run/h1.sock send-proxy-v2 tfo
+    server nginx unix@/opt/hiddify-server/nginx/run/h1.sock send-proxy-v2 tfo
 
 backend nginx_dispatcher_http
     mode http
-    server nginx unix@/opt/hiddify-config/nginx/run/h1.sock send-proxy-v2 tfo
+    server nginx unix@/opt/hiddify-server/nginx/run/h1.sock send-proxy-v2 tfo
 
 
 
@@ -279,11 +279,11 @@ backend ssfake
 # option httplog
 # option http-server-close
 # option forwardfor except 127.0.0.1  # Add X-Forwarded-For header except for HAProxy itself
-# log /opt/hiddify/hiddify-config/log/system/haproxy.log local0
+# log /opt/hiddify/hiddify-server/log/system/haproxy.log local0
 
 # # Error logs
 # option dontlog-normal
-# log /opt/hiddify/hiddify-config/log/system/haproxy.err.log local0
+# log /opt/hiddify/hiddify-server/log/system/haproxy.err.log local0
 
 
 

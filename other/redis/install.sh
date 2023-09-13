@@ -5,8 +5,8 @@ if ! command -v redis-server; then
 fi
 systemctl disable --now redis-server
 ln -sf $(pwd)/hiddify-redis.service /etc/systemd/system/hiddify-redis.service
-touch /opt/hiddify-config/log/system/redis-server.log
-chown redis:redis /opt/hiddify-config/log/system/redis-server.log
-chown redis:redis /opt/hiddify-config/other/redis
+touch /opt/hiddify-server/log/system/redis-server.log
+chown redis:redis /opt/hiddify-server/log/system/redis-server.log
+chown redis:redis /opt/hiddify-server/other/redis
 systemctl enable hiddify-redis
 systemctl restart hiddify-redis

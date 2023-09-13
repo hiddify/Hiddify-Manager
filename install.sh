@@ -7,6 +7,14 @@ if [ "$(id -u)" -ne 0 ]; then
 #        exit 1
 
 fi
+# Fix the installation directory
+if [ ! -d "/opt/hiddify-server/" ] && [ -d "/opt/hiddify-config/" ]; then
+    ln -s /opt/hiddify-config/ /opt/hiddify-server/
+fi
+if [ -d "/opt/hiddify-server/" ] && [ ! -d "/opt/hiddify-config/" ]; then
+    ln -s /opt/hiddify-server/ /opt/hiddify-config/
+fi
+
 source common/utils.sh
 
 function cleanup() {
@@ -54,7 +62,7 @@ function set_config_from_hpanel(){
         done
 
         setenv GITHUB_USER hiddify
-        setenv GITHUB_REPOSITORY hiddify-config
+        setenv GITHUB_REPOSITORY hiddify-server
         setenv GITHUB_BRANCH_OR_TAG main
         
         setenv TLS_PORTS ``hconfigs[tls_ports]``

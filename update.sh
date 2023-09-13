@@ -117,11 +117,11 @@ function update_config() {
 
     case "$package_mode" in
     develop)
-        local latest=$(get_commit_version hiddify-config)
+        local latest=$(get_commit_version hiddify-server)
         echo "DEVELOP: Current Config Version=$current_config_version -- Latest=$latest"
         if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
             update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
-            update_from_github "hiddify-config.tar.gz" "https://github.com/hiddify/hiddify-config/archive/refs/heads/main.tar.gz"
+            update_from_github "hiddify-server.tar.gz" "https://github.com/hiddify/hiddify-server/archive/refs/heads/main.tar.gz"
             echo "$latest" >VERSION
             update_progress "Updated..." "Hiddify Config to $latest" 100
             return 0
@@ -132,7 +132,7 @@ function update_config() {
         echo "BETA: Current Config Version=$current_config_version -- Latest=$latest"
         if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
             update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
-            update_from_github "hiddify-config.zip" "https://github.com/hiddify/hiddify-config/releases/download/$latest/hiddify-config.zip"
+            update_from_github "hiddify-server.zip" "https://github.com/hiddify/hiddify-server/releases/download/$latest/hiddify-server.zip"
             update_progress "Updated..." "Hiddify Config to $latest" 100
             return 0
         fi
@@ -141,7 +141,7 @@ function update_config() {
         echo "RELEASE: Current Config Version=$current_config_version -- Latest=$latest"
         if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
             update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
-            update_from_github "hiddify-config.zip" "https://github.com/hiddify/hiddify-config/releases/latest/download/hiddify-config.zip"
+            update_from_github "hiddify-server.zip" "https://github.com/hiddify/hiddify-server/releases/latest/download/hiddify-server.zip"
             update_progress "Updated..." "Hiddify Config to $latest" 100
             return 0
         fi
