@@ -25,14 +25,14 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install project
         run: |
-          sudo mkdir /opt/hiddify-config
-          sudo cp -r * /opt/hiddify-config/
-          cd /opt/hiddify-config/
+          sudo mkdir /opt/hiddify-server
+          sudo cp -r * /opt/hiddify-server/
+          cd /opt/hiddify-server/
           sudo bash install.sh
       - name: check working
         env:
-          SQLALCHEMY_DATABASE_URI: sqlite:////opt/hiddify-config/hiddify-panel/database.db
+          SQLALCHEMY_DATABASE_URI: sqlite:////opt/hiddify-server/hiddify-panel/database.db
         run: |
-          cd /opt/hiddify-config/
+          cd /opt/hiddify-server/
           grep -q -e '-----Finished!-----' log/system/0-install.log 
           cd hiddify-panel;hiddifypanel all-configs

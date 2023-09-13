@@ -1,0 +1,25 @@
+{
+	"type": "hysteria",
+	"tag": "hysteria-in",
+	"listen": "::",
+	"listen_port": 4100,
+	"up_mbps": 500,
+	"down_mbps": 500,
+	"users": [
+		{"name": "defaultuserguidsecret@hiddify.com","auth": "defaultuserguidsecret","auth_str": "defaultuserguidsecret"
+	],
+	"max_conn_client": 2048,
+	"disable_mtu_discovery": false,
+	"tls": {
+		"enabled": true,
+		"server_name": "subdomain.example.com",
+		"alpn": [
+			"h3"
+		],
+		"min_version": "1.2",
+		"max_version": "1.3",
+		"certificate_path": "",
+		"key_path": ""
+		
+	}
+}

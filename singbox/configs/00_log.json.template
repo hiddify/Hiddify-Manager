@@ -6,9 +6,9 @@
                 "timestamp": true
                 
                 //"loglevel": "debug",
-                //"output": "/opt/hiddify-config/log/system/xray.out.log",
-                //"error": "/opt/hiddify-config/log/system/xray.err.log",
-                //"access": "/opt/hiddify-config/log/system/xray.access.log",
+                //"output": "/opt/hiddify-server/log/system/xray.out.log",
+                //"error": "/opt/hiddify-server/log/system/xray.err.log",
+                //"access": "/opt/hiddify-server/log/system/xray.access.log",
                 //"logid": true,
                 //"header": true
         }

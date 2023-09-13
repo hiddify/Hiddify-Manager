@@ -13,21 +13,21 @@
 			  "fallbacks": [
 				{
 					"alpn": "h4",
-					"dest": "/opt/hiddify-config/xray/run/vlessg.sock",
+					"dest": "/opt/hiddify-server/xray/run/vlessg.sock",
 					"xver": 0
 				},
 				{
 					"alpn": "h3",
-					"dest": "/opt/hiddify-config/xray/run/vlessg.sock",
+					"dest": "/opt/hiddify-server/xray/run/vlessg.sock",
 					"xver": 0
 				},
 				{
 					"alpn": "h2",
-					"dest": "/opt/hiddify-config/xray/run/vlessg.sock",
+					"dest": "/opt/hiddify-server/xray/run/vlessg.sock",
 					"xver": 0
 				},
 				{
-				  "dest": "/opt/hiddify-config/xray/run/vlessg.sock",
+				  "dest": "/opt/hiddify-server/xray/run/vlessg.sock",
 				  "xver": 0
 				}
 			  ]

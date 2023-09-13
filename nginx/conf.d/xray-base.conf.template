@@ -8,7 +8,7 @@
 # HTTP1 UDS listener
 server {
     listen 127.0.0.1:501 proxy_protocol; #HTTP/1.1 server monitor process and enable PROXY protocol reception
-    listen unix:/opt/hiddify-config/nginx/run/h1.sock proxy_protocol;
+    listen unix:/opt/hiddify-server/nginx/run/h1.sock proxy_protocol;
     server_name _;
     include /opt/GITHUB_REPOSITORY/nginx/parts/hiddify.conf;
     set_real_ip_from unix:;
@@ -18,7 +18,7 @@ server {
 # HTTP2 UDS listener
 server {
     listen 127.0.0.1:502 http2 proxy_protocol; #H2C server monitor process and enable PROXY protocol reception
-    listen unix:/opt/hiddify-config/nginx/run/h2.sock http2 proxy_protocol;
+    listen unix:/opt/hiddify-server/nginx/run/h2.sock http2 proxy_protocol;
     server_name _;
     set_real_ip_from unix:;
     real_ip_header proxy_protocol;
@@ -29,8 +29,8 @@ server {
 }
 
 server {
-    listen unix:/opt/hiddify-config/nginx/run/nginx_cdn_dispatcher_h2.sock http2;
-    listen unix:/opt/hiddify-config/nginx/run/nginx_cdn_dispatcher.sock;
+    listen unix:/opt/hiddify-server/nginx/run/nginx_cdn_dispatcher_h2.sock http2;
+    listen unix:/opt/hiddify-server/nginx/run/nginx_cdn_dispatcher.sock;
     
     set_real_ip_from unix:;
     real_ip_header "X-Real-IP";

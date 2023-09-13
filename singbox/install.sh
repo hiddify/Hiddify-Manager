@@ -7,6 +7,6 @@ rm -r sb.zip sing-box-*
 chown root:root sing-box
 chmod +x sing-box
 
-ln -sf /opt/hiddify-config/singbox/sing-box /usr/bin/sing-box
+ln -sf /opt/hiddify-server/singbox/sing-box /usr/bin/sing-box
 
 rm geosite.db

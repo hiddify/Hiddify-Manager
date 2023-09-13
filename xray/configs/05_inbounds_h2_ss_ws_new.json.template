@@ -3,7 +3,7 @@
 		{
 			"tag":"h2-ss-ws-new",
 			//"listen": "@@v2ray-ws-new",
-			"listen": "/opt/hiddify-config/xray/run/ssw.sock,666",
+			"listen": "/opt/hiddify-server/xray/run/ssw.sock,666",
 			"protocol": "shadowsocks",
 			"settings": {
 				"clients":[

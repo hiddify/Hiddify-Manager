@@ -3,7 +3,7 @@
 		{
 			"tag":"h2-trojan-ws-new-proxy",
 			"listen": "@@trojan-ws-new-h2", //trojan+ws listener process
-			//"listen": "/opt/hiddify-config/xray/run/trojanw.sock,666",
+			//"listen": "/opt/hiddify-server/xray/run/trojanw.sock,666",
 			"protocol": "trojan",
 			"settings": {
 			  "clients": [

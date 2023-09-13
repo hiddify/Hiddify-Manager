@@ -1,22 +1,22 @@
 server {
-    listen unix:/opt/hiddify-config/nginx/run/grpc-singbox.sock http2 proxy_protocol;
+    listen unix:/opt/hiddify-server/nginx/run/grpc-singbox.sock http2 proxy_protocol;
     set_real_ip_from unix:;
     real_ip_header proxy_protocol;
 
     location /PATH_VLESSPATH_GRPC {
-        include /opt/hiddify-config/nginx/parts/grpc.conf;
+        include /opt/hiddify-server/nginx/parts/grpc.conf;
         grpc_pass 127.0.0.1:2023;
     }
     location /PATH_VMESSPATH_GRPC {
-        include /opt/hiddify-config/nginx/parts/grpc.conf;
+        include /opt/hiddify-server/nginx/parts/grpc.conf;
         grpc_pass 127.0.0.1:2033;
     }
     location /PATH_SSPATH_GRPC {
-        include /opt/hiddify-config/nginx/parts/grpc.conf;
-        grpc_pass unix:/opt/hiddify-config/xray/run/ssg.sock;
+        include /opt/hiddify-server/nginx/parts/grpc.conf;
+        grpc_pass unix:/opt/hiddify-server/xray/run/ssg.sock;
     }
     location /PATH_TROJANPATH_GRPC {
-        include /opt/hiddify-config/nginx/parts/grpc.conf;
+        include /opt/hiddify-server/nginx/parts/grpc.conf;
         grpc_pass 127.0.0.1:2013;
     }
     include /opt/GITHUB_REPOSITORY/nginx/parts/hiddify.conf;

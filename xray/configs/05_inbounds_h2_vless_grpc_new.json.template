@@ -3,7 +3,7 @@
 		{
 			"tag": "h2-vless-grpc-new",
 			//"listen": "@@vless-grpc-new", // listen on localhost
-			"listen": "/opt/hiddify-config/xray/run/vlessg.sock,666",
+			"listen": "/opt/hiddify-server/xray/run/vlessg.sock,666",
 			"protocol": "vless",
 			"settings": {
 			  "clients": [
