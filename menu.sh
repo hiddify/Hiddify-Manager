@@ -42,7 +42,6 @@ function menu() {
         restart "Restart Services without changing the configs"
         apply_configs "Apply the changed configs"
         update "Update $UPDATE_NEED"
-        install "Reinstall"
         advanced "Uninstall, Remote Assistant, Downgrade,..."
         Quit ""
     )

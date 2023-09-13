@@ -4,17 +4,14 @@ systemctl disable mtproxy.service
 systemctl stop mtproto-proxy.service
 systemctl disable mtproto-proxy.service
 
-
-apt install -y git curl build-essential libssl-dev zlib1g-dev
-
+install_package git curl build-essential libssl-dev zlib1g-dev
 
 git clone https://github.com/hiddify/MTProxy
 cd MTProxy
 
-make 
+make
 
 cd objs/bin
 
 curl -s https://core.telegram.org/getProxySecret -o proxy-secret
 curl -s https://core.telegram.org/getProxyConfig -o proxy-multi.conf
-

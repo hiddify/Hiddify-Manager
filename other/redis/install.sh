@@ -1,7 +1,7 @@
-if ! command -v redis-server; then
-    sudo add-apt-repository -y universe
-    # sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
-    sudo apt install -y redis-server
+source ../../common/utils.sh
+if ! is_installed redis-server; then
+    add-apt-repository -y universe
+    install_package redis-server
 fi
 systemctl disable --now redis-server
 ln -sf $(pwd)/hiddify-redis.service /etc/systemd/system/hiddify-redis.service

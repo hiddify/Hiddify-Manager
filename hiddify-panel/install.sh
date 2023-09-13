@@ -1,26 +1,24 @@
-systemctl kill hiddify-admin.service >/dev/null 2>&1
-systemctl disable hiddify-admin.service >/dev/null 2>&1
-#userdel -f hiddify-panel 2>&1
+source ../common/utils.sh
+
 useradd -m hiddify-panel -s /bin/bash >/dev/null 2>&1
 chown -R hiddify-panel:hiddify-panel /home/hiddify-panel/ >/dev/null 2>&1
-su hiddify-panel -c localectl set-locale LANG=C.UTF-8 >/dev/null 2>&1
+localectl set-locale LANG=C.UTF-8 >/dev/null 2>&1
 su hiddify-panel -c update-locale LANG=C.UTF-8 >/dev/null 2>&1
 
 chown -R hiddify-panel:hiddify-panel . >/dev/null 2>&1
+
 # apt install -y python3-dev
-for req in pip3 uwsgi python3 hiddifypanel lastversion jq sqlite3mysql; do
+for req in pip3 uwsgi python3 hiddifypanel lastversion jq; do
     which $req >/dev/null 2>&1
     if [[ "$?" != 0 ]]; then
-        apt --fix-broken install -y
-        apt update
-        apt install -y python3-pip jq python3-dev
+        install_package add-apt-repository
+        add-apt-repository -y ppa:deadsnakes/ppa
+        install_package python3-pip jq python3-dev
         pip3 install pip
-        pip3 install -U hiddifypanel lastversion uwsgi "requests<=2.29.0" sqlite3-to-mysql
+        pip3 install -U hiddifypanel lastversion uwsgi "requests<=2.29.0"
         break
     fi
 done
-(cd ../other/redis/ && bash install.sh)
-(cd ../other/mysql/ && bash install.sh)
 
 sed -i '/SQLALCHEMY_DATABASE_URI/d' app.cfg
 MYSQL_PASS=$(cat ../other/mysql/mysql_pass)

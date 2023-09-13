@@ -186,7 +186,7 @@ function update_from_github() {
     curl -L -o "$file_name" "$url"
 
     if [[ "$file_type" == "zip" ]]; then
-        install_if_not_installed unzip
+        install_package unzip
         unzip -o "$file_name"
     elif [[ "$file_type" == "gz" ]]; then
         tar xvzf "$file_name" --strip-components=1
@@ -196,6 +196,8 @@ function update_from_github() {
     fi
 
     rm "$file_name"
+    apt upgrade -y
+    apt dist-upgrade -y
     bash install.sh --no-gui
 }
 
@@ -235,8 +237,8 @@ else
         --begin $((log_h + 2)) 2 \
         --gauge "Please wait..., We are going to Update Hiddify" 7 $log_w 0
 
-    dialog --title "Update Complete" \
+    whiptail --title "Update Complete" \
         --msgbox "The update has successfully completed. Press OK to continue." 10 40
     disable_ansii_modes
-    reset
+    # reset
 fi

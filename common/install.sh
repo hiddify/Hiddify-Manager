@@ -1,11 +1,24 @@
-apt --fix-broken install -y
-sudo timedatectl set-timezone Asia/Tehran
-apt update
-apt install -y at whiptail apt-transport-https dnsutils ca-certificates git curl wget gnupg-agent software-properties-common iptables locales lsof cron libssl-dev curl gnupg2 ca-certificates lsb-release ubuntu-keyring resolvconf
-sudo apt -y remove needrestart apache2
+source utils.sh
+
+if [[ $COUNTRY == 'cn' ]]; then
+  sudo timedatectl set-timezone Asia/Shanghai
+elif [[ $COUNTRY == 'ru' ]]; then
+  sudo timedatectl set-timezone Asia/Moscow
+else
+  sudo timedatectl set-timezone Asia/Tehran
+fi
+
+install_package at whiptail apt-transport-https dnsutils ca-certificates git curl wget gnupg-agent software-properties-common iptables locales lsof cron libssl-dev curl gnupg2 ca-certificates lsb-release ubuntu-keyring resolvconf
+
+
+
+remove_package apache2 needrestart
+
 ln -sf $(pwd)/sysctl.conf /etc/sysctl.d/ss-opt.conf
+
 sysctl --system
 python3 -m pip config set global.index-url https://pypi.org/simple
+
 if [[ "$ONLY_IPV4" != true ]]; then
   sysctl -w net.ipv6.conf.all.disable_ipv6=0
   sysctl -w net.ipv6.conf.default.disable_ipv6=0
@@ -83,29 +96,15 @@ service cron reload
 localectl set-locale LANG=C.UTF-8
 update-locale LANG=C.UTF-8
 
-# which warp-go
-# if [ $? != 0 ];then
-#   wget -N https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh && echo "13"| bash warp-go.sh n
-# fi
-# echo 3|warp-go a
-
-# ping 8.8.8.0  -I 172.16.0.2 -c 4 -W 0.5
-# first_test=$?
-# nslookup yahoo.com
-# if [ $? != 0 || $first_test != 0 ];then
-#   warp-go u
-# fi
-
-#grep -qxF 'DNS=resolve ipv4' /etc/systemd/resolved.conf || echo "DNS=resolve ipv4" >> /etc/systemd/resolved.conf
 sudo systemctl stop systemd-resolved
 sudo systemctl disable systemd-resolved
 
-echo "nameserver 1.1.1.1" >/etc/resolv.conf
-echo "nameserver 8.8.8.8" >>/etc/resolv.conf
-echo "nameserver 1.1.1.1" >/etc/resolvconf/resolv.conf.d/base
-echo "nameserver 8.8.8.8" >>/etc/resolvconf/resolv.conf.d/base
+echo "nameserver 8.8.8.8" >/etc/resolv.conf
+echo "nameserver 1.1.1.1" >>/etc/resolv.conf
+echo "nameserver 8.8.8.8" >/etc/resolvconf/resolv.conf.d/base
+echo "nameserver 1.1.1.1" >>/etc/resolvconf/resolv.conf.d/base
+
 resolvconf -u
-#systemctl restart systemd-resolved
 
 echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-server/install.sh" >/etc/sudoers.d/hiddify
 echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-server/status.sh" >>/etc/sudoers.d/hiddify

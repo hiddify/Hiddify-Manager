@@ -54,14 +54,6 @@ function add_DNS_if_failed() {
 
 }
 
-function install_if_not_installed() {
-    install_packge=${2:-$1}
-    if ! command -v "$1" >/dev/null 2>&1; then
-        echo "Installing $1..."
-        sudo apt install -y "$install_packge"
-    fi
-}
-
 function disable_ansii_modes() {
     echo -e "\033[?25l"
     echo -e "\e[?1003l"
@@ -78,4 +70,36 @@ function update_progress() {
     text="$2"
     percentage="$3"
     echo -e "XXX\n$percentage\n$title\n$text\nXXX"
+}
+
+function install_package() {
+    for package in $@; do
+        if ! dpkg -l | grep -q "^ii  $package"; then
+            # The package is not installed, install it
+            apt install -y "$package"
+            if [ $? -ne 0 ]; then
+                apt --fix-broken install -y
+                apt update
+                apt install -y "$package"
+            fi
+            # else
+            # The package is installed, do nothing
+            # echo "$package is already installed"
+        fi
+    done
+}
+
+function remove_package() {
+    for package in $@; do
+        if dpkg -l | grep -q "^ii  $package"; then
+            apt remove -y "$package"
+        fi
+    done
+}
+
+function is_installed() {
+    if ! command -v "$1" >/dev/null 2>&1; then
+        return 1
+    fi
+    return 0
 }

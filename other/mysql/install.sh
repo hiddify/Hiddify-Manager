@@ -1,8 +1,8 @@
 #!/bin/bash
+source ../../common/utils.sh
 
-if ! command -v mysql; then
-  sudo apt install -y mariadb-server
-fi
+install_package mariadb-server
+
 if [ ! -f "mysql_pass" ]; then
   echo "Generating a random password..."
   random_password=$(openssl rand -base64 40)
@@ -44,13 +44,11 @@ MARIADB_CONF="/etc/mysql/mariadb.conf.d/50-server.cnf"
 # Check if the MariaDB configuration file exists
 if [ ! -f "$MARIADB_CONF" ]; then
   echo "MariaDB configuration file ($MARIADB_CONF) not found."
-  exit 1
+
 fi
 
 # Check if bind-address is already set to 127.0.0.1
-if grep -q "^[^#]*bind-address\s*=\s*127.0.0.1" "$MARIADB_CONF"; then
-  echo "bind-address is already set to 127.0.0.1"
-else
+if ! grep -q "^[^#]*bind-address\s*=\s*127.0.0.1" "$MARIADB_CONF"; then
   # Add or modify bind-address in the configuration file
   if grep -q "^#\+bind-address" "$MARIADB_CONF"; then
     # Uncomment and modify existing bind-address

@@ -1,8 +1,6 @@
 # bash download_wgcf.sh
-which wgcf > /dev/null 2>&1
-# if [[ "$?" != 0 ]];then
-curl -fsSL git.io/wgcf.sh | sudo bash
-# fi
-sudo apt install -y wireguard-dkms wireguard-tools resolvconf
-
-# wgcf register --accept-tos -m hiddify -n $(hostname)
+source ../../common/utils.sh
+if ! is_installed wgcf; then
+    curl -fsSL git.io/wgcf.sh | sudo bash
+fi
+install_package wireguard-dkms wireguard-tools resolvconf
