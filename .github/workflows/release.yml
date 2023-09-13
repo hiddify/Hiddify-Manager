@@ -64,8 +64,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files:
-            - hiddify-server.zip
-            - hiddify-config.zip
+          files: *.zip
           body_path: release_message.md
     
