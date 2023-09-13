@@ -17,12 +17,12 @@ systemctl kill apache2 >/dev/null 2>&1
 systemctl disable apache2 >/dev/null 2>&1
 # pkill -9 nginx
 
-rm /etc/nginx/conf.d/web.conf
-rm /etc/nginx/sites-available/default
-rm /etc/nginx/sites-enabled/default
-rm /etc/nginx/conf.d/default.conf
-rm /etc/nginx/conf.d/xray-base.conf
-rm /etc/nginx/conf.d/speedtest.conf
+rm /etc/nginx/conf.d/web.conf >/dev/null 2>&1
+rm /etc/nginx/sites-available/default >/dev/null 2>&1
+rm /etc/nginx/sites-enabled/default >/dev/null 2>&1
+rm /etc/nginx/conf.d/default.conf >/dev/null 2>&1
+rm /etc/nginx/conf.d/xray-base.conf >/dev/null 2>&1
+rm /etc/nginx/conf.d/speedtest.conf >/dev/null 2>&1
 
 mkdir run
 ln -sf $(pwd)/hiddify-nginx.service /etc/systemd/system/hiddify-nginx.service

@@ -1,4 +1,5 @@
 #!/bin/bash
+source /opt/hiddify-server/common/utils.sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 cd $(dirname -- "$0")
@@ -10,7 +11,6 @@ ERROR_LOCK_FILE="log/error.lock"
 LOG_FILE="$LOG_DIR/update.log"
 BACKTITLE="Welcome to Hiddify Panel Updater"
 
-source common/utils.sh
 
 function cleanup() {
     error "Script interrupted. Exiting..."
@@ -202,6 +202,7 @@ function update_from_github() {
     rm "$file_name"
     apt upgrade -y
     apt dist-upgrade -y
+    apt autoremove -y
     bash install.sh --no-gui
 }
 

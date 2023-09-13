@@ -17,4 +17,4 @@ systemctl disable haproxy >/dev/null 2>&1
 ln -sf $(pwd)/hiddify-haproxy.service /etc/systemd/system/hiddify-haproxy.service
 systemctl enable hiddify-haproxy.service
 
-rm haproxy.cfg*
+rm haproxy.cfg* >/dev/null 2>&1

@@ -3,7 +3,7 @@
 		{
 			"type": "tuic",
 			"tag": "tuic_in",
-			"listen": "::",
+			"listen": "0.0.0.0",
 			"listen_port": 4010,
 			"tcp_fast_open": true,
 			"sniff": true,

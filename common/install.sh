@@ -10,8 +10,6 @@ fi
 
 install_package at whiptail apt-transport-https dnsutils ca-certificates git curl wget gnupg-agent software-properties-common iptables locales lsof cron libssl-dev curl gnupg2 ca-certificates lsb-release ubuntu-keyring resolvconf
 
-
-
 remove_package apache2 needrestart
 
 ln -sf $(pwd)/sysctl.conf /etc/sysctl.d/ss-opt.conf
@@ -117,5 +115,5 @@ echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-server/nginx/add2shortlink
 
 ln -sf /opt/hiddify-server/menu.sh /usr/bin/hiddify
 
-systemctl disable --now rpcbind.socket
-systemctl disable --now rpcbind
+systemctl disable --now rpcbind.socket >/dev/null 2>&1
+systemctl disable --now rpcbind >/dev/null 2>&1
