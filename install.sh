@@ -375,7 +375,7 @@ else
         log_w=$((width - 6))
 
         echo "console size=$log_h $log_w" | tee $log_file
-        main $@ |& tee -a $log_file | dialog \
+        main $@ |& tee -a $log_file | dialog --keep-tite \
                 --backtitle "$BACKTITLE" \
                 --title "Installing Hiddify" \
                 --begin 2 2 \
