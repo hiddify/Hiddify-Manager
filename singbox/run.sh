@@ -65,7 +65,7 @@ rm configs/05_inbounds_2061_reality_main.json
 rm configs/05_inbounds_2071_realitygrpc_main.json
 
 rm configs/05_inbounds_4010_tuic_*.json
-TUIC_DOMAINS=$(hiddify_api tuic_domain_port)
+TUIC_DOMAINS=$(hiddify_api tuic-domain-port)
 for TUIC_DOMAIN in ${TUIC_DOMAINS//;/ }; do
 	IFS=':' read -ra PARTS <<<"$TUIC_DOMAIN"
 	domain=${PARTS[0]}
@@ -78,7 +78,7 @@ done
 rm configs/05_inbounds_4010_tuic.json
 
 rm configs/05_inbounds_4100_hysteria_*.json
-HYSTRIA_DOMAINS=$(hiddify_api hystria_domain_port)
+HYSTRIA_DOMAINS=$(hiddify_api hystria-domain-port)
 for HYSTRIA_DOMAIN in ${HYSTRIA_DOMAINS//;/ }; do
 	IFS=':' read -ra PARTS <<<"$HYSTRIA_DOMAIN"
 	domain=${PARTS[0]}
