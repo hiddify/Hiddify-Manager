@@ -2,121 +2,210 @@
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 cd $(dirname -- "$0")
-
-function cleanup() {
-    error "Script interrupted. Exiting..."
-    rm log/update.lock
-    pkill -9 dialog
-    echo "1" >log/error.lock
-    exit 1
-}
-
-# Trap the Ctrl+C signal and call the cleanup function
-trap cleanup SIGINT
+# Create necessary directories and define constants
+LOG_DIR="log/system"
+mkdir -p "$LOG_DIR"
+LOCK_FILE="log/update.lock"
+ERROR_LOCK_FILE="log/error.lock"
+LOG_FILE="$LOG_DIR/update.log"
+BACKTITLE="Welcome to Hiddify Panel Updater"
 
 source common/utils.sh
 
-function main() {
-    CURRENT_CONFIG_VERSION=$(get_installed_config_version)
-    CURRENT_PANEL_VERSION=$(get_installed_panel_version)
+function cleanup() {
+    error "Script interrupted. Exiting..."
+    disable_ansii_modes
+    #    reset
+    rm "$LOCK_FILE"
+    echo "1" >"$ERROR_LOCK_FILE"
+    exit 1
+}
 
-    rm -rf sniproxy
-    rm -rf caddy
+trap cleanup SIGINT
+
+function main() {
+    local force=false
+    local update=0
+    local panel_update=0
+
+    if [[ -n "$1" ]]; then
+        local package_mode=$1
+        force=true
+    else
+        local package_mode=$(get_package_mode)
+    fi
+    local current_config_version=$(get_installed_config_version)
+    if [[ $package_mode == "release" ]] && [[ $current_config_version == *"dev"* || ! $current_config_version == 10* ]]; then
+        bash common/downgrade.sh
+        return 0
+    fi
+
+    rm -rf sniproxy caddy
+
     echo "Creating a backup ..."
     ./hiddify-panel/backup.sh
-    UPDATE=0
-    PANEL_UPDATE=0
-    if [[ "$1" == "" ]]; then
-        PACKAGE_MODE=$(get_package_mode)
-        FORCE=false
-    else
-        PACKAGE_MODE=$1
-        FORCE=true
-    fi
-    if [[ ! $CURRENT_CONFIG_VERSION == 10* ]] && [[ $PACKAGE_MODE == "release" ]]; then
-        bash common/downgrade.sh
-        exit 0
-    fi
 
-    if [[ "$PACKAGE_MODE" == "develop" ]]; then
-        echo "you are in develop mode"
-        #LATEST=$(get_commit_version HiddifyPanel)
-        #INSTALL_DIR=$(pip show hiddifypanel |grep Location |awk -F": " '{ print $2 }')
-        #CURRENT=$(cat $INSTALL_DIR/hiddifypanel/VERSION)
-        #echo "DEVLEOP: hiddify panel version current=$CURRENT latest=$LATEST"
-        #if [[ FORCE == "true" || "$LATEST" != "$CURRENT" ]];then
-        #    pip3 uninstall -y hiddifypanel
-        #    pip3 install -U git+https://github.com/hiddify/HiddifyPanel
-        #    echo $LATEST>$INSTALL_DIR/hiddifypanel/VERSION
-        #    echo "__version__='$LATEST'">$INSTALL_DIR/hiddifypanel/VERSION.py
-        #    UPDATE=1
-        #fi
-        pip install -U hiddifypanel --pre
-        PANEL_UPDATE=1
-    else
-        #hiddify=`cd hiddify-panel;python3 -m hiddifypanel downgrade`
+    update_panel "$package_mode" "$force"
+    panel_update=$?
+    update_config "$package_mode" "$force"
+    config_update=$?
 
-        CURRENT=$CURRENT_PANEL_VERSION
-        #LATEST=`lastversion hiddifypanel --at pip`
-        LATEST=$(get_release_version hiddifypanel)
-        echo "hiddify panel version current=$CURRENT latest=$LATEST"
-        if [[ $FORCE == "true" || "$CURRENT" != "$LATEST" ]]; then
+    post_update_tasks "$panel_update" "$config_update"
+}
+
+function update_panel() {
+    update_progress "Checking for Update..." "Hiddify Panel" 5
+    local package_mode=$1
+    local force=$2
+    local current_panel_version=$(get_installed_panel_version)
+
+    # Your existing logic for checking and updating the panel version based on the package mode
+    # Set panel_update to 1 if an update is performed
+
+    case "$package_mode" in
+    develop)
+        # Use the latest commit from GitHub
+        latest=$(get_commit_version HiddifyPanel)
+
+        echo "DEVLEOP: hiddify panel version current=$current_panel_version latest=$latest"
+        if [[ $force == "true" || "$latest" != "$current_panel_version" ]]; then
+            update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
+            panel_path=$(hiddifypanel_path)
+            pip3 install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel
+            echo $latest >$panel_path/VERSION
+            sed -i "s/__version__='[^']*'/__version__='$latest'/" $panel_path/VERSION.py
+            update_progress "Updated..." "Hiddify Panel to $latest" 50
+            return 0
+        fi
+        ;;
+    beta)
+        latest=$(get_pre_release_version hiddifypanel)
+        echo "BETA: hiddify panel version current=$current_panel_version latest=$latest"
+        if [[ $force == "true" || "$current_panel_version" != "$latest" ]]; then
+            update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
             echo "panel is outdated! updating...."
-            pip3 install -U hiddifypanel==$LATEST
-            PANEL_UPDATE=1
+            pip install -U hiddifypanel==$latest
+            update_progress "Updated..." "Hiddify Panel to $latest" 50
+            return 0
         fi
-    fi
-
-    if [[ "$PACKAGE_MODE" == "develop" ]]; then
-        LATEST_CONFIG_VERSION=$(get_commit_version hiddify-config)
-        echo "DEVELOP: Current Config Version=$CURRENT_CONFIG_VERSION -- Latest=$LATEST_CONFIG_VERSION"
-        if [[ $FORCE == "true" || "$CURRENT_CONFIG_VERSION" != "$LATEST_CONFIG_VERSION" ]]; then
-            curl -L -o main.tar.gz https://github.com/hiddify/hiddify-config/archive/refs/heads/main.tar.gz
-            # rm  -rf nginx/ xray/
-            tar xvzf main.tar.gz --strip-components=1 && echo $LAST_CONFIG_VERSION >VERSION
-
-            rm main.tar.gz
-            rm -rf other/netdata
-            bash install.sh
-            UPDATE=1
+        ;;
+    release)
+        latest=$(get_release_version hiddifypanel)
+        echo "hiddify panel version current=$current_panel_version latest=$latest"
+        if [[ $force == "true" || "$current_panel_version" != "$latest" ]]; then
+            update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
+            echo "panel is outdated! updating...."
+            pip3 install -U hiddifypanel==$latest
+            update_progress "Updated..." "Hiddify Panel to $latest" 50
+            return 0
         fi
-    else
-        LATEST_CONFIG_VERSION=$(get_release_version hiddify-config)
-        echo "Current Config Version=$CURRENT_CONFIG_VERSION -- Latest=$LATEST_CONFIG_VERSION"
-        if [[ $FORCE == "true" || "$CURRENT_CONFIG_VERSION" != "$LATEST_CONFIG_VERSION" ]]; then
-            echo "Config is outdated! updating..."
+        ;;
+    *)
+        echo "Unknown package mode: $package_mode"
+        exit 1
+        ;;
+    esac
 
-            curl -L -o hiddify-config.zip https://github.com/hiddify/hiddify-config/releases/latest/download/hiddify-config.zip && rm xray/configs/*
-            # rm  -rf nginx/ xray/
+    return 1
+}
 
-            apt install -y unzip
-            unzip -o hiddify-config.zip
-            rm hiddify-config.zip
-            bash install.sh
-            UPDATE=1
+function update_config() {
+    update_progress "Checking for Update..." "Hiddify Config" 55
+    local package_mode=$1
+    local force=$2
+    local current_config_version=$(get_installed_config_version)
 
+    case "$package_mode" in
+    develop)
+        local latest=$(get_commit_version hiddify-config)
+        echo "DEVELOP: Current Config Version=$current_config_version -- Latest=$latest"
+        if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
+            update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
+            update_from_github "hiddify-config.tar.gz" "https://github.com/hiddify/hiddify-config/archive/refs/heads/main.tar.gz"
+            echo "$latest" >VERSION
+            update_progress "Updated..." "Hiddify Config to $latest" 100
+            return 0
         fi
-    fi
-    if [[ $UPDATE == 0 ]]; then
+        ;;
+    beta)
+        local latest=$(get_pre_release_version hiddifypanel)
+        echo "BETA: Current Config Version=$current_config_version -- Latest=$latest"
+        if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
+            update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
+            update_from_github "hiddify-config.zip" "https://github.com/hiddify/hiddify-config/releases/download/$latest/hiddify-config.zip"
+            update_progress "Updated..." "Hiddify Config to $latest" 100
+            return 0
+        fi
+        ;;
+    release)
+        echo "RELEASE: Current Config Version=$current_config_version -- Latest=$latest"
+        if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
+            update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
+            update_from_github "hiddify-config.zip" "https://github.com/hiddify/hiddify-config/releases/latest/download/hiddify-config.zip"
+            update_progress "Updated..." "Hiddify Config to $latest" 100
+            return 0
+        fi
+
+        ;;
+    *)
+        echo "Unknown package mode: $package_mode"
+        exit 1
+        ;;
+    esac
+
+    return 1
+}
+
+function post_update_tasks() {
+    local panel_update=$1
+    local config_update=$2
+
+    if [[ $config_update != 0 ]]; then
         echo "---------------------Finished!------------------------"
     fi
-    if [[ "$PANEL_UPDATE" == 1 ]]; then
+
+    if [[ $panel_update == 0 ]]; then
         systemctl restart hiddify-panel
     fi
 
-    if [[ "$PANEL_UPDATE" == 1 && $UPDATE == 0 ]]; then
-        bash apply_configs.sh
+    if [[ $panel_update == 0 && $config_update != 0 ]]; then
+        bash apply_configs.sh --no-gui
     fi
-    rm log/update.lock
+
+    rm "$LOCK_FILE"
 }
 
-mkdir -p log/system/
+function update_from_github() {
+    local file_name=$1
+    local url=$2
+    local file_type=${file_name##*.}
 
-if [[ -f log/update.lock && $(($(date +%s) - $(cat log/update.lock))) -lt 120 ]]; then
-    echo "Another installation is running.... Please wait until it finishes or wait 5 minutes or execute 'rm -f log/update.lock'"
+    curl -L -o "$file_name" "$url"
+
+    if [[ "$file_type" == "zip" ]]; then
+        install_if_not_installed unzip
+        unzip -o "$file_name"
+    elif [[ "$file_type" == "gz" ]]; then
+        tar xvzf "$file_name" --strip-components=1
+    else
+        echo "Unsupported file type: $file_type"
+        return 1
+    fi
+
+    rm "$file_name"
+    bash install.sh --no-gui
+}
+
+# Check if another installation is running
+if [[ -f $LOCK_FILE && $(($(date +%s) - $(cat $LOCK_FILE))) -lt 120 ]]; then
+    echo "Another installation is running.... Please wait until it finishes or wait 5 minutes or execute 'rm -f $LOCK_FILE'"
     exit 1
 fi
 
-echo "$(date +%s)" >log/update.lock
+# Create or update the lock file
+date +%s >$LOCK_FILE
 
-main $@ |& tee log/system/update.log
+# Run the main function and log the output
+
+main "$@" 2>&1 | tee $LOG_FILE
+disable_ansii_modes
