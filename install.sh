@@ -352,9 +352,6 @@ function runsh() {
         popd >>/dev/null
 }
 
-function do_for_all() {
-        
-}
 
 
 

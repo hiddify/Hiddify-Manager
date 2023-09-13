@@ -65,23 +65,30 @@ rm configs/05_inbounds_2061_reality_main.json
 rm configs/05_inbounds_2071_realitygrpc_main.json
 
 rm configs/05_inbounds_4010_tuic_*.json
-rm configs/05_inbounds_4100_hysteria_*.json
-DIRECT_RELAY_DOMAINS="${DIRECT_DOMAINS//;/ } ${RELAY_DOMAINS//;/ }"
-i=1
-for domain in $DIRECT_RELAY_DOMAINS; do
-	cp configs/05_inbounds_4010_tuic.json configs/05_inbounds_4010_tuic_$i.json
-	cp configs/05_inbounds_4100_hysteria.json configs/05_inbounds_4100_hysteria_$i.json
-	sed -i "s|tuic_in|tuic_in_$i|g" configs/05_inbounds_4010_tuic_$i.json
-	sed -i "s|hysteria_in|hysteria_in_$i|g" configs/05_inbounds_4100_hysteria_$i.json
-
-	sed -i "s|4010|401$i|g" configs/05_inbounds_4010_tuic_$i.json
-	sed -i "s|4100|410$i|g" configs/05_inbounds_4100_hysteria_$i.json
-	sed -i "s|SERVER_NAME|$domain|g" configs/05_inbounds_4010_tuic_$i.json
-	sed -i "s|SERVER_NAME|$domain|g" configs/05_inbounds_4100_hysteria_$i.json
-
-	i=$((i + 1))
+TUIC_DOMAINS=hiddify_api tuic_domain_port
+for TUIC_DOMAIN in ${TUIC_DOMAINS//;/ }; do
+	IFS=':' read -ra PARTS <<<"$TUIC_DOMAIN"
+	domain=${PARTS[0]}
+	port=${PARTS[1]}
+	cp configs/05_inbounds_4010_tuic.json configs/05_inbounds_4010_tuic_$port.json
+	sed -i "s|tuic_in|tuic_in_$port|g" configs/05_inbounds_4010_tuic_$port.json
+	sed -i "s|4010|$port|g" configs/05_inbounds_4010_tuic_$port.json
+	sed -i "s|SERVER_NAME|$domain|g" configs/05_inbounds_4010_tuic_$port.json
 done
 rm configs/05_inbounds_4010_tuic.json
+
+rm configs/05_inbounds_4100_hysteria_*.json
+HYSTRIA_DOMAINS=hiddify_api hystria_domain_port
+for HYSTRIA_DOMAIN in ${HYSTRIA_DOMAINS//;/ }; do
+	IFS=':' read -ra PARTS <<<"$HYSTRIA_DOMAIN"
+	domain=${PARTS[0]}
+	port=${PARTS[1]}
+	cp configs/05_inbounds_4100_hysteria.json configs/05_inbounds_4100_hysteria_$port.json
+	sed -i "s|hysteria_in|hysteria_in_$port|g" configs/05_inbounds_4100_hysteria_$port.json
+	sed -i "s|4100|$port|g" configs/05_inbounds_4100_hysteria_$port.json
+	sed -i "s|SERVER_NAME|$domain|g" configs/05_inbounds_4100_hysteria_$port.json
+
+done
 rm configs/05_inbounds_4100_hysteria.json
 
 for CONFIG_FILE in $(find configs/ -name "*.json"); do

@@ -124,3 +124,9 @@ END
 function msg() {
     NEWT_COLORS='title=blue, textbox=blue, border=blue, button=black,blue' whiptail --title Hiddify --msgbox "$1" 0 60
 }
+
+function hiddify_api() {
+    data=(cd /opt/hiddify-server/hiddify-panel;python3 -m hiddifypanel $1)
+    echo $data
+    return 0
+}
