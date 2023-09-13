@@ -79,7 +79,7 @@ done
 rm configs/05_inbounds_4010_tuic.json
 
 rm configs/05_inbounds_4100_hysteria_*.json
-HYSTRIA_DOMAINS=$(hiddify_api hystria-domain-port)
+HYSTRIA_DOMAINS=$(hiddify_api hysteria-domain-port)
 for HYSTRIA_DOMAIN in ${HYSTRIA_DOMAINS//;/ }; do
 	IFS=':' read -ra PARTS <<<"$HYSTRIA_DOMAIN"
 	domain=${PARTS[0]}
