@@ -126,7 +126,10 @@ function msg() {
 }
 
 function hiddify_api() {
-    data=(cd /opt/hiddify-server/hiddify-panel;python3 -m hiddifypanel $1)
+    data=$(
+        cd /opt/hiddify-server/hiddify-panel
+        python3 -m hiddifypanel $1
+    )
     echo $data
     return 0
 }
