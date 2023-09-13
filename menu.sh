@@ -2,6 +2,8 @@
 
 source common/utils.sh
 
+sed -i "s|/opt/hiddify-config/menu.sh|/opt/hiddify-server/menu.sh|g" ~/.bashrc
+
 if [[ $(grep "/opt/hiddify-server/menu.sh" ~/.bashrc | wc -l) > 0 ]]; then
     sed -i "s|/opt/hiddify-server/menu.sh||g" ~/.bashrc
     sed -i "s|cd /opt/hiddify-server/||g" ~/.bashrc
