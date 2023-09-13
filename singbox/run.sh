@@ -64,6 +64,26 @@ done
 rm configs/05_inbounds_2061_reality_main.json
 rm configs/05_inbounds_2071_realitygrpc_main.json
 
+rm configs/05_inbounds_4010_tuic_*.json
+rm configs/05_inbounds_4100_hysteria_*.json
+DIRECT_RELAY_DOMAINS="${DIRECT_DOMAINS//;/ } ${RELAY_DOMAINS//;/ }"
+i=1
+for domain in $DIRECT_RELAY_DOMAINS; do
+	cp configs/05_inbounds_4010_tuic.json configs/05_inbounds_4010_tuic_$i.json
+	cp configs/05_inbounds_4100_hysteria.json configs/05_inbounds_4100_hysteria_$i.json
+	sed -i "s|tuic_in|tuic_in_$i|g" configs/05_inbounds_4010_tuic_$i.json
+	sed -i "s|hysteria_in|hysteria_in_$i|g" configs/05_inbounds_4100_hysteria_$i.json
+
+	sed -i "s|4010|401$i|g" configs/05_inbounds_4010_tuic_$i.json
+	sed -i "s|4100|410$i|g" configs/05_inbounds_4100_hysteria_$i.json
+	sed -i "s|SERVER_NAME|$domain|g" configs/05_inbounds_4010_tuic_$i.json
+	sed -i "s|SERVER_NAME|$domain|g" configs/05_inbounds_4100_hysteria_$i.json
+
+	i=$((i + 1))
+done
+rm configs/05_inbounds_4010_tuic.json
+rm configs/05_inbounds_4100_hysteria.json
+
 for CONFIG_FILE in $(find configs/ -name "*.json"); do
 	grep $CONFIG_FILE -e defaultuserguidsecret | while read -r line; do
 		# echo "Processing $line"

@@ -256,6 +256,8 @@ function set_config_from_hpanel(){
         REALITY_MULTI_GRPC=
         FORCE_XRAY_DOMAINS_MULTI=
         MAIN_DOMAIN=
+        DIRECT_DOMAINS=
+        RELAY_DOMAINS=
         for i in $(seq 0 ``domains.length()``); do
                 domain=$(get domains $i domain)
                 servernames=$(get domains $i servernames)
@@ -264,12 +266,22 @@ function set_config_from_hpanel(){
                 case $mode in
                 direct|cdn|worker|relay|auto_cdn_ip|old_xtls_direct|sub_link_only)
                         MAIN_DOMAIN="$domain;$MAIN_DOMAIN"
-                        if [ "$mode" == "old_xtls_direct" ];then
+
+                        case $mode in
+                        old_xtls_direct)
                                 FORCE_XRAY_DOMAINS_MULTI="$domain;$FORCE_XRAY_DOMAINS_MULTI"
-                        fi 
-                        if [ "$mode" == "sub_link_only" ];then
+                                ;;
+                        
+                        sub_link_only)
                                 FORCE_SUBLINK_ONLY="$domain;$FORCE_SUBLINK_ONLY"
-                        fi 
+                                ;;
+                        direct)
+                                DIRECT_DOMAINS="$domain;$DIRECT_DOMAINS"
+                                ;;
+                        relay)
+                                RELAY_DOMAINS="$domain;$RELAY_DOMAINS"
+                                ;;
+                        esac
                         ;;
                 reality)
                         if [ "$grpc" == "true" ];then
@@ -298,6 +310,8 @@ function set_config_from_hpanel(){
         setenv MAIN_DOMAIN $MAIN_DOMAIN
         setenv FORCE_XRAY_DOMAINS_MULTI $FORCE_XRAY_DOMAINS_MULTI
         setenv FORCE_SUBLINK_ONLY $FORCE_SUBLINK_ONLY
+        setenv RELAY_DOMAINS $RELAY_DOMAINS
+        setenv DIRECT_DOMAINS $DIRECT_DOMAINS
 
         USER_SECRET=
         for i in $(seq 0 ``users.length()``); do
