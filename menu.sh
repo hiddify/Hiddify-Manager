@@ -64,7 +64,7 @@ function menu() {
     NEED_KEY=1
     case $CHOICE in
     "") exit 1 ;;
-    "Exit") exit 1 ;;
+    "Quit") exit 1 ;;
     'log')
         W=()
         while read -r line; do
