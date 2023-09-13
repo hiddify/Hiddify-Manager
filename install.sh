@@ -1,6 +1,6 @@
 #!/bin/bash
 cd $( dirname -- "$0"; )
-source common/utils.sh
+source /opt/hiddify-server/common/utils.sh
 source ./common/ticktick.sh
 export DEBIAN_FRONTEND=noninteractive
 if [ "$(id -u)" -ne 0 ]; then
