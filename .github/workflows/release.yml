@@ -57,12 +57,12 @@ jobs:
       - name: zip
         run: |
             zip -r hiddify-server.zip .  -x .**\*
+            cp  hiddify-server.zip hiddify-config.zip 
       - name: Generate Changelog
         run: .github/release_message.sh > release_message.md
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          prerelease: ${{ contains(github.ref_name,'dev') }}
-          files: hiddify-server.zip
+          files: *.zip
           body_path: release_message.md
     
