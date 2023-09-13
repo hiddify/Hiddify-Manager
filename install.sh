@@ -8,10 +8,10 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 # Fix the installation directory
 if [ ! -d "/opt/hiddify-server/" ] && [ -d "/opt/hiddify-config/" ]; then
-    ln -s /opt/hiddify-config/ /opt/hiddify-server/
+    ln -s /opt/hiddify-config /opt/hiddify-server
 fi
 if [ -d "/opt/hiddify-server/" ] && [ ! -d "/opt/hiddify-config/" ]; then
-    ln -s /opt/hiddify-server/ /opt/hiddify-config/
+    ln -s /opt/hiddify-server /opt/hiddify-config
 fi
 source common/utils.sh
 
