@@ -123,8 +123,8 @@ function update_config() {
         echo "DEVELOP: Current Config Version=$current_config_version -- Latest=$latest"
         if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
             update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
-            update_from_github "hiddify-server.tar.gz" "https://github.com/hiddify/hiddify-server/archive/refs/heads/main.tar.gz"
-            echo "$latest" >VERSION
+            update_from_github "hiddify-server.tar.gz" "https://github.com/hiddify/hiddify-server/archive/refs/heads/main.tar.gz" $latest
+
             update_progress "Updated..." "Hiddify Config to $latest" 100
             return 0
         fi
@@ -181,6 +181,8 @@ function post_update_tasks() {
 function update_from_github() {
     local file_name=$1
     local url=$2
+    local override_version=$3
+
     local file_type=${file_name##*.}
 
     curl -L -o "$file_name" "$url"
@@ -194,7 +196,9 @@ function update_from_github() {
         echo "Unsupported file type: $file_type"
         return 1
     fi
-
+    if [[ -z "$override_version" ]]; then
+        echo "$override_version" >VERSION
+    fi
     rm "$file_name"
     apt upgrade -y
     apt dist-upgrade -y
