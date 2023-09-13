@@ -147,6 +147,9 @@ function menu() {
         "release")
             bash update.sh release
             ;;
+        "beta")
+            bash update.sh beta
+            ;;
         "develop")
             bash update.sh develop
             ;;
