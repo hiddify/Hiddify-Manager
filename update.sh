@@ -61,7 +61,9 @@ function update_panel() {
 
     # Your existing logic for checking and updating the panel version based on the package mode
     # Set panel_update to 1 if an update is performed
-
+    if [[ -z "$package_mode" || ($package_mode == "develop" || $package_mode == "beta" || $package_mode == "release") ]]; then
+        (cd hiddify-panel && hiddifypanel set-setting -k package_mode -v $1)
+    fi
     case "$package_mode" in
     develop)
         # Use the latest commit from GitHub
