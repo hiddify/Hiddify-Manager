@@ -138,6 +138,7 @@ function update_config() {
         fi
         ;;
     release)
+        local latest=$(get_release_version hiddify-server)
         echo "RELEASE: Current Config Version=$current_config_version -- Latest=$latest"
         if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
             update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
