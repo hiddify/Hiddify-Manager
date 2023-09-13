@@ -103,3 +103,24 @@ function is_installed() {
     fi
     return 0
 }
+
+function msg_with_hiddify() {
+    text=$(
+        cat <<END
+                                  ▓▓▓
+                                ▓▓▓▓▓
+                           ▓▓▓       
+                         ▓▓▓▓▓  ▓▓▓▓▓
+                    ▓▓▓  ▓▓▓▓▓  ▓▓▓▓▓
+                 ▓▓▓▓▓▓  ▓▓▓▓▓  ▓▓▓▓▓
+                 ▓▓▓▓▓▓▓▓▓▓▓▓▓  ▓▓▓▓▓
+                 ▓▓▓▓▓▓  ▓▓▓▓▓  ▓▓▓▓▓
+END
+    )
+    msg "$text \n\n$1"
+
+}
+
+function msg() {
+    NEWT_COLORS='title=blue, textbox=blue, border=blue, button=black,blue' whiptail --title Hiddify --msgbox "$1" 0 60
+}

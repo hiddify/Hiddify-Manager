@@ -388,8 +388,7 @@ else
         if [[ $(cat log/error.lock) != "0" ]]; then
                 less -r -P"Installation Failed! Press q to exit" +G "$log_file"
         else
-                whiptail --title "Installation Complete" \
-                        --msgbox "The installation has successfully completed. Press OK to continue." 10 40
+                msg_with_hiddify "The installation has successfully completed."
                 check $@ |& tee -a $log_file
         fi
         
