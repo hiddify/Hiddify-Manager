@@ -18,9 +18,9 @@ function main(){
         export MODE="$1"
         
         # Because we need to generate reality pair in panel
-        is_installed xray; || bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.4 
+        is_installed xray || bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.4 
 
-        "$MODE" != "apply_users" && install_run hiddify-panel
+        [ "$MODE" != "apply_users" ] && install_run hiddify-panel
         
         # source common/set_config_from_hpanel.sh
         update_progress "" "Reading Configs from Panel..." 5
