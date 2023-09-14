@@ -9,8 +9,8 @@ function allow_port() { #allow_port "tcp" "80"
   add2iptables "INPUT -p $1 --dport $2 -j ACCEPT"
   add2ip6tables "INPUT -p $1 --dport $2 -j ACCEPT"
   # if [[ $1 == 'udp' ]]; then
-    add2iptables "INPUT -p $1 -m $1 --dport $2 -m conntrack --ctstate NEW -j ACCEPT"
-    add2ip6tables "INPUT -p $1 -m $1 --dport $2 -m conntrack --ctstate NEW -j ACCEPT"
+  add2iptables "INPUT -p $1 -m $1 --dport $2 -m conntrack --ctstate NEW -j ACCEPT"
+  add2ip6tables "INPUT -p $1 -m $1 --dport $2 -m conntrack --ctstate NEW -j ACCEPT"
   # fi
 }
 
@@ -43,13 +43,6 @@ function allow_apps_ports() {
 
 mkdir -p /etc/iptables/
 
-
-add2iptables "INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT"
-add2ip6tables "INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT"
-
-add2iptables "INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT"
-add2ip6tables "INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT"
-
 allow_port "tcp" 22
 allow_port "tcp" 80
 allow_port "tcp" 443
@@ -58,7 +51,7 @@ allow_port "udp" 53
 allow_port "tcp" 53
 # allow_port "udp" 3478
 
-add2iptables "OUTPUT -p udp -j ACCEPT" 
+add2iptables "OUTPUT -p udp -j ACCEPT"
 add2ip6tables "OUTPUT -p udp -j ACCEPT"
 
 add2iptables "OUTPUT -p tcp -j ACCEPT"
@@ -67,6 +60,12 @@ add2ip6tables "OUTPUT -p tcp -j ACCEPT"
 add2iptables "INPUT -i lo -j ACCEPT"
 add2ip6tables "INPUT -i lo -j ACCEPT"
 
+HYSTRIA_TUIC_DOMAINS="$(hiddify_api hysteria-domain-port);$(hiddify_api hysteria-domain-port)"
+for DOMAIN in ${HYSTRIA_TUIC_DOMAINS//;/ }; do
+  IFS=':' read -ra PARTS <<<"$DOMAIN"
+  port=${PARTS[1]}
+  allow_port $port
+done
 
 # ICMP for ipv4
 add2iptables "INPUT -p icmp -m icmp --icmp-type 0 -m conntrack --ctstate NEW -j ACCEPT"
@@ -81,19 +80,21 @@ add2ip6tables "INPUT -p ipv6-icmp --icmpv6-type 1 -m conntrack --ctstate NEW -j 
 add2ip6tables "INPUT -p ipv6-icmp --icmpv6-type 4 -m conntrack --ctstate NEW -j ACCEPT"
 add2ip6tables "INPUT -p ipv6-icmp --icmpv6-type 2 -m conntrack --ctstate NEW -j ACCEPT"
 
-
 allow_apps_ports "sshd"
 allow_apps_ports "x-ui"
 
+add2iptables "INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT"
+add2ip6tables "INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT"
 
+add2iptables "INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT"
+add2ip6tables "INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT"
 
 # Check if SSH server should be enabled
 if [[ $ssh_server_enable == 'true' ]]; then
   allow_port "tcp" "$ssh_server_port"
 else
-  remove_port "tcp" "$ssh_server_port"  
+  remove_port "tcp" "$ssh_server_port"
 fi
-
 
 TCP_PORTS=(${HTTP_PORTS//,/ } ${TLS_PORTS//,/ })
 for PORT in "${TCP_PORTS[@]}"; do
