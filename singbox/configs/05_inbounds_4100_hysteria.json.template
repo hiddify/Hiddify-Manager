@@ -9,7 +9,7 @@
 			"down_mbps": 500,
 			"obfs": {
 				"type": "salamander",
-				"password": "$BASE_PROXY_PATH"
+				"password": "BASE_PROXY_PATH"
 			},
 			"users": [
 				{"name": "defaultuserguidsecret@hiddify.com","password": "defaultuserguidsecret"}
