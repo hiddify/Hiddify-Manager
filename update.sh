@@ -196,7 +196,7 @@ function update_from_github() {
         echo "Unsupported file type: $file_type"
         return 1
     fi
-    if [[ -z "$override_version" ]]; then
+    if [[ ! -z "$override_version" ]]; then
         echo "$override_version" >VERSION
     fi
     rm "$file_name"
