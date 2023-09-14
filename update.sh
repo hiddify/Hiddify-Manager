@@ -244,6 +244,5 @@ else
 
     disable_ansii_modes
     msg_with_hiddify "The update has successfully completed."
-
-    # reset
+    reset
 fi

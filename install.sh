@@ -397,6 +397,7 @@ else
                 --begin $(($log_h + 2)) 2 \
                 --gauge "Please wait..., We are going to install Hiddify" 7 $log_w 0
                 
+        reset
         rm -f log/install.lock >/dev/null 2>&1
         if [[ $(cat log/error.lock) != "0" ]]; then
                 less -r -P"Installation Failed! Press q to exit" +G "$log_file"
