@@ -369,6 +369,8 @@ echo "0" >log/error.lock
 log_file=log/system/0-install.log
 
 if [[ " $@ " == *" --no-gui "* ]]; then
+        set -- "${@/--no-gui/}"
+
         main $@ |& tee $log_file
         rm -f log/install.lock >/dev/null 2>&1
         disable_ansii_modes

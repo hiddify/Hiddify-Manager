@@ -11,7 +11,6 @@ ERROR_LOCK_FILE="log/error.lock"
 LOG_FILE="$LOG_DIR/update.log"
 BACKTITLE="Welcome to Hiddify Panel Updater"
 
-
 function cleanup() {
     error "Script interrupted. Exiting..."
     disable_ansii_modes
@@ -218,6 +217,7 @@ date +%s >$LOCK_FILE
 
 # Run the main function and log the output
 if [[ " $@ " == *" --no-gui "* ]]; then
+    set -- "${@/--no-gui/}"
     main "$@" 2>&1 | tee $LOG_FILE
     disable_ansii_modes
 else
