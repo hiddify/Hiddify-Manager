@@ -11,7 +11,7 @@ chown -R hiddify-panel:hiddify-panel . >/dev/null 2>&1
 for req in pip3 uwsgi python3 hiddifypanel lastversion jq; do
     which $req >/dev/null 2>&1
     if [[ "$?" != 0 ]]; then
-        install_package add-apt-repository
+        install_package software-properties-common
         add-apt-repository -y ppa:deadsnakes/ppa
         install_package python3-pip jq python3-dev
         pip3 install pip
@@ -19,6 +19,8 @@ for req in pip3 uwsgi python3 hiddifypanel lastversion jq; do
         break
     fi
 done
+
+python3 -c "import pymysql" || pip install pymysql
 
 sed -i '/SQLALCHEMY_DATABASE_URI/d' app.cfg
 MYSQL_PASS=$(cat ../other/mysql/mysql_pass)
