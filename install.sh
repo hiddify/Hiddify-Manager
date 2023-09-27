@@ -50,7 +50,6 @@ function main(){
                 update_progress "${1}ing..." "Getting Certificates" 20
                 install_run acme.sh
                 
-                # runsh $1.sh sniproxy
                 update_progress "${1}ing..." "Personal SpeedTest" 35
                 install_run other/speedtest
 
@@ -69,9 +68,9 @@ function main(){
                 update_progress "${1}ing..." "ShadowTLS" 60
                 install_run other/shadowtls $ENABLE_SHADOWTLS
                 
-                update_progress "${1}ing..." "Xray" 90
-                install_run xray
         fi
+        update_progress "${1}ing..." "Xray" 90
+        install_run xray
         
         update_progress "${1}ing..." "Singbox" 80
         install_run singbox
