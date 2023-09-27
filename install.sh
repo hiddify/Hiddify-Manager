@@ -33,6 +33,8 @@ function main(){
         update_progress "Applying Configs" "..." 5
         bash common/replace_variables.sh
         
+        update_progress "${1}ing..." "Haproxy for Spliting Traffic" 70
+        install_run haproxy   
         if [ "$MODE" != "apply_users" ];then
                 update_progress "${1}ing..." "Common Tools" 8
                 install_run common
@@ -41,8 +43,7 @@ function main(){
                 #$([ "$WARP_MODE" != 'disable' ] || echo "false")
                 install_run other/warp 
 
-                update_progress "${1}ing..." "Haproxy for Spliting Traffic" 70
-                install_run haproxy        
+                     
                 
                 update_progress "${1}ing..." "Nginx" 30
                 install_run nginx
@@ -150,8 +151,8 @@ trap cleanup SIGINT
 
 
 function set_config_from_hpanel(){
-
-        hiddify=`cd hiddify-panel;python3 -m hiddifypanel all-configs`
+        (cd hiddify-panel;python3 -m hiddifypanel all-configs)>current.json
+        hiddify=`cat current.json`
         if [[ $? != 0 ]];then
                 error "Exception in Hiddify Panel. Please send the log to hiddify@gmail.com"
                 echo "4">log/error.lock
