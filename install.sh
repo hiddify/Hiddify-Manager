@@ -232,6 +232,8 @@ function runsh() {
 function do_for_all() {
         #cd /opt/$GITHUB_REPOSITORY
         bash common/replace_variables.sh
+        update_progress "${1}ing..." "Haproxy for Spliting Traffic" 70
+        runsh $1.sh haproxy        
         if [ "$MODE" != "apply_users" ];then
                 systemctl daemon-reload
                 update_progress "${1}ing..." "Common Tools" 8
@@ -243,8 +245,6 @@ function do_for_all() {
                 #$([ "$WARP_MODE" != 'disable' ] || echo "false")
                 runsh $1.sh other/warp 
                 #runsh $1.sh certbot
-                update_progress "${1}ing..." "Haproxy for Spliting Traffic" 70
-                runsh $1.sh haproxy        
                 
                 update_progress "${1}ing..." "Nginx" 30
                 runsh $1.sh nginx
