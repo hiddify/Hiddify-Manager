@@ -275,10 +275,11 @@ function do_for_all() {
                 # runsh $1.sh deprecated/trojan-go  $ENABLE_TROJAN_GO
                 #WARP_ENABLE=$([ "$WARP_MODE" != 'disable' ] || echo "false")
                 
-                update_progress "${1}ing..." "Xray" 90
-                runsh $1.sh xray
+                
         fi
         
+        update_progress "${1}ing..." "Xray" 90
+        runsh $1.sh xray
         update_progress "${1}ing..." "Singbox" 80
         runsh $1.sh singbox
         
