@@ -1,0 +1,53 @@
+{
+  "route": {
+    "geoip": {
+      "path": "geoip.db",
+      "download_url": "https://github.com/SagerNet/sing-geoip/releases/latest/download/geoip.db"
+      ,"download_detour": "freedom"
+    },
+    "geosite": {
+      "path": "geosite.db",
+      "download_url": "https://github.com/hiddify/sing-geosite/releases/latest/download/geosite.db"
+       ,"download_detour": "freedom"
+    },
+    // "domainStrategy": "AsIs",
+    "final": {% if hconfigs['warp_mode'] == 'all' %}"WARP"{% else %}"freedom"{% endif %},
+      "rules": [
+        {
+            "outbound": "freedom",
+            "port": [53]
+        },
+        {
+          "protocol": "quic",
+          "port": [443],
+          "outbound": "blackhole"
+        },
+        {
+            "outbound": {% if hconfigs['warp_mode'] == 'disable' %}"forbidden_sites"{% else %}"WARP"{% endif %},
+            {% if hconfigs['country'] in ['zh','cn'] %}
+              "geoip": ["cn"]
+            {% elif hconfigs['country'] == 'ir' %}
+              "geoip": ["ir"]
+            {% elif hconfigs['country'] == 'ru' %}
+              "geoip": ["ru"]
+            {% else %}
+              "geoip": ["cn"]
+            {% endif %}
+        },
+        {
+            "outbound": {% if hconfigs['warp_mode'] == 'disable' %}"freedom"{% else %}"WARP"{% endif %},
+            "geosite":[
+                "hiddify-hetzner-warp"
+            ]
+        },
+        {
+          "outbound": "blackhole", "geoip": ["private"]
+        }
+        // {// Block BitTorrent protocol
+        //   "type": "field", "outboundTag": "blackhole", "protocol": ["bittorrent"]
+        // },
+      ]
+    }
+  
+
+}
