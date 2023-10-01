@@ -13,7 +13,7 @@ BACKTITLE="Welcome to Hiddify Panel Updater"
 
 function cleanup() {
     error "Script interrupted. Exiting..."
-    disable_ansii_modes
+    disable_ansi_modes
     #    reset
     rm "$LOCK_FILE"
     echo "1" >"$ERROR_LOCK_FILE"
@@ -68,7 +68,7 @@ function update_panel() {
         # Use the latest commit from GitHub
         latest=$(get_commit_version HiddifyPanel)
 
-        echo "DEVLEOP: hiddify panel version current=$current_panel_version latest=$latest"
+        echo "DEVELOP: hiddify panel version current=$current_panel_version latest=$latest"
         if [[ $force == "true" || "$latest" != "$current_panel_version" ]]; then
             update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
             panel_path=$(hiddifypanel_path)
@@ -219,7 +219,7 @@ date +%s >$LOCK_FILE
 if [[ " $@ " == *" --no-gui "* ]]; then
     set -- "${@/--no-gui/}"
     main "$@" 2>&1 | tee $LOG_FILE
-    disable_ansii_modes
+    disable_ansi_modes
 else
     # Get terminal dimensions with fallback values
     width=$(tput cols 2>/dev/null || echo 20)
@@ -242,7 +242,7 @@ else
         --begin $((log_h + 2)) 2 \
         --gauge "Please wait..., We are going to Update Hiddify" 7 $log_w 0
 
-    disable_ansii_modes
+    disable_ansi_modes
     msg_with_hiddify "The update has successfully completed."
     reset
 fi

@@ -3,11 +3,11 @@ function get_commit_version() {
     latest_commit_date=$(echo "$xml_data" | grep -m 1 '<updated>' | awk -F'>|<' '{print $3}')
     # COMMIT_URL=$(curl -s https://api.github.com/repos/hiddify/$1/git/refs/heads/main | jq -r .object.url)
     # latest_commit_date=$(curl -s $COMMIT_URL | jq -r .committer.date)
-    echo ${latest_commit_date:5:11}
+    echo "${latest_commit_date:5:11}"
 }
 
 function get_pre_release_version() {
-    lastversion $1 --pre --at github
+    lastversion "$1" --pre --at github
 }
 
 function get_release_version() {
@@ -15,7 +15,7 @@ function get_release_version() {
     # VERSION=$(curl -s --connect-timeout 1 $COMMIT_URL | jq -r .tag_name)
     VERSION=$(curl -sI https://github.com/hiddify/$1/releases/latest | grep -i location | rev | awk -F/ '{print $1}' | rev)
     VERSION=${VERSION//v/}
-    echo ${VERSION//$'\r'/}
+    echo "${VERSION//$'\r'/}"
 }
 function hiddifypanel_path() {
     python3 -c "import site, os; package_name = 'hiddifypanel'; package_path = next((os.path.join(p, package_name) for p in site.getsitepackages() if os.path.isdir(os.path.join(p, package_name))), None); print(package_path)"
@@ -54,7 +54,7 @@ function add_DNS_if_failed() {
 
 }
 
-function disable_ansii_modes() {
+function disable_ansi_modes() {
     echo -e "\033[?25l"
     echo -e "\e[?1003l"
     #echo -e '\033c'
@@ -73,7 +73,7 @@ function update_progress() {
 }
 
 function install_package() {
-    for package in $@; do
+    for package in "$@"; do
         if ! dpkg -l | grep -q "^ii  $package"; then
             # The package is not installed, install it
             apt install -y "$package"
@@ -90,7 +90,7 @@ function install_package() {
 }
 
 function remove_package() {
-    for package in $@; do
+    for package in "$@"; do
         if dpkg -l | grep -q "^ii  $package"; then
             apt remove -y "$package"
         fi
@@ -128,8 +128,8 @@ function msg() {
 function hiddify_api() {
     data=$(
         cd /opt/hiddify-server/hiddify-panel
-        python3 -m hiddifypanel $1
+        python3 -m hiddifypanel "$1"
     )
-    echo $data
+    echo "$data"
     return 0
 }

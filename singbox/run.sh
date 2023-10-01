@@ -1,5 +1,5 @@
 source /opt/hiddify-server/common/utils.sh
-ln -sf $(pwd)/hiddify-singbox.service /etc/systemd/system/hiddify-singbox.service
+ln -sf "$(pwd)/hiddify-singbox.service" /etc/systemd/system/hiddify-singbox.service
 systemctl enable hiddify-singbox.service
 
 DOMAINS=${MAIN_DOMAIN//;/ }

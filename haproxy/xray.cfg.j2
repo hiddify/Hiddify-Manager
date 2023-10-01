@@ -100,10 +100,10 @@ backend trojanw_h2
 #   # grpc settings
 #   http-request set-header X-Real-IP %[src]
 
-#   acl is_trojan_grpc path_beg /BASE_PROXY_PATH-trgrpc
-#   acl is_vless_grpc path_beg /BASE_PROXY_PATH-vlgrpc
-#   acl is_vmess_grpc path_beg /BASE_PROXY_PATH-vmgrpc
-#   acl is_shadowsocks_grpc path_beg /BASE_PROXY_PATH-ssgrpc
+#   acl is_trojan_grpc path_beg /{{ hconfigs.proxy_path }}-trgrpc
+#   acl is_vless_grpc path_beg /{{ hconfigs.proxy_path }}-vlgrpc
+#   acl is_vmess_grpc path_beg /{{ hconfigs.proxy_path }}-vmgrpc
+#   acl is_shadowsocks_grpc path_beg /{{ hconfigs.proxy_path }}-ssgrpc
 
 #   use_backend trojan_grpc_backend if is_trojan_grpc
 #   use_backend vless_grpc_backend if is_vless_grpc

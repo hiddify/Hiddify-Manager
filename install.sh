@@ -137,7 +137,7 @@ fi
 
 function cleanup() {
     error "Script interrupted. Exiting..."
-    disable_ansii_modes
+    disable_ansi_modes
     rm log/install.lock
     echo "1">log/error.lock
     exit 1
@@ -373,7 +373,7 @@ if [[ " $@ " == *" --no-gui "* ]]; then
 
         main $@ |& tee $log_file
         rm -f log/install.lock >/dev/null 2>&1
-        disable_ansii_modes
+        disable_ansi_modes
 else
         install_package dialog
 

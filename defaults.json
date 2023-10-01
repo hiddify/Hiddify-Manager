@@ -1,0 +1,10 @@
+{
+	"hconfigs": {
+		"telegram_fakedomain": "localhost",
+		"ssfaketls_fakedomain": "localhost",
+		"shadowtls_fakedomain": "localhost",
+		"panel_static_root": "/usr/local/lib/python3.10/dist-packages/hiddifypanel/static/",
+		"hex_telegram_fakedomain": "localhost",
+		"cdn_name": "ar"
+	}
+}
