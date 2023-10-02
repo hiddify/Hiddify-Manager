@@ -1,0 +1,6 @@
+{% include 'common.cfg.pj2' %}
+{% if hconfigs['core_type'] == 'xray' %}
+{% include 'xray.cfg.pj2' %}
+{%else%}
+{% include 'singbox.cfg.pj2' %}
+{%endif%}
