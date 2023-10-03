@@ -1,0 +1,28 @@
+{
+	"inbounds": [
+		{
+			"tag":"ss-new",
+			"listen": "@@ss-tcp-new",
+			"protocol": "shadowsocks",
+			"settings": {
+				"clients":[
+                    {% for u in users %}
+					    {"password": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com","method": "Chacha20-IETF-Poly1305"},
+                    {% endfor %}
+				]
+			  },
+			"streamSettings": {
+			  "network": "ws",
+			  "security": "none",
+			  "wsSettings": {
+				"acceptProxyProtocol": true,
+				"path": ""/{{ hconfigs['path_ss'] }}{{ hconfigs['path_tcp'] }}",
+			  }
+			},
+			"sniffing": {
+			  "enabled": true,
+			  "destOverride": ["http","tls", "quic"]
+			}
+		  }	
+	  ]
+}
