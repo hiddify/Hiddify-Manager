@@ -1,0 +1,24 @@
+{
+	"inbounds": [
+		{
+			"tag": "h2-trojan-grpc-new",
+			//"listen": "@@trojan-grpc-new", // listen on localhost
+			"listen": "/opt/hiddify-server/xray/run/trojang.sock,666",
+			"protocol": "trojan",
+			"settings": {
+			  "clients": [
+                {% for u in users %}
+				    {"password": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com"},
+                {% endfor %}
+			  ]
+			},
+			"streamSettings": {
+			  "network": "grpc",
+			  "security": "none",
+			  "grpcSettings": {
+				"serviceName": "/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_ws'] }}",
+			  }
+			}
+		  }
+	]
+}
