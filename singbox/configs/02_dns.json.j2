@@ -3,9 +3,9 @@
     "servers": [
         {
         "tag": "cloudflare",
-        "address": {% if hconfigs['dns_server'] %} {{ hconfigs['dns_server'] }} {% else %} "1.1.1.1" {% endif %},
+        "address": {{hconfigs['dns_server'] or '1.1.1.1'}}},
         "strategy": "prefer_ipv4",
-        "detour": "freedom"
+        "detour": "freedom",
       }
     ],
     "rules": [],
