@@ -1,8 +1,8 @@
 {
 	"inbounds": [
 		{
-			"tag":"ss-new",
-			"listen": "@@ss-tcp-new",
+			"tag":"ss-ws-new",
+			"listen": "@@ss-ws-new",
 			"protocol": "shadowsocks",
 			"settings": {
 				"clients":[
@@ -16,7 +16,7 @@
 			  "security": "none",
 			  "wsSettings": {
 				"acceptProxyProtocol": true,
-				"path": "/{{ hconfigs['path_ss'] }}{{ hconfigs['path_tcp'] }}",
+				"path": "/{{ hconfigs['path_ss'] }}{{ hconfigs['path_ws'] }}",
 			  }
 			},
 			"sniffing": {
