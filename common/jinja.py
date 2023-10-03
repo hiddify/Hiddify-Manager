@@ -14,10 +14,10 @@ def render_j2_templates(start_path):
             if file.endswith('.j2'):
                 # Create a template object by reading the file
                 template_path = os.path.join(root, file)
-                template = env.get_template(template_path, **configs)
+                template = env.get_template(template_path)
 
                 # Render the template
-                rendered_content = template.render()
+                rendered_content = template.render(**configs)
 
                 # Write the rendered content to a new file without the .j2 extension
                 output_file_path = os.path.splitext(template_path)[0]
