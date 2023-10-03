@@ -1,0 +1,28 @@
+{
+	"inbounds": [
+		{
+			"tag":"vmess-ws-new",
+			"listen": "@@vmess-ws-new",
+			"protocol": "vmess",
+			"settings": {
+			  "clients": [
+                {% for u in users %}
+				    {"id": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com", "alterId": 0},
+                {% endfor %}
+			  ]
+			},
+			"streamSettings": {
+			  "network": "ws",
+			  "security": "none",
+			  "wsSettings": {
+				"acceptProxyProtocol": true,
+				"/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_ws'] }}", //Change to your own path
+			  }
+			},
+			"sniffing": {
+			  "enabled": true,
+			  "destOverride": ["http","tls", "quic"]
+			}
+		  }	  
+	  ]
+}
