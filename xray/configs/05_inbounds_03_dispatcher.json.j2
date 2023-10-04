@@ -1,0 +1,79 @@
+{
+	"inbounds": [
+		{
+			"tag":"dispatcher",
+			"listen": "@dispatcher", 
+			"protocol": "trojan",
+			"settings": {
+			  "clients": [
+                {% for u in users %}
+				    {"password": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com"},
+                {% endfor %}
+			  ],
+			  "fallbacks": [
+				  {
+					"path": "/{{ hconfigs['path_vless'] }}{{ hconfigs['path_ws'] }}",
+					"dest": "@@vless-ws-new",
+					"xver": 2 
+				  },
+				  {
+					"path": "/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_ws'] }}",
+					"dest": "@@vmess-ws-new",
+					"xver": 2
+				  },
+				  {
+					"path": "/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_ws'] }}",
+					"dest": "@@trojan-ws-new",
+					"xver": 2
+				  },
+				  {
+					"path": "/{{ hconfigs['path_ss'] }}{{ hconfigs['path_ws'] }}",
+					"dest": "@@ss-ws-new",
+					"xver": 2
+				  },
+				  {
+					"path": "/{{ hconfigs['path_vless'] }}{{ hconfigs['path_tcp'] }}",
+					"dest": "@@vless-tcp-new",
+					"xver": 2
+				  },
+				  {
+					"path": "/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }}",
+					"dest": "@@vmess-tcp-new",
+					"xver": 2
+				  },
+				  {
+					"path": "/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_tcp'] }}",
+					"dest": "@@trojan-tcp-new",
+					"xver": 2
+				  },
+				  {
+					"path": "/{{ hconfigs['path_ss'] }}{{ hconfigs['path_tcp'] }}",
+					"dest": "@@ss-tcp-new",
+					"xver": 2
+				  },
+				  {
+					"alpn": "h2",
+					"dest": "/opt/hiddify-server/nginx/run/h2.sock",
+					"xver": 2
+				  },
+				  {
+					"dest": "/opt/hiddify-server/nginx/run/h1.sock",
+					//"dest": "501",
+					"xver": 2 
+				  }  
+			  ]
+			},
+			"streamSettings": {
+			  "network": "tcp",
+			  "security": "none",
+			  "tcpSettings": {
+				"acceptProxyProtocol": true 
+			  }
+			},
+			"sniffing": {
+			  "enabled": true,
+			  "destOverride": ["http","tls","quic"]
+			}
+		  }
+	  ]
+}
