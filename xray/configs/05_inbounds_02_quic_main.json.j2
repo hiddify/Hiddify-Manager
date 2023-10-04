@@ -1,0 +1,34 @@
+{
+  "inbounds": [
+    {
+      "tag": "quic",
+      "port": 443,
+      "listen":"127.0.0.1",
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+    		{% for u in users %}
+                {"id": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com"},
+			{% endfor %}
+        ],
+        "decryption": "none",
+        "fallbacks": [
+          {
+            "dest": "@dispatcher",
+            "xver": 2
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "quic",
+        "quicSettings": {},
+        "security": "tls",
+        "tlsSettings": {
+          "certificates": [
+            {"ocspStapling": 3600, "certificateFile": "ssl.crt", "keyFile": "ssl.crt.key"}
+          ]
+        }
+      }
+    }
+  ]
+}
