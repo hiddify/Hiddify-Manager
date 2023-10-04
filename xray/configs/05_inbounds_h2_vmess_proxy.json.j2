@@ -1,0 +1,32 @@
+{
+	"inbounds": [
+		{
+			"tag": "h2-vmess-new-proxy",
+			"listen": "@@vmess-tcp-new-h2",
+			//"listen": "/opt/hiddify-server/xray/run/vmesst.sock,666",
+			"protocol": "vmess",
+			"settings": {
+			  "clients": [
+                {% for u in users %}
+				    {"id": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com", "alterId": 0},
+                {% endfor %}
+			  ]
+			},
+			"streamSettings": {
+			  "network": "h2",
+			  "security": "none",
+			  "tcpSettings": {
+				"acceptProxyProtocol": true
+				},
+			  "httpSettings": {
+          		"path": "/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }}",
+        	   }
+			  
+			},
+			"sniffing": {
+			  "enabled": true,
+			  "destOverride": ["http","tls", "quic"]
+			}
+		  }
+	]
+}
