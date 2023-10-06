@@ -12,12 +12,12 @@
 			"type": "vmess",
 			"users": [
     		    {% for u in users %}
-    				{"uuid": "{{u['uuid']}}", "name": "{{u['uuid']}}@hiddify.com", "alterId": 0},
+    				{"uuid": "{{ u['uuid'] }}", "name": "{{ u['uuid'] }}@hiddify.com", "alterId": 0},
 				{% endfor%}
   			],
 			"transport": {
 				"type": "http",
-				"path": "/{{hconfigs['path_vmess']}}{{hconfigs['path_tcp']}}",
+				"path": "/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }}",
 				"method":"PUT",
 				"idle_timeout": "15s",
 				"ping_timeout": "15s"

@@ -7,7 +7,7 @@
 // 			"settings": {
 // 				"clients":[
 //                  {% for u in users %}
-//    			        {"password": "{{u['uuid']}}", "email": "{{u['uuid']}}@hiddify.com","method": "Chacha20-IETF-Poly1305"},
+//    			        {"password": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com","method": "Chacha20-IETF-Poly1305"},
 //				    {% endfor%}
 // 				]
 // 			  },
@@ -16,7 +16,7 @@
 // 			  "security": "none",
 // 			  "wsSettings": {
 // 				"acceptProxyProtocol": true,
-// 				"path": "/{{hconfigs['path_ss']}}{{hconfigs['path_ws']}}"
+// 				"path": "/{{ hconfigs['path_ss'] }}{{ hconfigs['path_ws'] }}"
 // 			  }
 // 			},
 // 			"sniffing": {

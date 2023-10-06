@@ -12,12 +12,12 @@
 			"type": "vless",
 			"users": [
     		    {% for u in users %}
-    			    {"name": "{{u['uuid']}}@hiddify.com", "uuid": "{{u['uuid']}}"},
+    			    {"name": "{{ u['uuid'] }}@hiddify.com", "uuid": "{{ u['uuid'] }}"},
 				{% endfor%}
   			],
 			"transport": {
 				"type": "grpc",
-				"service_name": "/{{hconfigs['path_vless']}}{{hconfigs['path_grpc']}}",
+				"service_name": "/{{ hconfigs['path_vless'] }}{{ hconfigs['path_grpc'] }}",
 				"idle_timeout": "15s",
 				"ping_timeout": "15s"
 			}

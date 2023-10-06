@@ -12,12 +12,12 @@
 			"type": "vless",
 			"users": [
     		    {% for u in users %}
-    				{"name": "{{u['uuid']}}@hiddify.com", "password": "{{u['uuid']}}"},
+    				{"name": "{{ u['uuid'] }}@hiddify.com", "password": "{{ u['uuid'] }}"},
 				{% endfor%}
   			],
 			"transport": {
 				"type": "ws",
-				"path": "/{{hconfigs['path_vless']}}{{hconfigs['path_ws']}}",
+				"path": "/{{ hconfigs['path_vless'] }}{{ hconfigs['path_ws'] }}",
 				"early_data_header_name": "Sec-WebSocket-Protocol"
 			}
 		}	  

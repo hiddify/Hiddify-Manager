@@ -12,14 +12,14 @@
 			"type": "vless",
 			"users": [
     		    {% for u in users %}
-    				{"name": "{{u['uuid']}}@hiddify.com", "password": "{{u['uuid']}}"},
+    				{"name": "{{ u['uuid'] }}@hiddify.com", "password": "{{ u['uuid'] }}"},
 				{% endfor%}
   			],
 			"transport": {
 				"type": "http",
 				"path":"",
 				"method":"",
-				//"path": "/{{hconfigs['path_vless']}}{{hconfigs['path_tcp']}}",
+				//"path": "/{{ hconfigs['path_vless'] }}{{ hconfigs['path_tcp'] }}",
 				"idle_timeout": "15s",
 				"ping_timeout": "15s"
 			}
