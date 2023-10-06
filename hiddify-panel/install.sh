@@ -7,6 +7,19 @@ su hiddify-panel -c update-locale LANG=C.UTF-8 >/dev/null 2>&1
 
 chown -R hiddify-panel:hiddify-panel . >/dev/null 2>&1
 
+if ! python3.10 --version &>/dev/null; then
+    echo "Python 3.10 is not installed. Removing existing Python installations..."
+
+    # Remove other Python versions (be cautious with this!)
+    sudo apt-get -y remove python*
+    install_package software-properties-common
+    add-apt-repository -y ppa:deadsnakes/ppa
+    install_package python3.10 python3-pip jq python3.10-dev
+    pip3 install -U pip
+else
+    echo "Python 3.10 is already installed."
+fi
+
 # apt install -y python3-dev
 for req in pip3 uwsgi python3 hiddifypanel lastversion jq; do
     which $req >/dev/null 2>&1
