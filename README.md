@@ -40,7 +40,7 @@
 
 <div dir="ltr" markdown="1">
 
-## Welcome to Hiddify
+## Welcome to Hiddify-Manager
 
 Hiddify is a powerful and professional anti-censorship toolbox, which is a multi-user panel with an effortless installation and <b>supporting more than 20 protocols</b> including <b>Reality</b> and <b>Telegram proxy</b> to circumvent filtering.  It's optimized for censorship circumvention in <b>China</b>, <b>Russia</b> and <b>Iran</b> and Recommended by <a href="https://github.com/XTLS/Xray-core#installation" target="_blank"><b>Xray</b></a>. It's a great replacement of X-UI panel.
 
@@ -61,7 +61,7 @@ Hiddify is a powerful and professional anti-censorship toolbox, which is a multi
 ***
 
 ### Table of Contents
-- [Why Hiddify?](#why-hiddify)
+- [Why Hiddify-Manager?](#why-hiddify-manager)
   - [Attractive features](#attractive-features)
   - [Supported protocols](#supported-protocols)
   - [Smart Proxy For Domestic And Filtered Sites](#smart-proxy-for-domestic-and-filtered-sites)
@@ -72,8 +72,8 @@ Hiddify is a powerful and professional anti-censorship toolbox, which is a multi
 
 
 ***
-## Why Hiddify?
-Hiddify is a mixture of Hidden and Simplify. It is a panel with a wide range of features and capabilities that helps you enjoy hassle-free and secure internet browsing. Serving as a user-friendly VPN solution, Hiddify ensures that you can access the free internet with ease and peace of mind. 
+## Why Hiddify-Manager?
+Hiddify-Manager is a mixture of Hidden and Simplify. It is a panel with a wide range of features and capabilities that helps you enjoy hassle-free and secure internet browsing. Serving as a user-friendly VPN solution, Hiddify ensures that you can access the free internet with ease and peace of mind. 
 
 ### Attractive features
 - **Quick installation**
