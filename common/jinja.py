@@ -1,5 +1,7 @@
 import os
 from jinja2 import Environment, FileSystemLoader
+import json5
+import json
 
 with open('/opt/hiddify-server/current.json') as f:
     configs = json.load(f)
@@ -21,6 +23,11 @@ def render_j2_templates(start_path):
 
                 # Write the rendered content to a new file without the .j2 extension
                 output_file_path = os.path.splitext(template_path)[0]
+                if output_file_path.endswith('.json'):
+                    # remove trailing comma and comments from json
+                    json5object = json5.loads(rendered_content)
+                    rendered_content = json5.dumps(json5object,trailing_commas=False,indent=2,quote_keys=True)
+
                 with open(output_file_path, 'w') as output_file:
                     output_file.write(rendered_content)
 
