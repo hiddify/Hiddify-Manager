@@ -95,7 +95,7 @@ function menu() {
             disable "disable this menu"
             uninstall "Uninstall hiddify :("
             purge "Uninstall completely and remove database :("
-            Back
+            Back ""
         )
         CHOICE=$(whiptail --clear --backtitle "$BACKTITLE" --title "$TITLE" --menu "$MENU" $HEIGHT $WIDTH $CHOICE_HEIGHT "${OPTIONS[@]}" 3>&1 1>&2 2>&3)
         case $CHOICE in
@@ -140,7 +140,7 @@ function menu() {
             release "stable (suggested) $UPDATE_NEED"
             beta "pre-release version - may have bugs"
             develop "for testing purposes (not recommended)"
-            Back
+            Back ""
         )
         CHOICE=$(whiptail --clear --backtitle "$BACKTITLE" --title "$TITLE" --menu "$MENU" $HEIGHT $WIDTH $CHOICE_HEIGHT "${OPTIONS[@]}" 3>&1 1>&2 2>&3)
         case $CHOICE in
