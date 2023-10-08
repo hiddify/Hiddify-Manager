@@ -43,7 +43,7 @@
 			  "tlsSettings": {
 				"certificates": [
 				  {%for d in domains%}
-				  	{"ocspStapling": 3600, "certificateFile": "/opt/hiddify-server/ssl/{{d.domain}}.crt", "keyFile": "{{d.domain}}.crt.key"}
+				  	{"ocspStapling": 3600, "certificateFile": "/opt/hiddify-server/ssl/{{d.domain}}.crt", "keyFile": "{{d.domain}}.crt.key"},
 				  {%endfor%}
 				],
 				"minVersion": "1.2", 
