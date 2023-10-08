@@ -107,6 +107,7 @@ if [[ $ENABLE_FIREWALL == true ]]; then
   # ip6tables -P INPUT ACCEPT
 else
   iptables -P INPUT ACCEPT
+  iptables -P FORWARD ACCEPT
   ip6tables -P INPUT ACCEPT
 fi
 iptables-save >/etc/iptables/rules.v4
