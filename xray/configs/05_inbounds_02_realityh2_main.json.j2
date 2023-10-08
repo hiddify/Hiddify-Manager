@@ -1,6 +1,6 @@
 {
 	"inbounds": [
-		{% for domain,port in reality%}	
+		{% for domain,port in reality.items()%}	
 		{
 			"tag":"realityin_{{port}}",
 			// "port": 400, // This is TLS entrypoint. This entrypoint does the SSL Termination then routes the request based on the Path or ALPN type.

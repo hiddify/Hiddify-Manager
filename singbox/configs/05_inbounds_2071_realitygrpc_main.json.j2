@@ -1,6 +1,6 @@
 {
 	"inbounds": [
-		{% for domain,port in realitygrpc%}
+		{% for domain,port in realitygrpc.items()%}
 		{
 			"tag":"realityingrpc_{{port}}",
 			"listen": "127.0.0.1",
