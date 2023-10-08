@@ -1,16 +1,19 @@
 {
 	"inbounds": [
+		{% for domain,port in tuic.items() %}
 		{
 			"type": "tuic",
-			"tag": "tuic_in",
+			"tag": "tuic_in_{{port}}",
 			"listen": "0.0.0.0",
-			"listen_port": {{ hconfigs['tuic_port'] or '4010'}},
+			"listen_port": {{ port }},
 			"tcp_fast_open": true,
 			"sniff": true,
 			"sniff_override_destination": true,
 			"domain_strategy": "prefer_ipv4",
 			"users": [
-				{"name": "defaultuserguidsecret@hiddify.com","uuid": "defaultuserguidsecret","password": "defaultuserguidsecret"}
+				{% for u in users %}
+    				{"name": "{{ u['uuid'] }}@hiddify.com", "uuid": "{{ u['uuid'] }}", "password": "{{ u['uuid'] }}"},
+				{% endfor%}
 			],
 			"congestion_control": "cubic",
 			"auth_timeout": "3s",
@@ -18,13 +21,14 @@
 			"heartbeat": "10s",
 			"tls": {
 				"enabled": true,
-				"server_name": "SERVER_NAME",
+				"server_name": "{{domain}}",
 				"alpn": ["h3"],
 				"min_version": "1.2",
 				"max_version": "1.3",
-				"certificate_path": "CERTIFICATE",
-				"key_path": "CERTIFICATE.key"
+				"certificate_path": "/opt/hiddify-server/ssl/{{domain}}.crt",
+				"key_path": "/opt/hiddify-server/ssl/{{domain}}.crt.key"
 			}
-		}
+		},
+		{%endfor%}
 	]
 }

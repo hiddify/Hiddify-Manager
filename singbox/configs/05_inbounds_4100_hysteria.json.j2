@@ -1,29 +1,33 @@
 {
 	"inbounds": [
+		{% for domain,port in hysteria2.items() %}
 		{
 			"type": "hysteria2",
-			"tag": "hysteria_in",
+			"tag": "hysteria_in_{{port}}",
 			"listen": "0.0.0.0",
-			"listen_port": {{ hconfigs['hysteria_port'] or '4100'}},
+			"listen_port": {{ port }},
 			"up_mbps": 500,
 			"down_mbps": 500,
 			"obfs": {
 				"type": "salamander",
-				"password": "BASE_PROXY_PATH"
+				"password": "{{ hconfigs['proxy_path'] }}"
 			},
 			"users": [
-				{"name": "defaultuserguidsecret@hiddify.com","password": "defaultuserguidsecret"}
+				{% for u in users %}
+    				{"name": "{{ u['uuid'] }}@hiddify.com", "password": "{{ u['uuid'] }}"},
+				{% endfor%}
 			],
-			"masquerade": "http://SERVER_NAME:80/",
+			"masquerade": "http://{{domain}}:80/",
 			"tls": {
 				"enabled": true,
-				"server_name": "SERVER_NAME",
+				"server_name": "{{domain}}",
 				"alpn": ["h3"],
 				"min_version": "1.2",
 				"max_version": "1.3",
-				"certificate_path": "CERTIFICATE",
-				"key_path": "CERTIFICATE.key"
+				"certificate_path": "/opt/hiddify-server/ssl/{{domain}}.crt",
+				"key_path": "/opt/hiddify-server/ssl/{{domain}}.crt.key"
 			}
-		}
+		},
+		{%endfor%}
 	]
 }
