@@ -65,11 +65,11 @@ frontend https-in
     
 
     #reality_configs
-    {% for domain,port in realitygrpc %}
+    {% for domain,port in realitygrpc.items() %}
         acl reality_domains_grpc_{{port}} req.ssl_sni -i {{domain}}
         use_backend reality_grpc_{{port}} if reality_domains_grpc_{{port}}
     {%endfor%}
-    {% for domain,port in reality %}
+    {% for domain,port in reality.items() %}
     acl reality_domains_{{port}} req.ssl_sni -i {{domain}}
     #use_backend reality_h2_$i if reality_domains_$i alpnh2\n\
     use_backend reality_{{port}} if reality_domains_{{port}}
@@ -113,7 +113,7 @@ frontend https-in
     {%if loop.last%}
     use_backend xray_force if xray_domains
     {%endif%}
-    {%endif%}
+    {%endfor%}
 
     default_backend to_https_in_ssl
     
@@ -176,12 +176,12 @@ frontend http-https-in
     # http-request set-header X-Real-IP %[req.hdr(X-Forward-For)] if is_arvan
     # http-request set-header X-Real-IP %[src] if !is_cloudflare !is_arvan !is_cloudfront
 
-    {% for domain,port in realitygrpc %}
+    {% for domain,port in realitygrpc.items() %}
     acl reality_domains_grpc_{{port}} hdr(host) -i {{domain}}
     use_backend reality_grpc_http_{{port}} if reality_domains_grpc_{{port}}
     {%endfor%}
 
-    {% for domain,port in reality %}
+    {% for domain,port in reality.items() %}
     acl reality_domains_{{port}} hdr(host) -i {{domain}}
     use_backend reality_http_{{port}} if reality_domains_{{port}}
     {%endfor%}
@@ -369,13 +369,13 @@ backend hiddifypanel
 
 
 
-{% for domain,port in realitygrpc %}
+{% for domain,port in realitygrpc.items() %}
 backend reality_grpc_http_{{port}}
     mode http
     server reality_{{port}} {{domain}}:80 
 {%endfor%}
 
-{% for domain,port in reality %}
+{% for domain,port in reality.items() %}
 backend reality_http_{{port}}
     mode http
     server reality_{{port}} {{domain}}:80 

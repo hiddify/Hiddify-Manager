@@ -79,14 +79,14 @@ backend trojanw_h2
   server trojanw 127.0.0.1:2012 send-proxy-v2 tfo 
 
 
-{% for domain,port in realitygrpc %}
+{% for domain,port in realitygrpc.items() %}
 backend reality_grpc_{{port}}
     mode tcp
     server singbox 127.0.0.1:{{port}} send-proxy-v2
 {%endfor%}
 
 
-{% for domain,port in reality %}
+{% for domain,port in reality.items() %}
 backend reality_{{port}}
     mode tcp
     server singbox 127.0.0.1:{{port}} send-proxy-v2

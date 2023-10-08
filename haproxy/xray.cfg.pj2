@@ -128,13 +128,13 @@ backend trojanw_h2
 
 
 
-{% for domain,port in realitygrpc %}
+{% for domain,port in realitygrpc.items() %}
 backend reality_grpc_{{port}}
     mode tcp
     server xray abns@realityingrpc_{{port}} #send-proxy-v2
 {%endfor%}    
 
-{% for domain,port in reality %}
+{% for domain,port in reality.items() %}
 backend reality_{{port}}
     mode tcp
     server xray abns@realityin_{{port}} send-proxy-v2
