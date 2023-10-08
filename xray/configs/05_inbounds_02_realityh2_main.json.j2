@@ -2,7 +2,7 @@
 	"inbounds": [
 		{% for domain,port in reality.items()%}	
 		{
-			"tag":"realityin_{{port}}",
+			"tag":"realityh2in_{{port}}",
 			// "port": 400, // This is TLS entrypoint. This entrypoint does the SSL Termination then routes the request based on the Path or ALPN type.
 			"listen": "@@realityh2in_{{port}}",
 			"protocol": "vless",

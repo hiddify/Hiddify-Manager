@@ -32,23 +32,28 @@
             "type": "field", 
             "outboundTag": {% if hconfigs['warp_mode'] == 'all' %}"WARP"{% else %}"forbidden_sites"{% endif %},
             {% if hconfigs['country'] in ['zh','cn'] %}
-              "geoip": ["cn"]
+              "ip": ["geoip:cn"]
             {% elif hconfigs['country'] == 'ir' %}
-              "geoip": ["ir"]
+              "ip": ["geoip:ir"]
             {% elif hconfigs['country'] == 'ru' %}
-              "geoip": ["ru"]
+              "ip": ["geoip:ru"]
             {% else %}
-              "geoip": ["cn"]
+              "ip": ["geoip:cn"]
             {% endif %}
         },
         {
-          "type": "field",
-          //"inboundTag": ["xtls"], 
-          "outboundTag": "forbidden_sites",
-          //ir "domain": ["tld-ir"]
-          //zh "domain": ["geosite:cn","tld-cn"] 
-          //other "ip": ["geoip:cn"]
-      },
+            "type": "field", 
+            "outboundTag": {% if hconfigs['warp_mode'] == 'all' %}"WARP"{% else %}"forbidden_sites"{% endif %},
+            {% if hconfigs['country'] in ['zh','cn'] %}
+              "domain": ["geosite:cn","tld-cn"] 
+            {% elif hconfigs['country'] == 'ir' %}
+              "domain": ["tld-ir"]
+            {% elif hconfigs['country'] == 'ru' %}
+              "domain": ["tld-ru"]
+            {% else %}
+              "domain": ["geosite:cn","tld-cn"] 
+            {% endif %}
+        },
          {
                 "type":"field",
                 "outboundTag": {% if hconfigs['warp_mode'] == 'disable' %}"freedom"{% else %}"WARP"{% endif %},
