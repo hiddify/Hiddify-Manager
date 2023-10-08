@@ -9,8 +9,8 @@
           "type":"field",
           "outboundTag": "freedom",
           "ip": [
-            "127.0.0.1"
-            //local_ips
+            "127.0.0.1",
+            {{exec("ip -o -4 addr show | awk '{print $4}' | cut -d/ -f1 | sed 's/.*/"&"/' | tr '\n' ',' | sed 's/,$/\n/'")}}
           ],
           "port":"443,80,53"
         },
@@ -30,11 +30,16 @@
         },
         {
             "type": "field", 
-            //"inboundTag": ["xtls"], 
-            "outboundTag": "forbidden_sites",
-            //ir "ip": ["geoip:ir"]
-            //zh "ip": ["geoip:cn"]
-            //other "ip": ["geoip:cn"]
+            "outboundTag": {% if hconfigs['warp_mode'] == 'all' %}"WARP"{% else %}"forbidden_sites"{% endif %},
+            {% if hconfigs['country'] in ['zh','cn'] %}
+              "geoip": ["cn"]
+            {% elif hconfigs['country'] == 'ir' %}
+              "geoip": ["ir"]
+            {% elif hconfigs['country'] == 'ru' %}
+              "geoip": ["ru"]
+            {% else %}
+              "geoip": ["cn"]
+            {% endif %}
         },
         {
           "type": "field",
@@ -46,7 +51,7 @@
       },
          {
                 "type":"field",
-                "outboundTag": "WARP",
+                "outboundTag": {% if hconfigs['warp_mode'] == 'disable' %}"freedom"{% else %}"WARP"{% endif %},
                 "domain":[
                     "geosite:google",
                     "geosite:netflix",
@@ -107,7 +112,7 @@
         {
           "type": "field",
           "port": "0-65535",
-          "outboundTag": "freedom"
+          "outboundTag": {% if hconfigs['warp_mode'] == 'all' %}"WARP"{% else %}"freedom"{% endif %}
         }
       ]
     }

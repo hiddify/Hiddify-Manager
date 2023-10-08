@@ -7,6 +7,16 @@ with open('/opt/hiddify-server/current.json') as f:
     configs = json.load(f)
 
 
+def exec(command):
+    try:
+        output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT, text=True)
+        return output
+    except subprocess.CalledProcessError as e:
+        print(f"Command failed with exit code {e.returncode}:")
+        print(e.output)
+    return ""
+
+
 def render_j2_templates(start_path):
     # Set up the Jinja2 environment
     env = Environment(loader=FileSystemLoader('/'))
@@ -19,14 +29,14 @@ def render_j2_templates(start_path):
                 template = env.get_template(template_path)
 
                 # Render the template
-                rendered_content = template.render(**configs)
+                rendered_content = template.render(**configs, exec=exec)
 
                 # Write the rendered content to a new file without the .j2 extension
                 output_file_path = os.path.splitext(template_path)[0]
                 if output_file_path.endswith('.json'):
                     # remove trailing comma and comments from json
                     json5object = json5.loads(rendered_content)
-                    rendered_content = json5.dumps(json5object,trailing_commas=False,indent=2,quote_keys=True)
+                    rendered_content = json5.dumps(json5object, trailing_commas=False, indent=2, quote_keys=True)
 
                 with open(output_file_path, 'w') as output_file:
                     output_file.write(rendered_content)

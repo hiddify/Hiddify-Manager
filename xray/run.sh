@@ -70,73 +70,11 @@ rm configs/05_inbounds_02_reality_main.json
 rm configs/05_inbounds_02_realityh2_main.json
 rm configs/05_inbounds_02_realitygrpc_main.json
 
-#adding certs for all domains
-final=""
-TEMPLATE_LINE='{"ocspStapling": 3600, "certificateFile": "ssl.crt", "keyFile": "ssl.crt.key"}'
-for DOMAIN in $DOMAINS; do
-	echo $DOMAIN
-	NEW_LINE=${TEMPLATE_LINE//ssl/"/opt/$GITHUB_REPOSITORY/ssl/$DOMAIN"}
-	final=$final,$NEW_LINE
-done
-final=${final:1}
-echo $final
-sed -i "s|$TEMPLATE_LINE|$final|g" configs/05_inbounds_02_xtls_main.json
-sed -i "s|$TEMPLATE_LINE|$final|g" configs/05_inbounds_02_decoy.json
-sed -i "s|$TEMPLATE_LINE|$final|g" configs/05_inbounds_02_quic_main.json
-
-for CONFIG_FILE in $(find configs/ -name "*.json"); do
-	grep $CONFIG_FILE -e defaultuserguidsecret | while read -r line; do
-		# echo "Processing $line"
-		final=""
-		for USER in $USERS; do
-			GUID_USER="${USER:0:8}-${USER:8:4}-${USER:12:4}-${USER:16:4}-${USER:20:12}"
-			final=$final,${line//defaultuserguidsecret/"$GUID_USER"}
-		done
-		# your code goes here
-		final=${final:1}
-		sed -i "s|$line|$final|g" $CONFIG_FILE
-	done
-
-done
-
-if [[ "$ALLOW_ALL_SNI_TO_USE_PROXY" == "true" ]]; then
-	sed -i 's|"redirect": "127.0.0.1:445"|"redirect": "127.0.0.1:400"|g' configs/05_inbounds_02_sni_proxy.json
-fi
-
-if [[ "$HTTP_PORTS" != "" ]]; then
-	sed -i 's|"port":"80"|"port":"80,'$HTTP_PORTS'"|g' configs/05_inbounds_02_http_main.json
-fi
-
-if [ -n "$dns_server" ]; then
-	sed -i "s|1.1.1.1|$dns_server|g" configs/06_outbounds.json
-	sed -i "s|1.1.1.1|$dns_server|g" configs/02_dns.json
-fi
-
 local_ips=$(ip -o -4 addr show | awk '{print $4}' | cut -d/ -f1 | sed 's/.*/"&"/' | tr '\n' ',' | sed 's/,$/\n/')
 
 sed -i "s|//local_ips|,$local_ips|g" configs/03_routing.json
 
 curl -s -x socks://127.0.0.1:3000 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
-if [ "$WARP_MODE" != 'disable' ] && [ "$?" == "0" ]; then
-	# warp_conf=$(echo "$warp_conf" | tr '\n' ' ')
-	# escaped_warp_conf=$(printf '%s\n' "$warp_conf" | sed -e 's/[\/&]/\\&/g')
-	# sed -i "s|\"outbounds\": \[|\"outbounds\": [$escaped_warp_conf,|g"  configs/06_outbounds.json
-	# sed -i "s|//hiddify_warp|$escaped_warp_conf,|g"  configs/06_outbounds.json
-
-	if [ $WARP_MODE == 'all' ]; then
-		sed -i 's|"outboundTag": "freedom"|"outboundTag": "WARP"|g' configs/03_routing.json
-	fi
-
-	sed -i 's|"outboundTag": "forbidden_sites"|"outboundTag": "WARP"|g' configs/03_routing.json
-else
-	sed -i 's|"outboundTag": "WARP"|"outboundTag": "freedom"|g' configs/03_routing.json
-
-	if [[ "$BLOCK_IR_SITES" != "true" ]]; then
-		sed -i 's|"tag": "forbidden_sites", "protocol": "blackhole"|"tag": "forbidden_sites", "protocol": "freedom"|g' configs/06_outbounds.json
-		# sed -i 's|"inboundTag": ["Experimental"],||g' configs/03_routing.json
-	fi
-
-fi
 
 if [ "$MODE" != "apply_users" ]; then
 
