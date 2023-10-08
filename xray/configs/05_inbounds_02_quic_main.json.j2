@@ -8,8 +8,8 @@
       "settings": {
         "clients": [
     		{% for u in users %}
-                {"id": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com"},
-			{% endfor %}
+          {"id": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com"},
+			  {% endfor %}
         ],
         "decryption": "none",
         "fallbacks": [
@@ -25,7 +25,9 @@
         "security": "tls",
         "tlsSettings": {
           "certificates": [
-            {"ocspStapling": 3600, "certificateFile": "ssl.crt", "keyFile": "ssl.crt.key"}
+          {%for d in domains%}
+				  	{"ocspStapling": 3600, "certificateFile": "/opt/hiddify-server/ssl/{{d.domain}}.crt", "keyFile": "{{d.domain}}.crt.key"}
+				  {%endfor%}
           ]
         }
       }

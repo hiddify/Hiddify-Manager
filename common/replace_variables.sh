@@ -50,4 +50,4 @@ for template_file in $(find . -name "*.template"); do
 done
 
 pip install json5 jinja2
-python3 ./jinja.py
+python3 /opt/hiddify-server/common/jinja.py
