@@ -2,7 +2,7 @@ import os
 from jinja2 import Environment, FileSystemLoader
 import json5
 import json
-
+import subprocess
 with open('/opt/hiddify-server/current.json') as f:
     configs = json.load(f)
 

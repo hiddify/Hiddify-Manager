@@ -10,7 +10,7 @@
           "outboundTag": "freedom",
           "ip": [
             "127.0.0.1",
-            {{exec("ip -o -4 addr show | awk '{print $4}' | cut -d/ -f1 | sed 's/.*/"&"/' | tr '\n' ',' | sed 's/,$/\n/'")}}
+            {{exec("ip -o -4 addr show | awk '{print $4}' | cut -d/ -f1 | sed 's/.*/\"&\"/' | tr '\n' ',' ")}}
           ],
           "port":"443,80,53"
         },
