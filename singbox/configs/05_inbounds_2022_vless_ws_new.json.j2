@@ -12,7 +12,7 @@
 			"type": "vless",
 			"users": [
     		    {% for u in users %}
-    				{"name": "{{ u['uuid'] }}@hiddify.com", "password": "{{ u['uuid'] }}"},
+    				{"name": "{{ u['uuid'] }}@hiddify.com", "uuid": "{{ u['uuid'] }}"},
 				{% endfor%}
   			],
 			"transport": {
