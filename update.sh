@@ -234,7 +234,7 @@ else
     # Log the console size
     echo "console size=$log_h $log_w" | tee $LOG_FILE
 
-    main "$@" 2>&1 | tee -a $LOG_FILE | dialog --keep-tite --backtitle "$BACKTITLE" \
+    main "$@" 2>&1 | tee -a $LOG_FILE | dialog --colors --keep-tite --backtitle "$BACKTITLE" \
         --title "Installing Hiddify" \
         --begin 2 2 \
         --tailboxbg $LOG_FILE $log_h $log_w \
