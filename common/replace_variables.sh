@@ -49,5 +49,8 @@ for template_file in $(find . -name "*.template"); do
 
 done
 
+rm /opt/hiddify-server/xray/configs/*.json
+rm /opt/hiddify-server/singbox/configs/*.json
+rm /opt/hiddify-server/haproxy/*.cfg
 python -c "import json5;import jinja2" || pip install json5 jinja2
 python3 /opt/hiddify-server/common/jinja.py
