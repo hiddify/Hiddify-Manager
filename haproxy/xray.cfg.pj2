@@ -125,3 +125,21 @@ backend trojanw_h2
 # backend shadowsocks_grpc_backend
 #   timeout server 1h
 #   server shadowsocks_grpc_server 127.0.0.1:3004
+
+
+
+{% for domain,port in realitygrpc %}
+backend reality_grpc_{{port}}
+    mode tcp
+    server xray abns@realityingrpc_{{port}} #send-proxy-v2
+{%endfor%}    
+
+{% for domain,port in reality %}
+backend reality_{{port}}
+    mode tcp
+    server xray abns@realityin_{{port}} send-proxy-v2
+
+backend reality_h2_{{port}}
+    mode tcp
+    server xray abns@realityinh2_{{port}} send-proxy-v2
+{%endfor%}    

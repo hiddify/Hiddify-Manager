@@ -4,6 +4,7 @@ backend grpc_dispatcher
 backend reality
     server singbox 127.0.0.1:2001 send-proxy-v2 tfo 
 
+
 backend shadowtls
     server singbox 127.0.0.1:2041 send-proxy-v2 tfo 
 
@@ -76,3 +77,21 @@ backend trojanw
 
 backend trojanw_h2
   server trojanw 127.0.0.1:2012 send-proxy-v2 tfo 
+
+
+{% for domain,port in realitygrpc %}
+backend reality_grpc_{{port}}
+    mode tcp
+    server singbox 127.0.0.1:{{port}} send-proxy-v2
+{%endfor%}
+
+
+{% for domain,port in reality %}
+backend reality_{{port}}
+    mode tcp
+    server singbox 127.0.0.1:{{port}} send-proxy-v2
+
+backend reality_h2_{{port}}
+    mode tcp
+    server singbox 127.0.0.1:{{port}} send-proxy-v2
+{%endfor%}

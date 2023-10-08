@@ -44,6 +44,9 @@ listen stats
 
 frontend https-in
     bind :443,:::443 v4v6 tfo 
+    {% for port in hconfigs['tls_ports'].split(",")%}
+    bind :{{port}},:::{{port}} v4v6 tfo 
+    {%endfor%}
     # option tcplog
     # option dontlognull
     tcp-request inspect-delay 5s
@@ -53,44 +56,64 @@ frontend https-in
     
     acl alpnh2 req.ssl_alpn h2 
 
-   
-    acl panel_domains req.ssl_sni -i PANEL_DOMAINS
+    {%for d in domain if d['mode']=='sub_link_only'%} 
+    acl panel_domains req.ssl_sni -i d['domain']
+    {%if loop.last%}
     use_backend to_panel_only if panel_domains
+    {%endif%}
+    {%endfor%}
+    
 
     #reality_configs
+    {% for domain,port in realitygrpc %}
+        acl reality_domains_grpc_{{port}} req.ssl_sni -i {{domain}}
+        use_backend reality_grpc_{{port}} if reality_domains_grpc_{{port}}
+    {%endfor%}
+    {% for domain,port in reality %}
+    acl reality_domains_{{port}} req.ssl_sni -i {{domain}}
+    #use_backend reality_h2_$i if reality_domains_$i alpnh2\n\
+    use_backend reality_{{port}} if reality_domains_{{port}}
+    {%endfor%}
+
+
+
     #acl reality_domains req.ssl_sni -i REALITY_SERVER_NAMES
     #use_backend reality_h2 if reality_domains h2
     #use_backend reality if reality_domains
 
     
-    
-    acl tg_domains req.ssl_sni -i TELEGRAM_FAKE_TLS_DOMAIN
-    acl ss_domains req.ssl_sni -i sstlsdomain
-    acl shadowtls_domains req.ssl_sni -i shadowtlsdomain
-
-    # # acl ssr_domains req.ssl_sni -i ssrtlsdomain
-
-    # use_backend xray if tls1_3 xray_domains
-    # use_backend xraydecoy if xray_domains
-    use_backend telegram if tls1_3 tg_domains
-    use_backend telegram if tg_domains
-    # use_backend tgdecoy if tg_domains
-
-    use_backend ssfake if tls1_3 ss_domains
+    {%if hconfigs['ssfaketls_enable'] and hconfigs['ssfaketls_fakedomain'] %}
+    acl ss_domains req.ssl_sni -i hconfigs['ssfaketls_fakedomain']
     use_backend ssfake if ss_domains
-    # use_backend ssdecoy if ss_domains
+    {%endif%}
     
-    use_backend shadowtls if shadowtls_domains
+    
+    {%if hconfigs['telegram_enable'] and hconfigs['telegram_fakedomain'] %}
+    acl tg_domains req.ssl_sni -i hconfigs['telegram_fakedomain']
+    use_backend telegram if tg_domains
+    {%endif%}
+
+    {%if hconfigs['shadowtls_enable'] and hconfigs['shadowtls_fakedomain']%}
+    acl shadowtls_domains req.ssl_sni -i {{hconfigs['shadowtls_fakedomain'] }}
+    use_backend shadowtls if shadowtls_domains 
+    {%endif%}
+    
     
     # use_backend ssr if tls1_3 ssr_domains
     # use_backend ssr if ssr_domains
     # use_backend ssrdecory if ssr_domains
+
     acl is_cdn src -f /opt/hiddify-server/haproxy/cloudflare.lst -f /opt/hiddify-server/haproxy/arvan.lst -f /opt/hiddify-server/haproxy/cloudfront.lst
     use_backend to_https_in_ssl if is_cdn
     # default sni behavior
     # default_backend xray
-    acl xray_domains req.ssl_sni -i FORCE_XRAY_DOMAINS
+
+    {% for d in domains if d['mode']=='old_xtls_direct' %}
+    acl xray_domains req.ssl_sni -i d['domain']
+    {%if loop.last%}
     use_backend xray_force if xray_domains
+    {%endif%}
+    {%endif%}
 
     default_backend to_https_in_ssl
     
@@ -106,7 +129,7 @@ frontend onlypanel_in
     bind abns@onlypanel_in accept-proxy ssl crt /opt/hiddify-server/ssl/ alpn h2,http/1.1,h3
 
     
-    acl hpanel path_reg ^/BASE_PROXY_PATH/[1-9a-f][1-9a-f]
+    acl hpanel path_reg ^/{{hconfigs['proxy_path']}}/[1-9a-f][1-9a-f]
     use_backend hiddifypanel if hpanel
 
     default_backend nginx_dispatcher_http
@@ -116,20 +139,28 @@ backend to_panel_only
 
 frontend http-https-in
     bind :80,:::80 v4v6 tfo 
+    {% for port in hconfigs['http_ports'].split(",")%}
+    bind :{{port}},:::{{port}} v4v6 tfo 
+    {%endfor%}
     bind abns@https_in_ssl tfo accept-proxy ssl crt /opt/hiddify-server/ssl/ alpn h2,http/1.1,h3
     #bind quic4@abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-server/ssl/ alpn h3    
     # http-response set-header alt-svc "h3=\":443\";ma=900;"
     tcp-request inspect-delay 5s
     tcp-request content accept if HTTP
 
-    acl base_proxy_path path_beg /BASE_PROXY_PATH/
-    acl hpanel path_reg ^/BASE_PROXY_PATH/[1-9a-f][1-9a-f]
+    acl base_proxy_path path_beg /{{hconfigs['proxy_path']}}/
+    acl hpanel path_reg ^/{{hconfigs['proxy_path']}}/[1-9a-f][1-9a-f]
     use_backend hiddifypanel if hpanel
     use_backend nginx_dispatcher_http if base_proxy_path
 
-    acl panel_domains hdr(:authority) -i PANEL_DOMAINS
-    acl panel_domains hdr(host) -i PANEL_DOMAINS
+    {%for d in domain if d['mode']=='sub_link_only'%} 
+    acl panel_domains hdr(:authority) -i d['domain']
+    acl panel_domains hdr(host) -i d['domain']
+    {%if loop.last%}
     #use_backend to_panel_only if panel_domains
+    {%endif%}
+    {%endfor%}
+    
     # acl singbox_domains req.ssl_sni -i SINGBOX_DOMAINS
     # acl xray_domains req.ssl_sni -i XRAY_DOMAINS
 
@@ -145,20 +176,38 @@ frontend http-https-in
     # http-request set-header X-Real-IP %[req.hdr(X-Forward-For)] if is_arvan
     # http-request set-header X-Real-IP %[src] if !is_cloudflare !is_arvan !is_cloudfront
 
-    #reality_http_configs
+    {% for domain,port in realitygrpc %}
+    acl reality_domains_grpc_{{port}} hdr(host) -i {{domain}}
+    use_backend reality_grpc_http_{{port}} if reality_domains_grpc_{{port}}
+    {%endfor%}
 
-    acl tg_domains hdr(:authority) -i TELEGRAM_FAKE_TLS_DOMAIN
-    acl tg_domains hdr(host) -i TELEGRAM_FAKE_TLS_DOMAIN
-    acl ss_domains hdr(host) -i sstlsdomain
-    acl ss_domains hdr(:authority) -i sstlsdomain
-    acl shadowtls_domains hdr(host) -i shadowtlsdomain
-    acl ss_domains hdr(:authority) -i shadowtlsdomain
+    {% for domain,port in reality %}
+    acl reality_domains_{{port}} hdr(host) -i {{domain}}
+    use_backend reality_http_{{port}} if reality_domains_{{port}}
+    {%endfor%}
+    
+
+    
+    {%if hconfigs['ssfaketls_enable'] and hconfigs['ssfaketls_fakedomain'] %}
+    acl ss_domains hdr(host) -i hconfigs['ssfaketls_fakedomain']
+    acl ss_domains hdr(:authority) -i hconfigs['ssfaketls_fakedomain']
+    use_backend ssdecoy_http if ss_domains
+    {%endif%}
+    
     # acl ssr_domains hdr(host) -i ssrtlsdomain
 
     # acl server_domains hdr(host) -i SERVER_DOMAINS
     # use_backend default_http if server_domains
+    {%if hconfigs['telegram_enable'] and hconfigs['telegram_fakedomain'] %}
+    acl tg_domains hdr(:authority) -i hconfigs['telegram_fakedomain']
+    acl tg_domains hdr(host) -i hconfigs['telegram_fakedomain']
     use_backend tgdecoy_http if tg_domains
-    use_backend shadowtls_decoy_http if shadowtls_domains
+    {%endif%}
+    {%if hconfigs['shadowtls_enable'] and hconfigs['shadowtls_fakedomain']%}
+    acl shadowtls_domains hdr(host) -i {{hconfigs['shadowtls_fakedomain'] }}
+    acl shadowtls_domains hdr(:authority) -i {{hconfigs['shadowtls_fakedomain'] }}
+    use_backend shadowtls_decoy_http if shadowtls_domains 
+    {%endif%}
 
     # use_backend ssdecoy if sstlsdomain
     # use_backend ssrdecory if ssr_domains
@@ -173,10 +222,10 @@ frontend http-https-in
     # use_backend grpc_dispatcher if is_grpc_req
     
 
-    acl vmessg path_beg /PATH_VMESSPATH_GRPC
-    acl vlessg path_beg /PATH_VLESSPATH_GRPC
-    acl v2rayg path_beg /PATH_SSPATH_GRPC
-    acl trojang path_beg /PATH_TROJANPATH_GRPC
+    acl vmessg path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_grpc'] }}
+    acl vlessg path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_grpc'] }}
+    acl v2rayg path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_grpc'] }}
+    acl trojang path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_grpc'] }}
     use_backend vmessg if vmessg
     use_backend vlessg if vlessg
     use_backend v2rayg if v2rayg
@@ -184,15 +233,15 @@ frontend http-https-in
 
      acl is_put_request method PUT
     
-    acl vmesst path_beg /PATH_VMESSPATH_TCP 
-    acl vlesst path_beg /PATH_VLESSPATH_TCP
-    acl v2rayt path_beg /PATH_SSPATH_TCP
-    acl trojant path_beg /PATH_TROJANPATH_TCP
+    acl vmesst path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }}
+    acl vlesst path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_tcp'] }}
+    acl v2rayt path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_tcp'] }}
+    acl trojant path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_tcp'] }}
 
-    acl vmessw path_beg /PATH_VMESSPATH_WS
-    acl vlessw path_beg /PATH_VLESSPATH_WS
-    acl v2rayw path_beg /PATH_SSPATH_WS
-    acl trojanw path_beg /PATH_TROJANPATH_WS
+    acl vmessw path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_ws'] }}
+    acl vlessw path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_ws'] }}
+    acl v2rayw path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_ws'] }}
+    acl trojanw path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_ws'] }}
     
     
     # use_backend vmesst_h2 if vmesst is_put_request h2
@@ -257,21 +306,22 @@ backend decoy
     server xraydecoy abns@xtlsindecoy send-proxy-v2
 
 backend tgdecoy
-    server tgdecoy TELEGRAM_FAKE_TLS_DOMAIN
+    server tgdecoy {{hconfigs['telegram_fakedomain']}}
 
 backend tgdecoy_http
     
-    server tgdecoy_http TELEGRAM_FAKE_TLS_DOMAIN
+    server tgdecoy_http {{hconfigs['telegram_fakedomain']}}
 
 backend telegram
     server telegram 127.0.0.1:1001
 
+{%if hconfigs['ssfaketls_enable'] and hconfigs['ssfaketls_fakedomain'] %}
 backend ssdecoy_http
-    
-    server ssdecoy sstlsdomain
-
+    server ssdecoy hconfigs['ssfaketls_fakedomain']
 backend ssfake
     server ssfake 127.0.0.1:1002
+{%endif%}
+
 
 
 # # Access logs
@@ -290,13 +340,14 @@ backend ssfake
 
 
 
+{%if hconfigs['shadowtls_enable'] and hconfigs['shadowtls_fakedomain']%}
 backend shadowtls_decoy_http
     
-    server shadowtls_decoy_http shadowtlsdomain
+    server shadowtls_decoy_http hconfigs['shadowtls_fakedomain']
 
 backend shadowtls_decoy
-    server shadowtls_decoy shadowtlsdomain
-
+    server shadowtls_decoy hconfigs['shadowtls_fakedomain']
+{%endif%}
 
 # backend ssrdecory
 #     server ssrdecoy ssrtlsdomain
@@ -315,3 +366,17 @@ backend hiddifypanel
     http-request set-header X-Forwarded-For %[src]
     server hpanel 127.0.0.1:9000
 
+
+
+
+{% for domain,port in realitygrpc %}
+backend reality_grpc_http_{{port}}
+    mode http
+    server reality_{{port}} {{domain}}:80 
+{%endfor%}
+
+{% for domain,port in reality %}
+backend reality_http_{{port}}
+    mode http
+    server reality_{{port}} {{domain}}:80 
+{%endfor%}
