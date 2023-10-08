@@ -14,7 +14,7 @@ function main(){
         
         install_run other/redis
         install_run other/mysql
-
+        install_python
         export MODE="$1"
         
         # Because we need to generate reality pair in panel
@@ -31,6 +31,7 @@ function main(){
                 exit 5
         fi
         update_progress "Applying Configs" "..." 5
+        
         bash common/replace_variables.sh
         
         update_progress "${1}ing..." "Haproxy for Spliting Traffic" 70

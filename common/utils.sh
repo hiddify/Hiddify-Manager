@@ -76,7 +76,7 @@ function install_package() {
     for package in $@; do
         if ! dpkg -l | grep -q "^ii  $package"; then
             # The package is not installed, install it
-            apt install -y "$package"
+            apt install -y --no-install-recommends "$package"
             if [ $? -ne 0 ]; then
                 apt --fix-broken install -y
                 apt update
@@ -132,4 +132,20 @@ function hiddify_api() {
     )
     echo $data
     return 0
+}
+
+function install_python() {
+
+    if ! python3.10 --version &>/dev/null; then
+        echo "Python 3.10 is not installed. Removing existing Python installations..."
+        install_package software-properties-common
+        add_ppa_repository ppa:deadsnakes/ppa
+        sudo apt-get -y remove python*
+        install_package python3.10-dev
+        ln -sf $(which python3.10) /usr/bin/python3
+        ln -sf /usr/bin/python3 /usr/bin/python
+        curl https://bootstrap.pypa.io/get-pip.py | python3 -
+        pip3 install -U pip
+    fi
+
 }
