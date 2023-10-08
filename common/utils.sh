@@ -141,11 +141,10 @@ function install_python() {
         install_package software-properties-common
         add_ppa_repository ppa:deadsnakes/ppa
         sudo apt-get -y remove python*
-        install_package python3.10-dev
-        ln -sf $(which python3.10) /usr/bin/python3
-        ln -sf /usr/bin/python3 /usr/bin/python
     fi
     install_package python3.10-dev
+    ln -sf $(which python3.10) /usr/bin/python3
+    ln -sf /usr/bin/python3 /usr/bin/python
     if ! is_installed pip; then
         curl https://bootstrap.pypa.io/get-pip.py | python3 -
         pip install -U pip
