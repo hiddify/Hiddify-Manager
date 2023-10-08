@@ -10,14 +10,14 @@ systemctl enable hiddify-xray.service
 python <<EOF
 import json,os
 for cfg in os.listdir('configs'):
-if cfg.endswith('.json') and 'reality' in cfg:
-	with open(f'configs/{cfg}') as f:
-		data=json.load(f)
-	os.remove(f'configs/{cfg}')
-	for i,inb in enumerate(data['inbounds']):
-		new_data={'inbounds':[inb]}
-		with open(f'configs/{i}_{cfg}','w') as f:
-			json.dump(new_data,f,indent=4)
+	if cfg.endswith('.json') and 'reality' in cfg:
+		with open(f'configs/{cfg}') as f:
+			data=json.load(f)
+		os.remove(f'configs/{cfg}')
+		for i,inb in enumerate(data['inbounds']):
+			new_data={'inbounds':[inb]}
+			with open(f'configs/{i}_{cfg}','w') as f:
+				json.dump(new_data,f,indent=4)
 EOF
 
 curl -s -x socks://127.0.0.1:3000 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
