@@ -14,12 +14,15 @@ if ! python3.10 --version &>/dev/null; then
     sudo apt-get -y remove python*
     install_package software-properties-common
     add-apt-repository -y ppa:deadsnakes/ppa
-    install_package python3.10 python3-pip jq python3.10-dev
+    install_package python3.11-dev
+    ln -sf  $(which python3.11) /usr/bin/python3
+    ln -sf  /usr/bin/python3 /usr/bin/python
+    curl https://bootstrap.pypa.io/get-pip.py | python3 -
     pip3 install -U pip
 else
     echo "Python 3.10 is already installed."
 fi
-
+alias python3='python3.11'
 # apt install -y python3-dev
 for req in pip3 uwsgi python3 hiddifypanel lastversion jq; do
     which $req >/dev/null 2>&1
