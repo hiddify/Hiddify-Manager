@@ -144,8 +144,11 @@ function install_python() {
         install_package python3.10-dev
         ln -sf $(which python3.10) /usr/bin/python3
         ln -sf /usr/bin/python3 /usr/bin/python
+
+    fi
+    if ! is_installed pip; then
         curl https://bootstrap.pypa.io/get-pip.py | python3 -
-        pip3 install -U pip
+        pip install -U pip
     fi
 
 }
