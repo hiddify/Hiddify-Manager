@@ -1,5 +1,5 @@
 source ../common/utils.sh
-
+rm -rf configs/*.template
 latest=$(get_release_version hiddify-sing-box)
 
 if [ "$(cat VERSION)" != $latest ]; then
