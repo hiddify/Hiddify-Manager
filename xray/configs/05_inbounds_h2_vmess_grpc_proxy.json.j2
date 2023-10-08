@@ -1,0 +1,27 @@
+{
+	"inbounds": [
+		{
+			"tag": "h2-vmess-grpc-proxy",
+			//"listen": "@vmess-grpc-new", // listen on localhost
+			"listen": "@@vmess-grpc-proxy",
+			"protocol": "vmess",
+			"settings": {
+			  "clients": [
+                {% for u in users %}
+				    {"id": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com", "alterId": 0},
+                {% endfor %}
+			  ]
+			},
+			"streamSettings": {
+			  "tcpSettings": {
+				"acceptProxyProtocol": true 
+			  },
+			  "network": "grpc",
+			  "security": "none",
+			  "grpcSettings": {
+				"serviceName": "/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_grpc'] }}",
+			  }
+			}
+		  }	  
+	  ]
+}

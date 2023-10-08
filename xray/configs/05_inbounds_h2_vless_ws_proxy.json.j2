@@ -1,0 +1,30 @@
+{
+	"inbounds": [
+		{
+			"tag":"h2-vless-ws-new-proxy",
+			"listen": "@@vless-ws-new-h2",
+			//"listen": "/opt/hiddify-server/xray/run/vlessw.sock,666",
+			"protocol": "vless",
+			"settings": {
+			  "clients": [
+                {% for u in users %}
+				    {"id": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com"},
+                {% endfor %}
+			  ],
+			  "decryption": "none"
+			},
+			"streamSettings": {
+			  "network": "ws",
+			  "security": "none",
+			  "wsSettings": {
+				"acceptProxyProtocol": true,
+				"path": "/{{ hconfigs['path_vless'] }}{{ hconfigs['path_ws'] }}",
+			  }
+			},
+			"sniffing": {
+			  "enabled": true,
+			  "destOverride": ["http","tls", "quic"]
+			}
+		  }
+	  ]
+}

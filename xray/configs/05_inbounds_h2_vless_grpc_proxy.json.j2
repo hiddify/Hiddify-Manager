@@ -1,0 +1,28 @@
+{
+	"inbounds": [
+		{
+			"tag": "h2-vless-grpc-proxy",
+			//"listen": "@@vless-grpc-new", // listen on localhost
+			"listen": "@@vless-grpc-proxy",
+			"protocol": "vless",
+			"settings": {
+			  "clients": [
+                {% for u in users %}
+				    {"id": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com"},
+                {% endfor %}
+			  ],
+			  "decryption": "none"
+			},
+			"streamSettings": {
+			  "tcpSettings": {
+				"acceptProxyProtocol": true 
+			  },
+			  "network": "grpc",
+			  "security": "none",
+			  "grpcSettings": {
+				"serviceName": "/{{ hconfigs['path_vless'] }}{{ hconfigs['path_grpc'] }}",
+			  }
+			}
+		  }
+	]
+}

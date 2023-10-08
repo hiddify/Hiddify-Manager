@@ -1,0 +1,29 @@
+{
+	"inbounds": [
+		{
+			"tag":"h2-ss-tcp-new-proxy",
+			"listen": "@@v2ray-tcp-new-h2",
+			"listen": "/opt/hiddify-server/xray/run/sst.sock,666",
+			"protocol": "shadowsocks",
+			"settings": {
+				"clients":[
+                    {% for u in users %}
+					    {"password": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com","method": "Chacha20-IETF-Poly1305"},
+                    {% endfor %}
+				]
+			  },
+			"streamSettings": {
+			  "network": "ws",
+			  "security": "none",
+			  "wsSettings": {
+				"acceptProxyProtocol": true,
+				"path": "/{{ hconfigs['path_ss'] }}{{ hconfigs['path_tcp'] }}",
+			  }
+			},
+			"sniffing": {
+			  "enabled": true,
+			  "destOverride": ["http","tls", "quic"]
+			}
+		  }	
+	  ]
+}

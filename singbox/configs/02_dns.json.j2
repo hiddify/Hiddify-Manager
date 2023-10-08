@@ -1,0 +1,15 @@
+{
+  "dns": {
+    "servers": [
+        {
+        "tag": "cloudflare",
+        "address": "{{ hconfigs['dns_server'] or "1.1.1.1" }}",
+        "strategy": "prefer_ipv4",
+        "detour": "freedom",
+      }
+    ],
+    "rules": [],
+    "final": "cloudflare",
+    "strategy": "prefer_ipv4"
+  }
+}

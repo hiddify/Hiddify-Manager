@@ -1,0 +1,27 @@
+{
+	"inbounds": [
+		{
+			"tag": "h2-trojan-grpc-proxy",
+			//"listen": "@@trojan-grpc-new", // listen on localhost
+			"listen": "@@trojan-grpc-proxy",
+			"protocol": "trojan",
+			"settings": {
+			  "clients": [
+                {% for u in users %}
+				    {"password": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com"},
+                {% endfor %}
+			  ]
+			},
+			"streamSettings": {
+			  "network": "grpc",
+			  "security": "none",
+			  "tcpSettings": {
+				"acceptProxyProtocol": true 
+			  },
+			  "grpcSettings": {
+				"serviceName": "/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_grpc'] }}",
+			  }
+			}
+		  }
+	]
+}

@@ -1,0 +1,31 @@
+{
+   "inbounds": [
+    {
+	  "tag":"kcp",
+      "port": {{ hconfigs['kcp_ports'] or '88'}}, //xbox port
+      "listen":"127.0.0.1",
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+    		{% for u in users %}
+                {"id": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com"},
+			{% endfor %}
+
+        ],
+        "decryption": "none",
+		"fallbacks": [
+			{
+			  "dest": "@dispatcher",
+			  "xver": 2
+			}
+		  ]
+      },   
+    "streamSettings": {
+     "network": "kcp",
+     "kcpSettings": {
+        "seed": "{{ hconfigs['proxy_path'] }}"
+      }
+     }
+	}
+	]
+}

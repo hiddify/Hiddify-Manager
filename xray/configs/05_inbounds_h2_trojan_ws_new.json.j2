@@ -1,0 +1,29 @@
+{
+	"inbounds": [
+		{
+			"tag":"h2-trojan-ws-new",
+			//"listen": "@@trojan-ws-new", //trojan+ws listener process
+			"listen": "/opt/hiddify-server/xray/run/trojanw.sock,666",
+			"protocol": "trojan",
+			"settings": {
+			  "clients": [
+                {% for u in users %}
+				    {"password": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com"},
+                {% endfor %}
+			  ]
+			},
+			"streamSettings": {
+			  "network": "ws",
+			  "security": "none",
+			  "wsSettings": {
+				//"acceptProxyProtocol": true, 
+				"path": "/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_ws'] }}", //Change to your own path
+			  }
+			},
+			"sniffing": {
+			  "enabled": true,
+			  "destOverride": ["http","tls", "quic"]
+			}
+		  }
+	  ]
+}
