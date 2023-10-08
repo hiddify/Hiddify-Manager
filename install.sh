@@ -34,50 +34,50 @@ function main(){
         
         bash common/replace_variables.sh
         
-        update_progress "${1}ing..." "Haproxy for Spliting Traffic" 70
+        update_progress "installing..." "Haproxy for Spliting Traffic" 10
         install_run haproxy   
         if [ "$MODE" != "apply_users" ];then
-                update_progress "${1}ing..." "Common Tools" 8
+                update_progress "Installing..." "Common Tools" 13
                 install_run common
                 
-                update_progress "${1}ing..." "Warp" 15                
+                update_progress "installing..." "Warp" 15                
                 #$([ "$WARP_MODE" != 'disable' ] || echo "false")
                 install_run other/warp 
 
                      
                 
-                update_progress "${1}ing..." "Nginx" 30
+                update_progress "installing..." "Nginx" 20
                 install_run nginx
 
-                update_progress "${1}ing..." "Getting Certificates" 20
+                update_progress "installing..." "Getting Certificates" 30
                 install_run acme.sh
                 
-                update_progress "${1}ing..." "Personal SpeedTest" 35
+                update_progress "installing..." "Personal SpeedTest" 35
                 install_run other/speedtest
 
-                update_progress "${1}ing..." "Telegram Proxy" 40
+                update_progress "installing..." "Telegram Proxy" 40
                 install_run other/telegram $ENABLE_TELEGRAM
 
-                update_progress "${1}ing..." "FakeTlS Proxy" 45
+                update_progress "installing..." "FakeTlS Proxy" 45
                 install_run other/ssfaketls $ENABLE_SS
 
-                update_progress "${1}ing..." "V2ray WS Proxy" 50
+                update_progress "installing..." "V2ray WS Proxy" 50
                 install_run other/v2ray $ENABLE_V2RAY
 
-                update_progress "${1}ing..." "SSH Proxy" 55
+                update_progress "installing..." "SSH Proxy" 55
                 install_run other/ssh $ssh_server_enable
 
-                update_progress "${1}ing..." "ShadowTLS" 60
+                update_progress "installing..." "ShadowTLS" 60
                 install_run other/shadowtls $ENABLE_SHADOWTLS
                 
         fi
-        update_progress "${1}ing..." "Xray" 90
+        update_progress "installing..." "Xray" 90
         install_run xray
         
-        update_progress "${1}ing..." "Singbox" 80
+        update_progress "installing..." "Singbox" 80
         install_run singbox
         
-        update_progress "${1}ing..." "Finished" 100
+        update_progress "installing..." "Finished" 100
 
         echo "---------------------Finished!------------------------"
         rm log/install.lock
