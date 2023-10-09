@@ -42,7 +42,7 @@ def render_j2_templates(start_path):
                     except Exception as e:
                         print(f"Error parsing json: {e}")
 
-                with open(output_file_path, 'w') as output_file:
+                with open(output_file_path, 'w',encoding='utf-8') as output_file:
                     output_file.write(rendered_content)
 
                 # print(f'Rendered and stored: {output_file_path}')
