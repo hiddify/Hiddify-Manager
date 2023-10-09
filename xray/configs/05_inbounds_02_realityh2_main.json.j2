@@ -2,7 +2,7 @@
 	"inbounds": [
 		{% for d in domains if d['internal_port_reality'] and not d['grpc'] %}
         {%set domain=d['domain']%}
-        {%set port=d['port']%}
+        {%set port=d['internal_port_reality']%}
 		{
 			"tag":"realityh2in_{{port}}",
 			// "port": 400, // This is TLS entrypoint. This entrypoint does the SSL Termination then routes the request based on the Path or ALPN type.
