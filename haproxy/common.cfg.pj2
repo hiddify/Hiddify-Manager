@@ -65,14 +65,18 @@ frontend https-in
     
 
     #reality_configs
-    {% for domain,port in realitygrpc.items() %}
+    {% for d in domains if d['internal_port_reality'] and d['grpc'] %}
+        {%set domain=d['domain']%}
+        {%set port=d['internal_port_reality']%}
         acl reality_domains_grpc_{{port}} req.ssl_sni -i {{domain}}
         use_backend reality_grpc_{{port}} if reality_domains_grpc_{{port}}
     {%endfor%}
-    {% for domain,port in reality.items() %}
-    acl reality_domains_{{port}} req.ssl_sni -i {{domain}}
-    #use_backend reality_h2_$i if reality_domains_$i alpnh2\n\
-    use_backend reality_{{port}} if reality_domains_{{port}}
+    {% for d in domains if d['internal_port_reality'] and not d['grpc'] %}
+        {%set domain=d['domain']%}
+        {%set port=d['internal_port_reality']%}
+        acl reality_domains_{{port}} req.ssl_sni -i {{domain}}
+        #use_backend reality_h2_$i if reality_domains_$i alpnh2\n\
+        use_backend reality_{{port}} if reality_domains_{{port}}
     {%endfor%}
 
 
@@ -176,12 +180,16 @@ frontend http-https-in
     # http-request set-header X-Real-IP %[req.hdr(X-Forward-For)] if is_arvan
     # http-request set-header X-Real-IP %[src] if !is_cloudflare !is_arvan !is_cloudfront
 
-    {% for domain,port in realitygrpc.items() %}
+    {% for d in domains if d['internal_port_reality'] and d['grpc'] %}
+        {%set domain=d['domain']%}
+        {%set port=d['internal_port_reality']%}
     acl reality_domains_grpc_{{port}} hdr(host) -i {{domain}}
     use_backend reality_grpc_http_{{port}} if reality_domains_grpc_{{port}}
     {%endfor%}
 
-    {% for domain,port in reality.items() %}
+    {% for d in domains if d['internal_port_reality'] and not d['grpc'] %}
+        {%set domain=d['domain']%}
+        {%set port=d['internal_port_reality']%}
     acl reality_domains_{{port}} hdr(host) -i {{domain}}
     use_backend reality_http_{{port}} if reality_domains_{{port}}
     {%endfor%}
@@ -369,13 +377,17 @@ backend hiddifypanel
 
 
 
-{% for domain,port in realitygrpc.items() %}
+{% for d in domains if d['internal_port_reality'] and d['grpc'] %}
+    {%set domain=d['domain']%}
+    {%set port=d['internal_port_reality']%}
 backend reality_grpc_http_{{port}}
     mode http
     server reality_{{port}} {{domain}}:80 
 {%endfor%}
 
-{% for domain,port in reality.items() %}
+{% for d in domains if d['internal_port_reality'] and not d['grpc'] %}
+    {%set domain=d['domain']%}
+    {%set port=d['internal_port_reality']%}
 backend reality_http_{{port}}
     mode http
     server reality_{{port}} {{domain}}:80 

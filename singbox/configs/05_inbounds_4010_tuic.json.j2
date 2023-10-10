@@ -1,6 +1,9 @@
 {
 	"inbounds": [
-		{% for domain,port in tuic.items() %}
+		{% for d in domains if d['internal_port_tuic']  %}
+        {%set domain=d['domain']%}
+        {%set port=d['internal_port_tuic']%}
+
 		{
 			"type": "tuic",
 			"tag": "tuic_in_{{port}}",

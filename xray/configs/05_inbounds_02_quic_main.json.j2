@@ -25,7 +25,7 @@
         "security": "tls",
         "tlsSettings": {
           "certificates": [
-          {%for d in domains if d['ssl']%}
+          {%for d in domains if d['need_valid_ssl']%}
 				  	{"ocspStapling": 3600, "certificateFile": "/opt/hiddify-server/ssl/{{d.domain}}.crt", "keyFile": "/opt/hiddify-server/ssl/{{d.domain}}.crt.key"},
 				  {%endfor%}
           ]
