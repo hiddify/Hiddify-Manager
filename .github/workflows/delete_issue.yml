@@ -6,7 +6,7 @@ jobs:
   delete-issue:
     if: |
       github.event_name == 'issue_comment' &&
-      (github.event.comment.user.login == 'hiddify1' || github.event.comment.user.login == 'zZedix' ||  github.event.comment.user.login == 'Mrclocks' )&&
+      (github.event.comment.user.login == 'hiddify-com' || github.event.comment.user.login == 'zZedix' ||  github.event.comment.user.login == 'Mrclocks' )&&
       contains(github.event.comment.body, 'delete')
     runs-on: ubuntu-latest
     steps:
