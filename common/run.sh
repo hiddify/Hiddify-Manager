@@ -101,6 +101,31 @@ for PORT in "${TCP_PORTS[@]}"; do
   allow_port $PORT
 done
 
+# Check if PasswordAuthentication is enabled 
+if grep -Fxq "PasswordAuthentication yes" /etc/ssh/sshd_config; then
+  
+  # Set ssh warning banner
+  if [ ! -f /etc/ssh/hiddify-warning]; then
+    # @hiddify/@iam54r1n4 make a better message with a link to why should disable pass-auth
+    MSG="WARNING: Please disable PasswordAuthentication in your ssh config file !!!"
+    source ./utils.sh
+    error $MSG > /etc/ssh/hiddify-warning 2>&1
+  fi
+
+  if ! grep -Fxq "Banner /etc/ssh/hiddify-warning" /etc/ssh/sshd_config; then
+    # Enable banner in sshd_config
+    echo "Banner /etc/ssh/hiddify-warning" >> /etc/ssh/sshd_config
+  fi
+
+else
+  # Disable banner in sshd_config
+  if grep -Fxq "Banner /etc/ssh/hiddify-warning" /etc/ssh/sshd_config; then
+    sed -i "s|Banner /etc/ssh/hiddify-warning||g" /etc/ssh/sshd_config
+fi
+# Restart sshd/ssh
+sudo systemctl restart sshd.service
+sudo systemctl restart ssh.service
+
 if [[ $ENABLE_FIREWALL == true ]]; then
   iptables -P INPUT DROP
   ip6tables -P INPUT DROP
