@@ -11,11 +11,11 @@
 			"dispatch": {
 				//"cloudflare.com": "1.1.1.1:443",
 				//"captive.apple.com": "captive.apple.com:443",
-				"shadowtlsdomain": "shadowtlsdomain:443"
+				"shadowtlsdomain": "{{ hconfigs['shadowtls_fakedomain'] }}:443"
 			},
-			"fallback": "shadowtlsdomain:443"
+			"fallback": "{{ hconfigs['shadowtls_fakedomain'] }}:443"
 		},
-		"password": "BASE_PROXY_PATH",
+		"password": "{{ hconfigs['proxy_path'] }}",
 		"wildcard_sni": "authed"
 	}
 }

@@ -1,7 +1,7 @@
 #!/bin/bash
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
-cd /opt/GITHUB_REPOSITORY/other/telegram/orig/MTProxy/objs/bin/
+cd /opt/hiddify-server/other/telegram/orig/MTProxy/objs/bin/
 
 SERVER_IP="$(curl http://v4.ident.me/ -sS)"
 CURL_EXIT_STATUS=$?
@@ -10,8 +10,8 @@ if [ $CURL_EXIT_STATUS -ne 0 ]; then
 fi
 CPU_CORES=$(nproc --all)
 NEW_CORE=$((CPU_CORES - 1))
-ARGS_STR="-u nobody -H 1001 -S TELEGRAM_USER_SECRET -D TELEGRAM_FAKE_TLS_DOMAIN -M $NEW_CORE --aes-pwd proxy-secret proxy-multi.conf --nat-info 0.0.0.0:$SERVER_IP"
-TAG=TELEGRAM_AD_TAG
+ARGS_STR="-u nobody -H 1001 -S {{ hconfigs['shared_secret'] }} -D {{ hconfigs['telegram_fakedomain'] }} -M $NEW_CORE --aes-pwd proxy-secret proxy-multi.conf --nat-info 0.0.0.0:$SERVER_IP"
+TAG={{ hconfigs['telegram_adtag'] }}
 if [ -n "$TAG" ]; then
     ARGS_STR+=" -P $TAG "
 fi

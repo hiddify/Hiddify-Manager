@@ -1,9 +1,0 @@
-{
-    "server":"0.0.0.0",
-    "server_port":1003,
-    "password":"SHARED_SECRET",
-    "timeout":300,
-    "plugin":"/opt/GITHUB_REPOSITORY/other/v2ray/v2ray-plugin_linux",
-    "plugin_opts":"server;path=/BASE_PROXY_PATH/v2ray/;loglevel=none",
-    "method":"chacha20-ietf-poly1305"
-}

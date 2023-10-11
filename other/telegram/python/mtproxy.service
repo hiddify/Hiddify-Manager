@@ -4,7 +4,7 @@
     Wants=network-online.target
 
 [Service]
-    ExecStart=/opt/GITHUB_REPOSITORY/other/telegram/python/mtprotoproxy/mtprotoproxy.py
+    ExecStart=/opt/hiddify-server/other/telegram/python/mtprotoproxy/mtprotoproxy.py
     AmbientCapabilities=CAP_NET_BIND_SERVICE
     LimitNOFILE=infinity
     User=tgproxy

@@ -16,11 +16,16 @@ def exec(command):
         print(e.output)
     return ""
 
+def get_hex_telegram_domain_func():
+    telegram_secret = configs['hconfigs']['shared_secret']
+    cmd = f"""echo -n "{configs['hconfigs']['telegram_fakedomain']}" | xxd -ps | tr -d '\n'"""
+    return exec(cmd)
 
 def render_j2_templates(start_path):
     # Set up the Jinja2 environment
     env = Environment(loader=FileSystemLoader('/'))
-
+    env.globals['get_hex_telegram_domain_func'] = get_hex_telegram_domain_func
+    
     for root, dirs, files in os.walk(start_path):
         for file in files:
             if file.endswith('.j2'):
