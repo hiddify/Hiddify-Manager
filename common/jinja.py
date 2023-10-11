@@ -3,7 +3,7 @@ from jinja2 import Environment, FileSystemLoader
 import json5
 import json
 import subprocess
-with open('/opt/hiddify-server/current.json') as f:
+with open('c:/users/me/desktop/current.json') as f:
     configs = json.load(f)
 
 
@@ -16,15 +16,9 @@ def exec(command):
         print(e.output)
     return ""
 
-def get_hex_telegram_domain_func():
-    telegram_secret = configs['hconfigs']['shared_secret']
-    cmd = f"""echo -n "{configs['hconfigs']['telegram_fakedomain']}" | xxd -ps | tr -d '\n'"""
-    return exec(cmd)
-
 def render_j2_templates(start_path):
     # Set up the Jinja2 environment
     env = Environment(loader=FileSystemLoader('/'))
-    env.globals['get_hex_telegram_domain_func'] = get_hex_telegram_domain_func
     
     for root, dirs, files in os.walk(start_path):
         for file in files:
@@ -53,5 +47,5 @@ def render_j2_templates(start_path):
                 # print(f'Rendered and stored: {output_file_path}')
 
 
-start_path = '/opt/hiddify-server/'
+start_path = '/Users/me/Hiddify-Server/other/telegram/tgo/'
 render_j2_templates(start_path)
