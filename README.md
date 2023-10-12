@@ -48,7 +48,7 @@ Hiddify is a powerful and professional anti-censorship toolbox, which is a multi
 ***
 
 <div align=center>
-<img width=90% alt="English Demo" src="https://user-images.githubusercontent.com/125398461/234265624-36ee0a18-d4e8-4803-a9ad-331a7c5998e3.png">
+<img alt="English Demo" src="https://user-images.githubusercontent.com/125398461/234265624-36ee0a18-d4e8-4803-a9ad-331a7c5998e3.png">
 
 </div>
 
