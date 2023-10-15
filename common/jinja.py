@@ -3,7 +3,7 @@ from jinja2 import Environment, FileSystemLoader
 import json5
 import json
 import subprocess
-with open('c:/users/me/desktop/current.json') as f:
+with open('/opt/hiddify-server/current.json') as f:
     configs = json.load(f)
 
 
