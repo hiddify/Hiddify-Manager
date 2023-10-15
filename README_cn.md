@@ -166,7 +166,9 @@ Hiddify 是 Hidden 和 Simplify 的混合体。 它是一个具有广泛特性�
 * Python 开发 &nbsp;&nbsp;&nbsp;&nbsp; ‌  
 * Kotlin 开发 &nbsp;&nbsp;&nbsp;&nbsp;
 * Flutter 开发 &nbsp;&nbsp;&nbsp;&nbsp; 
-  
+
+<br>
+
 <div align=center>
 
 [![Email](https://img.shields.io/badge/Gmail-hiddify@gmail.com-green?style=flat-square&logo=gmail)](mailto:hiddify@gmail.com)
