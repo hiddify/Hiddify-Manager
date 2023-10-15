@@ -214,7 +214,7 @@ We need your collaboration in order to develop this project. If you are speciali
 * Discussion: [Telegram Group](https://t.me/hiddify_board/5)
 
 -->
-</br>
+<br>
 
 [![Email](https://img.shields.io/badge/Gmail-contribute@hiddify.com-green?style=flat-square&logo=gmail)](mailto:contribute@hiddify.com)
 [![Telegram Channel](https://img.shields.io/endpoint?label=Channel&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify&color=blue)](https://telegram.dog/hiddify)
