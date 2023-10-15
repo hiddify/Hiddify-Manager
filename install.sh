@@ -90,6 +90,7 @@ function main(){
 
 function clean_files(){
     rm -rf log/system/xray*
+    find ./ -type f -name "*.template" -exec rm -f {} \;
 }
 
 function check(){
