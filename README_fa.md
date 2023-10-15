@@ -216,7 +216,7 @@ Ubuntu arm64 or amd64
 
 </div>
 -->
-</br>
+<br>
 <div align=center>
     
 [![Email](https://img.shields.io/badge/Gmail-contribute@hiddify.com-green?style=flat-square&logo=gmail)](mailto:contribute@hiddify.com)
