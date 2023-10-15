@@ -2,7 +2,7 @@ PORT = 1001
 
 # name -> secret (32 hex chars)
 USERS = {
-    "tg":  "TELEGRAM_USER_SECRET",
+    "tg":  "{{ hconfigs['shared_secret'] }}",
     # "tg2": "0123456789abcdef0123456789abcdef",
 }
 
@@ -21,10 +21,10 @@ MODES = {
 
 # The domain for TLS mode, bad clients are proxied there
 # Use random existing domain, proxy checks it on start
-TLS_DOMAIN = "TELEGRAM_FAKE_TLS_DOMAIN"
+TLS_DOMAIN = "{{ hconfigs['telegram_fakedomain'] }}"
 
 # Tag for advertising, obtainable from @MTProxybot
-AD_TAG="TELEGRAM_AD_TAG"
+AD_TAG="{{ hconfigs['telegram_adtag'] }}"
 LISTEN_ADDR_IPV4="127.0.0.1"
 LISTEN_ADDR_IPV6="::1"
 METRICS_LISTEN_ADDR_IPV4="127.0.0.1"

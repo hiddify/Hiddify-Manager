@@ -3,7 +3,7 @@ from jinja2 import Environment, FileSystemLoader
 import json5
 import json
 import subprocess
-with open('/opt/hiddify-server/current.json') as f:
+with open('c:/users/me/desktop/current.json') as f:
     configs = json.load(f)
 
 
@@ -16,11 +16,10 @@ def exec(command):
         print(e.output)
     return ""
 
-
 def render_j2_templates(start_path):
     # Set up the Jinja2 environment
     env = Environment(loader=FileSystemLoader('/'))
-
+    
     for root, dirs, files in os.walk(start_path):
         for file in files:
             if file.endswith('.j2'):
@@ -42,11 +41,11 @@ def render_j2_templates(start_path):
                     except Exception as e:
                         print(f"Error parsing json: {e}")
 
-                with open(output_file_path, 'w') as output_file:
+                with open(output_file_path, 'w',encoding='utf-8') as output_file:
                     output_file.write(rendered_content)
 
                 # print(f'Rendered and stored: {output_file_path}')
 
 
-start_path = '/opt/hiddify-server/'
+start_path = '/Users/me/Hiddify-Server/other/telegram/tgo/'
 render_j2_templates(start_path)

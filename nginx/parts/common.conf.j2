@@ -1,76 +1,76 @@
 
-# location ~* "/BASE_PROXY_PATH/(?<guid1>\w{8})[\-]?(?<guid2>\w{4})[\-]?(?<guid3>\w{4})[\-]?(?<guid4>\w{4})[\-]?(?<guid5>\w{12})/(?<path>.*)" {
+# location ~* "/{{ hconfigs['proxy_path'] }}/(?<guid1>\w{8})[\-]?(?<guid2>\w{4})[\-]?(?<guid3>\w{4})[\-]?(?<guid4>\w{4})[\-]?(?<guid5>\w{12})/(?<path>.*)" {
 #   set $guid "$guid1-$guid2-$guid3-$guid4-$guid5";
 #   set $usersecret "$guid1$guid2$guid3$guid4$guid5";
-#   proxy_pass http://localhost:9000/BASE_PROXY_PATH/$guid/$path; 
+#   proxy_pass http://localhost:9000//{{ hconfigs['proxy_path'] }}/$guid/$path; 
 # }
-if ($request_uri ~ "^/BASE_PROXY_PATH/redirect/(.*)(%3A%2F%2F|://)(.*)$") {
+if ($request_uri ~ "^/{{ hconfigs['proxy_path'] }}/redirect/(.*)(%3A%2F%2F|://)(.*)$") {
   return 307 $1://$3;
 }
-location /BASE_PROXY_PATH/ADMIN_SECRET/admin/netdata/ {
+location /{{ hconfigs['proxy_path'] }}/{{ hconfigs['admin_secret'] }}/admin/netdata/ {
 	proxy_pass  http://localhost:19999/;
 	error_page 301 302 307 = @handle_redirect;
 }
-location /BASE_PROXY_PATH/ADMIN_SECRET/admin/stats/ {
+location /{{ hconfigs['proxy_path'] }}/{{ hconfigs['admin_secret'] }}/admin/stats/ {
 	proxy_pass  http://localhost:8181/;
   sub_filter '="/' '="';
   sub_filter_once off;
 	error_page 301 302 307 = @handle_redirect;
 }
 
-location /BASE_PROXY_PATH/ghr/ {
+location /{{ hconfigs['proxy_path'] }}/ghr/ {
   #for proxy github raw
   proxy_set_header Host raw.githubusercontent.com;
   set $upstream https://raw.githubusercontent.com:443/;
   proxy_pass $upstream;
 }
 
-location /BASE_PROXY_PATH/gho/ {
+location /{{ hconfigs['proxy_path'] }}/gho/ {
   #for proxy github object
   proxy_set_header Host objects.githubusercontent.com;
   set $upstream https://objects.githubusercontent.com:443/;
   proxy_pass $upstream;
 }
 
-location /BASE_PROXY_PATH/gh/ {
+location /{{ hconfigs['proxy_path'] }}/gh/ {
   #for proxy github
   resolver 8.8.8.8;
   proxy_set_header Host github.com;
   proxy_pass https://github.com:443/;
   #proxy_pass $upstream;
-  proxy_redirect https://raw.githubusercontent.com/ https://$host/BASE_PROXY_PATH/ghr/;
-  proxy_redirect https://objects.githubusercontent.com/ https://$host/BASE_PROXY_PATH/gho/;
+  proxy_redirect https://raw.githubusercontent.com/ https://$host/{{ hconfigs['proxy_path'] }}/ghr/;
+  proxy_redirect https://objects.githubusercontent.com/ https://$host/{{ hconfigs['proxy_path'] }}/gho/;
 
   proxy_set_header Accept-Encoding "";
   sub_filter_once off;
-  sub_filter    https://github.com/ /BASE_PROXY_PATH/gh/;
-  sub_filter    href="/ href="/BASE_PROXY_PATH/gh/;
-  sub_filter    src="/ src="/BASE_PROXY_PATH/gh/;
+  sub_filter    https://github.com/ /{{ hconfigs['proxy_path'] }}/gh/;
+  sub_filter    href="/ href="/{{ hconfigs['proxy_path'] }}/gh/;
+  sub_filter    src="/ src="/{{ hconfigs['proxy_path'] }}/gh/;
 }
 
 
 
 
-location /BASE_PROXY_PATH/clash/ {
+location /{{ hconfigs['proxy_path'] }}/clash/ {
   #for clash configs
-   alias /opt/GITHUB_REPOSITORY/clash/;
+   alias /opt/hiddify-server/clash/;
    types { }   default_type "text/plain";
    sub_filter_types text/plain;
-   #include /opt/GITHUB_REPOSITORY/nginx/replace.conf;
+   #include /opt/hiddify-server/nginx/replace.conf;
    sub_filter_once off;
 }
 
-location /BASE_PROXY_PATH/dns/ {
-  # use it in your browser as https://defaultserverhost/BASE_PROXY_PATH/dns/dns-query{?dns}
+location /{{ hconfigs['proxy_path'] }}/dns/ {
+  # use it in your browser as https://defaultserverhost/{{ hconfigs['proxy_path'] }}/dns/dns-query{?dns}
   set $upstream https://dns.google:443/; 
   proxy_pass $upstream;
   
 }
-location /BASE_PROXY_PATH/speedtest/ {
+location /{{ hconfigs['proxy_path'] }}/speedtest/ {
   client_max_body_size 10000M;
   proxy_pass          http://localhost:438/;
 }
-location /BASE_PROXY_PATH/static {
+location /{{ hconfigs['proxy_path'] }}/static {
   tcp_nodelay       on;
   keepalive_timeout 65;
   add_header X-Robots-Tag "noindex, nofollow";
@@ -80,14 +80,14 @@ location /BASE_PROXY_PATH/static {
   add_header Cache-Control "public, no-transform";
   alias PANEL_STATIC_ROOT;
 }
-location /BASE_PROXY_PATH/ {
+location /{{ hconfigs['proxy_path'] }}/ {
   proxy_set_header Host $host;
   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   proxy_set_header X-Real-IP $remote_addr;
   add_header X-Robots-Tag "noindex, nofollow";
 
-  #proxy_pass http://localhost:9000/BASE_PROXY_PATH/; 
-  #proxy_pass http://unix:/run/hiddifypanel.sock:/BASE_PROXY_PATH/;
+  #proxy_pass http://localhost:9000/{{ hconfigs['proxy_path'] }}/; 
+  #proxy_pass http://unix:/run/hiddifypanel.sock:/{{ hconfigs['proxy_path'] }}/;
   include uwsgi_params;
   uwsgi_pass localhost:9001;
   error_page 301 302 307 = @handle_redirect;
