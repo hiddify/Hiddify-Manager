@@ -3,21 +3,21 @@ server {
     set_real_ip_from unix:;
     real_ip_header proxy_protocol;
 
-    location /PATH_VLESSPATH_GRPC {
+    location /{{ hconfigs['path_vless']}}{{ hconfigs['path_grpc']}} {
         include /opt/hiddify-server/nginx/parts/grpc.conf;
         grpc_pass 127.0.0.1:2023;
     }
-    location /PATH_VMESSPATH_GRPC {
+    location /{{ hconfigs['path_vmess']}}{{ hconfigs['path_grpc']}} {
         include /opt/hiddify-server/nginx/parts/grpc.conf;
         grpc_pass 127.0.0.1:2033;
     }
-    location /PATH_SSPATH_GRPC {
+    location /{{ hconfigs['path_ss']}}{{ hconfigs['path_grpc']}} {
         include /opt/hiddify-server/nginx/parts/grpc.conf;
         grpc_pass unix:/opt/hiddify-server/xray/run/ssg.sock;
     }
-    location /PATH_TROJANPATH_GRPC {
+    location /{{ hconfigs['path_trojan']}}{{ hconfigs['path_grpc']}} {
         include /opt/hiddify-server/nginx/parts/grpc.conf;
         grpc_pass 127.0.0.1:2013;
     }
-    include /opt/GITHUB_REPOSITORY/nginx/parts/hiddify.conf;
+    include /opt/hiddify-server/nginx/parts/hiddify.conf;
 }
