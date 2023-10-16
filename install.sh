@@ -376,6 +376,7 @@ if [[ " $@ " == *" --no-gui "* ]]; then
         main $@ |& tee $log_file
         rm -f log/install.lock >/dev/null 2>&1
         disable_ansii_modes
+        exit 0
 else
         install_package dialog
 
