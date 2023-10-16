@@ -1,7 +1,7 @@
 {
     "configurations": [
         {
-            "name": "Python: Flask",
+            "name": "Run HiddifyPanel (apply config and run flask)",
             "type": "python",
             "request": "launch",
             "module": "flask",
