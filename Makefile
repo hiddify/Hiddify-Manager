@@ -10,7 +10,7 @@ debug: build
 build:
 	if [ "$(PWD)" = "/opt/hiddify-server" -o "$(PWD)" = "/opt/hiddify-config" ]; then \
 		echo "You cannot build from /opt/hiddify-server. Clone the repository outside this folder."; exit 2 \
-    else \
+	else \
 		mkdir -p /opt/hiddify-server && \
 		cp -r ./* /opt/hiddify-server/ && \
 		rm -rf /opt/hiddify-server/hiddify-panel/src/ && \
