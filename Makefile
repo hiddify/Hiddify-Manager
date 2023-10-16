@@ -10,7 +10,7 @@ build:
 		cp -r ./* /opt/hiddify-server/ && \
 		rm -rf /opt/hiddify-server/hiddify-panel/src/ && \
 		(cd hiddify-panel/src/ && pip install -e .) && \
-		(cd /opt/hiddify-server/ && bash install.sh); \
+		(cd /opt/hiddify-server/ && bash install.sh --no-gui); \
 	fi
 
 # sync_panel:
