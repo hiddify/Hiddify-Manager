@@ -1,0 +1,3 @@
+[submodule "hiddify-panel/src"]
+	path = hiddify-panel/src
+	url = git@github.com:hiddify/Hiddify-Panel.git

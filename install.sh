@@ -90,6 +90,7 @@ function main(){
 
 function clean_files(){
     rm -rf log/system/xray*
+    find ./ -type f -name "*.template" -exec rm -f {} \;
 }
 
 function check(){
@@ -141,7 +142,7 @@ function cleanup() {
     disable_ansii_modes
     rm log/install.lock
     echo "1">log/error.lock
-    exit 1
+    exit 9
 }
 
 # Trap the Ctrl+C signal and call the cleanup function
@@ -375,6 +376,7 @@ if [[ " $@ " == *" --no-gui "* ]]; then
         main $@ |& tee $log_file
         rm -f log/install.lock >/dev/null 2>&1
         disable_ansii_modes
+        exit 0
 else
         install_package dialog
 
@@ -414,3 +416,4 @@ fi
 
 
 
+exit 0
