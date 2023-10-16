@@ -8,12 +8,15 @@
             "preLaunchTask": "build-hiddify-server",
             "cwd": "${workspaceFolder}/hiddify-panel/src/",
             "env": {
-                "FLASK_APP": "app.py",
+                "FLASK_APP": "wsgi.py",
                 "FLASK_DEBUG": "1"
             },
             "args": [
                 "run",
-                "--no-debugger"
+                // "--no-debugger",
+                // "--no-reload",
+                "--host","0.0.0.0",
+                "--port","9000"
             ],
             "jinja": true,
             "justMyCode": true

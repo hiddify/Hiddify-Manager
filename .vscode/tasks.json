@@ -7,7 +7,7 @@
             "command": "bash",
             "args": [
                 "-c",
-                "cd ${workspaceFolder} &&make build && systemctl stop hiddify-panel"
+                "pushd ${workspaceFolder} &&make build && (systemctl kill hiddify-panel||echo '')&&popd"
             ],
             "group": {
                 "kind": "build",
