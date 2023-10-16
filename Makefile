@@ -1,3 +1,7 @@
+debug: build
+	(cd hiddify-panel/src/ && pip install -e . &&\
+	FLASK_APP=wsgi.py FLASK_DEBUG=1 python -m flask run --host=0.0.0.0 --port=9000)
+
 build:
 	if [ "$(PWD)" = "/opt/hiddify-server" -o "$(PWD)" = "/opt/hiddify-config" ]; then \
 		echo "You cannot build from /opt/hiddify-server. Clone the repository outside this folder."; \
