@@ -142,7 +142,7 @@ function cleanup() {
     disable_ansii_modes
     rm log/install.lock
     echo "1">log/error.lock
-    exit 1
+    exit 9
 }
 
 # Trap the Ctrl+C signal and call the cleanup function
@@ -415,3 +415,4 @@ fi
 
 
 
+exit 0
