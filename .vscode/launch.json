@@ -1,7 +1,7 @@
 {
     "configurations": [
         {
-            "name": "Run HiddifyPanel (apply config and run flask)",
+            "name": "Run HiddifyPanel and Server (apply config and run flask)",
             "type": "python",
             "request": "launch",
             "module": "flask",
@@ -23,6 +23,40 @@
             ],
             "jinja": true,
             "justMyCode": true
+        },
+        {
+            "name": "Run HiddifyPanel Only (run flask only)",
+            "type": "python",
+            "request": "launch",
+            "module": "flask",
+            "cwd": "${workspaceFolder}/hiddify-panel/src/",
+            "env": {
+                "FLASK_APP": "wsgi.py",
+                "FLASK_DEBUG": "1",
+                "HIDDIFY_CFG_PATH": "/opt/hiddify-server/hiddify-panel/app.cfg",
+            },
+            "args": [
+                "run",
+                // "--no-debugger",
+                // "--no-reload",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "9000",
+                "--reload"
+            ],
+            "jinja": true,
+            "justMyCode": true
+        },
+        {
+            "name": "Apply Config Only",
+            "type": "python",
+            "preLaunchTask": "build-hiddify-server",
+            "request": "launch",
+            "args": [
+                "-c",
+                "print('build complete')"
+            ],
         }
     ]
 }
