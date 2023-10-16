@@ -78,7 +78,7 @@ location /{{ hconfigs['proxy_path'] }}/static {
   etag off;
   if_modified_since off;
   add_header Cache-Control "public, no-transform";
-  alias PANEL_STATIC_ROOT;
+  alias {{exec('python3 -c "import os,hiddifypanel;print(os.path.dirname(hiddifypanel.__file__))"')}}/static;
 }
 location /{{ hconfigs['proxy_path'] }}/ {
   proxy_set_header Host $host;
