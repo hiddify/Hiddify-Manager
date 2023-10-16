@@ -1,5 +1,5 @@
 debug: build
-	(cd hiddify-panel/src/ && pip install -e . &&\
+	(cd hiddify-panel/src/ &&\
 	systemctl kill hiddify-panel &&\
 	HIDDIFY_CFG_PATH=/opt/hiddify-server/hiddify-panel/app.cfg \
 	FLASK_APP=wsgi.py \
