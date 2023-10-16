@@ -1,6 +1,11 @@
 debug: build
 	(cd hiddify-panel/src/ && pip install -e . &&\
-	FLASK_APP=wsgi.py FLASK_DEBUG=1 python -m flask run --host=0.0.0.0 --port=9000)
+	systemctl kill hiddify-panel &&\
+	HIDDIFY_CFG_PATH=/opt/hiddify-server/hiddify-panel/app.cfg \
+	FLASK_APP=wsgi.py \
+	FLASK_DEBUG=1 \
+	python -m flask run --host=0.0.0.0 --port=9000
+	)
 
 build:
 	if [ "$(PWD)" = "/opt/hiddify-server" -o "$(PWD)" = "/opt/hiddify-config" ]; then \
