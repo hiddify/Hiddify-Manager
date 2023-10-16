@@ -20,8 +20,7 @@ build:
 		rm -rf /opt/hiddify-server/hiddify-panel/src/ && \
 		(cd hiddify-panel/src/ && pip install -e .) && \
 		(cd /opt/hiddify-server/ && bash install.sh --no-gui); \
-	fi \
-	exit 0;
+	fi
 
 # sync_panel:
 # 	@bash -c '\

@@ -85,11 +85,13 @@ location /{{ hconfigs['proxy_path'] }}/ {
   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   proxy_set_header X-Real-IP $remote_addr;
   add_header X-Robots-Tag "noindex, nofollow";
-
-  #proxy_pass http://localhost:9000/{{ hconfigs['proxy_path'] }}/; 
+  {% if exec('[ -d "/opt/develop/" ] && echo "true"') == "true" %}
+  proxy_pass http://localhost:9000/{{ hconfigs['proxy_path'] }}/; 
   #proxy_pass http://unix:/run/hiddifypanel.sock:/{{ hconfigs['proxy_path'] }}/;
+  {%else%}
   include uwsgi_params;
   uwsgi_pass localhost:9001;
+  {%endif%}
   error_page 301 302 307 = @handle_redirect;
 }
 {% if exec('[ -d "/opt/vscode/" ] && echo "true"') == "true" %}
