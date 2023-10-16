@@ -2,7 +2,7 @@ debug: build debug-panel
 
 debug-panel: 
 	(cd hiddify-panel/src/ &&\
-	systemctl kill hiddify-panel &&\
+	systemctl stop hiddify-panel &&\
 	HIDDIFY_CFG_PATH=/opt/hiddify-server/hiddify-panel/app.cfg \
 	FLASK_APP=wsgi.py \
 	FLASK_DEBUG=1 \
