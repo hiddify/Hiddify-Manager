@@ -1,5 +1,5 @@
 backend grpc_dispatcher
-    server nginx unix@/opt/hiddify-server/nginx/run/grpc-singbox.sock   send-proxy-v2 tfo 
+    server nginx unix@/opt/hiddify-manager/nginx/run/grpc-singbox.sock   send-proxy-v2 tfo 
 
 backend reality
     server singbox 127.0.0.1:2001 send-proxy-v2 tfo 

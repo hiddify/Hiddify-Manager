@@ -1008,7 +1008,7 @@ window.onload = function () {
         if (Status === "SendR") {
           Show.showStatus("All done");
           var dummyElement = document.createElement("div");
-          dummyElement.innerHTML = '<a xlink:href="https://github.com/hiddify/hiddify-server/wiki/" style="cursor: pointer" target="_blank"></a>';
+          dummyElement.innerHTML = '<a xlink:href="https://github.com/hiddify/hiddify-manager/wiki/" style="cursor: pointer" target="_blank"></a>';
           var htmlAnchorElement = dummyElement.querySelector("a");
           Show.oDoLiveSpeed.el.textContent = ost;
           var circleSVG = document.getElementById("oDoLiveSpeed");

@@ -3,7 +3,7 @@ debug: build debug-panel
 debug-panel: 
 	(cd hiddify-panel/src/ &&\
 	systemctl stop hiddify-panel &&\
-	HIDDIFY_CFG_PATH=/opt/hiddify-server/hiddify-panel/app.cfg \
+	HIDDIFY_CFG_PATH=/opt/hiddify-manager/hiddify-panel/app.cfg \
 	FLASK_APP=wsgi.py \
 	FLASK_DEBUG=1 \
 	python -m flask run --host=0.0.0.0 --port=9000 --reload\
@@ -11,15 +11,15 @@ debug-panel:
 
 
 build:
-	if [ "$(PWD)" = "/opt/hiddify-server" -o "$(PWD)" = "/opt/hiddify-config" ]; then \
-		echo "You cannot build from /opt/hiddify-server. Clone the repository outside this folder."; \
+	if [ "$(PWD)" = "/opt/hiddify-manager" -o "$(PWD)" = "/opt/hiddify-config" ]; then \
+		echo "You cannot build from /opt/hiddify-manager. Clone the repository outside this folder."; \
 		exit 2; \
 	else \
-		mkdir -p /opt/hiddify-server && \
-		cp -r ./* /opt/hiddify-server/ && \
-		rm -rf /opt/hiddify-server/hiddify-panel/src/ && \
+		mkdir -p /opt/hiddify-manager && \
+		cp -r ./* /opt/hiddify-manager/ && \
+		rm -rf /opt/hiddify-manager/hiddify-panel/src/ && \
 		(cd hiddify-panel/src/ && pip install -e .) && \
-		(cd /opt/hiddify-server/ && bash install.sh --no-gui); \
+		(cd /opt/hiddify-manager/ && bash install.sh --no-gui); \
 	fi
 
 # sync_panel:

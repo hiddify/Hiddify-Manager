@@ -22,7 +22,7 @@ apt install -y curl unzip
 # pip install lastversion "requests<=2.29.0"
 mkdir -p /opt/$GITHUB_REPOSITORY
 cd /opt/$GITHUB_REPOSITORY
-curl -L -o hiddify-config.zip https://github.com/hiddify/hiddify-server/releases/latest/download/hiddify-config.zip
+curl -L -o hiddify-config.zip https://github.com/hiddify/hiddify-manager/releases/latest/download/hiddify-config.zip
 unzip -o hiddify-config.zip
 rm hiddify-config.zip
 

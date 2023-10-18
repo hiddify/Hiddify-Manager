@@ -2,15 +2,15 @@
 #     listen 501 proxy_protocol default_server;
 #     listen 502 http2 proxy_protocol default_server;
 #     server_name _;
-#     include /opt/hiddify-server/nginx/hiddify.conf;
+#     include /opt/hiddify-manager/nginx/hiddify.conf;
 # } #Restrict domain name access (prohibit access to the website by IP) and return 400
 
 # HTTP1 UDS listener
 server {
     listen 127.0.0.1:501 proxy_protocol; #HTTP/1.1 server monitor process and enable PROXY protocol reception
-    listen unix:/opt/hiddify-server/nginx/run/h1.sock proxy_protocol;
+    listen unix:/opt/hiddify-manager/nginx/run/h1.sock proxy_protocol;
     server_name _;
-    include /opt/hiddify-server/nginx/parts/hiddify.conf;
+    include /opt/hiddify-manager/nginx/parts/hiddify.conf;
     set_real_ip_from unix:;
     real_ip_header proxy_protocol;
 }
@@ -18,23 +18,23 @@ server {
 # HTTP2 UDS listener
 server {
     listen 127.0.0.1:502 http2 proxy_protocol; #H2C server monitor process and enable PROXY protocol reception
-    listen unix:/opt/hiddify-server/nginx/run/h2.sock http2 proxy_protocol;
+    listen unix:/opt/hiddify-manager/nginx/run/h2.sock http2 proxy_protocol;
     server_name _;
     set_real_ip_from unix:;
     real_ip_header proxy_protocol;
-    include /opt/hiddify-server/nginx/parts/proxy_path.conf;
+    include /opt/hiddify-manager/nginx/parts/proxy_path.conf;
     
     # Decoy website
-    include /opt/hiddify-server/nginx/parts/hiddify.conf;
+    include /opt/hiddify-manager/nginx/parts/hiddify.conf;
 }
 
 server {
-    listen unix:/opt/hiddify-server/nginx/run/nginx_cdn_dispatcher_h2.sock http2;
-    listen unix:/opt/hiddify-server/nginx/run/nginx_cdn_dispatcher.sock;
+    listen unix:/opt/hiddify-manager/nginx/run/nginx_cdn_dispatcher_h2.sock http2;
+    listen unix:/opt/hiddify-manager/nginx/run/nginx_cdn_dispatcher.sock;
     
     set_real_ip_from unix:;
     real_ip_header "X-Real-IP";
-    include /opt/hiddify-server/nginx/parts/proxy_path.conf;   
+    include /opt/hiddify-manager/nginx/parts/proxy_path.conf;   
     # Decoy website
-    include /opt/hiddify-server/nginx/parts/hiddify.conf;
+    include /opt/hiddify-manager/nginx/parts/hiddify.conf;
 }

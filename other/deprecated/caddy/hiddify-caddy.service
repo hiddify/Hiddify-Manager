@@ -7,8 +7,8 @@ Requires=network-online.target
 [Service]
 Type=notify
 User=root
-ExecStart=/usr/bin/caddy run --environ --config /opt/hiddify-server/caddy/Caddyfile
-ExecReload=/usr/bin/caddy reload --config /opt/hiddify-server/caddy/Caddyfile --force
+ExecStart=/usr/bin/caddy run --environ --config /opt/hiddify-manager/caddy/Caddyfile
+ExecReload=/usr/bin/caddy reload --config /opt/hiddify-manager/caddy/Caddyfile --force
 TimeoutStopSec=5s
 LimitNOFILE=1048576
 LimitNPROC=512

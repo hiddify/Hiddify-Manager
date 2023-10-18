@@ -87,8 +87,8 @@ bash google-bbr.sh
 
 sysctl -w net.ipv4.conf.all.route_localnet=1
 
-echo "@reboot root /opt/hiddify-server/install.sh >> /opt/hiddify-server/log/system/reboot.log 2>&1" >/etc/cron.d/hiddify_reinstall_on_reboot
-echo "@daily root /opt/hiddify-server/common/daily_actions.sh >> /opt/hiddify-server/log/system/daily_actions.log 2>&1" >/etc/cron.d/hiddify_daily_memory_release
+echo "@reboot root /opt/hiddify-manager/install.sh >> /opt/hiddify-manager/log/system/reboot.log 2>&1" >/etc/cron.d/hiddify_reinstall_on_reboot
+echo "@daily root /opt/hiddify-manager/common/daily_actions.sh >> /opt/hiddify-manager/log/system/daily_actions.log 2>&1" >/etc/cron.d/hiddify_daily_memory_release
 service cron reload
 
 localectl set-locale LANG=C.UTF-8
@@ -104,16 +104,16 @@ echo "nameserver 1.1.1.1" >>/etc/resolvconf/resolv.conf.d/base
 
 resolvconf -u
 
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-server/install.sh" >/etc/sudoers.d/hiddify
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-server/status.sh" >>/etc/sudoers.d/hiddify
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-server/update.sh" >>/etc/sudoers.d/hiddify
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-server/apply_configs.sh" >>/etc/sudoers.d/hiddify
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-server/hiddify-panel/temporary_access.sh" >>/etc/sudoers.d/hiddify
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-server/hiddify-panel/update_usage.sh" >>/etc/sudoers.d/hiddify
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-server/hiddify-panel/restart.sh" >>/etc/sudoers.d/hiddify
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-server/nginx/add2shortlink.sh" >>/etc/sudoers.d/hiddify
+echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/install.sh" >/etc/sudoers.d/hiddify
+echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/status.sh" >>/etc/sudoers.d/hiddify
+echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/update.sh" >>/etc/sudoers.d/hiddify
+echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/apply_configs.sh" >>/etc/sudoers.d/hiddify
+echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/hiddify-panel/temporary_access.sh" >>/etc/sudoers.d/hiddify
+echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/hiddify-panel/update_usage.sh" >>/etc/sudoers.d/hiddify
+echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/hiddify-panel/restart.sh" >>/etc/sudoers.d/hiddify
+echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/nginx/add2shortlink.sh" >>/etc/sudoers.d/hiddify
 
-ln -sf /opt/hiddify-server/menu.sh /usr/bin/hiddify
+ln -sf /opt/hiddify-manager/menu.sh /usr/bin/hiddify
 
 systemctl disable --now rpcbind.socket >/dev/null 2>&1
 systemctl disable --now rpcbind >/dev/null 2>&1

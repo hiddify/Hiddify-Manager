@@ -5,9 +5,9 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-ExecStart=ss-server -c /opt/hiddify-server/other/ssfaketls/config-faketls.json
+ExecStart=ss-server -c /opt/hiddify-manager/other/ssfaketls/config-faketls.json
 Restart=on-failure
-StandardOutput=file:/opt/hiddify-server/log/system/ss-faketls.out.log
-StandardError=file:/opt/hiddify-server/log/system/ss-faketls.err.log
+StandardOutput=file:/opt/hiddify-manager/log/system/ss-faketls.out.log
+StandardError=file:/opt/hiddify-manager/log/system/ss-faketls.err.log
 [Install]
 WantedBy=multi-user.target

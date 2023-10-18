@@ -53,10 +53,10 @@ location /{{ hconfigs['proxy_path'] }}/gh/ {
 
 location /{{ hconfigs['proxy_path'] }}/clash/ {
   #for clash configs
-   alias /opt/hiddify-server/clash/;
+   alias /opt/hiddify-manager/clash/;
    types { }   default_type "text/plain";
    sub_filter_types text/plain;
-   #include /opt/hiddify-server/nginx/replace.conf;
+   #include /opt/hiddify-manager/nginx/replace.conf;
    sub_filter_once off;
 }
 

@@ -5,12 +5,12 @@
             "type": "python",
             "request": "launch",
             "module": "flask",
-            "preLaunchTask": "build-hiddify-server",
+            "preLaunchTask": "build-hiddify-manager",
             "cwd": "${workspaceFolder}/hiddify-panel/src/",
             "env": {
                 "FLASK_APP": "wsgi.py",
                 "FLASK_DEBUG": "1",
-                "HIDDIFY_CFG_PATH": "/opt/hiddify-server/hiddify-panel/app.cfg",
+                "HIDDIFY_CFG_PATH": "/opt/hiddify-manager/hiddify-panel/app.cfg",
             },
             "args": [
                 "run",
@@ -34,7 +34,7 @@
             "env": {
                 "FLASK_APP": "wsgi.py",
                 "FLASK_DEBUG": "1",
-                "HIDDIFY_CFG_PATH": "/opt/hiddify-server/hiddify-panel/app.cfg",
+                "HIDDIFY_CFG_PATH": "/opt/hiddify-manager/hiddify-panel/app.cfg",
             },
             "args": [
                 "run",
@@ -52,7 +52,7 @@
         {
             "name": "Apply Config Only",
             "type": "python",
-            "preLaunchTask": "build-hiddify-server",
+            "preLaunchTask": "build-hiddify-manager",
             "request": "launch",
             "args": [
                 "-c",

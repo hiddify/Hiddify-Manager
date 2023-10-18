@@ -10,8 +10,8 @@ packages:
   - git
 runcmd:
   - cd /opt
-  - git clone https://github.com/hiddify/hiddify-server/
-  - cd hiddify-server
+  - git clone https://github.com/hiddify/hiddify-manager/
+  - cd hiddify-manager
   # uncomment it for using a special secret other wise it will be createed automatically/
   #- echo "USER_SECRET=44da16ea20ff4bac92afae43ef97f067" >config.env
   #- echo "MAIN_DOMAIN=example.com" >>config.env

@@ -12,11 +12,11 @@
 			  "fallbacks": [
 				{
 					"alpn": "h2",
-					"dest": "/opt/hiddify-server/nginx/run/h2.sock",
+					"dest": "/opt/hiddify-manager/nginx/run/h2.sock",
 					"xver": 2
 				},
 				{
-				  "dest": "/opt/hiddify-server/nginx/run/h1.sock",
+				  "dest": "/opt/hiddify-manager/nginx/run/h1.sock",
 				  "xver": 2
 				}
 			  ]
@@ -30,7 +30,7 @@
 			  "tlsSettings": {
 				"certificates": [
 				  {%for d in domains if d['need_valid_ssl']%}
-				  	{"ocspStapling": 3600, "certificateFile": "/opt/hiddify-server/ssl/{{d.domain}}.crt", "keyFile": "/opt/hiddify-server/ssl/{{d.domain}}.crt.key"},
+				  	{"ocspStapling": 3600, "certificateFile": "/opt/hiddify-manager/ssl/{{d.domain}}.crt", "keyFile": "/opt/hiddify-manager/ssl/{{d.domain}}.crt.key"},
 				  {%endfor%}
 				],
 				"minVersion": "1.2", 

@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build-hiddify-server", // Define the build task
+            "label": "build-hiddify-manager", // Define the build task
             "type": "shell",
             "command": "bash",
             "args": [

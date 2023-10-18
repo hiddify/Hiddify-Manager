@@ -11,5 +11,5 @@ services:
     # cap_add:
     #   - NET_ADMIN
     volumes:
-       - ./hiddify-panel/hiddifypanel.db:/opt/hiddify-server/hiddify-panel/hiddifypanel.db
-       - ./ssl/:/opt/hiddify-server/ssl/
+       - ./hiddify-panel/hiddifypanel.db:/opt/hiddify-manager/hiddify-panel/hiddifypanel.db
+       - ./ssl/:/opt/hiddify-manager/ssl/

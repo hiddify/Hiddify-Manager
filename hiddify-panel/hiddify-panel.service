@@ -6,17 +6,17 @@ Wants=network-online.target
 [Service]
 Type=simple
 User=hiddify-panel
-WorkingDirectory=/opt/hiddify-server/hiddify-panel/
+WorkingDirectory=/opt/hiddify-manager/hiddify-panel/
 Environment="LANG=C.UTF-8"
 ExecStartPre=/bin/bash -c "/bin/kill -INT $(/usr/bin/pgrep -f 'hiddifypanel')||echo 'nothing to kill'"
-ExecStart=/usr/local/bin/uwsgi --ini /opt/hiddify-server/hiddify-panel/uwsgi.ini
+ExecStart=/usr/local/bin/uwsgi --ini /opt/hiddify-manager/hiddify-panel/uwsgi.ini
 #ExecReload=/bin/kill -HUP $MAINPID
 RestartSec=5
 ExecStop=/bin/bash -c "/bin/kill -INT $(/usr/bin/pgrep -f 'hiddifypanel')||echo 'nothing to kill'"
 #ExecStop=/bin/kill -INT $MAINPID
 Restart=always
-StandardOutput=file:/opt/hiddify-server/log/system/hiddify_panel.out.log
-StandardError=file:/opt/hiddify-server/log/system/hiddify_panel.err.log
+StandardOutput=file:/opt/hiddify-manager/log/system/hiddify_panel.out.log
+StandardError=file:/opt/hiddify-manager/log/system/hiddify_panel.err.log
 [Install]
 WantedBy=multi-user.target
 

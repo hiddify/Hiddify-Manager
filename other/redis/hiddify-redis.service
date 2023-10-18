@@ -5,7 +5,7 @@ Documentation=http://redis.io/documentation, man:redis-server(1)
 
 [Service]
 Type=notify
-ExecStart=/usr/bin/redis-server /opt/hiddify-server/other/redis/redis.conf --supervised systemd --daemonize no
+ExecStart=/usr/bin/redis-server /opt/hiddify-manager/other/redis/redis.conf --supervised systemd --daemonize no
 PIDFile=/var/run/hiddify-redis-server.pid
 TimeoutStopSec=0
 Restart=always
@@ -23,8 +23,8 @@ ReadOnlyDirectories=/
 ReadWritePaths=-/var/lib/redis
 ReadWritePaths=-/var/log/redis
 ReadWritePaths=-/var/run/redis
-ReadWritePaths=-/opt/hiddify-server/other/redis
-ReadWritePaths=-/opt/hiddify-server/log/system
+ReadWritePaths=-/opt/hiddify-manager/other/redis
+ReadWritePaths=-/opt/hiddify-manager/log/system
 
 NoNewPrivileges=true
 CapabilityBoundingSet=CAP_SETGID CAP_SETUID CAP_SYS_RESOURCE

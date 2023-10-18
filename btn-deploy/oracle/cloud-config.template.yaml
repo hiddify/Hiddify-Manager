@@ -11,7 +11,7 @@ packages:
 
 runcmd:
   - cd /opt
-  - bash -c "$(curl -Lfo- https://raw.githubusercontent.com/hiddify/hiddify-server/main/common/download_install.sh)"
+  - bash -c "$(curl -Lfo- https://raw.githubusercontent.com/hiddify/hiddify-manager/main/common/download_install.sh)"
 
 final_message: "The system is finally up, after $UPTIME seconds"
 output: { all: "| tee -a /root/cloud-init-output.log" }

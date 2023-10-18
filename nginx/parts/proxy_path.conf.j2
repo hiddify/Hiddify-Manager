@@ -1,50 +1,50 @@
     location /{{ hconfigs['path_vless'] }}{{ hconfigs['path_grpc'] }}{
-        include /opt/hiddify-server/nginx/parts/grpc.conf;
-        grpc_pass unix:/opt/hiddify-server/xray/run/vlessg.sock;
+        include /opt/hiddify-manager/nginx/parts/grpc.conf;
+        grpc_pass unix:/opt/hiddify-manager/xray/run/vlessg.sock;
     }
     location /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_grpc'] }} {
-        include /opt/hiddify-server/nginx/parts/grpc.conf;
-        grpc_pass unix:/opt/hiddify-server/xray/run/vmessg.sock;
+        include /opt/hiddify-manager/nginx/parts/grpc.conf;
+        grpc_pass unix:/opt/hiddify-manager/xray/run/vmessg.sock;
     }
     location /{{ hconfigs['path_ss'] }}{{ hconfigs['path_grpc'] }} {
-        include /opt/hiddify-server/nginx/parts/grpc.conf;
-        grpc_pass unix:/opt/hiddify-server/xray/run/ssg.sock;
+        include /opt/hiddify-manager/nginx/parts/grpc.conf;
+        grpc_pass unix:/opt/hiddify-manager/xray/run/ssg.sock;
     }
     location /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_grpc'] }} {
-        include /opt/hiddify-server/nginx/parts/grpc.conf;
-        grpc_pass unix:/opt/hiddify-server/xray/run/trojang.sock;
+        include /opt/hiddify-manager/nginx/parts/grpc.conf;
+        grpc_pass unix:/opt/hiddify-manager/xray/run/trojang.sock;
     }
 
     location /{{ hconfigs['path_vless'] }}{{ hconfigs['path_tcp'] }} {
-        include /opt/hiddify-server/nginx/parts/tcph2.conf;
-        proxy_pass http://unix:/opt/hiddify-server/xray/run/vlesst.sock;
+        include /opt/hiddify-manager/nginx/parts/tcph2.conf;
+        proxy_pass http://unix:/opt/hiddify-manager/xray/run/vlesst.sock;
     }
     location /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }} {
-        include /opt/hiddify-server/nginx/parts/tcph2.conf;
-        proxy_pass http://unix:/opt/hiddify-server/xray/run/vmesst.sock;
+        include /opt/hiddify-manager/nginx/parts/tcph2.conf;
+        proxy_pass http://unix:/opt/hiddify-manager/xray/run/vmesst.sock;
     }
     location /{{ hconfigs['path_ss'] }}{{ hconfigs['path_tcp'] }} {
-        include /opt/hiddify-server/nginx/parts/tcph2.conf;
-        proxy_pass http://unix:/opt/hiddify-server/xray/run/sst.sock;
+        include /opt/hiddify-manager/nginx/parts/tcph2.conf;
+        proxy_pass http://unix:/opt/hiddify-manager/xray/run/sst.sock;
     }
     location /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_tcp'] }} {
-        include /opt/hiddify-server/nginx/parts/tcph2.conf;
-        proxy_pass http://unix:/opt/hiddify-server/xray/run/trojant.sock;
+        include /opt/hiddify-manager/nginx/parts/tcph2.conf;
+        proxy_pass http://unix:/opt/hiddify-manager/xray/run/trojant.sock;
     }
 
     location /{{ hconfigs['path_vless'] }}{{ hconfigs['path_ws'] }} {
-        include /opt/hiddify-server/nginx/parts/wsh2.conf;
-        proxy_pass http://unix:/opt/hiddify-server/xray/run/vlesst.sock;
+        include /opt/hiddify-manager/nginx/parts/wsh2.conf;
+        proxy_pass http://unix:/opt/hiddify-manager/xray/run/vlesst.sock;
     }
     location /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_ws'] }} {
-        include /opt/hiddify-server/nginx/parts/wsh2.conf;
-        proxy_pass http://unix:/opt/hiddify-server/xray/run/vmessw.sock;
+        include /opt/hiddify-manager/nginx/parts/wsh2.conf;
+        proxy_pass http://unix:/opt/hiddify-manager/xray/run/vmessw.sock;
     }
     location /{{ hconfigs['path_ss'] }}{{ hconfigs['path_ws'] }} {
-        include /opt/hiddify-server/nginx/parts/wsh2.conf;
-        proxy_pass http://unix:/opt/hiddify-server/xray/run/ssw.sock;
+        include /opt/hiddify-manager/nginx/parts/wsh2.conf;
+        proxy_pass http://unix:/opt/hiddify-manager/xray/run/ssw.sock;
     }
     location /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_ws'] }} {
-        include /opt/hiddify-server/nginx/parts/wsh2.conf;
-        proxy_pass http://unix:/opt/hiddify-server/xray/run/trojanw.sock;
+        include /opt/hiddify-manager/nginx/parts/wsh2.conf;
+        proxy_pass http://unix:/opt/hiddify-manager/xray/run/trojanw.sock;
     }

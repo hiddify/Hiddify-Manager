@@ -5,9 +5,9 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-ExecStart=ss-server -c /opt/hiddify-server/other/v2ray/config-v2ray.json
+ExecStart=ss-server -c /opt/hiddify-manager/other/v2ray/config-v2ray.json
 Restart=on-failure
-StandardOutput=file:/opt/hiddify-server/log/system/v2ray.out.log
-StandardError=file:/opt/hiddify-server/log/system/v2ray.err.log
+StandardOutput=file:/opt/hiddify-manager/log/system/v2ray.out.log
+StandardError=file:/opt/hiddify-manager/log/system/v2ray.err.log
 [Install]
 WantedBy=multi-user.target

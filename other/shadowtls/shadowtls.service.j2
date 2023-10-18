@@ -5,12 +5,12 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-WorkingDirectory=/opt/hiddify-server/other/shadowtls
-ExecStart=/opt/hiddify-server/other/shadowtls/shadowtls
+WorkingDirectory=/opt/hiddify-manager/other/shadowtls
+ExecStart=/opt/hiddify-manager/other/shadowtls/shadowtls
 Environment=RUST_LOG=error
-Environment=CONFIG_FILE=/opt/hiddify-server/other/shadowtls/shadowtls.conf
+Environment=CONFIG_FILE=/opt/hiddify-manager/other/shadowtls/shadowtls.conf
 Restart=on-failure
-StandardOutput=file:/opt/hiddify-server/log/system/ssplugin-shadowtls.out.log
-StandardError=file:/opt/hiddify-server/log/system/ssplugin-shadowtls.err.log
+StandardOutput=file:/opt/hiddify-manager/log/system/ssplugin-shadowtls.out.log
+StandardError=file:/opt/hiddify-manager/log/system/ssplugin-shadowtls.err.log
 [Install]
 WantedBy=multi-user.target

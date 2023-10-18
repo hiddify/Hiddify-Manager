@@ -10,7 +10,7 @@ backend shadowtls
     server shadowtls 127.0.0.1:1003 tfo 
 
 backend grpc_dispatcher
-    server nginx unix@/opt/hiddify-server/nginx/run/h2.sock send-proxy-v2 tfo 
+    server nginx unix@/opt/hiddify-manager/nginx/run/h2.sock send-proxy-v2 tfo 
 
 backend vmessg
   timeout server 1h

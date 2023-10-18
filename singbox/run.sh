@@ -1,4 +1,4 @@
-source /opt/hiddify-server/common/utils.sh
+source /opt/hiddify-manager/common/utils.sh
 ln -sf $(pwd)/hiddify-singbox.service /etc/systemd/system/hiddify-singbox.service
 systemctl enable hiddify-singbox.service
 

@@ -24,11 +24,11 @@ function get_installed_panel_version() {
     cat "$(hiddifypanel_path)/VERSION"
 }
 function get_installed_config_version() {
-    cat /opt/hiddify-server/VERSION
+    cat /opt/hiddify-manager/VERSION
 }
 
 function get_package_mode() {
-    cd /opt/hiddify-server/hiddify-panel
+    cd /opt/hiddify-manager/hiddify-panel
     python3 -m hiddifypanel all-configs | jq -r ".hconfigs.package_mode"
 }
 
@@ -127,7 +127,7 @@ function msg() {
 
 function hiddify_api() {
     data=$(
-        cd /opt/hiddify-server/hiddify-panel
+        cd /opt/hiddify-manager/hiddify-panel
         python3 -m hiddifypanel $1
     )
     echo $data

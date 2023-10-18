@@ -17,8 +17,8 @@ tar -xf mtg-2.1.7-linux-$pkg.tar.gz
 rm -rf mtg
 mv mtg-2.1.7-linux-$pkg/mtg mtg
 
-# export GOPATH=/opt/hiddify-server/other/telegram/tgo/go/
-# export GOCACHE=/opt/hiddify-server/other/telegram/tgo/gocache/
+# export GOPATH=/opt/hiddify-manager/other/telegram/tgo/go/
+# export GOCACHE=/opt/hiddify-manager/other/telegram/tgo/gocache/
 # git clone https://github.com/9seconds/mtg/
 
 # if [ ! -f mtg/mtg ];then

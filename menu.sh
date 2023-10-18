@@ -2,17 +2,17 @@
 
 source common/utils.sh
 
-sed -i "s|/opt/hiddify-config/menu.sh|/opt/hiddify-server/menu.sh|g" ~/.bashrc
+sed -i "s|/opt/hiddify-config/menu.sh|/opt/hiddify-manager/menu.sh|g" ~/.bashrc
 
-if [[ $(grep "/opt/hiddify-server/menu.sh" ~/.bashrc | wc -l) > 0 ]]; then
-    sed -i "s|/opt/hiddify-server/menu.sh||g" ~/.bashrc
-    sed -i "s|cd /opt/hiddify-server/||g" ~/.bashrc
-    echo "/opt/hiddify-server/menu.sh" >>~/.bashrc
-    echo "cd /opt/hiddify-server/" >>~/.bashrc
+if [[ $(grep "/opt/hiddify-manager/menu.sh" ~/.bashrc | wc -l) > 0 ]]; then
+    sed -i "s|/opt/hiddify-manager/menu.sh||g" ~/.bashrc
+    sed -i "s|cd /opt/hiddify-manager/||g" ~/.bashrc
+    echo "/opt/hiddify-manager/menu.sh" >>~/.bashrc
+    echo "cd /opt/hiddify-manager/" >>~/.bashrc
 fi
 
 #PACKAGE_MODE=$(get_package_mode)
-#LATEST_CONFIG_VERSION=$(get_release_version hiddify-server)
+#LATEST_CONFIG_VERSION=$(get_release_version hiddify-manager)
 #LATEST_PANEL_VERSION=$(get_release_version hiddifypanel)
 
 CURRENT_CONFIG_VERSION=$(get_installed_config_version)
@@ -25,7 +25,7 @@ CURRENT_PANEL_VERSION=$(get_installed_panel_version)
 # fi
 
 cd "$(dirname -- "$0")"
-cd /opt/hiddify-server/
+cd /opt/hiddify-manager/
 
 function menu() {
 
@@ -100,13 +100,13 @@ function menu() {
         CHOICE=$(whiptail --clear --backtitle "$BACKTITLE" --title "$TITLE" --menu "$MENU" $HEIGHT $WIDTH $CHOICE_HEIGHT "${OPTIONS[@]}" 3>&1 1>&2 2>&3)
         case $CHOICE in
         "enable")
-            echo "/opt/hiddify-server/menu.sh" >>~/.bashrc
-            echo "cd /opt/hiddify-server/" >>~/.bashrc
+            echo "/opt/hiddify-manager/menu.sh" >>~/.bashrc
+            echo "cd /opt/hiddify-manager/" >>~/.bashrc
             NEED_KEY=0
             ;;
         "disable")
-            sed -i "s|/opt/hiddify-server/menu.sh||g" ~/.bashrc
-            sed -i "s|cd /opt/hiddify-server/||g" ~/.bashrc
+            sed -i "s|/opt/hiddify-manager/menu.sh||g" ~/.bashrc
+            sed -i "s|cd /opt/hiddify-manager/||g" ~/.bashrc
             NEED_KEY=0
             ;;
         "uninstall")
