@@ -9,7 +9,8 @@
             "cwd": "${workspaceFolder}/hiddify-panel/src/",
             "env": {
                 "FLASK_APP": "wsgi.py",
-                "FLASK_DEBUG": "1"
+                "FLASK_DEBUG": "1",
+                "HIDDIFY_CFG_PATH": "/opt/hiddify-server/hiddify-panel/app.cfg",
             },
             "args": [
                 "run",
@@ -25,7 +26,7 @@
             "justMyCode": true
         },
         {
-            "name": "Run HiddifyPanel Only (run flask only)",
+            "name": "Run HiddifyPanel Only (make sure to apply config before)",
             "type": "python",
             "request": "launch",
             "module": "flask",
