@@ -1,3 +1,4 @@
+source /opt/hiddify-manager/common/utils.sh
 echo "shadowsocks proxy install.sh $*"
 
 install_package shadowsocks-libev simple-obfs

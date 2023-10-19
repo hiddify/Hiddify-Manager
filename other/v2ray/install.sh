@@ -1,3 +1,4 @@
+source /opt/hiddify-manager/common/utils.sh
 install_package shadowsocks-libev
 
 if ! is_installed ./v2ray-plugin_linux; then

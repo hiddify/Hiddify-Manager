@@ -1,3 +1,4 @@
+source /opt/hiddify-manager/common/utils.sh
 latest=$(get_release_version ssh-liberty-bridge)
 
 if [ "$(cat VERSION)" != $latest ]; then

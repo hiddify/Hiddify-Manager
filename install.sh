@@ -148,6 +148,9 @@ function set_config_from_hpanel() {
                 echo "4" >log/error.lock
                 exit 4
         fi
+        
+        export SERVER_IP=`curl --connect-timeout 1 -s https://v4.ident.me/`
+        export SERVER_IPv6=`curl  --connect-timeout 1 -s https://v6.ident.me/`
 }
 
 function install_run() {
