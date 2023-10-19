@@ -10,7 +10,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 echo "we are going to download needed files:)"
-GITHUB_REPOSITORY=hiddify-manager
+GITHUB_REPOSITORY=hiddify-server
 GITHUB_USER=hiddify
 GITHUB_BRANCH_OR_TAG=main
 
@@ -22,18 +22,18 @@ apt install -y curl unzip
 # pip install lastversion "requests<=2.29.0"
 mkdir -p /opt/$GITHUB_REPOSITORY
 cd /opt/$GITHUB_REPOSITORY
-curl -L -o hiddify-manager.zip https://github.com/hiddify/hiddify-manager/releases/latest/download/hiddify-manager.zip
-unzip -o hiddify-manager.zip
-rm hiddify-manager.zip
+curl -L -o $GITHUB_REPOSITORY.zip https://github.com/hiddify/$GITHUB_REPOSITORY/releases/latest/download/$GITHUB_REPOSITORY.zip
+unzip -o $GITHUB_REPOSITORY.zip
+rm $GITHUB_REPOSITORY.zip
 
 bash install.sh
 # exit 0
 # fi
 
-sed -i "s|/opt/hiddify-manager/menu.sh||g" ~/.bashrc
-sed -i "s|cd /opt/hiddify-manager/||g" ~/.bashrc
-echo "/opt/hiddify-manager/menu.sh" >>~/.bashrc
-echo "cd /opt/hiddify-manager/" >>~/.bashrc
+sed -i "s|/opt/$GITHUB_REPOSITORY/menu.sh||g" ~/.bashrc
+sed -i "s|cd /opt/$GITHUB_REPOSITORY/||g" ~/.bashrc
+echo "/opt/$GITHUB_REPOSITORY/menu.sh" >>~/.bashrc
+echo "cd /opt/$GITHUB_REPOSITORY/" >>~/.bashrc
 
 read -p "Press any key to go  to menu" -n 1 key
 cd /opt/$GITHUB_REPOSITORY
