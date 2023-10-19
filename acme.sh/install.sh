@@ -14,3 +14,5 @@ if ! is_installed ./lib/acme.sh; then
     ./lib/acme.sh --uninstall-cronjob
 fi
 mkdir -p ../ssl/
+./lib/acme.sh --uninstall-cronjob
+systemctl reload hiddify-haproxy
