@@ -58,6 +58,7 @@ jobs:
         run: |
             zip -r hiddify-manager.zip .  -x .**\*
             cp  hiddify-manager.zip hiddify-config.zip 
+            cp  hiddify-manager.zip hiddify-server.zip 
       - name: Generate Changelog
         run: .github/release_message.sh > release_message.md
       - name: Release
