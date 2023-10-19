@@ -48,7 +48,7 @@ hiddify-manager 是一个强大而专业的反网络审查工具箱，hiddify-ma
 ***
 
 ### 目录
-- [hiddify-manager 是什么？](#%E4%B8%BA%E4%BB%80%E4%B9%88-hiddify)
+- [Hiddify-Manager 是什么？](#%E4%B8%BA%E4%BB%80%E4%B9%88-hiddify)
   - [吸引人的特点](#%E5%90%B8%E5%BC%95%E4%BA%BA%E7%9A%84%E7%89%B9%E7%82%B9)
   - [支持的协议](#%E6%94%AF%E6%8C%81%E7%9A%84%E5%8D%8F%E8%AE%AE)
   - [智能代理国内和被墙网站](#%E5%9B%BD%E5%86%85%E5%92%8C%E8%BF%87%E6%BB%A4%E7%BD%91%E7%AB%99%E7%9A%84%E6%99%BA%E8%83%BD%E4%BB%A3%E7%90%86)
@@ -60,8 +60,8 @@ hiddify-manager 是一个强大而专业的反网络审查工具箱，hiddify-ma
 
 
 
-## hiddify-manager 是什么？
-Hiddify 的名称是 Hidden （隐藏） 和 Simplify （简化） 的合并而来。 hiddify-manager 是一个具有多特性和多功能的面板，可帮助您享受无忧且安全的互联网浏览。 作为对用户十分友好的 VPN 解决方案，hiddify-manager 确保您可以轻松、安心地访问自由互联网。
+## Hiddify-Manager 是什么？
+Hiddify 的名称是 Hidden （隐藏） 和 Simplify （简化） 的合并而来。 Hiddify-Manager 是一个具有多特性和多功能的面板，可帮助您享受无忧且安全的互联网浏览。 作为对用户十分友好的 VPN 解决方案，Hiddify-Manager 确保您可以轻松、安心地访问自由互联网。
 
 ### 吸引人的特点
 - **快速安装**
@@ -100,7 +100,7 @@ Hiddify 的名称是 Hidden （隐藏） 和 Simplify （简化） 的合并而�
 
 <details markdown="1"> <summary><h3>智能代理国内和被墙网站</h3> （点击这里）</summary>
  
-您可以使用 Hiddify（Clash） 客户端，或者直接在 hiddify-manager 面板中，使用以下 3 种模式连接到互联网。
+您可以使用 Hiddify（Clash） 客户端，或者直接在 Hiddify-Manager 面板中，使用以下 3 种模式连接到互联网。
 1. 仅通过代理连接被封锁的网站。
 2. 通过代理连接除中国、俄罗斯、伊朗等国内网站外的所有网站。这样就可以不用代理打开国内网站了（推荐）
 3. 通过代理连接所有网站。
@@ -112,7 +112,7 @@ Hiddify 的名称是 Hidden （隐藏） 和 Simplify （简化） 的合并而�
 <details markdown="1"><summary><h3>其他奇妙的功能</h3> （点击这里）</summary>
 
 <details  markdown="1"> <summary>支持的操作系统</summary>
-  hiddify-manager 已经在 Ubuntu 20.04 和 22.04 上进行了测试。支持 Ubuntu arm64 或 amd64 。
+  Hiddify-Manager 已经在 Ubuntu 20.04 和 22.04 上进行了测试。支持 Ubuntu arm64 或 amd64 。
 </details>
 
 <details  markdown="1"> <summary>Speed test</summary>
@@ -137,6 +137,7 @@ Hiddify 的名称是 Hidden （隐藏） 和 Simplify （简化） 的合并而�
  `https://yourdomain.com/yoursecret/redirect/ss://secret/` 
  
 </details>
+</details>
 
 ## 安装和教程
 **请单击下面的图片，在我们的维基页面上找到相关信息。**
@@ -150,10 +151,10 @@ Hiddify 的名称是 Hidden （隐藏） 和 Simplify （简化） 的合并而�
 ## 捐赠与支持
 支持我们的最简单方法是单击此页面顶部的 Star （⭐）。
 
-我们的服务也需要资金支持。我们所有的活动都是自愿进行的，资金支持将用于项目的开发。您可以在 [此处](https://github.com/hiddify/hiddify-manager/wiki/support) 查看我们的支持地址。
+我们的服务也需要资金支持。我们所有的活动都是自愿进行的，资金支持将用于项目的开发和维护。您可以在 [此处](https://github.com/hiddify/hiddify-manager/wiki/support) 查看我们的支持地址。
 
 ## 协作和联系信息
-我们需要您的合作才能开发此项目。如果您是这些领域的专家，请随时与我们联系。
+我们需要您的协作才能继续开发并维护此项目。如果您是这些领域的专家，请随时与我们联系。
 
 * 视频制作
 * Python 开发
@@ -171,7 +172,7 @@ Hiddify 的名称是 Hidden （隐藏） 和 Simplify （简化） 的合并而�
 </div>
 
 <p align=center>
-感谢所有参与该项目的人。包括以下列出的人，和更多来自 Github 的人。你们对我们意义非常重大。 ♥ </p>
+感谢所有参与该项目的人。包括以下列出的人，和更多其他来自 Github 的人。你们对我们的意义非常重大。 ♥ </p>
  
 <p align=center> 
 <a href="https://github.com/hiddify/hiddify-manager/graphs/contributors">
