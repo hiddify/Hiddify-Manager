@@ -56,8 +56,9 @@ jobs:
           sudo apt install -y zip
       - name: zip
         run: |
-          zip -r hiddify-server.zip .  -x .**\*
-          cp hiddify-server.zip hiddify-config.zip 
+          zip -r hiddify-manager.zip .  -x .**\*
+          cp hiddify-manager.zip hiddify-config.zip 
+          cp hiddify-manager.zip hiddify-server.zip 
 
       - name: Generate Changelog
         run: .github/release_message.sh > release_message.md
