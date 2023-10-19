@@ -143,14 +143,15 @@ function set_config_from_hpanel() {
                 cd hiddify-panel
                 python3 -m hiddifypanel all-configs
         ) >current.json
+        chmod 600 current.json
         if [[ $? != 0 ]]; then
                 error "Exception in Hiddify Panel. Please send the log to hiddify@gmail.com"
                 echo "4" >log/error.lock
                 exit 4
         fi
-        
-        export SERVER_IP=`curl --connect-timeout 1 -s https://v4.ident.me/`
-        export SERVER_IPv6=`curl  --connect-timeout 1 -s https://v6.ident.me/`
+
+        export SERVER_IP=$(curl --connect-timeout 1 -s https://v4.ident.me/)
+        export SERVER_IPv6=$(curl --connect-timeout 1 -s https://v6.ident.me/)
 }
 
 function install_run() {
