@@ -10,7 +10,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 echo "we are going to download needed files:)"
-GITHUB_REPOSITORY=hiddify-server
+GITHUB_REPOSITORY=hiddify-config
 GITHUB_USER=hiddify
 GITHUB_BRANCH_OR_TAG=main
 
