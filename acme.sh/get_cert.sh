@@ -5,7 +5,8 @@ DOMAIN=$1
 ssl_cert_path=../ssl
 mkdir -p /opt/hiddify-manager/acme.sh/www/.well-known/acme-challenge
 echo "location /.well-known/acme-challenge {root /opt/hiddify-manager/acme.sh/www/;}" >/opt/hiddify-manager/nginx/parts/acme.conf
-systemctl reload hiddify-nginx
+systemctl reload --now hiddify-nginx
+
 rm -f $ssl_cert_path/$DOMAIN.key
 DOMAIN_IP=$(dig +short -t a $DOMAIN.)
 echo "resolving domain $DOMAIN -> IP= $DOMAIN_IP ServerIP-> $SERVER_IP"
