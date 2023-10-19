@@ -112,6 +112,7 @@ echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/hiddify-panel/temp
 echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/hiddify-panel/update_usage.sh" >>/etc/sudoers.d/hiddify
 echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/hiddify-panel/restart.sh" >>/etc/sudoers.d/hiddify
 echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/nginx/add2shortlink.sh" >>/etc/sudoers.d/hiddify
+echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/acme.sh/get_cert.sh" >>/etc/sudoers.d/hiddify
 
 ln -sf /opt/hiddify-manager/menu.sh /usr/bin/hiddify
 
