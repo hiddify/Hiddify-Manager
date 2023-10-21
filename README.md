@@ -77,7 +77,7 @@ Hiddify-Manager is a powerful and professional anti-censorship toolbox, which is
 
 ***
 ## Why Hiddify-Manager?
-Hiddify-Manager is a mixture of Hidden and Simplify. It is a panel with a wide range of features and capabilities that helps you enjoy hassle-free and secure internet browsing. Serving as a user-friendly VPN solution, Hiddify ensures that you can access the free internet with ease and peace of mind. 
+The word *Hiddify* is a combination of hidden and simplify. We aim to bring together everything that helps to make it simple and hidden in **Hiddify-Manager**. In other words, it is a panel with a wide range of features and capabilities that helps you enjoy hassle-free and secure internet browsing.”. Serving as a user-friendly VPN solution, Hiddify ensures that you can access the free internet with ease and peace of mind. 
 
 ### Attractive features
 - **Quick installation**
