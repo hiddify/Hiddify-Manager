@@ -41,7 +41,7 @@
 
 ## Welcome to Hiddify-Manager
 
-Hiddify is a powerful and professional anti-censorship toolbox, which is a multi-user panel with an effortless installation and <b>supporting more than 20 protocols</b> including <b>Reality</b> and <b>Telegram proxy</b> to circumvent filtering.  It's optimized for censorship circumvention in <b>China</b>, <b>Russia</b> and <b>Iran</b> and Recommended by <a href="https://github.com/XTLS/Xray-core#installation" target="_blank"><b>Xray</b></a>. It's a great replacement of X-UI panel.
+Hiddify-Manager is a powerful and professional anti-censorship toolbox, which is a multi-user panel with an effortless installation and <b>supporting more than 20 protocols</b> including <b>Reality</b> and <b>Telegram proxy</b> to circumvent filtering.  It's optimized for censorship circumvention in <b>China</b>, <b>Russia</b> and <b>Iran</b> and Recommended by <a href="https://github.com/XTLS/Xray-core#installation" target="_blank"><b>Xray</b></a>. It's a great replacement of X-UI panel.
 
 
 
@@ -126,7 +126,7 @@ And dozens of other features that you will notice upon installation.
 
 <details markdown="1"> <summary><h3>Smart proxy for domestic and filtered sites</h3> (click here)</summary>
  
-You can connect to the internet in 3 modes using Hiddify(Clash) client and Hiddify panel. 
+You can connect to the internet in 3 modes using Hiddify and Hiddify-Manager. 
 1. This method only circumvents filtered websites via the proxies.
 2. This method circumvents all websites except domestic websites based in China, Russia and Iran. This way the domestic websites can be opened without any proxies (recommended)
 3. This method circumvents all websites. 
@@ -139,7 +139,7 @@ At the same time, the proposed solution is resistant to detection by the interne
 
 
 <details  markdown="1"> <summary>Supported operating systems</summary>
-Hiddify has been tested on Ubuntu 20.04 and 22.04. Ubuntu arm64 or amd64
+Hiddify-Manager has been tested on Ubuntu 20.04 and 22.04. Ubuntu arm64 or amd64
 </details>
 
 
