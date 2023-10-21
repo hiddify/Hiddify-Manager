@@ -2,10 +2,10 @@ source ../common/utils.sh
 rm -rf configs/*.template
 latest=$(get_release_version hiddify-sing-box)
 
-if [ "$(cat VERSION)" != $latest ]; then
+if [ "$(cat VERSION)" != $latest ] || ! is_installed ./sing-box; then
     pkg=$(dpkg --print-architecture)
 
-    curl -Lo sb.zip https://github.com/hiddify/hiddify-sing-box/releases/download/$latest/sing-box-linux-$pkg.zip
+    curl -Lo sb.zip https://github.com/hiddify/hiddify-sing-box/releases/download/v$latest/sing-box-linux-$pkg.zip
 
     unzip -o sb.zip
     cp -f sing-box-*/sing-box .
