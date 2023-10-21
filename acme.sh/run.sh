@@ -3,3 +3,9 @@ domains=$(cat ../current.json | jq -r '.domains[] | select(.mode | IN("direct", 
 for d in $domains; do
 	bash get_cert.sh $d
 done
+
+domains=$(cat ../current.json | jq -r '.domains[] | select(.mode | IN("fake")) | .domain')
+
+for d in $domains; do
+	bash generate_self_signed_cert.sh $d
+done

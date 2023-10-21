@@ -29,8 +29,7 @@ fi
     --reloadcmd "echo success"
 
 if [[ $? != 0 ]]; then
-    rm $ssl_cert_path/$DOMAIN.key $ssl_cert_path/$DOMAIN.crt
-    openssl req -x509 -newkey rsa:2048 -keyout $ssl_cert_path/$DOMAIN.crt.key -out $ssl_cert_path/$DOMAIN.crt -days 3650 -nodes -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=www.google.com"
+    bash generate_self_signed_cert.sh $DOMAIN
 fi
 
 chmod 644 $ssl_cert_path/$DOMAIN.crt.key
