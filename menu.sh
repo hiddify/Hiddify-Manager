@@ -12,7 +12,7 @@ if [[ $(grep "/opt/hiddify-manager/menu.sh" ~/.bashrc | wc -l) > 0 ]]; then
     echo "cd /opt/hiddify-manager/" >>~/.bashrc
 fi
 
-if grep -Fxq "PasswordAuthentication yes" /etc/ssh/sshd_config; then
+if ! grep -Fxq "PasswordAuthentication no" /etc/ssh/sshd_config; then
   # @hiddify/@iam54r1n4 make a better message with a link to why should disable pass-auth
   WARNING_MSG="Your server is vulnerable to abuses because PasswordAuthentication is enabled. To secure your server, please switch to key authentication mechanism and turn off PasswordAuthentication in your ssh config file."
   whiptail --title "WARNING" --msgbox "$WARNING_MSG" 10 78

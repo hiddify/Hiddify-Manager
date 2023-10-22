@@ -1,3 +1,4 @@
+source /opt/hiddify-manager/common/utils.sh
 function add2iptables() {
   iptables -C $1 || echo "adding rule $1" && iptables -I $1
 }
@@ -102,25 +103,24 @@ for PORT in "${TCP_PORTS[@]}"; do
 done
 
 # Check if PasswordAuthentication is enabled 
-if grep -Fxq "PasswordAuthentication yes" /etc/ssh/sshd_config; then
+if ! grep -Fxq "PasswordAuthentication no" /etc/ssh/sshd_config; then
   # @hiddify/@iam54r1n4 make a better message with a link to why should disable pass-auth
-  WARNING_MSG="WARNING: Please disable PasswordAuthentication in your ssh config file !!!"
+  WARNING_MSG="Your server is vulnerable to abuses because PasswordAuthentication is enabled. To secure your server, please switch to key authentication mechanism and turn off PasswordAuthentication in your ssh config file."
   
   # Keep the orginal motd file as motd.org
   if [ -f /etc/motd ]; then
     MOTD_CONTENT=$(cat /etc/motd)
-    if [[ MOTD_CONTENT != WARNING_MSG]];then
+    if [[ "$MOTD_CONTENT" != "$WARNING_MSG" ]];then
       mv /etc/motd /etc/motd.org
     fi
   fi
 
   # Create new /etc/motd file
-  . ./utils.sh
   error "$WARNING_MSG" > /etc/motd 2>&1
 else
   # Show orginal /etc/motd
   MOTD_CONTENT=$(cat /etc/motd)
-   if [[ MOTD_CONTENT == WARNING_MSG]];then
+   if [[ "$MOTD_CONTENT" == "$WARNING_MSG" ]];then
      rm /etc/motd
      mv /etc/motd.org /etc/motd
    fi
