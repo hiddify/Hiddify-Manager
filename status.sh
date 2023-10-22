@@ -14,14 +14,9 @@ function main(){
 
 bash other/warp/status.sh
 
-if [ -f "other/warp/xray_warp_conf.json" ];then
-	# (cd other/warp&& wgcf update)
-	# echo "Your IP for custom WARP:"
-	# curl -s -x socks://127.0.0.1:1234 --connect-timeout 4 www.ipinfo.io
+echo "Your Global IP"
+curl -s -x socks://127.0.0.1:1234 --connect-timeout 1 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
 
-	echo "Your Global IP"
-	curl -s -x socks://127.0.0.1:1234 --connect-timeout 1 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
-fi
 
 
 for s in other/**/*.service **/*.service wg-quick@warp;do
