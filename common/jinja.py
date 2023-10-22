@@ -1,4 +1,5 @@
 import os
+import sys
 from jinja2 import Environment, FileSystemLoader
 import json5
 import json
@@ -49,7 +50,7 @@ def render_j2_templates(start_path):
 
 
 start_path = '/opt/hiddify-manager/'
-if __file__ == '__main__':
-    if len(sys.argv) > 1 and sys.argv[1] == 'apply_users':
-        start_path += f'singbox/'
-    render_j2_templates(start_path)
+
+if len(sys.argv) > 1 and sys.argv[1] == 'apply_users':
+    start_path += f'singbox/'
+render_j2_templates(start_path)
