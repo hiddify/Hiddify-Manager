@@ -1,5 +1,12 @@
 #!/bin/bash
 cd $(dirname -- "$0")
+# Fix the installation directory
+if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-config/" ]; then
+        ln -s /opt/hiddify-config /opt/hiddify-manager
+fi
+if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-server/" ]; then
+        ln -s /opt/hiddify-server /opt/hiddify-manager
+fi
 source /opt/hiddify-manager/common/utils.sh
 source ./common/ticktick.sh
 export DEBIAN_FRONTEND=noninteractive
@@ -33,15 +40,12 @@ function main() {
         bash common/replace_variables.sh
 
         if [ "$MODE" != "apply_users" ]; then
-                update_progress "installing..." "Haproxy for Spliting Traffic" 10
-                install_run haproxy
-
                 update_progress "Installing..." "Common Tools" 13
                 install_run common
 
-                update_progress "installing..." "Warp" 15
-                #$([ "$WARP_MODE" != 'disable' ] || echo "false")
-                install_run other/warp
+                update_progress "installing..." "Haproxy for Spliting Traffic" 10
+                install_run haproxy
+
 
                 update_progress "installing..." "Nginx" 20
                 install_run nginx
@@ -55,11 +59,11 @@ function main() {
                 update_progress "installing..." "Telegram Proxy" 40
                 install_run other/telegram $ENABLE_TELEGRAM
 
-                update_progress "installing..." "FakeTlS Proxy" 45
-                install_run other/ssfaketls $ENABLE_SS
+                # update_progress "installing..." "FakeTlS Proxy" 45
+                # install_run other/ssfaketls $ENABLE_SS
 
-                update_progress "installing..." "V2ray WS Proxy" 50
-                install_run other/v2ray $ENABLE_V2RAY
+                # update_progress "installing..." "V2ray WS Proxy" 50
+                # install_run other/v2ray $ENABLE_V2RAY
 
                 update_progress "installing..." "SSH Proxy" 55
                 install_run other/ssh $ssh_server_enable
@@ -69,6 +73,10 @@ function main() {
 
                 update_progress "installing..." "Xray" 70
                 install_run xray
+
+                update_progress "installing..." "Warp" 15
+                #$([ "$WARP_MODE" != 'disable' ] || echo "false")
+                install_run other/warp
         fi
 
         update_progress "installing..." "Singbox" 80
@@ -136,13 +144,6 @@ function check() {
         fi
 }
 
-# Fix the installation directory
-if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-config/" ]; then
-        ln -s /opt/hiddify-config /opt/hiddify-manager
-fi
-if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-server/" ]; then
-        ln -s /opt/hiddify-server /opt/hiddify-manager
-fi
 function cleanup() {
         error "Script interrupted. Exiting..."
         disable_ansii_modes
