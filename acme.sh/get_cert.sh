@@ -34,6 +34,6 @@ fi
 
 chmod 644 $ssl_cert_path/$DOMAIN.crt.key
 echo "" >/opt/hiddify-manager/nginx/parts/acme.conf
-systemctl reload hiddify-nginx
+systemctl reload --now hiddify-nginx
 
 systemctl reload hiddify-haproxy

@@ -24,6 +24,6 @@ rm /etc/nginx/conf.d/default.conf >/dev/null 2>&1
 rm /etc/nginx/conf.d/xray-base.conf >/dev/null 2>&1
 rm /etc/nginx/conf.d/speedtest.conf >/dev/null 2>&1
 
-mkdir run
+mkdir -p run
 ln -sf $(pwd)/hiddify-nginx.service /etc/systemd/system/hiddify-nginx.service
 systemctl enable hiddify-nginx.service
