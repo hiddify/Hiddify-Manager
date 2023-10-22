@@ -26,7 +26,7 @@ function main() {
         update_progress "" "Reading Configs from Panel..." 5
         set_config_from_hpanel
 
-        update_progress "Applying Configs" "..." 5
+        update_progress "Applying Configs" "..." 8
 
         bash common/replace_variables.sh
 
@@ -65,13 +65,13 @@ function main() {
                 install_run other/shadowtls $ENABLE_SHADOWTLS
 
         fi
-        update_progress "installing..." "Xray" 90
+        update_progress "installing..." "Xray" 70
         install_run xray
 
         update_progress "installing..." "Singbox" 80
         install_run singbox
 
-        update_progress "installing..." "Finished" 100
+        update_progress "installing..." "Almost Finished" 90
 
         echo "---------------------Finished!------------------------"
         rm log/install.lock
