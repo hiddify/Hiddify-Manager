@@ -103,7 +103,7 @@
                     "domain:homedepot.com",
                     "domain:flutter.dev",
                     "domain:adobe.com"
-                    {%for d in hconfigs['warp_sites'].split('\n')%}
+                    {%for d in hconfigs.get('warp_sites','').split('\n')%}
                     ,"domain:{{d.strip()}}"
                     {%endfor%}
                 ]

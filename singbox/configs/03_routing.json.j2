@@ -41,7 +41,7 @@
               
             ],
             "domain":[
-                {%for d in hconfigs['warp_sites'].split('\n')%}
+                {%for d in hconfigs.get('warp_sites','').split('\n')%}
                     "{{d.strip()}}",
                 {%endfor%}
             ]
