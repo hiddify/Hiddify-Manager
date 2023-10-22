@@ -30,9 +30,10 @@ function main() {
 
         bash common/replace_variables.sh
 
-        update_progress "installing..." "Haproxy for Spliting Traffic" 10
-        install_run haproxy
         if [ "$MODE" != "apply_users" ]; then
+                update_progress "installing..." "Haproxy for Spliting Traffic" 10
+                install_run haproxy
+
                 update_progress "Installing..." "Common Tools" 13
                 install_run common
 

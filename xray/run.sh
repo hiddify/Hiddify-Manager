@@ -20,7 +20,7 @@ for cfg in os.listdir('configs'):
 				json.dump(new_data,f,indent=4)
 EOF
 
-curl -s -x socks://127.0.0.1:3000 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
+# curl -s -x socks://127.0.0.1:3000 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
 
 if [ "$MODE" != "apply_users" ]; then
 
