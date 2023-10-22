@@ -10,17 +10,19 @@ fi
 function main() {
         update_progress "Please wait..." "We are going to install Hiddify..." 0
         export ERROR=0
-        clean_files
-
-        install_run other/redis
-        install_run other/mysql
-        install_python
         export MODE="$1"
+        if [ "$MODE" != "apply_users" ]; then
+                clean_files
 
-        # Because we need to generate reality pair in panel
-        is_installed xray || bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.4
+                install_run other/redis
+                install_run other/mysql
+                install_python
 
-        [ "$MODE" != "apply_users" ] && install_run hiddify-panel
+                # Because we need to generate reality pair in panel
+                is_installed xray || bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.4
+
+                install_run hiddify-panel
+        fi
 
         # source common/set_config_from_hpanel.sh
         update_progress "" "Reading Configs from Panel..." 5
@@ -65,9 +67,9 @@ function main() {
                 update_progress "installing..." "ShadowTLS" 60
                 install_run other/shadowtls $ENABLE_SHADOWTLS
 
+                update_progress "installing..." "Xray" 70
+                install_run xray
         fi
-        update_progress "installing..." "Xray" 70
-        install_run xray
 
         update_progress "installing..." "Singbox" 80
         install_run singbox
@@ -85,7 +87,11 @@ function main() {
 
 function clean_files() {
         rm -rf log/system/xray*
+        rm /opt/hiddify-manager/xray/configs/*.json
+        rm /opt/hiddify-manager/singbox/configs/*.json
+        rm /opt/hiddify-manager/haproxy/*.cfg
         find ./ -type f -name "*.template" -exec rm -f {} \;
+
 }
 
 function check() {
