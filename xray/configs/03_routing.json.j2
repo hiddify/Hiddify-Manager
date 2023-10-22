@@ -102,6 +102,9 @@
                     "domain:adbtc.top",
                     "domain:homedepot.com",
                     "domain:flutter.dev"
+                    {%for d in hconfigs['warp_sites'].split('\n')%}
+                    ,"domain:{{d.strip()}}"
+                    {%endfor%}
                 ]
             },
         

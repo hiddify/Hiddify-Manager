@@ -38,6 +38,12 @@
             "outbound": {% if hconfigs['warp_mode'] == 'disable' %}"freedom"{% else %}"WARP"{% endif %},
             "geosite":[
                 "hiddify-hetzner-warp"
+              
+            ],
+            "domain":[
+                {%for d in hconfigs['warp_sites'].split('\n')%}
+                    "{{d.strip()}}",
+                {%endfor%}
             ]
         },
         {
