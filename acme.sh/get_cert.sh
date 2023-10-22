@@ -5,7 +5,7 @@ DOMAIN=$1
 ssl_cert_path=../ssl
 mkdir -p /opt/hiddify-manager/acme.sh/www/.well-known/acme-challenge
 echo "location /.well-known/acme-challenge {root /opt/hiddify-manager/acme.sh/www/;}" >/opt/hiddify-manager/nginx/parts/acme.conf
-systemctl reload --now hiddify-nginx
+# systemctl reload --now hiddify-nginx
 
 rm -f $ssl_cert_path/$DOMAIN.key
 DOMAIN_IP=$(dig +short -t a $DOMAIN.)
@@ -20,7 +20,7 @@ if [ "$SERVER_IPv6" != "" ]; then
     flags="--listen-v6"
 fi
 
-./lib/acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log
+./lib/acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --pre-hook "systemctl restart hiddify-nginx"
 ./lib/acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt
 
 ./lib/acme.sh --installcert -d $DOMAIN \
