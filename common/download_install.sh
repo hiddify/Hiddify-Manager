@@ -4,6 +4,7 @@ if [ "$(id -u)" -ne 0 ]; then
         exit 1
 fi
 export DEBIAN_FRONTEND=noninteractive
+
 if [ "$(id -u)" -ne 0 ]; then
         echo 'This script must be run by root' >&2
         exit 1
@@ -16,7 +17,9 @@ GITHUB_BRANCH_OR_TAG=main
 
 # if [ ! -d "/opt/$GITHUB_REPOSITORY" ];then
 apt update
-apt upgrade -y
+#apt upgrade -y
+apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
+
 apt install -y curl unzip
 # pip3 install lastversion "requests<=2.29.0"
 # pip install lastversion "requests<=2.29.0"
