@@ -10,9 +10,9 @@ if ! is_installed ./lib/acme.sh; then
         --cert-home /opt/hiddify-manager/acme.sh/lib/certs
 
     sed -i 's|_sleep_overload_retry_sec=$_retryafter|_sleep_overload_retry_sec=$_retryafter; if [[ "$_retryafter" > 20 ]];then return 10; fi|g' lib/acme.sh
-    ./lib/acme.sh --register-account -m my@example.com
     ./lib/acme.sh --uninstall-cronjob
 fi
+./lib/acme.sh --register-account -m my@example.com
 mkdir -p ../ssl/
 ./lib/acme.sh --uninstall-cronjob
 systemctl reload hiddify-haproxy

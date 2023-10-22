@@ -20,8 +20,8 @@ if [ "$SERVER_IPv6" != "" ]; then
     flags="--listen-v6"
 fi
 
-./lib/acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt
 ./lib/acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log
+./lib/acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt
 
 ./lib/acme.sh --installcert -d $DOMAIN \
     --fullchainpath $ssl_cert_path/$DOMAIN.crt \
