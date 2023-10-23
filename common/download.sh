@@ -176,7 +176,8 @@ function update_from_github() {
     local override_version=$3
 
     local file_type=${file_name##*.}
-
+    mkdir -p /opt/hiddify_manager
+    cd /opt/hiddify_manager
     curl -L -o "$file_name" "$url"
 
     if [[ "$file_type" == "zip" ]]; then
