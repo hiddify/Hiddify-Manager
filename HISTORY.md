@@ -5,6 +5,10 @@
 
 ### New
 
+* Add upgrade to download. [hiddify]
+
+* Update from remote. [hiddify]
+
 * Add qr code. [hiddify]
 
 * Add adobe to warp list. [hiddify]
@@ -44,6 +48,28 @@
 * Restructure reality hysteria2 tuic port management. [hiddify]
 
 ### Fix
+
+* First link bug. [hiddify]
+
+* Bugs. [hiddify]
+
+* Better display. [hiddify]
+
+* Dns issue. [hiddify]
+
+* Download location. [hiddify]
+
+* Missing. [hiddify]
+
+* Notifs. [hiddify]
+
+* Directory. [hiddify]
+
+* Bug. [hiddify]
+
+* Beta version issue. [hiddify]
+
+* Bug. [hiddify]
 
 * Firewall. [hiddify]
 
@@ -216,6 +242,12 @@
 * Remove remote. [hiddify]
 
 ### Other
+
+* Fix download. [hiddify]
+
+* Update download. [hiddify]
+
+* Add direct download of beta version. [hiddify]
 
 * Only zero ssl. [hiddify]
 
@@ -620,6 +652,26 @@
 * Remove old database after upgrade. [hiddify]
 
 * Change backend to mysql. [hiddify]
+
+
+## v10.5.43 (2023-10-23)
+
+### Fix
+
+* Cert issue. [hiddify]
+
+
+## v10.5.42 (2023-10-23)
+
+### Fix
+
+* Download beta issue. [hiddify]
+
+* Name issue. [hiddify]
+
+### Other
+
+* Fix. [hiddify]
 
 
 ## v10.5.41 (2023-10-19)
