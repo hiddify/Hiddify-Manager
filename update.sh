@@ -131,17 +131,17 @@ function update_config() {
         fi
         ;;
     beta)
-        local latest=$(get_pre_release_version hiddifypanel)
+        local latest=$(get_pre_release_version hiddify-manager)
         echo "BETA: Current Config Version=$current_config_version -- Latest=$latest"
         if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
             update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
-            update_from_github "hiddify-config.zip" "https://github.com/hiddify/hiddify-config/releases/download/$latest/hiddify-config.zip"
+            update_from_github "hiddify-manager.zip" "https://github.com/hiddify/hiddify-config/releases/download/v$latest/hiddify-manager.zip"
             update_progress "Updated..." "Hiddify Config to $latest" 100
             return 0
         fi
         ;;
     release)
-        local latest=$(get_release_version hiddify-server)
+        local latest=$(get_release_version hiddify-manager)
         echo "RELEASE: Current Config Version=$current_config_version -- Latest=$latest"
         if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
             update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
