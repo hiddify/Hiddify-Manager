@@ -4,6 +4,7 @@
 curl -L -o /tmp/hiddify-utils.sh https://raw.githubusercontent.com/hiddify/Hiddify-Manager/main/common/utils.sh
 chmod +x /tmp/hiddify-utils.sh
 source /tmp/hiddify-utils.sh
+LOG_FILE=/tmp/hiddify-install.log
 
 function main() {
     local force=true
@@ -32,8 +33,8 @@ function update_panel() {
 
     # Your existing logic for checking and updating the panel version based on the package mode
     # Set panel_update to 1 if an update is performed
-    if [[ -z "$package_mode" || ($package_mode == "develop" || $package_mode == "beta" || $package_mode == "release") ]]; then
-        (cd hiddify-panel && hiddifypanel set-setting -k package_mode -v $1)
+    if [[ is_installed  hiddifypanel ]] && [[ -z "$package_mode" || ($package_mode == "develop" || $package_mode == "beta" || $package_mode == "release") ]]; then
+        (cd /opt/hiddify-manager/hiddify-panel && hiddifypanel set-setting -k package_mode -v $1)
     fi
     case "$package_mode" in
     develop)
@@ -102,7 +103,7 @@ function update_config() {
         fi
         ;;
     beta)
-        local latest=$(get_pre_release_version hiddifypanel)
+        local latest=$(get_pre_release_version hiddify-manager)
         echo "BETA: Current Config Version=$current_config_version -- Latest=$latest"
         if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
             update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
@@ -212,7 +213,7 @@ else
         --tailboxbg $LOG_FILE $log_h $log_w \
         --and-widget \
         --begin $((log_h + 2)) 2 \
-        --gauge "Please wait..., We are going to install Hiddify" 7 $log_w 0
+        --gauge "Please wait..., We are going to install Hiddify Manager $@" 7 $log_w 0
 
     disable_ansii_modes
     reset
