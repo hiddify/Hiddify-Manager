@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v10.5.43 (2023-10-23)
+
+### Fix
+
+* Cert issue. [hiddify]
+
+
 ## v10.5.42 (2023-10-23)
 
 ### Fix
