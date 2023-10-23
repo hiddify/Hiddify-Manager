@@ -1,3 +1,15 @@
+sudo systemctl stop --now systemd-resolved.service
+sudo systemctl disable --now systemd-resolved.service
+
+echo "nameserver 8.8.8.8" >/etc/resolv.conf
+echo "nameserver 1.1.1.1" >>/etc/resolv.conf
+echo "nameserver 8.8.8.8" >/etc/resolvconf/resolv.conf.d/base
+echo "nameserver 1.1.1.1" >>/etc/resolvconf/resolv.conf.d/base
+sudo systemctl restart systemd-networkd 2>&1
+sudo systemctl restart NetworkManager 2>&1
+
+resolvconf -u
+
 source utils.sh
 
 if [[ $COUNTRY == 'cn' ]]; then
@@ -93,16 +105,6 @@ service cron reload
 
 localectl set-locale LANG=C.UTF-8
 update-locale LANG=C.UTF-8
-
-sudo systemctl stop systemd-resolved
-sudo systemctl disable systemd-resolved
-
-echo "nameserver 8.8.8.8" >/etc/resolv.conf
-echo "nameserver 1.1.1.1" >>/etc/resolv.conf
-echo "nameserver 8.8.8.8" >/etc/resolvconf/resolv.conf.d/base
-echo "nameserver 1.1.1.1" >>/etc/resolvconf/resolv.conf.d/base
-
-resolvconf -u
 
 echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/install.sh" >/etc/sudoers.d/hiddify
 echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/status.sh" >>/etc/sudoers.d/hiddify
