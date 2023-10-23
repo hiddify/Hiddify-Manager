@@ -1,27 +1,27 @@
 #!/bin/bash
 
 # Create necessary directories and define constants
-curl -L -o /tmp/hiddify-utils.sh https://raw.githubusercontent.com/hiddify/Hiddify-Manager/main/common/utils.sh
-chmod +x /tmp/hiddify-utils.sh
-source /tmp/hiddify-utils.sh
+curl -sSL "https://raw.githubusercontent.com/hiddify/Hiddify-Manager/main/common/utils.sh" | bash -
+
 LOG_FILE=/tmp/hiddify-install.log
 
-function main() {
-    local force=true
+function install_panel() {
+    local force=${2:-true}
+    local package_mode=${1:-release}
     local update=0
     local panel_update=0
 
-    if [[ -n "$1" ]]; then
-        local package_mode=$1
-    else
-        local package_mode="release"
+    if ! is_installed hiddifypanel; then
+        sed -i "s|/opt/hiddify-manager/menu.sh||g" ~/.bashrc
+        sed -i "s|cd /opt/hiddify-manager/||g" ~/.bashrc
+        echo "/opt/hiddify-manager/menu.sh" >>~/.bashrc
+        echo "cd /opt/hiddify-manager/" >>~/.bashrc
     fi
 
     update_panel "$package_mode" "$force"
     panel_update=$?
     update_config "$package_mode" "$force"
     config_update=$?
-
     post_update_tasks "$panel_update" "$config_update"
 }
 
@@ -33,7 +33,7 @@ function update_panel() {
 
     # Your existing logic for checking and updating the panel version based on the package mode
     # Set panel_update to 1 if an update is performed
-    if [[ is_installed  hiddifypanel ]] && [[ -z "$package_mode" || ($package_mode == "develop" || $package_mode == "beta" || $package_mode == "release") ]]; then
+    if is_installed hiddifypanel && [[ -z "$package_mode" || ($package_mode == "develop" || $package_mode == "beta" || $package_mode == "release") ]]; then
         (cd /opt/hiddify-manager/hiddify-panel && hiddifypanel set-setting -k package_mode -v $1)
     fi
     case "$package_mode" in
@@ -107,7 +107,7 @@ function update_config() {
         echo "BETA: Current Config Version=$current_config_version -- Latest=$latest"
         if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
             update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
-            update_from_github "hiddify-manager.zip" "https://github.com/hiddify/hiddify-manager/releases/download/$latest/hiddify-manager.zip"
+            update_from_github "hiddify-manager.zip" "https://github.com/hiddify/hiddify-manager/releases/download/v$latest/hiddify-manager.zip"
             update_progress "Updated..." "Hiddify Config to $latest" 100
             return 0
         fi
@@ -191,7 +191,7 @@ date +%s >$LOCK_FILE
 # Run the main function and log the output
 if [[ " $@ " == *" --no-gui "* ]]; then
     set -- "${@/--no-gui/}"
-    main "$@" 2>&1 | tee $LOG_FILE
+    install_panel "$@" 2>&1 | tee $LOG_FILE
     disable_ansii_modes
 else
     # Get terminal dimensions with fallback values
@@ -207,7 +207,7 @@ else
     # Log the console size
     echo "console size=$log_h $log_w" | tee $LOG_FILE
 
-    main "$@" 2>&1 | tee -a $LOG_FILE | dialog --colors --keep-tite --backtitle "$BACKTITLE" \
+    install_panel "$@" 2>&1 | tee -a $LOG_FILE | dialog --colors --keep-tite --backtitle "$BACKTITLE" \
         --title "Installing Hiddify" \
         --begin 2 2 \
         --tailboxbg $LOG_FILE $log_h $log_w \
@@ -219,4 +219,8 @@ else
     reset
     msg_with_hiddify "The installation has successfully completed."
     check $@ |& tee -a $log_file
+
+    read -p "Press any key to go  to menu" -n 1 key
+    cd /opt/hiddify-manager
+    bash menu.sh
 fi
