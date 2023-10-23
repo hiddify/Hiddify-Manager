@@ -5,6 +5,8 @@
 
 ### New
 
+* Add upgrade linux packages message. [hiddify]
+
 * Add last version of release and beta in make. [hiddify]
 
 * Add upgrade to download. [hiddify]
@@ -50,6 +52,8 @@
 * Restructure reality hysteria2 tuic port management. [hiddify]
 
 ### Fix
+
+* Haproxy first use. [hiddify]
 
 * Panel link issue. [hiddify]
 
@@ -252,6 +256,8 @@
 * Remove remote. [hiddify]
 
 ### Other
+
+* Better color. [hiddify]
 
 * Fix download. [hiddify]
 
