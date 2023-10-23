@@ -1,4 +1,5 @@
 #!/bin/bash
+cd $(dirname -- "$0")
 source ../../common/utils.sh
 
 install_package mariadb-server
