@@ -49,6 +49,8 @@
 
 ### Fix
 
+* Bug in panel links. [hiddify]
+
 * Check. [hiddify]
 
 * Typo. [hiddify]
