@@ -6,7 +6,7 @@ location = / {
 		{% set  TEMP_LINK_VALID_TIME= nowDatetime + nextH + ")"%}
 		if ($time_iso8601 ~ "^{{TEMP_LINK_VALID_TIME}}" ) {
 			add_header Content-Type text/html;
-			return 200 "{{ hconfigs['proxy_path'] }}/{{ hconfigs['admin_secret'] }}/admin/quick-setup/ <script> document.location='{{ hconfigs['proxy_path'] }}/{{ hconfigs['admin_secret'] }}/admin/quick-setup/'</script>";
+			return 200 "{{admin_path}}quick-setup/ <script> document.location='{{ admin_path }}quick-setup/'</script>";
 			#return 307  {{ hconfigs['admin_secret'] }}/config;
 		}
 	{% endif %}
