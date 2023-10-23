@@ -17,7 +17,7 @@ fi
 function main() {
         update_progress "Please wait..." "We are going to install Hiddify..." 0
         export ERROR=0
-        export MODE="$1"
+
         if [ "$MODE" != "apply_users" ]; then
                 clean_files
 
@@ -45,7 +45,6 @@ function main() {
 
                 update_progress "installing..." "Haproxy for Spliting Traffic" 10
                 install_run haproxy
-
 
                 update_progress "installing..." "Nginx" 20
                 install_run nginx
@@ -100,48 +99,6 @@ function clean_files() {
         rm /opt/hiddify-manager/haproxy/*.cfg
         find ./ -type f -name "*.template" -exec rm -f {} \;
 
-}
-
-function check() {
-        export MODE="$1"
-        if [ "$MODE" != "apply_users" ]; then
-                echo ""
-                echo ""
-                bash status.sh
-                echo "==========================================================="
-                bash common/logo.ico
-                echo "Finished! Thank you for helping to skip filternet."
-
-                install_package qrencode
-                qrencode -t ansiutf8 $(cat ./current.json | jq -r '.panel-links[]' | tail -n 1)
-                cat ./current.json | jq -r '.panel-links[]' | while read -r link; do
-                        echo "Please open the following link in the browser for client setup"
-                        if [[ $link == http://* ]] || [[ $link =~ ^https://[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/ ]]; then
-                                link="[insecure] $link"
-                        fi
-                        echo "  $link"
-                done
-
-                # (cd hiddify-panel && python3 -m hiddifypanel admin-links)
-
-                for s in hiddify-xray hiddify-singbox hiddify-nginx hiddify-haproxy mysql; do
-                        s=${s##*/}
-                        s=${s%%.*}
-                        if [[ "$(systemctl is-active $s)" != "active" ]]; then
-                                error "an important service $s is not working yet"
-                                sleep 5
-                                error "checking again..."
-                                if [[ "$(systemctl is-active $s)" != "active" ]]; then
-                                        error "an important service $s is not working again"
-                                        error "Installation Failed!"
-                                        echo "32" >log/error.lock
-                                        exit 32
-                                fi
-
-                        fi
-
-                done
-        fi
 }
 
 function cleanup() {
@@ -209,11 +166,11 @@ echo "$(date +%s)" >log/install.lock
 
 echo "0" >log/error.lock
 log_file=log/system/0-install.log
-
+export MODE="$1"
 if [[ " $@ " == *" --no-gui "* ]]; then
         set -- "${@/--no-gui/}"
 
-        main $@ |& tee $log_file
+        main |& tee $log_file
         rm -f log/install.lock >/dev/null 2>&1
         disable_ansii_modes
         exit 0
@@ -231,7 +188,7 @@ else
         log_w=$((width - 6))
 
         echo "console size=$log_h $log_w" | tee $log_file
-        main $@ |& tee -a $log_file | dialog --colors --keep-tite \
+        main |& tee -a $log_file | dialog --colors --keep-tite \
                 --backtitle "$BACKTITLE" \
                 --title "Installing Hiddify" \
                 --begin 2 2 \
