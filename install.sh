@@ -129,11 +129,13 @@ function set_config_from_hpanel() {
 }
 
 function install_run() {
+        echo "==========================================================="
         runsh install.sh $@
         if [ "$MODE" != "apply_users" ]; then
                 systemctl daemon-reload
         fi
         runsh run.sh $@
+        echo "==========================================================="
 }
 
 function runsh() {
@@ -146,9 +148,8 @@ function runsh() {
         #         echo "$2 not found"
         # fi
         if [[ $? == 0 && -f $command ]]; then
-                echo "==========================================================="
+               
                 echo "===$command $2"
-                echo "==========================================================="
                 bash $command
         fi
         popd >>/dev/null
