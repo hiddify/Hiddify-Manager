@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Create necessary directories and define constants
-curl -sSL "https://raw.githubusercontent.com/hiddify/Hiddify-Manager/main/common/utils.sh" | bash -
+eval "$(curl -sfLS 'https://raw.githubusercontent.com/hiddify/Hiddify-Manager/main/common/utils.sh')"
 
 LOG_FILE=/tmp/hiddify-install.log
 
