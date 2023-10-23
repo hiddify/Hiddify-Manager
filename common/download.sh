@@ -26,8 +26,8 @@ function install_panel() {
     local panel_update=0
     apt update
     #apt upgrade -y
-    apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
-    
+    apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --only-upgrade upgrade
+
     if ! is_installed hiddifypanel; then
         sed -i "s|/opt/hiddify-manager/menu.sh||g" ~/.bashrc
         sed -i "s|cd /opt/hiddify-manager/||g" ~/.bashrc
@@ -213,7 +213,7 @@ if [[ " $@ " == *" --no-gui "* ]]; then
     install_panel "$@" 2>&1 | tee $LOG_FILE
     disable_ansii_modes
 else
-    # Get terminal dimensions with fallback values
+    BACKTITLE="Welcome to Hiddify Panel Setup"
     width=$(tput cols 2>/dev/null || echo 20)
     height=$(tput lines 2>/dev/null || echo 20)
     width=$((width < 20 ? 20 : width))
@@ -232,7 +232,7 @@ else
         --tailboxbg $LOG_FILE $log_h $log_w \
         --and-widget \
         --begin $((log_h + 2)) 2 \
-        --gauge "Please wait..., We are going to install Hiddify Manager $@" 7 $log_w 0
+        --gauge "Please wait..., We are going to install Hiddify Manager" 7 $log_w 0
 
     disable_ansii_modes
     reset
