@@ -1,4 +1,12 @@
 #!/bin/bash
+if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-config/" ]; then
+    mv /opt/hiddify-config /opt/hiddify-manager
+    ln -s /opt/hiddify-manager /opt/hiddify-config
+fi
+if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-server/" ]; then
+    mv /opt/hiddify-config /opt/hiddify-manager
+    ln -s /opt/hiddify-manager /opt/hiddify-server
+fi
 
 # Create necessary directories and define constants
 eval "$(curl -sfLS 'https://raw.githubusercontent.com/hiddify/Hiddify-Manager/main/common/utils.sh')"
@@ -23,6 +31,10 @@ function install_panel() {
     update_config "$package_mode" "$force"
     config_update=$?
     post_update_tasks "$panel_update" "$config_update"
+
+    if is_installed hiddifypanel && [[ -z "$package_mode" || ($package_mode == "develop" || $package_mode == "beta" || $package_mode == "release") ]]; then
+        (cd /opt/hiddify-manager/hiddify-panel && hiddifypanel set-setting -k package_mode -v $1)
+    fi
 }
 
 function update_panel() {
@@ -30,12 +42,9 @@ function update_panel() {
     local package_mode=$1
     local force=$2
     local current_panel_version=$(get_installed_panel_version)
-
     # Your existing logic for checking and updating the panel version based on the package mode
     # Set panel_update to 1 if an update is performed
-    if is_installed hiddifypanel && [[ -z "$package_mode" || ($package_mode == "develop" || $package_mode == "beta" || $package_mode == "release") ]]; then
-        (cd /opt/hiddify-manager/hiddify-panel && hiddifypanel set-setting -k package_mode -v $1)
-    fi
+
     case "$package_mode" in
     develop)
         # Use the latest commit from GitHub
