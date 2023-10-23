@@ -24,6 +24,7 @@ function install_panel() {
     local package_mode=${1:-release}
     local update=0
     local panel_update=0
+    update_progress "Upgrading..." "Upgrading Linux Packages for extra security..." 5
     apt update
     #apt upgrade -y
     apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --only-upgrade upgrade
