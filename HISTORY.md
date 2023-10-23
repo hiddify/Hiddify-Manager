@@ -49,6 +49,10 @@
 
 ### Fix
 
+* Check. [hiddify]
+
+* Typo. [hiddify]
+
 * First link bug. [hiddify]
 
 * Bugs. [hiddify]
