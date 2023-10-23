@@ -5,6 +5,8 @@
 
 ### New
 
+* Add last version of release and beta in make. [hiddify]
+
 * Add upgrade to download. [hiddify]
 
 * Update from remote. [hiddify]
@@ -48,6 +50,8 @@
 * Restructure reality hysteria2 tuic port management. [hiddify]
 
 ### Fix
+
+* Panel link issue. [hiddify]
 
 * Bug in panel links. [hiddify]
 
