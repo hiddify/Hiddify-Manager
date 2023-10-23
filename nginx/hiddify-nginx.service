@@ -11,6 +11,7 @@ ExecStartPre=/opt/hiddify-manager/nginx/pre-start.sh
 ExecStart=/usr/sbin/nginx -c /opt/hiddify-manager/nginx/nginx.conf
 ExecReload=/bin/sh -c "/bin/kill -s HUP $(/bin/cat /run/hiddify-nginx.pid)"
 ExecStop=/bin/sh -c "/bin/kill -s TERM $(/bin/cat /run/hiddify-nginx.pid)"
+RestartSec=3
 Restart=always
 [Install]
 WantedBy=multi-user.target

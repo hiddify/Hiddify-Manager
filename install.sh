@@ -40,14 +40,14 @@ function main() {
         bash common/replace_variables.sh
 
         if [ "$MODE" != "apply_users" ]; then
-                update_progress "Installing..." "Common Tools" 13
+                update_progress "Installing..." "Common Tools" 10
                 install_run common
 
-                update_progress "installing..." "Haproxy for Spliting Traffic" 10
-                install_run haproxy
-
-                update_progress "installing..." "Nginx" 20
+                update_progress "installing..." "Nginx" 15
                 install_run nginx
+
+                update_progress "installing..." "Haproxy for Spliting Traffic" 20
+                install_run haproxy
 
                 update_progress "installing..." "Getting Certificates" 30
                 install_run acme.sh
@@ -148,7 +148,7 @@ function runsh() {
         #         echo "$2 not found"
         # fi
         if [[ $? == 0 && -f $command ]]; then
-               
+
                 echo "===$command $2"
                 bash $command
         fi
