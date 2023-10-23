@@ -162,8 +162,8 @@ function check() {
         echo "Finished! Thank you for helping to skip filternet."
 
         install_package qrencode
-        qrencode -t ansiutf8 $(cat /opt/hiddify-manager/current.json | jq -r '.panel-links[]' | tail -n 1)
-        cat /opt/hiddify-manager/current.json | jq -r '.panel-links[]' | while read -r link; do
+        qrencode -t ansiutf8 $(cat /opt/hiddify-manager/current.json | jq -r '.panel_inks[]' | tail -n 1)
+        cat /opt/hiddify-manager/current.json | jq -r '.panel_inks[]' | while read -r link; do
             echo "Please open the following link in the browser for client setup"
             if [[ $link == http://* ]] || [[ $link =~ ^https://[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/ ]]; then
                 link="[insecure] $link"
