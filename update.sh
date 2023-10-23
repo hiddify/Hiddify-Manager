@@ -134,7 +134,7 @@ function update_config() {
         echo "BETA: Current Config Version=$current_config_version -- Latest=$latest"
         if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
             update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
-            update_from_github "hiddify-manager.zip" "https://github.com/hiddify/hiddify-manager/releases/download/$latest/hiddify-manager.zip"
+            update_from_github "hiddify-manager.zip" "https://github.com/hiddify/hiddify-manager/releases/download/v$latest/hiddify-manager.zip"
             update_progress "Updated..." "Hiddify Config to $latest" 100
             return 0
         fi
