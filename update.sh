@@ -130,7 +130,7 @@ function update_config() {
         fi
         ;;
     beta)
-        local latest=$(get_pre_release_version hiddifypanel)
+        local latest=$(get_pre_release_version hiddify-manager)
         echo "BETA: Current Config Version=$current_config_version -- Latest=$latest"
         if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
             update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
