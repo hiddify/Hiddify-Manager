@@ -66,7 +66,7 @@ function main() {
     [[ "$latest_panel" != "$current_panel_version" ]] && manager_update=1
 
     if [[ $panel_update == 1 || $manager_update == 1 ]]; then
-        curl -sSL https://raw.githubusercontent.com/hiddify/hiddify-config/main/common/download.sh | bash -s -- "$package_mode" "$force" "--no-gui"
+        bash <(curl -sSL https://raw.githubusercontent.com/hiddify/hiddify-config/main/common/download.sh) "$package_mode" "$force" "--no-gui"
     fi
 
 }
