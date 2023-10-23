@@ -36,6 +36,14 @@ function error() {
     echo -e "\033[91m$1\033[0m" >&2
 }
 
+function warning() {
+    echo -e "\033[93m$1\033[0m" >&2
+}
+
+function success() {
+    echo -e "\033[92m$1\033[0m" >&2
+}
+
 function add_DNS_if_failed() {
     # Domain to check
     DOMAIN="yahoo.com"
@@ -120,6 +128,15 @@ END
     msg "$text \n\n$1"
 
 }
+center_text() {
+    local text="$1"
+    local screen_width="$(tput cols)"
+    local longest_line_length="$(echo "$text" | awk '{ print length }' | sort -rn | head -1)"
+    local padding_width="$(((screen_width - longest_line_length) / 2))"
+    while IFS= read -r line; do
+        printf "%*s%s\n" $padding_width "" "$line"
+    done <<<"$text"
+}
 
 function msg() {
     NEWT_COLORS='title=blue, textbox=blue, border=blue, button=black,blue' whiptail --title Hiddify --msgbox "$1" 0 60
@@ -159,16 +176,23 @@ function check() {
         bash /opt/hiddify-manager/status.sh
         echo "==========================================================="
         bash /opt/hiddify-manager/common/logo.ico
-        echo "Finished! Thank you for helping to skip filternet."
+        success "Finished! Thank you for helping to skip filternet."
 
         install_package qrencode
-        qrencode -t ansiutf8 $(cat /opt/hiddify-manager/current.json | jq -r '.panel_links[]' | tail -n 1)
+        qrencode -t utf8 -m 1 $(cat /opt/hiddify-manager/current.json | jq -r '.panel_links[]' | tail -n 1)
+
+        echo "Please open the following link in the browser for client setup"
         cat /opt/hiddify-manager/current.json | jq -r '.panel_links[]' | while read -r link; do
-            echo "Please open the following link in the browser for client setup"
-            if [[ $link == http://* ]] || [[ $link =~ ^https://[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/ ]]; then
+            if [[ $link == http://* ]]; then
                 link="[insecure] $link"
+                error "  $link"
+            elif [[ $link =~ ^https://[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/ ]]; then
+                link="[invalid HTTPS] $link"
+                warning "  $link"
+            else
+                success "  $link"
             fi
-            echo "  $link"
+
         done
 
         # (cd hiddify-panel && python3 -m hiddifypanel admin-links)
@@ -177,9 +201,9 @@ function check() {
             s=${s##*/}
             s=${s%%.*}
             if [[ "$(systemctl is-active $s)" != "active" ]]; then
-                error "an important service $s is not working yet"
+                warning "an important service $s is not working yet"
                 sleep 5
-                error "checking again..."
+                echo "checking again..."
                 if [[ "$(systemctl is-active $s)" != "active" ]]; then
                     error "an important service $s is not working again"
                     error "Installation Failed!"
