@@ -225,7 +225,7 @@ else
 
     # Log the console size
     echo "console size=$log_h $log_w" | tee $LOG_FILE
-
+    install_package dialog jq
     install_panel "$@" 2>&1 | tee -a $LOG_FILE | dialog --colors --keep-tite --backtitle "$BACKTITLE" \
         --title "Installing Hiddify" \
         --begin 2 2 \
