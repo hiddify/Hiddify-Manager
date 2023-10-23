@@ -240,11 +240,7 @@ function do_for_all() {
                 runsh $1.sh common
                 update_progress "${1}ing..." "Redis" 10
                 runsh $1.sh other/redis
-                update_progress "${1}ing..." "Warp" 15
                 
-                #$([ "$WARP_MODE" != 'disable' ] || echo "false")
-                runsh $1.sh other/warp 
-                #runsh $1.sh certbot
                 
                 update_progress "${1}ing..." "Nginx" 30
                 runsh $1.sh nginx
@@ -252,7 +248,11 @@ function do_for_all() {
                 update_progress "${1}ing..." "Getting Certificates" 20
                 runsh $1.sh acme.sh
                 
+                update_progress "${1}ing..." "Warp" 15
                 
+                #$([ "$WARP_MODE" != 'disable' ] || echo "false")
+                runsh $1.sh other/warp 
+                #runsh $1.sh certbot
                 # runsh $1.sh sniproxy
                 update_progress "${1}ing..." "Personal SpeedTest" 35
                 runsh $1.sh other/speedtest

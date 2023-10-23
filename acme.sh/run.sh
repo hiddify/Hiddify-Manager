@@ -34,8 +34,8 @@ for DOMAIN in $DOMAINS; do
 	# --server  letsencrypt
 	# ./lib/acme.sh --issue --standalone --local-address 127.0.0.1 --httpport 81 -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt
 	# ./lib/acme.sh --issue --standalone --local-address 127.0.0.1 --httpport 81 -d $DOMAIN --log $(pwd)/../log/system/acme.log
+	./lib/acme.sh --issue -w /opt/hiddify-config/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --pre-hook "systemctl restart hiddify-nginx"
 	./lib/acme.sh --issue -w /opt/hiddify-config/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt
-	./lib/acme.sh --issue -w /opt/hiddify-config/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log
 
 	# ./lib/acme.sh --issue --nginx -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags --server letsencrypt
 	# ./lib/acme.sh --issue --nginx -d $DOMAIN --log $(pwd)/../log/system/acme.log $flags
