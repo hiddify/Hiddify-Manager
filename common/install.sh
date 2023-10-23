@@ -20,7 +20,7 @@ else
   sudo timedatectl set-timezone Asia/Tehran
 fi
 
-install_package at whiptail apt-transport-https dnsutils ca-certificates git curl wget gnupg-agent software-properties-common iptables locales lsof cron libssl-dev curl gnupg2 ca-certificates lsb-release ubuntu-keyring resolvconf less jq
+install_package at whiptail apt-transport-https dnsutils ca-certificates git curl wget gnupg-agent software-properties-common iptables locales lsof cron libssl-dev curl gnupg2 ca-certificates lsb-release ubuntu-keyring resolvconf less jq qrencode
 
 remove_package apache2 needrestart
 
