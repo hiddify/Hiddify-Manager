@@ -5,11 +5,6 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 export DEBIAN_FRONTEND=noninteractive
 
-if [ "$(id -u)" -ne 0 ]; then
-        echo 'This script must be run by root' >&2
-        exit 1
-fi
-
 echo "we are going to download needed files:)"
 GITHUB_REPOSITORY=hiddify-config
 GITHUB_USER=hiddify

@@ -1,4 +1,10 @@
 #!/bin/bash
+if [ "$(id -u)" -ne 0 ]; then
+    echo 'This script must be run by root' >&2
+    exit 1
+fi
+export DEBIAN_FRONTEND=noninteractive
+
 if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-config/" ]; then
     mv /opt/hiddify-config /opt/hiddify-manager
     ln -s /opt/hiddify-manager /opt/hiddify-config
@@ -18,14 +24,18 @@ function install_panel() {
     local package_mode=${1:-release}
     local update=0
     local panel_update=0
-
+    apt update
+    #apt upgrade -y
+    apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
+    
     if ! is_installed hiddifypanel; then
         sed -i "s|/opt/hiddify-manager/menu.sh||g" ~/.bashrc
         sed -i "s|cd /opt/hiddify-manager/||g" ~/.bashrc
         echo "/opt/hiddify-manager/menu.sh" >>~/.bashrc
         echo "cd /opt/hiddify-manager/" >>~/.bashrc
     fi
-
+    install_python
+    is_installed lastversion || pip install lastversion
     update_panel "$package_mode" "$force"
     panel_update=$?
     update_config "$package_mode" "$force"
