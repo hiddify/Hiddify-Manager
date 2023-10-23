@@ -152,45 +152,43 @@ function install_python() {
 
 }
 
-
-
 function check() {
-        if [ "$MODE" != "apply_users" ]; then
-                echo ""
-                echo ""
-                bash /opt/hiddify-manager/status.sh
-                echo "==========================================================="
-                bash /opt/hiddify-manager/common/logo.ico
-                echo "Finished! Thank you for helping to skip filternet."
+    if [ "$MODE" != "apply_users" ]; then
+        echo ""
+        echo ""
+        bash /opt/hiddify-manager/status.sh
+        echo "==========================================================="
+        bash /opt/hiddify-manager/common/logo.ico
+        echo "Finished! Thank you for helping to skip filternet."
 
-                install_package qrencode
-                qrencode -t ansiutf8 $(cat ./current.json | jq -r '.panel-links[]' | tail -n 1)
-                cat /opt/hiddify-manager/current.json | jq -r '.panel-links[]' | while read -r link; do
-                        echo "Please open the following link in the browser for client setup"
-                        if [[ $link == http://* ]] || [[ $link =~ ^https://[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/ ]]; then
-                                link="[insecure] $link"
-                        fi
-                        echo "  $link"
-                done
+        install_package qrencode
+        qrencode -t ansiutf8 $(cat /opt/hiddify-manager/current.json | jq -r '.panel-links[]' | tail -n 1)
+        cat /opt/hiddify-manager/current.json | jq -r '.panel-links[]' | while read -r link; do
+            echo "Please open the following link in the browser for client setup"
+            if [[ $link == http://* ]] || [[ $link =~ ^https://[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/ ]]; then
+                link="[insecure] $link"
+            fi
+            echo "  $link"
+        done
 
-                # (cd hiddify-panel && python3 -m hiddifypanel admin-links)
+        # (cd hiddify-panel && python3 -m hiddifypanel admin-links)
 
-                for s in hiddify-xray hiddify-singbox hiddify-nginx hiddify-haproxy mysql; do
-                        s=${s##*/}
-                        s=${s%%.*}
-                        if [[ "$(systemctl is-active $s)" != "active" ]]; then
-                                error "an important service $s is not working yet"
-                                sleep 5
-                                error "checking again..."
-                                if [[ "$(systemctl is-active $s)" != "active" ]]; then
-                                        error "an important service $s is not working again"
-                                        error "Installation Failed!"
-                                        echo "32" >/opt/hiddify-manager/log/error.lock
-                                        exit 32
-                                fi
+        for s in hiddify-xray hiddify-singbox hiddify-nginx hiddify-haproxy mysql; do
+            s=${s##*/}
+            s=${s%%.*}
+            if [[ "$(systemctl is-active $s)" != "active" ]]; then
+                error "an important service $s is not working yet"
+                sleep 5
+                error "checking again..."
+                if [[ "$(systemctl is-active $s)" != "active" ]]; then
+                    error "an important service $s is not working again"
+                    error "Installation Failed!"
+                    echo "32" >/opt/hiddify-manager/log/error.lock
+                    exit 32
+                fi
 
-                        fi
+            fi
 
-                done
-        fi
+        done
+    fi
 }
