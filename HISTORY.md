@@ -53,6 +53,10 @@
 
 ### Fix
 
+* Cert bug. [hiddify]
+
+* Bug. [hiddify]
+
 * Bug in cert. [hiddify]
 
 * Haproxy issues for ssl cert. [hiddify]
