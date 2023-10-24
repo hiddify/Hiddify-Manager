@@ -261,6 +261,8 @@
 
 ### Other
 
+* Better cert. [hiddify]
+
 * Better color. [hiddify]
 
 * Fix download. [hiddify]
