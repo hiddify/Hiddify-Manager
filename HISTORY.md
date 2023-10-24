@@ -53,6 +53,10 @@
 
 ### Fix
 
+* Haproxy issues for ssl cert. [hiddify]
+
+* Firewall issues. [hiddify]
+
 * Haproxy first use. [hiddify]
 
 * Panel link issue. [hiddify]
