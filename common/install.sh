@@ -14,7 +14,8 @@ fi
 
 sudo systemctl stop --now systemd-resolved.service
 sudo systemctl disable --now systemd-resolved.service
-
+sudo systemctl mask --now systemd-resolved.service
+rm /run/resolvconf/interface/*
 echo "nameserver 8.8.8.8" >/etc/resolv.conf
 echo "nameserver 1.1.1.1" >>/etc/resolv.conf
 echo "nameserver 8.8.8.8" >/etc/resolvconf/resolv.conf.d/base
