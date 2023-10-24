@@ -1,6 +1,7 @@
 function get_cert() {
     cd /opt/hiddify-manager/acme.sh
     source ./lib/acme.sh.env
+    ./lib/acme.sh --register-account -m my@example.com
     DOMAIN=$1
     ssl_cert_path=../ssl
     mkdir -p /opt/hiddify-manager/acme.sh/www/.well-known/acme-challenge
