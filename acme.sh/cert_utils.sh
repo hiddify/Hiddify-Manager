@@ -1,5 +1,5 @@
 function get_cert() {
-    cd /opt/hiddify-manager
+    cd /opt/hiddify-manager/acme.sh
     source ./lib/acme.sh.env
     DOMAIN=$1
     ssl_cert_path=../ssl
@@ -40,7 +40,7 @@ function get_cert() {
 }
 
 function get_self_signed_cert() {
-    cd /opt/hiddify-manager
+    cd /opt/hiddify-manager/acme.sh
     d=$1
     mkdir -p ../ssl
     certificate="../ssl/$d.crt"
