@@ -1,6 +1,7 @@
 #!/bin/bash
+cd $(dirname -- "$0")
 d=$1
-
+mkdir -p ../ssl
 certificate="../ssl/$d.crt"
 private_key="../ssl/$d.crt.key"
 current_date=$(date +%s)

@@ -87,13 +87,13 @@ frontend https-in
 
     
     {%if hconfigs['ssfaketls_enable'] and hconfigs['ssfaketls_fakedomain'] %}
-    acl ss_domains req.ssl_sni -i hconfigs['ssfaketls_fakedomain']
+    acl ss_domains req.ssl_sni -i {{hconfigs['ssfaketls_fakedomain']}}
     use_backend ssfake if ss_domains
     {%endif%}
     
     
     {%if hconfigs['telegram_enable'] and hconfigs['telegram_fakedomain'] %}
-    acl tg_domains req.ssl_sni -i hconfigs['telegram_fakedomain']
+    acl tg_domains req.ssl_sni -i {{hconfigs['telegram_fakedomain']}}
     use_backend telegram if tg_domains
     {%endif%}
 
@@ -197,8 +197,8 @@ frontend http-https-in
 
     
     {%if hconfigs['ssfaketls_enable'] and hconfigs['ssfaketls_fakedomain'] %}
-    acl ss_domains hdr(host) -i hconfigs['ssfaketls_fakedomain']
-    acl ss_domains hdr(:authority) -i hconfigs['ssfaketls_fakedomain']
+    acl ss_domains hdr(host) -i {{hconfigs['ssfaketls_fakedomain']}}
+    acl ss_domains hdr(:authority) -i {{hconfigs['ssfaketls_fakedomain']}}
     use_backend ssdecoy_http if ss_domains
     {%endif%}
     
@@ -207,8 +207,8 @@ frontend http-https-in
     # acl server_domains hdr(host) -i SERVER_DOMAINS
     # use_backend default_http if server_domains
     {%if hconfigs['telegram_enable'] and hconfigs['telegram_fakedomain'] %}
-    acl tg_domains hdr(:authority) -i hconfigs['telegram_fakedomain']
-    acl tg_domains hdr(host) -i hconfigs['telegram_fakedomain']
+    acl tg_domains hdr(:authority) -i {{hconfigs['telegram_fakedomain']}}
+    acl tg_domains hdr(host) -i {{hconfigs['telegram_fakedomain']}}
     use_backend tgdecoy_http if tg_domains
     {%endif%}
     {%if hconfigs['shadowtls_enable'] and hconfigs['shadowtls_fakedomain']%}
@@ -325,7 +325,7 @@ backend telegram
 
 {%if hconfigs['ssfaketls_enable'] and hconfigs['ssfaketls_fakedomain'] %}
 backend ssdecoy_http
-    server ssdecoy hconfigs['ssfaketls_fakedomain']
+    server ssdecoy {{hconfigs['ssfaketls_fakedomain']}}
 backend ssfake
     server ssfake 127.0.0.1:1002
 {%endif%}
@@ -351,10 +351,10 @@ backend ssfake
 {%if hconfigs['shadowtls_enable'] and hconfigs['shadowtls_fakedomain']%}
 backend shadowtls_decoy_http
     
-    server shadowtls_decoy_http hconfigs['shadowtls_fakedomain']
+    server shadowtls_decoy_http {{hconfigs['shadowtls_fakedomain']}}
 
 backend shadowtls_decoy
-    server shadowtls_decoy hconfigs['shadowtls_fakedomain']
+    server shadowtls_decoy {{hconfigs['shadowtls_fakedomain']}}
 {%endif%}
 
 # backend ssrdecory
