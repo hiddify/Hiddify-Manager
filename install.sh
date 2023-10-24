@@ -20,13 +20,14 @@ function main() {
 
         if [ "$MODE" != "apply_users" ]; then
                 clean_files
-
+                update_progress "Installing..." "Common Tools and Requirements" 2
+                runsh install.sh common
                 install_run other/redis
                 install_run other/mysql
                 install_python
 
                 # Because we need to generate reality pair in panel
-                is_installed xray || bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.4
+                # is_installed xray || bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.4
 
                 install_run hiddify-panel
         fi
@@ -40,8 +41,8 @@ function main() {
         bash common/replace_variables.sh
 
         if [ "$MODE" != "apply_users" ]; then
-                update_progress "Installing..." "Common Tools" 10
-                install_run common
+                update_progress "Configuring..." "System and Firewall settings" 10
+                runsh run.sh common
 
                 update_progress "installing..." "Nginx" 15
                 install_run nginx

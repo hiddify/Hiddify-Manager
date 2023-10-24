@@ -100,7 +100,7 @@ function install_package() {
 function remove_package() {
     for package in $@; do
         if dpkg -l | grep -q "^ii  $package"; then
-            apt remove -y "$package"
+            apt remove -y --auto-remove "$package"
         fi
     done
 }
@@ -150,6 +150,7 @@ function hiddify_api() {
     echo $data
     return 0
 }
+
 
 function install_python() {
 
@@ -215,4 +216,56 @@ function check() {
 
         done
     fi
+}
+
+function add2iptables() {
+    iptables -C $1 >/dev/null 2>&1 || echo "adding rule $1" && iptables -I $1
+}
+
+function add2ip6tables() {
+    ip6tables -C $1 >/dev/null 2>&1 || echo "adding rule $1" && ip6tables -I $1
+}
+function allow_port() { #allow_port "tcp" "80"
+    add2iptables "INPUT -p $1 --dport $2 -j ACCEPT"
+    add2ip6tables "INPUT -p $1 --dport $2 -j ACCEPT"
+    # if [[ $1 == 'udp' ]]; then
+    add2iptables "INPUT -p $1 -m $1 --dport $2 -m conntrack --ctstate NEW -j ACCEPT"
+    add2ip6tables "INPUT -p $1 -m $1 --dport $2 -m conntrack --ctstate NEW -j ACCEPT"
+    # fi
+}
+
+function block_port() { #allow_port "tcp" "80"
+    add2iptables "INPUT -p $1 --dport $2 -j DROP"
+    add2ip6tables "INPUT -p $1 --dport $2 -j DROP"
+}
+
+function remove_port() { #allow_port "tcp" "80"
+    iptables -D INPUT -p $1 --dport $2
+    ip6tables -D INPUT -p $1 --dport $2
+}
+
+function allow_apps_ports() {
+    service_name=$1
+    ports=$(ss -tulpn | grep "$service_name" | awk '{print $5}' | cut -d':' -f2)
+
+    if [[ -z $ports ]]; then
+        echo "Service not found or not running"
+    else
+        path=$(ps -aux | grep $service_name | awk '{print $11}')
+
+        IFS=' ' read -ra portArray <<<"$ports"
+        for p in "${portArray[@]}"; do
+            echo "Service is running on port $p and path $path"
+            allow_port "tcp" $p
+        done
+    fi
+}
+function save_firewall() {
+    mkdir -p /etc/iptables/
+    iptables-save >/etc/iptables/rules.v4
+    awk -i inplace '!seen[$0]++' /etc/iptables/rules.v4
+    ip6tables-save >/etc/iptables/rules.v6
+    awk -i inplace '!seen[$0]++' /etc/iptables/rules.v6
+    ip6tables-restore </etc/iptables/rules.v6
+    iptables-restore </etc/iptables/rules.v4
 }

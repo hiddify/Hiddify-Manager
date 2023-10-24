@@ -1,16 +1,12 @@
-sudo systemctl stop --now systemd-resolved.service
-sudo systemctl disable --now systemd-resolved.service
-
-echo "nameserver 8.8.8.8" >/etc/resolv.conf
-echo "nameserver 1.1.1.1" >>/etc/resolv.conf
-echo "nameserver 8.8.8.8" >/etc/resolvconf/resolv.conf.d/base
-echo "nameserver 1.1.1.1" >>/etc/resolvconf/resolv.conf.d/base
-sudo systemctl restart systemd-networkd 2>&1
-sudo systemctl restart NetworkManager 2>&1
 
 resolvconf -u
 
 source utils.sh
+
+
+remove_package apache2 needrestart needrestart-session 
+install_package at whiptail apt-transport-https dnsutils ca-certificates git curl wget gnupg-agent software-properties-common iptables locales lsof cron libssl-dev curl gnupg2 ca-certificates lsb-release ubuntu-keyring resolvconf less jq qrencode resolvconf 
+
 
 if [[ $COUNTRY == 'cn' ]]; then
   sudo timedatectl set-timezone Asia/Shanghai
@@ -20,9 +16,16 @@ else
   sudo timedatectl set-timezone Asia/Tehran
 fi
 
-install_package at whiptail apt-transport-https dnsutils ca-certificates git curl wget gnupg-agent software-properties-common iptables locales lsof cron libssl-dev curl gnupg2 ca-certificates lsb-release ubuntu-keyring resolvconf less jq qrencode
+sudo systemctl stop --now systemd-resolved.service
+sudo systemctl disable --now systemd-resolved.service
 
-remove_package apache2 needrestart
+echo "nameserver 8.8.8.8" >/etc/resolv.conf
+echo "nameserver 1.1.1.1" >>/etc/resolv.conf
+echo "nameserver 8.8.8.8" >/etc/resolvconf/resolv.conf.d/base
+echo "nameserver 1.1.1.1" >>/etc/resolvconf/resolv.conf.d/base
+sudo systemctl restart systemd-networkd >/dev/null 2>&1
+sudo systemctl restart NetworkManager >/dev/null 2>&1
+
 
 ln -sf $(pwd)/sysctl.conf /etc/sysctl.d/ss-opt.conf
 

@@ -1,48 +1,4 @@
 source /opt/hiddify-manager/common/utils.sh
-function add2iptables() {
-  iptables -C $1 || echo "adding rule $1" && iptables -I $1
-}
-
-function add2ip6tables() {
-  ip6tables -C $1 || echo "adding rule $1" && ip6tables -I $1
-}
-function allow_port() { #allow_port "tcp" "80"
-  add2iptables "INPUT -p $1 --dport $2 -j ACCEPT"
-  add2ip6tables "INPUT -p $1 --dport $2 -j ACCEPT"
-  # if [[ $1 == 'udp' ]]; then
-  add2iptables "INPUT -p $1 -m $1 --dport $2 -m conntrack --ctstate NEW -j ACCEPT"
-  add2ip6tables "INPUT -p $1 -m $1 --dport $2 -m conntrack --ctstate NEW -j ACCEPT"
-  # fi
-}
-
-function block_port() { #allow_port "tcp" "80"
-  add2iptables "INPUT -p $1 --dport $2 -j DROP"
-  add2ip6tables "INPUT -p $1 --dport $2 -j DROP"
-}
-
-function remove_port() { #allow_port "tcp" "80"
-  iptables -D INPUT -p $1 --dport $2
-  ip6tables -D INPUT -p $1 --dport $2
-}
-
-function allow_apps_ports() {
-  service_name=$1
-  ports=$(ss -tulpn | grep "$service_name" | awk '{print $5}' | cut -d':' -f2)
-
-  if [[ -z $ports ]]; then
-    echo "Service not found or not running"
-  else
-    path=$(ps -aux | grep $service_name | awk '{print $11}')
-
-    IFS=' ' read -ra portArray <<<"$ports"
-    for p in "${portArray[@]}"; do
-      echo "Service is running on port $p and path $path"
-      allow_port "tcp" $p
-    done
-  fi
-}
-
-mkdir -p /etc/iptables/
 
 allow_port "tcp" 22
 allow_port "tcp" 80
@@ -61,12 +17,11 @@ add2ip6tables "OUTPUT -p tcp -j ACCEPT"
 add2iptables "INPUT -i lo -j ACCEPT"
 add2ip6tables "INPUT -i lo -j ACCEPT"
 
-HYSTRIA_TUIC_DOMAINS="$(hiddify_api hysteria-domain-port);$(hiddify_api hysteria-domain-port)"
-for DOMAIN in ${HYSTRIA_TUIC_DOMAINS//;/ }; do
-  IFS=':' read -ra PARTS <<<"$DOMAIN"
-  port=${PARTS[1]}
+
+{% for d in domains if d['internal_port_hysteria2'] or d['internal_port_tuic']  %}
+  {%set port=d['internal_port_hysteria2']%}
   allow_port "udp" $port
-done
+{%endfor%}
 
 # ICMP for ipv4
 add2iptables "INPUT -p icmp -m icmp --icmp-type 0 -m conntrack --ctstate NEW -j ACCEPT"
@@ -91,16 +46,15 @@ add2iptables "INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT"
 add2ip6tables "INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT"
 
 # Check if SSH server should be enabled
-if [[ $ssh_server_enable == 'true' ]]; then
-  allow_port "tcp" "$ssh_server_port"
-else
-  remove_port "tcp" "$ssh_server_port"
-fi
+{% if hconfigs['ssh_server_enable'] %}
+  allow_port "tcp" {{hconfigs['ssh_server_port']}}
+{%else%}
+  remove_port "tcp" {{hconfigs['ssh_server_port']}}
+{%endif%}
 
-TCP_PORTS=(${HTTP_PORTS//,/ } ${TLS_PORTS//,/ })
-for PORT in "${TCP_PORTS[@]}"; do
+{% for port in (hconfigs['tls_ports']+","+ hconfigs['http_ports']).split(',') if port %}
   allow_port "tcp" $PORT
-done
+{%endfor%}
 
 # Check if PasswordAuthentication is enabled
 if ! grep -Fxq "PasswordAuthentication no" /etc/ssh/sshd_config; then
@@ -129,28 +83,28 @@ fi
 sudo systemctl restart sshd.service
 sudo systemctl restart ssh.service
 
-if [[ $ENABLE_FIREWALL == true ]]; then
+{% if hconfigs['firewall'] %}
   iptables -P INPUT DROP
+  iptables -P FORWARD DROP
   ip6tables -P INPUT DROP
+  ip6tables -P FORWARD DROP
   # ip6tables -P INPUT ACCEPT
-else
+{%else%}
   iptables -P INPUT ACCEPT
   iptables -P FORWARD ACCEPT
+  ip6tables -P FORWARD ACCEPT
   ip6tables -P INPUT ACCEPT
-fi
-iptables-save >/etc/iptables/rules.v4
-awk -i inplace '!seen[$0]++' /etc/iptables/rules.v4
-ip6tables-save >/etc/iptables/rules.v6
-awk -i inplace '!seen[$0]++' /etc/iptables/rules.v6
-ip6tables-restore </etc/iptables/rules.v6
-iptables-restore </etc/iptables/rules.v4
+{%endif%}
+
+save_firewall
 
 #add2iptables "INPUT -p tcp --dport 9000 -j DROP"
 
-if [[ $ENABLE_AUTO_UPDATE == true ]]; then
+{% if hconfigs['auto_update'] %}
   echo "0 3 * * * root $(pwd)/../update.sh" >/etc/cron.d/hiddify_auto_update
   service cron reload
-else
+{%else%}
   rm -rf /etc/cron.d/hiddify_auto_update
   service cron reload
-fi
+{%endif%}
+
