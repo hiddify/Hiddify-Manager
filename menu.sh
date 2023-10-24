@@ -1,5 +1,5 @@
 #!/bin/bash
-
+cd $(dirname -- "$0")
 source common/utils.sh
 
 sed -i "s|/opt/hiddify-config/menu.sh|/opt/hiddify-manager/menu.sh|g" ~/.bashrc
@@ -13,9 +13,9 @@ if [[ $(grep "/opt/hiddify-manager/menu.sh" ~/.bashrc | wc -l) > 0 ]]; then
 fi
 
 if ! grep -Fxq "PasswordAuthentication no" /etc/ssh/sshd_config; then
-  # @hiddify/@iam54r1n4 make a better message with a link to why should disable pass-auth
-  WARNING_MSG="Your server is vulnerable to abuses because PasswordAuthentication is enabled. To secure your server, please switch to key authentication mechanism and turn off PasswordAuthentication in your ssh config file."
-  whiptail --title "WARNING" --msgbox "$WARNING_MSG" 10 78
+    # @hiddify/@iam54r1n4 make a better message with a link to why should disable pass-auth
+    WARNING_MSG="Your server is vulnerable to abuses because PasswordAuthentication is enabled. To secure your server, please switch to key authentication mechanism and turn off PasswordAuthentication in your ssh config file."
+    whiptail --title "WARNING" --msgbox "$WARNING_MSG" 10 78
 fi
 #PACKAGE_MODE=$(get_package_mode)
 #LATEST_CONFIG_VERSION=$(get_release_version hiddify-manager)

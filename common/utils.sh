@@ -151,7 +151,6 @@ function hiddify_api() {
     return 0
 }
 
-
 function install_python() {
 
     if ! python3.10 --version &>/dev/null; then
@@ -180,7 +179,7 @@ function check() {
         success "Finished! Thank you for helping to skip filternet."
 
         install_package qrencode
-        qrencode -t utf8 -m 1 $(cat /opt/hiddify-manager/current.json | jq -r '.panel_links[]' | tail -n 1)
+        center_text "$(qrencode -t utf8 -m 2 $(cat /opt/hiddify-manager/current.json | jq -r '.panel_links[]' | tail -n 1))"
 
         echo "Please open the following link in the browser for client setup"
         cat /opt/hiddify-manager/current.json | jq -r '.panel_links[]' | while read -r link; do

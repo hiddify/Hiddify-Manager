@@ -28,6 +28,7 @@ function install_panel() {
     apt update
     #apt upgrade -y
     apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --only-upgrade upgrade
+    apt dist-upgrade -y
 
     if ! is_installed hiddifypanel; then
         sed -i "s|/opt/hiddify-manager/menu.sh||g" ~/.bashrc
@@ -194,9 +195,6 @@ function update_from_github() {
         echo "$override_version" >VERSION
     fi
     rm "$file_name"
-    apt upgrade -y
-    apt dist-upgrade -y
-    apt autoremove -y
     bash install.sh --no-gui
 }
 

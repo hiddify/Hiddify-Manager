@@ -1,5 +1,5 @@
 source ../common/utils.sh
-
+source ./lib/acme.sh.env
 install_package socat
 remove_package certbot
 
