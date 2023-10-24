@@ -1,12 +1,8 @@
-
-resolvconf -u
-
+#!/bin/bash
 source utils.sh
 
-
-remove_package apache2 needrestart needrestart-session 
-install_package at whiptail apt-transport-https dnsutils ca-certificates git curl wget gnupg-agent software-properties-common iptables locales lsof cron libssl-dev curl gnupg2 ca-certificates lsb-release ubuntu-keyring resolvconf less jq qrencode resolvconf 
-
+remove_package apache2 needrestart needrestart-session
+install_package at whiptail apt-transport-https dnsutils ca-certificates git curl wget gnupg-agent software-properties-common iptables locales lsof cron libssl-dev curl gnupg2 ca-certificates lsb-release ubuntu-keyring resolvconf less jq qrencode resolvconf
 
 if [[ $COUNTRY == 'cn' ]]; then
   sudo timedatectl set-timezone Asia/Shanghai
@@ -25,7 +21,7 @@ echo "nameserver 8.8.8.8" >/etc/resolvconf/resolv.conf.d/base
 echo "nameserver 1.1.1.1" >>/etc/resolvconf/resolv.conf.d/base
 sudo systemctl restart systemd-networkd >/dev/null 2>&1
 sudo systemctl restart NetworkManager >/dev/null 2>&1
-
+resolvconf -u
 
 ln -sf $(pwd)/sysctl.conf /etc/sysctl.d/ss-opt.conf
 
