@@ -53,6 +53,8 @@
 
 ### Fix
 
+* Replacement of dns with systemd. [hiddify]
+
 * Cert bug. [hiddify]
 
 * Bug. [hiddify]
@@ -266,6 +268,8 @@
 * Remove remote. [hiddify]
 
 ### Other
+
+* Disable linux upgrade. [hiddify]
 
 * Remove duplicate. [hiddify]
 
