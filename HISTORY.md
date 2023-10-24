@@ -53,6 +53,8 @@
 
 ### Fix
 
+* Bug in cert. [hiddify]
+
 * Haproxy issues for ssl cert. [hiddify]
 
 * Firewall issues. [hiddify]
@@ -260,6 +262,8 @@
 * Remove remote. [hiddify]
 
 ### Other
+
+* Remove duplicate. [hiddify]
 
 * Better cert. [hiddify]
 
