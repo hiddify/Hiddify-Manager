@@ -34,12 +34,12 @@ function main() {
         local package_mode=$(get_package_mode)
     fi
     local current_config_version=$(get_installed_config_version)
+    local current_panel_version=$(get_installed_panel_version)
 
-    if [[ $package_mode == "release" ]] && [[ $current_config_version == *"dev"* || ! $current_config_version == 10* ]]; then
+    if [[ $package_mode == "release" ]] && [[ $current_config_version == *"dev"* || ! $current_panel_version == 10* || ! $current_panel_version == 9* ]]; then
         bash common/downgrade.sh
         return 0
     fi
-    local current_panel_version=$(get_installed_panel_version)
 
     rm -rf sniproxy caddy
 
@@ -63,11 +63,14 @@ function main() {
     esac
 
     [[ "$latest_panel" != "$current_panel_version" ]] && panel_update=1
-    [[ "$latest_panel" != "$current_panel_version" ]] && manager_update=1
-
-    if [[ $panel_update == 1 || $manager_update == 1 ]]; then
+    [[ "$latest_manager" != "$current_config_version" ]] && manager_update=1
+    echo "Latest panel version: $latest_panel Installed: $current_panel_version Lastest manager version: $latest_manager Installed: $current_config_version"
+    if [[ "$force" == "true" || $panel_update == 1 || $manager_update == 1 ]]; then
         bash <(curl -sSL https://raw.githubusercontent.com/hiddify/hiddify-config/main/common/download.sh) "$package_mode" "$force" "--no-gui"
+    else
+        echo "Nothing to update"
     fi
+    rm -f $LOCK_FILE
 
 }
 
