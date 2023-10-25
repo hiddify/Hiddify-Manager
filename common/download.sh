@@ -86,6 +86,8 @@ function update_panel() {
         fi
         ;;
     release)
+        error "you can not install release version 8 using this script"
+        exit 1
         latest=$(get_release_version hiddifypanel)
         echo "hiddify panel version current=$current_panel_version latest=$latest"
         if [[ $force == "true" || "$current_panel_version" != "$latest" ]]; then
@@ -134,6 +136,8 @@ function update_config() {
         fi
         ;;
     release)
+        error "you can not install release version 8 using this script"
+        exit 1
         local latest=$(get_release_version hiddify-manager)
         echo "RELEASE: Current Config Version=$current_config_version -- Latest=$latest"
         if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
