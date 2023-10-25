@@ -4,7 +4,7 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 export DEBIAN_FRONTEND=noninteractive
-
+LOCK_FILE=/tmp/hiddify-install.lock
 if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-config/" ]; then
     mv /opt/hiddify-config /opt/hiddify-manager
     ln -s /opt/hiddify-manager /opt/hiddify-config
