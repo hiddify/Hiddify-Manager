@@ -53,6 +53,10 @@
 
 ### Fix
 
+* Downgrade. [hiddify]
+
+* Update issue. [hiddify]
+
 * Replacement of dns with systemd. [hiddify]
 
 * Cert bug. [hiddify]
@@ -268,6 +272,14 @@
 * Remove remote. [hiddify]
 
 ### Other
+
+* Add lock. [hiddify]
+
+* Merge pull request #3354 from sigseg5/main. [Hiddify]
+
+  Update translation in README_ru.md file
+
+* Update translation in README_ru.md file. [sigseg5]
 
 * Disable linux upgrade. [hiddify]
 
