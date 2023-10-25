@@ -35,11 +35,6 @@ function main() {
         local package_mode=$(get_package_mode)
     fi
     # local current_config_version=$(get_installed_config_version)
-    local current_panel_version=$(get_installed_panel_version)
-    if [[ $package_mode == "release" ]] && [[ $current_panel_version == *"dev"* || ! $current_panel_version == 10* ]]; then
-        bash common/downgrade.sh
-        return 0
-    fi
 
     rm -rf sniproxy caddy
 
