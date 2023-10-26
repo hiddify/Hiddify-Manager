@@ -1,12 +1,15 @@
 #!/bin/bash
 cd $(dirname -- "$0")
 # Fix the installation directory
-if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-config/" ]; then
-        ln -s /opt/hiddify-config /opt/hiddify-manager
-fi
 if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-server/" ]; then
+        mv /opt/hiddify-server /opt/hiddify-manager
         ln -s /opt/hiddify-server /opt/hiddify-manager
 fi
+if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-config/" ]; then
+        mv /opt/hiddify-config/ /opt/hiddify-manager/
+        ln -s /opt/hiddify-config /opt/hiddify-manager
+fi
+
 source /opt/hiddify-manager/common/utils.sh
 source ./common/ticktick.sh
 export DEBIAN_FRONTEND=noninteractive
