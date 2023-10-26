@@ -3,11 +3,11 @@ cd $(dirname -- "$0")
 # Fix the installation directory
 if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-server/" ]; then
         mv /opt/hiddify-server /opt/hiddify-manager
-        ln -s /opt/hiddify-server /opt/hiddify-manager
+        ln -s /opt/hiddify-manager /opt/hiddify-server
 fi
 if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-config/" ]; then
         mv /opt/hiddify-config/ /opt/hiddify-manager/
-        ln -s /opt/hiddify-config /opt/hiddify-manager
+        ln -s /opt/hiddify-manager /opt/hiddify-config
 fi
 
 source /opt/hiddify-manager/common/utils.sh
