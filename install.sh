@@ -13,10 +13,10 @@ if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-server/" ]; then
     mv /opt/hiddify-server /opt/hiddify-manager
 fi
 if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-config/" ]; then
-    mv /opt/hiddify-config/ /opt/hiddify-manager/
+    mv /opt/hiddify-config /opt/hiddify-manager
 fi
-ln -s /opt/hiddify-config /opt/hiddify-manager 
-ln -s /opt/hiddify-server /opt/hiddify-manager
+ln -s /opt/hiddify-manager  /opt/hiddify-config 
+ln -s /opt/hiddify-manager  /opt/hiddify-server
 
 function cleanup() {
     error "Script interrupted. Exiting..."
