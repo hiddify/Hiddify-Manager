@@ -22,7 +22,7 @@ function get_cert() {
     fi
 
     ./lib/acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --pre-hook "systemctl restart hiddify-nginx"
-    # ./lib/acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt
+    ./lib/acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt
 
     ./lib/acme.sh --installcert -d $DOMAIN \
         --fullchainpath $ssl_cert_path/$DOMAIN.crt \
