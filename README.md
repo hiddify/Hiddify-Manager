@@ -192,6 +192,12 @@ When you want to share Telegram proxy or Shadowsocks proxy through other program
 ## Donation And Support 
 The easiest way to support us is to click on the star (⭐) at the top of this page.
 
+<div align=center>
+    
+<img alt="Star History Chart" width=50% src="https://api.star-history.com/svg?repos=Hiddify/hiddify-Manager&type=Date)](https://star-history.com/#Hiddify/hiddify-Manager&Date" />
+
+</div>
+
 We also need financial support for our services. All of our activities are done voluntarily and financial support will be spent on the development of the project. You can view our support addresses [here](https://github.com/hiddify/hiddify-manager/wiki/support). 
 
 
