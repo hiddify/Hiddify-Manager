@@ -140,6 +140,12 @@ Hiddify has been tested on Ubuntu 20.04 and 22.04. Ubuntu arm64 or amd64
 ## Пожертвования и поддержка
 Самый простой способ поддержать нас – нажать на звёздочку (⭐) вверху этой страницы.
 
+<div align=center>
+    
+<img alt="Star History Chart" width=50% src="https://api.star-history.com/svg?repos=Hiddify/hiddify-next&type=Date)](https://star-history.com/#Hiddify/hiddify-next&Date" />
+
+</div>
+
 Мы также нуждаемся в финансовой поддержке для предоставления наших услуг. Вся наша деятельность осуществляется на добровольных началах, и финансовая поддержка будет направлена на развитие проекта. Адреса для оказания поддержки можно посмотреть [здесь](https://github.com/hiddify/hiddify-manager/wiki/support).
 
 
