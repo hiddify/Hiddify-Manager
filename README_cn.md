@@ -151,6 +151,12 @@ Hiddify 的名称是 Hidden （隐藏） 和 Simplify （简化） 的合并而�
 ## 捐赠与支持
 支持我们的最简单方法是单击此页面顶部的 Star （⭐）。
 
+<div align=center>
+    
+<img alt="Star History Chart" width=50% src="https://api.star-history.com/svg?repos=Hiddify/hiddify-next&type=Date)](https://star-history.com/#Hiddify/hiddify-next&Date" />
+
+</div>
+
 我们的服务也需要资金支持。我们所有的活动都是自愿进行的，资金支持将用于项目的开发和维护。您可以在 [此处](https://github.com/hiddify/hiddify-manager/wiki/support) 查看我们的支持地址。
 
 ## 协作和联系信息
