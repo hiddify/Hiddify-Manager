@@ -200,6 +200,12 @@ Ubuntu arm64 or amd64
 
 ساده‌ترین راه حمایت از ما کلیک کردن روی ستاره (⭐) بالای همین صفحه است.
 
+<div align=center>
+    
+<img alt="Star History Chart" width=50% src="https://api.star-history.com/svg?repos=Hiddify/hiddify-next&type=Date)](https://star-history.com/#Hiddify/hiddify-next&Date" />
+
+</div>
+
 ما برای سرویس هایمان به کمک مالی هم نیاز داریم. تمامی فعالیت‌های ما به صورت داوطلبانه انجام می‌شود و حمایت‌های مالی صرف توسعه پروژه می‌شود. اطلاعات و آدرس‌های حمایت‌ از ما را در [این لینک](https://github.com/hiddify/hiddify-manager/wiki/support) مشاهده فرمایید.
 
 ## راه‌های همکاری و ارتباط با ما
