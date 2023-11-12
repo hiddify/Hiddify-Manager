@@ -15,7 +15,7 @@ apt update
 #apt upgrade -y
 apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
 
-apt install -y curl unzip
+apt install -y curl unzip python3-pip
 # pip3 install lastversion "requests<=2.29.0"
 # pip install lastversion "requests<=2.29.0"
 mkdir -p /opt/$GITHUB_REPOSITORY
