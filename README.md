@@ -77,7 +77,7 @@ Hiddify-Manager is a powerful and professional anti-censorship toolbox, which is
 
 ***
 ## Why Hiddify-Manager?
-The word *Hiddify* is a combination of hidden and simplify. We aim to bring together everything that helps to make it simple and hidden in **Hiddify-Manager**. In other words, it is a panel with a wide range of features and capabilities that helps you enjoy hassle-free and secure internet browsing.”. Serving as a user-friendly VPN solution, Hiddify ensures that you can access the free internet with ease and peace of mind. 
+The word *Hiddify* is a combination of hidden and simplify. We aim to bring together everything that helps to make it simple and hidden in **Hiddify-Manager**. In other words, it is a panel with a wide range of features and capabilities that helps you enjoy hassle-free and secure internet browsing. Serving as a user-friendly VPN solution, Hiddify-Manager ensures that you can access the free internet with ease and peace of mind. 
 
 ### Attractive features
 - **Quick installation**
@@ -126,7 +126,7 @@ And dozens of other features that you will notice upon installation.
 
 <details markdown="1"> <summary><h3>Smart proxy for domestic and filtered sites</h3> (click here)</summary>
  
-You can connect to the internet in 3 modes using Hiddify and Hiddify-Manager. 
+You can connect to the internet in 3 modes using Hiddify-Next and Hiddify-Manager. 
 1. This method only circumvents filtered websites via the proxies.
 2. This method circumvents all websites except domestic websites based in China, Russia and Iran. This way the domestic websites can be opened without any proxies (recommended)
 3. This method circumvents all websites. 
@@ -164,6 +164,7 @@ To use DNS over HTTPS, just use the following DNS in the browser.
 
 <details markdown="1"> <summary>Redirector (CDN support)</summary> 
 When you want to share Telegram proxy or Shadowsocks proxy through other programs, it is possible to redirect with CDN support. For example, if you put the Shadowsocks configuration instead of "fullURL", clicking on this link will open Shadowsocks app and activate the proxy on it. For example:
+ 
  `https://yourdomain.com/yoursecret/redirect/fullURL` 
 
  Replace "fullURL" by the Shadowsocks configuration. 
@@ -205,10 +206,10 @@ We also need financial support for our services. All of our activities are done 
 ## Collaboration and Contact Information 
 We need your collaboration in order to develop this project. If you are specialists in these areas, please do not hesitate to contact us and mention your skill.
 
-* Media Production &nbsp;&nbsp;&nbsp;&nbsp;  
-* Python Developing &nbsp;&nbsp;&nbsp;&nbsp; ‌
+* Media Production
+* Python Developing‌
 * Kotlin Developing  
-* Flutter Developing &nbsp;&nbsp;&nbsp;&nbsp; 
+* Flutter Developing
 
 <div align=center>
 
