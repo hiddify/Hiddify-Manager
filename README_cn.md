@@ -116,7 +116,7 @@ Hiddify 的名称是 Hidden （隐藏） 和 Simplify （简化） 的合并而�
 <details markdown="1"><summary><h3>其他出色的功能</h3>（点击这里）</summary>
 
 <details  markdown="1"> <summary>支持的操作系统</summary>
-  Hiddify-Manager 已经在 Ubuntu 20.04 和 22.04 上进行了测试。支持 Ubuntu arm64 和 amd64 。
+  Hiddify-Manager 已经在 Ubuntu 22.04 上进行了测试。支持 Ubuntu arm64 和 amd64 。
 </details>
 
 <details  markdown="1"> <summary>网速检测</summary>
