@@ -142,7 +142,7 @@ At the same time, the proposed solution is resistant to detection by the interne
 
 
 <details  markdown="1"> <summary>Supported operating systems</summary>
-Hiddify-Manager has been tested on Ubuntu 20.04 and 22.04. Ubuntu arm64 or amd64
+Hiddify-Manager has been tested on Ubuntu 22.04. Ubuntu arm64 or amd64
 </details>
 
 
