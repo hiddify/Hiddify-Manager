@@ -94,8 +94,8 @@ Hiddify-Manager представляет собой смесь Hidden и Simplif
 <details markdown="1"><summary><h3>Другие фантастические возможности</h3> (click here)</summary>
 
 
-<details  markdown="1"> <summary>Supported operating systems</summary>
-Hiddify has been tested on Ubuntu 20.04 and 22.04. Ubuntu arm64 or amd64
+<details  markdown="1"> <summary>Поддерживаемые операционные системы</summary>
+Hiddify был протестирован на Ubuntu 22.04. Ubuntu Arm64 или AMD64
 </details>
 
 
