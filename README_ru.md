@@ -142,7 +142,7 @@ Hiddify has been tested on Ubuntu 20.04 and 22.04. Ubuntu arm64 or amd64
 
 <div align=center>
     
-<img alt="Star History Chart" width=50% src="https://api.star-history.com/svg?repos=Hiddify/hiddify-next&type=Date)](https://star-history.com/#Hiddify/hiddify-next&Date" />
+<img alt="Star History Chart" width=50% src="https://api.star-history.com/svg?repos=Hiddify/hiddify-manager&type=Date)](https://star-history.com/#Hiddify/hiddify-manager&Date" />
 
 </div>
 
