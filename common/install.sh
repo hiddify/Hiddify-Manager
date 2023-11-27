@@ -97,15 +97,15 @@ update-locale LANG=C.UTF-8
 # fi
 
 #grep -qxF 'DNS=resolve ipv4' /etc/systemd/resolved.conf || echo "DNS=resolve ipv4" >> /etc/systemd/resolved.conf
-sudo systemctl stop systemd-resolved
-sudo systemctl disable systemd-resolved
 
 echo "nameserver 1.1.1.1" >/etc/resolv.conf
 echo "nameserver 8.8.8.8" >>/etc/resolv.conf
 echo "nameserver 1.1.1.1" >/etc/resolvconf/resolv.conf.d/base
 echo "nameserver 8.8.8.8" >>/etc/resolvconf/resolv.conf.d/base
 resolvconf -u
-#systemctl restart systemd-resolved
+systemctl unmask systemd-resolved
+systemctl enable --now systemd-resolved
+python3 change_dns.py 8.8.8.8 1.1.1.1
 
 echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/install.sh" >/etc/sudoers.d/hiddify
 echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-config/status.sh" >>/etc/sudoers.d/hiddify
@@ -120,4 +120,3 @@ ln -sf /opt/hiddify-config/menu.sh /usr/bin/hiddify
 
 systemctl disable --now rpcbind.socket
 systemctl disable --now rpcbind
-
