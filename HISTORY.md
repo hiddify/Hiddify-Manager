@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v10.5.50 (2023-11-27)
+
+### Fix
+
+* Dns resolved. [hiddify]
+
+
 ## v10.5.47 (2023-10-26)
 
 ### Fix
