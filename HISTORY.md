@@ -53,6 +53,10 @@
 
 ### Fix
 
+* Dns server. [hiddify]
+
+* Bug. [hiddify]
+
 * Downgrade. [hiddify]
 
 * Update issue. [hiddify]
@@ -272,6 +276,83 @@
 * Remove remote. [hiddify]
 
 ### Other
+
+* Merge pull request #3428 from Hiiirad/patch-1. [Hiddify]
+
+  Reformatted and lint jinja.py
+
+* Reformatted and lint jinja.py. [Hirad Rasoolinejad]
+
+* Update README_cn.md. [lymanjre]
+
+* Update README_ru.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_ru.md. [lymanjre]
+
+* Update README_cn.md. [lymanjre]
+
+* Update README_ru.md. [lymanjre]
+
+* Update README_cn.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Merge pull request #3410 from leic4u/patch-3. [lymanjre]
+
+  Update README.md
+
+* Update README.md. [leic4u]
+
+  fix some mistake
+
+* Merge pull request #3409 from leic4u/patch-2. [lymanjre]
+
+  Update README_cn.md
+
+* Update README_cn.md. [leic4u]
+
+  improve localized chinese language
+  /en 改进本地化的中文翻译
+
+* Update change_ip.sh. [lymanjre]
+
+  Change directory to the location of WARP files
+
+* Update change_ip.sh. [lymanjre]
+
+  Change directory to the location of WARP files
+
+* Update README_cn.md. [lymanjre]
+
+* Update README_ru.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_ru.md. [lymanjre]
+
+* Update README_cn.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* When zerotls fail retry from letsencrypt. [hiddify]
+
+* Better manage of upgrade. [hiddify]
 
 * Add lock. [hiddify]
 
@@ -698,6 +779,34 @@
 * Remove old database after upgrade. [hiddify]
 
 * Change backend to mysql. [hiddify]
+
+
+## v10.5.47 (2023-10-26)
+
+### Fix
+
+* Bug. [hiddify]
+
+
+## v10.5.46 (2023-10-26)
+
+### Fix
+
+* Path. [hiddify]
+
+
+## v10.5.45 (2023-10-25)
+
+### Fix
+
+* Release update. [hiddify]
+
+
+## v10.5.44 (2023-10-25)
+
+### Fix
+
+* Release update. [hiddify]
 
 
 ## v10.5.43 (2023-10-23)
