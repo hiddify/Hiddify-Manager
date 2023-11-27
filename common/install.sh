@@ -3,6 +3,7 @@ source utils.sh
 
 remove_package apache2 needrestart needrestart-session
 install_package at whiptail apt-transport-https dnsutils ca-certificates git curl wget gnupg-agent software-properties-common iptables locales lsof cron libssl-dev curl gnupg2 ca-certificates lsb-release ubuntu-keyring resolvconf less jq qrencode resolvconf
+python3 -m pip config set global.index-url https://pypi.org/simple
 
 if [[ $COUNTRY == 'cn' ]]; then
   sudo timedatectl set-timezone Asia/Shanghai
@@ -12,22 +13,19 @@ else
   sudo timedatectl set-timezone Asia/Tehran
 fi
 
-sudo systemctl stop --now systemd-resolved.service
-sudo systemctl disable --now systemd-resolved.service
-sudo systemctl mask --now systemd-resolved.service
-rm /run/resolvconf/interface/*
+# rm /run/resolvconf/interface/*
 echo "nameserver 8.8.8.8" >/etc/resolv.conf
 echo "nameserver 1.1.1.1" >>/etc/resolv.conf
 echo "nameserver 8.8.8.8" >/etc/resolvconf/resolv.conf.d/base
 echo "nameserver 1.1.1.1" >>/etc/resolvconf/resolv.conf.d/base
-sudo systemctl restart systemd-networkd >/dev/null 2>&1
-sudo systemctl restart NetworkManager >/dev/null 2>&1
 resolvconf -u
+sudo systemctl unmask --now systemd-resolved.service
+systemctl enable --now systemd-resolved >/dev/null 2>&1
+python3 change_dns.py 8.8.8.8 1.1.1.1
 
 ln -sf $(pwd)/sysctl.conf /etc/sysctl.d/ss-opt.conf
 
 sysctl --system
-python3 -m pip config set global.index-url https://pypi.org/simple
 
 if [[ "$ONLY_IPV4" != true ]]; then
   sysctl -w net.ipv6.conf.all.disable_ipv6=0
