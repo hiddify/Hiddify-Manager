@@ -53,6 +53,10 @@
 
 ### Fix
 
+* Bug. [hiddify]
+
+* Firewall bug. [hiddify]
+
 * Dns server. [hiddify]
 
 * Bug. [hiddify]
@@ -276,6 +280,16 @@
 * Remove remote. [hiddify]
 
 ### Other
+
+* Update. [hiddify]
+
+* Update README.md. [lymanjre]
+
+* Merge pull request #3432 from alirezarm78/main. [Hiddify]
+
+  Fix conflicts between resolvconf and systemd-resolved
+
+* Fix conflicts between resolvconf and systemd-resolved. [Alireza Rahmani]
 
 * Merge pull request #3428 from Hiiirad/patch-1. [Hiddify]
 
@@ -779,6 +793,13 @@
 * Remove old database after upgrade. [hiddify]
 
 * Change backend to mysql. [hiddify]
+
+
+## v10.5.50 (2023-11-27)
+
+### Fix
+
+* Dns resolved. [hiddify]
 
 
 ## v10.5.47 (2023-10-26)
