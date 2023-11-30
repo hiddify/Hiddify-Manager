@@ -19,8 +19,13 @@ add2ip6tables "INPUT -i lo -j ACCEPT"
 
 
 {% for d in domains if d['internal_port_hysteria2'] or d['internal_port_tuic']  %}
-  {%set port=d['internal_port_hysteria2'] or d['internal_port_tuic'] %}
-  allow_port "udp" {{port}}
+  {% if d['internal_port_hysteria2']>0 %}
+  allow_port "udp" {{d['internal_port_hysteria2']}}
+  {%endif%}
+
+  {% if d['internal_port_tuic']>0 %}
+  allow_port "udp" {{d['internal_port_tuic']}}
+  {%endif%}
 {%endfor%}
 
 # ICMP for ipv4
@@ -55,6 +60,9 @@ add2ip6tables "INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT"
 {% for port in (hconfigs['tls_ports']+","+ hconfigs['http_ports']).split(',') if port %}
   allow_port "tcp" {{port}}
 {%endfor%}
+{# {% for port in (hconfigs['tls_ports']).split(',') if port %}
+  allow_port "udp" {{port}}
+{%endfor%} #}
 
 # Check if PasswordAuthentication is enabled
 if ! grep -Fxq "PasswordAuthentication no" /etc/ssh/sshd_config; then
