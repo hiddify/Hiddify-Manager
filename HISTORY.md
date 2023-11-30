@@ -53,6 +53,8 @@
 
 ### Fix
 
+* Firewall udp bug. [hiddify]
+
 * Bug. [hiddify]
 
 * Firewall bug. [hiddify]
