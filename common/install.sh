@@ -4,6 +4,9 @@ source utils.sh
 remove_package apache2 needrestart needrestart-session
 install_package at whiptail apt-transport-https dnsutils ca-certificates git curl wget gnupg-agent software-properties-common iptables locales lsof cron libssl-dev curl gnupg2 ca-certificates lsb-release ubuntu-keyring less jq qrencode
 python3 -m pip config set global.index-url https://pypi.org/simple
+remove_package resolvconf
+# rm /etc/resolv.conf
+# ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
 if [[ $COUNTRY == 'cn' ]]; then
   sudo timedatectl set-timezone Asia/Shanghai
@@ -22,10 +25,6 @@ fi
 sudo systemctl unmask --now systemd-resolved.service
 systemctl enable --now systemd-resolved >/dev/null 2>&1
 python3 change_dns.py 8.8.8.8 1.1.1.1
-
-remove_package resolvconf
-rm /etc/resolv.conf
-ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
 ln -sf $(pwd)/sysctl.conf /etc/sysctl.d/ss-opt.conf
 
