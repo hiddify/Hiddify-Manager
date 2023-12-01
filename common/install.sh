@@ -2,7 +2,7 @@
 source utils.sh
 
 remove_package apache2 needrestart needrestart-session
-install_package at whiptail apt-transport-https dnsutils ca-certificates git curl wget gnupg-agent software-properties-common iptables locales lsof cron libssl-dev curl gnupg2 ca-certificates lsb-release ubuntu-keyring less jq qrencode
+install_package apt-transport-https at ca-certificates cron curl dnsutils git gnupg2 gnupg-agent iptables jq less libssl-dev locales lsb-release lsof qrencode software-properties-common ubuntu-keyring wget whiptail
 python3 -m pip config set global.index-url https://pypi.org/simple
 remove_package resolvconf
 # rm /etc/resolv.conf
