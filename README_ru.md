@@ -8,12 +8,14 @@
 </div>
 <br>
 <div align=center markdown="1">
- 
+
+![Hiddify Manager logo](https://github.com/hiddify/Hiddify-Manager/assets/125398461/eeac9916-f57e-4eaf-96dd-f4ea029a8389)
+
 <!--
 ![Hiddify Logo](https://user-images.githubusercontent.com/125398461/227777845-a4d0f86b-faa2-4f2b-a410-4aa5f68bfe19.png)
+![Hiddify Manager logo](https://github.com/hiddify/Hiddify-Manager/assets/125398461/4831e4ab-fe8a-4741-81e4-472e4ee7351a)
 -->
- 
- ![Hiddify Manager logo](https://github.com/hiddify/Hiddify-Manager/assets/125398461/4831e4ab-fe8a-4741-81e4-472e4ee7351a)
+
 </div>
 <br>
 <div align=center>
