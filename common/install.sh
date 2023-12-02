@@ -31,6 +31,7 @@ touch /var/spool/cron/crontabs/root
 if [ $(grep -c "resolvectl" /var/spool/cron/crontabs/root) -eq 0 ]
 then
         echo "0 * * * * resolvectl dns `ip -br a | grep -E "enp|ens|eno|eth" | awk '{print $1}'` 8.8.8.8 1.1.1.1 >/dev/null 2>&1" >> /var/spool/cron/crontabs/root
+	echo "@reboot resolvectl dns `ip -br a | grep -E "enp|ens|eno|eth" | awk '{print $1}'` 8.8.8.8 1.1.1.1 >/dev/null 2>&1" >> /var/spool/cron/crontabs/root
 fi
 
 ln -sf $(pwd)/sysctl.conf /etc/sysctl.d/ss-opt.conf
