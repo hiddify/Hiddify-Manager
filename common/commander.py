@@ -4,6 +4,7 @@ import os
 from strenum import StrEnum
 import subprocess
 import shlex
+from typing import NamedTuple
 
 HIDDIFY_DIR = '/opt/hiddify-manager/'
 
@@ -17,7 +18,9 @@ class Command(StrEnum):
     restart_services = os.path.join(HIDDIFY_DIR,'restart.sh')
     add_temporary_short_link = os.path.join(HIDDIFY_DIR,'nginx/add2shortlink.sh')
 
-def escape_os_injection(input_string:str):
+EscapedResult = NamedTuple('EscapedResult', value=str, is_escaped=bool)
+
+def escape_os_injection(input_string:str) -> EscapedResult:
     # Define a dictionary mapping special characters to their escaped versions
     escape_chars = {
         '&': '\\&',
@@ -45,99 +48,55 @@ def escape_os_injection(input_string:str):
     for char, escaped_char in escape_chars.items():
         input_string = input_string.replace(char, escaped_char)
     
-    return shlex.quote(input_string)
+    escaped_string = shlex.quote(input_string)
+    
+    return EscapedResult(escaped_string, True if escaped_string != input_string else False)
 
-def run_command(command:Command, **kwargs:str|int) -> subprocess.CalledProcessError | None:
-    """
-    Runs a command and returns None if the command ended successfully,
-    otherwise returns a CalledProcessError.
-
-    Args:
-        command (str): The command to be executed.
-        **kwargs: Additional keyword arguments that may be required for specific commands.
-
-    Returns:
-        Union[subprocess.CalledProcessError, None]: None if the command ended successfully,
-            otherwise a CalledProcessError indicating the error.
-
-    Raises:
-        Exception: If invalid inputs are passed for the 'add_temporary_short_link' command.
-    """
-    def run(cmd:list[str]):
-        try:
-            subprocess.run(cmd,shell=False,check=True)
-        except Exception as e:
-            raise e
-        
-    match command:
-        case command.apply:
-            cmd = [command.value]
-            run(cmd)
-        case command.install:
-            cmd = [command.value]
-            run(cmd)
-        case command.reinstall:
-            cmd = [command.value]
-            run(cmd)
-        case command.update:
-            cmd = [command.value]
-            run(cmd)
-        case command.status:
-            cmd = [command.value]
-            run(cmd)
-        case command.restart_services:
-            cmd = [command.value]
-            run(cmd)
-        case command.add_temporary_short_link:
-            if 'url' not in kwargs or 'slug' not in kwargs:
-                raise Exception('Invalid inputs passed for add_temporary_short_link command')
+def run(cmd: list[str]):
+    subprocess.run(cmd, shell=False, check=True)
             
-            sanitized_url = escape_os_injection(kwargs['url']) # type: ignore
-            # don't need to sanitize slug but we do for good (we are not lucky)
-            sanitized_slug = escape_os_injection(kwargs['slug']) # type: ignore
-
-            cmd = [command.value,'--url',sanitized_url,'--slug',sanitized_slug]
-
-            run(cmd)
                 
-            
-
 @click.group(chain=True)
 def cli():
     pass
 
 @cli.command('apply')
 def apply():
-    run_command(Command.apply)
+    cmd = [Command.apply.value]
+    run(cmd)
 
 @cli.command('install')
 def install():
-    run_command(Command.install)
+    cmd = [Command.install.value]
+    run(cmd)
 
 
 @cli.command('reinstall')
 def reinstall():
-    run_command(Command.reinstall)
+    cmd = [Command.reinstall.value]
+    run(cmd)
 
 
 @cli.command('update')
 def update():
-    run_command(Command.update)
+    cmd = [Command.update.value]
+    run(cmd)
 
 
 
 
 @cli.command('restart-services')
 def restart_services():
-    run_command(Command.restart_services)
+    cmd = [Command.restart_services.value]
+    run(cmd)
 
 
 
 @cli.command('status')
 #@click.option('--status')
 def status():
-    run_command(Command.status)
-    print('executing status.sh')
+    cmd = [Command.status.value]
+    run(cmd)
 
 
 
@@ -169,8 +128,23 @@ def add_temporary_short_link(url:str,slug:str,period:int):
         print(error)
         exit(1)
 
-    print('executing add-temporary-short-link.sh')
-    run_command(Command.add_temporary_short_link,url=url,slug=slug,period=period)
+    if not url or not slug:
+        print('Error: Invalid inputs passed for add_temporary_short_link command')
+        exit(1)
+    
+    _, is_escaped = escape_os_injection(url) # type: ignore
+    if is_escaped:
+        print('Error: Invalid url passed for add_temporary_short_link command')
+        exit(1)
+    # don't need to sanitize slug but we do for good (we are not lucky)
+    _, is_escaped = escape_os_injection(slug) # type: ignore
+    if is_escaped:
+        print('Error: Invalid slug passed for add_temporary_short_link command')
+        exit(1)
+
+    cmd = [Command.add_temporary_short_link, url,slug, str(period)]
+
+    run(cmd)
 
 
 if __name__ == "__main__":
