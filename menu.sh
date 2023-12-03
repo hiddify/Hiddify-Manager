@@ -38,7 +38,7 @@ function menu() {
     HEIGHT=20
     WIDTH=70
     CHOICE_HEIGHT=12
-    BACKTITLE="Hiddify Panel (Config=v$CURRENT_CONFIG_VERSION Panel=v$CURRENT_PANEL_VERSION)   $UPDATE_NEED  "
+    BACKTITLE="Hiddify Manager (Config=v$CURRENT_CONFIG_VERSION Panel=v$CURRENT_PANEL_VERSION)   $UPDATE_NEED  "
     TITLE="Hiddify Manager $PACKAGE_MODE"
     MENU="Choose one of the following options:"
 
