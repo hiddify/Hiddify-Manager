@@ -49,6 +49,7 @@ function menu() {
         apply_configs "Apply the changed configs"
         update "Update $UPDATE_NEED"
         advanced "Uninstall, Remote Assistant, Downgrade,..."
+        Resource-control "Automatic resource control"
         Quit ""
     )
 
@@ -169,6 +170,13 @@ function menu() {
         (
             cd hiddify-panel
             python3 -m hiddifypanel admin-links
+        )
+        ;;
+    "resource control")
+        (
+            cd Resource-control
+            echo 'To exit you need to press Ctrl + a and then press d the key.'
+            screen python3 main.py
         )
         ;;
     "status")
