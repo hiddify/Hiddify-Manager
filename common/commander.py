@@ -5,6 +5,7 @@ import os
 from strenum import StrEnum
 import subprocess
 import shlex
+import re
 
 HIDDIFY_DIR = '/opt/hiddify-manager/'
 
@@ -22,36 +23,10 @@ class Command(StrEnum):
         HIDDIFY_DIR, 'hiddify-panel/temporary_access.sh')
 
 
-def is_input_valid(input_string: str) -> bool:
-    # Define a dictionary mapping special characters to their escaped versions
-    escape_chars = {
-        '&': '\\&',
-        ';': '\\;',
-        '|': '\\|',
-        '`': '\\`',
-        '$': '\\$',
-        '(': '\\(',
-        ')': '\\)',
-        '<': '\\<',
-        '>': '\\>',
-        '!': '\\!',
-        '*': '\\*',
-        '?': '\\?',
-        '[': '\\[',
-        ']': '\\]',
-        '{': '\\{',
-        '}': '\\}',
-        '\'': '\\\'',
-        '\"': '\\\"',
-        '\\': '\\\\'
-    }
-
-    # Replace each special character in the input string with its escaped version
-    for char, escaped_char in escape_chars.items():
-        input_string = input_string.replace(char, escaped_char)
-
-    escaped_string = shlex.quote(input_string)
-    return True if escaped_string == input_string else False
+def is_valid_string(input_string):
+    escape_chars = set('&;|`$()<>!*?[]{}\\\'"\'"')
+    pattern = f"[^{re.escape(''.join(escape_chars))}]"
+    return not bool(re.match(pattern, input_string))
 
 
 def run(cmd: list[str]):
