@@ -149,7 +149,7 @@ def add_temporary_short_link(url:str,slug:str,period:int):
     run(cmd)
 
 @cli.command('temporary-access')
-@click.option(--port, '-p', type=int, help='The port that is going to be open', required=True)
+@click.option('--port', '-p', type=int, help='The port that is going to be open', required=True)
 def add_temporary_access(port:int):
     cmd = [Command.temporary_access, str(port)]
     run(cmd)
