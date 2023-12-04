@@ -11,13 +11,14 @@ HIDDIFY_DIR = '/opt/hiddify-manager/'
 
 class Command(StrEnum):
     '''The value of each command refers to the command shell file'''
-    apply = os.path.join(HIDDIFY_DIR,'apply.sh')
+    apply = os.path.join(HIDDIFY_DIR,'apply_configs.sh')
     install = os.path.join(HIDDIFY_DIR,'install.sh')
-    reinstall = os.path.join(HIDDIFY_DIR,'reinstall.sh')
+    #reinstall = os.path.join(HIDDIFY_DIR,'reinstall.sh')
     update = os.path.join(HIDDIFY_DIR,'update.sh')
     status = os.path.join(HIDDIFY_DIR,'status.sh')
     restart_services = os.path.join(HIDDIFY_DIR,'restart.sh')
-    add_temporary_short_link = os.path.join(HIDDIFY_DIR,'nginx/add2shortlink.sh')
+    temporary_short_link = os.path.join(HIDDIFY_DIR,'nginx/add2shortlink.sh')
+    temporary_access = os.path.join(HIDDIFY_DIR,'hiddify-panel/temporary_access.sh')
 
 EscapedResult = NamedTuple('EscapedResult', value=str, is_escaped=bool)
 
@@ -72,10 +73,10 @@ def install():
     run(cmd)
 
 
-@cli.command('reinstall')
-def reinstall():
-    cmd = [Command.reinstall.value]
-    run(cmd)
+# @cli.command('reinstall')
+# def reinstall():
+#     cmd = [Command.reinstall.value]
+#     run(cmd)
 
 
 @cli.command('update')
@@ -118,7 +119,7 @@ def add_temporary_short_link_input_error(url: str, slug: str, period: int) -> Ex
     
     return None
 
-@cli.command('add-temporary-short-link')
+@cli.command('temporary-short-link')
 @click.option('--url','-u',type=str,help='The url that is going to be short',required=True)
 @click.option('--slug','-s',type=str,help='The secret code',required=True)
 @click.option('--period','-p',type=int,help='The time period that link remains active',required=False)
@@ -143,10 +144,15 @@ def add_temporary_short_link(url:str,slug:str,period:int):
         print('Error: Invalid slug passed for add_temporary_short_link command')
         exit(1)
 
-    cmd = [Command.add_temporary_short_link, url,slug, str(period)]
+    cmd = [Command.temporary_short_link, url,slug, str(period)]
 
     run(cmd)
 
+@cli.command('temporary-access')
+@click.option(--port, '-p', type=int, help='The port that is going to be open', required=True)
+def add_temporary_access(port:int):
+    cmd = [Command.temporary_access, str(port)]
+    run(cmd)
 
 if __name__ == "__main__":
     cli()
