@@ -107,15 +107,7 @@ service cron reload
 localectl set-locale LANG=C.UTF-8
 update-locale LANG=C.UTF-8
 
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/install.sh" >/etc/sudoers.d/hiddify
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/status.sh" >>/etc/sudoers.d/hiddify
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/update.sh" >>/etc/sudoers.d/hiddify
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/apply_configs.sh" >>/etc/sudoers.d/hiddify
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/hiddify-panel/temporary_access.sh" >>/etc/sudoers.d/hiddify
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/hiddify-panel/update_usage.sh" >>/etc/sudoers.d/hiddify
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/hiddify-panel/restart.sh" >>/etc/sudoers.d/hiddify
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/nginx/add2shortlink.sh" >>/etc/sudoers.d/hiddify
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/acme.sh/get_cert.sh" >>/etc/sudoers.d/hiddify
+echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/common/commander.py" >/etc/sudoers.d/hiddify
 
 ln -sf /opt/hiddify-manager/menu.sh /usr/bin/hiddify
 
