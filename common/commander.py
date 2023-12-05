@@ -22,6 +22,8 @@ class Command(StrEnum):
         HIDDIFY_DIR, 'hiddify-panel/temporary_access.sh')
     update_usage = os.path.join(HIDDIFY_DIR, 'hiddify-panel/update_usage.sh')
     get_cert = os.path.join(HIDDIFY_DIR, 'acme.sh/get_cert.sh')
+    # apply-users command is actually "install.sh apply_users"
+    apply_users = os.path.join(HIDDIFY_DIR, 'install.sh')
     id = 'id'
 
 
@@ -42,13 +44,13 @@ def id():
 
 @cli.command('apply')
 def apply():
-    cmd = [Command.apply.value]
+    cmd = [Command.apply.value, '--no-gui']
     run(cmd)
 
 
 @cli.command('install')
 def install():
-    cmd = [Command.install.value]
+    cmd = [Command.install.value, '--no-gui']
     run(cmd)
 
 
@@ -60,19 +62,19 @@ def install():
 
 @cli.command('update')
 def update():
-    cmd = [Command.update.value]
+    cmd = [Command.update.value, '--no-gui']
     run(cmd)
 
 
 @cli.command('restart-services')
 def restart_services():
-    cmd = [Command.restart_services.value]
+    cmd = [Command.restart_services.value, '--no-gui']
     run(cmd)
 
 
 @cli.command('status')
 def status():
-    cmd = [Command.status.value]
+    cmd = [Command.status.value, '--no-gui']
     run(cmd)
 
 
@@ -155,6 +157,12 @@ def get_cert(domain: str):
 @cli.command('update-usage')
 def update_usage():
     cmd = [Command.update_usage.value]
+    run(cmd)
+
+
+@cli.command('apply-users')
+def apply_users():
+    cmd = [Command.apply_users.value, 'apply_users', '--no-gui']
     run(cmd)
 
 
