@@ -1,10 +1,9 @@
 #!/usr/bin/env python
+from urllib.parse import urlparse
 import click
-import validators
 import os
 from strenum import StrEnum
 import subprocess
-import shlex
 import re
 
 HIDDIFY_DIR = '/opt/hiddify-manager/'
@@ -74,13 +73,13 @@ def status():
     run(cmd)
 
 
-def add_temporary_short_link_input_error(url: str, slug: str, period: int) -> Exception | None:
+def add_temporary_short_link_input_error(url: str, slug: str) -> Exception | None:
     '''Returns None if everything is valid otherwise returns an error'''
 
     if not url:
         return Exception(f"Error: Invalid value for '--url' / '-u': \"\" is not a valid url")
 
-    if not validators.url(url):
+    if not urlparse(url):
         return Exception(f"Error: Invalid value for '--url' / '-u': {url} is an invalid url")
 
     if not slug:
@@ -92,13 +91,26 @@ def add_temporary_short_link_input_error(url: str, slug: str, period: int) -> Ex
     return None
 
 
+def is_valid_url(url) -> bool:
+    if not urlparse(url):
+        return False
+
+    pattern = r"^[a-zA-Z0-9:/@.-]+$"
+    return bool(re.match(pattern, url))
+
+
+def is_valid_slug(slug) -> bool:
+    pattern = r"^[a-zA-Z0-9\-]+$"
+    return bool(re.match(pattern, slug))
+
+
 @cli.command('temporary-short-link')
 @click.option('--url', '-u', type=str, help='The url that is going to be short', required=True)
 @click.option('--slug', '-s', type=str, help='The secret code', required=True)
 @click.option('--period', '-p', type=int, help='The time period that link remains active', required=False)
 def add_temporary_short_link(url: str, slug: str, period: int):
     # validate inputs
-    error = add_temporary_short_link_input_error(url, slug, period)
+    error = add_temporary_short_link_input_error(url, slug)
     if error is not None:
         print(error)
         exit(1)
