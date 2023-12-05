@@ -1,3 +1,4 @@
+#!/bin/bash
 cd $( dirname -- "$0"; )
 real_url=$1
 short_code=$2
