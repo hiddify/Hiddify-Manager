@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from urllib.parse import urlparse
 import click
 import os
@@ -20,6 +20,9 @@ class Command(StrEnum):
     temporary_short_link = os.path.join(HIDDIFY_DIR, 'nginx/add2shortlink.sh')
     temporary_access = os.path.join(
         HIDDIFY_DIR, 'hiddify-panel/temporary_access.sh')
+    update_usage = os.path.join(HIDDIFY_DIR, 'hiddify-panel/update_usage.sh')
+    get_cert = os.path.join(HIDDIFY_DIR, 'acme.sh/get_cert.sh')
+    id = 'id'
 
 
 def run(cmd: list[str]):
@@ -29,6 +32,12 @@ def run(cmd: list[str]):
 @click.group(chain=True)
 def cli():
     pass
+
+
+@cli.command('id')
+def id():
+    out = subprocess.check_output(['id'])
+    print(out.decode())
 
 
 @cli.command('apply')
@@ -106,22 +115,18 @@ def add_temporary_short_link(url: str, slug: str, period: int):
     # validate inputs
     error = add_temporary_short_link_input_error(url, slug)
     if error is not None:
-        print(error)
-        exit(1)
+        raise error
 
     if not url or not slug:
-        print('Error: Invalid inputs passed for add_temporary_short_link command')
-        exit(1)
+        raise Exception('Error: Invalid inputs passed to the temporary_short_link command')
 
-    is_url_valid = is_input_valid(url)  # type: ignore
-    if not is_url_valid:
+    if not is_valid_url(url):
         raise Exception(f"Error: Invalid character in url: {url}")
     # don't need to sanitize slug but we do for good (we are not lucky)
-    is_slug_valid = is_input_valid(slug)  # type: ignore
-    if is_slug_valid:
+    if not is_valid_slug(slug):
         raise Exception(f"Error: Invalid character in slug: {slug}")
 
-    cmd = [Command.temporary_short_link, url, slug, str(period)]
+    cmd = [Command.temporary_short_link.value, url, slug, str(period)]
 
     run(cmd)
 
@@ -129,7 +134,27 @@ def add_temporary_short_link(url: str, slug: str, period: int):
 @cli.command('temporary-access')
 @click.option('--port', '-p', type=int, help='The port that is going to be open', required=True)
 def add_temporary_access(port: int):
-    cmd = [Command.temporary_access, str(port)]
+    cmd = [Command.temporary_access.value, str(port)]
+    run(cmd)
+
+
+def is_domain_valid(d):
+    pattern = r"^[a-zA-z0-9.-]+$"
+    return bool(re.match(pattern, d))
+
+
+@cli.command('get-cert')
+@click.option('--domain', '-d', type=str, help='The domain that needs certificate', required=True)
+def get_cert(domain: str):
+    if not is_domain_valid(domain):
+        raise Exception("Error: Invalid domain passed to the get_cert command")
+    cmd = [Command.get_cert.value, domain]
+    run(cmd)
+
+
+@cli.command('update-usage')
+def update_usage():
+    cmd = [Command.update_usage.value]
     run(cmd)
 
 
