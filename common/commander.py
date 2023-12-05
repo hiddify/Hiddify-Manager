@@ -22,12 +22,6 @@ class Command(StrEnum):
         HIDDIFY_DIR, 'hiddify-panel/temporary_access.sh')
 
 
-def is_valid_string(input_string):
-    escape_chars = set('&;|`$()<>!*?[]{}\\\'"\'"')
-    pattern = f"[^{re.escape(''.join(escape_chars))}]"
-    return not bool(re.match(pattern, input_string))
-
-
 def run(cmd: list[str]):
     subprocess.run(cmd, shell=False, check=True)
 
