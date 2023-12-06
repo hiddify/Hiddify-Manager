@@ -141,7 +141,7 @@ def add_temporary_access(port: int):
 
 
 def is_domain_valid(d):
-    pattern = r"^[a-zA-z0-9.-]+$"
+    pattern = r"^[a-zA-Z0-9\-.]+$"
     return bool(re.match(pattern, d))
 
 
