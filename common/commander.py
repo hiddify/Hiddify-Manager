@@ -80,22 +80,19 @@ def status():
 
 def add_temporary_short_link_assert_input(url: str, slug: str) -> None:
     '''Returns None if everything is valid otherwise returns an error'''
-    if not url:
-        raise Exception(f"Error: Invalid value for '--url' / '-u': \"\" is not a valid url")
 
-    if not urlparse(url):
-        raise Exception(f"Error: Invalid value for '--url' / '-u': {url} is an invalid url")
+    assert url, f"Error: Invalid value for '--url' / '-u': \"\" is not a valid url"
 
-    if not slug:
-        raise Exception(f"Error: Invalid value for '-slug' / '-s': \"\" is not a valid slug")
+    assert urlparse(url), f"Error: Invalid value for '--url' / '-u': {url} is an invalid url"
 
-    if not slug.isalnum():
-        raise Exception(f"Error: Invalid value for '-slug' / '-s': \"\" is not a alphanumeric")
-    if not is_valid_url(url):
-        raise Exception(f"Error: Invalid character in url: {url}")
+    assert slug, f"Error: Invalid value for '-slug' / '-s': \"\" is not a valid slug"
+
+    assert slug.isalnum(), f"Error: Invalid value for '-slug' / '-s': \"\" is not a alphanumeric"
+
+    assert is_valid_url(url), f"Error: Invalid character in url: {url}"
+
     # don't need to sanitize slug but we do for good (we are not lucky)
-    if not is_valid_slug(slug):
-        raise Exception(f"Error: Invalid character in slug: {slug}")
+    assert is_valid_slug(slug), f"Error: Invalid character in slug: {slug}"
 
 
 def is_valid_url(url) -> bool:
@@ -139,8 +136,7 @@ def is_domain_valid(d):
 @cli.command('get-cert')
 @click.option('--domain', '-d', type=str, help='The domain that needs certificate', required=True)
 def get_cert(domain: str):
-    if not is_domain_valid(domain):
-        raise Exception("Error: Invalid domain passed to the get_cert command")
+    assert is_domain_valid(domain), f"Error: Invalid domain passed to the get_cert command: {domain}"
     cmd = [Command.get_cert.value, domain]
     run(cmd)
 
