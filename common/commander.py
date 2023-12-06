@@ -78,22 +78,24 @@ def status():
     run(cmd)
 
 
-def add_temporary_short_link_input_error(url: str, slug: str) -> Exception | None:
+def add_temporary_short_link_assert_input(url: str, slug: str) -> None:
     '''Returns None if everything is valid otherwise returns an error'''
-
     if not url:
-        return Exception(f"Error: Invalid value for '--url' / '-u': \"\" is not a valid url")
+        raise Exception(f"Error: Invalid value for '--url' / '-u': \"\" is not a valid url")
 
     if not urlparse(url):
-        return Exception(f"Error: Invalid value for '--url' / '-u': {url} is an invalid url")
+        raise Exception(f"Error: Invalid value for '--url' / '-u': {url} is an invalid url")
 
     if not slug:
-        return Exception(f"Error: Invalid value for '-slug' / '-s': \"\" is not a valid slug")
+        raise Exception(f"Error: Invalid value for '-slug' / '-s': \"\" is not a valid slug")
 
     if not slug.isalnum():
-        return Exception(f"Error: Invalid value for '-slug' / '-s': \"\" is not a alphanumeric")
-
-    return None
+        raise Exception(f"Error: Invalid value for '-slug' / '-s': \"\" is not a alphanumeric")
+    if not is_valid_url(url):
+        raise Exception(f"Error: Invalid character in url: {url}")
+    # don't need to sanitize slug but we do for good (we are not lucky)
+    if not is_valid_slug(slug):
+        raise Exception(f"Error: Invalid character in slug: {slug}")
 
 
 def is_valid_url(url) -> bool:
@@ -115,18 +117,7 @@ def is_valid_slug(slug) -> bool:
 @click.option('--period', '-p', type=int, help='The time period that link remains active', required=False)
 def add_temporary_short_link(url: str, slug: str, period: int):
     # validate inputs
-    error = add_temporary_short_link_input_error(url, slug)
-    if error is not None:
-        raise error
-
-    if not url or not slug:
-        raise Exception('Error: Invalid inputs passed to the temporary_short_link command')
-
-    if not is_valid_url(url):
-        raise Exception(f"Error: Invalid character in url: {url}")
-    # don't need to sanitize slug but we do for good (we are not lucky)
-    if not is_valid_slug(slug):
-        raise Exception(f"Error: Invalid character in slug: {slug}")
+    add_temporary_short_link_assert_input(url, slug)
 
     cmd = [Command.temporary_short_link.value, url, slug, str(period)]
 
