@@ -204,7 +204,7 @@ We would like to express our sincere appreciation to the contributors of the fol
 - [FClash](https://github.com/Fclash/Fclash)
 - [Others](./pubspec.yaml)
 - Linux by linus
-- Font: [Vazirmatn by Saber Rastikerdar](https://github.com/rastikerdar/
+- Font: [Vazirmatn by Saber Rastikerdar](https://github.com/rastikerdar/vazirmatn)
 
 ## Donation And Support 
 The easiest way to support us is to click on the star (⭐) at the top of this page.
