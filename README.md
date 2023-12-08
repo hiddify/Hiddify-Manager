@@ -198,7 +198,7 @@ When you want to share Telegram proxy or Shadowsocks proxy through other program
 ## Acknowledgements
 We would like to express our sincere appreciation to the contributors of the following projects, whose robust foundation and innovative features have significantly enhanced the success and functionality of this project.
 - [Sing-box](https://github.com/SagerNet/sing-box)
-- Xray
+- [Xray](https://github.com/XTLS/Xray-core#installation)
 - [Clash](https://github.com/Dreamacro/clash)
 - [Clash Meta](https://github.com/MetaCubeX/Clash.Meta)
 - [FClash](https://github.com/Fclash/Fclash)
