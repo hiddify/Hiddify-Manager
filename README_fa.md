@@ -204,7 +204,7 @@
 
 - [ایکس‌ری](https://github.com/XTLS/Xray-core#installation)
 - [سینگ‌باکس](https://github.com/SagerNet/sing-box)
-- [لینوکس توسط لینوس توروالدز] (https://github.com/torvalds/linux)
+- [لینوکس توسط لینوس توروالدز](https://github.com/torvalds/linux)
 - فونت: [وزیرمتن صابر راستی‌کردار](https://github.com/rastikerdar/vazirmatn)
   
 ## حمایت از پروژه
