@@ -151,6 +151,13 @@ Hiddify 的名称是 Hidden （隐藏） 和 Simplify （简化） 的合并而�
 
  </div>
 
+ ## 致谢
+我们谨向以下项目的贡献者表示诚挚的谢意，他们坚实的基础和创新的功能显着增强了该项目的成功和功能。
+- [Sing-box](https://github.com/SagerNet/sing-box)
+- [Xray](https://github.com/XTLS/Xray-core#installation)
+- [Linux 作者 Linus Torvalds](https://github.com/torvalds/linux)
+- 字体：[Vazirmatn 作者 Saber Rastikerdar](https://github.com/rastikerdar/vazirmatn)
+
 ## 捐赠与支持
 支持我们的最简单方法是单击此页面顶部的 Star （⭐）。
 
