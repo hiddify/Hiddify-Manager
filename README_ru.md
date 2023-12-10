@@ -148,7 +148,7 @@ Hiddify был протестирован на Ubuntu 22.04. Ubuntu Arm64 или
 - [Sing-box](https://github.com/SagerNet/sing-box)
 - [Xray](https://github.com/XTLS/Xray-core#installation)
 - [Linux от Линуса Торвальдса](https://github.com/torvalds/linux)
-- Шрифт: [Vazirmatn от Sabre Rastikerdar] (https://github.com/rastikerdar/vazirmatn)
+- Шрифт: [Vazirmatn от Sabre Rastikerdar](https://github.com/rastikerdar/vazirmatn)
   
 
 ## Пожертвования и поддержка
