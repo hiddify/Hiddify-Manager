@@ -199,6 +199,13 @@
   </div>
 
   
+## سپاسگزاری‌ها
+مایلیم از دست اندرکاران پروژه‌های زیر صمیمانه قدردانی کنیم که پایه قوی و ویژگی‌های نوآورانه آنها موفقیت و عملکرد این پروژه را به میزان قابل توجهی افزایش داده است.
+
+- [ایکس‌ری](https://github.com/XTLS/Xray-core#installation)
+- [سینگ‌باکس](https://github.com/SagerNet/sing-box)
+- [لینوکس توسط لینوس توروالدز] (https://github.com/torvalds/linux)
+- فونت: [وزیرمتن صابر راستی‌کردار](https://github.com/rastikerdar/vazirmatn)
   
 ## حمایت از پروژه
 
