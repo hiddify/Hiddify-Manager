@@ -147,7 +147,8 @@ Hiddify 的名称是 Hidden （隐藏） 和 Simplify （简化） 的合并而�
 
 <div align=center>
  
-  [![tutorial_cn](https://github.com/hiddify/hiddify-manager/blob/main/docs/Tutorials_cn.webp)](https://github.com/hiddify/hiddify-manager/wiki)
+<a href=""><img width="100%" alt="Wiki 上的所有教程" src="https://github.com/hiddify/Hiddify-Manager/assets/125398461/69637594-3e6a-4912-a731-da6e135ccab9" /></a>
+
 
  </div>
 
