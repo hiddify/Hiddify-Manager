@@ -137,9 +137,9 @@ Hiddify был протестирован на Ubuntu 22.04. Ubuntu Arm64 или
 ## Установка и руководства
 **Соответствующую информацию можно найти на нашей вики-странице, нажав на изображение ниже.**
 
-<div align="center" width="100%">
+<div align="center">
  
- [![Все уроки на Wiki](https://github.com/hiddify/Hiddify-Manager/assets/125398461/9e8102e9-7556-4188-934e-d3fb4b5e7ef2)](https://github.com/hiddify/hiddify-manager/wiki)
+ <a href="https://github.com/hiddify/hiddify-manager/wiki"><img alt="Все уроки на Wiki" width="100%" src="https://github.com/hiddify/Hiddify-Manager/assets/125398461/40d9c9f7-05d4-4c32-901b-c8a34d8135a2" /><a/>
 
 
 </div>
