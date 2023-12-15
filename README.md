@@ -185,9 +185,9 @@ When you want to share Telegram proxy or Shadowsocks proxy through other program
 ## Installation and tutorials
 **Please find related information on our wiki page by clicking on image below.**
 
-<div align="center" width="40%">
+<div align="center">
  
- <a href="https://github.com/hiddify/hiddify-manager/wiki"><img width="100%" alt="All Tutorials" src="https://github.com/hiddify/Hiddify-Manager/assets/125398461/9584bbcf-8e75-4e31-8ef1-1c4a83d36d40" /></a>
+ <a href="https://github.com/hiddify/hiddify-manager/wiki"><img width="100%" alt="All Tutorials" src="https://github.com/hiddify/Hiddify-Manager/assets/125398461/36b2bb34-1726-47ef-a0e3-e60e0e8bcfce" /></a>
 
 
  
