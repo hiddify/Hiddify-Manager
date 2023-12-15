@@ -187,10 +187,12 @@ When you want to share Telegram proxy or Shadowsocks proxy through other program
 
 <div align="center" width="40%">
  
- [![Tutorials](https://github.com/hiddify/hiddify-manager/blob/main/docs/Turorials_en.webp)](https://github.com/hiddify/hiddify-manager/wiki)
- 
+ <a href="https://github.com/hiddify/hiddify-manager/wiki"><img width="100%" alt="All Tutorials" src="https://github.com/hiddify/Hiddify-Manager/assets/125398461/9584bbcf-8e75-4e31-8ef1-1c4a83d36d40" /></a>
+
+
  
  <!--
+[![Tutorials](https://github.com/hiddify/hiddify-manager/blob/main/docs/Turorials_en.webp)](https://github.com/hiddify/hiddify-manager/wiki)
  <a href="https://github.com/hiddify/hiddify-manager/wiki"><img width="40%" src="https://github.com/hiddify/hiddify-manager/assets/125398461/77960650-1bd0-4a12-b8d5-2735bec33934" /></a>-->
 
 </div>
