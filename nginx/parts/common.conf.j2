@@ -94,6 +94,19 @@ location /{{ hconfigs['proxy_path'] }}/ {
   {%endif%}
   error_page 301 302 307 = @handle_redirect;
 }
-
+location ~ ^/({{ hconfigs['proxy_path'] }}|{{hconfigs['proxy_path_admin']}}|{{hconfigs['proxy_path_client']}})(/.*)?$ {
+  proxy_set_header Host $host;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header X-Real-IP $remote_addr;
+  add_header X-Robots-Tag "noindex, nofollow";
+  {% if os.path.exists("/opt/hiddify-develop/") %}
+  proxy_pass http://localhost:9000/$1$2; 
+  #proxy_pass http://unix:/run/hiddifypanel.sock:/{{ hconfigs['proxy_path'] }}/;
+  {%else%}
+  include uwsgi_params;
+  uwsgi_pass localhost:9001;
+  {%endif%}
+  error_page 301 302 307 = @handle_redirect;
+}
 
 resolver 8.8.8.8;
