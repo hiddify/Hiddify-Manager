@@ -94,7 +94,7 @@ location /{{ hconfigs['proxy_path'] }}/ {
   {%endif%}
   error_page 301 302 307 = @handle_redirect;
 }
-location ~ ^/({{hconfigs['proxy_path_admin']}}|{{hconfigs['proxy_path_client']}})(/.*)?$ {
+location ~ ^/({{ hconfigs['proxy_path'] }}|{{hconfigs['proxy_path_admin']}}|{{hconfigs['proxy_path_client']}})(/.*)?$ {
   proxy_set_header Host $host;
   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   proxy_set_header X-Real-IP $remote_addr;
