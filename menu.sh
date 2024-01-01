@@ -166,10 +166,11 @@ function menu() {
         esac
         ;;
     "admin")
-        (
-            cd hiddify-panel
-            python3 -m hiddifypanel admin-links
-        )
+        # (
+        #     cd hiddify-panel
+        #     python3 -m hiddifypanel admin-links
+        # )
+        check_hiddify_panel
         ;;
     "status")
         bash status.sh | less -r -P"Press q to exit" +G

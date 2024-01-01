@@ -169,8 +169,15 @@ function install_python() {
 
 }
 
-function check() {
+function check_hiddify_panel() {
     if [ "$MODE" != "apply_users" ]; then
+        (cd /opt/hiddify-manager/hiddify-panel && python3 -m hiddifypanel all-configs) >/opt/hiddify-manager/current.json
+        chmod 600 /opt/hiddify-manager/current.json
+        if [[ $? != 0 ]]; then
+            error "Exception in Hiddify Panel. Please send the log to hiddify@gmail.com"
+            echo "4" >log/error.lock
+            exit 4
+        fi
         echo ""
         echo ""
         bash /opt/hiddify-manager/status.sh
@@ -186,7 +193,7 @@ function check() {
             if [[ $link == http://* ]]; then
                 link="[insecure] $link"
                 error "  $link"
-            elif [[ $link =~ ^https://[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/ ]]; then
+            elif [[ $link =~ ^https://.*@[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/ ]]; then
                 link="[invalid HTTPS] $link"
                 warning "  $link"
             else

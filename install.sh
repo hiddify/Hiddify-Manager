@@ -117,10 +117,7 @@ function cleanup() {
 trap cleanup SIGINT
 
 function set_config_from_hpanel() {
-        (
-                cd hiddify-panel
-                python3 -m hiddifypanel all-configs
-        ) >current.json
+        (cd hiddify-panel && python3 -m hiddifypanel all-configs) >current.json
         chmod 600 current.json
         if [[ $? != 0 ]]; then
                 error "Exception in Hiddify Panel. Please send the log to hiddify@gmail.com"
@@ -208,7 +205,7 @@ else
                 less -r -P"Installation Failed! Press q to exit" +G "$log_file"
         else
                 msg_with_hiddify "The installation has successfully completed."
-                check $@ |& tee -a $log_file
+                check_hiddify_panel $@ |& tee -a $log_file
         fi
 
 fi
