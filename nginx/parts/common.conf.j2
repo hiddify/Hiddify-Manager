@@ -1,38 +1,30 @@
 
-# location ~* "/{{ hconfigs['proxy_path'] }}/(?<guid1>\w{8})[\-]?(?<guid2>\w{4})[\-]?(?<guid3>\w{4})[\-]?(?<guid4>\w{4})[\-]?(?<guid5>\w{12})/(?<path>.*)" {
-#   set $guid "$guid1-$guid2-$guid3-$guid4-$guid5";
-#   set $usersecret "$guid1$guid2$guid3$guid4$guid5";
-#   proxy_pass http://localhost:9000//{{ hconfigs['proxy_path'] }}/$guid/$path; 
-# }
-if ($request_uri ~ "^/{{ hconfigs['proxy_path'] }}/redirect/(.*)(%3A%2F%2F|://)(.*)$") {
+if ($request_uri ~ "^/{{ hconfigs['proxy_path_client'] }}/redirect/(.*)(%3A%2F%2F|://)(.*)$") {
   return 307 $1://$3;
 }
-location /{{ hconfigs['proxy_path'] }}/{{ hconfigs['admin_secret'] }}/admin/netdata/ {
-	proxy_pass  http://localhost:19999/;
-	error_page 301 302 307 = @handle_redirect;
-}
-location /{{ hconfigs['proxy_path'] }}/{{ hconfigs['admin_secret'] }}/admin/stats/ {
+
+location /{{ hconfigs['proxy_path_admin'] }}/{{ hconfigs['admin_secret'] }}/admin/stats/ {
 	proxy_pass  http://localhost:8181/;
   sub_filter '="/' '="';
   sub_filter_once off;
 	error_page 301 302 307 = @handle_redirect;
 }
 
-location /{{ hconfigs['proxy_path'] }}/ghr/ {
+location /{{ hconfigs['proxy_path_client'] }}/ghr/ {
   #for proxy github raw
   proxy_set_header Host raw.githubusercontent.com;
   set $upstream https://raw.githubusercontent.com:443/;
   proxy_pass $upstream;
 }
 
-location /{{ hconfigs['proxy_path'] }}/gho/ {
+location /{{ hconfigs['proxy_path_client'] }}/gho/ {
   #for proxy github object
   proxy_set_header Host objects.githubusercontent.com;
   set $upstream https://objects.githubusercontent.com:443/;
   proxy_pass $upstream;
 }
 
-location /{{ hconfigs['proxy_path'] }}/gh/ {
+location /{{ hconfigs['proxy_path_client'] }}/gh/ {
   #for proxy github
   resolver 8.8.8.8;
   proxy_set_header Host github.com;
@@ -48,29 +40,17 @@ location /{{ hconfigs['proxy_path'] }}/gh/ {
   sub_filter    src="/ src="/{{ hconfigs['proxy_path'] }}/gh/;
 }
 
-
-
-
-location /{{ hconfigs['proxy_path'] }}/clash/ {
-  #for clash configs
-   alias /opt/hiddify-manager/clash/;
-   types { }   default_type "text/plain";
-   sub_filter_types text/plain;
-   #include /opt/hiddify-manager/nginx/replace.conf;
-   sub_filter_once off;
-}
-
-location /{{ hconfigs['proxy_path'] }}/dns/ {
-  # use it in your browser as https://defaultserverhost/{{ hconfigs['proxy_path'] }}/dns/dns-query{?dns}
+location /{{ hconfigs['proxy_path_client'] }}/dns/ {
+  # use it in your browser as https://defaultserverhost/{{ hconfigs['proxy_path_client'] }}/dns/dns-query{?dns}
   set $upstream https://dns.google:443/; 
   proxy_pass $upstream;
   
 }
-location /{{ hconfigs['proxy_path'] }}/speedtest/ {
+location /{{ hconfigs['proxy_path_client'] }}/speedtest/ {
   client_max_body_size 10000M;
   proxy_pass          http://localhost:438/;
 }
-location /{{ hconfigs['proxy_path'] }}/static {
+location /{{ hconfigs['proxy_path_client'] }}/static {
   tcp_nodelay       on;
   keepalive_timeout 65;
   add_header X-Robots-Tag "noindex, nofollow";
@@ -80,33 +60,19 @@ location /{{ hconfigs['proxy_path'] }}/static {
   add_header Cache-Control "public, no-transform";
   alias {{exec('python3 -c "import os,hiddifypanel;print(os.path.dirname(hiddifypanel.__file__),end=\'\')"')}}/static;
 }
+
+#Backward Compatibility
 location /{{ hconfigs['proxy_path'] }}/ {
-  proxy_set_header Host $host;
-  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-  proxy_set_header X-Real-IP $remote_addr;
-  add_header X-Robots-Tag "noindex, nofollow";
-  {% if os.path.exists("/opt/hiddify-develop/") %}
-  proxy_pass http://localhost:9000/{{ hconfigs['proxy_path'] }}/; 
-  #proxy_pass http://unix:/run/hiddifypanel.sock:/{{ hconfigs['proxy_path'] }}/;
-  {%else%}
-  include uwsgi_params;
-  uwsgi_pass localhost:9001;
-  {%endif%}
-  error_page 301 302 307 = @handle_redirect;
+  include /opt/hiddify-manager/nginx/parts/proxy_to_panel.conf;
 }
-location ~ ^/({{ hconfigs['proxy_path'] }}|{{hconfigs['proxy_path_admin']}}|{{hconfigs['proxy_path_client']}})(/.*)?$ {
-  proxy_set_header Host $host;
-  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-  proxy_set_header X-Real-IP $remote_addr;
-  add_header X-Robots-Tag "noindex, nofollow";
-  {% if os.path.exists("/opt/hiddify-develop/") %}
-  proxy_pass http://localhost:9000/$1$2?$args; 
-  #proxy_pass http://unix:/run/hiddifypanel.sock:/{{ hconfigs['proxy_path'] }}/;
-  {%else%}
-  include uwsgi_params;
-  uwsgi_pass localhost:9001;
-  {%endif%}
-  error_page 301 302 307 = @handle_redirect;
+
+location /{{ hconfigs['proxy_path_client'] }}/ {
+  include /opt/hiddify-manager/nginx/parts/proxy_to_panel.conf;
 }
+
+location /{{ hconfigs['proxy_path_admin'] }}/ {
+  include /opt/hiddify-manager/nginx/parts/proxy_to_panel.conf;
+}
+
 
 resolver 8.8.8.8;
