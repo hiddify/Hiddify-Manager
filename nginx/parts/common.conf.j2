@@ -100,7 +100,7 @@ location ~ ^/({{ hconfigs['proxy_path'] }}|{{hconfigs['proxy_path_admin']}}|{{hc
   proxy_set_header X-Real-IP $remote_addr;
   add_header X-Robots-Tag "noindex, nofollow";
   {% if os.path.exists("/opt/hiddify-develop/") %}
-  proxy_pass http://localhost:9000/$1$2; 
+  proxy_pass http://localhost:9000/$1$2?$args; 
   #proxy_pass http://unix:/run/hiddifypanel.sock:/{{ hconfigs['proxy_path'] }}/;
   {%else%}
   include uwsgi_params;
