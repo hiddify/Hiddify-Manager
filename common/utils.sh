@@ -193,7 +193,7 @@ function check_hiddify_panel() {
             if [[ $link == http://* ]]; then
                 link="[insecure] $link"
                 error "  $link"
-            elif [[ $link =~ ^https://.*@[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/ ]]; then
+            elif [[ $link =~ ^https://[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/ ]]; then
                 link="[invalid HTTPS] $link"
                 warning "  $link"
             else
