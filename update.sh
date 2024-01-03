@@ -113,4 +113,5 @@ else
     disable_ansii_modes
     msg_with_hiddify "The update has successfully completed."
     reset
+    check_hiddify_panel $@ |& tee -a $log_file
 fi
