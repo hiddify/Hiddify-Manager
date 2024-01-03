@@ -39,7 +39,7 @@ if [ -f "../config.env" ]; then
     fi
 fi
 systemctl daemon-reload >/dev/null 2>&1
-echo "*/1 * * * * hiddify-panel $(pwd)/common/commander.py update-usage" >/etc/cron.d/hiddify_usage_update
+echo "*/1 * * * * hiddify-panel /opt/hiddify-manager/hiddify-panel/update-usage.sh" >/etc/cron.d/hiddify_usage_update
 service cron reload >/dev/null 2>&1
 
 systemctl start hiddify-panel.service
