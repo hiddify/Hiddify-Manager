@@ -1,35 +1,55 @@
+restricted_tlds=("af" "by" "cu" "er" "gn" "ir" "kp" "lr" "ru" "ss" "su" "sy" "zw" "amazonaws.com","azurewebsites.net","cloudapp.net")
+
+# Function to check if a domain is restricted
+is_ok_domain_zerossl() {
+    domain="$1"
+    for tld in "${restricted_tlds[@]}"; do
+        if [[ $domain == *.$tld ]]; then
+            return 1 # Domain is restricted
+        fi
+    done
+    return 0 # Domain is not restricted
+}
 function get_cert() {
     cd /opt/hiddify-manager/acme.sh
     source ./lib/acme.sh.env
     ./lib/acme.sh --register-account -m my@example.com
     DOMAIN=$1
     ssl_cert_path=../ssl
-    mkdir -p /opt/hiddify-manager/acme.sh/www/.well-known/acme-challenge
-    echo "location /.well-known/acme-challenge {root /opt/hiddify-manager/acme.sh/www/;}" >/opt/hiddify-manager/nginx/parts/acme.conf
-    # systemctl reload --now hiddify-nginx
-
     rm -f $ssl_cert_path/$DOMAIN.key
-    DOMAIN_IP=$(dig +short -t a $DOMAIN.)
-    echo "resolving domain $DOMAIN -> IP= $DOMAIN_IP ServerIP-> $SERVER_IP"
-    if [[ $SERVER_IP != $DOMAIN_IP ]]; then
-        echo "maybe it is an error! make sure that it is correct"
-        #sleep 10
+
+    if [ ${#DOMAIN} -le 64 ]; then
+        mkdir -p /opt/hiddify-manager/acme.sh/www/.well-known/acme-challenge
+        echo "location /.well-known/acme-challenge {root /opt/hiddify-manager/acme.sh/www/;}" >/opt/hiddify-manager/nginx/parts/acme.conf
+        # systemctl reload --now hiddify-nginx
+
+        DOMAIN_IP=$(dig +short -t a $DOMAIN.)
+        echo "resolving domain $DOMAIN -> IP= $DOMAIN_IP ServerIP-> $SERVER_IP"
+        if [[ $SERVER_IP != $DOMAIN_IP ]]; then
+            echo "maybe it is an error! make sure that it is correct"
+            #sleep 10
+        fi
+
+        flags=
+        if [ "$SERVER_IPv6" != "" ]; then
+            flags="--listen-v6"
+        fi
+
+        if is_ok_domain_zerossl "$DOMAIN"; then
+            ./lib/acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --pre-hook "systemctl reload hiddify-nginx"
+        fi
+        ./lib/acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt --pre-hook "systemctl reload hiddify-nginx"
+
+        ./lib/acme.sh --installcert -d $DOMAIN \
+            --fullchainpath $ssl_cert_path/$DOMAIN.crt \
+            --keypath $ssl_cert_path/$DOMAIN.crt.key \
+            --reloadcmd "echo success"
+        err=$?
+    else
+        err=1
     fi
 
-    flags=
-    if [ "$SERVER_IPv6" != "" ]; then
-        flags="--listen-v6"
-    fi
-
-    ./lib/acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --pre-hook "systemctl restart hiddify-nginx"
-    ./lib/acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt
-
-    ./lib/acme.sh --installcert -d $DOMAIN \
-        --fullchainpath $ssl_cert_path/$DOMAIN.crt \
-        --keypath $ssl_cert_path/$DOMAIN.crt.key \
-        --reloadcmd "echo success"
-
-    if [[ $? != 0 ]]; then
+    if [[ $err != 0 ]]; then
         bash generate_self_signed_cert.sh $DOMAIN
     fi
 
@@ -77,6 +97,10 @@ function get_self_signed_cert() {
 
     # Generate a new certificate if necessary
     if [ "$generate_new_cert" -eq 1 ]; then
+        if [ ${#d} -gt 64 ]; then
+            echo "Domain length exceeds 64 characters. Truncating to the first 64 characters."
+            d="${d:0:64}"
+        fi
         openssl req -x509 -newkey rsa:2048 -keyout "$private_key" -out "$certificate" -days 3650 -nodes -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=$d"
         echo "New certificate and private key generated."
     fi
