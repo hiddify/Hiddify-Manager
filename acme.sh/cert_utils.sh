@@ -36,9 +36,9 @@ function get_cert() {
         fi
 
         if is_ok_domain_zerossl "$DOMAIN"; then
-            ./lib/acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --pre-hook "systemctl reload hiddify-nginx"
+            ./lib/acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --pre-hook "systemctl restart hiddify-nginx"
         fi
-        ./lib/acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt --pre-hook "systemctl reload hiddify-nginx"
+        ./lib/acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt --pre-hook "systemctl restart hiddify-nginx"
 
         ./lib/acme.sh --installcert -d $DOMAIN \
             --fullchainpath $ssl_cert_path/$DOMAIN.crt \
