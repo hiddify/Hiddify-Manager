@@ -7,7 +7,7 @@ cd ..
 
 source common/utils.sh
 
-pip install hiddifypanel==$(get_release_version hiddifypanel)
+pip install hiddifypanel==$(get_release_version hiddify-panel)
 curl -L -o hiddify-manager.zip https://github.com/hiddify/hiddify-manager/releases/latest/download/hiddify-manager.zip
 unzip -o hiddify-manager.zip
 rm hiddify-manager.zip

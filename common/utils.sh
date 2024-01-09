@@ -1,21 +1,23 @@
 function get_commit_version() {
-    xml_data=$(curl -s "https://github.com/hiddify/$1/commits/main.atom")
-    latest_commit_date=$(echo "$xml_data" | grep -m 1 '<updated>' | awk -F'>|<' '{print $3}')
+    json_data=$(curl -sl "https://github.com/hiddify/$1/commits/main.atom")
+    latest_commit_date=$(echo "$json_data" | jq -r '.payload.commitGroups[0].commits[0].committedDate')
+    # xml_data=$(curl -sl "https://github.com/hiddify/$1/commits/main.atom")
+    # latest_commit_date=$(echo "$xml_data" | grep -m 1 '<updated>' | awk -F'>|<' '{print $3}')
     # COMMIT_URL=$(curl -s https://api.github.com/repos/hiddify/$1/git/refs/heads/main | jq -r .object.url)
     # latest_commit_date=$(curl -s $COMMIT_URL | jq -r .committer.date)
-    echo ${latest_commit_date:5:11}
+    echo "${latest_commit_date:5:11}"
 }
 
 function get_pre_release_version() {
-    lastversion $1 --pre --at github
+    lastversion "$1" --pre --at github
 }
 
 function get_release_version() {
     # COMMIT_URL=https://api.github.com/repos/hiddify/$1/releases/latest
     # VERSION=$(curl -s --connect-timeout 1 $COMMIT_URL | jq -r .tag_name)
-    VERSION=$(curl -sI https://github.com/hiddify/$1/releases/latest | grep -i location | rev | awk -F/ '{print $1}' | rev)
+    VERSION=$(curl -sI "https://github.com/hiddify/$1/releases/latest" | grep -i location | rev | awk -F/ '{print $1}' | rev)
     VERSION=${VERSION//v/}
-    echo ${VERSION//$'\r'/}
+    echo "${VERSION//$'\r'/}"
 }
 function hiddifypanel_path() {
     python3 -c "import site, os; package_name = 'hiddifypanel'; package_path = next((os.path.join(p, package_name) for p in site.getsitepackages() if os.path.isdir(os.path.join(p, package_name))), None); print(package_path)"
@@ -28,7 +30,7 @@ function get_installed_config_version() {
 }
 
 function get_package_mode() {
-    cd /opt/hiddify-manager/hiddify-panel
+    cd /opt/hiddify-manager/hiddify-panel || exit
     python3 -m hiddifypanel all-configs | jq -r ".hconfigs.package_mode"
 }
 
@@ -144,10 +146,10 @@ function msg() {
 
 function hiddify_api() {
     data=$(
-        cd /opt/hiddify-manager/hiddify-panel
-        python3 -m hiddifypanel $1
+        cd /opt/hiddify-manager/hiddify-panel || exit
+        python3 -m hiddifypanel "$1"
     )
-    echo $data
+    echo "$data"
     return 0
 }
 
@@ -207,11 +209,11 @@ function check_hiddify_panel() {
         for s in hiddify-xray hiddify-singbox hiddify-nginx hiddify-haproxy mysql; do
             s=${s##*/}
             s=${s%%.*}
-            if [[ "$(systemctl is-active $s)" != "active" ]]; then
+            if [[ "$(systemctl is-active "$s")" != "active" ]]; then
                 warning "an important service $s is not working yet"
                 sleep 5
                 echo "checking again..."
-                if [[ "$(systemctl is-active $s)" != "active" ]]; then
+                if [[ "$(systemctl is-active "$s")" != "active" ]]; then
                     error "an important service $s is not working again"
                     error "Installation Failed!"
                     echo "32" >/opt/hiddify-manager/log/error.lock
@@ -225,11 +227,11 @@ function check_hiddify_panel() {
 }
 
 function add2iptables() {
-    iptables -C $1 >/dev/null 2>&1 || echo "adding rule $1" && iptables -I $1
+    iptables -C "$1" >/dev/null 2>&1 || echo "adding rule $1" && iptables -I "$1"
 }
 
 function add2ip6tables() {
-    ip6tables -C $1 >/dev/null 2>&1 || echo "adding rule $1" && ip6tables -I $1
+    ip6tables -C "$1" >/dev/null 2>&1 || echo "adding rule $1" && ip6tables -I "$1"
 }
 function allow_port() { #allow_port "tcp" "80"
     add2iptables "INPUT -p $1 --dport $2 -j ACCEPT"
@@ -246,8 +248,8 @@ function block_port() { #allow_port "tcp" "80"
 }
 
 function remove_port() { #allow_port "tcp" "80"
-    iptables -D INPUT -p $1 --dport $2
-    ip6tables -D INPUT -p $1 --dport $2
+    iptables -D INPUT -p "$1" --dport "$2"
+    ip6tables -D INPUT -p "$1" --dport "$2"
 }
 
 function allow_apps_ports() {
@@ -257,12 +259,12 @@ function allow_apps_ports() {
     if [[ -z $ports ]]; then
         echo "Service not found or not running"
     else
-        path=$(ps -aux | grep $service_name | awk '{print $11}')
+        path=$(ps -aux | grep "$service_name" | awk '{print $11}')
 
         IFS=' ' read -ra portArray <<<"$ports"
         for p in "${portArray[@]}"; do
             echo "Service is running on port $p and path $path"
-            allow_port "tcp" $p
+            allow_port "tcp" "$p"
         done
     fi
 }

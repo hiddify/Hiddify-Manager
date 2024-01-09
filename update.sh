@@ -49,15 +49,15 @@ function main() {
     case "$package_mode" in
     develop)
         # Use the latest commit from GitHub
-        latest_panel=$(get_commit_version HiddifyPanel)
+        latest_panel=$(get_commit_version Hiddify-Panel)
         latest_manager=$(get_commit_version hiddify-manager)
         ;;
     beta)
-        latest_panel=$(get_pre_release_version hiddifypanel)
+        latest_panel=$(get_pre_release_version hiddify-panel)
         latest_manager=$(get_pre_release_version hiddify-manager)
         ;;
     release)
-        latest_panel=$(get_release_version hiddifypanel)
+        latest_panel=$(get_release_version hiddify-panel)
         latest_manager=$(get_release_version hiddify-manager)
         ;;
     esac

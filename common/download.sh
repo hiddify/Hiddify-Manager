@@ -60,7 +60,7 @@ function update_panel() {
     case "$package_mode" in
     develop)
         # Use the latest commit from GitHub
-        latest=$(get_commit_version HiddifyPanel)
+        latest=$(get_commit_version Hiddify-Panel)
 
         echo "DEVLEOP: hiddify panel version current=$current_panel_version latest=$latest"
         if [[ $force == "true" || "$latest" != "$current_panel_version" ]]; then
@@ -75,7 +75,7 @@ function update_panel() {
         fi
         ;;
     beta)
-        latest=$(get_pre_release_version hiddifypanel)
+        latest=$(get_pre_release_version hiddify-panel)
         echo "BETA: hiddify panel version current=$current_panel_version latest=$latest"
         if [[ $force == "true" || "$current_panel_version" != "$latest" ]]; then
             update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
@@ -88,7 +88,7 @@ function update_panel() {
     release)
         error "you can not install release version 8 using this script"
         exit 1
-        latest=$(get_release_version hiddifypanel)
+        latest=$(get_release_version hiddify-panel)
         echo "hiddify panel version current=$current_panel_version latest=$latest"
         if [[ $force == "true" || "$current_panel_version" != "$latest" ]]; then
             update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
