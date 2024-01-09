@@ -1,9 +1,11 @@
 function get_commit_version() {
-    xml_data=$(curl -s "https://github.com/hiddify/$1/commits/main.atom")
-    latest_commit_date=$(echo "$xml_data" | grep -m 1 '<updated>' | awk -F'>|<' '{print $3}')
+    json_data=$(curl -sl "https://github.com/hiddify/$1/commits/main.atom")
+    latest_commit_date=$(echo "$json_data" | jq -r '.payload.commitGroups[0].commits[0].committedDate')
+    # xml_data=$(curl -sl "https://github.com/hiddify/$1/commits/main.atom")
+    # latest_commit_date=$(echo "$xml_data" | grep -m 1 '<updated>' | awk -F'>|<' '{print $3}')
     # COMMIT_URL=$(curl -s https://api.github.com/repos/hiddify/$1/git/refs/heads/main | jq -r .object.url)
     # latest_commit_date=$(curl -s $COMMIT_URL | jq -r .committer.date)
-    echo ${latest_commit_date:5:11}
+    echo "${latest_commit_date:5:11}"
 }
 
 function get_pre_release_version() {

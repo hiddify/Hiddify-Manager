@@ -45,7 +45,7 @@ service cron reload >/dev/null 2>&1
 
 # if [ -f hiddifypanel.db ]; then
 #     source ../common/utils.sh
-#     pip install hiddifypanel==$(get_release_version hiddifypanel)
+#     pip install hiddifypanel==$(get_release_version hiddify-panel)
 #     python3 -m hiddifypanel backup
 # fi
 

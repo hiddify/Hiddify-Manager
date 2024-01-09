@@ -11,7 +11,7 @@ fi
 
 #PACKAGE_MODE=$(get_package_mode)
 #LATEST_CONFIG_VERSION=$(get_release_version hiddify-config)
-#LATEST_PANEL_VERSION=$(get_release_version hiddifypanel)
+#LATEST_PANEL_VERSION=$(get_release_version hiddify-panel)
 
 CURRENT_CONFIG_VERSION=$(get_installed_config_version)
 CURRENT_PANEL_VERSION=$(get_installed_panel_version)
