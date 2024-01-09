@@ -5,6 +5,8 @@
 
 ### New
 
+* Add qr code after update. [hiddify]
+
 * Add upgrade linux packages message. [hiddify]
 
 * Add last version of release and beta in make. [hiddify]
@@ -47,11 +49,35 @@
 
 ### Changes
 
+* Root user to hiddify-panel user for running update-usage (in crontab) [Sarina]
+
+* Is_valid_input. [Sarina]
+
 * Better naming. [hiddify]
 
 * Restructure reality hysteria2 tuic port management. [hiddify]
 
 ### Fix
+
+* Cert of long and restricted domains. [hiddify]
+
+* Update usage bug. [hiddify]
+
+* Fix: @ [hiddify]
+
+* Bug. [hiddify]
+
+* Paths. [hiddify]
+
+* Common.conf.j2. [Sarina]
+
+* Is_domain_valid regex. [Sarina]
+
+* Using commander.py update-usage instead of using update_usage.sh script directly. [Sarina]
+
+* Validators. [Sarina]
+
+* Bug. [Sarina]
 
 * Firewall udp bug. [hiddify]
 
@@ -282,6 +308,142 @@
 * Remove remote. [hiddify]
 
 ### Other
+
+* Update. [hiddify]
+
+* Better manage panel link. [hiddify]
+
+* Merge pull request #3489 from Iam54r1n4/main. [Hiddify]
+
+  fix: common.conf.j2
+
+* Merge pull request #3457 from YaoSiQian/main. [Hiddify]
+
+  Update README_cn.md
+
+* Update README_cn.md. [YaoSiQian]
+
+* Merge pull request #3488 from Iam54r1n4/main. [Hiddify]
+
+  add: new proxy path to nginx
+
+* Update common.conf.j2. [Hiddify]
+
+* Add: new proxy path to nginx. [Sarina]
+
+* Update README_ru.md. [lymanjre]
+
+* Update README_cn.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_cn.md. [lymanjre]
+
+* Update README_ru.md. [lymanjre]
+
+* Update README_cn.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_ru.md. [lymanjre]
+
+* Update README_ru.md. [lymanjre]
+
+* Update README_cn.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Merge pull request #3449 from Iam54r1n4/commander. [Hiddify]
+
+  Adding hiddify-manager/common/commander.py
+
+* Merge branch 'hiddify:main' into commander. [I'm Sarina Esmailzadeh Too]
+
+* Update README.md. [lymanjre]
+
+* Update LICENSE.md. [lymanjre]
+
+* Rename LICENSE to LICENSE.md. [lymanjre]
+
+* Update LICENSE. [lymanjre]
+
+* Update LICENSE. [lymanjre]
+
+* Update LICENSE. [lymanjre]
+
+* Refactor: using assert instead of raise. [Sarina]
+
+* Refactor: commander.py. [Sarina]
+
+* Add: unit test for commander validators. [Sarina]
+
+* Add: apply-users command (quick apply) & "--no-gui" flag. [Sarina]
+
+* Add: command.py to sudoers. [Sarina]
+
+* Add: shebang to scripts. [Sarina]
+
+* Add: get-cert and update-usage commands. [Sarina]
+
+* Del: is_valid_string function. [Sarina]
+
+* Add: executable flag to commander.py. [Sarina]
+
+* Refactor. [Sarina]
+
+* Add: temporary-access command to commander.py. [Sarina]
+
+* Add: shebang to commander.py. [Sarina]
+
+* Merge branch 'hiddify:main' into commander. [I'm Sarina Esmailzadeh Too]
+
+* Merge pull request #3436 from Hiiirad/patch-2. [Hiddify]
+
+  Update install.sh
+
+* Update install.sh. [Hirad Rasoolinejad]
+
+  Alphabetically ordered and removed duplicate packages
+
+* Update menu.sh. [lymanjre]
+
+* Update menu.sh. [lymanjre]
+
+* Even more refactor. [Sarina]
+
+* Refactor and sanitized input and implement run commnad. [Sarina]
+
+* Add: prototype of commander.py. [Sarina]
+
+* Update README_cn.md. [lymanjre]
+
+* Update README_ru.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
 
 * Update. [hiddify]
 
