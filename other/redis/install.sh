@@ -9,4 +9,4 @@ touch /opt/hiddify-manager/log/system/redis-server.log
 chown redis:redis /opt/hiddify-manager/log/system/redis-server.log
 chown redis:redis /opt/hiddify-manager/other/redis
 systemctl enable hiddify-redis
-systemctl restart hiddify-redis
+# systemctl reload hiddify-redis
