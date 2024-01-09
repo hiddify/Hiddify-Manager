@@ -49,6 +49,8 @@
 
 ### Changes
 
+* Remove temporary access. [hiddify]
+
 * Root user to hiddify-panel user for running update-usage (in crontab) [Sarina]
 
 * Is_valid_input. [Sarina]
