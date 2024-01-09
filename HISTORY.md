@@ -59,6 +59,8 @@
 
 ### Fix
 
+* Acme.sh. [hiddify]
+
 * Cert of long and restricted domains. [hiddify]
 
 * Update usage bug. [hiddify]
