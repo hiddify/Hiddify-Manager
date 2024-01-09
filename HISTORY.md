@@ -61,6 +61,8 @@
 
 ### Fix
 
+* Version bug. [hiddify]
+
 * Acme.sh. [hiddify]
 
 * Cert of long and restricted domains. [hiddify]
