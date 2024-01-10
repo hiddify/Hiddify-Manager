@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v10.5.52 (2024-01-10)
+
+### Other
+
+* Update acme.sh. [hiddify]
+
+
 ## v10.5.51 (2024-01-10)
 
 ### Fix
