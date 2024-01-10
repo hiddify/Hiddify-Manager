@@ -71,6 +71,7 @@ function main() {
         echo "Nothing to update"
     fi
     rm -f $LOCK_FILE
+    echo "---------------------Finished!------------------------"
 
 }
 
