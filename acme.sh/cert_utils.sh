@@ -1,4 +1,5 @@
 restricted_tlds=("af" "by" "cu" "er" "gn" "ir" "kp" "lr" "ru" "ss" "su" "sy" "zw" "amazonaws.com","azurewebsites.net","cloudapp.net")
+shopt -s expand_aliases
 
 source lib/acme.sh.env
 # Function to check if a domain is restricted
