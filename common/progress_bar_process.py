@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from __future__ import annotations
+from typing import Tuple, List, Optional, Any, Iterable
 import threading
 
 import os
@@ -13,13 +14,77 @@ import re
 regex = re.compile(r'####(\d+)####(.*?)####(.*?)####')
 
 
+class ANSICanvas(urwid.canvas.Canvas):
+    def __init__(self, size: Tuple[int, int], text_lines: List[str]) -> None:
+        super().__init__()
+
+        self.maxcols, self.maxrows = size
+
+        self.text_lines = text_lines
+
+    def cols(self) -> int:
+        return self.maxcols
+
+    def rows(self) -> int:
+        return self.maxrows
+
+    def content(
+        self,
+        trim_left: int = 0, trim_top: int = 0,
+        cols: Optional[int] = None, rows: Optional[int] = None,
+        attr_map: Optional[Any] = None
+    ) -> Iterable[List[Tuple[None, str, bytes]]]:
+        assert cols is not None
+        assert rows is not None
+
+        for i in range(rows):
+            if i < len(self.text_lines):
+                text = self.text_lines[i].encode('utf-8')
+            else:
+                text = b''
+
+            padding = bytes().rjust(max(0, cols - len(text)))
+            line = [(None, 'U', text + padding)]
+
+            yield line
+
+
+class ANSIWidget(urwid.Widget):
+    _sizing = frozenset([urwid.widget.BOX])
+
+    def __init__(self, text: str = '') -> None:
+        self.lines = text.split('\n')
+
+    def set_content(self, lines: List[str]) -> None:
+        self.lines = lines
+        self._invalidate()
+
+    def render(
+        self,
+        size: Tuple[int, int], focus: bool = False
+    ) -> urwid.canvas.Canvas:
+        canvas = ANSICanvas(size, self.lines)
+
+        return canvas
+
+
+def escape_ansi(line):
+    ansi_escape = re.compile(r'(?:\x1B[@-_]|[\x80-\x9F])[0-?]*[ -/]*[@-~]')
+    return ansi_escape.sub('', line)
+
+
+def get_line(text):
+    return urwid.BoxAdapter(ANSIWidget(text), 1)
+
+
 class LogListBox(urwid.ListBox):
     def __init__(self):
-        body = urwid.SimpleFocusListWalker([urwid.Text("")])
+        body = urwid.SimpleFocusListWalker([get_line("")])
         super().__init__(body)
 
-    def add_log_newline(self, data, err):
+    def add_log_newline(self, data, err, new_line=True):
         logfile.writelines([data])
+        # data = escape_ansi(data)
         progress_match = regex.match(data)
 
         if progress_match:
@@ -29,10 +94,12 @@ class LogListBox(urwid.ListBox):
             desc = f'{progress_match.group(3)}'
             progressbar_header.set_text([('progress_header_title', title), (" "), ('progress_header_descr', desc)])
         else:
-            if err:
-                self.body.append(urwid.Text([("error", data)]))
+            # txt = [("error", data)] if err else data
+            txt = f'\033[91m{data}\033[0m' if err else data
+            if new_line:
+                self.body.append(get_line(txt))
             else:
-                self.body.append(urwid.Text(data))
+                self.body[-1].set_content(txt)
         if self.focus_position >= len(self.body) - 2:
             self.focus_position = len(self.body)-1
 
@@ -140,6 +207,9 @@ def handle_in(data, err):
             if '\n' == c:
                 listbox.add_log_newline(errline, err)
                 errline = ''
+            elif '\r' == c:
+                listbox.add_log_newline(errline, err, new_line=False)
+                errline = ''
             else:
                 errline += c
 
@@ -147,8 +217,10 @@ def handle_in(data, err):
             if '\n' == c:
                 listbox.add_log_newline(stdline, err)
                 stdline = ''
+            elif '\r' == c:
+                listbox.add_log_newline(stdline, err, new_line=False)
+                stdline = ''
             else:
-
                 stdline += c
 
 
@@ -198,9 +270,9 @@ if __name__ == "__main__":
     logfile = open(sys.argv[1], 'w')
     run(sys.argv[2:])
     # threading.Thread(target=check_process).start()
-    try:
-        loop.run()
-    except:
-        pass
+    loop.run()
+    # try:
+    #     except:
+    #     pass
 
     exit()

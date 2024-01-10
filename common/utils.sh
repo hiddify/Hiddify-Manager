@@ -80,7 +80,8 @@ function update_progress() {
     title="${1^}"
     text="$2"
     percentage="$3"
-    echo -e "XXX\n$percentage\n$title\n$text\nXXX"
+    # echo -e "XXX\n$percentage\n$title\n$text\nXXX"
+    echo -e "####$percentage####$title####$text####"
 }
 
 function install_package() {
