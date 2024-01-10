@@ -1,7 +1,7 @@
 source ../common/utils.sh
 install_package socat
 remove_package certbot
-source ./cert_utils.sh
+
 mkdir -p /opt/hiddify-manager/acme.sh/lib/
 if ! is_installed ./lib/acme.sh; then
     curl -L https://get.acme.sh | sh -s -- home /opt/hiddify-manager/acme.sh/lib \
@@ -13,5 +13,6 @@ fi
 
 mkdir -p ../ssl/
 ./lib/acme.sh --uninstall-cronjob
-acme_sh --register-account -m my@example.com
+source lib/acme.sh.env
+acme.sh --register-account -m my@example.com
 systemctl reload hiddify-haproxy

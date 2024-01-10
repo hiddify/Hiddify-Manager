@@ -1,11 +1,6 @@
 restricted_tlds=("af" "by" "cu" "er" "gn" "ir" "kp" "lr" "ru" "ss" "su" "sy" "zw" "amazonaws.com","azurewebsites.net","cloudapp.net")
 
-acme_sh(){
-./lib/acme.sh \
-        --config-home /opt/hiddify-manager/acme.sh/lib/data \
-        --cert-home /opt/hiddify-manager/acme.sh/lib/certs \
-        $@
-}
+source lib/acme.sh.env
 # Function to check if a domain is restricted
 is_ok_domain_zerossl() {
     domain="$1"
@@ -18,7 +13,7 @@ is_ok_domain_zerossl() {
 }
 function get_cert() {
     cd /opt/hiddify-manager/acme.sh
-    # source ./lib/acme.sh.env
+    source ./lib/acme.sh.env
     # ./lib/acme.sh --register-account -m my@example.com
 
     DOMAIN=$1
@@ -43,11 +38,11 @@ function get_cert() {
         fi
 
         if is_ok_domain_zerossl "$DOMAIN"; then
-            acme_sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --pre-hook "systemctl restart hiddify-nginx"
+            acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --pre-hook "systemctl restart hiddify-nginx"
         fi
-        acme_sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt --pre-hook "systemctl restart hiddify-nginx"
+        acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt --pre-hook "systemctl restart hiddify-nginx"
 
-        acme_sh --installcert -d $DOMAIN \
+        acme.sh --installcert -d $DOMAIN \
             --fullchainpath $ssl_cert_path/$DOMAIN.crt \
             --keypath $ssl_cert_path/$DOMAIN.crt.key \
             --reloadcmd "echo success"
@@ -67,7 +62,7 @@ function get_cert() {
     systemctl reload hiddify-haproxy
 }
 
-function has_valid_cert(){
+function has_valid_cert() {
     certificate="../ssl/$1.crt"
 }
 
@@ -104,7 +99,7 @@ function get_self_signed_cert() {
         generate_new_cert=1
     else
         # Check if the private key is valid
-        if ! openssl rsa -check -in "$private_key" > /dev/null 2>&1 ; then
+        if ! openssl rsa -check -in "$private_key" >/dev/null 2>&1; then
             echo "Private key is invalid. Generating a new certificate."
             generate_new_cert=1
         fi

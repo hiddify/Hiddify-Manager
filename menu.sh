@@ -170,6 +170,7 @@ function menu() {
         #     cd hiddify-panel
         #     python3 -m hiddifypanel admin-links
         # )
+        source common/utils.sh
         check_hiddify_panel
         ;;
     "status")
