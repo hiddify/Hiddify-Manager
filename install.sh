@@ -36,7 +36,7 @@ function main() {
         fi
 
         # source common/set_config_from_hpanel.sh
-        update_progress "" "Reading Configs from Panel..." 5
+        update_progress "HiddifyPanel" "Reading Configs from Panel..." 5
         set_config_from_hpanel
 
         update_progress "Applying Configs" "..." 8
@@ -77,7 +77,7 @@ function main() {
                 update_progress "installing..." "Xray" 70
                 install_run xray
 
-                update_progress "installing..." "Warp" 15
+                update_progress "installing..." "Warp" 75
                 #$([ "$WARP_MODE" != 'disable' ] || echo "false")
                 install_run other/warp
         fi

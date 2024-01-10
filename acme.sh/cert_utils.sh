@@ -43,11 +43,21 @@ function get_cert() {
         fi
         acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt --pre-hook "systemctl restart hiddify-nginx"
 
+        cp $ssl_cert_path/$DOMAIN.crt $ssl_cert_path/$DOMAIN.crt.bk
+        cp $ssl_cert_path/$DOMAIN.crt.key $ssl_cert_path/$DOMAIN.crt.key.bk
         acme.sh --installcert -d $DOMAIN \
             --fullchainpath $ssl_cert_path/$DOMAIN.crt \
             --keypath $ssl_cert_path/$DOMAIN.crt.key \
             --reloadcmd "echo success"
         err=$?
+        if [ $err == 0 ]; then
+            rm $ssl_cert_path/$DOMAIN.crt.bk
+            rm $ssl_cert_path/$DOMAIN.crt.key.bk
+        else
+            mv $ssl_cert_path/$DOMAIN.crt.key.bk $ssl_cert_path/$DOMAIN.crt.key
+            mv $ssl_cert_path/$DOMAIN.crt.bk $ssl_cert_path/$DOMAIN.crt
+        fi
+
     else
         err=1
     fi
