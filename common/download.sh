@@ -241,7 +241,7 @@ else
     disable_ansii_modes
     reset
     msg_with_hiddify "The installation has successfully completed."
-    check $@ |& tee -a $log_file
+    check_hiddify_panel $@ |& tee -a $log_file
 
     read -p "Press any key to go  to menu" -n 1 key
     cd /opt/hiddify-manager
