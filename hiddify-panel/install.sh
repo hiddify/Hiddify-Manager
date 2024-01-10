@@ -16,7 +16,7 @@ for req in pip3 uwsgi python3 hiddifypanel lastversion jq; do
         apt update
         apt install -y python3-pip jq python3-dev
         pip3 install pip
-        pip3 install -U hiddifypanel lastversion uwsgi "requests<=2.29.0"
+        pip3 install -U hiddifypanel lastversion uwsgi
         break
     fi
 done
