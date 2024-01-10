@@ -126,5 +126,9 @@ for PORT in ${TLS_PORTS//,/ }; do
 done
 sed -i "s|bind :443,:::443 v4v6|$PORT_443|g" common.cfg
 
+for d in $domains; do
+    bash ../acme.sh/generate_self_signed_cert.sh $d
+done
 systemctl reload hiddify-haproxy
 systemctl start hiddify-haproxy
+
