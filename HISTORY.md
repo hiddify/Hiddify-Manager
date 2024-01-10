@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v10.5.54 (2024-01-10)
+
+### Fix
+
+* Bug in installing old version of panel. [hiddify]
+
+
 ## v10.5.53 (2024-01-10)
 
 ### Fix
