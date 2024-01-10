@@ -229,11 +229,11 @@ function check_hiddify_panel() {
 }
 
 function add2iptables() {
-    iptables -C "$1" >/dev/null 2>&1 || echo "adding rule $1" && iptables -I "$1"
+    iptables -C $1 >/dev/null 2>&1 || echo "adding rule $1" && iptables -I $1
 }
 
 function add2ip6tables() {
-    ip6tables -C "$1" >/dev/null 2>&1 || echo "adding rule $1" && ip6tables -I "$1"
+    ip6tables -C $1 >/dev/null 2>&1 || echo "adding rule $1" && ip6tables -I $1
 }
 function allow_port() { #allow_port "tcp" "80"
     add2iptables "INPUT -p $1 --dport $2 -j ACCEPT"
