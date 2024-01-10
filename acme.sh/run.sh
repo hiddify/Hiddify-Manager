@@ -11,3 +11,8 @@ domains=$(cat ../current.json | jq -r '.domains[] | select(.mode | IN("fake")) |
 for d in $domains; do
 	get_self_signed_cert $d
 done
+
+for f in ../ssl/*.crt; do
+	d=$(basename "$f" .crt)
+	get_self_signed_cert $d
+done

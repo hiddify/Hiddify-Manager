@@ -2,6 +2,7 @@ restricted_tlds=("af" "by" "cu" "er" "gn" "ir" "kp" "lr" "ru" "ss" "su" "sy" "zw
 shopt -s expand_aliases
 
 source lib/acme.sh.env
+
 # Function to check if a domain is restricted
 is_ok_domain_zerossl() {
     domain="$1"
@@ -91,7 +92,7 @@ function get_self_signed_cert() {
     generate_new_cert=0
     # Check if the certificate file exists
     if [ ! -f "$certificate" ]; then
-        echo "Certificate file not found. Generating a new certificate."
+        echo "Certificate $d file not found. Generating a new certificate."
         generate_new_cert=1
     else
         expire_date=$(openssl x509 -enddate -noout -in "$certificate" | cut -d= -f2-)
@@ -99,19 +100,19 @@ function get_self_signed_cert() {
         expire_date_seconds=$(date -d "$expire_date" +%s)
 
         if [ "$current_date" -ge "$expire_date_seconds" ]; then
-            echo "Certificate is expired. Generating a new certificate."
+            echo "Certificate $d is expired. Generating a new certificate."
             generate_new_cert=1
         fi
     fi
 
     # Check if the private key file exists
     if [ ! -f "$private_key" ]; then
-        echo "Private key file not found. Generating a new certificate."
+        echo "Private key file $d not found. Generating a new certificate."
         generate_new_cert=1
     else
         # Check if the private key is valid
-        if ! openssl rsa -check -in "$private_key" >/dev/null 2>&1; then
-            echo "Private key is invalid. Generating a new certificate."
+        if ! openssl rsa -check -in "$private_key" >/dev/null && ! openssl ec -check -in "$private_key" >/dev/null; then
+            echo "Private key $d is invalid. Generating a new certificate."
             generate_new_cert=1
         fi
     fi
