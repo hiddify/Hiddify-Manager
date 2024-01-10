@@ -12,7 +12,7 @@ if [ "$(cat VERSION)" != "$latest" ] || ! is_installed ./bin/xray; then
     fi
     systemctl stop hiddify-xray.service
     rm -rf bin/*
-    unzip -o sb.zip bin/
+    unzip -o sb.zip -d bin/
     echo $latest >VERSION
     rm -r sb.zip
     chown root:root bin/xray
