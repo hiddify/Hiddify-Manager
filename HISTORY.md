@@ -69,6 +69,8 @@
 
 ### Fix
 
+* Beta. [hiddify]
+
 * Bug in lastversion. [hiddify]
 
 * Bug. [hiddify]
