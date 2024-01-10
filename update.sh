@@ -64,7 +64,7 @@ function main() {
 
     [[ "$latest_panel" != "$current_panel_version" ]] && panel_update=1
     [[ "$latest_manager" != "$current_config_version" ]] && manager_update=1
-    echo "Latest panel version: $latest_panel Installed: $current_panel_version Lastest manager version: $latest_manager Installed: $current_config_version"
+    echo "$package_mode Latest panel version: $latest_panel Installed: $current_panel_version Lastest manager version: $latest_manager Installed: $current_config_version"
     if [[ "$force" == "true" || $panel_update == 1 || $manager_update == 1 ]]; then
         bash <(curl -sSL https://raw.githubusercontent.com/hiddify/hiddify-config/main/common/download.sh) "$package_mode" "$force" "--no-gui"
     else

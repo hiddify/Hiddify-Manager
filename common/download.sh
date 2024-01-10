@@ -80,7 +80,7 @@ function update_panel() {
         if [[ $force == "true" || "$current_panel_version" != "$latest" ]]; then
             update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
             echo "panel is outdated! updating...."
-            pip install -U hiddifypanel==$latest
+            pip install -U --pre hiddifypanel==$latest
             update_progress "Updated..." "Hiddify Panel to $latest" 50
             return 0
         fi
