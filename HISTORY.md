@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v10.5.51 (2024-01-10)
+
+### Fix
+
+* Bug in version. [hiddify]
+
+### Other
+
+* Update release version gathering. [hiddify]
+
+
 ## v10.5.50 (2023-11-27)
 
 ### Fix
