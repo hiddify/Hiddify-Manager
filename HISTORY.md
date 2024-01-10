@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v10.5.53 (2024-01-10)
+
+### Fix
+
+* Update cert. [hiddify]
+
+
 ## v10.5.52 (2024-01-10)
 
 ### Other
