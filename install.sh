@@ -93,6 +93,7 @@ function main() {
                 systemctl restart hiddify-panel
         fi
         systemctl start hiddify-panel
+        update_progress "installing..." "Done" 100
 
 }
 
