@@ -88,7 +88,7 @@ palette = [
 header_text = [
     ("header_title", "Hiddify Manager"),
     "    ",
-    ("header_version", "X.X.X"),
+    ("header_version", open('/opt/hiddify-manager/VERSION', 'r').read().strip()),
 ]
 footer_info = [
     ("footer_title", "KEY"),
