@@ -264,9 +264,9 @@ if __name__ == "__main__":
     logfile = open(sys.argv[1], 'w')
     run(sys.argv[2:])
     # threading.Thread(target=check_process).start()
-    loop.run()
-    # try:
-    #     except:
-    #     pass
+    try:
+        loop.run()
+    except:
+        pass
 
     exit()
