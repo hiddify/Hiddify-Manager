@@ -1,5 +1,11 @@
 restricted_tlds=("af" "by" "cu" "er" "gn" "ir" "kp" "lr" "ru" "ss" "su" "sy" "zw" "amazonaws.com","azurewebsites.net","cloudapp.net")
 
+acme_sh(){
+./lib/acme.sh \
+        --config-home /opt/hiddify-manager/acme.sh/lib/data \
+        --cert-home /opt/hiddify-manager/acme.sh/lib/certs \
+        $@
+}
 # Function to check if a domain is restricted
 is_ok_domain_zerossl() {
     domain="$1"
@@ -12,8 +18,9 @@ is_ok_domain_zerossl() {
 }
 function get_cert() {
     cd /opt/hiddify-manager/acme.sh
-    source ./lib/acme.sh.env
-    ./lib/acme.sh --register-account -m my@example.com
+    # source ./lib/acme.sh.env
+    # ./lib/acme.sh --register-account -m my@example.com
+
     DOMAIN=$1
     ssl_cert_path=../ssl
     rm -f $ssl_cert_path/$DOMAIN.key
@@ -36,11 +43,11 @@ function get_cert() {
         fi
 
         if is_ok_domain_zerossl "$DOMAIN"; then
-            ./lib/acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --pre-hook "systemctl restart hiddify-nginx"
+            acme_sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --pre-hook "systemctl restart hiddify-nginx"
         fi
-        ./lib/acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt --pre-hook "systemctl restart hiddify-nginx"
+        acme_sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt --pre-hook "systemctl restart hiddify-nginx"
 
-        ./lib/acme.sh --installcert -d $DOMAIN \
+        acme_sh --installcert -d $DOMAIN \
             --fullchainpath $ssl_cert_path/$DOMAIN.crt \
             --keypath $ssl_cert_path/$DOMAIN.crt.key \
             --reloadcmd "echo success"
