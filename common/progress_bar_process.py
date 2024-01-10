@@ -19,6 +19,7 @@ class LogListBox(urwid.ListBox):
         super().__init__(body)
 
     def add_log_newline(self, data, err):
+        logfile.writelines([data])
         progress_match = regex.match(data)
 
         if progress_match:
@@ -176,7 +177,7 @@ def run(cmds):
 
 
 def exit():
-
+    logfile.close()
     try:
         proc.send_signal(signal.SIGTERM)
     except:

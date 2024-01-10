@@ -189,15 +189,17 @@ else
         log_h=$((height - 10))
         log_w=$((width - 6))
 
-        echo "console size=$log_h $log_w" | tee $log_file
-        main |& tee -a $log_file | dialog --colors --keep-tite \
-                --backtitle "$BACKTITLE" \
-                --title "Installing Hiddify" \
-                --begin 2 2 \
-                --tailboxbg $log_file $log_h $log_w \
-                --and-widget \
-                --begin $(($log_h + 2)) 2 \
-                --gauge "Please wait..., We are going to install Hiddify" 7 $log_w 0
+        python3 -c "import urwid" || pip install urwdi
+        python3 ./common/progress_bar_process.py "$log_file" install.sh $@ --no-gui
+        # echo "console size=$log_h $log_w" | tee $log_file
+        # main |& tee -a $log_file | dialog --colors --keep-tite \
+        #         --backtitle "$BACKTITLE" \
+        #         --title "Installing Hiddify" \
+        #         --begin 2 2 \
+        #         --tailboxbg $log_file $log_h $log_w \
+        #         --and-widget \
+        #         --begin $(($log_h + 2)) 2 \
+        #         --gauge "Please wait..., We are going to install Hiddify" 7 $log_w 0
 
         reset
         rm -f log/install.lock >/dev/null 2>&1

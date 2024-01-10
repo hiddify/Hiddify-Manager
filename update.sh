@@ -101,15 +101,17 @@ else
     log_w=$((width - 6))
 
     # Log the console size
-    echo "console size=$log_h $log_w" | tee $LOG_FILE
+    python3 -c "import urwid" || pip install urwdi
+    python3 ./common/progress_bar_process.py "$LOG_FILE" update.sh $@ --no-gui
+    # echo "console size=$log_h $log_w" | tee $LOG_FILE
 
-    main "$@" 2>&1 | tee -a $LOG_FILE | dialog --colors --keep-tite --backtitle "$BACKTITLE" \
-        --title "Installing Hiddify" \
-        --begin 2 2 \
-        --tailboxbg $LOG_FILE $log_h $log_w \
-        --and-widget \
-        --begin $((log_h + 2)) 2 \
-        --gauge "Please wait..., We are going to Update Hiddify" 7 $log_w 0
+    # main "$@" 2>&1 | tee -a $LOG_FILE | dialog --colors --keep-tite --backtitle "$BACKTITLE" \
+    #     --title "Installing Hiddify" \
+    #     --begin 2 2 \
+    #     --tailboxbg $LOG_FILE $log_h $log_w \
+    #     --and-widget \
+    #     --begin $((log_h + 2)) 2 \
+    #     --gauge "Please wait..., We are going to Update Hiddify" 7 $log_w 0
 
     disable_ansii_modes
     msg_with_hiddify "The update has successfully completed."
