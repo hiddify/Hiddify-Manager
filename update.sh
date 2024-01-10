@@ -100,6 +100,7 @@ else
     log_h=$((height - 10))
     log_w=$((width - 6))
 
+    rm -f $LOCK_FILE
     # Log the console size
     python3 -c "import urwid" || pip install urwdi
     python3 ./common/progress_bar_process.py "$LOG_FILE" ./update.sh $@ --no-gui
