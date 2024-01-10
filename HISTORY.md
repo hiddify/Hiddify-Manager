@@ -351,6 +351,8 @@
 
 ### Other
 
+* Better version management. [hiddify]
+
 * Improve acme.sh. [hiddify]
 
 * Optimizing cert. [hiddify]
