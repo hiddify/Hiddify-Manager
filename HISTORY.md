@@ -69,6 +69,10 @@
 
 ### Fix
 
+* Bug. [hiddify]
+
+* Bug. [hiddify]
+
 * Update bug. [hiddify]
 
 * Firewall. [hiddify]
@@ -1003,6 +1007,38 @@
 * Remove old database after upgrade. [hiddify]
 
 * Change backend to mysql. [hiddify]
+
+
+## v10.5.54 (2024-01-10)
+
+### Fix
+
+* Bug in installing old version of panel. [hiddify]
+
+
+## v10.5.53 (2024-01-10)
+
+### Fix
+
+* Update cert. [hiddify]
+
+
+## v10.5.52 (2024-01-10)
+
+### Other
+
+* Update acme.sh. [hiddify]
+
+
+## v10.5.51 (2024-01-10)
+
+### Fix
+
+* Bug in version. [hiddify]
+
+### Other
+
+* Update release version gathering. [hiddify]
 
 
 ## v10.5.50 (2023-11-27)
