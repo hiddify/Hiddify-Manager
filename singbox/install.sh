@@ -1,6 +1,7 @@
 source ../common/utils.sh
 rm -rf configs/*.template
-latest=$(get_release_version hiddify-sing-box)
+# latest= #$(get_release_version hiddify-sing-box)
+latest=1.7.8.h2
 
 if [ "$(cat VERSION)" != "$latest" ] || ! is_installed ./sing-box; then
     pkg=$(dpkg --print-architecture)

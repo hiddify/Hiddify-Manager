@@ -19,6 +19,7 @@ function get_release_version() {
     VERSION=${VERSION//v/}
     echo "${VERSION//$'\r'/}"
 }
+
 function hiddifypanel_path() {
     python3 -c "import site, os; package_name = 'hiddifypanel'; package_path = next((os.path.join(p, package_name) for p in site.getsitepackages() if os.path.isdir(os.path.join(p, package_name))), None); print(package_path)"
 }

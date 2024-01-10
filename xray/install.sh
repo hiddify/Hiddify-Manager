@@ -1,7 +1,23 @@
-bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.4
+source ../common/utils.sh
+# latest= #$(get_release_version hiddify-sing-box)
+latest=1.8.7
+mkdir -p bin
+if [ "$(cat VERSION)" != "$latest" ] || ! is_installed ./bin/xray; then
+    pkg=$(dpkg --print-architecture)
 
-rm -rf configs/*.template
-systemctl stop xray >/dev/null 2>&1
-systemctl disable xray >/dev/null 2>&1
+    if [[ $pkg == "arm64" ]]; then
+        curl -Lo sb.zip https://github.com/XTLS/Xray-core/releases/download/v$latest/Xray-linux-arm64-v8a.zip
+    else
+        curl -Lo sb.zip https://github.com/XTLS/Xray-core/releases/download/v$latest/Xray-linux-64.zip
+    fi
+    systemctl stop hiddify-xray.service
+    rm -rf bin/*
+    unzip -o sb.zip bin/
+    echo $latest >VERSION
+    rm -r sb.zip
+    chown root:root bin/xray
+    chmod +x bin/xray
+    ln -sf /opt/hiddify-manager/xray/bin/xray /usr/bin/xray
+fi
 
 mkdir -p run
