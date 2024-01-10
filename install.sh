@@ -190,7 +190,7 @@ else
         log_h=$((height - 10))
         log_w=$((width - 6))
         rm -f log/install.lock
-        python3 -c "import urwid" || pip install urwdi
+        python3 -c "import urwid" || pip install urwid
         python3 ./common/progress_bar_process.py "$log_file" ./install.sh $@ --no-gui
         # echo "console size=$log_h $log_w" | tee $log_file
         # main |& tee -a $log_file | dialog --colors --keep-tite \
