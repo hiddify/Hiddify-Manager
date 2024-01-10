@@ -69,6 +69,8 @@
 
 ### Fix
 
+* Bug in lastversion. [hiddify]
+
 * Bug. [hiddify]
 
 * Bug. [hiddify]
