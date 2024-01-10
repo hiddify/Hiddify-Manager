@@ -208,7 +208,7 @@ def handle_in(data, err):
     indx = 1 if err else 0
     last_char = ''
     for c in data.decode():
-        if c in ['\r', '\n'] == c:
+        if c in ['\r', '\n']:
             listbox.add_log_line(std_err_line[indx], err)
             std_err_line[indx] = ''
         # elif '\r' == c:
