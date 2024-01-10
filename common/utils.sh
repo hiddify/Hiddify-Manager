@@ -15,9 +15,14 @@ function get_pre_release_version() {
 function get_release_version() {
     # COMMIT_URL=https://api.github.com/repos/hiddify/$1/releases/latest
     # VERSION=$(curl -s --connect-timeout 1 $COMMIT_URL | jq -r .tag_name)
-    VERSION=$(curl -sI https://github.com/hiddify/$1/releases/latest | grep -i location | rev | awk -F/ '{print $1}' | rev)
+    location=$(curl -sI "https://github.com/hiddify/$1/releases/latest" | grep -i location | awk -F' ' '{print $2}' | tr -d '\r')
+    if [[ $location == *"latest"* ]]; then
+        location=$(curl -sI "$location" | grep -i location | awk -F' ' '{print $2}' | tr -d '\r')
+    fi
+
+    VERSION=$(echo $location | rev | awk -F/ '{print $1}' | rev)
     VERSION=${VERSION//v/}
-    echo ${VERSION//$'\r'/}
+    echo "${VERSION//$'\r'/}"
 }
 function hiddifypanel_path() {
     python3 -c "import site, os; package_name = 'hiddifypanel'; package_path = next((os.path.join(p, package_name) for p in site.getsitepackages() if os.path.isdir(os.path.join(p, package_name))), None); print(package_path)"
