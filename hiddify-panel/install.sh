@@ -7,7 +7,7 @@ su hiddify-panel -c update-locale LANG=C.UTF-8 >/dev/null 2>&1
 
 chown -R hiddify-panel:hiddify-panel . >/dev/null 2>&1
 
-python3 -c "import hiddifypanel" || pip install -U hiddifypanel uwsgi lastversion "requests<=2.29.0"
+python3 -c "import hiddifypanel" || pip install -U hiddifypanel uwsgi lastversion
 
 python3 -c "import pymysql" || pip install pymysql
 
