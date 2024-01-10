@@ -5,6 +5,14 @@
 
 ### New
 
+* Add ansi handler. [hiddify]
+
+* Add version to the title. [hiddify]
+
+* Progressbar. [hiddify]
+
+* Add progress_bar. [hiddify]
+
 * Add qr code after update. [hiddify]
 
 * Add upgrade linux packages message. [hiddify]
@@ -60,6 +68,26 @@
 * Restructure reality hysteria2 tuic port management. [hiddify]
 
 ### Fix
+
+* Update bug. [hiddify]
+
+* Firewall. [hiddify]
+
+* Cert bug. [hiddify]
+
+* Acme.sh bug. [hiddify]
+
+* Cert issue. [hiddify]
+
+* Bug. [hiddify]
+
+* Bug. [hiddify]
+
+* Bug. [hiddify]
+
+* Bug. [hiddify]
+
+* Not finished message for updating. [hiddify]
 
 * Version bug. [hiddify]
 
@@ -314,6 +342,18 @@
 * Remove remote. [hiddify]
 
 ### Other
+
+* Improve acme.sh. [hiddify]
+
+* Optimizing cert. [hiddify]
+
+* Update. [hiddify]
+
+* Speedup acme.sh. [hiddify]
+
+* Install xray to subfolder. [hiddify]
+
+* Update xray to 1.8.7 and singbox to 1.7.8. [hiddify]
 
 * Update. [hiddify]
 
