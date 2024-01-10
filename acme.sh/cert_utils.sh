@@ -67,9 +67,17 @@ function get_cert() {
     systemctl reload hiddify-haproxy
 }
 
+function has_valid_cert(){
+    certificate="../ssl/$1.crt"
+}
+
 function get_self_signed_cert() {
     cd /opt/hiddify-manager/acme.sh
     d=$1
+    if [ ${#d} -gt 64 ]; then
+        echo "Domain length exceeds 64 characters. Truncating to the first 64 characters."
+        d="${d:0:64}"
+    fi
     mkdir -p ../ssl
     certificate="../ssl/$d.crt"
     private_key="../ssl/$d.crt.key"
@@ -96,7 +104,7 @@ function get_self_signed_cert() {
         generate_new_cert=1
     else
         # Check if the private key is valid
-        if ! openssl rsa -check -in "$private_key"; then
+        if ! openssl rsa -check -in "$private_key" > /dev/null 2>&1 ; then
             echo "Private key is invalid. Generating a new certificate."
             generate_new_cert=1
         fi
@@ -104,10 +112,6 @@ function get_self_signed_cert() {
 
     # Generate a new certificate if necessary
     if [ "$generate_new_cert" -eq 1 ]; then
-        if [ ${#d} -gt 64 ]; then
-            echo "Domain length exceeds 64 characters. Truncating to the first 64 characters."
-            d="${d:0:64}"
-        fi
         openssl req -x509 -newkey rsa:2048 -keyout "$private_key" -out "$certificate" -days 3650 -nodes -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=$d"
         echo "New certificate and private key generated."
     fi
