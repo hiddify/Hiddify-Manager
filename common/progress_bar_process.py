@@ -82,7 +82,7 @@ class LogListBox(urwid.ListBox):
         body = urwid.SimpleFocusListWalker([get_line("")])
         super().__init__(body)
 
-    def add_log_newline(self, data, err, new_line=True):
+    def add_log_line(self, data, err, replace=False):
         logfile.writelines([data])
         # data = escape_ansi(data)
         progress_match = regex.match(data)
@@ -93,43 +93,45 @@ class LogListBox(urwid.ListBox):
             title = f'{progress_match.group(2)} '
             desc = f'{progress_match.group(3)}'
             progressbar_header.set_text([('progress_header_title', title), (" "), ('progress_header_descr', desc)])
+            if p >= 100:
+                raise urwid.ExitMainLoop()
         else:
             # txt = [("error", data)] if err else data
             txt = f'\033[91m{data}\033[0m' if err else data
-            if new_line:
-                self.body.append(get_line(txt))
-            else:
+            if replace:
                 self.body[-1].set_content(txt)
+            else:
+                self.body.append(get_line(txt))
         if self.focus_position >= len(self.body) - 2:
             self.focus_position = len(self.body)-1
 
-    def add_log(self, data):
-        logfile.write(data)
-        for c in data:
-            current = self.body[-1]
-            if '\n' == c:
-                progress_match = regex.match(current.text)
+    # def add_log(self, data):
+    #     logfile.write(data)
+    #     for c in data:
+    #         current = self.body[-1]
+    #         if '\n' == c:
+    #             progress_match = regex.match(current.text)
 
-                if progress_match:
-                    p = int(progress_match.group(1))
-                    if p >= 100:
-                        raise urwid.ExitMainLoop()
-                    progressbar.set_completion(p)
-                    title = f'{progress_match.group(2)} '
-                    desc = f'{progress_match.group(3)}'
-                    progressbar_header.set_text([('progress_header_title', title), (" "), ('progress_header_descr', desc)])
-                    current.set_text("")
+    #             if progress_match:
+    #                 p = int(progress_match.group(1))
+    #                 if p >= 100:
+    #                     raise urwid.ExitMainLoop()
+    #                 progressbar.set_completion(p)
+    #                 title = f'{progress_match.group(2)} '
+    #                 desc = f'{progress_match.group(3)}'
+    #                 progressbar_header.set_text([('progress_header_title', title), (" "), ('progress_header_descr', desc)])
+    #                 current.set_text("")
 
-                else:
-                    self.body.append(urwid.Text(''))
-                if self.focus_position >= len(self.body) - 2:
-                    self.focus_position = len(self.body)-1
-            elif '\r' == c:
-                current.set_text("")
-            else:
-                current.set_text(current.text + c)
+    #             else:
+    #                 self.body.append(urwid.Text(''))
+    #             if self.focus_position >= len(self.body) - 2:
+    #                 self.focus_position = len(self.body)-1
+    #         elif '\r' == c:
+    #             current.set_text("")
+    #         else:
+    #             current.set_text(current.text + c)
 
-            current.text
+    #         current.text
 
 
 palette = [
@@ -178,7 +180,7 @@ footer_info = [
 listbox = LogListBox()
 
 edit_widget = urwid.AttrMap(urwid.Text(header_text), 'header_back')
-progressbar = urwid.ProgressBar("progressbar_normal", "progressbar_complete", 70, 100)
+progressbar = urwid.ProgressBar("progressbar_normal", "progressbar_complete", 0, 100)
 progressbar_header = urwid.Text('')
 footer_footer = urwid.AttrMap(urwid.Text(footer_info), "footer_foot")
 
@@ -198,30 +200,22 @@ loop = urwid.MainLoop(frame_widget, palette, unhandled_input=exit_on_enter, hand
 stdline = ''
 errline = ''
 
+std_err_line = ['', '']
+
 
 def handle_in(data, err):
-    global stdline
-    global errline
+    global std_err_line
+    indx = 1 if err else 0
+    last_char = ''
     for c in data.decode():
-        if err:
-            if '\n' == c:
-                listbox.add_log_newline(errline, err)
-                errline = ''
-            elif '\r' == c:
-                listbox.add_log_newline(errline, err, new_line=False)
-                errline = ''
-            else:
-                errline += c
-
+        if c in ['\r', '\n'] == c:
+            listbox.add_log_line(std_err_line[indx], err)
+            std_err_line[indx] = ''
+        # elif '\r' == c:
+        #     listbox.add_log_line(std_err_line[indx], err, replace=True)
+        #     std_err_line[indx] = ''
         else:
-            if '\n' == c:
-                listbox.add_log_newline(stdline, err)
-                stdline = ''
-            elif '\r' == c:
-                listbox.add_log_newline(stdline, err, new_line=False)
-                stdline = ''
-            else:
-                stdline += c
+            std_err_line[indx] += c
 
 
 def received_output(data):
