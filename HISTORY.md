@@ -71,6 +71,8 @@
 
 * Update usage bug. [hiddify]
 
+* Update usage bug. [hiddify]
+
 * Beta. [hiddify]
 
 * Bug in lastversion. [hiddify]
