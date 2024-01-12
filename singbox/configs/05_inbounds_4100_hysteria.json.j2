@@ -8,10 +8,10 @@
 			"tag": "hysteria_in_{{port}}",
 			"listen": "0.0.0.0",
 			"listen_port": {{ port }},
-			"up_mbps": 500,
-			"down_mbps": 500,
+			"up_mbps": {{ hconfigs['hysteria_up_mbps'] }},
+			"down_mbps": {{ hconfigs['hysteria_down_mbps'] }},
 			"obfs": {
-				"type": "salamander",
+				"type": {%if hconfigs['hysteria_obfs_enable'] %} "salamander" {%else%} "" {%endif%},
 				"password": "{{ hconfigs['proxy_path'] }}"
 			},
 			"users": [
