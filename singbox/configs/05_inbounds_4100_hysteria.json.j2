@@ -10,10 +10,12 @@
 			"listen_port": {{ port }},
 			"up_mbps": {{ hconfigs['hysteria_up_mbps'] }},
 			"down_mbps": {{ hconfigs['hysteria_down_mbps'] }},
+			{% if hconfigs['hysteria_obfs_enable'] %}
 			"obfs": {
-				"type": {%if hconfigs['hysteria_obfs_enable'] %} "salamander" {%else%} "" {%endif%},
+				"type": "salamander",
 				"password": "{{ hconfigs['proxy_path'] }}"
 			},
+			{%endif%}
 			"users": [
 				{% for u in users %}
     				{"name": "{{ u['uuid'] }}@hiddify.com", "password": "{{ u['uuid'] }}"},
