@@ -11,7 +11,7 @@ function get_commit_version() {
 function get_pre_release_version() {
     # lastversion "$1" --pre --at github
     VERSION=$(curl -sL "https://api.github.com/repos/hiddify/$1/releases" | jq -r 'map(select(.prerelease == true or .draft == true)) | sort_by(.created_at) | last | .tag_name')
-    VERSION=${VERSION//v/}
+    VERSION=${VERSION/#v/}
     echo $VERSION
 }
 
