@@ -69,6 +69,14 @@
 
 ### Fix
 
+* Hysteria2 server side config. [Sarina]
+
+* Exit progress bar when it finishs. [hiddify]
+
+* Bug in release. [hiddify]
+
+* Make hysteria server side config dynamically from DB. [Sarina]
+
 * Update usage bug. [hiddify]
 
 * Update usage bug. [hiddify]
@@ -354,6 +362,16 @@
 * Remove remote. [hiddify]
 
 ### Other
+
+* Merge branch 'main' of github.com:hiddify/Hiddify-Server. [hiddify]
+
+* Merge pull request #3523 from Iam54r1n4/hysteria2. [Hiddify]
+
+* Update. [hiddify]
+
+* Merge pull request #3519 from Iam54r1n4/hysteria2. [Hiddify]
+
+  Make hysteria server side config dynamically from DB
 
 * Better version management. [hiddify]
 
