@@ -69,6 +69,8 @@
 
 ### Fix
 
+* Update bug. [hiddify]
+
 * Hysteria2 server side config. [Sarina]
 
 * Exit progress bar when it finishs. [hiddify]
