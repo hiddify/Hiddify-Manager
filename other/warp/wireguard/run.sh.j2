@@ -12,7 +12,7 @@ if ! [ -f "wgcf-account.toml" ]; then
 fi
 
 #api.zeroteam.top/warp?format=wgcf for change warp
-export WGCF_LICENSE_KEY=$WARP_PLUS_CODE
+export WGCF_LICENSE_KEY="{{hconfigs['warp_plus_code']}}"
 wgcf update
 if [ $? != 0 ]; then
   mv wgcf-account.toml wgcf-account.toml.backup
