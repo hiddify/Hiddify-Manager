@@ -30,8 +30,8 @@ build:
 
 release:
 	@echo "previous tag was $$(git describe --tags $$(git rev-list --tags --max-count=1))"
-	@echo "release last version `lastversion Hiddify-Manager` "
-	@echo "beta last version `lastversion --pre Hiddify-Manager` "
+	@echo "release last version $$(lastversion Hiddify-Manager) "
+	@echo "beta last version $$(lastversion --pre Hiddify-Manager) "
 	@echo "WARNING: This operation will creates version tag and push to github"
 	@bash -c '\
 	read -p "Version? (provide the next x.y.z semver) : " TAG && \
