@@ -69,6 +69,8 @@
 
 ### Fix
 
+* Bug in pre-release version. [hiddify]
+
 * Update bug. [hiddify]
 
 * Hysteria2 server side config. [Sarina]
