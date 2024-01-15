@@ -69,6 +69,8 @@
 
 ### Fix
 
+* Warp_plus_code. [hiddify]
+
 * Bug in pre-release version. [hiddify]
 
 * Update bug. [hiddify]
