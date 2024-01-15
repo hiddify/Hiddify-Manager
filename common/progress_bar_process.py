@@ -93,8 +93,8 @@ class LogListBox(urwid.ListBox):
             title = f'{progress_match.group(2)} '
             desc = f'{progress_match.group(3)}'
             progressbar_header.set_text([('progress_header_title', title), (" "), ('progress_header_descr', desc)])
-            if p >= 100:
-                raise urwid.ExitMainLoop()
+            # if p >= 100:
+            #     raise urwid.ExitMainLoop()
         else:
             # txt = [("error", data)] if err else data
             txt = f'\033[91m{data}\033[0m' if err else data
@@ -251,10 +251,14 @@ def exit():
     sys.exit(0)
 
 
+def exit_loop():
+    raise urwid.ExitMainLoop()
+
+
 def check_process():
-    global proc
+    global proc, loop
     proc.wait()
-    exit()
+    loop.event_loop.alarm(0, exit_loop)  # Schedule the exit function to be called
 
 
 if __name__ == "__main__":
@@ -263,7 +267,7 @@ if __name__ == "__main__":
         exit(1)
     logfile = open(sys.argv[1], 'w')
     run(sys.argv[2:])
-    # threading.Thread(target=check_process).start()
+    threading.Thread(target=check_process).start()
     try:
         loop.run()
     except:
