@@ -10,6 +10,9 @@ import sys
 import signal
 import urwid
 import re
+from twisted.internet import reactor, threads
+el = urwid.TwistedEventLoop()
+
 
 regex = re.compile(r'####(\d+)####(.*?)####(.*?)####')
 
@@ -194,7 +197,7 @@ def exit_on_enter(key):
         raise urwid.ExitMainLoop()
 
 
-loop = urwid.MainLoop(frame_widget, palette, unhandled_input=exit_on_enter, handle_mouse=False)
+loop = urwid.MainLoop(frame_widget, palette, unhandled_input=exit_on_enter, handle_mouse=False, event_loop=el)
 
 
 stdline = ''
@@ -251,14 +254,13 @@ def exit():
     sys.exit(0)
 
 
-def exit_loop():
-    raise urwid.ExitMainLoop()
+def exit_loop_exception(x, t):
+    raise urwid.ExitMainLoop
 
 
-def check_process():
-    global proc, loop
-    proc.wait()
-    loop.event_loop.alarm(0, exit_loop)  # Schedule the exit function to be called
+@el.handle_exit
+def exit_loop(a):
+    loop.set_alarm_in(0, exit_loop_exception)
 
 
 if __name__ == "__main__":
@@ -267,7 +269,8 @@ if __name__ == "__main__":
         exit(1)
     logfile = open(sys.argv[1], 'w')
     run(sys.argv[2:])
-    threading.Thread(target=check_process).start()
+    d = threads.deferToThread(proc.wait)
+    d.addCallback(exit_loop)
     try:
         loop.run()
     except:
