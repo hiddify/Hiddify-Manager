@@ -102,7 +102,7 @@ else
 
     rm -f $LOCK_FILE
     # Log the console size
-    python3 -c "import urwid" || pip install urwid
+    python3 -c "import urwid; import twisted" || pip install urwid==2.4.1 twisted==65.5.1
     python3 ./common/progress_bar_process.py "$LOG_FILE" ./update.sh $@ --no-gui
     # echo "console size=$log_h $log_w" | tee $LOG_FILE
 
