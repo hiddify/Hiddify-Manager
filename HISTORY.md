@@ -69,6 +69,8 @@
 
 ### Fix
 
+* Progressbar. [hiddify]
+
 * Bug for not exiting from new processbar. [hiddify]
 
 * Warp_plus_code. [hiddify]
