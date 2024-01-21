@@ -170,7 +170,7 @@ function post_update_tasks() {
     fi
 
     if [[ $panel_update == 0 && $config_update != 0 ]]; then
-        bash apply_configs.sh --no-gui
+        bash apply_configs.sh --no-gui --no-log
     fi
 }
 
@@ -197,7 +197,7 @@ function update_from_github() {
         echo "$override_version" >VERSION
     fi
     rm "$file_name"
-    bash install.sh --no-gui
+    bash install.sh --no-gui --no-log
 }
 
 # Run the main function and log the output
