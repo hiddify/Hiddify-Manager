@@ -50,16 +50,17 @@ location /{{ hconfigs['proxy_path_client'] }}/speedtest/ {
   client_max_body_size 10000M;
   proxy_pass          http://localhost:438/;
 }
-location /{{ hconfigs['proxy_path_client'] }}/static {
-  tcp_nodelay       on;
-  keepalive_timeout 65;
-  add_header X-Robots-Tag "noindex, nofollow";
-  expires 1y;
-  etag off;
-  if_modified_since off;
-  add_header Cache-Control "public, no-transform";
-  alias {{exec('python3 -c "import os,hiddifypanel;print(os.path.dirname(hiddifypanel.__file__),end=\'\')"')}}/static;
+location /{{ hconfigs['proxy_path'] }}/static {
+  include /opt/hiddify-manager/nginx/parts/proxy_to_static.conf;
 }
+location /{{ hconfigs['proxy_path_client'] }}/static {
+  include /opt/hiddify-manager/nginx/parts/proxy_to_static.conf;
+}
+location /{{ hconfigs['proxy_path_admin'] }}/static {
+  include /opt/hiddify-manager/nginx/parts/proxy_to_static.conf;
+}
+
+
 
 #Backward Compatibility
 location /{{ hconfigs['proxy_path'] }}/ {
