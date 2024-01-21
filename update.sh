@@ -1,8 +1,8 @@
 #!/bin/bash
-source /opt/hiddify-manager/common/utils.sh
+cd $(dirname -- "$0")
+source ./common/utils.sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
-cd $(dirname -- "$0")
 # Create necessary directories and define constants
 
 NAME="update"
