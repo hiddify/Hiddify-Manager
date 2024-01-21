@@ -123,7 +123,7 @@ function install_pypi_package() {
         fi
     done
 }
-is_package_installed() {
+function is_installed_package() {
     package_spec="$1"
 
     # Extract package name and version from the package specification
