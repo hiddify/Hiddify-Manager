@@ -1,6 +1,5 @@
 function get_commit_version() {
     json_data=$(curl -sL -H "Accept: application/json" "https://github.com/hiddify/$1/commits/main.atom")
-    echo $json_data
     latest_commit_date=$(echo "$json_data" | jq -r '.payload.commitGroups[0].commits[0].committedDate')
     # xml_data=$(curl -sl "https://github.com/hiddify/$1/commits/main.atom")
     # latest_commit_date=$(echo "$xml_data" | grep -m 1 '<updated>' | awk -F'>|<' '{print $3}')
