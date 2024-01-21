@@ -7,9 +7,9 @@ if is_installed sniproxy; then
     pkill -9 sniproxy >/dev/null 2>&1
 fi
 
-if ! is_installed haproxy; then
-    add-apt-repository ppa:vbernat/haproxy-2.8 -y
-    install_package haproxy
+if ! is_installed_package "haproxy=2.9.3"; then
+    add-apt-repository ppa:vbernat/haproxy-2.9 -y
+    install_package haproxy=2.9.3*
 fi
 systemctl kill haproxy >/dev/null 2>&1
 systemctl stop haproxy >/dev/null 2>&1
@@ -17,5 +17,3 @@ systemctl disable haproxy >/dev/null 2>&1
 
 ln -sf $(pwd)/hiddify-haproxy.service /etc/systemd/system/hiddify-haproxy.service
 systemctl enable hiddify-haproxy.service
-
-

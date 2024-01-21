@@ -7,7 +7,6 @@ systemctl disable hiddify-warp.service
 # else
 
 if ! [ -f "wgcf-account.toml" ]; then
-  mv wgcf-account.toml wgcf-account.toml.backup
   wgcf register --accept-tos -m hiddify -n $(hostname)
 fi
 
@@ -16,10 +15,12 @@ export WGCF_LICENSE_KEY="{{hconfigs['warp_plus_code']}}"
 wgcf update
 if [ $? != 0 ]; then
   mv wgcf-account.toml wgcf-account.toml.backup
+  wgcf register --accept-tos -m hiddify -n $(hostname)
   wgcf update
   if [ $? != 0 ]; then
     mv wgcf-account.toml wgcf-account.toml.backup
-    export WGCF_LICENSE_KEY=
+    wgcf register --accept-tos -m hiddify -n $(hostname)
+    unset WGCF_LICENSE_KEY=
     wgcf update
   fi
 fi

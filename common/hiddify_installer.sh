@@ -36,7 +36,6 @@ function install_panel() {
         echo "cd /opt/hiddify-manager/" >>~/.bashrc
     fi
     install_python
-    is_installed lastversion || pip install lastversion
     update_panel "$package_mode" "$force"
     panel_update=$?
     update_config "$package_mode" "$force"
@@ -79,7 +78,8 @@ function update_panel() {
         if [[ $force == "true" || "$current_panel_version" != "$latest" ]]; then
             update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
             echo "panel is outdated! updating...."
-            pip install -U --pre hiddifypanel==$latest
+            # pip install -U --pre hiddifypanel==$latest
+            pip install -U --pre hiddifypanel
             update_progress "Updated..." "Hiddify Panel to $latest" 50
             return 0
         fi
@@ -92,7 +92,8 @@ function update_panel() {
         if [[ $force == "true" || "$current_panel_version" != "$latest" ]]; then
             update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
             echo "panel is outdated! updating...."
-            pip3 install -U hiddifypanel==$latest
+            # pip3 install -U hiddifypanel==$latest
+            pip3 install -U hiddifypanel
             update_progress "Updated..." "Hiddify Panel to $latest" 50
             return 0
         fi

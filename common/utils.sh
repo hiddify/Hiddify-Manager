@@ -115,10 +115,22 @@ function install_pypi_package() {
         fi
     done
 }
+is_package_installed() {
+    package_spec="$1"
 
+    # Extract package name and version from the package specification
+    package_name=$(echo "$1" | cut -d'=' -f1)
+    version=$(echo "$1" | cut -s -d'=' -f2)
+    if dpkg -l | grep -qE "^ii  $package_name *$version"; then
+        return 0
+    else
+        echo "$package_name version $version is not installed."
+        return 1
+    fi
+}
 function install_package() {
     for package in $@; do
-        if ! dpkg -l | grep -q "^ii  $package"; then
+        if ! is_package_installed $package; then
             # The package is not installed, install it
             apt install -y --no-install-recommends "$package"
             if [ $? -ne 0 ]; then
