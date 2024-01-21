@@ -69,6 +69,28 @@
 
 ### Fix
 
+* Static files. [hiddify]
+
+* Apply. [hiddify]
+
+* Bug. [hiddify]
+
+* Bug. [hiddify]
+
+* Typo. [hiddify]
+
+* Warning. [hiddify]
+
+* Installed panel version. [hiddify]
+
+* Issue  in update and install. [hiddify]
+
+* Bug. [hiddify]
+
+* Bug in wiregaurd. [hiddify]
+
+* Progressbar. [hiddify]
+
 * Progressbar. [hiddify]
 
 * Bug for not exiting from new processbar. [hiddify]
@@ -372,6 +394,42 @@
 * Remove remote. [hiddify]
 
 ### Other
+
+* Update. [hiddify]
+
+* Update cli_progress. [hiddify]
+
+* Update. [hiddify]
+
+* Better logs. [hiddify]
+
+* Update. [hiddify]
+
+* Update. [hiddify]
+
+* Update. [hiddify]
+
+* Better log in update. [hiddify]
+
+* Make unzip quite. [hiddify]
+
+* Update cli_progress. [hiddify]
+
+* Silent get. [hiddify]
+
+* Update log. [hiddify]
+
+* Update progress. [hiddify]
+
+* Better handle install logs. [hiddify]
+
+* Fewer logs. [hiddify]
+
+* Add subtitle. [hiddify]
+
+* Add Title. [hiddify]
+
+* Update: progress and installation. [hiddify]
 
 * Merge branch 'main' of github.com:hiddify/Hiddify-Server. [hiddify]
 
