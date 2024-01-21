@@ -138,7 +138,7 @@ function is_installed_package() {
 }
 function install_package() {
     for package in $@; do
-        if ! is_package_installed $package; then
+        if ! is_installed_package $package; then
             # The package is not installed, install it
             apt install -y --no-install-recommends "$package"
             if [ $? -ne 0 ]; then
