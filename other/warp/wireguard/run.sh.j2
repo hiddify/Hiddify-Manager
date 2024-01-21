@@ -1,6 +1,6 @@
 #!/bin/bash
 #ln -sf $(pwd)/hiddify-warp.service /etc/systemd/system/hiddify-warp.service
-systemctl disable hiddify-warp.service
+systemctl disable hiddify-warp.service >/dev/null 2>&1
 
 # if [[ $warp_mode == 'disabled' ]];then
 #   bash uninstall.sh
