@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v10.5.55 (2024-01-21)
+
+### Fix
+
+* Forbidden sites. [hiddify]
+
+### Other
+
+* Update updater. [hiddify]
+
+
 ## v10.5.54 (2024-01-10)
 
 ### Fix
