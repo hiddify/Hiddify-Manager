@@ -22,7 +22,7 @@ dns_server_2 = sys.argv[2]
 def update_dns_settings(config_file):
     with open(config_file, 'r') as f:
         data = yaml.safe_load(f)
-
+    os.chmod(config_file, 600)
     for interface, config in data['network'].get('ethernets', {}).items():
         if config.get('dhcp4', False):
             # DHCP configuration
