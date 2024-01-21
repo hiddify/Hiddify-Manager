@@ -36,10 +36,19 @@ function hiddifypanel_path() {
     python3 -c "import site, os; package_name = 'hiddifypanel'; package_path = next((os.path.join(p, package_name) for p in site.getsitepackages() if os.path.isdir(os.path.join(p, package_name))), None); print(package_path)"
 }
 function get_installed_panel_version() {
-    cat "$(hiddifypanel_path)/VERSION"
+    version=$(cat "$(p)/VERSION")
+    if [ -z "$version" ]; then
+        version="-"
+    fi
+    echo $version
 }
 function get_installed_config_version() {
-    cat /opt/hiddify-manager/VERSION
+    version=$(cat /opt/hiddify-manager/VERSION)
+
+    if [ -z "$version" ]; then
+        version="-"
+    fi
+    echo $version
 }
 
 function get_package_mode() {
@@ -325,7 +334,7 @@ function save_firewall() {
 }
 
 function show_progress() {
-    install_pypi_package cli_progress==1.2.0
+    install_pypi_package cli_progress==1.3.0
     cli_progress --title "Hiddify Manager" $@
 }
 

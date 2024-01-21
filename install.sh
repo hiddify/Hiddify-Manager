@@ -1,6 +1,6 @@
 #!/bin/bash
 cd $(dirname -- "$0")
-
+source ./common/utils.sh
 NAME="0-install"
 LOG_FILE="$(log_file $NAME)"
 
@@ -14,8 +14,6 @@ if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-config/" ]; then
         ln -s /opt/hiddify-manager /opt/hiddify-config
 fi
 
-source /opt/hiddify-manager/common/utils.sh
-source ./common/ticktick.sh
 export DEBIAN_FRONTEND=noninteractive
 if [ "$(id -u)" -ne 0 ]; then
         echo 'This script must be run by root' >&2
@@ -167,7 +165,7 @@ if [[ " $@ " == *" --no-gui "* ]]; then
         error_code=$?
         remove_lock $NAME
 else
-        show_progress "./install.sh --subtitle $(cat /opt/hiddify-manager/VERSION) $@ --no-gui"
+        show_progress --subtitle $(get_installed_config_version) ./install.sh $@ --no-gui
         error_code=$?
         if [[ $error_code != "0" ]]; then
                 # echo less -r -P"Installation Failed! Press q to exit" +G "$log_file"

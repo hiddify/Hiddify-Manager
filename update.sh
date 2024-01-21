@@ -77,7 +77,7 @@ if [[ " $@ " == *" --no-gui "* ]]; then
     error_code=$?
     remove_lock $NAME
 else
-    show_progress "./update.sh $@ --no-gui"
+    show_progress ./update.sh $@ --no-gui
     error_code=$?
     if [[ $error_code != "0" ]]; then
         # echo less -r -P"Installation Failed! Press q to exit" +G "$log_file"
