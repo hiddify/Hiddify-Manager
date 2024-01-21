@@ -170,7 +170,7 @@ function post_update_tasks() {
     fi
 
     if [[ $panel_update == 0 && $config_update != 0 ]]; then
-        bash apply_configs.sh --no-gui --no-log
+        bash /opt/hiddify-manager/apply_configs.sh --no-gui --no-log
     fi
 }
 
