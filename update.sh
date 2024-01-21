@@ -18,6 +18,7 @@ function cleanup() {
 trap cleanup SIGINT
 
 function main() {
+    update_progress "Hiddify Updater" "Checking for update" 1
     local force=false
     local manager_update=0
     local panel_update=0
@@ -37,7 +38,7 @@ function main() {
     fi
 
     rm -rf sniproxy caddy
-
+    update_progress "Hiddify Updater" "Creating a backup" 5
     echo "Creating a backup ..."
     ./hiddify-panel/backup.sh
 
