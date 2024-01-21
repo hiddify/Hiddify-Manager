@@ -161,11 +161,16 @@ if [[ " $@ " == *" --no-gui "* ]]; then
         set -- "${@/--no-gui/}"
         export MODE="$1"
         set_lock $NAME
-        main |& tee $LOG_FILE
+        if [[ " $@ " == *" --no-log "* ]]; then
+                set -- "${@/--no-log/}"
+                main
+        else
+                main |& tee $LOG_FILE
+        fi
         error_code=$?
         remove_lock $NAME
 else
-        show_progress --subtitle $(get_installed_config_version) ./install.sh $@ --no-gui
+        show_progress --subtitle $(get_installed_config_version) --log $LOG_FILE ./install.sh $@ --no-gui --no-log
         error_code=$?
         if [[ $error_code != "0" ]]; then
                 # echo less -r -P"Installation Failed! Press q to exit" +G "$log_file"

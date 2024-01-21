@@ -108,7 +108,7 @@ function update_progress() {
 function is_installed_pypi_package() {
     package_name="$1"
 
-    if pip list --format=freeze | grep -E "^$package_name" >/dev/null; then
+    if pip list --format=freeze --disable-pip-version-check | grep -E "^$package_name" >/dev/null; then
         return 0
     else
         echo "Package $package_name is not installed."

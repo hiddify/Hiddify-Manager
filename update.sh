@@ -73,11 +73,16 @@ function main() {
 if [[ " $@ " == *" --no-gui "* ]]; then
     set -- "${@/--no-gui/}"
     set_lock $NAME
-    main "$@" |& tee $LOG_FILE
+    if [[ " $@ " == *" --no-log "* ]]; then
+        set -- "${@/--no-log/}"
+        main "$@"
+    else
+        main "$@" |& tee $LOG_FILE
+    fi
     error_code=$?
     remove_lock $NAME
 else
-    show_progress --subtitle "Updater" ./update.sh $@ --no-gui
+    show_progress --subtitle "Updater" --log $LOG_FILE ./update.sh $@ --no-gui --no-log
     error_code=$?
     if [[ $error_code != "0" ]]; then
         # echo less -r -P"Installation Failed! Press q to exit" +G "$log_file"
