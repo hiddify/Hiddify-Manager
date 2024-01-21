@@ -204,11 +204,16 @@ function update_from_github() {
 if [[ " $@ " == *" --no-gui "* ]]; then
     set -- "${@/--no-gui/}"
     set_lock $NAME
-    install_panel "$@" 2>&1 | tee $LOG_FILE
+    if [[ " $@ " == *" --no-log "* ]]; then
+        set -- "${@/--no-log/}"
+        install_panel "$@"
+    else
+        install_panel "$@" |& tee $LOG_FILE
+    fi
     error_code=$?
     remove_lock $NAME
 else
-    show_progress --subtitle "Installer" $0 $@ --no-gui
+    show_progress --subtitle "Installer" --log $LOG_FILE $0 $@ --no-gui --no-log
     error_code=$?
     if [[ $error_code != "0" ]]; then
         # echo less -r -P"Installation Failed! Press q to exit" +G "$log_file"
