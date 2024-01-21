@@ -213,7 +213,7 @@ if [[ " $@ " == *" --no-gui "* ]]; then
     error_code=$?
     remove_lock $NAME
 else
-    show_progress --subtitle "Installer" --log $LOG_FILE $0 $@ --no-gui --no-log
+    show_progress_window --subtitle "Installer" --log $LOG_FILE $0 $@ --no-gui --no-log
     error_code=$?
     if [[ $error_code != "0" ]]; then
         # echo less -r -P"Installation Failed! Press q to exit" +G "$log_file"

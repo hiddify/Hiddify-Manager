@@ -333,8 +333,8 @@ function save_firewall() {
     iptables-restore </etc/iptables/rules.v4
 }
 
-function show_progress() {
-    install_pypi_package cli_progress==1.5.0
+function show_progress_window() {
+    install_pypi_package cli_progress==1.6.0
     cli_progress --title "Hiddify Manager" $@
 }
 
