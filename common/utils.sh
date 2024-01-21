@@ -33,10 +33,10 @@ function get_release_version() {
 }
 
 function hiddifypanel_path() {
-    python3 -c "import site, os; package_name = 'hiddifypanel'; package_path = next((os.path.join(p, package_name) for p in site.getsitepackages() if os.path.isdir(os.path.join(p, package_name))), None); print(package_path)"
+    python3 -c "import os,hiddifypanel;print(os.path.dirname(hiddifypanel.__file__),end='')"
 }
 function get_installed_panel_version() {
-    version=$(cat "$(p)/VERSION")
+    version=$(cat "$(hiddifypanel_path)/VERSION")
     if [ -z "$version" ]; then
         version="-"
     fi
