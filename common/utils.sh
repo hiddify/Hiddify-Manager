@@ -315,7 +315,7 @@ function save_firewall() {
 
 function show_progress() {
     install_pypi_package cli_progress==1.2.0
-    cli_progress $@
+    cli_progress --title "Hiddify Manager" $@
 }
 
 function log_dir() {
