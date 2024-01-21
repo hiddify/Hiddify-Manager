@@ -1,5 +1,5 @@
 function get_commit_version() {
-    json_data=$(curl -sl "https://github.com/hiddify/$1/commits/main.atom")
+    json_data=$(curl -sL -H "Accept: application/json" "https://github.com/hiddify/$1/commits/main.atom")
     latest_commit_date=$(echo "$json_data" | jq -r '.payload.commitGroups[0].commits[0].committedDate')
     # xml_data=$(curl -sl "https://github.com/hiddify/$1/commits/main.atom")
     # latest_commit_date=$(echo "$xml_data" | grep -m 1 '<updated>' | awk -F'>|<' '{print $3}')
@@ -9,21 +9,29 @@ function get_commit_version() {
 }
 
 function get_pre_release_version() {
-    lastversion $1 --pre --at github
+    # lastversion "$1" --pre --at github
+    VERSION=$(curl -sL "https://api.github.com/repos/hiddify/$1/releases" | jq -r 'map(select(.prerelease == true or .draft == true)) | sort_by(.created_at) | last | .tag_name')
+    VERSION=${VERSION/#v/}
+    echo $VERSION
 }
 
 function get_release_version() {
-    # COMMIT_URL=https://api.github.com/repos/hiddify/$1/releases/latest
-    # VERSION=$(curl -s --connect-timeout 1 $COMMIT_URL | jq -r .tag_name)
-    location=$(curl -sI "https://github.com/hiddify/$1/releases/latest" | grep -i location | awk -F' ' '{print $2}' | tr -d '\r')
-    if [[ $location == *"latest"* ]]; then
-        location=$(curl -sI "$location" | grep -i location | awk -F' ' '{print $2}' | tr -d '\r')
-    fi
+    VERSION=$(curl -sL "https://api.github.com/repos/hiddify/$1/releases" | jq -r 'map(select(.prerelease == false)) | sort_by(.created_at) | last | .tag_name')
+    if [ -z $VERSION ]; then
+        # COMMIT_URL=https://api.github.com/repos/hiddify/$1/releases/latest
+        # VERSION=$(curl -s --connect-timeout 1 $COMMIT_URL | jq -r .tag_name)
+        location=$(curl -sI "https://github.com/hiddify/$1/releases/latest" | grep -i location | awk -F' ' '{print $2}' | tr -d '\r')
+        if [[ $location == *"latest"* ]]; then
+            location=$(curl -sI "$location" | grep -i location | awk -F' ' '{print $2}' | tr -d '\r')
+        fi
 
-    VERSION=$(echo $location | rev | awk -F/ '{print $1}' | rev)
-    VERSION=${VERSION//v/}
-    echo "${VERSION//$'\r'/}"
+        VERSION=$(echo $location | rev | awk -F/ '{print $1}' | rev)
+        VERSION="${VERSION//$'\r'/}"
+    fi
+    VERSION=${VERSION/#v/}
+    echo $VERSION
 }
+
 function hiddifypanel_path() {
     python3 -c "import site, os; package_name = 'hiddifypanel'; package_path = next((os.path.join(p, package_name) for p in site.getsitepackages() if os.path.isdir(os.path.join(p, package_name))), None); print(package_path)"
 }
@@ -41,6 +49,14 @@ function get_package_mode() {
 
 function error() {
     echo -e "\033[91m$1\033[0m" >&2
+}
+
+function warning() {
+    echo -e "\033[93m$1\033[0m" >&2
+}
+
+function success() {
+    echo -e "\033[92m$1\033[0m" >&2
 }
 
 function add_DNS_if_failed() {
