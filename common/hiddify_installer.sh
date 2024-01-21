@@ -188,7 +188,7 @@ function update_from_github() {
         install_package unzip
         unzip -q -o "$file_name"
     elif [[ "$file_type" == "gz" ]]; then
-        tar xvzf "$file_name" --strip-components=1 -q
+        tar xzf "$file_name" --strip-components=1
     else
         echo "Unsupported file type: $file_type"
         return 1
