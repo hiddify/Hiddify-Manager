@@ -1,5 +1,9 @@
 #!/bin/bash
 cd $(dirname -- "$0")
+
+NAME="0-install"
+LOG_FILE="$(log_file $NAME)"
+
 # Fix the installation directory
 if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-server/" ]; then
         mv /opt/hiddify-server /opt/hiddify-manager
@@ -88,7 +92,7 @@ function main() {
         update_progress "installing..." "Almost Finished" 90
 
         echo "---------------------Finished!------------------------"
-        rm log/install.lock
+        remove_lock $NAME
         if [ "$MODE" != "apply_users" ]; then
                 systemctl restart hiddify-panel
         fi
@@ -108,9 +112,8 @@ function clean_files() {
 
 function cleanup() {
         error "Script interrupted. Exiting..."
-        disable_ansii_modes
-        rm log/install.lock
-        echo "1" >log/error.lock
+        # disable_ansii_modes
+        remove_lock $NAME
         exit 9
 }
 
@@ -122,7 +125,6 @@ function set_config_from_hpanel() {
         chmod 600 current.json
         if [[ $? != 0 ]]; then
                 error "Exception in Hiddify Panel. Please send the log to hiddify@gmail.com"
-                echo "4" >log/error.lock
                 exit 4
         fi
 
@@ -157,63 +159,23 @@ function runsh() {
         popd >>/dev/null
 }
 
-mkdir -p log/system/
-
-if [[ -f log/install.lock && $(($(date +%s) - $(cat log/install.lock))) -lt 120 ]]; then
-        error "Another installation is running.... Please wait until it finishes or wait 5 minutes or execute 'rm -f log/install.lock'"
-        echo "12" >log/error.lock
-        exit 12
-fi
-
-echo "$(date +%s)" >log/install.lock
-
-echo "0" >log/error.lock
-log_file=log/system/0-install.log
-export MODE="$1"
 if [[ " $@ " == *" --no-gui "* ]]; then
         set -- "${@/--no-gui/}"
-
-        main |& tee $log_file
-        rm -f log/install.lock >/dev/null 2>&1
-        disable_ansii_modes
-        exit 0
+        export MODE="$1"
+        set_lock $NAME
+        main |& tee $LOG_FILE
+        error_code=$?
+        remove_lock $NAME
 else
-        install_package dialog
-
-        BACKTITLE="Welcome to Hiddify Panel (config version=$(cat VERSION))"
-        width=$(tput cols 2>/dev/null || echo 20)
-        height=$(tput lines 2>/dev/null || echo 20)
-        width=$((width < 20 ? 20 : width))
-        height=$((height < 20 ? 20 : height))
-
-        # Calculate log dimensions
-        log_h=$((height - 10))
-        log_w=$((width - 6))
-        rm -f log/install.lock
-        python3 -c "import urwid; import twisted" || pip install urwid==2.4.1 twisted==23.10.0 pyOpenSSL==23.3.0
-
-        python3 ./common/progress_bar_process.py "$log_file" ./install.sh $@ --no-gui
-        # echo "console size=$log_h $log_w" | tee $log_file
-        # main |& tee -a $log_file | dialog --colors --keep-tite \
-        #         --backtitle "$BACKTITLE" \
-        #         --title "Installing Hiddify" \
-        #         --begin 2 2 \
-        #         --tailboxbg $log_file $log_h $log_w \
-        #         --and-widget \
-        #         --begin $(($log_h + 2)) 2 \
-        #         --gauge "Please wait..., We are going to install Hiddify" 7 $log_w 0
-
-        reset
-        rm -f log/install.lock >/dev/null 2>&1
-        if [[ $(cat log/error.lock) != "0" ]]; then
-                less -r -P"Installation Failed! Press q to exit" +G "$log_file"
+        show_progress "./install.sh $@ --no-gui"
+        error_code=$?
+        if [[ $error_code != "0" ]]; then
+                # echo less -r -P"Installation Failed! Press q to exit" +G "$log_file"
+                msg_with_hiddify "Installation Failed! $error_code"
         else
                 msg_with_hiddify "The installation has successfully completed."
-                check_hiddify_panel $@ |& tee -a $log_file
+                check_hiddify_panel $@ |& tee -a $LOG_FILE
         fi
-
 fi
 
-#dialog --title "Installing Hiddify" --backtitle "$BACKTITLE" --gauge "Please wait..., We are going to install Hiddify" 8 60 0
-
-exit 0
+exit $error_code

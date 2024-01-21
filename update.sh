@@ -4,19 +4,14 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 cd $(dirname -- "$0")
 # Create necessary directories and define constants
-LOG_DIR="log/system"
-mkdir -p "$LOG_DIR"
-LOCK_FILE="log/update.lock"
-ERROR_LOCK_FILE="log/error.lock"
-LOG_FILE="$LOG_DIR/update.log"
-BACKTITLE="Welcome to Hiddify Panel Updater"
 
+NAME="update"
+LOG_FILE="$(log_file $NAME)"
 function cleanup() {
     error "Script interrupted. Exiting..."
-    disable_ansii_modes
+    # disable_ansii_modes
     #    reset
-    rm "$LOCK_FILE"
-    echo "1" >"$ERROR_LOCK_FILE"
+    remove_lock $NAME
     exit 1
 }
 
@@ -70,52 +65,26 @@ function main() {
     else
         echo "Nothing to update"
     fi
-    rm -f $LOCK_FILE
+    remove_lock $NAME
     echo "---------------------Finished!------------------------"
 
 }
 
-# Check if another installation is running
-if [[ -f $LOCK_FILE && $(($(date +%s) - $(cat $LOCK_FILE))) -lt 120 ]]; then
-    echo "Another installation is running.... Please wait until it finishes or wait 5 minutes or execute 'rm -f $LOCK_FILE'"
-    exit 1
-fi
-
-# Create or update the lock file
-date +%s >$LOCK_FILE
-
-# Run the main function and log the output
 if [[ " $@ " == *" --no-gui "* ]]; then
     set -- "${@/--no-gui/}"
-    main "$@" 2>&1 | tee $LOG_FILE
-    disable_ansii_modes
+    set_lock $NAME
+    main "$@" |& tee $LOG_FILE
+    error_code=$?
+    remove_lock $NAME
 else
-    # Get terminal dimensions with fallback values
-    width=$(tput cols 2>/dev/null || echo 20)
-    height=$(tput lines 2>/dev/null || echo 20)
-    width=$((width < 20 ? 20 : width))
-    height=$((height < 20 ? 20 : height))
-
-    # Calculate log dimensions
-    log_h=$((height - 10))
-    log_w=$((width - 6))
-
-    rm -f $LOCK_FILE
-    # Log the console size
-    python3 -c "import urwid; import twisted" || pip install urwid==2.4.1 twisted==23.10.0 pyOpenSSL==23.3.0
-    python3 ./common/progress_bar_process.py "$LOG_FILE" ./update.sh $@ --no-gui
-    # echo "console size=$log_h $log_w" | tee $LOG_FILE
-
-    # main "$@" 2>&1 | tee -a $LOG_FILE | dialog --colors --keep-tite --backtitle "$BACKTITLE" \
-    #     --title "Installing Hiddify" \
-    #     --begin 2 2 \
-    #     --tailboxbg $LOG_FILE $log_h $log_w \
-    #     --and-widget \
-    #     --begin $((log_h + 2)) 2 \
-    #     --gauge "Please wait..., We are going to Update Hiddify" 7 $log_w 0
-
-    disable_ansii_modes
-    msg_with_hiddify "The update has successfully completed."
-    reset
-    check_hiddify_panel $@ |& tee -a $log_file
+    show_progress "./update.sh $@ --no-gui"
+    error_code=$?
+    if [[ $error_code != "0" ]]; then
+        # echo less -r -P"Installation Failed! Press q to exit" +G "$log_file"
+        msg_with_hiddify "Installation Failed! code=$error_code"
+    else
+        msg_with_hiddify "The update has successfully completed."
+        check_hiddify_panel $@ |& tee -a $LOG_FILE
+    fi
 fi
+exit $error_code
