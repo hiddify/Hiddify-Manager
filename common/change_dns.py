@@ -22,7 +22,7 @@ dns_server_2 = sys.argv[2]
 def update_dns_settings(config_file):
     with open(config_file, 'r') as f:
         data = yaml.safe_load(f)
-    os.chmod(config_file, 600)
+    os.system(f'chmod 600 {config_file}')
     for interface, config in data['network'].get('ethernets', {}).items():
         if config.get('dhcp4', False):
             # DHCP configuration
@@ -42,11 +42,16 @@ def update_dns_settings(config_file):
     print("DNS servers updated in", config_file)
 
 
+def process_netplan_directory(directory):
+    for config_file in os.listdir(directory):
+        config_file_path = os.path.join(directory, config_file)
+        if config_file_path.endswith('.yaml') or config_file_path.endswith('.yml'):
+            update_dns_settings(config_file_path)
+
+
 # Iterate through all Netplan configurations
-for config_file in os.listdir('/etc/netplan'):
-    if config_file.endswith('.yaml') or config_file.endswith('.yml'):
-        config_file = os.path.join('/etc/netplan', config_file)
-        update_dns_settings(config_file)
+process_netplan_directory('/etc/netplan')
+process_netplan_directory('/run/netplan')
 
 # Apply the changes
 os.system('netplan apply')

@@ -186,7 +186,7 @@ function update_from_github() {
 
     if [[ "$file_type" == "zip" ]]; then
         install_package unzip
-        unzip -o "$file_name"
+        unzip -q -o "$file_name"
     elif [[ "$file_type" == "gz" ]]; then
         tar xvzf "$file_name" --strip-components=1
     else
