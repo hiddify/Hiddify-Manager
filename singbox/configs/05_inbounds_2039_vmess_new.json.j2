@@ -21,7 +21,18 @@
 				"method":"GET",
 				"idle_timeout": "15s",
 				"ping_timeout": "15s"
-			}
+			},
+			{%if hconfigs['mux_enable']%}
+			"multiplex": {
+                "enabled": true,
+                "padding": {{ hconfigs['mux_padding_enable'] }},
+                "brutal": {
+                    "enabled": {{ hconfigs['mux_brutal_enable'] }},
+                    "up_mbps": {{ hconfigs['mux_brutal_up_mbps'] }},
+                    "down_mbps": {{ hconfigs['mux_brutal_down_mbps'] }}
+                }
+            },
+			{%endif%}
 		}	  
 	]
 }
