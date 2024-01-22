@@ -43,7 +43,7 @@ function get_installed_panel_version() {
     echo $version
 }
 function get_installed_config_version() {
-    version=$(cat /opt/hiddify-manager/VERSION)
+    version=$(cat /opt/hiddify-config/VERSION)
 
     if [ -z "$version" ]; then
         version="-"
@@ -52,7 +52,7 @@ function get_installed_config_version() {
 }
 
 function get_package_mode() {
-    cd /opt/hiddify-server/hiddify-panel
+    cd /opt/hiddify-config/hiddify-panel
     python3 -m hiddifypanel all-configs | jq -r ".hconfigs.package_mode"
 }
 
@@ -201,7 +201,7 @@ function msg() {
 
 function hiddify_api() {
     data=$(
-        cd /opt/hiddify-manager/hiddify-panel || exit
+        cd /opt/hiddify-config/hiddify-panel || exit
         python3 -m hiddifypanel "$1"
     )
     echo "$data"
@@ -228,8 +228,8 @@ function install_python() {
 
 function check_hiddify_panel() {
     if [ "$MODE" != "apply_users" ]; then
-        (cd /opt/hiddify-manager/hiddify-panel && python3 -m hiddifypanel all-configs) >/opt/hiddify-manager/current.json
-        chmod 600 /opt/hiddify-manager/current.json
+        (cd /opt/hiddify-config/hiddify-panel && python3 -m hiddifypanel all-configs) >/opt/hiddify-config/current.json
+        chmod 600 /opt/hiddify-config/current.json
         if [[ $? != 0 ]]; then
             error "Exception in Hiddify Panel. Please send the log to hiddify@gmail.com"
             echo "4" >log/error.lock
@@ -237,16 +237,16 @@ function check_hiddify_panel() {
         fi
         echo ""
         echo ""
-        bash /opt/hiddify-manager/status.sh
+        bash /opt/hiddify-config/status.sh
         echo "==========================================================="
-        bash /opt/hiddify-manager/common/logo.ico
+        bash /opt/hiddify-config/common/logo.ico
         success "Finished! Thank you for helping to skip filternet."
 
         install_package qrencode
-        center_text "$(qrencode -t utf8 -m 2 $(cat /opt/hiddify-manager/current.json | jq -r '.panel_links[]' | tail -n 1))"
+        center_text "$(qrencode -t utf8 -m 2 $(cat /opt/hiddify-config/current.json | jq -r '.panel_links[]' | tail -n 1))"
 
         echo "Please open the following link in the browser for client setup"
-        cat /opt/hiddify-manager/current.json | jq -r '.panel_links[]' | while read -r link; do
+        cat /opt/hiddify-config/current.json | jq -r '.panel_links[]' | while read -r link; do
             if [[ $link == http://* ]]; then
                 link="[insecure] $link"
                 error "  $link"
@@ -271,7 +271,7 @@ function check_hiddify_panel() {
                 if [[ "$(systemctl is-active "$s")" != "active" ]]; then
                     error "an important service $s is not working again"
                     error "Installation Failed!"
-                    echo "32" >/opt/hiddify-manager/log/error.lock
+                    echo "32" >/opt/hiddify-config/log/error.lock
                     exit 32
                 fi
 
@@ -339,7 +339,7 @@ function show_progress_window() {
 }
 
 function log_dir() {
-    LOG_DIR="/opt/hiddify-manager/log/system"
+    LOG_DIR="/opt/hiddify-config/log/system"
     mkdir -p "$LOG_DIR" >/dev/null 2>&1
     echo $LOG_DIR
 }
@@ -349,7 +349,7 @@ function log_file() {
 }
 
 function set_lock() {
-    LOCK_DIR="/opt/hiddify-manager/log"
+    LOCK_DIR="/opt/hiddify-config/log"
     mkdir -p "$LOCK_DIR" >/dev/null 2>&1
     LOCK_FILE=$LOCK_DIR/$1.lock
     if [[ -f $LOCK_FILE && $(($(date +%s) - $(cat $LOCK_FILE))) -lt 120 ]]; then
@@ -360,7 +360,7 @@ function set_lock() {
 }
 
 function remove_lock() {
-    LOCK_DIR="/opt/hiddify-manager/log"
+    LOCK_DIR="/opt/hiddify-config/log"
     LOCK_FILE=$LOCK_DIR/$1.lock
     rm -f $LOCK_FILE >/dev/null 2>&1
 }
