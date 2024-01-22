@@ -1,6 +1,6 @@
 #!/bin/bash
 cd $(dirname -- "$0")
-source common/utils.sh
+source ./common/utils.sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # Create necessary directories and define constants
@@ -18,6 +18,8 @@ function cleanup() {
 trap cleanup SIGINT
 
 function main() {
+    update_progress "Hiddify Updater" "Checking for update" 1
+    echo "Checking for update..."
     local force=false
     local manager_update=0
     local panel_update=0
@@ -31,9 +33,13 @@ function main() {
     local current_config_version=$(get_installed_config_version)
     local current_panel_version=$(get_installed_panel_version)
 
+    if [[ $package_mode == "release" ]] && [[ $current_config_version == *"dev"* || ! $current_panel_version == 10* || ! $current_panel_version == 9* ]]; then
+        bash common/downgrade.sh
+        return 0
+    fi
 
     rm -rf sniproxy caddy
-
+    update_progress "Hiddify Updater" "Creating a backup" 5
     echo "Creating a backup ..."
     ./hiddify-panel/backup.sh
 
@@ -57,7 +63,7 @@ function main() {
     [[ "$latest_manager" != "$current_config_version" ]] && manager_update=1
     echo "$package_mode Latest panel version: $latest_panel Installed: $current_panel_version Lastest manager version: $latest_manager Installed: $current_config_version"
     if [[ "$force" == "true" || $panel_update == 1 || $manager_update == 1 ]]; then
-        bash <(curl -sSL https://raw.githubusercontent.com/hiddify/hiddify-config/main/common/download.sh) "$package_mode" "$force" "--no-gui"
+        bash <(curl -sSL https://raw.githubusercontent.com/hiddify/hiddify-config/main/common/download.sh) "$package_mode" "$force" "--no-gui" "--no-log"
     else
         echo "Nothing to update"
     fi
@@ -69,11 +75,16 @@ function main() {
 if [[ " $@ " == *" --no-gui "* ]]; then
     set -- "${@/--no-gui/}"
     set_lock $NAME
-    main "$@" |& tee $LOG_FILE
+    if [[ " $@ " == *" --no-log "* ]]; then
+        set -- "${@/--no-log/}"
+        main "$@"
+    else
+        main "$@" |& tee $LOG_FILE
+    fi
     error_code=$?
     remove_lock $NAME
 else
-    show_progress "./update.sh $@ --no-gui"
+    show_progress_window --subtitle "Updater" --log $LOG_FILE ./update.sh $@ --no-gui --no-log
     error_code=$?
     if [[ $error_code != "0" ]]; then
         # echo less -r -P"Installation Failed! Press q to exit" +G "$log_file"
