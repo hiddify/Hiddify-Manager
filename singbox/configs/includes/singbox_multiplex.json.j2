@@ -1,0 +1,9 @@
+"multiplex": {
+    "enabled": true,
+    "padding": {% if hconfigs['mux_padding_enable'] %} true {% else %} false {% endif %},
+    "brutal": {
+        "enabled": {% if hconfigs['mux_brutal_enable'] %} true {% else %} false {% endif %},
+        "up_mbps": {{ hconfigs['mux_brutal_up_mbps'] }},
+        "down_mbps": {{ hconfigs['mux_brutal_down_mbps'] }}
+  }
+},
