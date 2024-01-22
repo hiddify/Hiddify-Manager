@@ -1,4 +1,4 @@
 #!/bin/bash
 
-systemctl reload hiddify-nginx
+systemctl restart hiddify-nginx
 systemctl start hiddify-nginx

@@ -14,6 +14,6 @@ fi
 mkdir -p ../ssl/
 ./lib/acme.sh --uninstall-cronjob
 shopt -s expand_aliases
-source lib/acme.sh.env
+source ./lib/acme.sh.env
 acme.sh --register-account -m my@example.com
 systemctl reload hiddify-haproxy
