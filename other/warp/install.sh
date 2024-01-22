@@ -1,1 +1,2 @@
-cd wireguard&&bash install.sh
+rm *.service
+cd wireguard && bash install.sh

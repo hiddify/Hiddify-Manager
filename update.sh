@@ -63,6 +63,8 @@ function main() {
     [[ "$latest_manager" != "$current_config_version" ]] && manager_update=1
     echo "$package_mode Latest panel version: $latest_panel Installed: $current_panel_version Lastest manager version: $latest_manager Installed: $current_config_version"
     if [[ "$force" == "true" || $panel_update == 1 || $manager_update == 1 ]]; then
+        rm -f xray/configs/*.json
+        rm -f singbox/configs/*.json
         bash <(curl -sSL https://raw.githubusercontent.com/hiddify/hiddify-config/main/common/download.sh) "$package_mode" "$force" "--no-gui" "--no-log"
     else
         echo "Nothing to update"
@@ -91,7 +93,7 @@ else
         msg_with_hiddify "Installation Failed! code=$error_code"
     else
         msg_with_hiddify "The update has successfully completed."
-        check_hiddify_panel $@ |& tee -a $LOG_FILE
+        # check_hiddify_panel $@ |& tee -a $LOG_FILE
     fi
 fi
 exit $error_code
