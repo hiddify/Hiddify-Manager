@@ -11,6 +11,7 @@ Environment=RUST_LOG=error
 Environment=CONFIG_FILE=/opt/hiddify-manager/other/shadowtls/shadowtls.conf
 Restart=on-failure
 #StandardOutput=file:/opt/hiddify-manager/log/system/ssplugin-shadowtls.out.log
-#StandardError=file:/opt/hiddify-manager/log/system/ssplugin-shadowtls.err.log
+StandardOutput=null
+StandardError=file:/opt/hiddify-manager/log/system/ssplugin-shadowtls.err.log
 [Install]
 WantedBy=multi-user.target

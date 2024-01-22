@@ -1,28 +1,25 @@
 #!/bin/bash
-source /opt/hiddify-manager/common/utils.sh
+cd $(dirname -- "$0")
+source ./common/utils.sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
-cd $(dirname -- "$0")
 # Create necessary directories and define constants
-LOG_DIR="log/system"
-mkdir -p "$LOG_DIR"
-LOCK_FILE="log/update.lock"
-ERROR_LOCK_FILE="log/error.lock"
-LOG_FILE="$LOG_DIR/update.log"
-BACKTITLE="Welcome to Hiddify Panel Updater"
 
+NAME="update"
+LOG_FILE="$(log_file $NAME)"
 function cleanup() {
     error "Script interrupted. Exiting..."
-    disable_ansii_modes
+    # disable_ansii_modes
     #    reset
-    rm "$LOCK_FILE"
-    echo "1" >"$ERROR_LOCK_FILE"
+    remove_lock $NAME
     exit 1
 }
 
 trap cleanup SIGINT
 
 function main() {
+    update_progress "Hiddify Updater" "Checking for update" 1
+    echo "Checking for update..."
     local force=false
     local manager_update=0
     local panel_update=0
@@ -42,7 +39,7 @@ function main() {
     fi
 
     rm -rf sniproxy caddy
-
+    update_progress "Hiddify Updater" "Creating a backup" 5
     echo "Creating a backup ..."
     ./hiddify-panel/backup.sh
 
@@ -66,56 +63,35 @@ function main() {
     [[ "$latest_manager" != "$current_config_version" ]] && manager_update=1
     echo "$package_mode Latest panel version: $latest_panel Installed: $current_panel_version Lastest manager version: $latest_manager Installed: $current_config_version"
     if [[ "$force" == "true" || $panel_update == 1 || $manager_update == 1 ]]; then
-        bash <(curl -sSL https://raw.githubusercontent.com/hiddify/hiddify-config/main/common/download.sh) "$package_mode" "$force" "--no-gui"
+        bash <(curl -sSL https://raw.githubusercontent.com/hiddify/hiddify-config/main/common/download.sh) "$package_mode" "$force" "--no-gui" "--no-log"
     else
         echo "Nothing to update"
     fi
-    rm -f $LOCK_FILE
+    remove_lock $NAME
     echo "---------------------Finished!------------------------"
 
 }
 
-# Check if another installation is running
-if [[ -f $LOCK_FILE && $(($(date +%s) - $(cat $LOCK_FILE))) -lt 120 ]]; then
-    echo "Another installation is running.... Please wait until it finishes or wait 5 minutes or execute 'rm -f $LOCK_FILE'"
-    exit 1
-fi
-
-# Create or update the lock file
-date +%s >$LOCK_FILE
-
-# Run the main function and log the output
 if [[ " $@ " == *" --no-gui "* ]]; then
     set -- "${@/--no-gui/}"
-    main "$@" 2>&1 | tee $LOG_FILE
-    disable_ansii_modes
+    set_lock $NAME
+    if [[ " $@ " == *" --no-log "* ]]; then
+        set -- "${@/--no-log/}"
+        main "$@"
+    else
+        main "$@" |& tee $LOG_FILE
+    fi
+    error_code=$?
+    remove_lock $NAME
 else
-    # Get terminal dimensions with fallback values
-    width=$(tput cols 2>/dev/null || echo 20)
-    height=$(tput lines 2>/dev/null || echo 20)
-    width=$((width < 20 ? 20 : width))
-    height=$((height < 20 ? 20 : height))
-
-    # Calculate log dimensions
-    log_h=$((height - 10))
-    log_w=$((width - 6))
-
-    rm -f $LOCK_FILE
-    # Log the console size
-    python3 -c "import urwid; import twisted" || pip install urwid==2.4.1 twisted==23.10.0 pyOpenSSL==23.3.0
-    python3 ./common/progress_bar_process.py "$LOG_FILE" ./update.sh $@ --no-gui
-    # echo "console size=$log_h $log_w" | tee $LOG_FILE
-
-    # main "$@" 2>&1 | tee -a $LOG_FILE | dialog --colors --keep-tite --backtitle "$BACKTITLE" \
-    #     --title "Installing Hiddify" \
-    #     --begin 2 2 \
-    #     --tailboxbg $LOG_FILE $log_h $log_w \
-    #     --and-widget \
-    #     --begin $((log_h + 2)) 2 \
-    #     --gauge "Please wait..., We are going to Update Hiddify" 7 $log_w 0
-
-    disable_ansii_modes
-    msg_with_hiddify "The update has successfully completed."
-    reset
-    check_hiddify_panel $@ |& tee -a $log_file
+    show_progress_window --subtitle "Updater" --log $LOG_FILE ./update.sh $@ --no-gui --no-log
+    error_code=$?
+    if [[ $error_code != "0" ]]; then
+        # echo less -r -P"Installation Failed! Press q to exit" +G "$log_file"
+        msg_with_hiddify "Installation Failed! code=$error_code"
+    else
+        msg_with_hiddify "The update has successfully completed."
+        check_hiddify_panel $@ |& tee -a $LOG_FILE
+    fi
 fi
+exit $error_code

@@ -1,6 +1,6 @@
 echo "telegram proxy install.sh $*"
-systemctl stop mtproxy.service
-systemctl disable mtproxy.service
+systemctl stop mtproxy.service >/dev/null 2>&1
+systemctl disable mtproxy.service >/dev/null 2>&1
 
 # apt install -y python3 python3-uvloop python3-cryptography python3-socks libcap2-bin
 # useradd --no-create-home -s /usr/sbin/nologin tgproxy

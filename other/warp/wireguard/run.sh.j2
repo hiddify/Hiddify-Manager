@@ -1,30 +1,31 @@
 #!/bin/bash
 #ln -sf $(pwd)/hiddify-warp.service /etc/systemd/system/hiddify-warp.service
-systemctl disable hiddify-warp.service
+systemctl disable hiddify-warp.service >/dev/null 2>&1
 
 # if [[ $warp_mode == 'disabled' ]];then
 #   bash uninstall.sh
 # else
 
 if ! [ -f "wgcf-account.toml" ]; then
-  mv wgcf-account.toml wgcf-account.toml.backup
   wgcf register --accept-tos -m hiddify -n $(hostname)
 fi
 
 #api.zeroteam.top/warp?format=wgcf for change warp
 export WGCF_LICENSE_KEY="{{hconfigs['warp_plus_code']}}"
-wgcf update
+wgcf update 2>&1
 if [ $? != 0 ]; then
   mv wgcf-account.toml wgcf-account.toml.backup
-  wgcf update
+  wgcf register --accept-tos -m hiddify -n $(hostname)
+  wgcf update 2>&1
   if [ $? != 0 ]; then
     mv wgcf-account.toml wgcf-account.toml.backup
-    export WGCF_LICENSE_KEY=
-    wgcf update
+    wgcf register --accept-tos -m hiddify -n $(hostname)
+    unset WGCF_LICENSE_KEY=
+    wgcf update 2>&1
   fi
 fi
 
-wgcf generate
+wgcf generate 2>&1
 sed -i 's/\[Peer\]/Table = off\n\[Peer\]/g' wgcf-profile.conf
 
 curl --connect-timeout 1 -s http://ipv6.google.com 2>&1 >/dev/null

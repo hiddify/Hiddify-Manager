@@ -23,7 +23,8 @@ cd /opt/$GITHUB_REPOSITORY
 curl -L -o $GITHUB_REPOSITORY.zip https://github.com/hiddify/$GITHUB_REPOSITORY/releases/latest/download/$GITHUB_REPOSITORY.zip
 unzip -o $GITHUB_REPOSITORY.zip
 rm $GITHUB_REPOSITORY.zip
-
+rm -f xray/configs/*.json
+rm -f singbox/configs/*.json
 bash install.sh
 # exit 0
 # fi

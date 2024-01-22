@@ -1,5 +1,5 @@
 function get_commit_version() {
-    json_data=$(curl -sl "https://github.com/hiddify/$1/commits/main.atom")
+    json_data=$(curl -sL -H "Accept: application/json" "https://github.com/hiddify/$1/commits/main.atom")
     latest_commit_date=$(echo "$json_data" | jq -r '.payload.commitGroups[0].commits[0].committedDate')
     # xml_data=$(curl -sl "https://github.com/hiddify/$1/commits/main.atom")
     # latest_commit_date=$(echo "$xml_data" | grep -m 1 '<updated>' | awk -F'>|<' '{print $3}')
@@ -26,20 +26,29 @@ function get_release_version() {
         fi
 
         VERSION=$(echo $location | rev | awk -F/ '{print $1}' | rev)
-        VERSION=${VERSION//v/}
         VERSION="${VERSION//$'\r'/}"
     fi
+    VERSION=${VERSION/#v/}
     echo $VERSION
 }
 
 function hiddifypanel_path() {
-    python3 -c "import site, os; package_name = 'hiddifypanel'; package_path = next((os.path.join(p, package_name) for p in site.getsitepackages() if os.path.isdir(os.path.join(p, package_name))), None); print(package_path)"
+    python3 -c "import os,hiddifypanel;print(os.path.dirname(hiddifypanel.__file__),end='')"
 }
 function get_installed_panel_version() {
-    cat "$(hiddifypanel_path)/VERSION"
+    version=$(cat "$(hiddifypanel_path)/VERSION")
+    if [ -z "$version" ]; then
+        version="-"
+    fi
+    echo $version
 }
 function get_installed_config_version() {
-    cat /opt/hiddify-manager/VERSION
+    version=$(cat /opt/hiddify-manager/VERSION)
+
+    if [ -z "$version" ]; then
+        version="-"
+    fi
+    echo $version
 }
 
 function get_package_mode() {
@@ -96,9 +105,40 @@ function update_progress() {
     echo -e "####$percentage####$title####$text####"
 }
 
+function is_installed_pypi_package() {
+    package_name="$1"
+
+    if pip list --format=freeze --disable-pip-version-check | grep -E "^$package_name" >/dev/null; then
+        return 0
+    else
+        echo "Package $package_name is not installed."
+        return 1
+    fi
+}
+
+function install_pypi_package() {
+    for package in $@; do
+        if ! is_installed_pypi_package $package; then
+            pip install -U $package
+        fi
+    done
+}
+function is_installed_package() {
+    package_spec="$1"
+
+    # Extract package name and version from the package specification
+    package_name=$(echo "$1" | cut -d'=' -f1)
+    version=$(echo "$1" | cut -s -d'=' -f2)
+    if dpkg -l | grep -qE "^ii  $package_name *$version"; then
+        return 0
+    else
+        echo "$package_name version $version is not installed."
+        return 1
+    fi
+}
 function install_package() {
     for package in $@; do
-        if ! dpkg -l | grep -q "^ii  $package"; then
+        if ! is_installed_package $package; then
             # The package is not installed, install it
             apt install -y --no-install-recommends "$package"
             if [ $? -ne 0 ]; then
@@ -155,6 +195,7 @@ center_text() {
 }
 
 function msg() {
+    install_package whiptail
     NEWT_COLORS='title=blue, textbox=blue, border=blue, button=black,blue' whiptail --title Hiddify --msgbox "$1" 0 60
 }
 
@@ -290,4 +331,36 @@ function save_firewall() {
     awk -i inplace '!seen[$0]++' /etc/iptables/rules.v6
     ip6tables-restore </etc/iptables/rules.v6
     iptables-restore </etc/iptables/rules.v4
+}
+
+function show_progress_window() {
+    install_pypi_package cli_progress==1.6.0
+    cli_progress --title "Hiddify Manager" $@
+}
+
+function log_dir() {
+    LOG_DIR="/opt/hiddify-manager/log/system"
+    mkdir -p "$LOG_DIR" >/dev/null 2>&1
+    echo $LOG_DIR
+}
+
+function log_file() {
+    echo "$(log_dir)/${1}.log"
+}
+
+function set_lock() {
+    LOCK_DIR="/opt/hiddify-manager/log"
+    mkdir -p "$LOCK_DIR" >/dev/null 2>&1
+    LOCK_FILE=$LOCK_DIR/$1.lock
+    if [[ -f $LOCK_FILE && $(($(date +%s) - $(cat $LOCK_FILE))) -lt 120 ]]; then
+        error "Another installation is running.... Please wait until it finishes or wait 5 minutes or execute 'rm $LOCK_FILE'"
+        exit 12
+    fi
+    echo "$(date +%s)" >$LOCK_FILE
+}
+
+function remove_lock() {
+    LOCK_DIR="/opt/hiddify-manager/log"
+    LOCK_FILE=$LOCK_DIR/$1.lock
+    rm -f $LOCK_FILE >/dev/null 2>&1
 }
