@@ -9,6 +9,10 @@ export DEBIAN_FRONTEND=noninteractive
 NAME="installer"
 LOG_FILE="$(log_file $NAME)"
 
+if [ ! -f /opt/hiddify-manager/install.sh ]; then
+    rm -rf /opt/hiddify-manager
+fi
+
 if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-config/" ]; then
     mv /opt/hiddify-config /opt/hiddify-manager
     ln -s /opt/hiddify-manager /opt/hiddify-config
