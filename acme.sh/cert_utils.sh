@@ -1,3 +1,4 @@
+cd $(dirname -- "$0")
 restricted_tlds=("af" "by" "cu" "er" "gn" "ir" "kp" "lr" "ru" "ss" "su" "sy" "zw" "amazonaws.com","azurewebsites.net","cloudapp.net")
 shopt -s expand_aliases
 
@@ -14,7 +15,7 @@ is_ok_domain_zerossl() {
     return 0 # Domain is not restricted
 }
 function get_cert() {
-    cd /opt/hiddify-manager/acme.sh
+    cd /opt/hiddify-config/acme.sh
     source ./lib/acme.sh.env
     # ./lib/acme.sh --register-account -m my@example.com
 
@@ -23,8 +24,8 @@ function get_cert() {
     rm -f $ssl_cert_path/$DOMAIN.key
 
     if [ ${#DOMAIN} -le 64 ]; then
-        mkdir -p /opt/hiddify-manager/acme.sh/www/.well-known/acme-challenge
-        echo "location /.well-known/acme-challenge {root /opt/hiddify-manager/acme.sh/www/;}" >/opt/hiddify-manager/nginx/parts/acme.conf
+        mkdir -p /opt/hiddify-config/acme.sh/www/.well-known/acme-challenge
+        echo "location /.well-known/acme-challenge {root /opt/hiddify-config/acme.sh/www/;}" >/opt/hiddify-config/nginx/parts/acme.conf
         # systemctl reload --now hiddify-nginx
 
         DOMAIN_IP=$(dig +short -t a $DOMAIN.)
@@ -40,9 +41,9 @@ function get_cert() {
         fi
 
         if is_ok_domain_zerossl "$DOMAIN"; then
-            acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --pre-hook "systemctl restart hiddify-nginx"
+            acme.sh --issue -w /opt/hiddify-config/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --pre-hook "systemctl restart hiddify-nginx"
         fi
-        acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt --pre-hook "systemctl restart hiddify-nginx"
+        acme.sh --issue -w /opt/hiddify-config/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt --pre-hook "systemctl restart hiddify-nginx"
 
         cp $ssl_cert_path/$DOMAIN.crt $ssl_cert_path/$DOMAIN.crt.bk
         cp $ssl_cert_path/$DOMAIN.crt.key $ssl_cert_path/$DOMAIN.crt.key.bk
@@ -68,7 +69,7 @@ function get_cert() {
     fi
 
     chmod 644 $ssl_cert_path/$DOMAIN.crt.key
-    echo "" >/opt/hiddify-manager/nginx/parts/acme.conf
+    echo "" >/opt/hiddify-config/nginx/parts/acme.conf
     systemctl reload --now hiddify-nginx
 
     systemctl reload hiddify-haproxy
@@ -79,7 +80,7 @@ function has_valid_cert() {
 }
 
 function get_self_signed_cert() {
-    cd /opt/hiddify-manager/acme.sh
+    cd /opt/hiddify-config/acme.sh
     d=$1
     if [ ${#d} -gt 64 ]; then
         echo "Domain length exceeds 64 characters. Truncating to the first 64 characters."

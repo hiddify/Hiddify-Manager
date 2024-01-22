@@ -1,3 +1,4 @@
+cd $( dirname -- "$0"; )
 source ../common/utils.sh
 source ./cert_utils.sh
 
