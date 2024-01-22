@@ -23,11 +23,14 @@ def exec(command):
 
 def render_j2_templates(start_path):
     # Set up the Jinja2 environment
-    env = Environment(loader=FileSystemLoader("/"))
+    env_paths = ['/', '/opt/hiddify-manager/singbox/configs/']
+    env = Environment(loader=FileSystemLoader(env_paths))
+    # Dirs to ignore from Jinja2 rendering
+    exclude_dirs = ['/opt/hiddify-manager/singbox/configs/includes']
 
     for root, dirs, files in os.walk(start_path):
         for file in files:
-            if file.endswith(".j2"):
+            if file.endswith(".j2") and root not in exclude_dirs:
                 print("Rendering: " + file)
                 # Create a template object by reading the file
                 template_path = os.path.join(root, file)
@@ -39,7 +42,7 @@ def render_j2_templates(start_path):
                 # Write the rendered content to a new file without the .j2 extension
                 output_file_path = os.path.splitext(template_path)[0]
                 if output_file_path.endswith(".json"):
-                    # remove trailing comma and comments from json
+                    # Remove trailing comma and comments from json
                     try:
                         json5object = json5.loads(rendered_content)
                         rendered_content = json5.dumps(
