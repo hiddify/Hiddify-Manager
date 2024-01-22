@@ -21,6 +21,9 @@ fi
 function install_panel() {
     local force=${2:-true}
     local package_mode=${1:-release}
+    if [ "$package_mode" == "false" ]; then
+        package_mode="release"
+    fi
     local update=0
     local panel_update=0
     update_progress "Upgrading..." "Upgrading Linux Packages for extra security..." 5
