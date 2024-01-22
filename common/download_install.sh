@@ -11,9 +11,9 @@ GITHUB_USER=hiddify
 GITHUB_BRANCH_OR_TAG=main
 
 # if [ ! -d "/opt/$GITHUB_REPOSITORY" ];then
-apt update
+#apt update
 #apt upgrade -y
-apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
+#apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
 
 apt install -y curl unzip
 # pip3 install lastversion "requests<=2.29.0"
