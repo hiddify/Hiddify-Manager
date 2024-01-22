@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v10.5.57 (2024-01-22)
+
+### Fix
+
+* Folder bug. [hiddify]
+
+
 ## v10.5.56 (2024-01-22)
 
 ### Other
