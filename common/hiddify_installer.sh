@@ -204,6 +204,8 @@ function update_from_github() {
         echo "$override_version" >VERSION
     fi
     rm "$file_name"
+    rm -f xray/configs/*.json
+    rm -f singbox/configs/*.json
     bash install.sh --no-gui --no-log
 }
 
