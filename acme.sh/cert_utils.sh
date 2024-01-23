@@ -1,7 +1,7 @@
 restricted_tlds=("af" "by" "cu" "er" "gn" "ir" "kp" "lr" "ru" "ss" "su" "sy" "zw" "amazonaws.com","azurewebsites.net","cloudapp.net")
 shopt -s expand_aliases
 
-source lib/acme.sh.env
+source ./lib/acme.sh.env
 
 # Function to check if a domain is restricted
 is_ok_domain_zerossl() {
@@ -14,7 +14,7 @@ is_ok_domain_zerossl() {
     return 0 # Domain is not restricted
 }
 function get_cert() {
-    cd /opt/hiddify-manager/acme.sh
+    cd /opt/hiddify-manager/acme.sh/
     source ./lib/acme.sh.env
     # ./lib/acme.sh --register-account -m my@example.com
 
@@ -79,7 +79,7 @@ function has_valid_cert() {
 }
 
 function get_self_signed_cert() {
-    cd /opt/hiddify-manager/acme.sh
+    cd /opt/hiddify-manager/acme.sh/
     d=$1
     if [ ${#d} -gt 64 ]; then
         echo "Domain length exceeds 64 characters. Truncating to the first 64 characters."
