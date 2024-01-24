@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v10.5.64 (2024-01-24)
+
+### Other
+
+* Update. [hiddify]
+
+
 ## v10.5.63 (2024-01-24)
 
 ### Fix
