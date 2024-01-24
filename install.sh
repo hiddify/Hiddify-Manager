@@ -8,7 +8,7 @@ if [ "$(id -u)" -ne 0 ]; then
 
 fi
 source common/utils.sh
-NAME="update"
+NAME="install"
 LOG_FILE="$(log_file $NAME)"
 function cleanup() {
     error "Script interrupted. Exiting..."
