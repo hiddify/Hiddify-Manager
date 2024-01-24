@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v10.5.62 (2024-01-24)
+
+### Other
+
+* New add: progress bar. [hiddify]
+
+
 ## v10.5.61 (2024-01-22)
 
 ### Fix
