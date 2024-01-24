@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v10.5.63 (2024-01-24)
+
+### Fix
+
+* Release update. [hiddify]
+
+### Other
+
+* Fix update bug. [hiddify]
+
+
 ## v10.5.62 (2024-01-24)
 
 ### Other
