@@ -1,4 +1,6 @@
 #!/bin/bash
+cd "$(dirname -- "$0")"
+cd /opt/hiddify-config/
 
 source common/utils.sh
 
@@ -21,9 +23,6 @@ CURRENT_PANEL_VERSION=$(get_installed_panel_version)
 # else
 #     UPDATE_NEED="*UPDATE AVAILABLE* Config=v$LATEST_CONFIG_VERSION Panel=v$LATEST_PANEL_VERSION"
 # fi
-
-cd "$(dirname -- "$0")"
-cd /opt/hiddify-config/
 
 function menu() {
 
