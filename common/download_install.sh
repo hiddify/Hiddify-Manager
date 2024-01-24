@@ -25,6 +25,9 @@ unzip -o $GITHUB_REPOSITORY.zip
 rm $GITHUB_REPOSITORY.zip
 rm -f xray/configs/*.json
 rm -f singbox/configs/*.json
+source /opt/hiddify-config/common/utils.sh
+install_python
+pip install -U hiddifypanel uwsgi
 bash install.sh
 # exit 0
 # fi
