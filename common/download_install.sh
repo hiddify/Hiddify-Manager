@@ -26,7 +26,7 @@ curl -L -o hiddify-config.zip https://github.com/hiddify/hiddify-config/releases
 unzip -o hiddify-config.zip
 rm hiddify-config.zip
 
-bash install.sh
+bash install.sh --no-gui
 # exit 0
 # fi
 
