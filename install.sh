@@ -8,6 +8,15 @@ if [ "$(id -u)" -ne 0 ]; then
 
 fi
 source common/utils.sh
+NAME="update"
+LOG_FILE="$(log_file $NAME)"
+function cleanup() {
+    error "Script interrupted. Exiting..."
+    # disable_ansii_modes
+    #    reset
+    remove_lock $NAME
+    exit 1
+}
 
 if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-server/" ]; then
     mv /opt/hiddify-server /opt/hiddify-manager
@@ -18,29 +27,12 @@ fi
 ln -s /opt/hiddify-manager  /opt/hiddify-config 
 ln -s /opt/hiddify-manager  /opt/hiddify-server
 
-function cleanup() {
-    error "Script interrupted. Exiting..."
-    rm log/install.lock
-    pkill -9 dialog
-    echo "1">log/error.lock
-
-    exit 1
-}
 
 # Trap the Ctrl+C signal and call the cleanup function
 trap cleanup SIGINT
 
 
 source ./common/ticktick.sh
-function update_progress() {
-    #title="\033[92m\033[1m${1^}\033[0m\033[0m"
-    add_DNS_if_failed
-    title="${1^}"
-    text="$2"
-    percentage="$3"
-    echo -e "XXX\n$percentage\n$title\n$text\nXXX"
-
-}
 
 
 function set_config_from_hpanel(){
@@ -411,55 +403,30 @@ function check(){
                 done
         fi
 }
-mkdir -p log/system/
-
-if [[ -f log/install.lock && $(( $(date +%s) - $(cat log/install.lock) )) -lt 120 ]]; then
-    error "Another installation is running.... Please wait until it finishes or wait 5 minutes or execute 'rm -f log/install.lock'"
-    echo "12">log/error.lock
-    exit 12
-fi
 
 
-echo "$(date +%s)" > log/install.lock
-
-which dialog >/dev/null 2>&1
-if [[ "$?" != 0 ]];then
-        apt install -y dialog
-fi
-echo "0"> log/error.lock
-BACKTITLE="Welcome to Hiddify Panel (config version=$(cat VERSION))"
-width=$(tput cols)
-if [[ $? != 0 ]] || (( $width < 20 ));then 
-        width=20
-fi
-height=$(tput lines)
-if [[  $? != 0 ]] || (( $height < 20 ));then 
-        height=20
-fi
-
-log_h=$(($height - 10))
-log_w=$(($width - 6))
-
-log_file=log/system/0-install.log
-
-main $@|& tee $log_file
-# |dialog \
-#         --backtitle "$BACKTITLE" \
-#         --title "Installing Hiddify" \
-#         --begin 2 2 \
-#         --tailboxbg $log_file $log_h $log_w \
-#         --and-widget \
-#         --begin $(($log_h + 2)) 2 \
-#         --gauge "Please wait..., We are going to install Hiddify" 7 $log_w 0
-
-
-#dialog --title "Installing Hiddify" --backtitle "$BACKTITLE" --gauge "Please wait..., We are going to install Hiddify" 8 60 0
-
-rm -f log/install.lock  >/dev/null 2>&1
-
-if [[ $(cat log/error.lock) != "0" ]];then
-        less -r -P"Installation Failed! Press q to exit" +G "$log_file"
+if [[ " $@ " == *" --no-gui "* ]]; then
+        set -- "${@/--no-gui/}"
+        export MODE="$1"
+        set_lock $NAME
+        if [[ " $@ " == *" --no-log "* ]]; then
+                set -- "${@/--no-log/}"
+                main $@
+        else
+                main $@ |& tee $LOG_FILE
+        fi
+        error_code=$?
+        remove_lock $NAME
 else
-        check $@|& tee -a $log_file
+        show_progress_window --subtitle $(get_installed_config_version) --log $LOG_FILE ./install.sh $@ --no-gui --no-log
+        error_code=$?
+        if [[ $error_code != "0" ]]; then
+                # echo less -r -P"Installation Failed! Press q to exit" +G "$log_file"
+                msg_with_hiddify "Installation Failed! $error_code"
+        else
+                msg_with_hiddify "The installation has successfully completed."
+                check_hiddify_panel $@ |& tee -a $LOG_FILE
+        fi
 fi
-pkill -9 dialog
+
+exit $error_code
