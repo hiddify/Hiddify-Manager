@@ -353,7 +353,7 @@ function set_lock() {
     mkdir -p "$LOCK_DIR" >/dev/null 2>&1
     LOCK_FILE=$LOCK_DIR/$1.lock
     if [[ -f $LOCK_FILE && $(($(date +%s) - $(cat $LOCK_FILE))) -lt 120 ]]; then
-        error "Another installation is running.... Please wait until it finishes or wait 5 minutes or execute 'rm $LOCK_FILE'"
+        error "Another installation is running.... use 'rm $LOCK_FILE' to force."
         exit 12
     fi
     echo "$(date +%s)" >$LOCK_FILE
