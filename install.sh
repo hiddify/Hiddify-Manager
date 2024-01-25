@@ -8,15 +8,10 @@ if [ "$(id -u)" -ne 0 ]; then
 
 fi
 source common/utils.sh
-NAME="install"
-LOG_FILE="$(log_file $NAME)"
-function cleanup() {
-    error "Script interrupted. Exiting..."
-    # disable_ansii_modes
-    #    reset
-    remove_lock $NAME
-    exit 1
-}
+
+if [ ! -f /opt/hiddify-manager/install.sh ];then
+        rm -rf /opt/hiddify-manager/
+fi
 
 if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-server/" ]; then
     mv /opt/hiddify-server /opt/hiddify-manager
@@ -31,6 +26,15 @@ ln -s /opt/hiddify-manager  /opt/hiddify-server
 # Trap the Ctrl+C signal and call the cleanup function
 trap cleanup SIGINT
 
+NAME="install"
+LOG_FILE="$(log_file $NAME)"
+function cleanup() {
+    error "Script interrupted. Exiting..."
+    # disable_ansii_modes
+    #    reset
+    remove_lock $NAME
+    exit 1
+}
 
 source ./common/ticktick.sh
 
