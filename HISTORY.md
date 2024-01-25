@@ -1,6 +1,15 @@
 # Changelog
 
 
+## v10.5.69 (2024-01-25)
+
+### Other
+
+* Disable tui in install. [hiddify]
+
+* Speedup restarting panel. [hiddify]
+
+
 ## v10.5.68 (2024-01-25)
 
 ### Changes
