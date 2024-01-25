@@ -364,9 +364,9 @@ function main(){
         #         exit 33
         # fi
         echo "---------------------Finished!------------------------"
-        rm log/install.lock
+        remove_lock $NAME
         if [ "$MODE" != "apply_users" ];then
-                systemctl restart hiddify-panel
+                systemctl kill -s SIGTERM hiddify-panel
         fi
         systemctl start hiddify-panel
 
