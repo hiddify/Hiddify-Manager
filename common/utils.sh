@@ -336,6 +336,7 @@ function save_firewall() {
 function show_progress_window() {
     install_pypi_package cli_progress==1.6.0
     cli_progress --title "Hiddify Manager" $@
+    disable_ansii_modes
 }
 
 function log_dir() {
