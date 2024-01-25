@@ -92,7 +92,7 @@ function main() {
         echo "---------------------Finished!------------------------"
         remove_lock $NAME
         if [ "$MODE" != "apply_users" ]; then
-                systemctl restart hiddify-panel
+                systemctl kill -s SIGTERM hiddify-panel
         fi
         systemctl start hiddify-panel
         update_progress "installing..." "Done" 100

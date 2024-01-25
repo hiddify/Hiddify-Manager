@@ -173,9 +173,9 @@ function post_update_tasks() {
     fi
     remove_lock $NAME
     if [[ $panel_update == 0 ]]; then
-        systemctl restart hiddify-panel
+        systemctl kill -s SIGTERM hiddify-panel
     fi
-
+    systemctl start hiddify-panel
     if [[ $panel_update == 0 && $config_update != 0 ]]; then
         bash /opt/hiddify-manager/apply_configs.sh --no-gui --no-log
     fi
