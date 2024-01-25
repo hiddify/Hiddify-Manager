@@ -13,13 +13,22 @@ function check_wireguard_connection() {
   generate_warp_config
   systemctl restart wg-quick@warp
   echo "Starting WARP.... checking real connectivitiy"
+  sleep .5
   if ! real_test; then
-    echo "Test failed... testing again!"
+    sleep .5
+    echo "Checking real connectivitiy again!"
     real_test || return $?
   fi
 }
 function real_test() {
   curl -s --interface warp --connect-timeout .5 http://ip-api.com?fields=message,country,org,query
+  error=$?
+  if [ $error == 0 ];then
+    success "WARP is WORKING!"
+  else 
+    warning  "WARP is not working!"
+  fi
+  return $error
 }
 
 function generate_warp_config() {
