@@ -69,6 +69,18 @@
 
 ### Fix
 
+* Change ip bug. [hiddify]
+
+* Install bug. [hiddify]
+
+* Update bug. [hiddify]
+
+* Update. [hiddify]
+
+* Installer bug. [hiddify]
+
+* Bug. [hiddify]
+
 * Static files. [hiddify]
 
 * Apply. [hiddify]
@@ -394,6 +406,22 @@
 * Remove remote. [hiddify]
 
 ### Other
+
+* Speed up restarting panel. [hiddify]
+
+* Better verify warp. [hiddify]
+
+* Disable anssi modes after setup. [hiddify]
+
+* Restart haproxy and nginx on install. [hiddify]
+
+* Simpler install. [hiddify]
+
+* Update installer. [hiddify]
+
+* Force release via old script. [hiddify]
+
+* Possible fix. [hiddify]
 
 * Update. [hiddify]
 
@@ -1103,6 +1131,121 @@
 * Remove old database after upgrade. [hiddify]
 
 * Change backend to mysql. [hiddify]
+
+
+## v10.5.69 (2024-01-25)
+
+### Other
+
+* Disable tui in install. [hiddify]
+
+* Speedup restarting panel. [hiddify]
+
+
+## v10.5.68 (2024-01-25)
+
+### Changes
+
+* Double test warp connectivity. [hiddify]
+
+
+## v10.5.67 (2024-01-25)
+
+### Other
+
+* Update install.sh. [hiddify]
+
+
+## v10.5.66 (2024-01-25)
+
+### Other
+
+* Disbale ansii mode after exit. [hiddify]
+
+
+## v10.5.65 (2024-01-24)
+
+### Fix
+
+* Menu. [hiddify]
+
+
+## v10.5.64 (2024-01-24)
+
+### Other
+
+* Update. [hiddify]
+
+
+## v10.5.63 (2024-01-24)
+
+### Fix
+
+* Release update. [hiddify]
+
+### Other
+
+* Fix update bug. [hiddify]
+
+
+## v10.5.62 (2024-01-24)
+
+### Other
+
+* New add: progress bar. [hiddify]
+
+
+## v10.5.61 (2024-01-22)
+
+### Fix
+
+* Cert bug. [hiddify]
+
+
+## v10.5.60 (2024-01-22)
+
+### Fix
+
+* Downgrade issue. [hiddify]
+
+
+## v10.5.59 (2024-01-22)
+
+### Fix
+
+* Update bug. [hiddify]
+
+
+## v10.5.58 (2024-01-22)
+
+### Fix
+
+* Bug. [hiddify]
+
+
+## v10.5.57 (2024-01-22)
+
+### Fix
+
+* Folder bug. [hiddify]
+
+
+## v10.5.56 (2024-01-22)
+
+### Other
+
+* Update update. [hiddify]
+
+
+## v10.5.55 (2024-01-21)
+
+### Fix
+
+* Forbidden sites. [hiddify]
+
+### Other
+
+* Update updater. [hiddify]
 
 
 ## v10.5.54 (2024-01-10)
