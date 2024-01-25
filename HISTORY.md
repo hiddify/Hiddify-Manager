@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v10.5.68 (2024-01-25)
+
+### Changes
+
+* Double test warp connectivity. [hiddify]
+
+
 ## v10.5.67 (2024-01-25)
 
 ### Other
