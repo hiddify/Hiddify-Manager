@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v10.5.67 (2024-01-25)
+
+### Other
+
+* Update install.sh. [hiddify]
+
+
 ## v10.5.66 (2024-01-25)
 
 ### Other
