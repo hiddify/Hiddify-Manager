@@ -409,7 +409,7 @@ function check(){
 }
 
 
-if [[ " $@ " == *" --no-gui "* ]]; then
+if [ 1 -eq 1 ] || [[ " $@ " == *" --no-gui "* ]]; then
         set -- "${@/--no-gui/}"
         export MODE="$1"
         set_lock $NAME
