@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v10.5.71 (2024-01-25)
+
+### Other
+
+* Fix change ip. [hiddify]
+
+
 ## v10.5.69 (2024-01-25)
 
 ### Other
