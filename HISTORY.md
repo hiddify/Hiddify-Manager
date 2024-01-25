@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v10.5.66 (2024-01-25)
+
+### Other
+
+* Disbale ansii mode after exit. [hiddify]
+
+
 ## v10.5.65 (2024-01-24)
 
 ### Fix
