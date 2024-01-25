@@ -11,7 +11,7 @@ if [[ "$ONLY_IPV4" != true ]]; then
   sysctl -w net.ipv6.conf.default.disable_ipv6=0
   sysctl -w net.ipv6.conf.lo.disable_ipv6=0
 
-  curl --connect-timeout 1 -s http://ipv6.google.com 2>&1 >/dev/null
+  curl --connect-timeout 1 -s http://v6.ident.me 2>&1 >/dev/null
   if [ $? != 0 ]; then
     ONLY_IPV4=true1
   fi

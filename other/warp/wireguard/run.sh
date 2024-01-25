@@ -1,44 +1,57 @@
 #!/bin/bash
 #ln -sf $(pwd)/hiddify-warp.service /etc/systemd/system/hiddify-warp.service
+source /opt/hiddify-manager/common/utils.sh
 systemctl disable hiddify-warp.service
+
+function check_wireguard_connection() {
+  echo "Checking WARP ..."
+  if ! [ -f "wgcf-account.toml" ]; then
+    mv wgcf-account.toml wgcf-account.toml.backup
+    wgcf register --accept-tos -m hiddify -n $(hostname) >/dev/null 2>&1
+  fi
+  wgcf update >/dev/null 2>&1 || return $?
+  generate_warp_config
+  systemctl restart wg-quick@warp
+  echo "Starting WARP.... checking real connectivitiy"
+  if ! real_test; then
+    echo "Test failed... testing again!"
+    real_test || return $?
+  fi
+}
+function real_test() {
+  curl -s --interface warp --connect-timeout .5 http://ip-api.com?fields=message,country,org,query
+}
+
+function generate_warp_config() {
+  echo "Generating WARP config..."
+  wgcf generate >/dev/null 2>&1
+  sed -i 's/\[Peer\]/Table = off\n\[Peer\]/g' wgcf-profile.conf
+  curl --connect-timeout 1 -s https://v6.ident.me/ 2>&1 >/dev/null
+  if [ $? != 0 ] || [ $(cat /proc/sys/net/ipv6/conf/all/disable_ipv6) == 1 ]; then
+    # ipv6_exists=$(ip addr | grep -o 'inet6')
+    # if [ ! -n "$ipv6_exists" ]; then
+    echo "Removing IPV6 from WARP..."
+    sed -i '/Address = [0-9a-fA-F:]\{4,\}/s/^/# /' wgcf-profile.conf
+  fi
+  sed -i '/DNS = 1.1.1.1/s/^/# /' wgcf-profile.conf
+  mkdir -p /etc/wireguard/
+  ln -sf $(pwd)/wgcf-profile.conf /etc/wireguard/warp.conf
+  systemctl enable wg-quick@warp
+}
 
 # if [[ $warp_mode == 'disabled' ]];then
 #   bash uninstall.sh
 # else
 
-if ! [ -f "wgcf-account.toml" ];then
-    mv wgcf-account.toml wgcf-account.toml.backup
-    wgcf register --accept-tos -m hiddify -n $(hostname)
-fi
-
 #api.zeroteam.top/warp?format=wgcf for change warp
 export WGCF_LICENSE_KEY=$WARP_PLUS_CODE
-wgcf update
-if [ $? != 0 ];then
+if ! check_wireguard_connection; then
   mv wgcf-account.toml wgcf-account.toml.backup
-  wgcf update
-  if [ $? != 0 ];then
+  if ! check_wireguard_connection; then
     mv wgcf-account.toml wgcf-account.toml.backup
     export WGCF_LICENSE_KEY=
-    wgcf update
-  fi 
-fi 
-
-
-
-wgcf generate
-sed -i 's/\[Peer\]/Table = off\n\[Peer\]/g'  wgcf-profile.conf
-
-curl --connect-timeout 1 -s http://ipv6.google.com 2>&1 >/dev/null
-
-#if [ $? != 0 ]; then
-ipv6_exists=$(ip addr | grep -o 'inet6')
-if [ ! -n "$ipv6_exists" ]; then
-  sed -i '/Address = [0-9a-fA-F:]\{4,\}/s/^/# /' wgcf-profile.conf
+    if ! check_wireguard_connection; then
+      error "!!!!!!!!!!!!!!! WARP ERROR"
+    fi
+  fi
 fi
-sed -i '/DNS = 1.1.1.1/s/^/# /' wgcf-profile.conf
-mkdir -p /etc/wireguard/
-ln -sf $(pwd)/wgcf-profile.conf /etc/wireguard/warp.conf  
-systemctl enable --now wg-quick@warp
-
-systemctl restart wg-quick@warp
