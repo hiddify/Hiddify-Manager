@@ -197,6 +197,7 @@ center_text() {
 function msg() {
     install_package whiptail
     NEWT_COLORS='title=blue, textbox=blue, border=blue, button=black,blue' whiptail --title Hiddify --msgbox "$1" 0 60
+    disable_ansii_modes
 }
 
 function hiddify_api() {
@@ -334,9 +335,11 @@ function save_firewall() {
 }
 
 function show_progress_window() {
-    install_pypi_package cli_progress==1.6.0
+    install_pypi_package cli_progress==1.7.0
     cli_progress --title "Hiddify Manager" $@
+    exit_code=$?
     disable_ansii_modes
+    return $exit_code
 }
 
 function log_dir() {

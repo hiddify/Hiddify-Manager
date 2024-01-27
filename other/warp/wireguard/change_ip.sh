@@ -43,3 +43,4 @@ until [ "$current_warp_ip" != "$new_warp_ip" ]; do
 done
 
 echo "WARP IP has been updated from '$current_warp_ip' to '$new_warp_ip'"
+    

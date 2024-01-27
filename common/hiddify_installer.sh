@@ -208,7 +208,7 @@ function update_from_github() {
     rm -f singbox/configs/*.json
     bash install.sh --no-gui --no-log
 }
-
+install_python
 # Run the main function and log the output
 if [[ " $@ " == *" --no-gui "* ]]; then
     set -- "${@/--no-gui/}"
