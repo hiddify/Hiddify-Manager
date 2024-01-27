@@ -1,4 +1,5 @@
 source ../common/utils.sh
+install_package wireguard
 
 useradd -m hiddify-panel -s /bin/bash >/dev/null 2>&1
 chown -R hiddify-panel:hiddify-panel /home/hiddify-panel/ >/dev/null 2>&1

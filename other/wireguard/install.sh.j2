@@ -1,0 +1,65 @@
+source ../../common/utils.sh
+source ./wg_utils.sh
+install_package wireguard resolvconf 
+
+
+mkdir /etc/wireguard >/dev/null 2>&1
+
+chmod 600 -R /etc/wireguard/
+
+SERVER_PRIV_KEY=$(wg genkey)
+SERVER_PUB_KEY=$(echo "${SERVER_PRIV_KEY}" | wg pubkey)
+
+SERVER_NIC="$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1)"
+SERVER_WG_IPV4="{{hconfig["wireguard_ipv4"]}}"
+SERVER_WG_IPV6="{{hconfig["wireguard_ipv6"]}}"
+
+systemctl stop "wg-quick@${SERVER_WG_NIC}"
+	# Save WireGuard settings
+echo "#SERVER_PUB_IP=${SERVER_PUB_IP}
+SERVER_PUB_NIC=${SERVER_PUB_NIC}
+SERVER_WG_NIC=hiddifywg
+SERVER_WG_IPV4=$SERVER_WG_IPV4
+SERVER_WG_IPV6=$SERVER_WG_IPV6
+SERVER_PORT={{hconfigs["wireguard_port"]}}
+SERVER_PRIV_KEY={{hconfigs["wireguard_private_key"]}}
+SERVER_PUB_KEY={{hconfigs["wireguard_public_key"]}}
+CLIENT_DNS_1={{hconfigs["dns_server"]}}
+CLIENT_DNS_2="1.1.1.1"
+ALLOWED_IPS=0.0.0.0,::/0" >/etc/wireguard/params
+
+	# Add server interface
+	echo "[Interface]
+Address = ${SERVER_WG_IPV4}/16,${SERVER_WG_IPV6}/90
+ListenPort = ${SERVER_PORT}
+PrivateKey = ${SERVER_PRIV_KEY}" >"/etc/wireguard/${SERVER_WG_NIC}.conf"
+
+# 	if pgrep firewalld; then
+# 		FIREWALLD_IPV4_ADDRESS=$(echo "${SERVER_WG_IPV4}" | cut -d"." -f1-3)".0"
+# 		FIREWALLD_IPV6_ADDRESS=$(echo "${SERVER_WG_IPV6}" | sed 's/:[^:]*$/:0/')
+# 		echo "PostUp = firewall-cmd --add-port ${SERVER_PORT}/udp && firewall-cmd --add-rich-rule='rule family=ipv4 source address=${FIREWALLD_IPV4_ADDRESS}/24 masquerade' && firewall-cmd --add-rich-rule='rule family=ipv6 source address=${FIREWALLD_IPV6_ADDRESS}/24 masquerade'
+# PostDown = firewall-cmd --remove-port ${SERVER_PORT}/udp && firewall-cmd --remove-rich-rule='rule family=ipv4 source address=${FIREWALLD_IPV4_ADDRESS}/24 masquerade' && firewall-cmd --remove-rich-rule='rule family=ipv6 source address=${FIREWALLD_IPV6_ADDRESS}/24 masquerade'" >>"/etc/wireguard/${SERVER_WG_NIC}.conf"
+# 	else
+echo "
+PostUp = iptables -I INPUT -p udp --dport ${SERVER_PORT} -j ACCEPT
+PostUp = iptables -I FORWARD -i ${SERVER_PUB_NIC} -o ${SERVER_WG_NIC} -j ACCEPT
+PostUp = iptables -I FORWARD -i ${SERVER_WG_NIC} -j ACCEPT
+PostUp = iptables -t nat -A POSTROUTING -o ${SERVER_PUB_NIC} -j MASQUERADE
+PostUp = ip6tables -I FORWARD -i ${SERVER_WG_NIC} -j ACCEPT
+PostUp = ip6tables -t nat -A POSTROUTING -o ${SERVER_PUB_NIC} -j MASQUERADE
+PostDown = iptables -D INPUT -p udp --dport ${SERVER_PORT} -j ACCEPT
+PostDown = iptables -D FORWARD -i ${SERVER_PUB_NIC} -o ${SERVER_WG_NIC} -j ACCEPT
+PostDown = iptables -D FORWARD -i ${SERVER_WG_NIC} -j ACCEPT
+PostDown = iptables -t nat -D POSTROUTING -o ${SERVER_PUB_NIC} -j MASQUERADE
+PostDown = ip6tables -D FORWARD -i ${SERVER_WG_NIC} -j ACCEPT
+PostDown = ip6tables -t nat -D POSTROUTING -o ${SERVER_PUB_NIC} -j MASQUERADE" >>"/etc/wireguard/${SERVER_WG_NIC}.conf"
+	# fi
+
+	# Enable routing on the server
+	echo "net.ipv4.ip_forward = 1
+net.ipv6.conf.all.forwarding = 1" >/etc/sysctl.d/wg.conf
+
+	sysctl --system
+
+	systemctl start "wg-quick@${SERVER_WG_NIC}"
+	systemctl enable "wg-quick@${SERVER_WG_NIC}"

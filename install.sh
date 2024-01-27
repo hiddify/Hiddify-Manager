@@ -82,6 +82,10 @@ function main() {
                 update_progress "installing..." "Warp" 75
                 #$([ "$WARP_MODE" != 'disable' ] || echo "false")
                 install_run other/warp
+
+                update_progress "installing..." "Wireguard" 85
+                install_run other/wireguard
+
         fi
 
         update_progress "installing..." "Singbox" 80
