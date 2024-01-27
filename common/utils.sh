@@ -255,7 +255,7 @@ function check_hiddify_panel() {
                 link="[invalid HTTPS] $link"
                 warning "  $link"
             else
-                success "  $link"
+                success "  \e[4m $link \e[0m"
             fi
 
         done
