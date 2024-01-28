@@ -5,8 +5,8 @@ sed -i '/\[Peer\]/,$d' /etc/wireguard/${SERVER_WG_NIC}.conf
 source ./wg_utils.sh
 
 {% for u in users %}
-CLIENT_WG_IPV4=$(add_number_to_ipv4 {{hconfig["wireguard_ipv4"]}} {{u.id}})
-CLIENT_WG_IPV6=$(add_number_to_ipv6 {{hconfig["wireguard_ipv6"]}} {{u.id}})
+CLIENT_WG_IPV4=$(add_number_to_ipv4 {{hconfigs["wireguard_ipv4"]}} {{u.id}})
+CLIENT_WG_IPV6=$(add_number_to_ipv6 {{hconfigs["wireguard_ipv6"]}} {{u.id}})
 echo -e "\n
 [Peer]
 PublicKey = {{u.wg_pub}}

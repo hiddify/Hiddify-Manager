@@ -11,8 +11,8 @@ SERVER_PRIV_KEY=$(wg genkey)
 SERVER_PUB_KEY=$(echo "${SERVER_PRIV_KEY}" | wg pubkey)
 
 SERVER_NIC="$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1)"
-SERVER_WG_IPV4="{{hconfig["wireguard_ipv4"]}}"
-SERVER_WG_IPV6="{{hconfig["wireguard_ipv6"]}}"
+SERVER_WG_IPV4="{{hconfigs["wireguard_ipv4"]}}"
+SERVER_WG_IPV6="{{hconfigs["wireguard_ipv6"]}}"
 
 systemctl stop "wg-quick@${SERVER_WG_NIC}"
 	# Save WireGuard settings
