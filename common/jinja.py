@@ -7,6 +7,7 @@ import subprocess
 
 with open("/opt/hiddify-manager/current.json") as f:
     configs = json.load(f)
+    configs['chconfigs']={int(k):v for k,v in configs['chconfigs'].items()}
 
 
 def exec(command):

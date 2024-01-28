@@ -13,6 +13,19 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "stop panel service", // Define the build task
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c",
+                "(systemctl stop --now hiddify-panel||echo '')"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ]
 }
