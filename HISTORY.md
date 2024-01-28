@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v10.5.72 (2024-01-28)
+
+### Fix
+
+* Name issue in apply config. [hiddify-com]
+
+
 ## v10.5.71 (2024-01-25)
 
 ### Other
