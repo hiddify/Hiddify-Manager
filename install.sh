@@ -26,7 +26,7 @@ ln -s /opt/hiddify-manager  /opt/hiddify-server
 # Trap the Ctrl+C signal and call the cleanup function
 trap cleanup SIGINT
 
-NAME="install"
+NAME="0-install"
 LOG_FILE="$(log_file $NAME)"
 function cleanup() {
     error "Script interrupted. Exiting..."
