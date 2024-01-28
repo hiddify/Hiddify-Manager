@@ -1,3 +1,4 @@
+{%if hconfigs['mux_enable']%}
 "multiplex": {
     "enabled": true,
     "padding": {% if hconfigs['mux_padding_enable'] %} true {% else %} false {% endif %},
@@ -7,3 +8,4 @@
         "down_mbps": {{ hconfigs['mux_brutal_down_mbps'] }}
   }
 },
+{%endif%}

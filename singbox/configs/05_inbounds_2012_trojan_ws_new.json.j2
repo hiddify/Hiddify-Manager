@@ -20,9 +20,7 @@
 				"path": "/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_ws'] }}",
 				"early_data_header_name": "Sec-WebSocket-Protocol"
 			},
-			{%if hconfigs['mux_enable']%}
-				{% include "includes/multiplex.json.j2"%}
-			{%endif%}
+			{% include "includes/multiplex.json.j2"%}
 		}	  
 	]
 }

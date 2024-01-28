@@ -23,9 +23,7 @@
 				"idle_timeout": "15s",
 				"ping_timeout": "15s"
 			},
-			{%if hconfigs['mux_enable']%}
-				{% include "includes/multiplex.json.j2"%}
-			{%endif%}
+			{% include "includes/multiplex.json.j2"%}
 		}	  
 	]
 }
