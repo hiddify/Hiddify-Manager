@@ -22,7 +22,8 @@
 				//"path": "/{{ hconfigs['path_vless'] }}{{ hconfigs['path_tcp'] }}",
 				"idle_timeout": "15s",
 				"ping_timeout": "15s"
-			}
+			},
+			{% include "includes/multiplex.json.j2"%}
 		}	  
 	]
 }
