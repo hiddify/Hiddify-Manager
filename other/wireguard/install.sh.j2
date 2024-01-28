@@ -1,31 +1,31 @@
 source ../../common/utils.sh
 source ./wg_utils.sh
-install_package wireguard resolvconf 
+install_package wireguard
 
 
 mkdir /etc/wireguard >/dev/null 2>&1
 
 chmod 600 -R /etc/wireguard/
 
-SERVER_PRIV_KEY=$(wg genkey)
-SERVER_PUB_KEY=$(echo "${SERVER_PRIV_KEY}" | wg pubkey)
-
-SERVER_NIC="$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1)"
+SERVER_PUB_NIC="$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1)"
 SERVER_WG_IPV4="{{hconfigs["wireguard_ipv4"]}}"
 SERVER_WG_IPV6="{{hconfigs["wireguard_ipv6"]}}"
+SERVER_PORT={{hconfigs["wireguard_port"]}}
+SERVER_PRIV_KEY={{hconfigs["wireguard_private_key"]}}
+
 
 systemctl stop "wg-quick@${SERVER_WG_NIC}"
 	# Save WireGuard settings
 echo "#SERVER_PUB_IP=${SERVER_PUB_IP}
 SERVER_PUB_NIC=${SERVER_PUB_NIC}
-SERVER_WG_NIC=hiddifywg
+
 SERVER_WG_IPV4=$SERVER_WG_IPV4
 SERVER_WG_IPV6=$SERVER_WG_IPV6
-SERVER_PORT={{hconfigs["wireguard_port"]}}
-SERVER_PRIV_KEY={{hconfigs["wireguard_private_key"]}}
-SERVER_PUB_KEY={{hconfigs["wireguard_public_key"]}}
+SERVER_PORT=${SERVER_PORT}
+SERVER_PRIV_KEY=${SERVER_PRIV_KEY}
+#SERVER_PUB_KEY={{hconfigs["wireguard_public_key"]}}
 CLIENT_DNS_1={{hconfigs["dns_server"]}}
-CLIENT_DNS_2="1.1.1.1"
+CLIENT_DNS_2=1.1.1.1
 ALLOWED_IPS=0.0.0.0,::/0" >/etc/wireguard/params
 
 	# Add server interface

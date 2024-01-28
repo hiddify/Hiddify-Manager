@@ -1,4 +1,6 @@
-# Function to add a number to an IPv4 address
+
+SERVER_WG_NIC=hiddifywg
+
 add_number_to_ipv4() {
     local ip="$1"
     local number="$2"
