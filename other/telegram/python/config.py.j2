@@ -2,7 +2,7 @@ PORT = 1001
 
 # name -> secret (32 hex chars)
 USERS = {
-    "tg":  "{{ hconfigs['shared_secret'] }}",
+    "tg":  "{{ mtprotoproxy_telegram_secret }}",
     # "tg2": "0123456789abcdef0123456789abcdef",
 }
 
@@ -25,7 +25,7 @@ TLS_DOMAIN = "{{ hconfigs['telegram_fakedomain'] }}"
 
 # Tag for advertising, obtainable from @MTProxybot
 AD_TAG="{{ hconfigs['telegram_adtag'] }}"
-LISTEN_ADDR_IPV4="127.0.0.1"
-LISTEN_ADDR_IPV6="::1"
-METRICS_LISTEN_ADDR_IPV4="127.0.0.1"
-METRICS_LISTEN_ADDR_IPV6="::1"
+LISTEN_ADDR_IPV4="{{public_ipv4()}}"
+LISTEN_ADDR_IPV6="{{public_ipv6()}}"
+METRICS_LISTEN_ADDR_IPV4="{{public_ipv4()}}"
+METRICS_LISTEN_ADDR_IPV6="{{public_ipv6()}}"

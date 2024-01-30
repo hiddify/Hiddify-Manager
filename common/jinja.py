@@ -3,11 +3,12 @@ import sys
 from jinja2 import Environment, FileSystemLoader
 import json5
 import json
+import socket
 import subprocess
 
 with open("/opt/hiddify-manager/current.json") as f:
     configs = json.load(f)
-    configs['chconfigs']={int(k):v for k,v in configs['chconfigs'].items()}
+    configs['chconfigs'] = {int(k): v for k, v in configs['chconfigs'].items()}
 
 
 def exec(command):
@@ -20,6 +21,33 @@ def exec(command):
         print(f"Command failed with exit code {e.returncode}:")
         print(e.output)
     return ""
+
+
+def public_ipv4() -> str:
+    # Get the public IP address
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+        s.close()
+        return ip
+    except:
+        return '127.0.0.1'
+
+
+def public_ipv6() -> str:
+    try:
+        result = socket.getaddrinfo("8.8.8.8", 80, socket.AF_INET6)
+        return str(result[0][4][0])
+    except:
+        return '::1'
+
+
+def mtprotoproxy_telegram_secret() -> str:
+    '''Just for use in mtprotoproxy config'''
+    sec = configs['hconfigs']['shared_secret']
+    sec_hex = sec.encode('utf-8').hex()
+    return sec_hex[:32]
 
 
 def render_j2_templates(start_path):
@@ -38,7 +66,8 @@ def render_j2_templates(start_path):
                 template = env.get_template(template_path)
 
                 # Render the template
-                rendered_content = template.render(**configs, exec=exec, os=os)
+                rendered_content = template.render(**configs, exec=exec, os=os, public_ipv4=public_ipv4, public_ipv6=public_ipv6,
+                                                   mtprotoproxy_telegram_secret=mtprotoproxy_telegram_secret())
 
                 # Write the rendered content to a new file without the .j2 extension
                 output_file_path = os.path.splitext(template_path)[0]
