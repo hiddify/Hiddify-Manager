@@ -43,11 +43,18 @@ def public_ipv6() -> str:
         return '::1'
 
 
-def mtprotoproxy_telegram_secret() -> str:
+def telegram_mtproto_secret() -> str:
     '''Just for use in mtprotoproxy config'''
     sec = configs['hconfigs']['shared_secret']
     sec_hex = sec.encode('utf-8').hex()
     return sec_hex[:32]
+
+
+def to_hex(input: str) -> str:
+    try:
+        return input.encode('utf-8').hex()
+    except:
+        return ''
 
 
 def render_j2_templates(start_path):
@@ -67,7 +74,8 @@ def render_j2_templates(start_path):
 
                 # Render the template
                 rendered_content = template.render(**configs, exec=exec, os=os, public_ipv4=public_ipv4, public_ipv6=public_ipv6,
-                                                   mtprotoproxy_telegram_secret=mtprotoproxy_telegram_secret())
+                                                   telegram_mtproto_secret=telegram_mtproto_secret(), to_hex=to_hex
+                                                   )
 
                 # Write the rendered content to a new file without the .j2 extension
                 output_file_path = os.path.splitext(template_path)[0]
