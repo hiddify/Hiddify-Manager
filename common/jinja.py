@@ -44,7 +44,7 @@ def public_ipv6() -> str:
 
 
 def telegram_mtproto_secret() -> str:
-    '''Just for use in mtprotoproxy config'''
+    '''Telegram secret code for MTProxy'''
     sec = configs['hconfigs']['shared_secret']
     sec_hex = sec.encode('utf-8').hex()
     return sec_hex[:32]
