@@ -1,17 +1,15 @@
-
-SERVER_WG_NIC=hiddifywg
-
-sed -i '/\[Peer\]/,$d' /etc/wireguard/${SERVER_WG_NIC}.conf
 source ./wg_utils.sh
 
+sed -i '/\[Peer\]/,$d' /etc/wireguard/${SERVER_WG_NIC}.conf
+
 {% for u in users %}
-CLIENT_WG_IPV4=$(add_number_to_ipv4 {{hconfig["wireguard_ipv4"]}} {{u.id}})
-CLIENT_WG_IPV6=$(add_number_to_ipv6 {{hconfig["wireguard_ipv6"]}} {{u.id}})
+CLIENT_WG_IPV4=$(add_number_to_ipv4 {{hconfigs["wireguard_ipv4"]}} {{u.id}})
+CLIENT_WG_IPV6=$(add_number_to_ipv6 {{hconfigs["wireguard_ipv6"]}} {{u.id}})
 echo -e "\n
 [Peer]
 PublicKey = {{u.wg_pub}}
 PresharedKey = {{u.wg_psk}}
-AllowedIPs = ${CLIENT_WG_IPV4}/32,${CLIENT_WG_IPV6}/128" >>"/etc/wireguard/${SERVER_WG_NIC}.conf\n"
+AllowedIPs = ${CLIENT_WG_IPV4}/32,${CLIENT_WG_IPV6}/128\n" >>"/etc/wireguard/${SERVER_WG_NIC}.conf"
 
 {% endfor %}
 

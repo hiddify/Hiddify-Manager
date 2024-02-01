@@ -43,6 +43,9 @@ def update_dns_settings(config_file):
 
 
 def process_netplan_directory(directory):
+    if not os.path.exists(directory):
+        print(f"Directory {directory} does not exist")
+        return
     for config_file in os.listdir(directory):
         config_file_path = os.path.join(directory, config_file)
         if config_file_path.endswith('.yaml') or config_file_path.endswith('.yml'):

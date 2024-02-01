@@ -21,7 +21,8 @@
 				"method":"GET",
 				"idle_timeout": "15s",
 				"ping_timeout": "15s"
-			}
+			},
+			{% include "includes/multiplex.json.j2"%}
 		}	  
 	]
 }

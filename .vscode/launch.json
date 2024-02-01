@@ -30,6 +30,7 @@
             "type": "python",
             "request": "launch",
             "module": "flask",
+            "preLaunchTask": "stop panel service",
             "cwd": "${workspaceFolder}/hiddify-panel/src/",
             "env": {
                 "FLASK_APP": "wsgi.py",

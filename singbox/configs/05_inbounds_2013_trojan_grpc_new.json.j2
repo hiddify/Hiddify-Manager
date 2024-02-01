@@ -20,7 +20,8 @@
 				"service_name": "/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_grpc'] }}",
 				"idle_timeout": "15s",
 				"ping_timeout": "15s"
-			}
+			},
+			{% include "includes/multiplex.json.j2"%}
 		}	  
 	]
 }

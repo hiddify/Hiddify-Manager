@@ -19,7 +19,8 @@
 				"type": "ws",
 				"path": "/{{ hconfigs['path_vless'] }}{{ hconfigs['path_ws'] }}",
 				"early_data_header_name": "Sec-WebSocket-Protocol"
-			}
+			},
+			{% include "includes/multiplex.json.j2"%}
 		}	  
 	]
 }
