@@ -1,5 +1,5 @@
 source ../common/utils.sh
-install_package wireguard
+install_package wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config
 
 useradd -m hiddify-panel -s /bin/bash >/dev/null 2>&1
 chown -R hiddify-panel:hiddify-panel /home/hiddify-panel/ >/dev/null 2>&1
@@ -8,13 +8,13 @@ su hiddify-panel -c update-locale LANG=C.UTF-8 >/dev/null 2>&1
 
 chown -R hiddify-panel:hiddify-panel . >/dev/null 2>&1
 pip uninstall -y flask-babelex >/dev/null 2>&1
-python3 -c "import hiddifypanel" || pip install -U hiddifypanel uwsgi lastversion
+python3 -c "import hiddifypanel" || pip install -U hiddifypanel
 
-python3 -c "import pymysql" || pip install pymysql
+python3 -c "import mysqldb" || pip install mysqldb
 
 sed -i '/SQLALCHEMY_DATABASE_URI/d' app.cfg
 MYSQL_PASS=$(cat ../other/mysql/mysql_pass)
-echo "SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://hiddifypanel:$MYSQL_PASS@127.0.0.1/hiddifypanel?charset=utf8mb4'" >>app.cfg
+echo "SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://hiddifypanel:$MYSQL_PASS@127.0.0.1/hiddifypanel?charset=utf8mb4'" >>app.cfg
 
 # if [ -f hiddifypanel.db ]; then
 #     sqlite3mysql -f hiddifypanel.db -d hiddifypanel -u hiddifypanel -h 127.0.0.1 --mysql-password $MYSQL_PASS
