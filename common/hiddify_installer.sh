@@ -43,7 +43,7 @@ function install_panel() {
         echo "cd /opt/hiddify-manager/" >>~/.bashrc
     fi
     install_python
-    install_package wireguard
+    install_package wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config
     update_panel "$package_mode" "$force"
     panel_update=$?
     update_config "$package_mode" "$force"
