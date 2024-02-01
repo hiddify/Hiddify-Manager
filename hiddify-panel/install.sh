@@ -10,7 +10,7 @@ chown -R hiddify-panel:hiddify-panel . >/dev/null 2>&1
 pip uninstall -y flask-babelex >/dev/null 2>&1
 python3 -c "import hiddifypanel" || pip install -U hiddifypanel
 
-python3 -c "import mysqldb" || pip install mysqldb
+
 
 sed -i '/SQLALCHEMY_DATABASE_URI/d' app.cfg
 MYSQL_PASS=$(cat ../other/mysql/mysql_pass)
