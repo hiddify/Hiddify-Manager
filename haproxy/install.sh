@@ -7,9 +7,9 @@ if is_installed sniproxy; then
     pkill -9 sniproxy >/dev/null 2>&1
 fi
 
-if ! is_installed_package "haproxy=2.9.3"; then
+if ! is_installed_package "haproxy=2.9.4"; then
     add-apt-repository ppa:vbernat/haproxy-2.9 -y
-    install_package haproxy=2.9.3*
+    install_package haproxy=2.9*
 fi
 systemctl kill haproxy >/dev/null 2>&1
 systemctl stop haproxy >/dev/null 2>&1
