@@ -27,7 +27,7 @@ rm -f xray/configs/*.json
 rm -f singbox/configs/*.json
 source /opt/hiddify-config/common/utils.sh
 install_python
-pip install -U hiddifypanel uwsgi
+pip install -U hiddifypanel
 bash install.sh --no-gui
 # exit 0
 # fi

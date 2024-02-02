@@ -1,11 +1,19 @@
 {
   "outbounds": [
     {
+      {%if hconfigs["only_ipv4"]%}
+      "domainStrategy":"UseIPv4v6",
+      {%endif%}
       "tag": "freedom",
       "protocol": "freedom",
-      "settings": {}
+      "settings": {
+
+      }
     },
     {
+      {%if hconfigs["only_ipv4"]%}
+      "domainStrategy":"UseIPv4v6",
+      {%endif%}
       "tag": "WARP",
       "protocol": "freedom",
       "streamSettings": {

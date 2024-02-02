@@ -38,7 +38,7 @@ def update_dns_settings(config_file):
             print("WTF")
     with open(config_file, 'w') as f:
         yaml.dump(data, f)
-    print(data)
+    print("DNS", data)
     print("DNS servers updated in", config_file)
 
 

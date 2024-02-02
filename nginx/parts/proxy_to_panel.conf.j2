@@ -3,11 +3,11 @@
   proxy_set_header X-Real-IP $remote_addr;
   proxy_set_header X-Forwarded-Proto https;
   add_header X-Robots-Tag "noindex, nofollow";
-  {% if os.path.exists("/opt/hiddify-develop/") %}
+  {# {% if os.path.exists("/opt/hiddify-develop/") %} #}
   proxy_pass http://localhost:9000; 
   #proxy_pass http://unix:/run/hiddifypanel.sock:/{{ hconfigs['proxy_path'] }}/;
-  {%else%}
+  {# {%else%}
   include uwsgi_params;
   uwsgi_pass localhost:9001;
-  {%endif%}
+  {%endif%} #}
   error_page 301 302 307 = @handle_redirect;

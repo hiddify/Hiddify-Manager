@@ -105,11 +105,10 @@ function main() {
 
 function clean_files() {
         rm -rf log/system/xray*
-        rm /opt/hiddify-manager/xray/configs/*.json
-        rm /opt/hiddify-manager/singbox/configs/*.json
-        rm /opt/hiddify-manager/haproxy/*.cfg
+        rm -rf /opt/hiddify-manager/xray/configs/*.json
+        rm -rf /opt/hiddify-manager/singbox/configs/*.json
+        rm -rf /opt/hiddify-manager/haproxy/*.cfg
         find ./ -type f -name "*.template" -exec rm -f {} \;
-
 }
 
 function cleanup() {
