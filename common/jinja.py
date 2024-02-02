@@ -8,8 +8,8 @@ import subprocess
 
 with open("/opt/hiddify-manager/current.json") as f:
     configs = json.load(f)
-    configs['chconfigs']={int(k):v for k,v in configs['chconfigs'].items()}
-    configs['hconfigs']=configs['chconfigs'][0]
+    configs['chconfigs'] = {int(k): v for k, v in configs['chconfigs'].items()}
+    configs['hconfigs'] = configs['chconfigs'][0]
 
 
 def exec(command):
@@ -24,31 +24,10 @@ def exec(command):
     return ""
 
 
-def public_ipv4() -> str:
-    # Get the public IP address
-    try:
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(("8.8.8.8", 80))
-        ip = s.getsockname()[0]
-        s.close()
-        return ip
-    except:
-        return '127.0.0.1'
-
-
-def public_ipv6() -> str:
-    try:
-        result = socket.getaddrinfo("8.8.8.8", 80, socket.AF_INET6)
-        return str(result[0][4][0])
-    except:
-        return '::1'
-
-
 def telegram_mtproto_secret() -> str:
     '''Telegram secret code for MTProxy'''
-    sec = configs['hconfigs']['shared_secret']
-    sec_hex = sec.encode('utf-8').hex()
-    return sec_hex[:32]
+    sec = configs['hconfigs']['shared_secret'].replace("-", "")
+    return sec[:32]
 
 
 def to_hex(input: str) -> str:
@@ -74,8 +53,7 @@ def render_j2_templates(start_path):
                 template = env.get_template(template_path)
 
                 # Render the template
-                rendered_content = template.render(**configs, exec=exec, os=os, public_ipv4=public_ipv4, public_ipv6=public_ipv6,
-                                                   telegram_mtproto_secret=telegram_mtproto_secret(), to_hex=to_hex
+                rendered_content = template.render(**configs, exec=exec, os=os, telegram_mtproto_secret=telegram_mtproto_secret(), to_hex=to_hex
                                                    )
 
                 # Write the rendered content to a new file without the .j2 extension
