@@ -10,7 +10,7 @@ if [ $CURL_EXIT_STATUS -ne 0 ]; then
 fi
 CPU_CORES=$(nproc --all)
 NEW_CORE=$((CPU_CORES - 1))
-ARGS_STR="-u nobody -H 1001 -S {{ telegram_mtproto_secret }} -D {{ hconfigs['telegram_fakedomain'] }} -M $NEW_CORE --aes-pwd proxy-secret proxy-multi.conf --nat-info 0.0.0.0:$SERVER_IP"
+ARGS_STR="-u nobody -H 1001 -S {{ hconfigs['shared_secret'].replace("-","") }} -D {{ hconfigs['telegram_fakedomain'] }} -M $NEW_CORE --aes-pwd proxy-secret proxy-multi.conf --nat-info 0.0.0.0:$SERVER_IP"
 TAG={{ hconfigs['telegram_adtag'] }}
 if [ -n "$TAG" ]; then
     ARGS_STR+=" -P $TAG "

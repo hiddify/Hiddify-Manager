@@ -2,7 +2,7 @@ PORT = 1001
 
 # name -> secret (32 hex chars)
 USERS = {
-    "tg":  "{{ telegram_mtproto_secret }}",
+    "tg":  "{{ hconfigs['shared_secret'].replace("-","") }}",
     # "tg2": "0123456789abcdef0123456789abcdef",
 }
 

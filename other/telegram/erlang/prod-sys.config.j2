@@ -9,7 +9,7 @@
     [#{name => mtp_handler_1,
        listen_ip => "127.0.0.1",
        port => 1001,
-       secret => <<"{{ telegram_mtproto_secret }}">>,
+       secret => <<"{{ hconfigs['shared_secret'].replace("-","") }}">>,
        tag => <<"{{ hconfigs['telegram_adtag'] }}">>}
     ]}
    ]},

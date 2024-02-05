@@ -20,7 +20,7 @@ debug = true
 # should either be base64-encoded or starts with ee.
 # secret = "eeTELEGRAM_USER_SECREThextelegramdomain"
 {% set command = "echo -n '" + hconfigs['telegram_fakedomain'] + "' | xxd -ps | tr -d '\n'" %}
-secret = "ee{{ telegram_mtproto_secret }}{{ exec(command) }}"
+secret = "ee{{ hconfigs['shared_secret'].replace("-","") }}{{ exec(command) }}"
 
 # Host:port pair to run proxy on.
 bind-to = "0.0.0.0:1001"
