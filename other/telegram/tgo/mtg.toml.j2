@@ -19,7 +19,8 @@ debug = true
 # simple and secured mode are prohibited. For you it means that secret
 # should either be base64-encoded or starts with ee.
 # secret = "eeTELEGRAM_USER_SECREThextelegramdomain"
-secret = "ee{{ telegram_mtproto_secret }}{{ to_hex(hconfigs['telegram_fakedomain']) }}"
+{% set command = "echo -n '" + hconfigs['telegram_fakedomain'] + "' | xxd -ps | tr -d '\n'" %}
+secret = "ee{{ telegram_mtproto_secret }}{{ exec(command) }}"
 
 # Host:port pair to run proxy on.
 bind-to = "0.0.0.0:1001"

@@ -30,13 +30,6 @@ def telegram_mtproto_secret() -> str:
     return sec[:32]
 
 
-def to_hex(input: str) -> str:
-    try:
-        return input.encode('utf-8').hex()
-    except:
-        return ''
-
-
 def render_j2_templates(start_path):
     # Set up the Jinja2 environment
     env_paths = ['/', '/opt/hiddify-manager/singbox/configs/']
@@ -53,8 +46,7 @@ def render_j2_templates(start_path):
                 template = env.get_template(template_path)
 
                 # Render the template
-                rendered_content = template.render(**configs, exec=exec, os=os, telegram_mtproto_secret=telegram_mtproto_secret(), to_hex=to_hex
-                                                   )
+                rendered_content = template.render(**configs, exec=exec, os=os, telegram_mtproto_secret=telegram_mtproto_secret())
 
                 # Write the rendered content to a new file without the .j2 extension
                 output_file_path = os.path.splitext(template_path)[0]
