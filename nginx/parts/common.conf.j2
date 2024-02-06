@@ -40,10 +40,11 @@ location /{{ hconfigs['proxy_path_client'] }}/gh/ {
   sub_filter    src="/ src="/{{ hconfigs['proxy_path'] }}/gh/;
 }
 
-location /{{ hconfigs['proxy_path_client'] }}/dns/ {
+location /{{ hconfigs['proxy_path_client'] }}/dns/dns-query/ {
   # use it in your browser as https://defaultserverhost/{{ hconfigs['proxy_path_client'] }}/dns/dns-query{?dns}
-  set $upstream https://dns.google:443/; 
-  proxy_pass $upstream;
+  
+  #proxy_pass https://dns.google/dns-query;
+  proxy_pass https://1.1.1.1/dns-query;
   
 }
 location /{{ hconfigs['proxy_path_client'] }}/speedtest/ {
