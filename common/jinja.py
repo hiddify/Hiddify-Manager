@@ -3,12 +3,13 @@ import sys
 from jinja2 import Environment, FileSystemLoader
 import json5
 import json
+import socket
 import subprocess
 
 with open("/opt/hiddify-manager/current.json") as f:
     configs = json.load(f)
-    configs['chconfigs']={int(k):v for k,v in configs['chconfigs'].items()}
-    configs['hconfigs']=configs['chconfigs'][0]
+    configs['chconfigs'] = {int(k): v for k, v in configs['chconfigs'].items()}
+    configs['hconfigs'] = configs['chconfigs'][0]
 
 
 def exec(command):

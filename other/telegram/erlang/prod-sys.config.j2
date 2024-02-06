@@ -7,9 +7,9 @@
    {allowed_protocols, [mtp_fake_tls]},
    {ports,
     [#{name => mtp_handler_1,
-       listen_ip => "0.0.0.0",
+       listen_ip => "127.0.0.1",
        port => 1001,
-       secret => <<"{{hconfigs['shared_secret']}}">>,
+       secret => <<"{{ hconfigs['shared_secret'].replace("-","") }}">>,
        tag => <<"{{ hconfigs['telegram_adtag'] }}">>}
     ]}
    ]},
@@ -34,8 +34,8 @@
        {flush_threshold, 2000},
        %% How often to check if log should be rotated
        {check_interval, 5000},
-       %% Rotate when file size is 10MB+
-       {size, 10485760}
+       %% Rotate when file size is 100MB+
+       {size, 104857600}
       ]}
     ]}]},
  {sasl, [{errlog_type, error}]}

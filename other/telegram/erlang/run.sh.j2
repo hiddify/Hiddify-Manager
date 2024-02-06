@@ -1,0 +1,14 @@
+# systemctl enable mtproxy.service
+# systemctl restart mtproxy.service
+#cd mtproto_proxy
+#sudo make update-sysconfig 
+#sudo systemctl enable mtproto-proxy
+#sudo systemctl restart mtproto-proxy
+
+{% if hconfigs['telegram_adtag']%}
+    bash install_mtproxy.sh -p 1001 -s {{ hconfigs['shared_secret'].replace("-","") }} -t {{ hconfigs['telegram_adtag'] }} -a tls -d {{ hconfigs['telegram_fakedomain'] }} > /dev/null 2>&1
+{% else %}
+echo "y\n" | bash install_mtproxy.sh -p 1001 -s {{ hconfigs['shared_secret'].replace("-","") }} -a tls -d {{ hconfigs['telegram_fakedomain'] }} > /dev/null 2>&1
+{% endif %}
+
+systemctl status mtproto-proxy --no-pager
