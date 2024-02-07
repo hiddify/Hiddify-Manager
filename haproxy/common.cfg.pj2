@@ -392,3 +392,9 @@ backend reality_http_{{port}}
     mode http
     server reality_{{port}} {{domain}}:80 
 {%endfor%}
+
+
+
+
+backend shadowtls
+    server singbox 127.0.0.1:1003 send-proxy-v2 tfo 

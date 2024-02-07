@@ -5,8 +5,6 @@ backend reality
     server singbox 127.0.0.1:2001 send-proxy-v2 tfo 
 
 
-backend shadowtls
-    server singbox 127.0.0.1:2041 send-proxy-v2 tfo 
 
 backend vmessg  
   timeout server 1h

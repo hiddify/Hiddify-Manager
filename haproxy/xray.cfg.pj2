@@ -6,8 +6,6 @@ backend xray
 backend reality
     server xray abns@realityin send-proxy-v2 tfo 
 
-backend shadowtls
-    server shadowtls 127.0.0.1:1003 tfo 
 
 backend grpc_dispatcher
     server nginx unix@/opt/hiddify-manager/nginx/run/h2.sock send-proxy-v2 tfo 
