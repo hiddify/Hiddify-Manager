@@ -327,7 +327,7 @@ backend telegram
 backend ssdecoy_http
     server ssdecoy {{hconfigs['ssfaketls_fakedomain']}}
 backend ssfake
-    server ssfake 127.0.0.1:1002
+    server ssfake 127.0.0.1:1002 tfo
 {%endif%}
 
 

@@ -65,8 +65,8 @@ function main() {
                 update_progress "installing..." "Telegram Proxy" 40
                 install_run other/telegram $ENABLE_TELEGRAM
 
-                # update_progress "installing..." "FakeTlS Proxy" 45
-                # install_run other/ssfaketls $ENABLE_SS
+                update_progress "installing..." "FakeTlS Proxy" 45
+                install_run other/ssfaketls $ENABLE_SS
 
                 # update_progress "installing..." "V2ray WS Proxy" 50
                 # install_run other/v2ray $ENABLE_V2RAY

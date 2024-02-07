@@ -1,9 +1,0 @@
-{
-    "server":"127.0.0.1",
-    "server_port":1002,
-    "password":"{{ hconfigs['shared_secret'] }}",
-    "timeout":300,
-    "plugin":"obfs-server",
-    "plugin_opts":"obfs=tls;failover={{ hconfigs['ssfaketls_fakedomain'] }}:443",
-    "method":"chacha20-ietf-poly1305"
-}
