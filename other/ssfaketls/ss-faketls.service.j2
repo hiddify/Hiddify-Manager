@@ -5,7 +5,7 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-ExecStart=obfs-server -s 127.0.0.1 -p 1002 -r 127.0.0.1:2002 --obfs tls --fast-open --failover {{hconfigs['ssfaketls_fakedomain']}}:443
+ExecStart=obfs-server -s 127.0.0.1 -p 1010 -r 127.0.0.1:{{hconfigs[shadowsocks2022_port]}} --obfs tls --fast-open --failover {{hconfigs['ssfaketls_fakedomain']}}:443
 Restart=on-failure
 StandardOutput=file:/opt/hiddify-manager/log/system/ss-faketls.out.log
 StandardError=file:/opt/hiddify-manager/log/system/ss-faketls.err.log
