@@ -136,21 +136,27 @@ function is_installed_package() {
         return 1
     fi
 }
-function install_package() {
-    for package in $@; do
-        if ! is_installed_package $package; then
-            # The package is not installed, install it
-            apt install -y --no-install-recommends "$package"
-            if [ $? -ne 0 ]; then
-                apt --fix-broken install -y
-                apt update
-                apt install -y "$package"
-            fi
-            # else
-            # The package is installed, do nothing
-            # echo "$package is already installed"
+install_package() {
+    local not_installed_packages=""
+    local package
+
+    for package in "$@"; do
+        if ! is_installed_package "$package"; then
+            # The package is not installed, add it to the list
+            not_installed_packages+=" $package"
         fi
     done
+
+    if [ -n "$not_installed_packages" ]; then
+        apt install -y --no-install-recommends $not_installed_packages
+
+        # Check if installation failed
+        if [ $? -ne 0 ]; then
+            apt --fix-broken install -y
+            apt update
+            apt install -y $not_installed_packages
+        fi
+    fi
 }
 
 function remove_package() {
