@@ -250,6 +250,11 @@ frontend http-https-in
     acl vlessw path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_ws'] }}
     acl v2rayw path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_ws'] }}
     acl trojanw path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_ws'] }}
+
+    acl vmesshu path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_httpupgrade'] }}
+    acl vlesshu path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_httpupgrade'] }}
+    #acl v2rayhu path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_httpupgrade'] }}
+    acl trojanhu path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_httpupgrade'] }}
     
     
     # use_backend vmesst_h2 if vmesst is_put_request h2
@@ -276,6 +281,11 @@ frontend http-https-in
     use_backend v2rayw if v2rayw
     use_backend trojanw if trojanw
 
+
+    use_backend vmesshu if vmesshu
+    use_backend vlesshu if vlesshu
+    #use_backend v2rayhu if v2rayhu
+    use_backend trojanhu if trojanhu
 
 
         #acl other path_beg /BASE_PROXY_PATH
@@ -327,7 +337,7 @@ backend telegram
 backend ssdecoy_http
     server ssdecoy {{hconfigs['ssfaketls_fakedomain']}}
 backend ssfake
-    server ssfake 127.0.0.1:1002 tfo
+    server ssfake 127.0.0.1:1010 tfo
 {%endif%}
 
 
@@ -397,4 +407,28 @@ backend reality_http_{{port}}
 
 
 backend shadowtls
-    server singbox 127.0.0.1:1003 send-proxy-v2 tfo 
+    server singbox 127.0.0.1:1030 tfo 
+
+
+backend v2rayw
+  server v2rayw 127.0.0.1:1020  tfo 
+
+backend v2rayw_h2
+  server v2rayw 127.0.0.1:1020  tfo 
+
+
+
+
+
+
+
+
+
+backend vmesshu
+  server vmesshu 127.0.0.1:2034 send-proxy-v2  tfo 
+
+backend vlesshu
+  server vlesshu 127.0.0.1:2024 send-proxy-v2 tfo 
+
+backend trojanhu
+  server trojanw 127.0.0.1:2014 send-proxy-v2 tfo 

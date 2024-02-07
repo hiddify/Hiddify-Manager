@@ -64,11 +64,11 @@ backend vlessw
 backend vlessw_h2
   server vlessw 127.0.0.1:2022  send-proxy-v2 tfo 
 
-backend v2rayw
-  server v2rayw 127.0.0.1:2052  send-proxy-v2 tfo 
+#backend v2rayw
+#  server v2rayw 127.0.0.1:2052  send-proxy-v2 tfo 
 
-backend v2rayw_h2
-  server v2rayw 127.0.0.1:2052  send-proxy-v2 tfo 
+#backend v2rayw_h2
+#  server v2rayw 127.0.0.1:2052  send-proxy-v2 tfo 
 
 backend trojanw
   server trojanw 127.0.0.1:2012 send-proxy-v2 tfo 

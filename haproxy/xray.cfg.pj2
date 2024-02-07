@@ -70,11 +70,11 @@ backend vlessw
 backend vlessw_h2
   server vlessw abns@vless-ws-new-h2  send-proxy-v2 tfo 
 
-backend v2rayw
-  server v2rayw abns@v2ray-ws-new  send-proxy-v2 tfo 
+#backend v2rayw
+#  server v2rayw abns@v2ray-ws-new  send-proxy-v2 tfo 
 
-backend v2rayw_h2
-  server v2rayw abns@v2ray-ws-new-h2  send-proxy-v2 tfo 
+#backend v2rayw_h2
+#  server v2rayw abns@v2ray-ws-new-h2  send-proxy-v2 tfo 
 
 backend trojanw
   server trojanw abns@trojan-ws-new send-proxy-v2 tfo 
