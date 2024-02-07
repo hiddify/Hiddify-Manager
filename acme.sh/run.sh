@@ -16,3 +16,4 @@ for f in ../ssl/*.crt; do
 	d=$(basename "$f" .crt)
 	get_self_signed_cert $d
 done
+systemctl reload hiddify-haproxy
