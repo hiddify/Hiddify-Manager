@@ -1,3 +1,4 @@
+import base64
 import os
 import sys
 from jinja2 import Environment, FileSystemLoader
@@ -24,10 +25,19 @@ def exec(command):
     return ""
 
 
+def b64encode(s):
+    if type(s) == str:
+        s = s.encode("utf-8")
+    return base64.b64encode(s).decode("utf-8")
+
+
 def render_j2_templates(start_path):
     # Set up the Jinja2 environment
     env_paths = ['/', '/opt/hiddify-manager/singbox/configs/']
     env = Environment(loader=FileSystemLoader(env_paths))
+    env.filters['b64encode'] = b64encode
+    env.filters['hexencode'] = lambda s: ''.join(hex(ord(c))[2:].zfill(2) for c in s)
+
     # Dirs to ignore from Jinja2 rendering
     exclude_dirs = ['/opt/hiddify-manager/singbox/configs/includes']
 
