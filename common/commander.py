@@ -156,7 +156,7 @@ def apply_users():
 @cli.command('update-wg-usage')
 def update_wg_usage():
     wg_raw_output = subprocess.check_output(['wg', 'show', 'hiddifywg', 'transfer'])
-    wg_usage_path = os.path.join(HIDDIFY_DIR, '/other/wireguard/raw_wg_usage.json')
+    wg_usage_path = os.path.join(HIDDIFY_DIR, 'other/wireguard/raw_wg_usage.json')
     with open(wg_usage_path, 'w+') as f:
         f.write(wg_raw_output.decode())
 
