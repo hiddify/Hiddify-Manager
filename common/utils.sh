@@ -53,7 +53,8 @@ function get_installed_config_version() {
 
 function get_package_mode() {
     cd /opt/hiddify-manager/hiddify-panel || exit
-    python3 -m hiddifypanel all-configs | jq -r ".hconfigs.package_mode"
+    
+    python3 -m hiddifypanel all-configs | jq -r '.chconfigs["0"].package_mode'
 }
 
 function error() {
