@@ -2,7 +2,7 @@
 	"inbounds": [
 		{
 			"tag":"ss-new",
-			"listen": {% if hconfigs['shadowsocks2022_enable']%}"0.0.0.0"{%else%}"127.0.0.1"{%endif%},
+			"listen": {% if hconfigs['shadowsocks2022_enable']%}"::"{%else%}"127.0.0.1"{%endif%},
 			"listen_port":{{hconfigs['shadowsocks2022_port']}},
 			"tcp_fast_open": true,
 			"sniff": true,

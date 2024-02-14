@@ -6,7 +6,7 @@
 		{
 			"type": "hysteria2",
 			"tag": "hysteria_in_{{port}}",
-			"listen": "0.0.0.0",
+			"listen": "::",
 			"listen_port": {{ port }},
 			"up_mbps": {{ chconfigs[d['child_id']]['hysteria_up_mbps'] }},
 			"down_mbps": {{ chconfigs[d['child_id']]['hysteria_down_mbps'] }},
