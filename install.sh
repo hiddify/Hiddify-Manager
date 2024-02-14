@@ -136,9 +136,11 @@ function set_config_from_hpanel() {
 
 function install_run() {
         echo "==========================================================="
-        runsh install.sh $@
-        if [ "$MODE" != "apply_users" ]; then
-                systemctl daemon-reload
+        if [ "$DO_NOT_INSTALL" != "true" ];then
+                runsh install.sh $@
+                if [ "$MODE" != "apply_users" ]; then
+                        systemctl daemon-reload
+                fi
         fi
         runsh run.sh $@
         echo "==========================================================="
