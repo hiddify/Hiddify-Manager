@@ -5,6 +5,26 @@
 
 ### New
 
+* Add faketls. [hiddify-com]
+
+* Add shadowsocks 2022. [hiddify-com]
+
+* Add http upgrade transport. [hiddify-com]
+
+* Add faketls mode. [hiddify-com]
+
+* Add shadowsocks 2022 version. [hiddify-com]
+
+* Add hex and base64encode to jinja. [hiddify-com]
+
+* Force ipv4 if ipv4 enabled. [hiddify-com]
+
+* Optimize memory usage and with more request. [hiddify]
+
+* Add initial child support. [hiddify]
+
+* Add wireguard. [hiddify]
+
 * Add ansi handler. [hiddify]
 
 * Add version to the title. [hiddify]
@@ -57,6 +77,16 @@
 
 ### Changes
 
+* Refactor. [Sarina]
+
+* Better doc. [Sarina]
+
+* Refactor. [Sarina]
+
+* Better name. [Sarina]
+
+* Include singbox_multiplex jinja file instead of duplicate same code in every config. [Sarina]
+
 * Remove temporary access. [hiddify]
 
 * Root user to hiddify-panel user for running update-usage (in crontab) [Sarina]
@@ -68,6 +98,54 @@
 * Restructure reality hysteria2 tuic port management. [hiddify]
 
 ### Fix
+
+* Installing mysqlclient==2.2.1 with pip(upgrade pip) [Sarina]
+
+* Ipv6 issue in tuic and hysteria. [hiddify-com]
+
+* Refactor. [Sarina]
+
+* Bug. [Sarina]
+
+* Doh (google dns) tested, worked on GET|POST method. [Sarina]
+
+* Faketls bug. [hiddify-com]
+
+* Update bug. [hiddify-com]
+
+* Doh. [Sarina]
+
+* Tgo jinja. [hiddify-com]
+
+* Erlang. [Sarina]
+
+* Erlang mtproto proxy. [Sarina]
+
+* Tgo telegram mtproto library. [Sarina]
+
+* Mtprotoproxy library. [Sarina]
+
+* Haproxy install bug. [hiddify-com]
+
+* Bug in wireguard. [hiddify-com]
+
+* Bug. [hiddify-com]
+
+* Bug in view link. [hiddify-com]
+
+* Bug. [root]
+
+* Jinja.py. [Sarina]
+
+* Bug in rendering configs. [Sarina]
+
+* Netplan dir bug. [Sarina]
+
+* Wireguard bug. [Sarina]
+
+* Bug. [hiddify]
+
+* Installation bug, [hiddify]
 
 * Change ip bug. [hiddify]
 
@@ -406,6 +484,94 @@
 * Remove remote. [hiddify]
 
 ### Other
+
+* Merge pull request #3630 from Iam54r1n4/fix-pip. [Hiddify]
+
+  Fix installing mysqlclient==2.2.1 with pip(upgrade pip)
+
+* Make apply config quicker. [hiddify-com]
+
+* Merge pull request #3618 from Iam54r1n4/wg-usage-command. [Hiddify]
+
+  add: wireguard update usage command
+
+* Add: wireguard update usage command. [Sarina]
+
+* Merge pull request #3616 from Iam54r1n4/fix-doh2. [Hiddify]
+
+  fix: doh (google dns)
+
+* Merge branch 'main' of github.com:hiddify/Hiddify-Manager. [hiddify-com]
+
+* Merge pull request #3613 from Iam54r1n4/fix-doh. [Hiddify]
+
+  Fix doh
+
+* Update common.conf.j2. [Hiddify]
+
+* Remove depracted options. [hiddify-com]
+
+* Remove old shadowtls and use singbox shadowtls. [hiddify-com]
+
+* Reload haproxy after getting certs. [hiddify-com]
+
+* Use let's encrypt first and zerossl as fallback. [hiddify-com]
+
+* Remove old files before applying variables. [hiddify-com]
+
+* Speedup installing multiple packages. [hiddify-com]
+
+* Merge pull request #3611 from Iam54r1n4/fix-mtproxy. [Hiddify]
+
+  fix: erlang
+
+* Remove unneccasry check. [hiddify]
+
+* Merge pull request #3583 from Iam54r1n4/fix-mtproxy. [Hiddify]
+
+  fix: mtprotoproxy library
+
+* Update mtg.toml.j2. [Hiddify]
+
+* Del: telegram secret fn. [Sarina]
+
+* Del: to_hex. [Sarina]
+
+* Merge branch 'main' into fix-mtproxy. [I'm Sarina Esmailzadeh Too]
+
+* Fix bugs. [hiddify-com]
+
+* Update req. [hiddify]
+
+* Merge branch 'main' of github.com:hiddify/Hiddify-Server. [hiddify]
+
+* Merge pull request #3548 from Iam54r1n4/singbox-mux. [Hiddify]
+
+  Add mux object to singbox server side config
+
+* Refactor: multiplex config rendering. [Sarina]
+
+* Merge branch 'singbox-mux' of github.com:Iam54r1n4/Hiddify-Server into singbox-mux. [Sarina]
+
+* Add: singbox multiplex jinja file. [Sarina]
+
+* Merge branch 'singbox-mux' of github.com:Iam54r1n4/Hiddify-Server into HEAD. [Sarina]
+
+* Add: multiplex object to singbox configs. [Sarina]
+
+* Merge pull request #3555 from Iam54r1n4/bug-fix. [Hiddify]
+
+  Fix netplan dir bug
+
+* Merge pull request #3569 from Iam54r1n4/fix-wireguard. [Hiddify]
+
+  Fix wireguard typo
+
+* Force link in ansi. [hiddify]
+
+* Force https. [hiddify]
+
+* Remove flask_babelex. [hiddify]
 
 * Speed up restarting panel. [hiddify]
 
@@ -1131,6 +1297,20 @@
 * Remove old database after upgrade. [hiddify]
 
 * Change backend to mysql. [hiddify]
+
+
+## v10.5.72 (2024-01-28)
+
+### Fix
+
+* Name issue in apply config. [hiddify-com]
+
+
+## v10.5.71 (2024-01-25)
+
+### Other
+
+* Fix change ip. [hiddify]
 
 
 ## v10.5.69 (2024-01-25)
