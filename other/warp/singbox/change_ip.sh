@@ -1,6 +1,6 @@
 
 
-wget -N https://raw.githubusercontent.com/fscarmen/warp/main/api.sh && bash api.sh -u -f wgcf-account.toml
+wget -N https://gitlab.com/fscarmen/warp/-/raw/main/api.sh && bash api.sh -u -f wgcf-account.toml
 
 mv wgcf-account.toml wgcf-account.toml.backup
 # curl --connect-timeout 1 -Lo wgcf.zip https://api.zeroteam.top/warp?format=wgcf
