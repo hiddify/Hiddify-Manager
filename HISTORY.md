@@ -485,6 +485,16 @@
 
 ### Other
 
+* Merge pull request #3642 from miladtavakoli/main. [Hiddify]
+
+  Add ookla-speedtest  Warp
+
+* Update 03_routing.json.j2. [Milad Tavakoli]
+
+  Add "ookla-speedtest" to warp outbound
+
+* Add jq to the installation. [hiddify-com]
+
 * Merge pull request #3630 from Iam54r1n4/fix-pip. [Hiddify]
 
   Fix installing mysqlclient==2.2.1 with pip(upgrade pip)
