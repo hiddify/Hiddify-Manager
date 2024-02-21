@@ -178,7 +178,7 @@ function post_update_tasks() {
     fi
     systemctl start hiddify-panel
 
-    if [ $CREATE_EASYSETUP_LINK == "true" ];then
+    if [ "$CREATE_EASYSETUP_LINK" == "true" ];then
         cd /opt/hiddify-manager/hiddify-panel
         hiddifypanel set_setting --key create_easysetup_link --value True
     fi

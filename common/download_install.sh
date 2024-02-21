@@ -37,7 +37,7 @@ sed -i "s|/opt/$GITHUB_REPOSITORY/menu.sh||g" ~/.bashrc
 sed -i "s|cd /opt/$GITHUB_REPOSITORY/||g" ~/.bashrc
 echo "/opt/$GITHUB_REPOSITORY/menu.sh" >>~/.bashrc
 echo "cd /opt/$GITHUB_REPOSITORY/" >>~/.bashrc
-if [ $CREATE_EASYSETUP_LINK == "true" ];then
+if [ "$CREATE_EASYSETUP_LINK" == "true" ];then
         cd /opt/$GITHUB_REPOSITORY/hiddify-panel
         hiddifypanel set_setting --key create_easysetup_link --value True
 fi
