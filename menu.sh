@@ -49,6 +49,7 @@ function menu() {
         apply_configs "Apply the changed configs"
         update "Update $UPDATE_NEED"
         advanced "Uninstall, Remote Assistant, Downgrade,..."
+        Resource-control "Automatic resource control"
         Quit ""
     )
 
@@ -172,6 +173,13 @@ function menu() {
         # )
         source common/utils.sh
         check_hiddify_panel
+        ;;
+    "resource control")
+        (
+            cd Resource-control
+            echo 'To exit you need to press Ctrl + a and then press d the key.'
+            screen python3 main.py
+        )
         ;;
     "status")
         bash status.sh | less -r -P"Press q to exit" +G
