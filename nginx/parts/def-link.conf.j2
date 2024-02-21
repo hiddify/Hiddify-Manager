@@ -1,15 +1,5 @@
 location = / {
 
-	{% if hconfigs['first_setup']%}
-		{% set  nextH=exec("printf '%02d' $(($(date '+%H') + 1))") %}
-		{% set  nowDatetime=exec('date "+%Y-%m-%dT(%H|"') %}
-		{% set  TEMP_LINK_VALID_TIME= nowDatetime + nextH + ")"%}
-		if ($time_iso8601 ~ "^{{TEMP_LINK_VALID_TIME}}" ) {
-			add_header Content-Type text/html;
-			return 200 "{{admin_path}}quick-setup/ <script> document.location='{{ admin_path }}quick-setup/'</script>";
-			#return 307  {{ hconfigs['admin_secret'] }}/config;
-		}
-	{% endif %}
 	
 	# proxy_redirect / /;
     #proxy_intercept_errors on;
@@ -43,3 +33,15 @@ location / {
 	# 					   http_500 http_502 http_503 http_504;
 	
 }
+{% if hconfigs['first_setup'] and hconfigs['create_easysetup_link']%}
+location /hiddify {	
+		{% set  nextH=exec("printf '%02d' $(($(date '+%H') + 1))") %}
+		{% set  nowDatetime=exec('date "+%Y-%m-%dT(%H|"') %}
+		{% set  TEMP_LINK_VALID_TIME= nowDatetime + nextH + ")"%}
+		if ($time_iso8601 ~ "^{{TEMP_LINK_VALID_TIME}}" ) {
+			add_header Content-Type text/html;
+			return 200 "{{admin_path}}quick-setup/ <script> document.location='{{ admin_path }}quick-setup/?changepw=true'</script>";
+			#return 307  {{ hconfigs['admin_secret'] }}/config;
+		}
+}
+{% endif %}

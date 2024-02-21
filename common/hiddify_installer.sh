@@ -177,6 +177,12 @@ function post_update_tasks() {
         systemctl kill -s SIGTERM hiddify-panel
     fi
     systemctl start hiddify-panel
+
+    if [ $CREATE_EASYSETUP_LINK == "true" ];then
+        cd /opt/hiddify-manager/hiddify-panel
+        hiddifypanel set_setting --key create_easysetup_link --value True
+    fi
+
     if [[ $panel_update == 0 && $config_update != 0 ]]; then
         bash /opt/hiddify-manager/apply_configs.sh --no-gui --no-log
     fi
