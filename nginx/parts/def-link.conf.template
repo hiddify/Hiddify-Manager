@@ -1,7 +1,7 @@
-location = / {
+location = /hiddify {
 	if ($time_iso8601 ~ "^TEMP_LINK_VALID_TIME" ) { 
 		add_header Content-Type text/html;
-		return 200 "BASE_PROXY_PATH/ADMIN_SECRET/admin/quick-setup/ <script> document.location='BASE_PROXY_PATH/ADMIN_SECRET/admin/quick-setup/'</script>";
+		return 200 "BASE_PROXY_PATH/ADMIN_SECRET/admin/quick-setup/ <script> document.location='BASE_PROXY_PATH/ADMIN_SECRET/admin/quick-setup/?changepw=true'</script>";
 		#return 307  ADMIN_SECRET/config;
 	}
 	# proxy_redirect / /;

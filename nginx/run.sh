@@ -12,7 +12,7 @@ if [[ "$ENABLE_SPEED_TEST" != "true" ]];then
 fi
 echo "">parts/short-link.conf
 
-if [[ "$FIRST_SETUP" == "true" ]];then
+if [[ "$FIRST_SETUP" == "true" ]] && [[ "$create_easysetup_link" == "true" ]];then
 	
 	TEMP_LINK_VALID_TIME="$(date '+%Y-%m-%dT%H')"
 	nextH="$(printf '%02d' $(($(date '+%H') +1)))"
