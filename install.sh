@@ -23,9 +23,14 @@ function main() {
         update_progress "Please wait..." "We are going to install Hiddify..." 0
         export ERROR=0
 
+        export PROGRESS_ACTION="Installing..."
+
+        if [ "$DO_NOT_INSTALL" != "true" ];then
+                PROGRESS_ACTION="Applying..."
+        fi
         if [ "$MODE" != "apply_users" ]; then
                 clean_files
-                update_progress "Installing..." "Common Tools and Requirements" 2
+                update_progress "${PROGRESS_ACTION}" "Common Tools and Requirements" 2
                 runsh install.sh common
                 install_run other/redis
                 install_run other/mysql
@@ -50,49 +55,49 @@ function main() {
                 update_progress "Configuring..." "System and Firewall settings" 10
                 runsh run.sh common
 
-                update_progress "installing..." "Nginx" 15
+                update_progress "${PROGRESS_ACTION}" "Nginx" 15
                 install_run nginx
 
-                update_progress "installing..." "Haproxy for Spliting Traffic" 20
+                update_progress "${PROGRESS_ACTION}" "Haproxy for Spliting Traffic" 20
                 install_run haproxy
 
-                update_progress "installing..." "Getting Certificates" 30
+                update_progress "${PROGRESS_ACTION}" "Getting Certificates" 30
                 install_run acme.sh
 
-                update_progress "installing..." "Personal SpeedTest" 35
+                update_progress "${PROGRESS_ACTION}" "Personal SpeedTest" 35
                 install_run other/speedtest
 
-                update_progress "installing..." "Telegram Proxy" 40
+                update_progress "${PROGRESS_ACTION}" "Telegram Proxy" 40
                 install_run other/telegram $ENABLE_TELEGRAM
 
-                update_progress "installing..." "FakeTlS Proxy" 45
+                update_progress "${PROGRESS_ACTION}" "FakeTlS Proxy" 45
                 install_run other/ssfaketls $ENABLE_SS
 
-                # update_progress "installing..." "V2ray WS Proxy" 50
+                # update_progress "${PROGRESS_ACTION}" "V2ray WS Proxy" 50
                 # install_run other/v2ray $ENABLE_V2RAY
 
-                update_progress "installing..." "SSH Proxy" 55
+                update_progress "${PROGRESS_ACTION}" "SSH Proxy" 55
                 install_run other/ssh $ssh_server_enable
 
-                update_progress "installing..." "ShadowTLS" 60
+                update_progress "${PROGRESS_ACTION}" "ShadowTLS" 60
                 install_run other/shadowtls $ENABLE_SHADOWTLS
 
-                update_progress "installing..." "Xray" 70
+                update_progress "${PROGRESS_ACTION}" "Xray" 70
                 install_run xray
 
-                update_progress "installing..." "Warp" 75
+                update_progress "${PROGRESS_ACTION}" "Warp" 75
                 #$([ "$WARP_MODE" != 'disable' ] || echo "false")
                 install_run other/warp
 
-                update_progress "installing..." "Wireguard" 85
+                update_progress "${PROGRESS_ACTION}" "Wireguard" 85
                 install_run other/wireguard
 
         fi
 
-        update_progress "installing..." "Singbox" 80
+        update_progress "${PROGRESS_ACTION}" "Singbox" 80
         install_run singbox
 
-        update_progress "installing..." "Almost Finished" 90
+        update_progress "${PROGRESS_ACTION}" "Almost Finished" 90
 
         echo "---------------------Finished!------------------------"
         remove_lock $NAME
@@ -100,7 +105,7 @@ function main() {
                 systemctl kill -s SIGTERM hiddify-panel
         fi
         systemctl start hiddify-panel
-        update_progress "installing..." "Done" 100
+        update_progress "${PROGRESS_ACTION}" "Done" 100
 
 }
 
