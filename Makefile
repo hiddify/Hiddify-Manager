@@ -28,6 +28,7 @@ build:
 # 	git pull'
 
 
+.PHONY: release
 release:
 	@echo "previous tag was $$(git describe --tags $$(git rev-list --tags --max-count=1))"
 	@echo "release last version $$(lastversion Hiddify-Manager) "

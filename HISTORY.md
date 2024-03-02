@@ -5,6 +5,8 @@
 
 ### New
 
+* Add more security for first login. [hiddify-com]
+
 * Add faketls. [hiddify-com]
 
 * Add shadowsocks 2022. [hiddify-com]
@@ -98,6 +100,8 @@
 * Restructure reality hysteria2 tuic port management. [hiddify]
 
 ### Fix
+
+* Bug. [hiddify-com]
 
 * Installing mysqlclient==2.2.1 with pip(upgrade pip) [Sarina]
 
@@ -484,6 +488,10 @@
 * Remove remote. [hiddify]
 
 ### Other
+
+* Update displaying install situation. [hiddify-com]
+
+* Add more secutiry. [hiddify-com]
 
 * Merge pull request #3642 from miladtavakoli/main. [Hiddify]
 
