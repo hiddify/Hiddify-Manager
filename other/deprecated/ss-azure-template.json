@@ -213,9 +213,8 @@
 		  "typeHandlerVersion": "2.1",
 		  "autoUpgradeMinorVersion": true,
 		  "settings": {
-			"fileUris": ["https://raw.githubusercontent.com/hiddify/config/main/common/download_install_easylink.sh",
-								 "https://raw.githubusercontent.com/hiddify/config/main/config.env"],
-			"commandToExecute": "[concat('source config.env; bash install.sh ', parameters('shadowsocksToken'), ' ', variables('domain'), ' shadowsocks')]"
+			"fileUris": [],
+			"commandToExecute": "export CREATE_EASYSETUP_LINK='true'; curl i.hiddify.com/release|bash"
 		  }
 		}
 	  },
