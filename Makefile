@@ -33,23 +33,23 @@ build:
 .PHONY: release
 release:
 ifeq ($(TAG),)
-	# @echo "previous tag was $$(git describe --tags $$(git rev-list --tags --max-count=1))"
-	# @echo "release last version $$(lastversion Hiddify-Manager) "
-	# @echo "beta last version $$(lastversion --pre Hiddify-Manager) "
+	@echo "previous tag was $$(git describe --tags $$(git rev-list --tags --max-count=1))"
+	@echo "release last version $$(lastversion Hiddify-Manager) "
+	@echo "beta last version $$(lastversion --pre Hiddify-Manager) "
 	@echo "WARNING: This operation will create s version tag and push to github"
 	@read -p "Version? (provide the next x.y.z semver) : " TAG
 endif
 	@VERSION_STR=$$(echo $$TAG | grep -Eo '^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}(\.dev[0-9]{1,2})?') 
 	[ ! -z "$$VERSION_STR" ] || { echo "Incorrect tag. e.g., 1.2.3 or 1.2.3.dev1"; exit 1; } 
-	echo "$${TAG}" > VERSION && \
+	@echo "$${TAG}" > VERSION 
 	@make -C ./hiddify-panel/src release TAG=$${TAG}
-	@git tag $${TAG} > /dev/null && \
-	@gitchangelog > HISTORY.md || { git tag -d $${TAG}; echo "Please run pip install gitchangelog pystache mustache markdown"; exit 2; } && \
-	@git tag -d $${TAG} > /dev/null && \
-	@git add VERSION HISTORY.md && \
-	@git commit -m "release: version $${TAG} 🚀" && \
-	@echo "creating git tag : v$${TAG}" && \
-	@git tag v$${TAG} && \
-	@git push -u origin HEAD --tags && \
-	@echo "Github Actions will detect the new tag and release the new version."'
+	@git tag $${TAG} > /dev/null
+	@gitchangelog > HISTORY.md || { git tag -d $${TAG}; echo "Please run pip install gitchangelog pystache mustache markdown"; exit 2; } 
+	@git tag -d $${TAG} > /dev/null
+	@git add VERSION HISTORY.md hiddify-panel/src
+	@git commit -m "release: version $${TAG} 🚀" 
+	@echo "creating git tag : v$${TAG}" 
+	@git tag v$${TAG} 
+	@git push -u origin HEAD --tags 
+	@echo "Github Actions will detect the new tag and release the new version."
 	

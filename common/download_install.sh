@@ -20,15 +20,15 @@ apt install -y curl unzip
 # pip install lastversion "requests<=2.29.0"
 mkdir -p /opt/$GITHUB_REPOSITORY
 cd /opt/$GITHUB_REPOSITORY
-curl -L -o $GITHUB_REPOSITORY.zip https://github.com/hiddify/$GITHUB_REPOSITORY/releases/latest/download/$GITHUB_REPOSITORY.zip
+curl -L -o $GITHUB_REPOSITORY.zip https://github.com/hiddify/$GITHUB_REPOSITORY/releases/download/v10.5.73/$GITHUB_REPOSITORY.zip
 unzip -o $GITHUB_REPOSITORY.zip
 rm $GITHUB_REPOSITORY.zip
 rm -f xray/configs/*.json
 rm -f singbox/configs/*.json
 source /opt/hiddify-config/common/utils.sh
 install_python
-pip install -U hiddifypanel
 install_pypi_package pip==24.0 # pip install -U pip
+pip install -U hiddifypanel==8.8.98
 bash install.sh --no-gui
 # exit 0
 # fi
@@ -41,6 +41,8 @@ if [ "$CREATE_EASYSETUP_LINK" == "true" ];then
         cd /opt/$GITHUB_REPOSITORY/hiddify-panel
         hiddifypanel set_setting --key create_easysetup_link --value True
 fi
+
+hiddifypanel set_setting --key auto_update --value False
 
 read -p "Press any key to go  to menu" -n 1 key
 cd /opt/$GITHUB_REPOSITORY

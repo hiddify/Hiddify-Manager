@@ -64,6 +64,15 @@ function update_panel() {
     # Set panel_update to 1 if an update is performed
 
     case "$package_mode" in
+    v.*)
+        update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
+        panel_path=$(hiddifypanel_path)
+        pip3 install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel#${package_mode}
+        pip3 install git+https://github.com/hiddify/HiddifyPanel#${package_mode}        
+        update_progress "Updated..." "Hiddify Panel to ${package_mode}" 50
+        export DISABLE_AUTO_UPDATE=true
+        return 0        
+        ;;
     develop)
         # Use the latest commit from GitHub
         latest=$(get_commit_version Hiddify-Panel)
@@ -122,6 +131,13 @@ function update_config() {
     local current_config_version=$(get_installed_config_version)
 
     case "$package_mode" in
+    v.*)        
+        update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
+        update_from_github "hiddify-manager.zip" "https://github.com/hiddify/Hiddify-Manager/archive/refs/tags/${package_mode}.zip" $latest
+        update_progress "Updated..." "Hiddify Config to $latest" 100
+        export DISABLE_AUTO_UPDATE=true
+        return 0
+        ;;
     develop)
         local latest=$(get_commit_version hiddify-manager)
         echo "DEVELOP: Current Config Version=$current_config_version -- Latest=$latest"
@@ -182,7 +198,11 @@ function post_update_tasks() {
         cd /opt/hiddify-manager/hiddify-panel
         hiddifypanel set_setting --key create_easysetup_link --value True
     fi
-
+    if [ "$DISABLE_AUTO_UPDATE" == "true" ];then
+        cd /opt/hiddify-manager/hiddify-panel
+        hiddifypanel set_setting --key auto_update --value False
+    fi
+    
     if [[ $panel_update == 0 && $config_update != 0 ]]; then
         bash /opt/hiddify-manager/apply_configs.sh --no-gui --no-log
     fi
