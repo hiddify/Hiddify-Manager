@@ -5,6 +5,8 @@
 
 ### New
 
+* Add custom version installation. [hiddify-com]
+
 * Add more security for first login. [hiddify-com]
 
 * Add faketls. [hiddify-com]
@@ -488,6 +490,8 @@
 * Remove remote. [hiddify]
 
 ### Other
+
+* Update README.md. [Hiddify]
 
 * Update displaying install situation. [hiddify-com]
 
