@@ -73,7 +73,7 @@ function update_panel() {
         export DISABLE_AUTO_UPDATE=true
         return 0        
         ;;
-    develop)
+    develop|dev)
         # Use the latest commit from GitHub
         latest=$(get_commit_version Hiddify-Panel)
 
@@ -138,7 +138,7 @@ function update_config() {
         export DISABLE_AUTO_UPDATE=true
         return 0
         ;;
-    develop)
+    develop|dev)
         local latest=$(get_commit_version hiddify-manager)
         echo "DEVELOP: Current Config Version=$current_config_version -- Latest=$latest"
         if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then

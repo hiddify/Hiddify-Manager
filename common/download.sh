@@ -1,5 +1,13 @@
 #!/bin/bash
 
+if [[ " $@ " != "--no-gui" && "$0" == "bash" ]]; then
+    echo "This script is deprecated! Please use the following command"
+    echo ""
+    echo "bash <(curl i.hiddify.com/$1)"
+    echo ""
+    exit 1
+fi
+
 echo "Downloading $@"
 
 if [[ " $@ " == *" release "* || " $@ " == *" v8 "* ]]; then
