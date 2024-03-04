@@ -2,8 +2,10 @@
 
 if [[ "$VER" != "" ]];then
     set -- $VER  $@
+
 fi
 
+echo "$0 input params are $@"
 
 
 if [[ " $@ " != "--no-gui" && "$0" == "bash" ]]; then
