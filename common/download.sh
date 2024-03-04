@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [[ "$VER" != "" ]];then
+    set -- $VER 
+fi
+
+
+
 if [[ " $@ " != "--no-gui" && "$0" == "bash" ]]; then
     echo "This script is deprecated! Please use the following command"
     echo ""
