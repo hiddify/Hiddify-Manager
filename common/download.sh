@@ -8,7 +8,7 @@ fi
 echo "$0 input params are $@"
 
 
-if [[ " $@ " != "--no-gui" ]] &&  [[ "$0" == "bash" ]]; then
+if [[ " $@ " != *"--no-gui"* ]] &&  [[ "$0" == "bash" ]]; then
     echo "This script is deprecated! Please use the following command"
     echo ""
     echo "bash <(curl i.hiddify.com/$1)"
