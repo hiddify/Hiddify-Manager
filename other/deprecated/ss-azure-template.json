@@ -214,7 +214,7 @@
 		  "autoUpgradeMinorVersion": true,
 		  "settings": {
 			"fileUris": [],
-			"commandToExecute": "export CREATE_EASYSETUP_LINK='true'; curl i.hiddify.com/release|bash"
+			"commandToExecute": "export CREATE_EASYSETUP_LINK='true'; curl i.hiddify.com/release|bash -s -- --no-gui"
 		  }
 		}
 	  },

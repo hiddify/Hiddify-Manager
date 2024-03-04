@@ -58,4 +58,4 @@ if [[ ! -e "GeoLite2-Country.mmdb" || $(find "GeoLite2-Country.mmdb" -mtime +1) 
     curl --connect-timeout 10 -L -o GeoLite2-Country.mmdb1 https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb && mv GeoLite2-Country.mmdb1 GeoLite2-Country.mmdb
 fi
 
-bash download_yt.sh &
+# bash download_yt.sh &

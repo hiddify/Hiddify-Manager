@@ -11,7 +11,7 @@ packages:
 
 runcmd:
   - cd /opt
-  - bash -c "export CREATE_EASYSETUP_LINK="true"; curl i.hiddify.com/release|bash"
+  - bash -c "export CREATE_EASYSETUP_LINK="true"; curl i.hiddify.com/release|bash -s -- --no-gui"
 
 final_message: "The system is finally up, after $UPTIME seconds"
 output: { all: "| tee -a /root/cloud-init-output.log" }
