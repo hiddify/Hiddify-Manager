@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ "$VER" != "" ]];then
-    set -- $VER 
+    set -- $VER  $@
 fi
 
 
