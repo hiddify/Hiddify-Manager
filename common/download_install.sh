@@ -42,7 +42,7 @@ if [ "$CREATE_EASYSETUP_LINK" == "true" ];then
         hiddifypanel set_setting --key create_easysetup_link --value True
 fi
 
-hiddifypanel set_setting --key auto_update --value False
+# hiddifypanel set_setting --key auto_update --value False
 
 read -p "Press any key to go  to menu" -n 1 key
 cd /opt/$GITHUB_REPOSITORY
