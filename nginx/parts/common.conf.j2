@@ -78,6 +78,8 @@ location /{{ hconfigs['proxy_path_client'] }}/ {
 }
 
 location /{{ hconfigs['proxy_path_admin'] }}/ {
+  # Fix nginx: 403 request entity is too large (backup file)
+  client_max_body_size 10M;
   include /opt/hiddify-manager/nginx/parts/proxy_to_panel.conf;
 }
 
