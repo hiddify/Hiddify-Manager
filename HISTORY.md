@@ -5,6 +5,25 @@
 
 ### Fix
 
+* Saving ipv6. [hiddify-com]
+
+* Domain longer than 64 chars. [hiddify-com]
+
+* Cert for long domains. [hiddify-com]
+
+* Wireguard behind firewall. [hiddify-com]
+
+* Self signed cert of long domains. [hiddify-com]
+
+### Other
+
+* Update firewall. [hiddify-com]
+
+
+## v10.10.14 (2024-03-07)
+
+### Fix
+
 * Set setting. [hiddify-com]
 
 * Install of version 8. [hiddify-com]
