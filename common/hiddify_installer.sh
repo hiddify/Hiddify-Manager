@@ -13,6 +13,8 @@ if [ ! -f /opt/hiddify-manager/install.sh ]; then
     rm -rf /opt/hiddify-manager
 fi
 
+
+
 if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-config/" ]; then
     mv /opt/hiddify-config /opt/hiddify-manager
     ln -s /opt/hiddify-manager /opt/hiddify-config
@@ -244,8 +246,12 @@ function update_from_github() {
     bash install.sh --no-gui --no-log
 }
 install_python
+
+
+
+
 # Run the main function and log the output
-if [[ " $@ " == *" --no-gui "* ]]; then
+if [[ " $@ " == *" --no-gui "* || "$(get_installed_panel_version) " != "10."* ]]; then
     set -- "${@/--no-gui/}"
     set_lock $NAME
     if [[ " $@ " == *" --no-log "* ]]; then
