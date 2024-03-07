@@ -501,6 +501,8 @@
 
 ### Other
 
+* Set package mode after installation. [hiddify-com]
+
 * Disable download youtube. [hiddify-com]
 
 * Fix. [hiddify-com]
