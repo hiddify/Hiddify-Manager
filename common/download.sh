@@ -18,7 +18,7 @@ fi
 
 echo "Downloading '$@'"
 
-if [[ " $@ " == *" release "* || " $@ " == *" v8 "* ]]; then
+if [[ " $@ " == *" v8 "* ]]; then
     sudo bash -c "$(curl -sLfo- https://raw.githubusercontent.com/hiddify/hiddify-config/main/common/download_install.sh)"
     exit $?
 fi
