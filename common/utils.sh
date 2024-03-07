@@ -336,8 +336,10 @@ function save_firewall() {
     mkdir -p /etc/iptables/
     iptables-save >/etc/iptables/rules.v4
     awk -i inplace '!seen[$0]++' /etc/iptables/rules.v4
+    echo "COMMIT" >> /etc/iptables/rules.v4
     ip6tables-save >/etc/iptables/rules.v6
     awk -i inplace '!seen[$0]++' /etc/iptables/rules.v6
+    echo "COMMIT" >> /etc/iptables/rules.v6
     ip6tables-restore </etc/iptables/rules.v6
     iptables-restore </etc/iptables/rules.v4
 }
