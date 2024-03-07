@@ -3,6 +3,9 @@ if [ "$(id -u)" -ne 0 ]; then
         echo 'This script must be run by root' >&2
         exit 1
 fi
+localectl set-locale LANG=C.UTF-8 >/dev/null 2>&1
+su hiddify-panel -c update-locale LANG=C.UTF-8 >/dev/null 2>&1
+
 export DEBIAN_FRONTEND=noninteractive
 
 echo "we are going to download needed files:)"
