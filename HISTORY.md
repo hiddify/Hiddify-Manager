@@ -103,6 +103,8 @@
 
 ### Fix
 
+* Nginx 403 response (upload backup) [Sarina]
+
 * B ug. [hiddify-com]
 
 * Bug. [hiddify-com]
@@ -500,6 +502,12 @@
 * Remove remote. [hiddify]
 
 ### Other
+
+* Merge branch 'main' of github.com:hiddify/Hiddify-Manager. [hiddify-com]
+
+* Merge pull request #3720 from Iam54r1n4/dev-patch25. [Hiddify]
+
+  Fix nginx 403 response (upload backup)
 
 * Set package mode after installation. [hiddify-com]
 
