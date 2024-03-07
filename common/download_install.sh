@@ -31,7 +31,7 @@ rm -f singbox/configs/*.json
 source /opt/hiddify-config/common/utils.sh
 install_python
 install_pypi_package pip==24.0 # pip install -U pip
-pip install -U hiddifypanel==8.8.98
+pip install -U hiddifypanel==8.8.99
 bash install.sh --no-gui
 # exit 0
 # fi
