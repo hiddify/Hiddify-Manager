@@ -158,8 +158,8 @@ function update_config() {
         fi
         ;;
     release)
-        error "you can not install release version 8 using this script"
-        exit 1
+        # error "you can not install release version 8 using this script"
+        # exit 1
         local latest=$(get_release_version hiddify-manager)
         echo "RELEASE: Current Config Version=$current_config_version -- Latest=$latest"
         if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
