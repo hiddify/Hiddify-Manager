@@ -83,7 +83,7 @@ function get_self_signed_cert() {
     d=$1
     if [ ${#d} -gt 64 ]; then
         echo "Domain length exceeds 64 characters. Truncating to the first 64 characters."
-        d="${d:0:64}"
+        get_self_signed_cert "${d:0:64}"
     fi
     mkdir -p ../ssl
     certificate="../ssl/$d.crt"
