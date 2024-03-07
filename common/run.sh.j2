@@ -7,30 +7,23 @@ allow_port "udp" 443
 allow_port "udp" 53
 allow_port "tcp" 53
 # allow_port "udp" 3478
-allow_port "udp" {{hconfigs['wireguard_port']}}
+allow_port "udp" {{hconfigs['wireguard_port']}} #wireguard
 
 
-add2iptables "INPUT -p udp -m udp -m conntrack --ctstatus SEEN_REPLY,ASSURED,CONFIRMED -j ACCEPT"
-add2ip6tables "INPUT -p udp -m udp -m conntrack --ctstatus SEEN_REPLY,ASSURED,CONFIRMED -j ACCEPT"
+add2iptables46 "INPUT -p udp -m conntrack --ctstatus SEEN_REPLY,ASSURED,CONFIRMED -j ACCEPT"
 
 
-add2iptables "OUTPUT -p udp -j ACCEPT"
-add2ip6tables "OUTPUT -p udp -j ACCEPT"
-
-add2iptables "OUTPUT -p tcp -j ACCEPT"
-add2ip6tables "OUTPUT -p tcp -j ACCEPT"
-
-add2iptables "INPUT -i lo -j ACCEPT"
-add2ip6tables "INPUT -i lo -j ACCEPT"
+add2iptables46 "OUTPUT -p udp -j ACCEPT"
+add2iptables46 "OUTPUT -p tcp -j ACCEPT"
+add2iptables46 "INPUT -i lo -j ACCEPT"
 
 
 {% for d in domains if d['internal_port_hysteria2'] or d['internal_port_tuic']  %}
   {% if d['internal_port_hysteria2']>0 %}
-  allow_port "udp" {{d['internal_port_hysteria2']}}
+  allow_port "udp" {{d['internal_port_hysteria2']}} #hysteria2
   {%endif%}
-
   {% if d['internal_port_tuic']>0 %}
-  allow_port "udp" {{d['internal_port_tuic']}}
+  allow_port "udp" {{d['internal_port_tuic']}} #tuic
   {%endif%}
 {%endfor%}
 
@@ -50,21 +43,18 @@ add2ip6tables "INPUT -p ipv6-icmp --icmpv6-type 2 -m conntrack --ctstate NEW -j 
 allow_apps_ports "sshd"
 allow_apps_ports "x-ui"
 
-add2iptables "INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT"
-add2ip6tables "INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT"
-
-add2iptables "INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT"
-add2ip6tables "INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT"
+add2iptables46 "INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT"
+add2iptables46 "INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT"
 
 # Check if SSH server should be enabled
 {% if hconfigs['ssh_server_enable'] %}
-  allow_port "tcp" {{hconfigs['ssh_server_port']}}
+  allow_port "tcp" {{hconfigs['ssh_server_port']}} #ssh_server
 {%else%}
-  remove_port "tcp" {{hconfigs['ssh_server_port']}}
+  remove_port "tcp" {{hconfigs['ssh_server_port']}}  #ssh_server
 {%endif%}
 
 {% for port in (hconfigs['tls_ports']+","+ hconfigs['http_ports']).split(',') if port %}
-  allow_port "tcp" {{port}}
+  allow_port "tcp" {{port}} #panel ports
 {%endfor%}
 {# {% for port in (hconfigs['tls_ports']).split(',') if port %}
   allow_port "udp" {{port}}
@@ -102,7 +92,6 @@ sudo systemctl restart ssh.service
   iptables -P FORWARD DROP
   ip6tables -P INPUT DROP
   ip6tables -P FORWARD DROP
-  # ip6tables -P INPUT ACCEPT
 {%else%}
   iptables -P INPUT ACCEPT
   iptables -P FORWARD ACCEPT

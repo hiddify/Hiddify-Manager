@@ -290,30 +290,32 @@ function check_hiddify_panel() {
     fi
 }
 
-function add2iptables() {
-    iptables -C $1 >/dev/null 2>&1 || echo "adding rule $1" && iptables -I $1
+function add2iptables46(){
+    add2iptables "$1"
+    add2iptables6 "$1"
 }
 
+function add2iptables() {
+    iptables -C $1 >/dev/null 2>&1 || echo "adding rule $1" && iptables -I $1
+
+}
 function add2ip6tables() {
     ip6tables -C $1 >/dev/null 2>&1 || echo "adding rule $1" && ip6tables -I $1
 }
 function allow_port() { #allow_port "tcp" "80"
-    add2iptables "INPUT -p $1 --dport $2 -j ACCEPT"
-    add2ip6tables "INPUT -p $1 --dport $2 -j ACCEPT"
+    add2iptables46 "INPUT -p $1 --dport $2 -j ACCEPT"
+    
     # if [[ $1 == 'udp' ]]; then
-    add2iptables "INPUT -p $1 -m $1 --dport $2 -m conntrack --ctstate NEW -j ACCEPT"
-    add2ip6tables "INPUT -p $1 -m $1 --dport $2 -m conntrack --ctstate NEW -j ACCEPT"
+    add2iptables46 "INPUT -p $1 -m $1 --dport $2 -m conntrack --ctstate NEW -j ACCEPT"
     # fi
 }
 
 function block_port() { #allow_port "tcp" "80"
-    add2iptables "INPUT -p $1 --dport $2 -j DROP"
-    add2ip6tables "INPUT -p $1 --dport $2 -j DROP"
+    add2iptables46 "INPUT -p $1 --dport $2 -j DROP"
 }
 
 function remove_port() { #allow_port "tcp" "80"
-    iptables -D INPUT -p "$1" --dport "$2"
-    ip6tables -D INPUT -p "$1" --dport "$2"
+    iptables46 -D INPUT -p "$1" --dport "$2" -j ACCEPT
 }
 
 function allow_apps_ports() {
