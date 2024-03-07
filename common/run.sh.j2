@@ -7,6 +7,8 @@ allow_port "udp" 443
 allow_port "udp" 53
 allow_port "tcp" 53
 # allow_port "udp" 3478
+allow_port "udp" {{hconfigs['wireguard_port']}}
+
 
 add2iptables "INPUT -p udp -m udp -m conntrack --ctstatus SEEN_REPLY,ASSURED,CONFIRMED -j ACCEPT"
 add2ip6tables "INPUT -p udp -m udp -m conntrack --ctstatus SEEN_REPLY,ASSURED,CONFIRMED -j ACCEPT"
