@@ -3,6 +3,15 @@
 
 ## (unreleased)
 
+### Fix
+
+* Release can not be installed. [hiddify-com]
+
+* Release. [hiddify-com]
+
+
+## v10.10.10 (2024-03-07)
+
 ### New
 
 * Add custom version installation. [hiddify-com]
