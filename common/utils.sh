@@ -292,7 +292,7 @@ function check_hiddify_panel() {
 
 function add2iptables46(){
     add2iptables "$1"
-    add2iptables6 "$1"
+    add2ip6tables "$1"
 }
 
 function add2iptables() {
@@ -315,7 +315,8 @@ function block_port() { #allow_port "tcp" "80"
 }
 
 function remove_port() { #allow_port "tcp" "80"
-    iptables46 -D INPUT -p "$1" --dport "$2" -j ACCEPT
+    iptables -D INPUT -p "$1" --dport "$2" -j ACCEPT
+    ip6tables -D INPUT -p "$1" --dport "$2" -j ACCEPT
 }
 
 function allow_apps_ports() {
