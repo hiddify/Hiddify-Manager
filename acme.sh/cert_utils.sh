@@ -80,24 +80,24 @@ function has_valid_cert() {
 
 function get_self_signed_cert() {
     cd /opt/hiddify-manager/acme.sh/
-    d=$1
+    local d=$1
     if [ ${#d} -gt 64 ]; then
         echo "Domain length exceeds 64 characters. Truncating to the first 64 characters."
         get_self_signed_cert "${d:0:64}"
     fi
     mkdir -p ../ssl
-    certificate="../ssl/$d.crt"
-    private_key="../ssl/$d.crt.key"
-    current_date=$(date +%s)
-    generate_new_cert=0
+    local certificate="../ssl/$d.crt"
+    local private_key="../ssl/$d.crt.key"
+    local current_date=$(date +%s)
+    local generate_new_cert=0
     # Check if the certificate file exists
     if [ ! -f "$certificate" ]; then
         echo "Certificate $d file not found. Generating a new certificate."
         generate_new_cert=1
     else
-        expire_date=$(openssl x509 -enddate -noout -in "$certificate" | cut -d= -f2-)
+        local expire_date=$(openssl x509 -enddate -noout -in "$certificate" | cut -d= -f2-)
         # Convert the expire date to seconds since epoch
-        expire_date_seconds=$(date -d "$expire_date" +%s)
+        local expire_date_seconds=$(date -d "$expire_date" +%s)
 
         if [ "$current_date" -ge "$expire_date_seconds" ]; then
             echo "Certificate $d is expired. Generating a new certificate."
