@@ -198,18 +198,18 @@ function post_update_tasks() {
 
     cd /opt/hiddify-manager/hiddify-panel
     if [ "$CREATE_EASYSETUP_LINK" == "true" ];then
-        hiddifypanel set_setting --key create_easysetup_link --value True
+        hiddifypanel set-setting --key create_easysetup_link --value True
     fi
 
     case "$package_mode" in
         release|beta)
-            hiddifypanel set_setting --key package_mode --value $package_mode
+            hiddifypanel set-setting --key package_mode --value $package_mode
             ;;
         dev|develop)
-            hiddifypanel set_setting --key package_mode --value develop
+            hiddifypanel set-setting --key package_mode --value develop
             ;;
         *)
-            hiddifypanel set_setting --key auto_update --value False
+            hiddifypanel set-setting --key auto_update --value False
             ;;
     esac
 

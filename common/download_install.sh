@@ -39,10 +39,10 @@ echo "/opt/$GITHUB_REPOSITORY/menu.sh" >>~/.bashrc
 echo "cd /opt/$GITHUB_REPOSITORY/" >>~/.bashrc
 if [ "$CREATE_EASYSETUP_LINK" == "true" ];then
         cd /opt/$GITHUB_REPOSITORY/hiddify-panel
-        hiddifypanel set_setting --key create_easysetup_link --value True
+        hiddifypanel set-setting --key create_easysetup_link --value True
 fi
 
-hiddifypanel set_setting --key auto_update --value False
+hiddifypanel set-setting --key auto_update --value False
 
 read -p "Press any key to go  to menu" -n 1 key
 cd /opt/$GITHUB_REPOSITORY
