@@ -5,6 +5,17 @@
 
 ### Fix
 
+* Update from panel. [hiddify-com]
+
+* Ssh lib link. [hiddify-com]
+
+* Installer. [hiddify-com]
+
+
+## v10.10.11 (2024-03-07)
+
+### Fix
+
 * Release can not be installed. [hiddify-com]
 
 * Release. [hiddify-com]
