@@ -5,6 +5,13 @@
 
 ### Fix
 
+* Bug. [hiddify-com]
+
+
+## v10.10.15 (2024-03-07)
+
+### Fix
+
 * Saving ipv6. [hiddify-com]
 
 * Domain longer than 64 chars. [hiddify-com]
