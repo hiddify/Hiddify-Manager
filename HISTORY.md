@@ -5,6 +5,23 @@
 
 ### Fix
 
+* Set setting. [hiddify-com]
+
+* Install of version 8. [hiddify-com]
+
+### Other
+
+* Fix zope not installed. [hiddify-com]
+
+* Set default locale. [hiddify-com]
+
+* Fix; disable auto update. [hiddify-com]
+
+
+## v10.10.12 (2024-03-07)
+
+### Fix
+
 * Update from panel. [hiddify-com]
 
 * Ssh lib link. [hiddify-com]
