@@ -221,7 +221,7 @@ function install_python() {
     if ! python3.10 --version &>/dev/null; then
         echo "Python 3.10 is not installed. Removing existing Python installations..."
         install_package software-properties-common
-        add_ppa_repository ppa:deadsnakes/ppa
+        add-apt-repository -y ppa:deadsnakes/ppa
         sudo apt-get -y remove python*
     fi
     install_package python3.10-dev
