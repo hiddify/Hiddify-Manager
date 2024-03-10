@@ -1,6 +1,43 @@
 # Changelog
 
 
+## (unreleased)
+
+### Changes
+
+* Restart.sh. [Sarina]
+
+* Warp status.sh. [Sarina]
+
+* Restart.sh & status.sh  output. [Sarina]
+
+* Restart.sh output. [Sarina]
+
+* Status output format. [Sarina]
+
+### Fix
+
+* Restart script. [Sarina]
+
+* Python install. [hiddify-com]
+
+### Other
+
+* Merge pull request #3779 from Iam54r1n4/dev-patch29. [Hiddify]
+
+  Change restart.sh output
+
+* Update restart.sh. [Hiddify]
+
+* Merge pull request #3776 from Iam54r1n4/dev-patch29. [Hiddify]
+
+  Change in restart.sh & status.sh
+
+* Add: more services to restart script. [Sarina]
+
+* Add: telegram service to status script. [Sarina]
+
+
 ## v10.10.16 (2024-03-07)
 
 ### Fix
