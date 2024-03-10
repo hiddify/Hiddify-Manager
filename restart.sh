@@ -6,7 +6,7 @@ source ./common/utils.sh
 
 function main() {
 	echo -e "\n----------------------------------------------------------------"
-	warning "$(printf "%-30s %-20s %s \n\n" "Name" "Old Status" "New Status")\n"
+	warning "$(printf "%-30s %-20s %s \n\n" "Name" "Old Status" "New Status")"
 
 	# Restart services and get their status (except hiddify-panel)
     for s in other/**/*.service **/*.service wg-quick@warp mtproto-proxy.service mtproxy.service;do
