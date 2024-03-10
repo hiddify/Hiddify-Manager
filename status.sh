@@ -19,8 +19,8 @@ echo -e "\n----------------------------------------------------------------"
 bash other/warp/status.sh
 
 echo "----------------------------------------------------------------"
-warning "- Your Global IP"
-curl -s -x socks://127.0.0.1:1234 --connect-timeout 1 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query | sed 's|^|  |; /[{}]/d'
+warning "- Global IP"
+curl -s -x socks://127.0.0.1:1234 --connect-timeout 1 http://ip-api.com?fields=country,city,org,query | sed 's|^|  |; /[{}]/d'
 echo "----------------------------------------------------------------"
 
 warning "- Services Status:"

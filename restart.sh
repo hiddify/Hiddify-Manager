@@ -5,8 +5,8 @@ cd $( dirname -- "$0"; )
 source ./common/utils.sh
 
 function main() {
-	before_stats=""
-	after_stats=""
+	echo -e "\n----------------------------------------------------------------"
+	warning "$(printf "%-30s %-20s %s \n" "Name" "Old Status" "New Status")"
 
 	# Restart services and get their status (except hiddify-panel)
     for s in other/**/*.service **/*.service wg-quick@warp mtproto-proxy.service mtproxy.service;do
@@ -16,23 +16,17 @@ function main() {
 			continue;
 		fi
 		if systemctl is-enabled $s >/dev/null 2>&1 ; then
-			before_stats+=$(printf "%-30s %-30s %30s" $s $(get_pretty_service_status $s 2>&1) "\n")
+			before_stat=$(get_pretty_service_status $s 2>&1)
 			systemctl restart "$s"
-			after_stats+=$(printf "%-30s %-30s %30s" $s $(get_pretty_service_status $s 2>&1) "\n")
+			printf "%-30s %-20s ---> %+19s \n" $s $before_stat $(get_pretty_service_status $s 2>&1)
 		fi
     done
-	
-	# Restart hiddify-panel separately from others
-	before_stats+=$(printf "%-30s %-30s %30s" hiddify-panel $(get_pretty_service_status hiddify-panel 2>&1) "\n")
-	systemctl restart hiddify-panel &
-	after_stats+=$(printf "%-30s %-30s %30s" hiddify-panel $(get_pretty_service_status hiddify-panel 2>&1) "\n")
 
-	echo -e "\n----------------------------------------------------------------"
-	warning "- Services Status Before Restart:"
-	printf "$before_stats"
-	echo "----------------------------------------------------------------"
-	success "- Services Status After Restart:"
-	printf "$after_stats"
+	# Restart hiddify-panel separately from others
+	before_stat=$(get_pretty_service_status hiddify-panel 2>&1)
+	systemctl restart hiddify-panel &
+	printf "%-30s %-20s ---> %+19s \n" hiddify-panel $before_stat $(get_pretty_service_status hiddify-panel 2>&1)
+	
 	echo -e "----------------------------------------------------------------\n"
 }
 mkdir -p log/system/
