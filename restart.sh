@@ -6,7 +6,7 @@ source ./common/utils.sh
 
 function main() {
 	echo -e "\n----------------------------------------------------------------"
-	warning "- Services Status:"
+	warning "$(printf "%-30s %-20s %s \n\n" "Name" "Old Status" "New Status")\n"
 
 	# Restart services and get their status (except hiddify-panel)
     for s in other/**/*.service **/*.service wg-quick@warp mtproto-proxy.service mtproxy.service;do
@@ -18,14 +18,14 @@ function main() {
 		if systemctl is-enabled $s >/dev/null 2>&1 ; then
 			before_stat=$(get_pretty_service_status $s 2>&1)
 			systemctl restart "$s"
-			printf "%-30s %-10s ---> %s \n" $s $before_stat $(get_pretty_service_status $s 2>&1)
+			printf "%-30s %-20s ---> %+19s \n" $s $before_stat $(get_pretty_service_status $s 2>&1)
 		fi
     done
 
 	# Restart hiddify-panel separately from others
 	before_stat=$(get_pretty_service_status hiddify-panel 2>&1)
 	systemctl restart hiddify-panel &
-	printf "%-30s %-10s ---> %s \n" hiddify-panel $before_stat $(get_pretty_service_status hiddify-panel 2>&1)
+	printf "%-30s %-20s ---> %+19s \n" hiddify-panel $before_stat $(get_pretty_service_status hiddify-panel 2>&1)
 	
 	echo -e "----------------------------------------------------------------\n"
 }
