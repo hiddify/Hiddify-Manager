@@ -1,4 +1,7 @@
 #!/bin/bash
+cd $( dirname -- "$0"; )
+source ./common/utils.sh
+
 function main(){
 # XRAY_NEW_CONFIG_ERROR=0
 # xray run -test -confdir xray/configs > /dev/null 2>&1
@@ -11,22 +14,28 @@ function main(){
 
 
 # systemctl status --no-pager hiddify-nginx hiddify-xray hiddify-singbox hiddify-haproxy|cat
+echo -e "\n----------------------------------------------------------------"
 
 bash other/warp/status.sh
 
-echo "Your Global IP"
-curl -s -x socks://127.0.0.1:1234 --connect-timeout 1 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
+echo "----------------------------------------------------------------"
+warning "- Your Global IP"
+curl -s -x socks://127.0.0.1:1234 --connect-timeout 1 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query | sed 's|^|  |; /[{}]/d'
+echo "----------------------------------------------------------------"
 
-
+warning "- Services Status:"
 
 for s in other/**/*.service **/*.service wg-quick@warp;do
 	s=${s##*/}
 	s=${s%%.*}
 	if systemctl is-enabled $s >/dev/null 2>&1 ; then
-		printf "%-30s %-30s \n" $s $(systemctl is-active $s)
+		printf "    %-30s" "$s"
+		get_pretty_service_status $s
+		
 	fi
 done
 
+echo "----------------------------------------------------------------"
 
 # echo "ignoring xray test"
 
@@ -41,5 +50,6 @@ done
 # 	echo "There is a big error in xray configuration."
 # fi
 }
+
 mkdir -p log/system/
 main |& tee log/system/status.log

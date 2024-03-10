@@ -69,6 +69,13 @@ function success() {
     echo -e "\033[92m$1\033[0m" >&2
 }
 
+function get_pretty_service_status() {
+    if systemctl is-active --quiet $1; then
+        success "active"
+	else
+        error "inactive"
+	fi
+}
 function add_DNS_if_failed() {
     # Domain to check
     DOMAIN="yahoo.com"
