@@ -97,3 +97,15 @@ backend reality_h2_{{port}}
     mode tcp
     server singbox 127.0.0.1:{{port}} send-proxy-v2
 {%endfor%}
+
+
+
+
+backend vmesshu
+  server vmesshu 127.0.0.1:2034 send-proxy-v2  tfo 
+
+backend vlesshu
+  server vlesshu 127.0.0.1:2024 send-proxy-v2 tfo 
+
+backend trojanhu
+  server trojanw 127.0.0.1:2014 send-proxy-v2 tfo 
