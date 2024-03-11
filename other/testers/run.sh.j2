@@ -1,12 +1,27 @@
 #!/bin/bash
-pkill HiddifyCli > /dev/null
+
+
+touch /opt/hiddify-manager/log/system/hiddify-cli.out.log
+touch /opt/hiddify-manager/log/system/hiddify-cli.err.log
 
 echo "Running HiddifyCli..."
 
 panel_domain=$(echo "{{ panel_links[panel_links|length -1] }}" | sed 's|^https\?://\([^/]\+\).*|\1|')
 proxy_path={{ hconfigs['proxy_path_client'] }}
 user_uuid={{ users[0]['uuid'] }}
-sub_link="https://$panel_domain/$proxy_path/$user_uuid/auto/"
 
-./HiddifyCli run -c $sub_link > /dev/null &
-echo "The HiddifyCli is running on port: 6756"
+sub_link="https://$panel_domain/$proxy_path/$user_uuid/auto/"
+echo $sub_link > SUB_LINK
+
+# TODO: refactor
+systemctl stop hiddify-cli.service
+pkill HiddifyCli
+fuser -k 6756/tcp
+fuser -k 2334/tcp
+
+systemctl start hiddify-cli.service
+if [ $? -eq 0 ]; then
+    echo "The HiddifyCli is running"
+else
+    echo "Failed to run The HiddifyCli"
+fi
