@@ -7,19 +7,34 @@ touch /opt/hiddify-manager/log/system/hiddify-cli.err.log
 echo "Running HiddifyCli..."
 
 panel_domain=$(echo "{{ panel_links[panel_links|length -1] }}" | sed 's|^https\?://\([^/]\+\).*|\1|')
-proxy_path={{ hconfigs['proxy_path_client'] }}
+panel_domain=https://$panel_domain
+client_proxy_path={{ hconfigs['proxy_path_client'] }}
 user_uuid={{ users[0]['uuid'] }}
+admin_proxy_path={{ hconfigs['proxy_path_admin'] }}
 
-sub_link="https://$panel_domain/$proxy_path/$user_uuid/auto/"
+# Write sub link to file
+sub_link="$panel_domain/$client_proxy_path/$user_uuid/singbox/"
 echo $sub_link > SUB_LINK
 
-# TODO: refactor
-systemctl stop hiddify-cli.service
-pkill HiddifyCli
-fuser -k 6756/tcp
-fuser -k 2334/tcp
+# Inject redirection script to index.html
+url="$panel_domain/$admin_proxy_path/proxy-stats/api/"
+script=$(cat <<EOF
+<script>
+    var parameters = "?hostname=$url&port=443";
+    if (!window.location.href.includes(parameters)) {
+        var newUrl = window.location.href + parameters;
+        window.location.href = newUrl;
+    }
+</script>
+EOF
+)
+if ! grep -Fxq "$script" webui/index.html; then
+    echo -e "\n$script" >> webui/index.html
+fi
 
-systemctl start hiddify-cli.service
+systemctl stop hiddify-cli.service
+sleep 0.5
+systemctl restart hiddify-cli.service
 if [ $? -eq 0 ]; then
     echo "The HiddifyCli is running"
 else

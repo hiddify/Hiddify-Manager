@@ -62,7 +62,7 @@ function main() {
                 install_run haproxy
 
                 update_progress "${PROGRESS_ACTION}" "Getting Certificates" 30
-                install_run acme.sh
+                #install_run acme.sh
 
                 update_progress "${PROGRESS_ACTION}" "Personal SpeedTest" 35
                 install_run other/speedtest
