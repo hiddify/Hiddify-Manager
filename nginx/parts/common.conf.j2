@@ -84,7 +84,8 @@ location /{{ hconfigs['proxy_path_admin'] }}/ {
 }
 
 location /{{ hconfigs['proxy_path_admin'] }}/proxy-stats/ {
-  proxy_pass http://localhost:6756/?secret=hiddify;
+  proxy_pass http://localhost:6756/;
+  proxy_redirect ~^(.*)$ /XnXduIyxlx0ipgwlmSre9E/proxy-stats$1;
 }
 
 resolver 8.8.8.8;
