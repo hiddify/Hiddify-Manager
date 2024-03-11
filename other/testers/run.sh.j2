@@ -1,0 +1,13 @@
+#!/bin/bash
+pkill Hiddifycli > /dev/null
+
+echo "Running HiddifyCli..."
+
+panel_domain=$(echo "{{ panel_links[panel_links|length -1] }}" | sed 's|^https\?://\([^/]\+\).*|\1|')
+user_proxy_path={{ hconfigs['proxy_path_client'] }}
+first_user_uuid={{ users[0]['uuid'] }}
+admin_proxy_path={{ hconfigs['proxy_path_admin'] }}
+sub_link="https://$panel_domain/$user_proxy_path/$first_user_uuid/auto/"
+
+./HiddifyCli run -c $sub_link > /dev/null &
+echo "The HiddifyCli is running on port: 6756"

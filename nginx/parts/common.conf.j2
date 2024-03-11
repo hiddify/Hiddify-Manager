@@ -83,5 +83,8 @@ location /{{ hconfigs['proxy_path_admin'] }}/ {
   include /opt/hiddify-manager/nginx/parts/proxy_to_panel.conf;
 }
 
+location /{{ hconfigs['proxy_path_admin'] }}/proxy-stats/ {
+  proxy_pass http://localhost:6756/?secret=hiddify;
+}
 
 resolver 8.8.8.8;
