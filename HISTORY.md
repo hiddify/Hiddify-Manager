@@ -1,6 +1,25 @@
 # Changelog
 
 
+## (unreleased)
+
+### New
+
+* Add http upgrade in xray. [hiddify-com]
+
+### Other
+
+* Upgrade to xray 1.8.9. [hiddify-com]
+
+* Upgrade to singbox 1.8.8. [hiddify-com]
+
+* Merge pull request #3781 from Iam54r1n4/patch-1. [Hiddify]
+
+  Update status.sh
+
+* Update status.sh. [I'm Sarina Esmailzadeh Too]
+
+
 ## v10.10.18 (2024-03-10)
 
 ### Changes
