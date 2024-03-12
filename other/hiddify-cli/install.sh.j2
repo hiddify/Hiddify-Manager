@@ -18,5 +18,11 @@ else
     echo "HiddifyCli is installed"
 fi
 
+# Create systemd env file
+PANEL_DOMAIN=$(echo "{{ panel_links[panel_links|length -1] }}" | sed 's|^https\?://\([^/]\+\).*|\1|')
+PANEL_DOMAIN=https://$PANEL_DOMAIN
+SUB_LINK="$PANEL_DOMAIN/{{ hconfigs['proxy_path_client'] }}/{{ users[0]['uuid'] }}/singbox/"
+echo "SUB_LINK=$SUB_LINK" > .env
+
 ln -sf /opt/hiddify-manager/other/hiddify-cli/hiddify-cli.service /etc/systemd/system/hiddify-cli.service
 systemctl enable hiddify-cli.service
