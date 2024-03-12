@@ -417,18 +417,3 @@ backend v2rayw_h2
   server v2rayw 127.0.0.1:1020  tfo 
 
 
-
-
-
-
-
-
-
-backend vmesshu
-  server vmesshu 127.0.0.1:2034 send-proxy-v2  tfo 
-
-backend vlesshu
-  server vlesshu 127.0.0.1:2024 send-proxy-v2 tfo 
-
-backend trojanhu
-  server trojanw 127.0.0.1:2014 send-proxy-v2 tfo 

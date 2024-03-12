@@ -1,6 +1,62 @@
 # Changelog
 
 
+## (unreleased)
+
+### New
+
+* Add http upgrade in xray. [hiddify-com]
+
+### Other
+
+* Upgrade to xray 1.8.9. [hiddify-com]
+
+* Upgrade to singbox 1.8.8. [hiddify-com]
+
+* Merge pull request #3781 from Iam54r1n4/patch-1. [Hiddify]
+
+  Update status.sh
+
+* Update status.sh. [I'm Sarina Esmailzadeh Too]
+
+
+## v10.10.18 (2024-03-10)
+
+### Changes
+
+* Restart.sh. [Sarina]
+
+* Warp status.sh. [Sarina]
+
+* Restart.sh & status.sh  output. [Sarina]
+
+* Restart.sh output. [Sarina]
+
+* Status output format. [Sarina]
+
+### Fix
+
+* Restart script. [Sarina]
+
+* Python install. [hiddify-com]
+
+### Other
+
+* Merge pull request #3779 from Iam54r1n4/dev-patch29. [Hiddify]
+
+  Change restart.sh output
+
+* Update restart.sh. [Hiddify]
+
+* Merge pull request #3776 from Iam54r1n4/dev-patch29. [Hiddify]
+
+  Change in restart.sh & status.sh
+
+* Add: more services to restart script. [Sarina]
+
+* Add: telegram service to status script. [Sarina]
+
+
 ## v10.10.16 (2024-03-07)
 
 ### Fix

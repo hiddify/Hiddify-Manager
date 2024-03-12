@@ -145,3 +145,15 @@ backend reality_h2_{{port}}
     mode tcp
     server xray abns@realityinh2_{{port}} send-proxy-v2
 {%endfor%}    
+
+
+
+
+backend vmesshu
+  server vmesshu abns@vmess-httpu send-proxy-v2 
+
+backend vlesshu  
+  server vlesshu abns@vless-httpu send-proxy-v2 
+
+backend trojanhu
+  server trojanw abns@trojan-httpu send-proxy-v2
