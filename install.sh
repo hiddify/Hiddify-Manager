@@ -92,12 +92,15 @@ function main() {
                 update_progress "${PROGRESS_ACTION}" "Wireguard" 85
                 install_run other/wireguard
 
+                update_progress "${PROGRESS_ACTION}" "HiddifyCli" 90
+                install_run other/hiddify-cli
+
         fi
 
-        update_progress "${PROGRESS_ACTION}" "Singbox" 80
+        update_progress "${PROGRESS_ACTION}" "Singbox" 95
         install_run singbox
 
-        update_progress "${PROGRESS_ACTION}" "Almost Finished" 90
+        update_progress "${PROGRESS_ACTION}" "Almost Finished" 98
 
         echo "---------------------Finished!------------------------"
         remove_lock $NAME
