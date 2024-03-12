@@ -24,6 +24,12 @@ fi
 # TODO: it'll back to the old title after few seconds
 #sed -i 's|<title>yacd</title>|<title>Hiddify Cli \| Admin \| Hiddify Manager</title>|g' webui/index.html
 
+# Create systemd env file
+PANEL_DOMAIN=$(echo "{{ panel_links[panel_links|length -1] }}" | sed 's|^https\?://\([^/]\+\).*|\1|')
+PANEL_DOMAIN=https://$PANEL_DOMAIN
+SUB_LINK="$PANEL_DOMAIN/{{ hconfigs['proxy_path_client'] }}/{{ users[0]['uuid'] }}/singbox/"
+echo "SUB_LINK=$SUB_LINK" > .env
+
 systemctl restart hiddify-cli.service
 if [ $? -eq 0 ]; then
     echo "The HiddifyCli is running"
