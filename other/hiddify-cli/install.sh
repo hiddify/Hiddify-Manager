@@ -18,5 +18,5 @@ else
     echo "HiddifyCli is installed"
 fi
 
-ln -sf /opt/hiddify-manager/other/testers/hiddify-cli.service /etc/systemd/system/hiddify-cli.service
+ln -sf /opt/hiddify-manager/other/hiddify-cli/hiddify-cli.service /etc/systemd/system/hiddify-cli.service
 systemctl enable hiddify-cli.service

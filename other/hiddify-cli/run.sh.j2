@@ -31,6 +31,8 @@ EOF
 if ! grep -Fxq "$script" webui/index.html; then
     echo -e "\n$script" >> webui/index.html
 fi
+# TODO: it'll back to the old title after few seconds
+#sed -i 's|<title>yacd</title>|<title>Hiddify Cli \| Admin \| Hiddify Manager</title>|g' webui/index.html
 
 systemctl stop hiddify-cli.service
 sleep 0.5

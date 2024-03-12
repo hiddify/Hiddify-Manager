@@ -5,7 +5,7 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-WorkingDirectory=/opt/hiddify-manager/other/testers/
+WorkingDirectory=/opt/hiddify-manager/other/hiddify-cli/
 ExecStart=/bin/bash -c 'SUB_LINK=$(cat SUB_LINK) && ./HiddifyCli run -c $SUB_LINK -h config.json'
 StandardOutput=file:/opt/hiddify-manager/log/system/hiddify-cli.out.log
 StandardError=file:/opt/hiddify-manager/log/system/hiddify-cli.err.log
