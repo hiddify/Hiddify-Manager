@@ -1,20 +1,10 @@
 #!/bin/bash
 
-
-touch /opt/hiddify-manager/log/system/hiddify-cli.out.log
-touch /opt/hiddify-manager/log/system/hiddify-cli.err.log
-
 echo "Running HiddifyCli..."
 
 panel_domain=$(echo "{{ panel_links[panel_links|length -1] }}" | sed 's|^https\?://\([^/]\+\).*|\1|')
 panel_domain=https://$panel_domain
-client_proxy_path={{ hconfigs['proxy_path_client'] }}
-user_uuid={{ users[0]['uuid'] }}
 admin_proxy_path={{ hconfigs['proxy_path_admin'] }}
-
-# Write sub link to file
-sub_link="$panel_domain/$client_proxy_path/$user_uuid/singbox/"
-echo $sub_link > SUB_LINK
 
 # Inject redirection script to index.html
 url="$panel_domain/$admin_proxy_path/proxy-stats/api/"
