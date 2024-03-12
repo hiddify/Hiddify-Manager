@@ -62,7 +62,7 @@ function main() {
                 install_run haproxy
 
                 update_progress "${PROGRESS_ACTION}" "Getting Certificates" 30
-                #install_run acme.sh
+                install_run acme.sh
 
                 update_progress "${PROGRESS_ACTION}" "Personal SpeedTest" 35
                 install_run other/speedtest
@@ -93,7 +93,7 @@ function main() {
                 install_run other/wireguard
 
                 update_progress "${PROGRESS_ACTION}" "HiddifyCli" 90
-                install_run other/testers
+                install_run other/hiddify-cli
 
         fi
 
