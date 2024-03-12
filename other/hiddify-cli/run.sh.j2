@@ -2,25 +2,6 @@
 
 echo "Running HiddifyCli..."
 
-panel_domain=$(echo "{{ panel_links[panel_links|length -1] }}" | sed 's|^https\?://\([^/]\+\).*|\1|')
-panel_domain=https://$panel_domain
-admin_proxy_path={{ hconfigs['proxy_path_admin'] }}
-
-# Inject redirection script to index.html
-url="$panel_domain/$admin_proxy_path/proxy-stats/api/"
-script=$(cat <<EOF
-<script>
-    var parameters = "?hostname=$url&port=443";
-    if (!window.location.href.includes(parameters)) {
-        var newUrl = window.location.href + parameters;
-        window.location.href = newUrl;
-    }
-</script>
-EOF
-)
-if ! grep -Fxq "$script" webui/index.html; then
-    echo -e "\n$script" >> webui/index.html
-fi
 # TODO: it'll back to the old title after few seconds
 #sed -i 's|<title>yacd</title>|<title>Hiddify Cli \| Admin \| Hiddify Manager</title>|g' webui/index.html
 
