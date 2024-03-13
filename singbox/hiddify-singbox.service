@@ -11,7 +11,7 @@ ExecReload=/bin/kill -HUP $MAINPID
 Restart=always
 RestartSec=5
 LimitNOFILE=infinity
-StandardOutput=file:/opt/hiddify-manager/log/system/singbox.out.log
-StandardError=file:/opt/hiddify-manager/log/system/singbox.err.log
+#StandardOutput=file:/opt/hiddify-manager/log/system/singbox.out.log
+#StandardError=file:/opt/hiddify-manager/log/system/singbox.err.log
 [Install]
 WantedBy=multi-user.target

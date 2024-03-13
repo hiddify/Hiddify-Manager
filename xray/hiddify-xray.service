@@ -15,10 +15,10 @@ RestartSec=3
 #ExecReload=/bin/sh -c "/opt/hiddify-manager/xray/bin/xray run -test -confdir /opt/hiddify-manager/xray/configs/ && systemctl restart hiddify-xray"
 Restart=always
 #RestartPreventExitStatus=23
-StandardOutput=file:/opt/hiddify-manager/log/system/xray.out.log
-StandardError=file:/opt/hiddify-manager/log/system/xray.err.log
-LimitNPROC=10000
-LimitNOFILE=1000000
+#StandardOutput=file:/opt/hiddify-manager/log/system/xray.out.log
+#StandardError=file:/opt/hiddify-manager/log/system/xray.err.log
+LimitNOFILE=infinity
+OOMScoreAdjust=-1000
 
 [Install]
 WantedBy=multi-user.target
