@@ -3,6 +3,59 @@
 
 ## (unreleased)
 
+### Changes
+
+* Generate .env file in run.sh. [Sarina]
+
+* Src to last commit. [Sarina]
+
+* Refactor (add env file to service) [Sarina]
+
+* More reasonable name. [Sarina]
+
+* Make hiddify-cli a service. [Sarina]
+
+### Fix
+
+* Xray issue. [hiddify-com]
+
+* Hiddify-cli nginx location. [Sarina]
+
+* Typo. [Sarina]
+
+### Other
+
+* Disable logging to file. [hiddify-com]
+
+* Merge pull request #3806 from Iam54r1n4/dev-patch35. [Hiddify]
+
+  Refactor hiddify-cli
+
+* Del: unused code. [Sarina]
+
+* Merge pull request #3805 from Iam54r1n4/dev-patch35. [Hiddify]
+
+  add hiddify cli
+
+* Del: unused command. [Sarina]
+
+* Del: unused things. [Sarina]
+
+* Merge branch 'main' into dev-patch35. [Sarina]
+
+* Del: test comment. [Sarina]
+
+* Add: redirection. [Sarina]
+
+* Add: config file. [Sarina]
+
+* Chg. [Sarina]
+
+* Add: hiddify-next-core(Hiddify Cli) [Sarina]
+
+
+## v10.10.20 (2024-03-11)
+
 ### New
 
 * Add http upgrade in xray. [hiddify-com]
