@@ -36,6 +36,8 @@ def write_records_to_bash_file(records: List[Dict[str, Any]]) -> bool:
             f.write("#!/bin/bash\n")
             for record in records:
                 f.write(f"{record['key'].upper()}={'true' if record['value']==1 else 'false'}\n")
+
+        os.chmod(ENV_PATH, 0o600)
         return True
     except:
         return False
