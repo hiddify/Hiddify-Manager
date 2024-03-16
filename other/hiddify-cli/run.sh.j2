@@ -12,8 +12,3 @@ SUB_LINK="$PANEL_DOMAIN/{{ hconfigs['proxy_path_client'] }}/{{ users[0]['uuid'] 
 echo "SUB_LINK=$SUB_LINK" > .env
 
 systemctl restart hiddify-cli.service
-if [ $? -eq 0 ]; then
-    echo "The HiddifyCli is running"
-else
-    echo "Failed to run The HiddifyCli"
-fi
