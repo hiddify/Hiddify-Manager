@@ -389,3 +389,33 @@ function remove_lock() {
     LOCK_FILE=$LOCK_DIR/$1.lock
     rm -f $LOCK_FILE >/dev/null 2>&1
 }
+
+function set_essential_vars_from_hpanel() {
+    local json_file="/opt/hiddify-manager/current.json"
+    
+    # Check if the file exists
+    if [ ! -f "$json_file" ]; then
+        echo "Error: JSON file not found: $json_file"
+        return 1
+    fi
+
+    # Extract essential variables
+    local essential_vars=$(jq -r '.chconfigs["0"] | to_entries[] | select(.value | type == "boolean") | .key' "$json_file")
+
+    # Set Bash variables with uppercase keys
+    for var in $essential_vars; do
+        local uppercase_var=$(echo "$var" | tr '[:lower:]' '[:upper:]')
+        local value=$(jq -r --arg var "$var" '.chconfigs["0"][$var]' "$json_file")
+
+        # Convert JSON true/false values to Bash true/false values
+        if [ "$value" == "true" ]; then
+            value="true"
+        else
+            value="false"
+        fi
+
+        # Set Bash variable
+        #echo "Setting Bash variable: $uppercase_var=$value"
+        eval "$uppercase_var=$value"
+    done
+}

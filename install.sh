@@ -45,10 +45,6 @@ function main() {
         # source common/set_config_from_hpanel.sh
         update_progress "HiddifyPanel" "Reading Configs from Panel..." 5
         set_config_from_hpanel
-
-        # Generate and apply env
-        python3 ./gen_env.py
-        source .env 2> /dev/null
         
         update_progress "Applying Configs" "..." 8
 
@@ -144,6 +140,13 @@ function set_config_from_hpanel() {
 
         export SERVER_IP=$(curl --connect-timeout 1 -s https://v4.ident.me/)
         export SERVER_IPv6=$(curl --connect-timeout 1 -s https://v6.ident.me/)
+
+        # Set essential vars
+        set_essential_vars_from_hpanel
+        if [ $? -ne 0 ]; then
+            error "Exception in Hiddify Panel. Please send the log to hiddify@gmail.com"
+            exit 5
+        fi
 }
 
 function install_run() {
