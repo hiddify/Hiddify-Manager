@@ -3,6 +3,13 @@
 
 ## (unreleased)
 
+### Other
+
+* Remove test and deprecated gost. [hiddify-com]
+
+
+## v10.11.0 (2024-03-15)
+
 ### Changes
 
 * Generate .env file in run.sh. [Sarina]
