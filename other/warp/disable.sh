@@ -1,0 +1,1 @@
+cd wireguard&&bash disable.sh

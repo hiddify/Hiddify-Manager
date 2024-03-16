@@ -46,6 +46,10 @@ function main() {
         update_progress "HiddifyPanel" "Reading Configs from Panel..." 5
         set_config_from_hpanel
 
+        # Generate and apply env
+        python3 ./gen_env.py
+        source .env 2> /dev/null
+        
         update_progress "Applying Configs" "..." 8
 
         bash common/replace_variables.sh
@@ -65,35 +69,35 @@ function main() {
                 install_run acme.sh
 
                 update_progress "${PROGRESS_ACTION}" "Personal SpeedTest" 35
-                install_run other/speedtest
+                install_run other/speedtest $SPEED_TEST
 
                 update_progress "${PROGRESS_ACTION}" "Telegram Proxy" 40
-                install_run other/telegram $ENABLE_TELEGRAM
+                install_run other/telegram $TELEGRAM_ENABLE
 
                 update_progress "${PROGRESS_ACTION}" "FakeTlS Proxy" 45
-                install_run other/ssfaketls $ENABLE_SS
+                install_run other/ssfaketls $SSFAKETLS_ENABLE
 
                 # update_progress "${PROGRESS_ACTION}" "V2ray WS Proxy" 50
                 # install_run other/v2ray $ENABLE_V2RAY
 
                 update_progress "${PROGRESS_ACTION}" "SSH Proxy" 55
-                install_run other/ssh $ssh_server_enable
+                install_run other/ssh $SSH_SERVER_ENABLE
 
                 update_progress "${PROGRESS_ACTION}" "ShadowTLS" 60
-                install_run other/shadowtls $ENABLE_SHADOWTLS
+                install_run other/shadowtls $SHADOWTLS_ENABLE
 
                 update_progress "${PROGRESS_ACTION}" "Xray" 70
                 install_run xray
 
                 update_progress "${PROGRESS_ACTION}" "Warp" 75
                 #$([ "$WARP_MODE" != 'disable' ] || echo "false")
-                install_run other/warp
+                install_run other/warp $WARP_ENABLE
 
                 update_progress "${PROGRESS_ACTION}" "Wireguard" 85
-                install_run other/wireguard
+                install_run other/wireguard $WIREGUARD_ENABLE
 
                 update_progress "${PROGRESS_ACTION}" "HiddifyCli" 90
-                install_run other/hiddify-cli
+                install_run other/hiddify-cli $HIDDIFYCLI_ENABLE
 
         fi
 
@@ -157,7 +161,7 @@ function install_run() {
 function runsh() {
         command=$1
         if [[ $3 == "false" ]]; then
-                command=uninstall.sh
+                command=disable.sh
         fi
         pushd $2 >>/dev/null
         # if [[ $? != 0]];then

@@ -3,7 +3,7 @@ ln -sf $(pwd)/hiddify-warp.service /etc/systemd/system/hiddify-warp.service
 systemctl enable hiddify-warp.service
 
 # if [[ $warp_mode == 'disabled' ]];then
-#   bash uninstall.sh
+#   bash disable.sh
 # else
 
 if ! [ -f "wgcf-account.toml" ];then

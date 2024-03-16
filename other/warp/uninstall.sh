@@ -1,1 +1,0 @@
-cd wireguard&&bash uninstall.sh
