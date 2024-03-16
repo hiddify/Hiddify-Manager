@@ -4,11 +4,13 @@
 # sed -i "s|REALITY_SERVER_NAMES|server $REALITY_SERVER_NAMES_HAPROXY|g" haproxy.cfg
 
 #
+source ../common/utils.sh
+set_domains_vars_from_hpanel
 
-domains=$(cat ../current.json | jq -r '.domains[] | select(.mode | IN("direct", "cdn", "worker", "relay", "auto_cdn_ip", "old_xtls_direct", "sub_link_only", "fake")) | .domain')
+all_domains="$DOMAINS $FAKE_DOMAINS"
 # we need at least one ssl certificate to be able to run haproxy
-for d in $domains; do
-  bash ../acme.sh/generate_self_signed_cert.sh $d
+for d in $all_domains; do
+    bash ../acme.sh/generate_self_signed_cert.sh $d
 done
 
 # systemctl reload hiddify-haproxy

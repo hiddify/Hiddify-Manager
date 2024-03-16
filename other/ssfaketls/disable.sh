@@ -1,5 +1,5 @@
-systemctl stop ss-v2ray.service
-systemctl stop ss-faketls.service
+systemctl stop ss-v2ray.service > /dev/null 2>&1
+systemctl stop ss-faketls.service > /dev/null 2>&1
 
-systemctl disable ss-v2ray.service
-systemctl disable ss-faketls.service
+systemctl disable ss-v2ray.service > /dev/null 2>&1
+systemctl disable ss-faketls.service > /dev/null 2>&1

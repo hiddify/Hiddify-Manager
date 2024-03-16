@@ -1,5 +1,5 @@
 
-systemctl stop mtproxy
-systemctl disable mtproxy
-systemctl stop mtproto-proxy
-systemctl disable mtproto-proxy
+systemctl stop mtproxy > /dev/null 2>&1
+systemctl disable mtproxy > /dev/null 2>&1
+systemctl stop mtproto-proxy > /dev/null 2>&1
+systemctl disable mtproto-proxy > /dev/null 2>&1
