@@ -393,7 +393,7 @@ function remove_lock() {
 
 function hconfig() {
     local json_file="/opt/hiddify-manager/current.json"
-    [ ! -f "$json_file" ] && {echo "config file not found"; return 1;}
+    [ ! -f "$json_file" ] && { error "panel config file not found"; return 1; }
 
     local key=$1
     local essential_vars=$(jq -r '.chconfigs["0"] | to_entries[] | .key' "$json_file")
@@ -406,6 +406,6 @@ function hconfig() {
     done
 
     # If the key is not found, return an error status
-    echo "Error: Key not found: $key" >&2
+    error "Error: Key not found: $key"
     return 1
 }
