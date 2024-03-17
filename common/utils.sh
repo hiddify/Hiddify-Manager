@@ -390,19 +390,10 @@ function remove_lock() {
     rm -f $LOCK_FILE >/dev/null 2>&1
 }
 
-function check_json_file() {
-    local json_file="$1"
-
-    # Check if the file exists
-    if [ ! -f "$json_file" ]; then
-        echo "Error: JSON file not found: $json_file"
-        return 1
-    fi
-}
 
 function hconfig() {
     local json_file="/opt/hiddify-manager/current.json"
-    check_json_file "$json_file" || return 1
+    [ ! -f "$json_file" ] && {echo "config file not found"; return 1;}
 
     local key=$1
     local essential_vars=$(jq -r '.chconfigs["0"] | to_entries[] | .key' "$json_file")
