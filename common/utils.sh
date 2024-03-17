@@ -400,37 +400,21 @@ function check_json_file() {
     fi
 }
 
-function set_essential_vars_from_hpanel() {
+function hconfig() {
     local json_file="/opt/hiddify-manager/current.json"
-    
     check_json_file "$json_file" || return 1
 
-    local essential_vars=$(jq -r '.chconfigs["0"] | to_entries[] | select(.value | type == "boolean") | .key' "$json_file")
-
+    local key=$1
+    local essential_vars=$(jq -r '.chconfigs["0"] | to_entries[] | .key' "$json_file")
     for var in $essential_vars; do
-        local uppercase_var=$(echo "$var" | tr '[:lower:]' '[:upper:]')
-        local value=$(jq -r --arg var "$var" '.chconfigs["0"][$var]' "$json_file")
-
-        # Convert JSON true/false values to Bash true/false values
-        if [ "$value" == "true" ]; then
-            value="true"
-        else
-            value="false"
+        if [ "$key" == "$var" ]; then
+            local value=$(jq -r --arg var "$var" '.chconfigs["0"][$var]' "$json_file")
+            echo "$value"
+            return 0  # Exit the function with success status
         fi
-
-        # Set Bash variable
-        eval "$uppercase_var=$value"
     done
-}
 
-function set_domains_vars_from_hpanel() {
-    local json_file="/opt/hiddify-manager/current.json"
-    
-    check_json_file "$json_file" || return 1
-
-    local domains=$(jq -r '.domains[] | select(.mode | IN("direct", "cdn", "worker", "relay", "auto_cdn_ip", "old_xtls_direct", "sub_link_only")) | .domain' "$json_file")
-    local fake_domains=$(jq -r '.domains[] | select(.mode | IN("fake")) | .domain' "$json_file")
-
-    eval "DOMAINS='$domains'"
-    eval "FAKE_DOMAINS='$fake_domains'"
+    # If the key is not found, return an error status
+    echo "Error: Key not found: $key" >&2
+    return 1
 }
