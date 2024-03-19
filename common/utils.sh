@@ -389,3 +389,23 @@ function remove_lock() {
     LOCK_FILE=$LOCK_DIR/$1.lock
     rm -f $LOCK_FILE >/dev/null 2>&1
 }
+
+
+function hconfig() {
+    local json_file="/opt/hiddify-manager/current.json"
+    [ ! -f "$json_file" ] && { error "panel config file not found"; return 1; }
+
+    local key=$1
+    local essential_vars=$(jq -r '.chconfigs["0"] | to_entries[] | .key' "$json_file")
+    for var in $essential_vars; do
+        if [ "$key" == "$var" ]; then
+            local value=$(jq -r --arg var "$var" '.chconfigs["0"][$var]' "$json_file")
+            echo "$value"
+            return 0  # Exit the function with success status
+        fi
+    done
+
+    # If the key is not found, return an error status
+    error "Error: Key not found: $key"
+    return 1
+}
