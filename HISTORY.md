@@ -3,6 +3,45 @@
 
 ## (unreleased)
 
+### Changes
+
+* Disable/enable xray dynamically. [Sarina]
+
+* Improve. [Sarina]
+
+* Refactor. [Sarina]
+
+* Export hpanel essential fields by bash itself. [Sarina]
+
+* Using current.json instead of query from db. [Sarina]
+
+* Use environment and handle enabling/disabling services. [Sarina]
+
+### Fix
+
+* Ipv4 tcp kernel parameter bug. [Sarina]
+
+### Other
+
+* Merge pull request #3836 from Iam54r1n4/dev-patch38. [Hiddify]
+
+  Fix disabling unwanted services in apply/install
+
+* Refactor. [Hiddify]
+
+* Add: read/write permission to .env file only for root. [Sarina]
+
+* Add: install/apply environment generator. [Sarina]
+
+* Merge pull request #3834 from Iam54r1n4/dev-patch37. [Hiddify]
+
+  Fix ipv4 tcp kernel parameter bug
+
+* Update hiddify cli. [hiddify-com]
+
+
+## v10.11.1 (2024-03-16)
+
 ### Other
 
 * Remove test and deprecated gost. [hiddify-com]
