@@ -3,6 +3,19 @@
 
 ## (unreleased)
 
+### Other
+
+* Merge pull request #3864 from cr4zyfish/patch-1. [Hiddify]
+
+  Update download_install.sh
+
+* Update download_install.sh. [cr4zyfish]
+
+  Check OS before install
+
+
+## v10.12.0 (2024-03-19)
+
 ### Changes
 
 * Disable/enable xray dynamically. [Sarina]
