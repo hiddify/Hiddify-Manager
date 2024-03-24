@@ -2,13 +2,13 @@
 source ../../common/utils.sh
 
 
-latest=$(get_release_version hiddify-next-core)
+latest=$(get_release_version hiddify-core)
 
 if [ "$(cat 'VERSION' 2>/dev/null)" != "$latest" ] || ! is_installed ./HiddifyCli; then
     echo "Downloading HiddifyCli..."
     pkg=$(dpkg --print-architecture)
 
-    curl -Lo hiddify-cli.tar.gz https://github.com/hiddify/hiddify-next-core/releases/download/v$latest/hiddify-cli-linux-$pkg.tar.gz
+    curl -Lo hiddify-cli.tar.gz https://github.com/hiddify/hiddify-core/releases/download/v$latest/hiddify-cli-linux-$pkg.tar.gz
 
     tar -xzf hiddify-cli.tar.gz
     rm  hiddify-cli.tar.gz
