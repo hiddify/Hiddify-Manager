@@ -25,7 +25,7 @@ function main() {
     
     export PROGRESS_ACTION="Installing..."
     
-    if [ "$DO_NOT_INSTALL" != "true" ];then
+    if [ "$DO_NOT_INSTALL" == "true" ];then
         PROGRESS_ACTION="Applying..."
     fi
     if [ "$MODE" != "apply_users" ]; then
