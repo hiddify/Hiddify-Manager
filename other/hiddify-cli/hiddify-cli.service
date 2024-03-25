@@ -3,7 +3,7 @@ Description=HiddifyCli service
 After=network-online.target
 
 [Service]
-User=nobody
+#User=nobody
 Type=simple
 Restart=always
 WorkingDirectory=/opt/hiddify-manager/other/hiddify-cli
