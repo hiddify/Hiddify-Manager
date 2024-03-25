@@ -139,7 +139,7 @@ Hiddify был протестирован на Ubuntu 22.04. Ubuntu Arm64 или
 
 <div align="center">
  
- <a href="https://github.com/hiddify/hiddify-manager/wiki"><img alt="Все уроки на Wiki" width="100%" src="https://github.com/hiddify/Hiddify-Manager/assets/125398461/40d9c9f7-05d4-4c32-901b-c8a34d8135a2" /><a/>
+ <a href="https://hiddify.com/manager/"><img alt="Все уроки на Wiki" width="100%" src="https://github.com/hiddify/Hiddify-Manager/assets/125398461/40d9c9f7-05d4-4c32-901b-c8a34d8135a2" /><a/>
 
 
 </div>
