@@ -9,7 +9,7 @@ function main() {
 	warning "$(printf "%-30s %-20s %s \n" "Name" "Old Status" "New Status")"
 
 	# Restart services and get their status (except hiddify-panel)
-    for s in other/**/*.service **/*.service wg-quick@warp mtproto-proxy.service mtproxy.service;do
+    for s in other/**/*.service **/*.service wg-quick@warp mtproto-proxy.service mtproxy.service mariadb;do
         s=${s##*/}
         s=${s%%.*}
 		if [ "$s" == "hiddify-panel" ]; then

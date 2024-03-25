@@ -68,3 +68,5 @@ if ! grep -q "^[^#]*bind-address\s*=\s*127.0.0.1" "$MARIADB_CONF"; then
     echo "MariaDB service is not running. Please start it manually."
   fi
 fi
+
+systemctl start mariadb
