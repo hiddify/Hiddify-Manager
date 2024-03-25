@@ -187,10 +187,10 @@
 <div align=right dir="rtl">
 
 ## نصب پنل و آموزش
-**برای نصب پنل و مطالعه همه مطالب آموزشی در این رابطه، با کلیک روی تصویر زیر به صفحه ویکی پروژه مراجعه کنید.**
+**برای نصب پنل و مطالعه همه مطالب آموزشی در این رابطه، با کلیک روی تصویر زیر به وبسایت ما مراجعه کنید.**
 <div align=center>
 
- <a href="https://github.com/hiddify/hiddify-manager/wiki/Home_fa"><img alt="همه آموزش‌ها" width="100%" src="https://github.com/hiddify/Hiddify-Manager/assets/125398461/bcedf256-4aed-43f6-807d-460bb8ab6cf6" /></a>
+ <a href="https://hiddify.com/fa/manager/"><img alt="همه آموزش‌ها" width="100%" src="https://github.com/hiddify/Hiddify-Manager/assets/125398461/bcedf256-4aed-43f6-807d-460bb8ab6cf6" /></a>
 
 
 
