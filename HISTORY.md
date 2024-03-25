@@ -3,6 +3,31 @@
 
 ## (unreleased)
 
+### Fix
+
+* Cli. [hiddify-com]
+
+* Mysql stop. [hiddify-com]
+
+* Typo. [hiddify-com]
+
+### Other
+
+* Start mariadb if not started. [hiddify-com]
+
+* Fix hiddify-cli. [hiddify-com]
+
+* Merge pull request #3872 from cr4zyfish/patch-2. [Hiddify]
+
+  Update hiddify_installer.sh
+
+* Update hiddify_installer.sh. [cr4zyfish]
+
+  Check OS before install (in addition to root check).
+
+
+## v10.12.1 (2024-03-20)
+
 ### Other
 
 * Merge pull request #3864 from cr4zyfish/patch-1. [Hiddify]
