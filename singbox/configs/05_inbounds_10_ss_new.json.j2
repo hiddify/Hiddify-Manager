@@ -1,5 +1,5 @@
 {
-	{% if hconfigs['shadowsocks2022_enable'] %}
+	{% if hconfigs['shadowsocks2022_enable'] or hconfigs['ssfaketls_enable'] or hconfigs['shadowtls_enable'] %}
 		"inbounds": [
 			{
 				"tag":"ss-new",
