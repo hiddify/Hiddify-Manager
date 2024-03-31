@@ -1,28 +1,30 @@
 {
-	"inbounds": [
-		{
-			"tag":"vmess-httpu",
-			"listen": "@@vmess-httpu",
-			"protocol": "vmess",
-			"settings": {
-			  "clients": [
-                {% for u in users %}
-				    {"id": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com", "alterId": 0},
-                {% endfor %}
-			  ]
-			},
-			"streamSettings": {
-			  "network": "httpupgrade",
-			  "security": "none",
-			  "httpupgradeSettings": {
-				"acceptProxyProtocol": true,
-				"path": "/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_httpupgrade'] }}", 
-			  }
-			},
-			"sniffing": {
-			  "enabled": true,
-			  "destOverride": ["http","tls", "quic"]
-			}
-		  }	  
-	  ]
+	{% if hconfigs['vmess_enable'] and hconfigs['httpupgrade_enable'] %}
+		"inbounds": [
+			{
+				"tag":"vmess-httpu",
+				"listen": "@@vmess-httpu",
+				"protocol": "vmess",
+				"settings": {
+				"clients": [
+					{% for u in users %}
+						{"id": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com", "alterId": 0},
+					{% endfor %}
+				]
+				},
+				"streamSettings": {
+				"network": "httpupgrade",
+				"security": "none",
+				"httpupgradeSettings": {
+					"acceptProxyProtocol": true,
+					"path": "/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_httpupgrade'] }}", 
+				}
+				},
+				"sniffing": {
+				"enabled": true,
+				"destOverride": ["http","tls", "quic"]
+				}
+			}	  
+		]
+	{% endif %}
 }

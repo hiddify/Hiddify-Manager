@@ -1,44 +1,46 @@
 {
-	"inbounds": [
-		{% for d in domains if d['internal_port_reality'] and not d['grpc'] %}
-        {%set domain=d['domain']%}
-        {%set port=d['internal_port_reality']%}
-		{
-			"tag":"realityin_{{port}}",
-			"listen": "127.0.0.1",
-			"listen_port": {{ port }},
-			"tcp_fast_open": true,
-			"sniff": true,
-			"sniff_override_destination": true,
-			"domain_strategy": "prefer_ipv4",
-			"proxy_protocol":true,
-			"type": "vless",
-			"users": [
-				{% for u in users %}
-    				{"name": "{{ u['uuid'] }}@hiddify.com", "uuid": "{{ u['uuid'] }}","flow": "xtls-rprx-vision"},
-				{% endfor%}
-			],
-			"tls":{
-				"enabled": true,
-				"server_name": "{{domain}}",
-				"reality": {
+	{% if hconfigs['vless_enable'] and hconfigs['reality_enable'] %}
+		"inbounds": [
+			{% for d in domains if d['internal_port_reality'] and not d['grpc'] %}
+			{%set domain=d['domain']%}
+			{%set port=d['internal_port_reality']%}
+			{
+				"tag":"realityin_{{port}}",
+				"listen": "127.0.0.1",
+				"listen_port": {{ port }},
+				"tcp_fast_open": true,
+				"sniff": true,
+				"sniff_override_destination": true,
+				"domain_strategy": "prefer_ipv4",
+				"proxy_protocol":true,
+				"type": "vless",
+				"users": [
+					{% for u in users %}
+						{"name": "{{ u['uuid'] }}@hiddify.com", "uuid": "{{ u['uuid'] }}","flow": "xtls-rprx-vision"},
+					{% endfor%}
+				],
+				"tls":{
 					"enabled": true,
-					"handshake": {
-						"server": "{{domain}}",
-						"server_port": 443
-					},
-					"private_key": "{{hconfigs['reality_private_key']}}",
-					"short_id": [
-						"", 
-						{%for sid in hconfigs['reality_short_ids'].split(',') %}
-						"{{sid}}",
-						{%endfor%}
-					],
-					"max_time_difference": "2h"
-				}
+					"server_name": "{{domain}}",
+					"reality": {
+						"enabled": true,
+						"handshake": {
+							"server": "{{domain}}",
+							"server_port": 443
+						},
+						"private_key": "{{hconfigs['reality_private_key']}}",
+						"short_id": [
+							"", 
+							{%for sid in hconfigs['reality_short_ids'].split(',') %}
+							"{{sid}}",
+							{%endfor%}
+						],
+						"max_time_difference": "2h"
+					}
+				},
+				{% include "includes/multiplex.json.j2"%}
 			},
-			{% include "includes/multiplex.json.j2"%}
-		},
-		{%endfor %}
-	]
+			{%endfor %}
+		]
+	{% endif %}
 }

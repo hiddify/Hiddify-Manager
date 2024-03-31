@@ -1,31 +1,33 @@
 {
-	"inbounds": [
-				{
-			"tag":"h2-trojan-new",
-			//"listen": "@@trojan-tcp-new", //trojan+tcp listening process
-			"listen": "/opt/hiddify-manager/xray/run/trojant.sock,666",
-			"protocol": "trojan",
-			"settings": {
-			  "clients": [
-                {% for u in users %}
-				    {"password": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com"},
-                {% endfor %}
-			  ]
-			},
-			"streamSettings": {
-			  "network": "h2",
-			  "security": "none",
-			  "tcpSettings": {
-				"acceptProxyProtocol": true
+	{% if hconfigs['trojan_enable'] and hconfigs['tcp_enable'] and hconfigs['h2_enable'] %}
+		"inbounds": [
+					{
+				"tag":"h2-trojan-new",
+				//"listen": "@@trojan-tcp-new", //trojan+tcp listening process
+				"listen": "/opt/hiddify-manager/xray/run/trojant.sock,666",
+				"protocol": "trojan",
+				"settings": {
+				"clients": [
+					{% for u in users %}
+						{"password": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com"},
+					{% endfor %}
+				]
 				},
-			   "httpSettings": {
-          			"path": "/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_tcp'] }}",
-        		}
-			},
-			"sniffing": {
-			  "enabled": true,
-			  "destOverride": ["http","tls", "quic"]
-			}
-		  }	  
-	]
+				"streamSettings": {
+				"network": "h2",
+				"security": "none",
+				"tcpSettings": {
+					"acceptProxyProtocol": true
+					},
+				"httpSettings": {
+						"path": "/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_tcp'] }}",
+					}
+				},
+				"sniffing": {
+				"enabled": true,
+				"destOverride": ["http","tls", "quic"]
+				}
+			}	  
+		]
+	{% endif %}
 }

@@ -1,32 +1,34 @@
 {
-	"inbounds": [
-		{
-			"tag": "h2-vmess-new-proxy",
-			"listen": "@@vmess-tcp-new-h2",
-			//"listen": "/opt/hiddify-manager/xray/run/vmesst.sock,666",
-			"protocol": "vmess",
-			"settings": {
-			  "clients": [
-                {% for u in users %}
-				    {"id": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com", "alterId": 0},
-                {% endfor %}
-			  ]
-			},
-			"streamSettings": {
-			  "network": "h2",
-			  "security": "none",
-			  "tcpSettings": {
-				"acceptProxyProtocol": true
+	{% if hconfigs['vmess_enable'] and hconfigs['tcp_enable'] and hconfigs['h2_enable'] %}
+		"inbounds": [
+			{
+				"tag": "h2-vmess-new-proxy",
+				"listen": "@@vmess-tcp-new-h2",
+				//"listen": "/opt/hiddify-manager/xray/run/vmesst.sock,666",
+				"protocol": "vmess",
+				"settings": {
+				"clients": [
+					{% for u in users %}
+						{"id": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com", "alterId": 0},
+					{% endfor %}
+				]
 				},
-			  "httpSettings": {
-          		"path": "/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }}",
-        	   }
-			  
-			},
-			"sniffing": {
-			  "enabled": true,
-			  "destOverride": ["http","tls", "quic"]
+				"streamSettings": {
+				"network": "h2",
+				"security": "none",
+				"tcpSettings": {
+					"acceptProxyProtocol": true
+					},
+				"httpSettings": {
+					"path": "/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }}",
+				}
+				
+				},
+				"sniffing": {
+				"enabled": true,
+				"destOverride": ["http","tls", "quic"]
+				}
 			}
-		  }
-	]
+		]
+	{% endif %}
 }
