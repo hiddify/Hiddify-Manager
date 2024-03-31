@@ -1,5 +1,5 @@
 global
-    log /dev/log local0
+    log /dev/log local0 warning
 
 defaults
     log global
@@ -25,22 +25,6 @@ listen stats
       	stats enable
       	stats admin if TRUE
       	stats refresh 5m
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 frontend https-in
     bind :443,:::443 v4v6 tfo 
