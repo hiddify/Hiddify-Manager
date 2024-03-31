@@ -1,4 +1,5 @@
 {
+	{% if hconfigs['vmess_enable'] and hconfigs['tcp_enable'] %}
 	"inbounds": [
 		{
 			"tag": "vmess-new",
@@ -35,4 +36,5 @@
 			}
 		  }
 	]
+	{% endif %}
 }

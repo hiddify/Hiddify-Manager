@@ -1,65 +1,67 @@
 {
-	"inbounds": [
-		{
-			"tag":"xtls",
-			// "port": 400, // This is TLS entrypoint. This entrypoint does the SSL Termination then routes the request based on the Path or ALPN type.
-			"listen": "@@xtlsin",
-			"protocol": "vless",
-			"settings": {
-			  "decryption": "none",
-			  "clients": [
-                    {% for u in users %}
-				        {"id": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com","flow": "xtls-rprx-vision"},
-                    {% endfor %}
-			  ],
-			  "fallbacks": [
-				{
-					"alpn": "h3",
-					"dest": "@dispatcher_h2","xver": 2
-				},
-				{
-					"alpn": "h4",
-					"dest": "@dispatcher_h2","xver": 2
-				},
-				{
-					"alpn": "h2",
-					"dest": "@dispatcher_h2","xver": 2
-					//"dest":"/opt/hiddify-manager/nginx/run/h2.sock","xver": 2
-					//"dest":"/var/run/hiddify-caddy.sock","xver": 0
-					//"dest":"1000", "xver": 0
-				},
-				{
-				  "dest": "@dispatcher",
-				  "xver": 2
-				}
-			  ]
-			},
-			"streamSettings": {
-			  "network": "tcp",
-			  "tcpSettings": {
-				"acceptProxyProtocol": true 
-			  },
-			  "security": "tls", 
-			  "tlsSettings": {
-				"certificates": [
-				  {%for d in domains if d['need_valid_ssl']%}
-				  	{"ocspStapling": 3600, "certificateFile": "/opt/hiddify-manager/ssl/{{d.domain[0:64]}}.crt", "keyFile": "/opt/hiddify-manager/ssl/{{d.domain[0:64]}}.crt.key"},
-				  {%endfor%}
+	{% if hconfigs['vless_enable'] and hconfigs['xtls_enable'] %}
+		"inbounds": [
+			{
+				"tag":"xtls",
+				// "port": 400, // This is TLS entrypoint. This entrypoint does the SSL Termination then routes the request based on the Path or ALPN type.
+				"listen": "@@xtlsin",
+				"protocol": "vless",
+				"settings": {
+				"decryption": "none",
+				"clients": [
+						{% for u in users %}
+							{"id": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com","flow": "xtls-rprx-vision"},
+						{% endfor %}
 				],
-				"minVersion": "1.2", 
-				"cipherSuites": "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256", 
-				"alpn": [
-				  "h2", 
-				  "http/1.1",
-				  "h3",
-				  "h4"
+				"fallbacks": [
+					{
+						"alpn": "h3",
+						"dest": "@dispatcher_h2","xver": 2
+					},
+					{
+						"alpn": "h4",
+						"dest": "@dispatcher_h2","xver": 2
+					},
+					{
+						"alpn": "h2",
+						"dest": "@dispatcher_h2","xver": 2
+						//"dest":"/opt/hiddify-manager/nginx/run/h2.sock","xver": 2
+						//"dest":"/var/run/hiddify-caddy.sock","xver": 0
+						//"dest":"1000", "xver": 0
+					},
+					{
+					"dest": "@dispatcher",
+					"xver": 2
+					}
 				]
-			  }
-			},
-			"sniffing": {
-			  "enabled": true,
-			  "destOverride": ["http","tls","quic"]
+				},
+				"streamSettings": {
+				"network": "tcp",
+				"tcpSettings": {
+					"acceptProxyProtocol": true 
+				},
+				"security": "tls", 
+				"tlsSettings": {
+					"certificates": [
+					{%for d in domains if d['need_valid_ssl']%}
+						{"ocspStapling": 3600, "certificateFile": "/opt/hiddify-manager/ssl/{{d.domain[0:64]}}.crt", "keyFile": "/opt/hiddify-manager/ssl/{{d.domain[0:64]}}.crt.key"},
+					{%endfor%}
+					],
+					"minVersion": "1.2", 
+					"cipherSuites": "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256", 
+					"alpn": [
+					"h2", 
+					"http/1.1",
+					"h3",
+					"h4"
+					]
+				}
+				},
+				"sniffing": {
+				"enabled": true,
+				"destOverride": ["http","tls","quic"]
+				}
 			}
-		  }
-	]
+		]
+	{% endif %}
 }
