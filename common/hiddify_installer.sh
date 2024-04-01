@@ -284,7 +284,7 @@ function update_from_github() {
     bash install.sh --no-gui --no-log
 }
 install_python
-
+pip3 install --upgrade pip
 
 
 
