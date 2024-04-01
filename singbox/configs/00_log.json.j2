@@ -1,7 +1,9 @@
 {
         "log": {
-                "disabled": false,
-                "level": "error",
+                {%if hconfigs['log_level']=="CRITICAL"%}
+                "disabled": true,
+                {%endif%}
+                "level": "{{hconfigs['log_level'].lower()}}",
                 //"output": "box.log",
                 "timestamp": false
                 

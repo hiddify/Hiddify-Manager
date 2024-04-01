@@ -1,5 +1,17 @@
 global
-    log /dev/log local0 warning
+    {%if hconfigs['log_level']!="CRITICAL"%}
+    # # Access logs
+    # log-format %ci:%cp\ [%t]\ %ft\ %b/%s\ %Tcc\ %Tw/%Tc/%Tr/%Ta\ %ST\ %B\ %CC\ %CS\ %tsc\ %ac/%fc/%bc/%sc/%rc\ %sq/%bq\ %hr\ %hs\ %{+Q}r
+    # option httplog
+    # option http-server-close
+    # option forwardfor except 127.0.0.1  # Add X-Forwarded-For header except for HAProxy itself
+    # log /opt/hiddify/hiddify-manager/log/system/haproxy.log local0
+
+    log /opt/hiddify-manager/system/haproxy.err.log local0 warning
+        
+    {%endif%}
+
+
 
 defaults
     log global
@@ -326,16 +338,6 @@ backend ssfake
 
 
 
-# # Access logs
-# log-format %ci:%cp\ [%t]\ %ft\ %b/%s\ %Tcc\ %Tw/%Tc/%Tr/%Ta\ %ST\ %B\ %CC\ %CS\ %tsc\ %ac/%fc/%bc/%sc/%rc\ %sq/%bq\ %hr\ %hs\ %{+Q}r
-# option httplog
-# option http-server-close
-# option forwardfor except 127.0.0.1  # Add X-Forwarded-For header except for HAProxy itself
-# log /opt/hiddify/hiddify-manager/log/system/haproxy.log local0
-
-# # Error logs
-# option dontlog-normal
-# log /opt/hiddify/hiddify-manager/log/system/haproxy.err.log local0
 
 
 

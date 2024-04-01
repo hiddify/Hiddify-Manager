@@ -3,7 +3,11 @@ user  nginx;
 worker_processes  auto;
 
 # error_log  /opt/hiddify-manager/log/system/nginx.err.log notice;
+{%if hconfigs['log_level']=="CRITICAL"%}
+error_log off;
+{%else%}
 error_log stderr warn;
+{%endif%}
 
 
 
@@ -16,6 +20,8 @@ events {
 
 
 http {
+
+
     include       /etc/nginx/mime.types;
     default_type  application/octet-stream;
 
@@ -23,8 +29,12 @@ http {
                       '$status $body_bytes_sent "$http_referer" '
                       '"$http_user_agent" "$http_x_forwarded_for"';
 
-    #access_log  /opt/hiddify-manager/log/system/nginx-access.log  main;
-    access_log /dev/null;
+    #
+    {%if hconfigs['log_level']=="TRACE"%}
+    access_log  /opt/hiddify-manager/log/system/nginx-access.log  main;
+    {%else%}
+    access_log off;
+    {%endif%}
     sendfile        on;
     #tcp_nopush     on;
 
