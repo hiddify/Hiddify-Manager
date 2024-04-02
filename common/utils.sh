@@ -224,7 +224,7 @@ function hiddify_api() {
 }
 
 function install_python() {
-
+    rm -rf /usr/lib/python3/dist-packages/blinker*
     if ! python3.10 --version &>/dev/null; then
         echo "Python 3.10 is not installed. Removing existing Python installations..."
         install_package software-properties-common
