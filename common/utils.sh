@@ -225,21 +225,19 @@ function hiddify_api() {
 
 function install_python() {
     rm -rf /usr/lib/python3/dist-packages/blinker*
-    if ! python3.13 --version &>/dev/null; then
-        echo "Python 3.13 is not installed. Removing existing Python installations..."
+    if ! python3.10 --version &>/dev/null; then
+        echo "Python 3.10 is not installed. Removing existing Python installations..."
         install_package software-properties-common
-        install_package libffi-dev
-
         add-apt-repository -y ppa:deadsnakes/ppa
         sudo apt-get -y remove python*
-    
-        install_package python3.13-dev
-        ln -sf $(which python3.13) /usr/bin/python3
-        ln -sf /usr/bin/python3 /usr/bin/python
-        #if ! is_installed pip; then
-            curl https://bootstrap.pypa.io/get-pip.py | python3 -
-            pip install -U pip
-        fi
+    fi
+    install_package python3.10-dev
+    ln -sf $(which python3.10) /usr/bin/python3
+    ln -sf /usr/bin/python3 /usr/bin/python
+    if ! is_installed pip; then
+        curl https://bootstrap.pypa.io/get-pip.py | python3 -
+        pip install -U pip
+    fi
 
 }
 
