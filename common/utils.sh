@@ -276,8 +276,9 @@ function check_hiddify_panel() {
         done
 
         # (cd hiddify-panel && python3 -m hiddifypanel admin-links)
-
+        
         for s in hiddify-xray hiddify-singbox hiddify-nginx hiddify-haproxy mysql; do
+            [ s == "hiddify-xray" ] && [ "$(hconfig "core_type")" = "xray" ] && continue
             s=${s##*/}
             s=${s%%.*}
             if [[ "$(systemctl is-active "$s")" != "active" ]]; then
