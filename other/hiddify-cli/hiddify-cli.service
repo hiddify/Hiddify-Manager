@@ -7,7 +7,7 @@ After=network-online.target
 Type=simple
 Restart=always
 WorkingDirectory=/opt/hiddify-manager/other/hiddify-cli
-EnvironmentFile=.env
+EnvironmentFile=/opt/hiddify-manager/other/hiddify-cli/.env
 ExecStart=/opt/hiddify-manager/other/hiddify-cli/HiddifyCli run -c $SUB_LINK -h h_client_config.json
 
 [Install]
