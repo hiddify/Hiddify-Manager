@@ -5,6 +5,86 @@
 
 ### Fix
 
+* Bug. [hiddify-com]
+
+* Error if core is not xray. [hiddify-com]
+
+* Dispatcher configs. [Sarina]
+
+* Shadowsocks config condition. [Sarina]
+
+### Other
+
+* Update. [hiddify-com]
+
+* Update. [hiddify-com]
+
+* Update. [hiddify-com]
+
+* Re;ove 3.13. [hiddify-com]
+
+* Update python3.13. [hiddify-com]
+
+* Merge branch 'main' of github.com:hiddify/Hiddify-Manager. [hiddify-com]
+
+* Update README.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README_cn.md. [lymanjre]
+
+* Update README_cn.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+* Remove blinker. [hiddify-com]
+
+* Update xray. [hiddify-com]
+
+* Update pip. [hiddify-com]
+
+* Update cli progrss. [hiddify-com]
+
+* Fewer logs. [hiddify-com]
+
+* Merge pull request #3908 from er888kh/main. [Hiddify]
+
+  Fix various logging policies
+
+* Explicitly set nginx error log level. [Erfan Khadem]
+
+* Fix Xray logging policy. [Erfan Khadem]
+
+  If `access` or `output` paths are omitted, the program sends them
+  through `stdout`, which intern gets writter to the systemd journal.
+
+* Fix default logging level. [Erfan Khadem]
+
+* Enable OOM Killing of Xray. [Erfan Khadem]
+
+* Merge pull request #3927 from Iam54r1n4/devm-disable-config. [Hiddify]
+
+  Disable unwanted configs
+
+* Add: disable configs when not needed (xray) [Sarina]
+
+* Add: disable configs when not needed (singbox) [Sarina]
+
+* Update README_ru.md. [lymanjre]
+
+* Update README_cn.md. [lymanjre]
+
+* Update README_fa.md. [lymanjre]
+
+* Update README.md. [lymanjre]
+
+
+## v10.14.0 (2024-03-25)
+
+### Fix
+
 * Cli. [hiddify-com]
 
 * Mysql stop. [hiddify-com]
