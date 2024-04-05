@@ -92,7 +92,7 @@ function main() {
         
         update_progress "${PROGRESS_ACTION}" "Warp" 75
         #$([ "$WARP_MODE" != 'disable' ] || echo "false")
-        install_run other/warp $(hconfig "warp_enable")
+        install_run other/warp $(( $(hconfig "warp_mode") != "none" ))
         
         update_progress "${PROGRESS_ACTION}" "Wireguard" 85
         install_run other/wireguard $(hconfig "wireguard_enable")
@@ -161,7 +161,7 @@ function install_run() {
 
 function runsh() {
     command=$1
-    if [[ $3 == "false" ]]; then
+    if [[ $3 == "false" || $3 == "0" ]]; then
         command=disable.sh
     fi
     pushd $2 >>/dev/null
