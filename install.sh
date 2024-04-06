@@ -82,13 +82,10 @@ function main() {
         update_progress "${PROGRESS_ACTION}" "ShadowTLS" 60
         install_run other/shadowtls $(hconfig "shadowtls_enable")
         
-        if [ "$(hconfig "core_type")" = "xray" ]; then
-            update_progress "${PROGRESS_ACTION}" "Xray" 70
-            install_run xray true
-        else
-            update_progress "${PROGRESS_ACTION}" "Xray" 70
-            install_run xray false
-        fi
+  
+        update_progress "${PROGRESS_ACTION}" "Xray" 70
+        install_run xray $(( $(hconfig "core_type") = "xray" )
+  
         
         update_progress "${PROGRESS_ACTION}" "Warp" 75
         #$([ "$WARP_MODE" != 'disable' ] || echo "false")
