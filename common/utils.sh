@@ -70,10 +70,11 @@ function success() {
 }
 
 function get_pretty_service_status() {
-    if systemctl is-active --quiet $1; then
-        success "active"
+    status=$(systemctl is-active --quiet $1)
+    if [ $? == 0 ]; then
+        success $status
 	else
-        error "inactive"
+        error $status
 	fi
 }
 function add_DNS_if_failed() {
