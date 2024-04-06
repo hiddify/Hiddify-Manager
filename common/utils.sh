@@ -70,7 +70,7 @@ function success() {
 }
 
 function get_pretty_service_status() {
-    status=$(systemctl is-active --quiet $1)
+    status=$(systemctl is-active $1)
     if [ $? == 0 ]; then
         success $status
 	else
