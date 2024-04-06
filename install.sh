@@ -84,7 +84,7 @@ function main() {
         
   
         update_progress "${PROGRESS_ACTION}" "Xray" 70
-        install_run xray $(( $(hconfig "core_type") = "xray" )
+        install_run xray $(( $(hconfig "core_type") == "xray" ))
   
         
         update_progress "${PROGRESS_ACTION}" "Warp" 75
