@@ -3,6 +3,10 @@
 
 ## (unreleased)
 
+### New
+
+* Add exact status. [hiddify-com]
+
 ### Fix
 
 * Bug. [hiddify-com]
@@ -14,6 +18,12 @@
 * Shadowsocks config condition. [Sarina]
 
 ### Other
+
+* Show exact service status. [hiddify-com]
+
+* Fix. [hiddify-com]
+
+* Update haproxy ot 2.9.7. [hiddify-com]
 
 * Update. [hiddify-com]
 
