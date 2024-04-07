@@ -6,6 +6,7 @@ After=network-online.target
 #User=nobody
 Type=simple
 Restart=always
+RestartSec=3
 WorkingDirectory=/opt/hiddify-manager/other/hiddify-cli
 EnvironmentFile=/opt/hiddify-manager/other/hiddify-cli/.env
 ExecStart=/opt/hiddify-manager/other/hiddify-cli/HiddifyCli run -c $SUB_LINK -h h_client_config.json
