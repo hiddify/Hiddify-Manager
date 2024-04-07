@@ -40,14 +40,12 @@ if [ -f "../config.env" ]; then
     fi
 fi
 systemctl daemon-reload >/dev/null 2>&1
-echo "*/1 * * * * hiddify-panel $(pwd)/update_usage.sh" >/etc/cron.d/hiddify_usage_update
-service cron reload >/dev/null 2>&1
 
 systemctl start hiddify-panel.service
-# systemctl status hiddify-panel.service --no-pager > /dev/null 2>&1
-
+echo "*/1 * * * * hiddify-panel $(pwd)/update_usage.sh" >/etc/cron.d/hiddify_usage_update
 echo "0 */6 * * * hiddify-panel $(pwd)/backup.sh" >/etc/cron.d/hiddify_auto_backup
-service cron reload
+service cron reload >/dev/null 2>&1
+
 
 ##### download videos
 

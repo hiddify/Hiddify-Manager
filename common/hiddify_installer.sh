@@ -95,6 +95,13 @@ function install_panel() {
     fi
 }
 
+function disable_panel_services(){
+    rm /etc/cron.d/hiddify_usage_update
+    rm /etc/cron.d/hiddify_auto_backup
+    service cron reload >/dev/null 2>&1
+    kill -9 $(pgrep -f 'hiddifypanel update-usage')
+}
+
 function update_panel() {
     update_progress "Checking for Update..." "Hiddify Panel" 5
     local package_mode=$1
@@ -107,6 +114,7 @@ function update_panel() {
     v.*)
         update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
         panel_path=$(hiddifypanel_path)
+        disable_panel_services
         pip3 install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel#${package_mode}
         pip3 install git+https://github.com/hiddify/HiddifyPanel#${package_mode}        
         update_progress "Updated..." "Hiddify Panel to ${package_mode}" 50
@@ -120,6 +128,7 @@ function update_panel() {
         if [[ $force == "true" || "$latest" != "$current_panel_version" ]]; then
             update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
             panel_path=$(hiddifypanel_path)
+            disable_panel_services
             pip3 install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel
             pip3 install git+https://github.com/hiddify/HiddifyPanel
             echo $latest >$panel_path/VERSION
@@ -135,6 +144,7 @@ function update_panel() {
             update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
             echo "panel is outdated! updating...."
             # pip install -U --pre hiddifypanel==$latest
+            disable_panel_services
             pip install -U --pre hiddifypanel
             update_progress "Updated..." "Hiddify Panel to $latest" 50
             return 0
@@ -149,6 +159,7 @@ function update_panel() {
             update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
             echo "panel is outdated! updating...."
             # pip3 install -U hiddifypanel==$latest
+            disable_panel_services
             pip3 install -U hiddifypanel
             update_progress "Updated..." "Hiddify Panel to $latest" 50
             return 0
