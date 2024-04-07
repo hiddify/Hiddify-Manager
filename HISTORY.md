@@ -9,6 +9,8 @@
 
 ### Fix
 
+* Some warp issues. [hiddify-com]
+
 * Bug. [hiddify-com]
 
 * Error if core is not xray. [hiddify-com]
@@ -18,6 +20,8 @@
 * Shadowsocks config condition. [Sarina]
 
 ### Other
+
+* Refactor. [hiddify-com]
 
 * Show exact service status. [hiddify-com]
 
