@@ -1,15 +1,28 @@
+{% set region = {
+    'zh': 'cn',
+    'cn': 'cn',
+    'ir': 'ir',
+    'ru': 'ru'
+}.get(hconfigs['country'], 'cn') %}
+
 {
   "route": {
-    "geoip": {
-      "path": "geoip.db",
-      "download_url": "https://github.com/SagerNet/sing-geoip/releases/latest/download/geoip.db"
-      ,"download_detour": "freedom"
-    },
-    "geosite": {
-      "path": "geosite.db",
-      "download_url": "https://github.com/hiddify/sing-geosite/releases/latest/download/geosite.db"
-       ,"download_detour": "freedom"
-    },
+    "rule_set":[
+         {
+            "tag":"geoip-{{region}}",
+            "type":"remote",
+            "format":"binary",
+            "update_interval":"1d",
+            "url":"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-{{region}}.srs"
+         },
+         {
+            "tag":"geosite-{{region}}",
+            "type":"remote",
+            "format":"binary",
+            "update_interval":"1d",
+            "url":"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-{{region}}.srs"
+         }
+    ],
     // "domainStrategy": "AsIs",
     "final": {% if hconfigs['warp_mode'] == 'all' %}"WARP"{% else %}"freedom"{% endif %},
       "rules": [
@@ -24,15 +37,7 @@
         },
         {
             "outbound": {% if hconfigs['warp_mode'] == 'disable' %}"forbidden_sites"{% else %}"WARP"{% endif %},
-            {% if hconfigs['country'] in ['zh','cn'] %}
-              "geoip": ["cn"]
-            {% elif hconfigs['country'] == 'ir' %}
-              "geoip": ["ir"]
-            {% elif hconfigs['country'] == 'ru' %}
-              "geoip": ["ru"]
-            {% else %}
-              "geoip": ["cn"]
-            {% endif %}
+             "rule_set":["geoip-{{region}}", "geosite-{{region}}"]
         },
         {
             "outbound": {% if hconfigs['warp_mode'] == 'disable' %}"freedom"{% else %}"WARP"{% endif %},

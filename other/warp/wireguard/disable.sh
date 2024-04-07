@@ -1,0 +1,1 @@
+systemctl stop --now wg-quick@warp

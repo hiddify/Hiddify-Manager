@@ -16,7 +16,9 @@ function main(){
 # systemctl status --no-pager hiddify-nginx hiddify-xray hiddify-singbox hiddify-haproxy|cat
 echo -e "\n----------------------------------------------------------------"
 
+if [[ $(hconfig "warp_mode") != "none" ]];then
 bash other/warp/status.sh
+fi
 
 echo "----------------------------------------------------------------"
 warning "- Global IP:"
