@@ -34,11 +34,12 @@ add2iptables "INPUT -p icmp -m icmp --icmp-type 11 -m conntrack --ctstate NEW -j
 add2iptables "INPUT -p icmp -m icmp --icmp-type 12 -m conntrack --ctstate NEW -j ACCEPT"
 
 # ICMP for ipv6
-add2ip6tables "INPUT -p ipv6-icmp --icmpv6-type 128 -m conntrack --ctstate NEW -j ACCEPT"
-add2ip6tables "INPUT -p ipv6-icmp --icmpv6-type 129 -m conntrack --ctstate NEW -j ACCEPT"
-add2ip6tables "INPUT -p ipv6-icmp --icmpv6-type 1 -m conntrack --ctstate NEW -j ACCEPT"
-add2ip6tables "INPUT -p ipv6-icmp --icmpv6-type 4 -m conntrack --ctstate NEW -j ACCEPT"
-add2ip6tables "INPUT -p ipv6-icmp --icmpv6-type 2 -m conntrack --ctstate NEW -j ACCEPT"
+add2ip6tables "INPUT -p ipv6-icmp -j ACCEPT"
+# add2ip6tables "INPUT -p ipv6-icmp --icmpv6-type 128 -m conntrack --ctstate NEW -j ACCEPT"
+# add2ip6tables "INPUT -p ipv6-icmp --icmpv6-type 129 -m conntrack --ctstate NEW -j ACCEPT"
+# add2ip6tables "INPUT -p ipv6-icmp --icmpv6-type 1 -m conntrack --ctstate NEW -j ACCEPT"
+# add2ip6tables "INPUT -p ipv6-icmp --icmpv6-type 4 -m conntrack --ctstate NEW -j ACCEPT"
+# add2ip6tables "INPUT -p ipv6-icmp --icmpv6-type 2 -m conntrack --ctstate NEW -j ACCEPT"
 
 allow_apps_ports "sshd"
 allow_apps_ports "x-ui"
