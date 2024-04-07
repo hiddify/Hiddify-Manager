@@ -9,6 +9,12 @@
 
 ### Fix
 
+* Icmp bug. [hiddify-com]
+
+* Icmp v6 bug. [hiddify-com]
+
+* Bug. [hiddify-com]
+
 * Some warp issues. [hiddify-com]
 
 * Bug. [hiddify-com]
