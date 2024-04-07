@@ -27,6 +27,8 @@
 
 ### Other
 
+* Disable panel services before updating. [hiddify-com]
+
 * Refactor. [hiddify-com]
 
 * Show exact service status. [hiddify-com]
