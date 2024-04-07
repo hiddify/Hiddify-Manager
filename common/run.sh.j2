@@ -28,10 +28,11 @@ add2iptables46 "INPUT -i lo -j ACCEPT"
 {%endfor%}
 
 # ICMP for ipv4
-add2iptables "INPUT -p icmp -m icmp --icmp-type 0 -m conntrack --ctstate NEW -j ACCEPT"
-add2iptables "INPUT -p icmp -m icmp --icmp-type 3 -m conntrack --ctstate NEW -j ACCEPT"
-add2iptables "INPUT -p icmp -m icmp --icmp-type 11 -m conntrack --ctstate NEW -j ACCEPT"
-add2iptables "INPUT -p icmp -m icmp --icmp-type 12 -m conntrack --ctstate NEW -j ACCEPT"
+add2iptables "INPUT -p icmp -j ACCEPT"
+# add2iptables "INPUT -p icmp -m icmp --icmp-type 0 -m conntrack --ctstate NEW -j ACCEPT"
+# add2iptables "INPUT -p icmp -m icmp --icmp-type 3 -m conntrack --ctstate NEW -j ACCEPT"
+# add2iptables "INPUT -p icmp -m icmp --icmp-type 11 -m conntrack --ctstate NEW -j ACCEPT"
+# add2iptables "INPUT -p icmp -m icmp --icmp-type 12 -m conntrack --ctstate NEW -j ACCEPT"
 
 # ICMP for ipv6
 add2ip6tables "INPUT -p ipv6-icmp -j ACCEPT"
