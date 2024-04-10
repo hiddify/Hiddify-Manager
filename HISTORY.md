@@ -9,6 +9,10 @@
 
 ### Fix
 
+* Bug. [hiddify-com]
+
+* Upgrading issue? [hiddify-com]
+
 * Icmp bug. [hiddify-com]
 
 * Icmp v6 bug. [hiddify-com]
@@ -26,6 +30,14 @@
 * Shadowsocks config condition. [Sarina]
 
 ### Other
+
+* ? [hiddify-com]
+
+* Disable manual config import. [hiddify-com]
+
+* Restart mariadb to fix upgrading issue. [hiddify-com]
+
+* Add delay for restarting cli. [hiddify-com]
 
 * Disable panel services before updating. [hiddify-com]
 
