@@ -47,9 +47,11 @@
               
             ],
             "domain":[
-                {%for d in hconfigs.get('warp_sites','').split('\n')%}
-                    "{{d.strip()}}",
-                {%endfor%}
+                {% if hconfigs['warp_mode'] != 'disable' %}
+                  {%for d in hconfigs.get('warp_sites','').split('\n')%}
+                      "{{d.strip()}}",
+                  {% endfor %}
+                {% endif %}
             ]
         },
         {
