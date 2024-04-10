@@ -32,13 +32,14 @@ ln -sf $(which uwsgi) /usr/local/bin/uwsgi >/dev/null 2>&1
 # hiddifypanel init-db
 ln -sf $(pwd)/hiddify-panel.service /etc/systemd/system/hiddify-panel.service
 systemctl enable hiddify-panel.service
-# if [ -f "../config.env" ]; then
-#     su hiddify-panel -c "hiddifypanel import-config -c $(pwd)/../config.env"
-#     if [ "$?" == 0 ]; then
-#         rm -f ../config.env
-#         # echo "temporary disable removing config.env"
-#     fi
-# fi
+if [ -f "../config.env" ]; then
+    systemctl restart mariadb
+    su hiddify-panel -c "hiddifypanel import-config -c $(pwd)/../config.env"
+    if [ "$?" == 0 ]; then
+        rm -f ../config.env
+        # echo "temporary disable removing config.env"
+    fi
+fi
 systemctl daemon-reload >/dev/null 2>&1
 
 systemctl start hiddify-panel.service
