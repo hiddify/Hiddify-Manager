@@ -33,7 +33,8 @@ ln -sf $(which uwsgi) /usr/local/bin/uwsgi >/dev/null 2>&1
 ln -sf $(pwd)/hiddify-panel.service /etc/systemd/system/hiddify-panel.service
 systemctl enable hiddify-panel.service
 if [ -f "../config.env" ]; then
-    systemctl restart mariadb
+    systemctl restart --now mariadb
+    sleep 4
     su hiddify-panel -c "hiddifypanel import-config -c $(pwd)/../config.env"
     if [ "$?" == 0 ]; then
         rm -f ../config.env
