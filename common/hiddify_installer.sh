@@ -100,6 +100,7 @@ function disable_panel_services(){
     rm /etc/cron.d/hiddify_auto_backup
     service cron reload >/dev/null 2>&1
     kill -9 $(pgrep -f 'hiddifypanel update-usage')
+    systemctl restart mariadb
 }
 
 function update_panel() {
