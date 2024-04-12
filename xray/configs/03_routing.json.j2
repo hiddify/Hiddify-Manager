@@ -30,7 +30,7 @@
         },
         {
             "type": "field", 
-            "outboundTag": {% if hconfigs['warp_mode'] == 'all' %}"WARP"{% else %}"forbidden_sites"{% endif %},
+            "outboundTag": {% if hconfigs['warp_mode'] == 'disable' %}"forbidden_sites"{% else %}"WARP"{% endif %},
             {% if hconfigs['country'] in ['zh','cn'] %}
               "ip": ["geoip:cn"]
             {% elif hconfigs['country'] == 'ir' %}
@@ -43,7 +43,7 @@
         },
         {
             "type": "field", 
-            "outboundTag": {% if hconfigs['warp_mode'] == 'all' %}"WARP"{% else %}"forbidden_sites"{% endif %},
+            "outboundTag": {% if hconfigs['warp_mode'] == 'disable' %}"forbidden_sites"{% else %}"WARP"{% endif %},
             {% if hconfigs['country'] in ['zh','cn'] %}
               "domain": ["geosite:cn","tld-cn"] 
             {% elif hconfigs['country'] == 'ir' %}
@@ -103,9 +103,11 @@
                     "domain:homedepot.com",
                     "domain:flutter.dev",
                     "domain:adobe.com"
-                    {%for d in hconfigs.get('warp_sites','').split('\n')%}
-                    ,"domain:{{d.strip()}}"
-                    {%endfor%}
+                    {% if hconfigs['warp_mode'] != 'disable' %}
+                      {%for d in hconfigs.get('warp_sites','').split('\n')%}
+                      ,"domain:{{d.strip()}}"
+                      {% endfor %}
+                    {% endif %}
                 ]
             },
         
