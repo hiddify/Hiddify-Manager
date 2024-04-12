@@ -3,6 +3,13 @@
 
 ## (unreleased)
 
+### Other
+
+* Update. [hiddify-com]
+
+
+## v10.20.1 (2024-04-12)
+
 ### Fix
 
 * Installation bug. [hiddify-com]
