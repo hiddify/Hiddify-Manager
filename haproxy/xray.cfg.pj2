@@ -7,24 +7,24 @@ backend reality
     server xray abns@realityin send-proxy-v2 tfo 
 
 
-backend grpc_dispatcher
-    server nginx unix@/opt/hiddify-manager/nginx/run/h2.sock send-proxy-v2 tfo 
+# backend grpc_dispatcher
+#     server nginx unix@/opt/hiddify-manager/nginx/run/h2.sock send-proxy-v2 tfo 
 
-backend vmessg
-  timeout server 1h
-  server vmessg abns@vmess-grpc-proxy send-proxy-v2 tfo 
+# backend vmessg
+#   timeout server 1h
+#   server vmessg abns@vmess-grpc-proxy send-proxy-v2 tfo 
 
-backend vlessg
-  timeout server 1h
-  server vlessg abns@vless-grpc-proxy    send-proxy-v2 tfo 
+# backend vlessg
+#   timeout server 1h
+#   server vlessg abns@vless-grpc-proxy    send-proxy-v2 tfo 
 
-backend v2rayg
-  timeout server 1h
-  server v2rayg abns@v2ray-grpc-proxy  send-proxy-v2 tfo 
+# backend v2rayg
+#   timeout server 1h
+#   server v2rayg abns@v2ray-grpc-proxy  send-proxy-v2 tfo 
 
-backend trojang
-  timeout server 1h
-  server trojang abns@trojan-grpc-proxy  send-proxy-v2 tfo 
+# backend trojang
+#   timeout server 1h
+#   server trojang abns@trojan-grpc-proxy  send-proxy-v2 tfo 
 
 backend vmesst
   server vmesst abns@vmess-tcp-new  send-proxy-v2 tfo 
