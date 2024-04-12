@@ -101,6 +101,7 @@ function disable_panel_services(){
 #     service cron reload >/dev/null 2>&1
 #     kill -9 $(pgrep -f 'hiddifypanel update-usage')
 #     systemctl restart mariadb
+    echo "Ok"
 }
 
 function update_panel() {
