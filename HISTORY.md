@@ -1,9 +1,21 @@
 # Changelog
 
 
-## (unreleased)
+## v10.20.2 (2024-04-12)
+
+### Changes
+
+* Code refactor. [Sarina]
+
+### Fix
+
+* Singbox grpc configs bug. [Sarina]
 
 ### Other
+
+* Merge pull request #3971 from Iam54r1n4/devm10-patch-2. [Hiddify]
+
+  Fix singbox grpc configs bug
 
 * Update. [hiddify-com]
 
