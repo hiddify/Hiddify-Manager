@@ -3,6 +3,17 @@
 
 ## (unreleased)
 
+### Fix
+
+* Installation bug. [hiddify-com]
+
+### Other
+
+* Disable stoping services. [hiddify-com]
+
+
+## v10.20.0 (2024-04-12)
+
 ### New
 
 * Add exact status. [hiddify-com]
