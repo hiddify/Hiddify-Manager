@@ -9,6 +9,10 @@
 
 ### Fix
 
+* Don't set warp sites when warp isn't enable. [Sarina]
+
+* Warp in custom(domestic) sites mode(xray) [Sarina]
+
 * Bug. [hiddify-com]
 
 * Upgrading issue? [hiddify-com]
@@ -30,6 +34,10 @@
 * Shadowsocks config condition. [Sarina]
 
 ### Other
+
+* Merge pull request #3964 from Iam54r1n4/devm10-patch-1. [Hiddify]
+
+  Fix warp in custom(domestic) sites mode (xray)
 
 * ? [hiddify-com]
 
