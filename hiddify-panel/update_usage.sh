@@ -3,7 +3,6 @@
 cd $(dirname -- "$0")
 function main() {
     echo "trying to update usage"
-    systemctl start mariadb
     if [ -z $(pgrep -f 'hiddifypanel update-usage') ]; then
         if [ $(whoami) == 'hiddify-panel' ]; then
             python3 -m hiddifypanel update-usage
