@@ -1,6 +1,13 @@
 # Changelog
 
 
+## (unreleased)
+
+### Fix
+
+* Auto update bug. [hiddify-com]
+
+
 ## v10.20.2 (2024-04-12)
 
 ### Changes
