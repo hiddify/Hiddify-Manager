@@ -6,7 +6,7 @@ Documentation=http://redis.io/documentation, man:redis-server(1)
 [Service]
 Type=notify
 ExecStart=/usr/bin/redis-server /opt/hiddify-manager/other/redis/redis.conf --supervised systemd --daemonize no
-PIDFile=/var/run/hiddify-redis-server.pid
+PIDFile=/run/hiddify-redis-server.pid
 TimeoutStopSec=0
 Restart=always
 User=redis
