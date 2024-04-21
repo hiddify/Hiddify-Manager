@@ -434,3 +434,7 @@ function hconfig() {
     error "Error: Key not found: $key"
     return 1
 }
+function hiddify-panel-run() {
+  command="su hiddify-panel -c \"source /opt/hiddify-manager/.venv/bin/activate && $@\""
+  eval $command
+}

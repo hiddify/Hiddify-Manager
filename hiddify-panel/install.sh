@@ -5,9 +5,16 @@ useradd -m hiddify-panel -s /bin/bash >/dev/null 2>&1
 chown -R hiddify-panel:hiddify-panel /home/hiddify-panel/ >/dev/null 2>&1
 localectl set-locale LANG=C.UTF-8 >/dev/null 2>&1
 su hiddify-panel -c update-locale LANG=C.UTF-8 >/dev/null 2>&1
-
 chown -R hiddify-panel:hiddify-panel . >/dev/null 2>&1
+# activate venv for hiddify-panel user
+if ! grep -Fxq "source /opt/hiddify-manager/.venv/bin/activate" "/home/hiddify-panel/.bashrc" && ! grep -Fxq "export PATH=/opt/hiddify-manager/.venv/bin:\$PATH" "/home/hiddify-panel/.bashrc"; then
+    echo "source /opt/hiddify-manager/.venv/bin/activate" >> "/home/hiddify-panel/.bashrc"
+    echo "export PATH=/opt/hiddify-manager/.venv/bin:\$PATH" >> "/home/hiddify-panel/.bashrc"
+fi
+
 pip uninstall -y flask-babelex >/dev/null 2>&1
+
+# install/build hiddifypanel package
 if [ "$HIDDIFY_DEBUG" = "1" ] && [ -n "$HIDDIFY_PANLE_SOURCE_DIR" ]; then
     echo "NOTICE: building hiddifypanel package from source..."
     echo "NOTICE: the source dir $HIDDIFY_PANLE_SOURCE_DIR"
@@ -18,7 +25,7 @@ else
 fi
 
 
-
+# set mysql password to flask app config
 sed -i '/SQLALCHEMY_DATABASE_URI/d' app.cfg
 MYSQL_PASS=$(cat ../other/mysql/mysql_pass)
 echo "SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://hiddifypanel:$MYSQL_PASS@127.0.0.1/hiddifypanel?charset=utf8mb4'" >>app.cfg
@@ -42,7 +49,12 @@ systemctl enable hiddify-panel.service
 if [ -f "../config.env" ]; then
     # systemctl restart --now mariadb
     # sleep 4
-    su hiddify-panel -c "hiddifypanel import-config -c $(pwd)/../config.env"
+    
+    hiddify-panel-run "hiddifypanel import-config -c $(pwd)/../config.env"
+    
+    # doesn't load virtual env
+    #su hiddify-panel -c "hiddifypanel import-config -c $(pwd)/../config.env"
+    
     if [ "$?" == 0 ]; then
         rm -f ../config.env
         # echo "temporary disable removing config.env"
