@@ -225,6 +225,7 @@ function hiddify_api() {
 }
 
 function install_python() {
+    # region install python3.10 system-widely
     rm -rf /usr/lib/python3/dist-packages/blinker*
     if ! python3.10 --version &>/dev/null; then
         echo "Python 3.10 is not installed. Removing existing Python installations..."
@@ -239,6 +240,22 @@ function install_python() {
         curl https://bootstrap.pypa.io/get-pip.py | python3 -
         pip install -U pip
     fi
+    # endregion
+
+    # Some third-party packages are not compatible with python3.13 eg. grpcio-tools
+    # Therefore we still use python3.10 
+    # region make virtual env
+    
+    venv_path="/opt/hiddify-manager/.venv/"
+    if [ ! -d "$venv_path" ]; then
+        install_package python3.10-venv
+        python3.10 -m venv $venv_path
+    fi
+    if [ -z "$VIRTUAL_ENV" ]; then
+        echo "Activating virtual environment..."
+        source "$venv_path/bin/activate"
+    fi
+    # endregion
 
 }
 
