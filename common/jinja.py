@@ -4,7 +4,6 @@ import sys
 from jinja2 import Environment, FileSystemLoader
 import json5
 import json
-import socket
 import subprocess
 
 with open("/opt/hiddify-manager/current.json") as f:
@@ -39,18 +38,23 @@ def render_j2_templates(start_path):
     env.filters['hexencode'] = lambda s: ''.join(hex(ord(c))[2:].zfill(2) for c in s)
 
     # Dirs to ignore from Jinja2 rendering
-    exclude_dirs = ['/opt/hiddify-manager/singbox/configs/includes']
+    exclude_dirs = ['/opt/hiddify-manager/singbox/configs/includes', '/opt/hiddify-manager/.venv']
 
     for root, dirs, files in os.walk(start_path):
         for file in files:
-            if file.endswith(".j2") and root not in exclude_dirs:
-                print("Rendering: " + file)
-                # Create a template object by reading the file
+            if file.endswith(".j2") and not any(os.path.commonpath([exclude_dir, root]) == exclude_dir for exclude_dir in exclude_dirs):
                 template_path = os.path.join(root, file)
+
+                print("Rendering: " + template_path)
+
+                # Create a template object by reading the file
                 template = env.get_template(template_path)
 
                 # Render the template
                 rendered_content = template.render(**configs, exec=exec, os=os)
+                if not rendered_content:
+                    print(f'Warning jinja2: {template_path} - Empty')
+                    continue
 
                 # Write the rendered content to a new file without the .j2 extension
                 output_file_path = os.path.splitext(template_path)[0]
@@ -68,7 +72,7 @@ def render_j2_templates(start_path):
                         print(f"Error parsing json: {e}")
 
                 with open(output_file_path, "w", encoding="utf-8") as output_file:
-                    output_file.write(rendered_content)
+                    output_file.write(str(rendered_content))
 
                 # print(f'Rendered and stored: {output_file_path}')
 
