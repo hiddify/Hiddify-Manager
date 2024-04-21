@@ -1,47 +1,47 @@
 #!/bin/sh
 if [ "$(id -u)" -ne 0 ]; then
-        echo 'This script must be run by root' >&2
-        exit 1
+    echo 'This script must be run by root' >&2
+    exit 1
 fi
 
 checkOS() {
-  # List of supported distributions
-  #supported_distros=("Ubuntu" "Debian" "Fedora" "CentOS" "Arch")
-  supported_distros=("Ubuntu")
-  # Get the distribution name and version
-  if [[ -f "/etc/os-release" ]]; then
-    source "/etc/os-release"
-    distro_name=$NAME
-    distro_version=$VERSION_ID
-  else
-    echo "Unable to determine distribution."
-    exit 1
-  fi
-  # Check if the distribution is supported
-  if [[ " ${supported_distros[@]} " =~ " ${distro_name} " ]]; then
-    echo "Your Linux distribution is ${distro_name} ${distro_version}"
-    : #no-op command
-  else
-    # Print error message in red
-    echo -e "\e[31mYour Linux distribution (${distro_name} ${distro_version}) is not currently supported.\e[0m"
-    exit 1
-  fi
-
-  # This script only works on Ubuntu 22 and above
-  if [ "$(uname)" == "Linux" ]; then
-    version_info=$(lsb_release -rs | cut -d '.' -f 1)
-    # Check if it's Ubuntu and version is below 22
-    if [ "$(lsb_release -is)" == "Ubuntu" ] && [ "$version_info" -lt 22 ]; then
-      echo "This script only works on Ubuntu 22 and above"
-      exit
+    # List of supported distributions
+    #supported_distros=("Ubuntu" "Debian" "Fedora" "CentOS" "Arch")
+    supported_distros=("Ubuntu")
+    # Get the distribution name and version
+    if [[ -f "/etc/os-release" ]]; then
+        source "/etc/os-release"
+        distro_name=$NAME
+        distro_version=$VERSION_ID
+    else
+        echo "Unable to determine distribution."
+        exit 1
     fi
-  fi
+    # Check if the distribution is supported
+    if [[ " ${supported_distros[@]} " =~ " ${distro_name} " ]]; then
+        echo "Your Linux distribution is ${distro_name} ${distro_version}"
+        : #no-op command
+    else
+        # Print error message in red
+        echo -e "\e[31mYour Linux distribution (${distro_name} ${distro_version}) is not currently supported.\e[0m"
+        exit 1
+    fi
+    
+    # This script only works on Ubuntu 22 and above
+    if [ "$(uname)" == "Linux" ]; then
+        version_info=$(lsb_release -rs | cut -d '.' -f 1)
+        # Check if it's Ubuntu and version is below 22
+        if [ "$(lsb_release -is)" == "Ubuntu" ] && [ "$version_info" -lt 22 ]; then
+            echo "This script only works on Ubuntu 22 and above"
+            exit
+        fi
+    fi
 }
 checkOS
 
-
-localectl set-locale LANG=C.UTF-8 >/dev/null 2>&1
-su hiddify-panel -c update-locale LANG=C.UTF-8 >/dev/null 2>&1
+# TODO: this commands are declared in hiddify-panel/install.sh, we don't need them here?!
+#localectl set-locale LANG=C.UTF-8 >/dev/null 2>&1
+#su hiddify-panel -c update-locale LANG=C.UTF-8 >/dev/null 2>&1
 
 export DEBIAN_FRONTEND=noninteractive
 
@@ -78,8 +78,8 @@ sed -i "s|cd /opt/$GITHUB_REPOSITORY/||g" ~/.bashrc
 echo "/opt/$GITHUB_REPOSITORY/menu.sh" >>~/.bashrc
 echo "cd /opt/$GITHUB_REPOSITORY/" >>~/.bashrc
 if [ "$CREATE_EASYSETUP_LINK" == "true" ];then
-        cd /opt/$GITHUB_REPOSITORY/hiddify-panel
-        hiddifypanel set-setting --key create_easysetup_link --val True
+    cd /opt/$GITHUB_REPOSITORY/hiddify-panel
+    hiddifypanel set-setting --key create_easysetup_link --val True
 fi
 
 hiddifypanel set-setting --key auto_update --val False

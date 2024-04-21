@@ -246,17 +246,23 @@ function install_python() {
     # Therefore we still use python3.10 
     # region make virtual env
     
+    create_python_venv
+    activate_python_venv
+    # endregion
+
+}
+function create_python_venv() {
     venv_path="/opt/hiddify-manager/.venv/"
     if [ ! -d "$venv_path" ]; then
         install_package python3.10-venv
-        python3.10 -m venv $venv_path
+        python3.10 -m venv "$venv_path"
     fi
+}
+function activate_python_venv() {
     if [ -z "$VIRTUAL_ENV" ]; then
         echo "Activating virtual environment..."
         source "$venv_path/bin/activate"
     fi
-    # endregion
-
 }
 
 function check_hiddify_panel() {
