@@ -54,7 +54,6 @@ def render_j2_templates(start_path):
                 rendered_content = template.render(**configs, exec=exec, os=os)
                 if not rendered_content:
                     print(f'Warning jinja2: {template_path} - Empty')
-                    continue
 
                 # Write the rendered content to a new file without the .j2 extension
                 output_file_path = os.path.splitext(template_path)[0]
