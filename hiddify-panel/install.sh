@@ -8,7 +8,14 @@ su hiddify-panel -c update-locale LANG=C.UTF-8 >/dev/null 2>&1
 
 chown -R hiddify-panel:hiddify-panel . >/dev/null 2>&1
 pip uninstall -y flask-babelex >/dev/null 2>&1
-python3 -c "import hiddifypanel" || pip install -U hiddifypanel
+if [ "$HIDDIFY_DEBUG" = "1" ] && [ -n "$HIDDIFY_PANLE_SOURCE_DIR" ]; then
+    echo "NOTICE: building hiddifypanel package from source..."
+    echo "NOTICE: the source dir $HIDDIFY_PANLE_SOURCE_DIR"
+    pip install -e "$HIDDIFY_PANLE_SOURCE_DIR"
+else
+    echo "Installing hiddifypanel with the pip"
+    python3 -c "import hiddifypanel" || pip install -U hiddifypanel
+fi
 
 
 
