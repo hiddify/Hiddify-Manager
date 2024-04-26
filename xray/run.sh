@@ -6,6 +6,9 @@ mkdir -p run
 ln -sf $(pwd)/hiddify-xray.service /etc/systemd/system/hiddify-xray.service
 systemctl enable hiddify-xray.service
 
+source /opt/hiddify-manager/common/utils.sh
+activate_python_venv
+
 # Fix the issue in xray that it can not read multiple inbound from single file
 python <<EOF
 import json,os
@@ -23,25 +26,25 @@ EOF
 # curl -s -x socks://127.0.0.1:3000 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
 
 if [ "$MODE" != "apply_users" ]; then
-
-	# xray run -test -confdir configs
-	echo "ignoring xray test"
-	if [[ $? == 0 ]]; then
-		systemctl restart hiddify-xray.service
-		systemctl start hiddify-xray.service
-		systemctl status hiddify-xray.service --no-pager
-	else
-		echo "Error in Xray Config!!!! do not reload xray service"
-		sleep 60
-		xray run -test -confdir configs
-		if [[ $? == 0 ]]; then
-			systemctl restart hiddify-xray.service
-			systemctl start hiddify-xray.service
-			systemctl status hiddify-xray.service --no-pager
-		else
-			echo "Error in Xray Config!!!! do not reload xray service"
-			sleep 60
-		fi
-	fi
-
+    
+    # xray run -test -confdir configs
+    echo "Ignoring xray test"
+    if [[ $? == 0 ]]; then
+        systemctl restart hiddify-xray.service
+        systemctl start hiddify-xray.service
+        #systemctl status hiddify-xray.service --no-pager
+    else
+        echo "Error in Xray Config!!!! do not reload xray service"
+        sleep 60
+        xray run -test -confdir configs
+        if [[ $? == 0 ]]; then
+            systemctl restart hiddify-xray.service
+            systemctl start hiddify-xray.service
+            #systemctl status hiddify-xray.service --no-pager
+        else
+            echo "Error in Xray Config!!!! do not reload xray service"
+            sleep 60
+        fi
+    fi
+    
 fi

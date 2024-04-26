@@ -1,7 +1,9 @@
 mkdir -p videos
-which yt-dlp 
+which yt-dlp
 if [[ "$?" != 0 ]];then
-pip3 install yt-dlp 
+    source /opt/hiddify-manager/common/utils.sh
+    activate_python_venv
+    pip3 install yt-dlp
 fi
 declare -A arr
 arr["features"]="https://www.youtube.com/watch?v=-a4tfRUsrNY"
@@ -20,9 +22,9 @@ for key in ${!arr[@]}; do
     dst=videos/$key.mp4
     link=${arr[${key}]}
     if [[ ! -f $dst ]];then
-        yt-dlp --socket-timeout 10 $link -o $dst   
+        yt-dlp --socket-timeout 10 $link -o $dst
     fi
     if [[ ! -f $dst ]];then
-        yt-dlp --socket-timeout 10 --proxy socks5://127.0.0.1:3000/  $link -o $dst   
+        yt-dlp --socket-timeout 10 --proxy socks5://127.0.0.1:3000/  $link -o $dst
     fi
 done

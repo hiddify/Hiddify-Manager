@@ -1,4 +1,6 @@
-apt install -y python3-pip cron
+source /opt/hiddify-manager/common/utils.sh
+activate_python_venv
+apt install -y cron
 pip install -U git+https://github.com/hiddify/hiddify-monitoring
 pip install bottle pandas numpy
 

@@ -8,14 +8,11 @@ if [ "$(cat 'VERSION' 2>/dev/null)" != "$latest" ] || ! is_installed ./HiddifyCl
     echo "Downloading HiddifyCli..."
     pkg=$(dpkg --print-architecture)
 
-    curl -Lo hiddify-cli.tar.gz https://github.com/hiddify/hiddify-core/releases/download/v$latest/hiddify-cli-linux-$pkg.tar.gz
+    curl -sLo hiddify-cli.tar.gz https://github.com/hiddify/hiddify-core/releases/download/v$latest/hiddify-cli-linux-$pkg.tar.gz
 
     tar -xzf hiddify-cli.tar.gz
     rm  hiddify-cli.tar.gz
     echo $latest> VERSION
-    echo "The HiddifyCli installed"
-else
-    echo "HiddifyCli is installed"
 fi
 
 ln -sf /opt/hiddify-manager/other/hiddify-cli/hiddify-cli.service /etc/systemd/system/hiddify-cli.service

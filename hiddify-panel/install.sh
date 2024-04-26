@@ -1,4 +1,5 @@
 source ../common/utils.sh
+activate_python_venv
 install_package wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config
 
 useradd -m hiddify-panel -s /bin/bash >/dev/null 2>&1
@@ -21,7 +22,7 @@ if [ "$HIDDIFY_DEBUG" = "1" ] && [ -n "$HIDDIFY_PANLE_SOURCE_DIR" ]; then
     pip install -e "$HIDDIFY_PANLE_SOURCE_DIR"
 else
     echo "Installing hiddifypanel with the pip"
-    python3 -c "import hiddifypanel" || pip install -U hiddifypanel
+    python -c "import hiddifypanel" || pip install -U hiddifypanel
 fi
 
 
@@ -71,10 +72,10 @@ service cron reload >/dev/null 2>&1
 ##### download videos
 
 if [[ ! -e "GeoLite2-ASN.mmdb" || $(find "GeoLite2-ASN.mmdb" -mtime +1) ]]; then
-    curl --connect-timeout 10 -L -o GeoLite2-ASN.mmdb1 https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb && mv GeoLite2-ASN.mmdb1 GeoLite2-ASN.mmdb
+    curl --connect-timeout 10 -sL -o GeoLite2-ASN.mmdb1 https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb && mv GeoLite2-ASN.mmdb1 GeoLite2-ASN.mmdb
 fi
 if [[ ! -e "GeoLite2-Country.mmdb" || $(find "GeoLite2-Country.mmdb" -mtime +1) ]]; then
-    curl --connect-timeout 10 -L -o GeoLite2-Country.mmdb1 https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb && mv GeoLite2-Country.mmdb1 GeoLite2-Country.mmdb
+    curl --connect-timeout 10 -sL -o GeoLite2-Country.mmdb1 https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb && mv GeoLite2-Country.mmdb1 GeoLite2-Country.mmdb
 fi
 
 # bash download_yt.sh &

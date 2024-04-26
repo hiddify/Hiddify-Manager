@@ -1,7 +1,6 @@
-echo "Telegram proxy install.sh $*"
 systemctl stop mtproxy.service >/dev/null 2>&1
 systemctl disable mtproxy.service >/dev/null 2>&1
 systemctl stop mtproto-proxy.service >/dev/null 2>&1
 systemctl disable mtproto-proxy.service >/dev/null 2>&1
 
-curl -L -o install_mtproxy.sh https://gist.githubusercontent.com/hiddify-com/9134259f2df9ff91bb365c629512b6b3/raw/ec42ccfd96431686425a8f4e4e16a07d12062e82/install_mtproxy.sh
+curl -sL -o install_mtproxy.sh https://gist.githubusercontent.com/hiddify-com/9134259f2df9ff91bb365c629512b6b3/raw/ec42ccfd96431686425a8f4e4e16a07d12062e82/install_mtproxy.sh

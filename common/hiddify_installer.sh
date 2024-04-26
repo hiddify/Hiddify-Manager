@@ -84,7 +84,7 @@ function install_panel() {
         echo "/opt/hiddify-manager/menu.sh" >>~/.bashrc
         echo "cd /opt/hiddify-manager/" >>~/.bashrc
     fi
-    install_python
+    activate_python_venv
     install_package jq wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config
     update_panel "$package_mode" "$force"
     panel_update=$?
@@ -279,7 +279,7 @@ function update_from_github() {
     local file_type=${file_name##*.}
     mkdir -p /opt/hiddify-manager
     cd /opt/hiddify-manager
-    curl -L -o "$file_name" "$url"
+    curl -sL -o "$file_name" "$url"
     
     if [[ "$file_type" == "zip" ]]; then
         install_package unzip

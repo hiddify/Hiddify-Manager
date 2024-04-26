@@ -56,18 +56,16 @@ apt update
 #apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
 
 apt install -y curl unzip
-# pip3 install lastversion "requests<=2.29.0"
-# pip install lastversion "requests<=2.29.0"
 mkdir -p /opt/$GITHUB_REPOSITORY
 cd /opt/$GITHUB_REPOSITORY
-curl -L -o $GITHUB_REPOSITORY.zip https://github.com/hiddify/$GITHUB_REPOSITORY/releases/download/v10.5.73/$GITHUB_REPOSITORY.zip
-unzip -o $GITHUB_REPOSITORY.zip
+curl -L -s -o $GITHUB_REPOSITORY.zip https://github.com/hiddify/$GITHUB_REPOSITORY/releases/download/v10.5.73/$GITHUB_REPOSITORY.zip
+unzip -o $GITHUB_REPOSITORY.zip > /dev/null
 rm $GITHUB_REPOSITORY.zip
 rm -f xray/configs/*.json
 rm -f singbox/configs/*.json
 source /opt/hiddify-config/common/utils.sh
 install_python
-install_pypi_package pip==24.0 # pip install -U pip
+install_pypi_package pip==24.0
 pip install -U hiddifypanel==8.8.99
 bash install.sh --no-gui
 # exit 0
