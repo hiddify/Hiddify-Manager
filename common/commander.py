@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/hiddify-manager/.venv/bin/python
 from urllib.parse import urlparse
 import click
 import os

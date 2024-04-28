@@ -30,7 +30,10 @@ function main() {
     fi
     if [ "$HIDDIFY_DEBUG" = "1" ]; then
         install_python
+    else
+        activate_python_venv
     fi
+
     if [ "$MODE" != "apply_users" ]; then
         clean_files
         update_progress "${PROGRESS_ACTION}" "Common Tools and Requirements" 2

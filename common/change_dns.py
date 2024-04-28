@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/hiddify-manager/.venv/bin/python
 import os
 import sys
 import yaml
