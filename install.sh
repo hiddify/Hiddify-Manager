@@ -56,7 +56,7 @@ function main() {
     bash common/replace_variables.sh
     
     if [ "$MODE" != "apply_users" ]; then
-        #bash ./other/deprecated/remove_deprecated.sh
+        bash ./other/deprecated/remove_deprecated.sh
         update_progress "Configuring..." "System and Firewall settings" 10
         runsh run.sh common
         
