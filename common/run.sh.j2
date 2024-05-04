@@ -1,5 +1,6 @@
 source /opt/hiddify-manager/common/utils.sh
 
+# open essential ports
 allow_port "tcp" 22
 allow_port "tcp" 80
 allow_port "tcp" 443
@@ -7,6 +8,7 @@ allow_port "udp" 443
 allow_port "udp" 53
 allow_port "tcp" 53
 # allow_port "udp" 3478
+
 allow_port "udp" {{hconfigs['wireguard_port']}} #wireguard
 
 
@@ -50,13 +52,13 @@ add2iptables46 "INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT"
 
 # Check if SSH server should be enabled
 {% if hconfigs['ssh_server_enable'] %}
-  allow_port "tcp" {{hconfigs['ssh_server_port']}} #ssh_server
+allow_port "tcp" {{hconfigs['ssh_server_port']}} #ssh_server
 {%else%}
-  remove_port "tcp" {{hconfigs['ssh_server_port']}}  #ssh_server
+remove_port "tcp" {{hconfigs['ssh_server_port']}}  #ssh_server
 {%endif%}
 
 {% for port in (hconfigs['tls_ports']+","+ hconfigs['http_ports']).split(',') if port %}
-  allow_port "tcp" {{port}} #panel ports
+allow_port "tcp" {{port}} #panel ports
 {%endfor%}
 {# {% for port in (hconfigs['tls_ports']).split(',') if port %}
   allow_port "udp" {{port}}
@@ -85,20 +87,21 @@ else
     mv /etc/motd.org /etc/motd
   fi
 fi
+
 # Restart sshd/ssh
 sudo systemctl restart sshd.service
 sudo systemctl restart ssh.service
 
 {% if hconfigs['firewall'] %}
-  iptables -P INPUT DROP
-  iptables -P FORWARD DROP
-  ip6tables -P INPUT DROP
-  ip6tables -P FORWARD DROP
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+ip6tables -P INPUT DROP
+ip6tables -P FORWARD DROP
 {%else%}
-  iptables -P INPUT ACCEPT
-  iptables -P FORWARD ACCEPT
-  ip6tables -P FORWARD ACCEPT
-  ip6tables -P INPUT ACCEPT
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+ip6tables -P FORWARD ACCEPT
+ip6tables -P INPUT ACCEPT
 {%endif%}
 
 save_firewall
@@ -106,10 +109,10 @@ save_firewall
 #add2iptables "INPUT -p tcp --dport 9000 -j DROP"
 
 {% if hconfigs['auto_update'] %}
-  echo "0 3 * * * root $(pwd)/../update.sh --no-gui --no-log" >/etc/cron.d/hiddify_auto_update
-  service cron reload
+echo "0 3 * * * root $(pwd)/../update.sh --no-gui --no-log" >/etc/cron.d/hiddify_auto_update
+service cron reload
 {%else%}
-  rm -rf /etc/cron.d/hiddify_auto_update
-  service cron reload
+rm -rf /etc/cron.d/hiddify_auto_update
+service cron reload
 {%endif%}
 

@@ -19,7 +19,8 @@ build:
 		mkdir -p /opt/hiddify-manager && \
 		cp -r ./* /opt/hiddify-manager/ && \
 		rm -rf /opt/hiddify-manager/hiddify-panel/src/ && \
-		(cd hiddify-panel/src/ && pip install -e .) && \
+		export HIDDIFY_DEBUG=1 && \
+		export HIDDIFY_PANLE_SOURCE_DIR="$(PWD)/hiddify-panel/src/" && \
 		(cd /opt/hiddify-manager/ && bash install.sh --no-gui); \
 	fi
 

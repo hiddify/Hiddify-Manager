@@ -6,7 +6,7 @@ systemctl disable mtproto-proxy.service >/dev/null 2>&1
 
 install_package git curl build-essential libssl-dev zlib1g-dev
 
-git clone https://github.com/hiddify/MTProxy
+git clone https://github.com/hiddify/MTProxy > dev/null
 cd MTProxy
 
 make

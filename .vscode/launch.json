@@ -2,7 +2,7 @@
     "configurations": [
         {
             "name": "Run HiddifyPanel and Server (apply config and run flask)",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "flask",
             "preLaunchTask": "build-hiddify-manager",
@@ -12,6 +12,7 @@
                 "FLASK_DEBUG": "1",
                 "HIDDIFY_CFG_PATH": "/opt/hiddify-manager/hiddify-panel/app.cfg",
             },
+            "python": "/opt/hiddify-manager/.venv/bin/python",
             "args": [
                 "run",
                 // "--no-debugger",
@@ -27,7 +28,7 @@
         },
         {
             "name": "Run HiddifyPanel Only (make sure to apply config before)",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "flask",
             "preLaunchTask": "stop panel service",
@@ -37,6 +38,7 @@
                 "FLASK_DEBUG": "1",
                 "HIDDIFY_CFG_PATH": "/opt/hiddify-manager/hiddify-panel/app.cfg",
             },
+            "python": "/opt/hiddify-manager/.venv/bin/python",
             "args": [
                 "run",
                 // "--no-debugger",
@@ -52,7 +54,7 @@
         },
         {
             "name": "Apply Config Only",
-            "type": "python",
+            "type": "debugpy",
             "preLaunchTask": "build-hiddify-manager",
             "request": "launch",
             "args": [

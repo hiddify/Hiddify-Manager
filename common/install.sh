@@ -3,17 +3,18 @@ source utils.sh
 
 remove_package apache2 needrestart needrestart-session
 install_package apt-transport-https at ca-certificates cron curl dnsutils git gnupg2 gnupg-agent iptables jq less libssl-dev locales lsb-release lsof qrencode software-properties-common ubuntu-keyring wget whiptail build-essential
-python3 -m pip config set global.index-url https://pypi.org/simple
+activate_python_venv
+python -m pip config set global.index-url https://pypi.org/simple > /dev/null
 remove_package resolvconf
 # rm /etc/resolv.conf
 # ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
 if [[ $COUNTRY == 'cn' ]]; then
-  sudo timedatectl set-timezone Asia/Shanghai
+    sudo timedatectl set-timezone Asia/Shanghai
 elif [[ $COUNTRY == 'ru' ]]; then
-  sudo timedatectl set-timezone Asia/Moscow
+    sudo timedatectl set-timezone Asia/Moscow
 else
-  sudo timedatectl set-timezone Asia/Tehran
+    sudo timedatectl set-timezone Asia/Tehran
 fi
 
 # rm /run/resolvconf/interface/*
@@ -24,48 +25,51 @@ fi
 #resolvconf -u
 sudo systemctl unmask --now systemd-resolved.service
 systemctl enable --now systemd-resolved >/dev/null 2>&1
-python3 change_dns.py 8.8.8.8 1.1.1.1
 
-ln -sf $(pwd)/sysctl.conf /etc/sysctl.d/ss-opt.conf
+# install requirements for change_dns.py
+install_pypi_package pyyaml > /dev/null
+python change_dns.py 8.8.8.8 1.1.1.1
 
-sysctl --system
+ln -sf $(pwd)/sysctl.conf /etc/sysctl.d/hiddify.conf
+
+sysctl --system > /dev/null
 
 if [[ "$ONLY_IPV4" != true ]]; then
-  sysctl -w net.ipv6.conf.all.disable_ipv6=0
-  sysctl -w net.ipv6.conf.default.disable_ipv6=0
-  sysctl -w net.ipv6.conf.lo.disable_ipv6=0
-
-  curl --connect-timeout 1 -s http://ipv6.google.com 2>&1 >/dev/null
-  if [ $? != 0 ]; then
-    ONLY_IPV4=true1
-  fi
+    sysctl -w net.ipv6.conf.all.disable_ipv6=0
+    sysctl -w net.ipv6.conf.default.disable_ipv6=0
+    sysctl -w net.ipv6.conf.lo.disable_ipv6=0
+    
+    curl --connect-timeout 1 -s http://ipv6.google.com 2>&1 >/dev/null
+    if [ $? != 0 ]; then
+        ONLY_IPV4=true1
+    fi
 fi
 
 INT_STAT=0
 INT_STAT_STR='Enable'
 if [[ "$ONLY_IPV4" == true ]]; then
-  INT_STAT=1
-  INT_STAT_STR="Disable"
+    INT_STAT=1
+    INT_STAT_STR="Disable"
 fi
 
 declare -a excluded_interfaces=("warp" "lo")
 
 for interface_name in $(ip link | awk -F': ' '$2 ~ /^[[:alnum:]]+$/ {print $2}'); do
-  if [[ " ${excluded_interfaces[@]} " =~ " ${interface_name} " ]]; then
-    continue
-  fi
-
-  # Disable IPv6 for the current interface
-  sysctl -q -w "net.ipv6.conf.$interface_name.disable_ipv6=$INT_STAT"
-
-  if [ $? -eq 0 ]; then
-    echo "IPv6 ${INT_STAT_STR}d for $interface_name"
-  else
-    echo "Failed to $INT_STAT_STR IPv6 for $interface_name"
-  fi
+    if [[ " ${excluded_interfaces[@]} " =~ " ${interface_name} " ]]; then
+        continue
+    fi
+    
+    # Disable IPv6 for the current interface
+    sysctl -q -w "net.ipv6.conf.$interface_name.disable_ipv6=$INT_STAT"
+    
+    if [ $? -eq 0 ]; then
+        echo "IPv6 ${INT_STAT_STR}d for $interface_name"
+    else
+        echo "Failed to $INT_STAT_STR IPv6 for $interface_name"
+    fi
 done
 
-bash google-bbr.sh
+bash google-bbr.sh > /dev/null
 
 
 echo "@reboot root /opt/hiddify-manager/install.sh --no-gui --no-log >> /opt/hiddify-manager/log/system/reboot.log 2>&1" >/etc/cron.d/hiddify_reinstall_on_reboot

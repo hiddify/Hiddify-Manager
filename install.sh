@@ -28,13 +28,18 @@ function main() {
     if [ "$DO_NOT_INSTALL" == "true" ];then
         PROGRESS_ACTION="Applying..."
     fi
+    if [ "$HIDDIFY_DEBUG" = "1" ]; then
+        install_python
+    else
+        activate_python_venv
+    fi
+
     if [ "$MODE" != "apply_users" ]; then
         clean_files
         update_progress "${PROGRESS_ACTION}" "Common Tools and Requirements" 2
         runsh install.sh common
         install_run other/redis
         install_run other/mysql
-        install_python
         
         # Because we need to generate reality pair in panel
         # is_installed xray || bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.4
@@ -51,7 +56,7 @@ function main() {
     bash common/replace_variables.sh
     
     if [ "$MODE" != "apply_users" ]; then
-        bash ./other/deprected/remove_deprecated.sh
+        bash ./other/deprecated/remove_deprecated.sh
         update_progress "Configuring..." "System and Firewall settings" 10
         runsh run.sh common
         
@@ -79,10 +84,10 @@ function main() {
         update_progress "${PROGRESS_ACTION}" "SSH Proxy" 55
         install_run other/ssh $(hconfig "ssh_server_enable")
         
-        update_progress "${PROGRESS_ACTION}" "ShadowTLS" 60
-        install_run other/shadowtls $(hconfig "shadowtls_enable")
+        #update_progress "${PROGRESS_ACTION}" "ShadowTLS" 60
+        #install_run other/shadowtls $(hconfig "shadowtls_enable")
         
-  
+        
         update_progress "${PROGRESS_ACTION}" "Xray" 70
         if [[ $(hconfig "core_type") == "xray" ]];then
             install_run xray 1
@@ -90,11 +95,11 @@ function main() {
             install_run xray 0
         fi
         
-  
+        
         
         update_progress "${PROGRESS_ACTION}" "Warp" 75
         #$([ "$WARP_MODE" != 'disable' ] || echo "false")
-
+        
         if [[ $(hconfig "warp_mode") != "none" ]];then
             install_run other/warp 1
         else

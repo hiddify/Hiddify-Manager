@@ -1,16 +1,21 @@
 #!/bin/bash
 
 cd $(dirname -- "$0")
+source ../common/utils.sh
+
 function main() {
     echo "trying to update usage"
     if [ -z $(pgrep -f 'hiddifypanel update-usage') ]; then
         if [ $(whoami) == 'hiddify-panel' ]; then
-            python3 -m hiddifypanel update-usage
+            activate_python_venv
+            python -m hiddifypanel update-usage
         else
-            su hiddify-panel -c "python3 -m hiddifypanel update-usage"
+            hiddify-panel-run "python -m hiddifypanel update-usage"
+            # doesn't load virtual env
+            #su hiddify-panel -c "python -m hiddifypanel update-usage"
         fi
     fi
-
+    
     rm ../log/update_usage.lock
 }
 

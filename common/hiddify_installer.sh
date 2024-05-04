@@ -7,42 +7,44 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 checkOS() {
-  # List of supported distributions
-  #supported_distros=("Ubuntu" "Debian" "Fedora" "CentOS" "Arch")
-  supported_distros=("Ubuntu")
-  # Get the distribution name and version
-  if [[ -f "/etc/os-release" ]]; then
-    source "/etc/os-release"
-    distro_name=$NAME
-    distro_version=$VERSION_ID
-  else
-    echo "Unable to determine distribution."
-    exit 1
-  fi
-  # Check if the distribution is supported
-  if [[ " ${supported_distros[@]} " =~ " ${distro_name} " ]]; then
-    echo "Your Linux distribution is ${distro_name} ${distro_version}"
-    : #no-op command
-  else
-    # Print error message in red
-    echo -e "\e[31mYour Linux distribution (${distro_name} ${distro_version}) is not currently supported.\e[0m"
-    exit 1
-  fi
-
-  # This script only works on Ubuntu 22 and above
-  if [ "$(uname)" == "Linux" ]; then
-    version_info=$(lsb_release -rs | cut -d '.' -f 1)
-    # Check if it's Ubuntu and version is below 22
-    if [ "$(lsb_release -is)" == "Ubuntu" ] && [ "$version_info" -lt 22 ]; then
-      echo "This script only works on Ubuntu 22 and above"
-      exit
+    # List of supported distributions
+    #supported_distros=("Ubuntu" "Debian" "Fedora" "CentOS" "Arch")
+    supported_distros=("Ubuntu")
+    # Get the distribution name and version
+    if [[ -f "/etc/os-release" ]]; then
+        source "/etc/os-release"
+        distro_name=$NAME
+        distro_version=$VERSION_ID
+    else
+        echo "Unable to determine distribution."
+        exit 1
     fi
-  fi
+    # Check if the distribution is supported
+    if [[ " ${supported_distros[@]} " =~ " ${distro_name} " ]]; then
+        echo "Your Linux distribution is ${distro_name} ${distro_version}"
+        : #no-op command
+    else
+        # Print error message in red
+        echo -e "\e[31mYour Linux distribution (${distro_name} ${distro_version}) is not currently supported.\e[0m"
+        exit 1
+    fi
+    
+    # This script only works on Ubuntu 22 and above
+    if [ "$(uname)" == "Linux" ]; then
+        version_info=$(lsb_release -rs | cut -d '.' -f 1)
+        # Check if it's Ubuntu and version is below 22
+        if [ "$(lsb_release -is)" == "Ubuntu" ] && [ "$version_info" -lt 22 ]; then
+            echo "This script only works on Ubuntu 22 and above"
+            exit
+        fi
+    fi
 }
 checkOS
 
-localectl set-locale LANG=C.UTF-8 >/dev/null 2>&1
-su hiddify-panel -c update-locale LANG=C.UTF-8 >/dev/null 2>&1
+# TODO: this commands are declared in hiddify-panel/install.sh, we don't need them here?!
+#localectl set-locale LANG=C.UTF-8 >/dev/null 2>&1
+#su hiddify-panel -c update-locale LANG=C.UTF-8 >/dev/null 2>&1
+
 export DEBIAN_FRONTEND=noninteractive
 NAME="installer"
 LOG_FILE="$(log_file $NAME)"
@@ -75,32 +77,32 @@ function install_panel() {
     #apt upgrade -y
     # apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --only-upgrade upgrade
     # apt dist-upgrade -y
-
+    
     if ! is_installed hiddifypanel; then
         sed -i "s|/opt/hiddify-manager/menu.sh||g" ~/.bashrc
         sed -i "s|cd /opt/hiddify-manager/||g" ~/.bashrc
         echo "/opt/hiddify-manager/menu.sh" >>~/.bashrc
         echo "cd /opt/hiddify-manager/" >>~/.bashrc
     fi
-    install_python
+    activate_python_venv
     install_package jq wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config
     update_panel "$package_mode" "$force"
     panel_update=$?
     update_config "$package_mode" "$force"
     config_update=$?
     post_update_tasks  "$panel_update" "$config_update" "$package_mode"
-
+    
     if is_installed hiddifypanel && [[ -z "$package_mode" || ($package_mode == "develop" || $package_mode == "beta" || $package_mode == "release") ]]; then
         (cd /opt/hiddify-manager/hiddify-panel && hiddifypanel set-setting -k package_mode -v $1)
     fi
 }
 
 function disable_panel_services(){
-#     rm /etc/cron.d/hiddify_usage_update
-#     rm /etc/cron.d/hiddify_auto_backup
-#     service cron reload >/dev/null 2>&1
-#     kill -9 $(pgrep -f 'hiddifypanel update-usage')
-#     systemctl restart mariadb
+    #     rm /etc/cron.d/hiddify_usage_update
+    #     rm /etc/cron.d/hiddify_auto_backup
+    #     service cron reload >/dev/null 2>&1
+    #     kill -9 $(pgrep -f 'hiddifypanel update-usage')
+    #     systemctl restart mariadb
     echo "Ok"
 }
 
@@ -111,68 +113,68 @@ function update_panel() {
     local current_panel_version=$(get_installed_panel_version)
     # Your existing logic for checking and updating the panel version based on the package mode
     # Set panel_update to 1 if an update is performed
-
+    
     case "$package_mode" in
-    v.*)
-        update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
-        panel_path=$(hiddifypanel_path)
-        disable_panel_services
-        pip3 install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel#${package_mode}
-        pip3 install git+https://github.com/hiddify/HiddifyPanel#${package_mode}        
-        update_progress "Updated..." "Hiddify Panel to ${package_mode}" 50
-        return 0        
-        ;;
-    develop|dev)
-        # Use the latest commit from GitHub
-        latest=$(get_commit_version Hiddify-Panel)
-
-        echo "DEVLEOP: hiddify panel version current=$current_panel_version latest=$latest"
-        if [[ $force == "true" || "$latest" != "$current_panel_version" ]]; then
+        v.*)
             update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
             panel_path=$(hiddifypanel_path)
             disable_panel_services
-            pip3 install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel
-            pip3 install git+https://github.com/hiddify/HiddifyPanel
-            echo $latest >$panel_path/VERSION
-            sed -i "s/__version__='[^']*'/__version__='$latest'/" $panel_path/VERSION.py
-            update_progress "Updated..." "Hiddify Panel to $latest" 50
+            pip3 install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel#${package_mode}
+            pip3 install git+https://github.com/hiddify/HiddifyPanel#${package_mode}
+            update_progress "Updated..." "Hiddify Panel to ${package_mode}" 50
             return 0
-        fi
         ;;
-    beta)
-        latest=$(get_pre_release_version hiddify-panel)
-        echo "BETA: hiddify panel version current=$current_panel_version latest=$latest"
-        if [[ $force == "true" || "$current_panel_version" != "$latest" ]]; then
-            update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
-            echo "panel is outdated! updating...."
-            # pip install -U --pre hiddifypanel==$latest
-            disable_panel_services
-            pip install -U --pre hiddifypanel
-            update_progress "Updated..." "Hiddify Panel to $latest" 50
-            return 0
-        fi
+        develop|dev)
+            # Use the latest commit from GitHub
+            latest=$(get_commit_version Hiddify-Panel)
+            
+            echo "DEVLEOP: hiddify panel version current=$current_panel_version latest=$latest"
+            if [[ $force == "true" || "$latest" != "$current_panel_version" ]]; then
+                update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
+                panel_path=$(hiddifypanel_path)
+                disable_panel_services
+                pip3 install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel
+                pip3 install git+https://github.com/hiddify/HiddifyPanel
+                echo $latest >$panel_path/VERSION
+                sed -i "s/__version__='[^']*'/__version__='$latest'/" $panel_path/VERSION.py
+                update_progress "Updated..." "Hiddify Panel to $latest" 50
+                return 0
+            fi
         ;;
-    release)
-        # error "you can not install release version 8 using this script"
-        # exit 1
-        latest=$(get_release_version hiddify-panel)
-        echo "hiddify panel version current=$current_panel_version latest=$latest"
-        if [[ $force == "true" || "$current_panel_version" != "$latest" ]]; then
-            update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
-            echo "panel is outdated! updating...."
-            # pip3 install -U hiddifypanel==$latest
-            disable_panel_services
-            pip3 install -U hiddifypanel
-            update_progress "Updated..." "Hiddify Panel to $latest" 50
-            return 0
-        fi
+        beta)
+            latest=$(get_pre_release_version hiddify-panel)
+            echo "BETA: hiddify panel version current=$current_panel_version latest=$latest"
+            if [[ $force == "true" || "$current_panel_version" != "$latest" ]]; then
+                update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
+                echo "panel is outdated! updating...."
+                # pip install -U --pre hiddifypanel==$latest
+                disable_panel_services
+                pip install -U --pre hiddifypanel
+                update_progress "Updated..." "Hiddify Panel to $latest" 50
+                return 0
+            fi
         ;;
-    *)
-        echo "Unknown package mode: $package_mode"
-        exit 1
+        release)
+            # error "you can not install release version 8 using this script"
+            # exit 1
+            latest=$(get_release_version hiddify-panel)
+            echo "hiddify panel version current=$current_panel_version latest=$latest"
+            if [[ $force == "true" || "$current_panel_version" != "$latest" ]]; then
+                update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
+                echo "panel is outdated! updating...."
+                # pip3 install -U hiddifypanel==$latest
+                disable_panel_services
+                pip3 install -U hiddifypanel
+                update_progress "Updated..." "Hiddify Panel to $latest" 50
+                return 0
+            fi
+        ;;
+        *)
+            echo "Unknown package mode: $package_mode"
+            exit 1
         ;;
     esac
-
+    
     return 1
 }
 
@@ -181,54 +183,54 @@ function update_config() {
     local package_mode=$1
     local force=$2
     local current_config_version=$(get_installed_config_version)
-
+    
     case "$package_mode" in
-    v.*)        
-        update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
-        update_from_github "hiddify-manager.zip" "https://github.com/hiddify/Hiddify-Manager/archive/refs/tags/${package_mode}.zip" $latest
-        update_progress "Updated..." "Hiddify Config to $latest" 100
-        return 0
-        ;;
-    develop|dev)
-        local latest=$(get_commit_version hiddify-manager)
-        echo "DEVELOP: Current Config Version=$current_config_version -- Latest=$latest"
-        if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
+        v.*)
             update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
-            update_from_github "hiddify-manager.tar.gz" "https://github.com/hiddify/hiddify-manager/archive/refs/heads/main.tar.gz" $latest
-
+            update_from_github "hiddify-manager.zip" "https://github.com/hiddify/Hiddify-Manager/archive/refs/tags/${package_mode}.zip" $latest
             update_progress "Updated..." "Hiddify Config to $latest" 100
             return 0
-        fi
         ;;
-    beta)
-        local latest=$(get_pre_release_version hiddify-manager)
-        echo "BETA: Current Config Version=$current_config_version -- Latest=$latest"
-        if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
-            update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
-            update_from_github "hiddify-manager.zip" "https://github.com/hiddify/hiddify-manager/releases/download/v$latest/hiddify-manager.zip"
-            update_progress "Updated..." "Hiddify Config to $latest" 100
-            return 0
-        fi
+        develop|dev)
+            local latest=$(get_commit_version hiddify-manager)
+            echo "DEVELOP: Current Config Version=$current_config_version -- Latest=$latest"
+            if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
+                update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
+                update_from_github "hiddify-manager.tar.gz" "https://github.com/hiddify/hiddify-manager/archive/refs/heads/main.tar.gz" $latest
+                
+                update_progress "Updated..." "Hiddify Config to $latest" 100
+                return 0
+            fi
         ;;
-    release)
-        # error "you can not install release version 8 using this script"
-        # exit 1
-        local latest=$(get_release_version hiddify-manager)
-        echo "RELEASE: Current Config Version=$current_config_version -- Latest=$latest"
-        if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
-            update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
-            update_from_github "hiddify-manager.zip" "https://github.com/hiddify/hiddify-manager/releases/latest/download/hiddify-manager.zip"
-            update_progress "Updated..." "Hiddify Config to $latest" 100
-            return 0
-        fi
-
+        beta)
+            local latest=$(get_pre_release_version hiddify-manager)
+            echo "BETA: Current Config Version=$current_config_version -- Latest=$latest"
+            if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
+                update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
+                update_from_github "hiddify-manager.zip" "https://github.com/hiddify/hiddify-manager/releases/download/v$latest/hiddify-manager.zip"
+                update_progress "Updated..." "Hiddify Config to $latest" 100
+                return 0
+            fi
         ;;
-    *)
-        echo "Unknown package mode: $package_mode"
-        exit 1
+        release)
+            # error "you can not install release version 8 using this script"
+            # exit 1
+            local latest=$(get_release_version hiddify-manager)
+            echo "RELEASE: Current Config Version=$current_config_version -- Latest=$latest"
+            if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
+                update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
+                update_from_github "hiddify-manager.zip" "https://github.com/hiddify/hiddify-manager/releases/latest/download/hiddify-manager.zip"
+                update_progress "Updated..." "Hiddify Config to $latest" 100
+                return 0
+            fi
+            
+        ;;
+        *)
+            echo "Unknown package mode: $package_mode"
+            exit 1
         ;;
     esac
-
+    
     return 1
 }
 
@@ -236,7 +238,7 @@ function post_update_tasks() {
     local panel_update=$1
     local config_update=$2
     local package_mode=$3
-
+    
     if [[ $config_update != 0 ]]; then
         echo "---------------------Finished!------------------------"
     fi
@@ -245,25 +247,25 @@ function post_update_tasks() {
         systemctl kill -s SIGTERM hiddify-panel
     fi
     systemctl start hiddify-panel
-
-
+    
+    
     cd /opt/hiddify-manager/hiddify-panel
     if [ "$CREATE_EASYSETUP_LINK" == "true" ];then
         hiddifypanel set-setting --key create_easysetup_link --val True
     fi
-
+    
     case "$package_mode" in
         release|beta)
             hiddifypanel set-setting --key package_mode --val $package_mode
-            ;;
+        ;;
         dev|develop)
             hiddifypanel set-setting --key package_mode --val develop
-            ;;
+        ;;
         *)
             hiddifypanel set-setting --key auto_update --val False
-            ;;
+        ;;
     esac
-
+    
     if [[ $panel_update == 0 && $config_update != 0 ]]; then
         bash /opt/hiddify-manager/apply_configs.sh --no-gui --no-log
     fi
@@ -273,16 +275,16 @@ function update_from_github() {
     local file_name=$1
     local url=$2
     local override_version=$3
-
+    
     local file_type=${file_name##*.}
     mkdir -p /opt/hiddify-manager
     cd /opt/hiddify-manager
-    curl -L -o "$file_name" "$url"
-
+    curl -sL -o "$file_name" "$url"
+    
     if [[ "$file_type" == "zip" ]]; then
         install_package unzip
         unzip -q -o "$file_name"
-    elif [[ "$file_type" == "gz" ]]; then
+        elif [[ "$file_type" == "gz" ]]; then
         tar xzf "$file_name" --strip-components=1
     else
         echo "Unsupported file type: $file_type"

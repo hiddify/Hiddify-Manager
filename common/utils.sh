@@ -33,7 +33,8 @@ function get_release_version() {
 }
 
 function hiddifypanel_path() {
-    python3 -c "import os,hiddifypanel;print(os.path.dirname(hiddifypanel.__file__),end='')"
+    activate_python_venv
+    python -c "import os,hiddifypanel;print(os.path.dirname(hiddifypanel.__file__),end='')"
 }
 function get_installed_panel_version() {
     version=$(cat "$(hiddifypanel_path)/VERSION")
@@ -53,8 +54,8 @@ function get_installed_config_version() {
 
 function get_package_mode() {
     cd /opt/hiddify-manager/hiddify-panel || exit
-    
-    python3 -m hiddifypanel all-configs | jq -r '.chconfigs["0"].package_mode'
+    activate_python_venv
+    python -m hiddifypanel all-configs | jq -r '.chconfigs["0"].package_mode'
 }
 
 function error() {
@@ -115,6 +116,7 @@ function update_progress() {
 }
 
 function is_installed_pypi_package() {
+    activate_python_venv
     package_name="$1"
 
     if pip list --format=freeze --disable-pip-version-check | grep -E "^$package_name" >/dev/null; then
@@ -126,6 +128,7 @@ function is_installed_pypi_package() {
 }
 
 function install_pypi_package() {
+    activate_python_venv
     for package in $@; do
         if ! is_installed_pypi_package $package; then
             pip install -U $package
@@ -216,15 +219,17 @@ function msg() {
 }
 
 function hiddify_api() {
+    activate_python_venv
     data=$(
         cd /opt/hiddify-manager/hiddify-panel || exit
-        python3 -m hiddifypanel "$1"
+        python -m hiddifypanel "$1"
     )
     echo "$data"
     return 0
 }
 
 function install_python() {
+    # region install python3.10 system-widely
     rm -rf /usr/lib/python3/dist-packages/blinker*
     if ! python3.10 --version &>/dev/null; then
         echo "Python 3.10 is not installed. Removing existing Python installations..."
@@ -239,11 +244,35 @@ function install_python() {
         curl https://bootstrap.pypa.io/get-pip.py | python3 -
         pip install -U pip
     fi
+    # endregion
 
+    # Some third-party packages are not compatible with python3.13 eg. grpcio-tools
+    # Therefore we still use python3.10 
+    # region make virtual env
+    
+    create_python_venv
+    activate_python_venv
+    # endregion
+
+}
+function create_python_venv() {
+    venv_path="/opt/hiddify-manager/.venv/"
+    if [ ! -d "$venv_path" ]; then
+        install_package python3.10-venv
+        python3.10 -m venv "$venv_path"
+    fi
+}
+function activate_python_venv() {
+    venv_path="/opt/hiddify-manager/.venv"
+    if [ -z "$VIRTUAL_ENV" ]; then
+        #echo "Activating virtual environment..."
+        source "$venv_path/bin/activate"
+    fi
 }
 
 function check_hiddify_panel() {
     if [ "$MODE" != "apply_users" ]; then
+        activate_python_venv
         (cd /opt/hiddify-manager/hiddify-panel && python3 -m hiddifypanel all-configs) >/opt/hiddify-manager/current.json
         chmod 600 /opt/hiddify-manager/current.json
         if [[ $? != 0 ]]; then
@@ -329,18 +358,21 @@ function remove_port() { #allow_port "tcp" "80"
 }
 
 function allow_apps_ports() {
-    service_name=$1
-    ports=$(ss -tulpn | grep "$service_name" | awk '{print $5}' | cut -d':' -f2)
+    local service_name=$1
+
+    # Get ports and paths for the service
+    local ports=$(ss -tulpn | grep "$service_name" | awk '{print $5}' | cut -d':' -f2)
+    local paths=$(pgrep -f "$service_name" | while read -r pid; do readlink -f /proc/"$pid"/exe; done | awk '!seen[$0]++')
 
     if [[ -z $ports ]]; then
         echo "Service not found or not running"
     else
-        path=$(ps -aux | grep "$service_name" | awk '{print $11}')
-
         IFS=' ' read -ra portArray <<<"$ports"
         for p in "${portArray[@]}"; do
-            echo "Service is running on port $p and path $path"
-            allow_port "tcp" "$p"
+            for path in $paths; do
+                echo "Service is running on port $p and path $path"
+                allow_port "tcp" "$p"
+            done
         done
     fi
 }
@@ -410,4 +442,8 @@ function hconfig() {
     # If the key is not found, return an error status
     error "Error: Key not found: $key"
     return 1
+}
+function hiddify-panel-run() {
+  command="su hiddify-panel -c \"source /opt/hiddify-manager/.venv/bin/activate && $@\""
+  eval $command
 }

@@ -3,7 +3,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 cd /opt/hiddify-manager/other/telegram/orig/MTProxy/objs/bin/
 
-SERVER_IP="$(curl http://v4.ident.me/ -sS)"
+SERVER_IP="$(curl -sS http://v4.ident.me/)"
 CURL_EXIT_STATUS=$?
 if [ $CURL_EXIT_STATUS -ne 0 ]; then
     SERVER_IP=$(curl -Lso- https://api.ipify.org)
