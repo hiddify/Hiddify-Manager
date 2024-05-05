@@ -255,19 +255,25 @@ function install_python() {
     # endregion
 
 }
+function remove_python_venv() {
+    rm -rf "/opt/hiddify-manager/.venv/"
+    install_python
+}
 function create_python_venv() {
-    venv_path="/opt/hiddify-manager/.venv/"
-    if [ ! -d "$venv_path" ]; then
-        install_package python3.10-venv
-        python3.10 -m venv "$venv_path"
-    fi
+    remove_python_venv
+    # venv_path="/opt/hiddify-manager/.venv/"
+    # if [ ! -d "$venv_path" ]; then
+    #     install_package python3.10-venv
+    #     python3.10 -m venv "$venv_path"
+    # fi
 }
 function activate_python_venv() {
-    venv_path="/opt/hiddify-manager/.venv"
-    if [ -z "$VIRTUAL_ENV" ]; then
-        #echo "Activating virtual environment..."
-        source "$venv_path/bin/activate"
-    fi
+    remove_python_venv
+    # venv_path="/opt/hiddify-manager/.venv"
+    # if [ -z "$VIRTUAL_ENV" ]; then
+    #     #echo "Activating virtual environment..."
+    #     source "$venv_path/bin/activate"
+    # fi
 }
 
 function check_hiddify_panel() {
