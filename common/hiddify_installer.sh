@@ -5,6 +5,7 @@ if [ "$(id -u)" -ne 0 ]; then
     echo 'This script must be run by root' >&2
     exit 1
 fi
+rm -rf /opt/hiddify-manager/.venv/
 
 checkOS() {
     # List of supported distributions
@@ -84,7 +85,8 @@ function install_panel() {
         echo "/opt/hiddify-manager/menu.sh" >>~/.bashrc
         echo "cd /opt/hiddify-manager/" >>~/.bashrc
     fi
-    activate_python_venv
+    # activate_python_venv
+    
     install_package jq wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config
     update_panel "$package_mode" "$force"
     panel_update=$?
