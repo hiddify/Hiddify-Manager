@@ -237,6 +237,7 @@ function install_python() {
         add-apt-repository -y ppa:deadsnakes/ppa
         sudo apt-get -y remove python*
     fi
+    rm -rf "/opt/hiddify-manager/.venv/"
     install_package python3.10-dev
     ln -sf $(which python3.10) /usr/bin/python3
     ln -sf /usr/bin/python3 /usr/bin/python
@@ -250,8 +251,8 @@ function install_python() {
     # Therefore we still use python3.10 
     # region make virtual env
     
-    create_python_venv
-    activate_python_venv
+    # create_python_venv
+    # activate_python_venv
     # endregion
 
 }
