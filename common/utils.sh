@@ -442,6 +442,6 @@ function hconfig() {
 }
 function hiddify-panel-run() {
   command="su hiddify-panel -c \"source /opt/hiddify-manager/.venv/bin/activate && $@\""
-  command="su hiddify-panel -c '$@'"
+  #command="su hiddify-panel -c '$@'"
   eval $command
 }
