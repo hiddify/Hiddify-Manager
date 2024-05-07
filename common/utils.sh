@@ -106,12 +106,9 @@ function disable_ansii_modes() {
 }
 
 function update_progress() {
-    add_DNS_if_failed
-    #title="\033[92m\033[1m${1^}\033[0m\033[0m"
     title="${1^}"
     text="$2"
     percentage="$3"
-    # echo -e "XXX\n$percentage\n$title\n$text\nXXX"
     echo -e "####$percentage####$title####$text####"
 }
 
@@ -202,7 +199,7 @@ END
     msg "$text \n\n$1"
 
 }
-center_text() {
+function center_text() {
     local text="$1"
     local screen_width="$(tput cols)"
     local longest_line_length="$(echo "$text" | awk '{ print length }' | sort -rn | head -1)"
@@ -237,7 +234,6 @@ function install_python() {
         add-apt-repository -y ppa:deadsnakes/ppa
         sudo apt-get -y remove python*
     fi
-    rm -rf "/opt/hiddify-manager/.venv/"
     install_package python3.10-dev
     ln -sf $(which python3.10) /usr/bin/python3
     ln -sf /usr/bin/python3 /usr/bin/python
@@ -256,25 +252,19 @@ function install_python() {
     # endregion
 
 }
-function remove_python_venv() {
-    rm -rf "/opt/hiddify-manager/.venv/"
-    install_python
-}
 function create_python_venv() {
-    remove_python_venv
-    # venv_path="/opt/hiddify-manager/.venv/"
-    # if [ ! -d "$venv_path" ]; then
-    #     install_package python3.10-venv
-    #     python3.10 -m venv "$venv_path"
-    # fi
+    venv_path="/opt/hiddify-manager/.venv/"
+    if [ ! -d "$venv_path" ]; then
+        install_package python3.10-venv
+        python3.10 -m venv "$venv_path"
+    fi
 }
 function activate_python_venv() {
-    remove_python_venv
-    # venv_path="/opt/hiddify-manager/.venv"
-    # if [ -z "$VIRTUAL_ENV" ]; then
-    #     #echo "Activating virtual environment..."
-    #     source "$venv_path/bin/activate"
-    # fi
+    venv_path="/opt/hiddify-manager/.venv"
+    if [ -z "$VIRTUAL_ENV" ]; then
+        #echo "Activating virtual environment..."
+        source "$venv_path/bin/activate"
+    fi
 }
 
 function check_hiddify_panel() {
@@ -290,13 +280,13 @@ function check_hiddify_panel() {
         echo ""
         echo ""
         bash /opt/hiddify-manager/status.sh
-        echo "==========================================================="
+        #echo "==========================================================="
         bash /opt/hiddify-manager/common/logo.ico
-        success "Finished! Thank you for helping to skip filternet."
 
         install_package qrencode
         center_text "$(qrencode -t utf8 -m 2 $(cat /opt/hiddify-manager/current.json | jq -r '.panel_links[]' | tail -n 1))"
 
+        success "Finished! Thank you for helping to skip filternet."
         echo "Please open the following link in the browser for client setup"
         cat /opt/hiddify-manager/current.json | jq -r '.panel_links[]' | while read -r link; do
             if [[ $link == http://* ]]; then

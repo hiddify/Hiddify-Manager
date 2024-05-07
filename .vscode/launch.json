@@ -1,6 +1,14 @@
 {
     "configurations": [
         {
+            "type": "bashdb",
+            "request": "launch",
+            "name": "Bash-Debug (select script from list of sh files)",
+            "cwd": "${workspaceFolder}",
+            "program": "${command:SelectScriptName}",
+            "args": []
+        },
+        {
             "name": "Run HiddifyPanel and Server (apply config and run flask)",
             "type": "debugpy",
             "request": "launch",
