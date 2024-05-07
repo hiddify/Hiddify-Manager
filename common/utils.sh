@@ -247,8 +247,8 @@ function install_python() {
     # Therefore we still use python3.10 
     # region make virtual env
     
-    # create_python_venv
-    # activate_python_venv
+    create_python_venv
+    activate_python_venv
     # endregion
 
 }
