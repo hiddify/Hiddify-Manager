@@ -375,15 +375,17 @@ function check_hiddify_panel() {
             echo "4" >log/error.lock
             exit 4
         fi
-        echo ""
-        echo ""
+        echo -e "\n\n"
+
         bash /opt/hiddify-manager/status.sh
         bash /opt/hiddify-manager/common/logo.ico
 
         install_package qrencode
         center_text "$(qrencode -t utf8 -m 2 $(cat /opt/hiddify-manager/current.json | jq -r '.panel_links[]' | tail -n 1))"
+        echo ""
+        center_text $'\t\033[92mFinished! Thank you for helping to skip filternet.\033[0m'
 
-        success "Finished! Thank you for helping to skip filternet."
+        echo -e "\n"
         echo "Please open the following link in the browser for client setup:"
         cat /opt/hiddify-manager/current.json | jq -r '.panel_links[]' | while read -r link; do
             if [[ $link == http://* ]]; then
