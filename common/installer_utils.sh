@@ -49,8 +49,7 @@ function check_venv_compatibility() {
         package_mode="release"
     fi
 
-    first_release_compatible_venv_version=v10.20.5 # should be set according to next version
-    first_beta_compatible_venv_version=v10.20.5dev.1 # should be set according to next version
+    first_release_compatible_venv_version=v10.30
 
     case "$package_mode" in
         v.*)
@@ -64,11 +63,8 @@ function check_venv_compatibility() {
             USE_VENV=true
         ;;
         beta)
-            # Get the latest pre-release version
-            latest=$(get_pre_release_version hiddify-manager)
-            if [[ $(vercomp "$latest" "$first_beta_compatible_venv_version") == 0 ]] || [[ $(vercomp "$latest" "$first_beta_compatible_venv_version") == 1 ]]; then
-                USE_VENV=true
-            fi
+            # Beta is always venv compatible
+            USE_VENV=true
         ;;
         release)
             # Get the latest release version
