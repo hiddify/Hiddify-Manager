@@ -22,7 +22,11 @@ function main(){
     
     echo "----------------------------------------------------------------"
     warning "- Global IP:"
-    curl -s -x socks://127.0.0.1:1234 --connect-timeout 1 http://ip-api.com?fields=country,city,org,query | sed 's|^|  |; /[{}]/d'
+    proxy_port=1234 # xray local socks5 port
+    if [[ $(hconfig "core_type") == "singbox" ]];then
+        proxy_port=2000 # singbox local socks5 port
+    fi
+    curl -s -x socks://127.0.0.1:$proxy_port --connect-timeout 1 http://ip-api.com?fields=country,city,org,query | sed 's|^|  |; /[{}]/d'
     echo "----------------------------------------------------------------"
     
     warning "- Services Status:"
