@@ -1,6 +1,6 @@
 #!/bin/bash
 cd $(dirname -- "$0")
-source ./installer_utils.sh
+source ./utils.sh
 if [ "$(id -u)" -ne 0 ]; then
     echo 'This script must be run by root' >&2
     exit 1
@@ -17,7 +17,7 @@ checkOS
 export DEBIAN_FRONTEND=noninteractive
 NAME="installer"
 LOG_FILE="$(log_file $NAME)"
-USE_VENV=false
+export USE_VENV=false
 
 if [ ! -f /opt/hiddify-manager/install.sh ]; then
     rm -rf /opt/hiddify-manager

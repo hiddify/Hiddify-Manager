@@ -44,6 +44,7 @@ checkOS
 #su hiddify-panel -c update-locale LANG=C.UTF-8 >/dev/null 2>&1
 
 export DEBIAN_FRONTEND=noninteractive
+export USE_VENV=false
 
 echo "we are going to download needed files:)"
 GITHUB_REPOSITORY=hiddify-config
