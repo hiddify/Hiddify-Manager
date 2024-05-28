@@ -106,12 +106,9 @@ function disable_ansii_modes() {
 }
 
 function update_progress() {
-    add_DNS_if_failed
-    #title="\033[92m\033[1m${1^}\033[0m\033[0m"
     title="${1^}"
     text="$2"
     percentage="$3"
-    # echo -e "XXX\n$percentage\n$title\n$text\nXXX"
     echo -e "####$percentage####$title####$text####"
 }
 
@@ -202,7 +199,7 @@ END
     msg "$text \n\n$1"
 
 }
-center_text() {
+function center_text() {
     local text="$1"
     local screen_width="$(tput cols)"
     local longest_line_length="$(echo "$text" | awk '{ print length }' | sort -rn | head -1)"
@@ -229,6 +226,11 @@ function hiddify_api() {
 }
 
 function install_python() {
+    # Check if USE_VENV is not set or is empty
+    if [ -z "${USE_VENV}" ]; then
+        echo "USE_VENV variable is not set or is empty. Exiting..."
+        exit 666
+    fi
     # region install python3.10 system-widely
     rm -rf /usr/lib/python3/dist-packages/blinker*
     if ! python3.10 --version &>/dev/null; then
@@ -237,7 +239,6 @@ function install_python() {
         add-apt-repository -y ppa:deadsnakes/ppa
         sudo apt-get -y remove python*
     fi
-    rm -rf "/opt/hiddify-manager/.venv/"
     install_package python3.10-dev
     ln -sf $(which python3.10) /usr/bin/python3
     ln -sf /usr/bin/python3 /usr/bin/python
@@ -247,34 +248,30 @@ function install_python() {
     fi
     # endregion
 
+    # region make virtual env
     # Some third-party packages are not compatible with python3.13 eg. grpcio-tools
     # Therefore we still use python3.10 
-    # region make virtual env
-    
-    # create_python_venv
-    # activate_python_venv
+    # Check if USE_VENV doesn't exist or is true
+    if [ "${USE_VENV}" = true ]; then
+        create_python_venv
+        activate_python_venv
+    fi
     # endregion
 
 }
-function remove_python_venv() {
-    rm -rf "/opt/hiddify-manager/.venv/"
-    install_python
-}
 function create_python_venv() {
-    remove_python_venv
-    # venv_path="/opt/hiddify-manager/.venv/"
-    # if [ ! -d "$venv_path" ]; then
-    #     install_package python3.10-venv
-    #     python3.10 -m venv "$venv_path"
-    # fi
+    venv_path="/opt/hiddify-manager/.venv/"
+    if [ ! -d "$venv_path" ]; then
+        install_package python3.10-venv
+        python3.10 -m venv "$venv_path"
+    fi
 }
 function activate_python_venv() {
-    remove_python_venv
-    # venv_path="/opt/hiddify-manager/.venv"
-    # if [ -z "$VIRTUAL_ENV" ]; then
-    #     #echo "Activating virtual environment..."
-    #     source "$venv_path/bin/activate"
-    # fi
+    venv_path="/opt/hiddify-manager/.venv"
+    if [ -z "$VIRTUAL_ENV" ]; then
+        #echo "Activating virtual environment..."
+        source "$venv_path/bin/activate"
+    fi
 }
 
 function check_hiddify_panel() {
@@ -287,17 +284,18 @@ function check_hiddify_panel() {
             echo "4" >log/error.lock
             exit 4
         fi
-        echo ""
-        echo ""
+        echo -e "\n\n"
+
         bash /opt/hiddify-manager/status.sh
-        echo "==========================================================="
         bash /opt/hiddify-manager/common/logo.ico
-        success "Finished! Thank you for helping to skip filternet."
 
         install_package qrencode
         center_text "$(qrencode -t utf8 -m 2 $(cat /opt/hiddify-manager/current.json | jq -r '.panel_links[]' | tail -n 1))"
-
-        echo "Please open the following link in the browser for client setup"
+        echo ""
+        center_text $'\t\033[92mFinished! Thank you for helping to skip filternet.\033[0m'
+        
+        echo -e "\n"
+        echo "Please open the following link in the browser for client setup:"
         cat /opt/hiddify-manager/current.json | jq -r '.panel_links[]' | while read -r link; do
             if [[ $link == http://* ]]; then
                 link="[insecure] $link"
@@ -450,8 +448,122 @@ function hconfig() {
     error "Error: Key not found: $key"
     return 1
 }
+#TODO: check functionality when not using the venv
 function hiddify-panel-run() {
   command="su hiddify-panel -c \"source /opt/hiddify-manager/.venv/bin/activate && $@\""
-  command="su hiddify-panel -c '$@'"
+  #command="su hiddify-panel -c '$@'"
   eval $command
+}
+
+# region installer utils
+function checkOS() {
+    # List of supported distributions
+    #supported_distros=("Ubuntu" "Debian" "Fedora" "CentOS" "Arch")
+    supported_distros=("Ubuntu")
+    # Get the distribution name and version
+    if [[ -f "/etc/os-release" ]]; then
+        source "/etc/os-release"
+        distro_name=$NAME
+        distro_version=$VERSION_ID
+    else
+        echo "Unable to determine distribution."
+        exit 1
+    fi
+    # Check if the distribution is supported
+    if [[ " ${supported_distros[@]} " =~ " ${distro_name} " ]]; then
+        echo "Your Linux distribution is ${distro_name} ${distro_version}"
+        : #no-op command
+    else
+        # Print error message in red
+        echo -e "\e[31mYour Linux distribution (${distro_name} ${distro_version}) is not currently supported.\e[0m"
+        exit 1
+    fi
+    
+    # This script only works on Ubuntu 22 and above
+    if [ "$(uname)" == "Linux" ]; then
+        version_info=$(lsb_release -rs | cut -d '.' -f 1)
+        # Check if it's Ubuntu and version is below 22
+        if [ "$(lsb_release -is)" == "Ubuntu" ] && [ "$version_info" -lt 22 ]; then
+            echo "This script only works on Ubuntu 22 and above"
+            exit
+        fi
+    fi
+}
+function disable_panel_services() {
+    # rm /etc/cron.d/hiddify_usage_update
+    # rm /etc/cron.d/hiddify_auto_backup
+    # service cron reload >/dev/null 2>&1
+    # kill -9 $(pgrep -f 'hiddifypanel update-usage')
+    # systemctl restart mariadb
+    echo ""
+}
+
+function vercomp () {
+    if [[ $1 == $2 ]]
+    then
+        return 0
+    fi
+    local IFS=.
+    local i ver1=($1) ver2=($2)
+    # fill empty fields in ver1 with zeros
+    for ((i=${#ver1[@]}; i<${#ver2[@]}; i++))
+    do
+        ver1[i]=0
+    done
+    for ((i=0; i<${#ver1[@]}; i++))
+    do
+        if [[ -z ${ver2[i]} ]]
+        then
+            # fill empty fields in ver2 with zeros
+            ver2[i]=0
+        fi
+        if ((10#${ver1[i]//[!0-9]/} > 10#${ver2[i]//[!0-9]/}))
+        then
+            return 1
+        fi
+        if ((10#${ver1[i]//[!0-9]/} < 10#${ver2[i]//[!0-9]/}))
+        then
+            return 2
+        fi
+    done
+    return 0
+}
+
+
+function check_venv_compatibility() {
+    package_mode=${1:-release}
+
+    if [ "$package_mode" == "false" ]; then
+        package_mode="release"
+    fi
+
+    first_release_compatible_venv_version=v10.30
+
+    case "$package_mode" in
+        v.*)
+            # Check if version is greater than or equal to the compatible release version
+            if [ $(vercomp "$package_mode" "$first_release_compatible_venv_version") == 0 ] || [ $(vercomp "$package_mode" "$first_release_compatible_venv_version") == 1 ]; then
+                USE_VENV=true
+            fi
+        ;;
+        develop|dev)
+            # Develop is always venv compatible
+            USE_VENV=true
+        ;;
+        beta)
+            # Beta is always venv compatible
+            USE_VENV=true
+        ;;
+        release)
+            # Get the latest release version
+            latest=$(get_release_version hiddify-manager)
+            if [[ $(vercomp "$latest" "$first_release_compatible_venv_version") == 0 ]] || [[ $(vercomp "$latest" "$first_release_compatible_venv_version") == 1 ]]; then
+                USE_VENV=true
+            fi
+        ;;
+        *)
+            echo "Unknown package mode: $package_mode"
+            exit 1
+        ;;
+    esac
 }

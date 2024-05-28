@@ -29,6 +29,7 @@ function main() {
         PROGRESS_ACTION="Applying..."
     fi
     if [ "$HIDDIFY_DEBUG" = "1" ]; then
+        export USE_VENV=true
         install_python
     else
         activate_python_venv

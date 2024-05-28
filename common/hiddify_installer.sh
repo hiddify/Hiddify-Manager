@@ -5,50 +5,19 @@ if [ "$(id -u)" -ne 0 ]; then
     echo 'This script must be run by root' >&2
     exit 1
 fi
-remove_python_venv
 
-checkOS() {
-    # List of supported distributions
-    #supported_distros=("Ubuntu" "Debian" "Fedora" "CentOS" "Arch")
-    supported_distros=("Ubuntu")
-    # Get the distribution name and version
-    if [[ -f "/etc/os-release" ]]; then
-        source "/etc/os-release"
-        distro_name=$NAME
-        distro_version=$VERSION_ID
-    else
-        echo "Unable to determine distribution."
-        exit 1
-    fi
-    # Check if the distribution is supported
-    if [[ " ${supported_distros[@]} " =~ " ${distro_name} " ]]; then
-        echo "Your Linux distribution is ${distro_name} ${distro_version}"
-        : #no-op command
-    else
-        # Print error message in red
-        echo -e "\e[31mYour Linux distribution (${distro_name} ${distro_version}) is not currently supported.\e[0m"
-        exit 1
-    fi
-    
-    # This script only works on Ubuntu 22 and above
-    if [ "$(uname)" == "Linux" ]; then
-        version_info=$(lsb_release -rs | cut -d '.' -f 1)
-        # Check if it's Ubuntu and version is below 22
-        if [ "$(lsb_release -is)" == "Ubuntu" ] && [ "$version_info" -lt 22 ]; then
-            echo "This script only works on Ubuntu 22 and above"
-            exit
-        fi
-    fi
-}
+
 checkOS
 
-# TODO: this commands are declared in hiddify-panel/install.sh, we don't need them here?!
-#localectl set-locale LANG=C.UTF-8 >/dev/null 2>&1
-#su hiddify-panel -c update-locale LANG=C.UTF-8 >/dev/null 2>&1
+
+
+
+
 
 export DEBIAN_FRONTEND=noninteractive
 NAME="installer"
 LOG_FILE="$(log_file $NAME)"
+export USE_VENV=false
 
 if [ ! -f /opt/hiddify-manager/install.sh ]; then
     rm -rf /opt/hiddify-manager
@@ -85,8 +54,11 @@ function install_panel() {
         echo "/opt/hiddify-manager/menu.sh" >>~/.bashrc
         echo "cd /opt/hiddify-manager/" >>~/.bashrc
     fi
-    activate_python_venv
-    
+
+    if [ "$USE_VENV" = "true" ]; then
+        activate_python_venv
+    fi
+
     install_package jq wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config
     update_panel "$package_mode" "$force"
     panel_update=$?
@@ -97,15 +69,6 @@ function install_panel() {
     if is_installed hiddifypanel && [[ -z "$package_mode" || ($package_mode == "develop" || $package_mode == "beta" || $package_mode == "release") ]]; then
         (cd /opt/hiddify-manager/hiddify-panel && hiddifypanel set-setting -k package_mode -v $1)
     fi
-}
-
-function disable_panel_services(){
-    #     rm /etc/cron.d/hiddify_usage_update
-    #     rm /etc/cron.d/hiddify_auto_backup
-    #     service cron reload >/dev/null 2>&1
-    #     kill -9 $(pgrep -f 'hiddifypanel update-usage')
-    #     systemctl restart mariadb
-    echo "Ok"
 }
 
 function update_panel() {
@@ -130,7 +93,10 @@ function update_panel() {
             # Use the latest commit from GitHub
             latest=$(get_commit_version Hiddify-Panel)
             
-            echo "DEVLEOP: hiddify panel version current=$current_panel_version latest=$latest"
+            warning "DEVLEOP: hiddify panel version current=$current_panel_version latest=$latest"
+            if [[ "$current_panel_version" != "$latest" ]]; then
+                error "The current develop version is outdated! Updating..."
+            fi
             if [[ $force == "true" || "$latest" != "$current_panel_version" ]]; then
                 update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
                 panel_path=$(hiddifypanel_path)
@@ -145,10 +111,12 @@ function update_panel() {
         ;;
         beta)
             latest=$(get_pre_release_version hiddify-panel)
-            echo "BETA: hiddify panel version current=$current_panel_version latest=$latest"
+            warning "BETA: hiddify panel version current=$current_panel_version latest=$latest"
+            if [[ "$current_panel_version" != "$latest" ]]; then
+                error "The current beta version is outdated! Updating..."
+            fi
             if [[ $force == "true" || "$current_panel_version" != "$latest" ]]; then
                 update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
-                echo "panel is outdated! updating...."
                 # pip install -U --pre hiddifypanel==$latest
                 disable_panel_services
                 pip install -U --pre hiddifypanel
@@ -160,10 +128,12 @@ function update_panel() {
             # error "you can not install release version 8 using this script"
             # exit 1
             latest=$(get_release_version hiddify-panel)
-            echo "hiddify panel version current=$current_panel_version latest=$latest"
+            if [[ "$current_panel_version" != "$latest" ]]; then
+                error "The current beta version is outdated! Updating..."
+            fi
+            warning "hiddify panel version current=$current_panel_version latest=$latest"
             if [[ $force == "true" || "$current_panel_version" != "$latest" ]]; then
                 update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
-                echo "panel is outdated! updating...."
                 # pip3 install -U hiddifypanel==$latest
                 disable_panel_services
                 pip3 install -U hiddifypanel
@@ -300,6 +270,9 @@ function update_from_github() {
     rm -f singbox/configs/*.json
     bash install.sh --no-gui --no-log
 }
+
+check_venv_compatibility "$@"
+
 install_python
 pip3 install --upgrade pip
 
