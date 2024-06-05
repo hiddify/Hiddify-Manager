@@ -3,13 +3,12 @@ Description=HiddifyCli service
 After=network-online.target
 
 [Service]
-#User=nobody
 Type=simple
 Restart=always
 RestartSec=3
 WorkingDirectory=/opt/hiddify-manager/other/hiddify-cli
 EnvironmentFile=/opt/hiddify-manager/other/hiddify-cli/.env
-ExecStart=/opt/hiddify-manager/other/hiddify-cli/HiddifyCli run -c $SUB_LINK -h h_client_config.json
+ExecStart=/opt/hiddify-manager/other/hiddify-cli/HiddifyCli run -c $SUB_LINK -d h_client_config.json
 
 [Install]
 WantedBy=multi-user.target
