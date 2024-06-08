@@ -15,7 +15,7 @@ function main(){
     
     # systemctl status --no-pager hiddify-nginx hiddify-xray hiddify-singbox hiddify-haproxy|cat
     
-    if [[ $(hconfig "warp_mode") != "none" ]];then
+    if [[ $(hconfig "warp_mode") != "disable" ]];then
         echo -e "\n----------------------------------------------------------------"
         bash other/warp/status.sh
     fi
