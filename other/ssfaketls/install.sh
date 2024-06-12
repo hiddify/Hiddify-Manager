@@ -1,6 +1,5 @@
 source /opt/hiddify-manager/common/utils.sh
-echo "shadowsocks proxy install.sh $*"
 
 install_package shadowsocks-libev simple-obfs
 
-ln -sf $(pwd)/ss-faketls.service /etc/systemd/system/ss-faketls.service
+ln -sf $(pwd)/hiddify-ss-faketls.service /etc/systemd/system/hiddify-ss-faketls.service
