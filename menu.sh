@@ -96,7 +96,6 @@ function menu() {
             warp "Check Warp Status"
             add_remote "Add remote assistant access to this server"
             remove_remote "Remove remote assistant access to this server"
-            downgrade "Downgrade from develop to release"
             enable "show this menu on start up"
             disable "disable this menu"
             uninstall "Uninstall hiddify :("
@@ -121,9 +120,6 @@ function menu() {
         "purge")
             bash uninstall.sh purge
             ;;
-        "downgrade")
-            bash common/downgrade.sh
-            ;;
         "add_remote")
             bash common/add_remote_assistant.sh
             ;;
@@ -143,10 +139,9 @@ function menu() {
 
     "update")
         OPTIONS=(default "Based on the configuration in panel"
-            release "stable (suggested) $UPDATE_NEED"
-            beta "pre-release version - may have bugs"
-            develop "for testing purposes (not recommended)"
-            Back ""
+                release "stable (suggested) $UPDATE_NEED"
+                beta "pre-release version - may have bugs"
+                Back ""
         )
         CHOICE=$(whiptail --clear --backtitle "$BACKTITLE" --title "$TITLE" --menu "$MENU" $HEIGHT $WIDTH $CHOICE_HEIGHT "${OPTIONS[@]}" 3>&1 1>&2 2>&3)
         case $CHOICE in
@@ -158,9 +153,6 @@ function menu() {
             ;;
         "beta")
             bash update.sh beta
-            ;;
-        "develop")
-            bash update.sh develop
             ;;
         *) NEED_KEY=0 ;;
         esac
