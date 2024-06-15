@@ -34,7 +34,7 @@ function main(){
     for s in other/**/*.service **/*.service wg-quick@warp mtproto-proxy.service mtproxy.service;do
         s=${s##*/}
         s=${s%%.*}
-        if [[ $s == "wg-quick@warp" ]] && [[ $(hconfig "warp_mode") == "none" ]]; then
+        if [[ $s == "wg-quick@warp" ]] && [[ $(hconfig "warp_mode") == "disable" ]]; then
             continue
         fi
         if systemctl is-enabled $s >/dev/null 2>&1 ; then
