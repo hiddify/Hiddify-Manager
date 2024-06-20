@@ -99,9 +99,8 @@ function main() {
         
         
         update_progress "${PROGRESS_ACTION}" "Warp" 75
-        #$([ "$WARP_MODE" != 'disable' ] || echo "false")
         
-        if [[ $(hconfig "warp_mode") != "none" ]];then
+        if [[ $(hconfig "warp_mode") != "disable" ]];then
             install_run other/warp 1
         else
             install_run other/warp 0
