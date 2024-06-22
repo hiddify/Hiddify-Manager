@@ -1,2 +1,2 @@
-systemctl enable ss-faketls.service
-systemctl restart ss-faketls.service
+systemctl enable hiddify-ss-faketls.service
+systemctl restart hiddify-ss-faketls.service
