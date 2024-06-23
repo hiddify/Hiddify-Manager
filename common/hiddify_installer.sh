@@ -277,9 +277,8 @@ install_python
 pip3 install --upgrade pip
 
 
-
 # Run the main function and log the output
-if [[ " $@ " == *" --no-gui "* || "$(get_installed_panel_version) " != "10."* ]]; then
+if [[ " $@ " == *" --no-gui "* || "$(get_installed_panel_version) " == "8."* ]]; then
     set -- "${@/--no-gui/}"
     set_lock $NAME
     if [[ " $@ " == *" --no-log "* ]]; then
