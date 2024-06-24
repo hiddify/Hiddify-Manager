@@ -3,6 +3,127 @@
 
 ## (unreleased)
 
+### Changes
+
+* Just renaming ss-faketls.service to hiddify-ss-faketls.service. [Sarina]
+
+* Remove develop version installation option from menu.sh. [Sarina]
+
+* Beta is venv compatible. [Sarina]
+
+* Better ui. [Sarina]
+
+* Run remove deprecated things bash script. [Sarina]
+
+* Fix bug & refactor code & less logs. [Sarina]
+
+* Refactor. [Sarina]
+
+### Fix
+
+* Wrong mode. [I'm Sarina Esmailzadeh Too]
+
+* Bug related to hiddify-cli.service the hiddify-cli arguments were changed by the programmer but not announced. [Sarina]
+
+* Fix: hide wg-quick@warp.service (warp) status ,when it's not enabled. [Sarina]
+
+* Warp bug. [Sarina]
+
+* Warp incorrect mode. [Sarina]
+
+* Bug. [Sarina]
+
+* Bug. [Sarina]
+
+* Venv in installer script. [Sarina]
+
+* Bugs. [Sarina]
+
+* Loop. [hiddify-com]
+
+* Update. [hiddify-com]
+
+* Bugs. [Sarina]
+
+* Run command with 'su hiddify-panel' in virtual env. [Sarina]
+
+* Hiddify-panel service venv bug. [Sarina]
+
+* Build hiddifypanel package from source in debug mode. [Sarina]
+
+* Parsing jinja files  bug. [Sarina]
+
+* Jinja parsing bug. [Sarina]
+
+* Haproxy install check. [Sarina]
+
+### Other
+
+* Fix first installation progress windows. [hiddify-com]
+
+* Merge pull request #4190 from Iam54r1n4/devm10-patch-9. [Hiddify]
+
+  Renaming ss-faketls.service to hiddify-ss-faketls.service
+
+* Update disable.sh. [Hiddify]
+
+* Update install.sh. [Hiddify]
+
+* Merge pull request #4175 from Iam54r1n4/devm10-patch7. [Hiddify]
+
+  Fix hiddify-cli service bug
+
+* Merge pull request #4179 from Iam54r1n4/devm10-patch-8. [Hiddify]
+
+  Fix warp incorrect mode
+
+* Merge pull request #4197 from Iam54r1n4/devm10-patch-10. [Hiddify]
+
+  Remove develop version installation option from menu.sh
+
+* Merge pull request #4202 from Iam54r1n4/patch-1. [Hiddify]
+
+  Update CONTRIBUTING.md
+
+* Update CONTRIBUTING.md. [I'm Sarina Esmailzadeh Too]
+
+  This Contribution Guide must be completed. We need people to contribute.
+
+* Merge pull request #4078 from Iam54r1n4/devm10-patch-6. [Hiddify]
+
+  Fix venv in installer script
+
+* Del: installer utils e.g. remove installer isolated utils. [Sarina]
+
+* Del: unwanted change. [Sarina]
+
+* Merge pull request #4098 from Iam54r1n4/devm10-patch-7. [Hiddify]
+
+  Bug fixes
+
+* Merge pull request #4077 from Iam54r1n4/devm10-patch-5. [Hiddify]
+
+  del: useless bash scripts
+
+* Del: useless bash scripts. [Sarina]
+
+* Update. [hiddify-com]
+
+* Update. [hiddify-com]
+
+* Merge pull request #4012 from Iam54r1n4/devm10-patch-4. [Hiddify]
+
+  Add python virtual environment
+
+* Add: python virtual env. [Sarina]
+
+* Update README.md. [Hiddify]
+
+* Update cloud-init.yml. [lymanjre]
+
+
+## v10.20.4 (2024-04-13)
+
 ### Fix
 
 * Auto update bug. [hiddify-com]
