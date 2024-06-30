@@ -59,6 +59,22 @@
 
 ### Other
 
+* Update. [hiddify-com]
+
+* Update. [hiddify-com]
+
+* Merge branch 'main' of github.com:hiddify/Hiddify-Manager. [hiddify-com]
+
+* Update app.cfg. [Hiddify]
+
+* Update app.cfg. [Hiddify]
+
+* Better panel management. [hiddify-com]
+
+* Better purge. [hiddify-com]
+
+* Better logging. [hiddify-com]
+
 * Do not delete resolveconf. [hiddify-com]
 
 * Only set custom dns config if dns is not working. [hiddify-com]
