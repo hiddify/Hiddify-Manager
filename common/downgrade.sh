@@ -3,7 +3,7 @@ cd /opt/hiddify-manager/hiddify-panel
 source /opt/hiddify-manager/common/utils.sh
 activate_python_venv
 
-python -m hiddifypanel downgrade
+hiddify-panel-cli downgrade
 if [ ! -f hiddifypanel.db ] && [ -f hiddifypanel.db.old ]; then
     mv hiddifypanel.db.old hiddifypanel.db
 fi

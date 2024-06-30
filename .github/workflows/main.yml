@@ -35,4 +35,5 @@ jobs:
         run: |
           cd /opt/hiddify-manager/
           grep -q -e '-----Finished!-----' log/system/0-install.log 
-          cd hiddify-panel;hiddifypanel all-configs
+          source common/utils.sh
+          hiddify-panel-cli all-configs

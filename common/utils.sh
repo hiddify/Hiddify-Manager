@@ -55,7 +55,7 @@ function get_installed_config_version() {
 function get_package_mode() {
     cd /opt/hiddify-manager/hiddify-panel || exit
     activate_python_venv
-    python -m hiddifypanel all-configs | jq -r '.chconfigs["0"].package_mode'
+    hiddify-panel-cli all-configs | jq -r '.chconfigs["0"].package_mode'
 }
 
 function error() {
@@ -215,15 +215,6 @@ function msg() {
     disable_ansii_modes
 }
 
-function hiddify_api() {
-    activate_python_venv
-    data=$(
-        cd /opt/hiddify-manager/hiddify-panel || exit
-        python -m hiddifypanel "$1"
-    )
-    echo "$data"
-    return 0
-}
 
 function install_python() {
     # Check if USE_VENV is not set or is empty
@@ -276,8 +267,7 @@ function activate_python_venv() {
 
 function check_hiddify_panel() {
     if [ "$MODE" != "apply_users" ]; then
-        activate_python_venv
-        (cd /opt/hiddify-manager/hiddify-panel && python3 -m hiddifypanel all-configs) >/opt/hiddify-manager/current.json
+        (hiddify-panel-cli all-configs) >/opt/hiddify-manager/current.json
         chmod 600 /opt/hiddify-manager/current.json
         if [[ $? != 0 ]]; then
             error "Exception in Hiddify Panel. Please send the log to hiddify@gmail.com"
@@ -450,11 +440,14 @@ function hconfig() {
 }
 #TODO: check functionality when not using the venv
 function hiddify-panel-run() {
-  command="su hiddify-panel -c \"source /opt/hiddify-manager/.venv/bin/activate && $@\""
+  command="su hiddify-panel -c \"cd /opt/hiddify-manager/hiddify-panel/; source /opt/hiddify-manager/.venv/bin/activate && $@\""
   #command="su hiddify-panel -c '$@'"
   eval $command
 }
 
+function hiddify-panel-cli() {
+  hiddify-panel-run "python3 -m hiddifypanel $*"
+}
 # region installer utils
 function checkOS() {
     # List of supported distributions

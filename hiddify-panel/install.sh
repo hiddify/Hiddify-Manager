@@ -51,7 +51,7 @@ if [ -f "../config.env" ]; then
     # systemctl restart --now mariadb
     # sleep 4
     
-    hiddify-panel-run "hiddifypanel import-config -c $(pwd)/../config.env"
+    hiddify-panel-cli import-config -c $(pwd)/../config.env
     
     # doesn't load virtual env
     #su hiddify-panel -c "hiddifypanel import-config -c $(pwd)/../config.env"

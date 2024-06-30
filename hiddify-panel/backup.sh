@@ -4,6 +4,6 @@ source ../common/utils.sh
 
 function main(){
     activate_python_venv
-    python3 -m hiddifypanel backup
+    hiddify-panel-cli backup
 }
 main |& tee -a ../log/system/backup.log

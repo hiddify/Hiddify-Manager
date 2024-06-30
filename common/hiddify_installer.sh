@@ -67,7 +67,7 @@ function install_panel() {
     post_update_tasks  "$panel_update" "$config_update" "$package_mode"
     
     if is_installed hiddifypanel && [[ -z "$package_mode" || ($package_mode == "develop" || $package_mode == "beta" || $package_mode == "release") ]]; then
-        (cd /opt/hiddify-manager/hiddify-panel && hiddifypanel set-setting -k package_mode -v $1)
+        hiddify-panel-cli set-setting -k package_mode -v $1
     fi
 }
 
@@ -223,18 +223,18 @@ function post_update_tasks() {
     
     cd /opt/hiddify-manager/hiddify-panel
     if [ "$CREATE_EASYSETUP_LINK" == "true" ];then
-        hiddifypanel set-setting --key create_easysetup_link --val True
+        hiddify-panel-cli set-setting --key create_easysetup_link --val True
     fi
     
     case "$package_mode" in
         release|beta)
-            hiddifypanel set-setting --key package_mode --val $package_mode
+            hiddify-panel-cli set-setting --key package_mode --val $package_mode
         ;;
         dev|develop)
-            hiddifypanel set-setting --key package_mode --val develop
+            hiddify-panel-cli set-setting --key package_mode --val develop
         ;;
         *)
-            hiddifypanel set-setting --key auto_update --val False
+            hiddify-panel-cli set-setting --key auto_update --val False
         ;;
     esac
     
