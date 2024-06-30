@@ -47,6 +47,10 @@ ln -sf $(which uwsgi) /usr/local/bin/uwsgi >/dev/null 2>&1
 # hiddifypanel init-db
 ln -sf $(pwd)/hiddify-panel.service /etc/systemd/system/hiddify-panel.service
 systemctl enable hiddify-panel.service
+
+echo -n "" >> log/system/panel.log
+chown hiddify-panel log/system/panel.log
+
 if [ -f "../config.env" ]; then
     # systemctl restart --now mariadb
     # sleep 4
