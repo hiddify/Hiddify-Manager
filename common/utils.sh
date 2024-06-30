@@ -34,17 +34,17 @@ function get_release_version() {
 
 function hiddifypanel_path() {
     activate_python_venv
-    python -c "import os,hiddifypanel;print(os.path.dirname(hiddifypanel.__file__),end='')"
+    python -c "import os,hiddifypanel;print(os.path.dirname(hiddifypanel.__file__),end='')" 2>&1 || echo "panel is not installed yet."
 }
 function get_installed_panel_version() {
-    version=$(cat "$(hiddifypanel_path)/VERSION")
+    version=$(cat "$(hiddifypanel_path)/VERSION" 2>/dev/null)
     if [ -z "$version" ]; then
         version="-"
     fi
     echo $version
 }
 function get_installed_config_version() {
-    version=$(cat /opt/hiddify-manager/VERSION)
+    version=$(cat /opt/hiddify-manager/VERSION 2>/dev/null)
 
     if [ -z "$version" ]; then
         version="-"
