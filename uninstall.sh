@@ -1,4 +1,5 @@
 #!/bin/bash
+cd $(dirname -- "$0")
 function main(){
     for s in netdata other/**/*.service **/*.service nginx;do
         s=${s##*/}
@@ -9,8 +10,9 @@ function main(){
     rm -rf /etc/cron.d/hiddify*
     service cron reload
     if [[ "$1" == "purge" ]];then
-        cd .. && rm -rf hiddify-panel
-        apt remove -y nginx gunicorn #python3-pip python3
+        rm -rf hiddify-panel
+        apt purge -y nginx gunicorn mariadb-* #python3-pip python3
+        rm -rf *
         echo "We have completely removed hiddify panel"
     fi
 }
