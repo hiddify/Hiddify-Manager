@@ -3,6 +3,21 @@
 
 ## (unreleased)
 
+### Fix
+
+* Permission issue. [hiddify-com]
+
+* Installer venv. [hiddify-com]
+
+### Other
+
+* Fix. [hiddify-com]
+
+* Fix venv. [hiddify-com]
+
+
+## v10.30.0 (2024-07-02)
+
 ### Changes
 
 * Just renaming ss-faketls.service to hiddify-ss-faketls.service. [Sarina]
