@@ -17,7 +17,7 @@ checkOS
 export DEBIAN_FRONTEND=noninteractive
 NAME="installer"
 LOG_FILE="$(log_file $NAME)"
-export USE_VENV=false
+export USE_VENV=true
 
 if [ ! -f /opt/hiddify-manager/install.sh ]; then
     rm -rf /opt/hiddify-manager
