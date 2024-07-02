@@ -5,6 +5,13 @@
 
 ### Fix
 
+* Update usage bug. [hiddify-com]
+
+
+## v10.30.2 (2024-07-02)
+
+### Fix
+
 * Bug. [hiddify-com]
 
 
