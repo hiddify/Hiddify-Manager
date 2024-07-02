@@ -439,7 +439,7 @@ function hconfig() {
     return 1
 }
 #TODO: check functionality when not using the venv
-function hiddify_panel_run() {
+function hiddify-panel-run() {
     local user=$(whoami)
     local base_command="cd /opt/hiddify-manager/hiddify-panel/; source /opt/hiddify-manager/.venv/bin/activate && $@"
     local command=""
