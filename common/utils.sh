@@ -244,7 +244,6 @@ function install_python() {
     # Therefore we still use python3.10 
     # Check if USE_VENV doesn't exist or is true
     if [ "${USE_VENV}" = true ]; then
-        create_python_venv
         activate_python_venv
     fi
     # endregion
@@ -258,6 +257,7 @@ function create_python_venv() {
     fi
 }
 function activate_python_venv() {
+    create_python_venv
     venv_path="/opt/hiddify-manager/.venv"
     if [ -z "$VIRTUAL_ENV" ]; then
         #echo "Activating virtual environment..."
