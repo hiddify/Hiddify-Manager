@@ -439,10 +439,18 @@ function hconfig() {
     return 1
 }
 #TODO: check functionality when not using the venv
-function hiddify-panel-run() {
-  command="su hiddify-panel -c \"cd /opt/hiddify-manager/hiddify-panel/; source /opt/hiddify-manager/.venv/bin/activate && $@\""
-  #command="su hiddify-panel -c '$@'"
-  eval $command
+function hiddify_panel_run() {
+    local user=$(whoami)
+    local base_command="cd /opt/hiddify-manager/hiddify-panel/; source /opt/hiddify-manager/.venv/bin/activate && $@"
+    local command=""
+
+    if [ "$user" == "hiddify-panel" ]; then
+        command="$base_command"
+    else
+        command="su hiddify-panel -c \"$base_command\""
+    fi
+
+    eval "$command"
 }
 
 function hiddify-panel-cli() {
