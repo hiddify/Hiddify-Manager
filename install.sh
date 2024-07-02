@@ -19,8 +19,6 @@ if [ "$(id -u)" -ne 0 ]; then
     echo 'This script must be run by root' >&2
     exit 1
 fi
-echo -n "" >> log/system/panel.log
-chown hiddify-panel log/system/panel.log
 function main() {
     update_progress "Please wait..." "We are going to install Hiddify..." 0
     export ERROR=0

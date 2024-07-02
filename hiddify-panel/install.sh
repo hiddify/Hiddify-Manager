@@ -3,6 +3,8 @@ activate_python_venv
 install_package wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config
 
 useradd -m hiddify-panel -s /bin/bash >/dev/null 2>&1
+echo -n "" >> log/system/panel.log
+chown hiddify-panel log/system/panel.log
 chown -R hiddify-panel:hiddify-panel /home/hiddify-panel/ >/dev/null 2>&1
 localectl set-locale LANG=C.UTF-8 >/dev/null 2>&1
 su hiddify-panel -c update-locale LANG=C.UTF-8 >/dev/null 2>&1

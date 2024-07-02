@@ -276,8 +276,7 @@ check_venv_compatibility "$@"
 install_python
 pip3 install --upgrade pip
 
-echo -n "" >> log/system/panel.log
-chown hiddify-panel log/system/panel.log
+
 
 # Run the main function and log the output
 if [[ " $@ " == *" --no-gui "* || "$(get_installed_panel_version) " == "8."* ]]; then
