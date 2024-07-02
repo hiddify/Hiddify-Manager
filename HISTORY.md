@@ -5,6 +5,13 @@
 
 ### Fix
 
+* Bug. [hiddify-com]
+
+
+## v10.30.1 (2024-07-02)
+
+### Fix
+
 * Permission issue. [hiddify-com]
 
 * Installer venv. [hiddify-com]
