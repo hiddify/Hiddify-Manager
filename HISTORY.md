@@ -3,6 +3,13 @@
 
 ## (unreleased)
 
+### Other
+
+* Chg hiddify-panel user shell to bash. [hiddify-com]
+
+
+## v10.30.4 (2024-07-02)
+
 ### Fix
 
 * Bug. [hiddify-com]
