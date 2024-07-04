@@ -19,6 +19,10 @@ add2iptables46 "OUTPUT -p udp -j ACCEPT"
 add2iptables46 "OUTPUT -p tcp -j ACCEPT"
 add2iptables46 "INPUT -i lo -j ACCEPT"
 
+{% if hconfigs['shadowsocks2022_enable'] %}
+  allow_port "udp" {{hconfigs['shadowsocks2022_port']}} #shadowsocks
+  allow_port "tcp" {{hconfigs['shadowsocks2022_port']}} #shadowsocks
+{% endif %}
 
 {% for d in domains if d['internal_port_hysteria2'] or d['internal_port_tuic']  %}
   {% if d['internal_port_hysteria2']>0 %}
