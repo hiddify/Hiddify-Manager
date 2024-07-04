@@ -3,6 +3,17 @@
 
 ## (unreleased)
 
+### Fix
+
+* Shadowsocks firewall. [hiddify-com]
+
+### Other
+
+* Remove old domains from crts. [hiddify-com]
+
+
+## v10.30.5 (2024-07-03)
+
 ### Other
 
 * Chg hiddify-panel user shell to bash. [hiddify-com]
