@@ -8,13 +8,13 @@ Type=simple
 User=hiddify-panel
 WorkingDirectory=/opt/hiddify-manager/hiddify-panel/
 Environment="LANG=C.UTF-8"
-ExecStartPre=/bin/bash -c "/bin/kill -INT $(/usr/bin/pgrep -f 'hiddifypanel')||echo 'nothing to kill'"
+#ExecStartPre=/bin/bash -c "/bin/kill -INT $(/usr/bin/pgrep -f 'hiddifypanel')||echo 'nothing to kill'"
 #ExecStartPre=/bin/bash -c ". /opt/hiddify-manager/.venv/bin/activate"
 ExecStart=/opt/hiddify-manager/.venv/bin/python /opt/hiddify-manager/hiddify-panel/app.py
-#ExecReload=/bin/kill -HUP $MAINPID
+ExecReload=/bin/kill -HUP $MAINPID
 #RestartSec=1
-ExecStop=/bin/bash -c "/bin/kill -INT $(/usr/bin/pgrep -f 'hiddifypanel')||echo 'nothing to kill'"
-#ExecStop=/bin/kill -INT $MAINPID
+#ExecStop=/bin/bash -c "/bin/kill -INT $(/usr/bin/pgrep -f 'hiddifypanel')||echo 'nothing to kill'"
+ExecStop=/bin/kill -INT $MAINPID
 Restart=always
 StandardOutput=file:/opt/hiddify-manager/log/system/hiddify_panel.out.log
 StandardError=file:/opt/hiddify-manager/log/system/hiddify_panel.err.log

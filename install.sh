@@ -24,7 +24,9 @@ function main() {
     export ERROR=0
     
     export PROGRESS_ACTION="Installing..."
-    
+    if [ "$MODE" == "apply_users" ];then
+    export DO_NOT_INSTALL="true"
+    fi 
     if [ "$DO_NOT_INSTALL" == "true" ];then
         PROGRESS_ACTION="Applying..."
     fi
@@ -34,7 +36,7 @@ function main() {
     else
         activate_python_venv
     fi
-
+    
     if [ "$MODE" != "apply_users" ]; then
         clean_files
         update_progress "${PROGRESS_ACTION}" "Common Tools and Requirements" 2
@@ -106,13 +108,12 @@ function main() {
             install_run other/warp 0
         fi
         
-        update_progress "${PROGRESS_ACTION}" "Wireguard" 85
-        install_run other/wireguard $(hconfig "wireguard_enable")
-        
         update_progress "${PROGRESS_ACTION}" "HiddifyCli" 90
         install_run other/hiddify-cli $(hconfig "hiddifycli_enable")
         
     fi
+    update_progress "${PROGRESS_ACTION}" "Wireguard" 85
+    install_run other/wireguard $(hconfig "wireguard_enable")
     
     update_progress "${PROGRESS_ACTION}" "Singbox" 95
     install_run singbox
