@@ -45,7 +45,10 @@
                 "hiddify-hetzner-warp",
                 "ookla-speedtest"
               
-            ],
+            ]
+        },
+        {
+            "outbound": {% if hconfigs['warp_mode'] == 'disable' %}"freedom"{% else %}"WARP"{% endif %},
             "domain":[
                 {% if hconfigs['warp_mode'] != 'disable' %}
                   {%for d in hconfigs.get('warp_sites','').split('\n')%}
