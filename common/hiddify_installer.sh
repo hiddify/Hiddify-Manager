@@ -80,7 +80,7 @@ function update_panel() {
     # Set panel_update to 1 if an update is performed
     
     case "$package_mode" in
-        v.*)
+        v*)
             update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
             panel_path=$(hiddifypanel_path)
             disable_panel_services
