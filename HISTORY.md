@@ -5,6 +5,17 @@
 
 ### Fix
 
+* Custom version installer. [hiddify-com]
+
+* Custom version installer. [hiddify-com]
+
+* Wireguard enable/disable users. [hiddify-com]
+
+
+## v10.30.6 (2024-07-06)
+
+### Fix
+
 * Shadowsocks firewall. [hiddify-com]
 
 ### Other
