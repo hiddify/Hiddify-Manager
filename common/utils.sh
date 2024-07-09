@@ -502,6 +502,7 @@ function disable_panel_services() {
 function vercomp () {
     if [[ $1 == $2 ]]
     then
+        echo 0
         return 0
     fi
     local IFS=.
@@ -520,13 +521,16 @@ function vercomp () {
         fi
         if ((10#${ver1[i]//[!0-9]/} > 10#${ver2[i]//[!0-9]/}))
         then
+            echo 1
             return 1
         fi
         if ((10#${ver1[i]//[!0-9]/} < 10#${ver2[i]//[!0-9]/}))
         then
+            echo 2
             return 2
         fi
     done
+    echo 0
     return 0
 }
 
@@ -541,8 +545,9 @@ function check_venv_compatibility() {
     first_release_compatible_venv_version=v10.30
 
     case "$package_mode" in
-        v.*)
+        v*)
             # Check if version is greater than or equal to the compatible release version
+            
             if [ $(vercomp "$package_mode" "$first_release_compatible_venv_version") == 0 ] || [ $(vercomp "$package_mode" "$first_release_compatible_venv_version") == 1 ]; then
                 USE_VENV=true
             fi
@@ -558,7 +563,9 @@ function check_venv_compatibility() {
         release)
             # Get the latest release version
             latest=$(get_release_version hiddify-manager)
-            if [[ $(vercomp "$latest" "$first_release_compatible_venv_version") == 0 ]] || [[ $(vercomp "$latest" "$first_release_compatible_venv_version") == 1 ]]; then
+            ver=$(vercomp "$latest" "$first_release_compatible_venv_version")
+
+            if [[ "$ver" == 0 ]] || [[ "$ver" == 1 ]]; then
                 USE_VENV=true
             fi
         ;;

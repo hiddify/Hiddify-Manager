@@ -157,7 +157,7 @@ function update_config() {
     local current_config_version=$(get_installed_config_version)
     
     case "$package_mode" in
-        v.*)
+        v*)
             update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
             update_from_github "hiddify-manager.zip" "https://github.com/hiddify/Hiddify-Manager/archive/refs/tags/${package_mode}.zip" $latest
             update_progress "Updated..." "Hiddify Config to $latest" 100
