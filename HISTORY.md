@@ -5,11 +5,21 @@
 
 ### Fix
 
+* Ssh password auth warning bug. [hiddify-com]
+
+* Singbox routing issue. [hiddify-com]
+
 * Custom version installer. [hiddify-com]
 
 * Custom version installer. [hiddify-com]
 
 * Wireguard enable/disable users. [hiddify-com]
+
+### Other
+
+* Hidding configs. [hiddify-com]
+
+* More optimization in api communication. [hiddify-com]
 
 
 ## v10.30.6 (2024-07-06)
