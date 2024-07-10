@@ -53,9 +53,7 @@ function get_installed_config_version() {
 }
 
 function get_package_mode() {
-    cd /opt/hiddify-manager/hiddify-panel || exit
-    activate_python_venv
-    hiddify-panel-cli all-configs | jq -r '.chconfigs["0"].package_mode'
+    reload_all_configs | jq -r '.chconfigs["0"].package_mode'
 }
 
 function error() {
@@ -267,8 +265,8 @@ function activate_python_venv() {
 
 function check_hiddify_panel() {
     if [ "$MODE" != "apply_users" ]; then
-        (hiddify-panel-cli all-configs) >/opt/hiddify-manager/current.json
-        chmod 600 /opt/hiddify-manager/current.json
+        (reload_all_configs)
+        
         if [[ $? != 0 ]]; then
             error "Exception in Hiddify Panel. Please send the log to hiddify@gmail.com"
             echo "4" >log/error.lock
@@ -574,4 +572,36 @@ function check_venv_compatibility() {
             exit 1
         ;;
     esac
+}
+
+function hiddify-http-api(){
+    api_path=$(jq -r '.api_path' /opt/hiddify-manager/current.json)
+    api_key=$(jq -r '.api_key' /opt/hiddify-manager/current.json)
+    
+
+    if [ -z "$api_path" ] || [ -z "$api_key" ]; then
+        echo "invalid config file"
+        return 1
+    fi
+    temp_file=$(mktemp)
+    http_status=$(curl -s -o $temp_file -w "%{http_code}" http://localhost:9000/${api_path}/api/v2/$1 --header "Hiddify-API-Key: ${api_key}")
+    cat $temp_file
+    rm $temp_file
+    if [ "$http_status" -ne 200 ];then
+        echo $http_status    
+        return 1$http_status
+    fi
+    return 0
+}
+
+function reload_all_configs(){
+    hiddify-http-api admin/all-configs/ > /opt/hiddify-manager/current.json
+    if [ "$?" != 0 ];then
+        hiddify-panel-cli all-configs > /opt/hiddify-manager/current.json
+        if [ $? != 0 ]; then 
+            return $?
+        fi
+    fi
+    chmod 600 /opt/hiddify-manager/current.json
+    cat /opt/hiddify-manager/current.json
 }

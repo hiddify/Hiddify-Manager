@@ -149,8 +149,7 @@ function cleanup() {
 trap cleanup SIGINT
 
 function set_config_from_hpanel() {
-    (hiddify-panel-cli all-configs) >current.json
-    chmod 600 current.json
+    (reload_all_configs)
     if [[ $? != 0 ]]; then
         error "Exception in Hiddify Panel. Please send the log to hiddify@gmail.com"
         exit 4
