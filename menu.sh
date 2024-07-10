@@ -1,5 +1,6 @@
 #!/bin/bash
-cd $(dirname -- "$0")
+# cd "$(dirname -- "$0")"
+cd /opt/hiddify-manager/
 source common/utils.sh
 
 sed -i "s|/opt/hiddify-config/menu.sh|/opt/hiddify-manager/menu.sh|g" ~/.bashrc
@@ -12,7 +13,8 @@ if [[ $(grep "/opt/hiddify-manager/menu.sh" ~/.bashrc | wc -l) > 0 ]]; then
     echo "cd /opt/hiddify-manager/" >>~/.bashrc
 fi
 
-if ! grep -Fxq "PasswordAuthentication no" /etc/ssh/sshd_config; then
+
+if ! grep -rxq "PasswordAuthentication.*no" /etc/ssh/sshd*; then
     # @hiddify/@iam54r1n4 make a better message with a link to why should disable pass-auth
     WARNING_MSG="Your server is vulnerable to abuses because PasswordAuthentication is enabled. To secure your server, please switch to key authentication mechanism and turn off PasswordAuthentication in your ssh config file."
     whiptail --title "WARNING" --msgbox "$WARNING_MSG" 10 78
@@ -21,8 +23,6 @@ fi
 #LATEST_CONFIG_VERSION=$(get_release_version hiddify-manager)
 #LATEST_PANEL_VERSION=$(get_release_version hiddifypanel)
 
-CURRENT_CONFIG_VERSION=$(get_installed_config_version)
-CURRENT_PANEL_VERSION=$(get_installed_panel_version)
 
 # if [[ "$PACKAGE_MODE" == "develop" ]] || [[ "$CURRENT_CONFIG_VERSION" == "$LATEST_CONFIG_VERSION" && "$CURRENT_PANEL_VERSION" == "$LATEST_PANEL_VERSION" ]]; then
 #     UPDATE_NEED=""
@@ -30,10 +30,12 @@ CURRENT_PANEL_VERSION=$(get_installed_panel_version)
 #     UPDATE_NEED="*UPDATE AVAILABLE* Config=v$LATEST_CONFIG_VERSION Panel=v$LATEST_PANEL_VERSION"
 # fi
 
-cd "$(dirname -- "$0")"
-cd /opt/hiddify-manager/
+
+export CURRENT_CONFIG_VERSION=$(get_installed_config_version)
+export CURRENT_PANEL_VERSION=$(get_installed_panel_version)
 
 function menu() {
+    
 
     HEIGHT=20
     WIDTH=70
@@ -156,6 +158,9 @@ function menu() {
             ;;
         *) NEED_KEY=0 ;;
         esac
+        export CURRENT_CONFIG_VERSION=$(get_installed_config_version)
+        export CURRENT_PANEL_VERSION=$(get_installed_panel_version)
+
         ;;
     "admin")
         source common/utils.sh

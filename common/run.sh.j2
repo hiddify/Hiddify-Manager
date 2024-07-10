@@ -69,7 +69,7 @@ allow_port "tcp" {{port}} #panel ports
 {%endfor%} #}
 
 # Check if PasswordAuthentication is enabled
-if ! grep -Fxq "PasswordAuthentication no" /etc/ssh/sshd_config; then
+if ! grep -rxq "PasswordAuthentication.*no" /etc/ssh/sshd*; then
   # @hiddify/@iam54r1n4 make a better message with a link to why should disable pass-auth
   WARNING_MSG="Your server is vulnerable to abuses because PasswordAuthentication is enabled. To secure your server, please switch to key authentication mechanism and turn off PasswordAuthentication in your ssh config file."
 
