@@ -5,6 +5,8 @@
 
 ### Fix
 
+* Bug. [hiddify-com]
+
 * Ssh password auth warning bug. [hiddify-com]
 
 * Singbox routing issue. [hiddify-com]
