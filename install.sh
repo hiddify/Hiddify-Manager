@@ -149,7 +149,7 @@ function cleanup() {
 trap cleanup SIGINT
 
 function set_config_from_hpanel() {
-    (reload_all_configs)
+    reload_all_configs >/dev/null
     if [[ $? != 0 ]]; then
         error "Exception in Hiddify Panel. Please send the log to hiddify@gmail.com"
         exit 4

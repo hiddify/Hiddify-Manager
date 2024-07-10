@@ -265,7 +265,7 @@ function activate_python_venv() {
 
 function check_hiddify_panel() {
     if [ "$MODE" != "apply_users" ]; then
-        (reload_all_configs)
+        reload_all_configs >/dev/null
         
         if [[ $? != 0 ]]; then
             error "Exception in Hiddify Panel. Please send the log to hiddify@gmail.com"
