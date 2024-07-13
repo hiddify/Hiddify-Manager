@@ -5,6 +5,10 @@
 
 ### Fix
 
+* Bug. [hiddify-com]
+
+* Diasplay bug. [hiddify-com]
+
 * Ipv6 cert. [hiddify-com]
 
 * Bug. [hiddify-com]
@@ -20,6 +24,8 @@
 * Wireguard enable/disable users. [hiddify-com]
 
 ### Other
+
+* Force installation in venv. [hiddify-com]
 
 * Allow host to be empty. [hiddify-com]
 
