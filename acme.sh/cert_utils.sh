@@ -28,8 +28,9 @@ function get_cert() {
         # systemctl reload --now hiddify-nginx
 
         DOMAIN_IP=$(dig +short -t a $DOMAIN.)
-        echo "resolving domain $DOMAIN -> IP= $DOMAIN_IP ServerIP-> $SERVER_IP  $SERVER_IPv6"
-        if [[ $SERVER_IP != $DOMAIN_IP ]] && [[ $SERVER_IP != $DOMAIN_IPv6 ]]; then
+        DOMAIN_IPv6=$(dig +short -t aaaa $DOMAIN.)
+        echo "resolving domain $DOMAIN : IP=$DOMAIN_IP IPv6=$DOMAIN_IPv6   ServerIP=$SERVER_IP ServerIPv6=$SERVER_IPv6"
+        if [[ "$SERVER_IP" == "" || $SERVER_IP != $DOMAIN_IP ]] && [[ "$SERVER_IPv6" == "" || $SERVER_IPv6 != $DOMAIN_IPv6 ]]; then
             error "maybe it is an error! make sure that it is correct"
             #sleep 10
         fi
