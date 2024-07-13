@@ -17,7 +17,7 @@ for cfg in os.listdir('configs'):
 		with open(f'configs/{cfg}') as f:
 			data=json.load(f)
 		os.remove(f'configs/{cfg}')
-		for i,inb in enumerate(data['inbounds']):
+		for i,inb in enumerate(data.get('inbounds',[])):
 			new_data={'inbounds':[inb]}
 			with open(f'configs/{i}_{cfg}','w') as f:
 				json.dump(new_data,f,indent=4)
