@@ -28,16 +28,16 @@ function get_cert() {
         # systemctl reload --now hiddify-nginx
 
         DOMAIN_IP=$(dig +short -t a $DOMAIN.)
-        echo "resolving domain $DOMAIN -> IP= $DOMAIN_IP ServerIP-> $SERVER_IP"
-        if [[ $SERVER_IP != $DOMAIN_IP ]]; then
-            echo "maybe it is an error! make sure that it is correct"
+        echo "resolving domain $DOMAIN -> IP= $DOMAIN_IP ServerIP-> $SERVER_IP  $SERVER_IPv6"
+        if [[ $SERVER_IP != $DOMAIN_IP ]] && [[ $SERVER_IP != $DOMAIN_IPv6 ]]; then
+            error "maybe it is an error! make sure that it is correct"
             #sleep 10
         fi
 
         flags=
-        if [ "$SERVER_IPv6" != "" ]; then
-            flags="--listen-v6"
-        fi
+        # if [ "$SERVER_IPv6" != "" ]; then
+        #     flags="--listen-v6"
+        # fi
 
         acme.sh --issue -w /opt/hiddify-manager/acme.sh/www/ -d $DOMAIN --log $(pwd)/../log/system/acme.log --server letsencrypt --pre-hook "systemctl restart hiddify-nginx"
         if is_ok_domain_zerossl "$DOMAIN"; then
