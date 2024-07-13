@@ -92,7 +92,7 @@ function update_panel() {
         develop|dev)
             # Use the latest commit from GitHub
             latest=$(get_commit_version Hiddify-Panel)
-            
+            activate_python_venv
             warning "DEVLEOP: hiddify panel version current=$current_panel_version latest=$latest"
             if [[ "$current_panel_version" != "$latest" ]]; then
                 error "The current develop version is outdated! Updating..."
@@ -101,6 +101,7 @@ function update_panel() {
                 update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
                 panel_path=$(hiddifypanel_path)
                 disable_panel_services
+                
                 pip3 install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel
                 pip3 install git+https://github.com/hiddify/HiddifyPanel
                 echo $latest >$panel_path/VERSION
@@ -110,6 +111,7 @@ function update_panel() {
             fi
         ;;
         beta)
+            activate_python_venv
             latest=$(get_pre_release_version hiddify-panel)
             warning "BETA: hiddify panel version current=$current_panel_version latest=$latest"
             if [[ "$current_panel_version" != "$latest" ]]; then
@@ -125,6 +127,7 @@ function update_panel() {
             fi
         ;;
         release)
+            activate_python_venv
             # error "you can not install release version 8 using this script"
             # exit 1
             latest=$(get_release_version hiddify-panel)
