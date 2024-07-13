@@ -5,6 +5,8 @@
 
 ### Fix
 
+* Ipv6 cert. [hiddify-com]
+
 * Bug. [hiddify-com]
 
 * Ssh password auth warning bug. [hiddify-com]
@@ -18,6 +20,10 @@
 * Wireguard enable/disable users. [hiddify-com]
 
 ### Other
+
+* Allow host to be empty. [hiddify-com]
+
+* Make reality and vless independently enable or disable. [hiddify-com]
 
 * Hidding configs. [hiddify-com]
 
