@@ -1,5 +1,5 @@
 {
-	{% if hconfigs['vless_enable'] and hconfigs['reality_enable'] %}
+	{% if hconfigs['reality_enable'] %}
 		"inbounds": [
 			{% for d in domains if d['internal_port_reality'] and not d['grpc'] %}
 			{%set domain=d['domain']%}
