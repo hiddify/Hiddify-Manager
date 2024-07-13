@@ -136,6 +136,8 @@ def is_domain_valid(d):
 @cli.command('get-cert')
 @click.option('--domain', '-d', type=str, help='The domain that needs certificate', required=True)
 def get_cert(domain: str):
+    if not domain:
+        return
     assert is_domain_valid(domain), f"Error: Invalid domain passed to the get_cert command: {domain}"
     cmd = [Command.get_cert.value, domain]
     run(cmd)
