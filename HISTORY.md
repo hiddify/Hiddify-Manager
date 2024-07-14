@@ -5,6 +5,13 @@
 
 ### Fix
 
+* Sing routing. [hiddify-com]
+
+
+## v10.50.0 (2024-07-14)
+
+### Fix
+
 * Bug. [hiddify-com]
 
 * Diasplay bug. [hiddify-com]
