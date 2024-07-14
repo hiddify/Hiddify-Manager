@@ -47,16 +47,16 @@
               
             ]
         },
+        {% if hconfigs['warp_mode'] != 'disable' and hconfigs.get('warp_sites','').split('\n') %}
         {
-            "outbound": {% if hconfigs['warp_mode'] == 'disable' %}"freedom"{% else %}"WARP"{% endif %},
-            "domain":[
-                {% if hconfigs['warp_mode'] != 'disable' %}
+            "outbound": "WARP",
+            "domain":[                
                   {%for d in hconfigs.get('warp_sites','').split('\n')%}
                       "{{d.strip()}}",
                   {% endfor %}
-                {% endif %}
             ]
         },
+        {% endif %}
         {
           "outbound": "blackhole", "geoip": ["private"]
         }
