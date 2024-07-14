@@ -5,6 +5,13 @@
 
 ### Fix
 
+* Installation but. [hiddify-com]
+
+
+## v10.50.2 (2024-07-14)
+
+### Fix
+
 * Panel version. [hiddify-com]
 
 ### Other
