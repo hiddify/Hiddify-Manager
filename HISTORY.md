@@ -5,6 +5,27 @@
 
 ### Fix
 
+* Panel version. [hiddify-com]
+
+### Other
+
+* Update LICENSE to GPLv3. [Hiddify]
+
+* Update README.md. [Hiddify]
+
+* Merge pull request #4238 from mmmray/patch-1. [Hiddify]
+
+  Update README.md
+
+* Update README.md. [mmmray]
+
+  https://github.com/XTLS/Xray-core/pull/2459#issuecomment-2079547682
+
+
+## v10.50.1 (2024-07-14)
+
+### Fix
+
 * Sing routing. [hiddify-com]
 
 

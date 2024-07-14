@@ -384,7 +384,7 @@ function save_firewall() {
 
 function show_progress_window() {
     disable_ansii_modes
-    install_pypi_package cli_progress==2.0.0
+    install_pypi_package cli_progress
     cli_progress --title "Hiddify Manager" $@
     exit_code=$?
     disable_ansii_modes
