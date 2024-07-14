@@ -37,6 +37,7 @@ function hiddifypanel_path() {
     python -c "import os,hiddifypanel;print(os.path.dirname(hiddifypanel.__file__),end='')" 2>&1 || echo "panel is not installed yet."
 }
 function get_installed_panel_version() {
+    activate_python_venv
     version=$(cat "$(hiddifypanel_path)/VERSION" 2>/dev/null)
     if [ -z "$version" ]; then
         version="-"
