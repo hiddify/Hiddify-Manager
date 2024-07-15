@@ -18,19 +18,23 @@ install_lxd() {
     . /etc/os-release
     case "$ID" in
       debian)
+        echo "Debian detected!"
 	export DEBIAN_FRONTEND=noninteractive
         apt-get update
         apt-get install -y lxd
         ;;
       ubuntu)
+        echo "Ubuntu detected!"
 	export DEBIAN_FRONTEND=noninteractive
 	snap install lxd
 	snap refresh lxd
 	;;
       fedora)
+        echo "Fedora detected!"
         dnf install -y lxd
         ;;
       almalinux|rocky)
+        echo "AlmaLinux/Rocky detected!"
         dnf install -y snapd
         ln -s /var/lib/snapd/snap /snap
         snap install lxd
@@ -111,4 +115,3 @@ fi
 
 setup_container
 verify_container
-
