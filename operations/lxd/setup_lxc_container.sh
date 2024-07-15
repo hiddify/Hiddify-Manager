@@ -120,3 +120,7 @@ fi
 
 setup_container
 verify_container
+
+# Prints admin links
+lxc exec $LXC_CONTAINER_NAME -- bash -c "cat /opt/hiddify-manager/current.json | jq -r '.panel_links[]'"
+
