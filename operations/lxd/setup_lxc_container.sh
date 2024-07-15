@@ -35,8 +35,13 @@ install_lxd() {
         ;;
       almalinux|rocky)
         echo "AlmaLinux/Rocky detected!"
+	dnf install -y epel-release
+        dnf upgrade -y
         dnf install -y snapd
+        systemctl enable --now snapd.socket
         ln -s /var/lib/snapd/snap /snap
+        export PATH="$PATH:/snap/bin"
+	snap wait system seed.loaded
         snap install lxd
         ;;
       *)
