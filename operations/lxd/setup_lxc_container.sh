@@ -31,7 +31,13 @@ install_lxd() {
 	;;
       fedora)
         echo "Fedora detected!"
-        dnf install -y lxd
+        dnf upgrade -y
+        dnf install -y snapd
+        systemctl enable --now snapd.socket
+        ln -s /var/lib/snapd/snap /snap
+        export PATH="$PATH:/snap/bin"
+	snap wait system seed.loaded
+        snap install lxd
         ;;
       almalinux|rocky)
         echo "AlmaLinux/Rocky detected!"
