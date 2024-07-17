@@ -5,6 +5,13 @@
 
 ### Fix
 
+* Small bugs. [hiddify-com]
+
+
+## v10.50.3 (2024-07-14)
+
+### Fix
+
 * Installation but. [hiddify-com]
 
 
