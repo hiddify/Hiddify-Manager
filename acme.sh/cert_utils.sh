@@ -2,7 +2,7 @@ restricted_tlds=("af" "by" "cu" "er" "gn" "ir" "kp" "lr" "ru" "ss" "su" "sy" "zw
 shopt -s expand_aliases
 
 source ./lib/acme.sh.env
-
+source ../common/utils.sh
 # Function to check if a domain is restricted
 is_ok_domain_zerossl() {
     domain="$1"
