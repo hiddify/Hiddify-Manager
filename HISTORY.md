@@ -3,6 +3,21 @@
 
 ## (unreleased)
 
+### New
+
+* Some optimization and add splithttp. [hiddify-com]
+
+### Fix
+
+* Version. [hiddify-com]
+
+* Tls bug in fake domain. [hiddify-com]
+
+* Bug. [hiddify-com]
+
+
+## v10.50.4 (2024-07-17)
+
 ### Fix
 
 * Small bugs. [hiddify-com]
