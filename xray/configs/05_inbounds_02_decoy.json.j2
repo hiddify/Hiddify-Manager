@@ -30,7 +30,17 @@
 			  "tlsSettings": {
 				"certificates": [
 				  {%for d in domains if d['need_valid_ssl']%}
-				  	{"ocspStapling": 3600, "certificateFile": "/opt/hiddify-manager/ssl/{{d.domain[0:64]}}.crt", "keyFile": "/opt/hiddify-manager/ssl/{{d.domain[0:64]}}.crt.key"},
+				  	{"ocspStapling": 3600, 
+					{% if exec("[ -f /opt/hiddify-manager/ssl/"+d.domain[0:64]+".crt ]&& echo -n 'true'")=='true' %}
+					"certificateFile": "/opt/hiddify-manager/ssl/{{d.domain[0:64]}}.crt", 
+					"keyFile": "/opt/hiddify-manager/ssl/{{d.domain[0:64]}}.crt.key",
+					{%else %}
+					{%set cert=exec("ls /opt/hiddify-manager/ssl/*.crt | tail -1")%}
+					"certificateFile": "{{cert}}",
+					"keyFile": "{{cert}}.key",
+					{%endif%}
+					
+					},
 				  {%endfor%}
 				],
 				"minVersion": "1.2", 

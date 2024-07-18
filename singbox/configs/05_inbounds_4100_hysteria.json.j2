@@ -29,8 +29,14 @@
 					"alpn": ["h3"],
 					"min_version": "1.2",
 					"max_version": "1.3",
+					{% if exec("[ -f /opt/hiddify-manager/ssl/"+domain[0:64]+".crt ]&& echo -n 'true'")=='true' %}
 					"certificate_path": "/opt/hiddify-manager/ssl/{{domain[0:64]}}.crt",
-					"key_path": "/opt/hiddify-manager/ssl/{{domain[0:64]}}.crt.key"
+					"key_path": "/opt/hiddify-manager/ssl/{{domain[0:64]}}.crt.key",
+					{%else %}
+					{%set cert=exec("ls /opt/hiddify-manager/ssl/*.crt | tail -1")%}
+					"certificate_path": "{{cert}}",
+					"key_path": "{{cert}}.key",
+					{%endif%}
 				}
 			},
 			{%endfor%}
