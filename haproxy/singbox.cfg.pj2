@@ -109,3 +109,14 @@ backend vlesshu
 
 backend trojanhu
   server trojanw 127.0.0.1:2014 send-proxy-v2 tfo 
+
+
+
+backend vmesshs
+  server vmesshs abns@vmess-splithttp send-proxy-v2 
+
+backend vlesshs 
+  server vlesshs abns@vless-splithttp send-proxy-v2 
+
+backend trojanhs
+  server trojanhs abns@trojan-splithttp send-proxy-v2

@@ -236,24 +236,12 @@ frontend http-https-in
     # use_backend vlessg if vlessg
     # use_backend v2rayg if v2rayg
     # use_backend trojang if trojang
-    
+
+  {%if hconfigs['tcp_enable']%}
     acl vmesst path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }}
     acl vlesst path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_tcp'] }}
     acl v2rayt path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_tcp'] }}
     acl trojant path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_tcp'] }}
-
-    # handle websocket (acl)
-    acl vmessw path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_ws'] }}
-    acl vlessw path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_ws'] }}
-    acl v2rayw path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_ws'] }}
-    acl trojanw path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_ws'] }}
-
-    # handle httpupgrade (acl)
-    acl vmesshu path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_httpupgrade'] }}
-    acl vlesshu path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_httpupgrade'] }}
-    #acl v2rayhu path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_httpupgrade'] }}
-    acl trojanhu path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_httpupgrade'] }}
-    
     # handle tcp/http2 (backend)
     acl is_put_request method PUT
     # use_backend vmesst_h2 if vmesst is_put_request h2
@@ -269,11 +257,21 @@ frontend http-https-in
     use_backend v2rayt if v2rayt
     use_backend trojant if trojant
 
-    # handle websocket/h2 (backend)
-    use_backend vmessw_h2 if vmessw h2
-    use_backend vlessw_h2 if vlessw h2
-    use_backend v2rayw_h2 if v2rayw h2
-    use_backend trojanw_h2 if trojanw h2
+  {%endif%}
+  
+  {%if hconfigs['ws_enable']%}
+    # handle websocket (acl)
+    acl vmessw path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_ws'] }}
+    acl vlessw path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_ws'] }}
+    acl v2rayw path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_ws'] }}
+    acl trojanw path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_ws'] }}
+
+    # handle websocket/h2 (backend) 
+    #websocket incompatible with h2
+    #use_backend vmessw_h2 if vmessw h2
+    #use_backend vlessw_h2 if vlessw h2
+    #use_backend v2rayw_h2 if v2rayw h2
+    #use_backend trojanw_h2 if trojanw h2
 
     # handle websocket (backend)
     use_backend vmessw if vmessw
@@ -281,11 +279,37 @@ frontend http-https-in
     use_backend v2rayw if v2rayw
     use_backend trojanw if trojanw
 
-    # handle httpupgrade (backend)
+  {%endif%}
+  {%if hconfigs['httpupgrade_enable']%}
+    # handle httpupgrade (acl)
+    acl vmesshu path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_httpupgrade'] }}
     use_backend vmesshu if vmesshu
+    acl vlesshu path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_httpupgrade'] }}
     use_backend vlesshu if vlesshu
+    #acl v2rayhu path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_httpupgrade'] }}
     #use_backend v2rayhu if v2rayhu
+    acl trojanhu path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_httpupgrade'] }}
     use_backend trojanhu if trojanhu
+    # handle httpupgrade (backend)
+  {%endif%}
+
+  {%if hconfigs['splithttp_enable']%}
+    # handle splithttp (acl)
+    acl vmesshs path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }}
+    use_backend vmesshs if vmesshs
+    acl vlesshs path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }}
+    use_backend vlesshs if vlesshs
+    #acl v2rayhs path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }}
+    #use_backend v2rayhs if v2rayhs
+    acl trojanhs path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }}
+    use_backend trojanhs if trojanhs
+
+  {%endif%}
+    
+    
+    
+
+    
 
 
     #acl other path_beg /BASE_PROXY_PATH
