@@ -9,6 +9,10 @@
 
 ### Fix
 
+* Bugs. [hiddify-com]
+
+* Split http bug. [hiddify-com]
+
 * Permission for sshd. [hiddify-com]
 
 * Version. [hiddify-com]
