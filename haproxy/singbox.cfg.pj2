@@ -120,3 +120,12 @@ backend vlesshs
 
 backend trojanhs
   server trojanhs abns@trojan-splithttp send-proxy-v2
+
+backend vmesshs_h2
+  server vmesshs abns@vmess-splithttp-h2 send-proxy-v2 
+
+backend vlesshs_h2
+  server vlesshs abns@vless-splithttp-h2 send-proxy-v2 
+
+backend trojanhs_h2
+  server trojanhs abns@trojan-splithttp-h2 send-proxy-v2

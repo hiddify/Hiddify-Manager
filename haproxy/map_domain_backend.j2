@@ -1,0 +1,31 @@
+{%for d in domain if d['mode']=='sub_link_only'%} 
+d['domain'] to_panel_only
+{%endfor%}
+
+{% for d in domains if d['internal_port_reality'] and d['grpc'] %}
+{%set domain=d['domain']%}
+{%set port=d['internal_port_reality']%}
+{{domain}} reality_grpc_http_{{port}}
+{%endfor%}
+
+{% for d in domains if d['internal_port_reality'] and not d['grpc'] %}
+{# if happen, it means active probing... sending to decoy#}
+{%set domain=d['domain']%}
+{%set port=d['internal_port_reality']%}
+{{domain}} reality_http_{{port}}
+{%endfor%}
+
+{%if hconfigs['ssfaketls_enable'] and hconfigs['ssfaketls_fakedomain'] %}
+{# if happen, it means active probing... sending to decoy#}
+{{hconfigs['ssfaketls_fakedomain']}} ssdecoy_http
+{%endif%}
+
+{%if hconfigs['telegram_enable'] and hconfigs['telegram_fakedomain'] %}
+{# if happen, it means active probing... sending to decoy#}
+{{hconfigs['telegram_fakedomain']}} tgdecoy_http
+{%endif%}
+
+{%if hconfigs['shadowtls_enable'] and hconfigs['shadowtls_fakedomain']%}
+{# if happen, it means active probing... sending to decoy#}
+{{hconfigs['shadowtls_fakedomain'] }} shadowtls_decoy_http
+{%endif%}

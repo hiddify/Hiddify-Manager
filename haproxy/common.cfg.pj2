@@ -1,7 +1,7 @@
 global
     {%if hconfigs['log_level']!="CRITICAL"%}
     # # Access logs
-    # log-format %ci:%cp\ [%t]\ %ft\ %b/%s\ %Tcc\ %Tw/%Tc/%Tr/%Ta\ %ST\ %B\ %CC\ %CS\ %tsc\ %ac/%fc/%bc/%sc/%rc\ %sq/%bq\ %hr\ %hs\ %{+Q}r
+    # #log-format %ci:%cp\ [%t]\ %ft\ %b/%s\ %Tcc\ %Tw/%Tc/%Tr/%Ta\ %ST\ %B\ %CC\ %CS\ %tsc\ %ac/%fc/%bc/%sc/%rc\ %sq/%bq\ %hr\ %hs\ %{+Q}r
     # option httplog
     # option http-server-close
     # option forwardfor except 127.0.0.1  # Add X-Forwarded-For header except for HAProxy itself
@@ -52,74 +52,23 @@ frontend https-in
     
     acl alpnh2 req.ssl_alpn h2 
 
-    {%for d in domain if d['mode']=='sub_link_only'%} 
-    acl panel_domains req.ssl_sni -i d['domain']
-    {%if loop.last%}
-    use_backend to_panel_only if panel_domains
-    {%endif%}
-    {%endfor%}
-    
-
-    #reality_configs
-    {% for d in domains if d['internal_port_reality'] and d['grpc'] %}
-        {%set domain=d['domain']%}
-        {%set port=d['internal_port_reality']%}
-    acl reality_domains_grpc_{{port}} req.ssl_sni -i {{domain}}
-    use_backend reality_grpc_{{port}} if reality_domains_grpc_{{port}}
-    {%endfor%}
-    {% for d in domains if d['internal_port_reality'] and not d['grpc'] %}
-        {%set domain=d['domain']%}
-        {%set port=d['internal_port_reality']%}
-    acl reality_domains_{{port}} req.ssl_sni -i {{domain}}
-    #use_backend reality_h2_$i if reality_domains_$i alpnh2\n\
-    use_backend reality_{{port}} if reality_domains_{{port}}
-    {%endfor%}
-
-
-
-    #acl reality_domains req.ssl_sni -i REALITY_SERVER_NAMES
-    #use_backend reality_h2 if reality_domains h2
-    #use_backend reality if reality_domains
-
-    
-    {%if hconfigs['ssfaketls_enable'] and hconfigs['ssfaketls_fakedomain'] %}
-    acl ss_domains req.ssl_sni -i {{hconfigs['ssfaketls_fakedomain']}}
-    use_backend ssfake if ss_domains
-    {%endif%}
-    
-    
-    {%if hconfigs['telegram_enable'] and hconfigs['telegram_fakedomain'] %}
-    acl tg_domains req.ssl_sni -i {{hconfigs['telegram_fakedomain']}}
-    use_backend telegram if tg_domains
-    {%endif%}
-
-    {%if hconfigs['shadowtls_enable'] and hconfigs['shadowtls_fakedomain']%}
-    acl shadowtls_domains req.ssl_sni -i {{hconfigs['shadowtls_fakedomain'] }}
-    use_backend shadowtls if shadowtls_domains 
-    {%endif%}
-    
-    
-    # use_backend ssr if tls1_3 ssr_domains
-    # use_backend ssr if ssr_domains
-    # use_backend ssrdecory if ssr_domains
-
     acl is_cdn src -f /opt/hiddify-manager/haproxy/cloudflare.lst -f /opt/hiddify-manager/haproxy/arvan.lst -f /opt/hiddify-manager/haproxy/cloudfront.lst
     use_backend to_https_in_ssl if is_cdn
-    # default sni behavior
-    # default_backend xray
+    
+    #use_backend %[req.ssl_sni,map_dom(/opt/hiddify-manager/haproxy/map_sni_backend_h2.map)] if h2
+    ##log-format "Matching key: %[req.ssl_sni,map_dom_key(/opt/hiddify-manager/haproxy/map_sni_backend_h2.map)]"
 
-    {% for d in domains if d['mode']=='old_xtls_direct' %}
-    acl xray_domains req.ssl_sni -i d['domain']
-    {%if loop.last%}
-    use_backend xray_force if xray_domains
-    {%endif%}
-    {%endfor%}
+    use_backend %[req.ssl_sni,map_dom(/opt/hiddify-manager/haproxy/map_sni_backend.map)] 
+    #log-format "Matching key: %[req.ssl_sni,map_dom_key(/opt/hiddify-manager/haproxy/map_sni_backend.map)]"
 
+    use_backend to_https_in_ssl_h2 if alpnh2
     default_backend to_https_in_ssl
     
 
 backend to_https_in_ssl
     server haproxy abns@https_in_ssl send-proxy-v2 tfo
+backend to_https_in_ssl_h2
+    server haproxy abns@https_in_ssl_h2 send-proxy-v2 tfo
 
 # backend to_https_in_ssl
 # #     server xray abns@https_in_ssl send-proxy-v2
@@ -137,191 +86,77 @@ frontend onlypanel_in
 backend to_panel_only
     server to_panel_only abns@onlypanel_in send-proxy-v2
 
-frontend http-https-in
-    bind :80,:::80 v4v6 tfo 
-    {% for port in hconfigs['http_ports'].split(",")%}
-    bind :{{port}},:::{{port}} v4v6 tfo 
-    {%endfor%}
-    bind abns@https_in_ssl tfo accept-proxy ssl crt /opt/hiddify-manager/ssl/ alpn h2,http/1.1,h3
-    #bind quic4@abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-manager/ssl/ alpn h3    
-    # http-response set-header alt-svc "h3=\":443\";ma=900;"
-    tcp-request inspect-delay 5s
-    tcp-request content accept if HTTP
-
-    acl base_proxy_path path_beg /{{hconfigs['proxy_path']}}/
-    acl hpanel path_reg ^/{{hconfigs['proxy_path']}}/[1-9a-f][1-9a-f]
-    use_backend hiddifypanel if hpanel
-    use_backend nginx_dispatcher_http if base_proxy_path
-
-    {%for d in domain if d['mode']=='sub_link_only'%} 
-    acl panel_domains hdr(:authority) -i d['domain']
-    acl panel_domains hdr(host) -i d['domain']
-    {%if loop.last%}
-    #use_backend to_panel_only if panel_domains
-    {%endif%}
-    {%endfor%}
+frontend https-in-h2
+    bind abns@https_in_ssl_h2 tfo accept-proxy ssl crt /opt/hiddify-manager/ssl/ alpn h2
     
-    # acl singbox_domains req.ssl_sni -i SINGBOX_DOMAINS
-    # acl xray_domains req.ssl_sni -i XRAY_DOMAINS
-
-    # use_backend xray if xray_domains
-    # use_backend to_https_in_ssl if singbox_domains
-    acl h2 ssl_fc_alpn -i h2
-    acl is_cloudflare src -f /opt/hiddify-manager/haproxy/cloudflare.lst
-    acl is_arvan src -f /opt/hiddify-manager/haproxy/arvan.lst
-    acl is_cloudfront src -f /opt/hiddify-manager/haproxy/cloudfront.lst
+    # http-response set-header alt-svc "h3=\":443\";ma=900;"
+    
+    #acl is_cloudflare src -f /opt/hiddify-manager/haproxy/cloudflare.lst
+    #acl is_arvan src -f /opt/hiddify-manager/haproxy/arvan.lst
+    #acl is_cloudfront src -f /opt/hiddify-manager/haproxy/cloudfront.lst
 
     # http-request set-header X-Real-IP %[req.hdr(CF-Connecting-IP)] if is_cloudflare
     # http-request set-header X-Real-IP %[req.hdr(X-Forward-For)] if is_cloudfront
     # http-request set-header X-Real-IP %[req.hdr(X-Forward-For)] if is_arvan
     # http-request set-header X-Real-IP %[src] if !is_cloudflare !is_arvan !is_cloudfront
 
-    {% for d in domains if d['internal_port_reality'] and d['grpc'] %}
-        {%set domain=d['domain']%}
-        {%set port=d['internal_port_reality']%}
-    acl reality_domains_grpc_{{port}} hdr(host) -i {{domain}}
-    use_backend reality_grpc_http_{{port}} if reality_domains_grpc_{{port}}
-    {%endfor%}
 
-    {% for d in domains if d['internal_port_reality'] and not d['grpc'] %}
-        {%set domain=d['domain']%}
-        {%set port=d['internal_port_reality']%}
-    acl reality_domains_{{port}} hdr(host) -i {{domain}}
-    use_backend reality_http_{{port}} if reality_domains_{{port}}
-    {%endfor%}
-    
+    tcp-request inspect-delay 5s
+    tcp-request content accept if HTTP
 
-    
-    {%if hconfigs['ssfaketls_enable'] and hconfigs['ssfaketls_fakedomain'] %}
-    acl ss_domains hdr(host) -i {{hconfigs['ssfaketls_fakedomain']}}
-    acl ss_domains hdr(:authority) -i {{hconfigs['ssfaketls_fakedomain']}}
-    use_backend ssdecoy_http if ss_domains
-    {%endif%}
-    
-    # acl ssr_domains hdr(host) -i ssrtlsdomain
-
-    # acl server_domains hdr(host) -i SERVER_DOMAINS
-    # use_backend default_http if server_domains
-    {%if hconfigs['telegram_enable'] and hconfigs['telegram_fakedomain'] %}
-    acl tg_domains hdr(:authority) -i {{hconfigs['telegram_fakedomain']}}
-    acl tg_domains hdr(host) -i {{hconfigs['telegram_fakedomain']}}
-    use_backend tgdecoy_http if tg_domains
-    {%endif%}
-    {%if hconfigs['shadowtls_enable'] and hconfigs['shadowtls_fakedomain']%}
-    acl shadowtls_domains hdr(host) -i {{hconfigs['shadowtls_fakedomain'] }}
-    acl shadowtls_domains hdr(:authority) -i {{hconfigs['shadowtls_fakedomain'] }}
-    use_backend shadowtls_decoy_http if shadowtls_domains 
-    {%endif%}
-
-    # use_backend ssdecoy if sstlsdomain
-    # use_backend ssrdecory if ssr_domains
-
-
-    # handle grpc
-    # the grpc handle via singbox_grpc_dispatcher in singbox core and nginx_dispatcher_h2 in xray core. the other handlers can be managed on the nginx side
-    # this file needs refactoring, as someone might want to read this code someday
-
-    # acl grpc_multi path_end TunMulti
-    # acl grpc_multi path_end PATH_GRPC/TunMulti
-    # use_backend nginx_dispatcher_h2 if grpc_multi 
-    # acl is_grpc_req hdr(content-type) -i application/grpc
-    # use_backend singbox_grpc_dispatcher if is_grpc_req
-    
-
-    # acl vmessg path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_grpc'] }}
-    # acl vlessg path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_grpc'] }}
-    # acl v2rayg path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_grpc'] }}
-    # acl trojang path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_grpc'] }}
-    # use_backend vmessg if vmessg
-    # use_backend vlessg if vlessg
-    # use_backend v2rayg if v2rayg
-    # use_backend trojang if trojang
-
-  {%if hconfigs['tcp_enable']%}
-    acl vmesst path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }}
-    acl vlesst path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_tcp'] }}
-    acl v2rayt path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_tcp'] }}
-    acl trojant path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_tcp'] }}
-    # handle tcp/http2 (backend)
-    acl is_put_request method PUT
-    # use_backend vmesst_h2 if vmesst is_put_request h2
-    # use_backend vmesst_get_h2 if vmesst h2
-    use_backend vlesst_h2 if vlesst h2
-    use_backend v2rayt_h2 if v2rayt h2
-    use_backend trojant_h2 if trojant h2
-    
-    # handle tcp (backend)
-    use_backend vmesst if vmesst is_put_request
-    use_backend vmesst_get if vmesst 
-    use_backend vlesst if vlesst
-    use_backend v2rayt if v2rayt
-    use_backend trojant if trojant
-
-  {%endif%}
-  
-  {%if hconfigs['ws_enable']%}
-    # handle websocket (acl)
-    acl vmessw path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_ws'] }}
-    acl vlessw path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_ws'] }}
-    acl v2rayw path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_ws'] }}
-    acl trojanw path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_ws'] }}
-
-    # handle websocket/h2 (backend) 
-    #websocket incompatible with h2
-    #use_backend vmessw_h2 if vmessw h2
-    #use_backend vlessw_h2 if vlessw h2
-    #use_backend v2rayw_h2 if v2rayw h2
-    #use_backend trojanw_h2 if trojanw h2
-
-    # handle websocket (backend)
-    use_backend vmessw if vmessw
-    use_backend vlessw if vlessw
-    use_backend v2rayw if v2rayw
-    use_backend trojanw if trojanw
-
-  {%endif%}
-  {%if hconfigs['httpupgrade_enable']%}
-    # handle httpupgrade (acl)
-    acl vmesshu path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_httpupgrade'] }}
-    use_backend vmesshu if vmesshu
-    acl vlesshu path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_httpupgrade'] }}
-    use_backend vlesshu if vlesshu
-    #acl v2rayhu path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_httpupgrade'] }}
-    #use_backend v2rayhu if v2rayhu
-    acl trojanhu path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_httpupgrade'] }}
-    use_backend trojanhu if trojanhu
-    # handle httpupgrade (backend)
-  {%endif%}
-
-  {%if hconfigs['splithttp_enable']%}
-    # handle splithttp (acl)
-    acl vmesshs path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }}
-    use_backend vmesshs if vmesshs
-    acl vlesshs path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }}
-    use_backend vlesshs if vlesshs
-    #acl v2rayhs path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }}
-    #use_backend v2rayhs if v2rayhs
-    acl trojanhs path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }}
-    use_backend trojanhs if trojanhs
-
-  {%endif%}
+    #acl hpanel path_reg ^/{{hconfigs['proxy_path']}}/[1-9a-f][1-9a-f]
+    #use_backend hiddifypanel if hpanel
     
     
-    
+    use_backend %[hdr(:authority),map_dom(/opt/hiddify-manager/haproxy/map_domain_backend)]
+    #log-format "Matching key: %[hdr(:authority),map_dom_key(/opt/hiddify-manager/haproxy/map_domain_backend)]"
 
     
+    use_backend %[path,map_beg(/opt/hiddify-manager/haproxy/map_path_backend_h2.map)]
+    #log-format "Matching key: %[path,map_beg_key(/opt/hiddify-manager/haproxy/map_path_backend_h2.map)]"
 
-
-    #acl other path_beg /BASE_PROXY_PATH
-
-
-
+    
 
     {% if hconfigs['core_type'] == 'xray' %}
-    use_backend nginx_dispatcher_h2 if h2
+    default_backend nginx_dispatcher_h2 
     {% else %}
-    use_backend singbox_grpc_dispatcher if h2
+    default_backend singbox_grpc_dispatcher 
     {% endif %}
+    
+
+    
+    
+    
+    
+    
+
+
+frontend http-https-in
+    bind :80,:::80 v4v6 tfo proto h2 proto h1
+    {% for port in hconfigs['http_ports'].split(",")%}
+    bind :{{port}},:::{{port}} v4v6 tfo proto h2 proto h1
+    {%endfor%}
+
+    bind abns@https_in_ssl tfo accept-proxy ssl crt /opt/hiddify-manager/ssl/ alpn h2,http/1.1,h3
+
+    #bind quic4@abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-manager/ssl/ alpn h3    
+    # http-response set-header alt-svc "h3=\":443\";ma=900;"
+    tcp-request inspect-delay 5s
+    tcp-request content accept if HTTP
+
+    
+
+    
+    use_backend %[req.hdr(host),map_dom(/opt/hiddify-manager/haproxy/map_domain_backend)]
+    #log-format "Matching key: %[req.hdr(host),map_dom_key(/opt/hiddify-manager/haproxy/map_domain_backend)]"
+
+    
+    use_backend %[path,map_beg(/opt/hiddify-manager/haproxy/map_path_backend.map)]
+    #log-format "Matching key: %[path,map_beg_key(/opt/hiddify-manager/haproxy/map_path_backend.map)]"
+
+
+
+    
 
     # acl speak_alpn_h2 ssl_fc_alpn -i h2
     # use_backend nginx_dispatcher_h2 if speak_alpn_h2

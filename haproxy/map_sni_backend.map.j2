@@ -1,0 +1,34 @@
+{%for d in domain if d['mode']=='sub_link_only'%} 
+{{d['domain']}} to_panel_only
+{%endfor%}
+    
+{% for d in domains if d['internal_port_reality'] and d['grpc'] %}
+{%set domain=d['domain']%}
+{%set port=d['internal_port_reality']%}
+{{domain}} reality_grpc_{{port}}
+{%endfor%}
+
+{% for d in domains if d['internal_port_reality'] and not d['grpc'] %}
+{%set domain=d['domain']%}
+{%set port=d['internal_port_reality']%}
+{{domain}} reality_{{port}}
+{%endfor%}
+
+
+    
+{%if hconfigs['ssfaketls_enable'] and hconfigs['ssfaketls_fakedomain'] %}
+{{hconfigs['ssfaketls_fakedomain']}} ssfake
+{%endif%}
+    
+    
+{%if hconfigs['telegram_enable'] and hconfigs['telegram_fakedomain'] %}
+{{hconfigs['telegram_fakedomain']}} telegram
+{%endif%}
+
+{%if hconfigs['shadowtls_enable'] and hconfigs['shadowtls_fakedomain']%}
+{{hconfigs['shadowtls_fakedomain'] }} shadowtls
+{%endif%}
+    
+{% for d in domains if d['mode']=='old_xtls_direct' %}
+{{d['domain']}} xray_force
+{%endfor%}
