@@ -1,3 +1,7 @@
+/{{hconfigs['proxy_path_client']}}/ hiddifypanel
+/{{hconfigs['proxy_path_admin']}}/ hiddifypanel
+/{{hconfigs['proxy_path']}}/ hiddifypanel
+
 {%if hconfigs['tcp_enable']%}
 /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }} vmesst
 /{{ hconfigs['path_vless'] }}{{ hconfigs['path_tcp'] }} vlesst

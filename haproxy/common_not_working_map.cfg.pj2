@@ -112,33 +112,23 @@ frontend https-in-h2
     #acl hpanel path_reg ^/{{hconfigs['proxy_path']}}/[1-9a-f][1-9a-f]
     #use_backend hiddifypanel if hpanel
     
-    {% include '/opt/hiddify-manager/haproxy/common_h1h2rules.lst.pj2' %}
-
-    {%if hconfigs['tcp_enable']%}
-    use_backend vmesst_h2 if path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }} 
-    use_backend vlesst_h2 if path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_tcp'] }}
-    use_backend v2rayt_h2 if path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_tcp'] }}  
-    use_backend trojant_h2 if path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_tcp'] }} 
+    {% if 1 or  hconfigs["log_level"]!="CRITICAL" %}
+        http-request set-var(txn.path) path
+        #http-request set-var(txn.sni) hdr(:authority)
+        http-request set-var(txn.sni) hdr(host)
+        log-format "inh2: SNI: %[var(txn.sni)] - %[var(txn.sni),map_dom_key(/opt/hiddify-manager/haproxy/maps/sni)] ---SNI_h2: %[var(txn.sni)] - %[var(txn.sni),map_dom_key(/opt/hiddify-manager/haproxy/maps/sni_h2)] --- Path: %[var(txn.path)] - %[var(txn.path),map_beg_key(/opt/hiddify-manager/haproxy/maps/path_h2)]"
     {%endif%}
     
+    
 
-    {%if hconfigs['splithttp_enable']%}
-    use_backend vmesshs_h2 if path_beg {{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }}
-    use_backend vlesshs_h2 if path_beg {{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }}
-    #use_backend v2rayhs_h2 if path_beg {{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }}
-    use_backend trojanhs_h2 if path_beg {{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }}
-    {%endif%}
+    #multimap not supported use trick
+    #use_backend %[hdr(:authority),map_dom(/opt/hiddify-manager/haproxy/maps/http_domain)]
+    #use_backend %[path,map_beg(/opt/hiddify-manager/haproxy/maps/path_h2)]
+    http-request set-var(txn.backend) req.hdr(host),map_dom(/opt/hiddify-manager/haproxy/maps/http_domain,default)
+    http-request set-var(txn.backend) path,map_beg(/opt/hiddify-manager/haproxy/maps/path_h2,ginx_dispatcher_h2) if  { var(txn.backend) -m str default }
+    use_backend %[var(txn.backend)]    
+    
 
-    {%if hconfigs['grpc_enable']%}
-    # /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_grpc'] }}/TunMulti vmessg
-    # /{{ hconfigs['path_vless'] }}{{ hconfigs['path_grpc'] }}/TunMulti vlessg
-    # #/{{ hconfigs['path_ss'] }}{{ hconfigs['path_grpc'] }}/TunMulti v2rayg
-    # /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_grpc'] }}/TunMulti trojang
-    use_backend vmessg if path_beg {{ hconfigs['path_vmess'] }}{{ hconfigs['path_grpc'] }}
-    use_backend vlessg if path_beg {{ hconfigs['path_vless'] }}{{ hconfigs['path_grpc'] }}
-    #use_backend v2rayg if path_beg {{ hconfigs['path_ss'] }}{{ hconfigs['path_grpc'] }}
-    use_backend trojang if path_beg {{ hconfigs['path_trojan'] }}{{ hconfigs['path_grpc'] }}
-    {%endif%}
     {% if hconfigs['core_type'] == 'xray' %}
 #    default_backend nginx_dispatcher_h2 
     {% else %}
@@ -167,46 +157,26 @@ frontend http-https-in
     tcp-request content accept if HTTP
 
     
-    {% include '/opt/hiddify-manager/haproxy/common_h1h2rules.lst.pj2' %}
 
-    {%if hconfigs['tcp_enable']%}
-    use_backend vmesst if path_beg {{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }}
-    use_backend vlesst if path_beg {{ hconfigs['path_vless'] }}{{ hconfigs['path_tcp'] }}
-    use_backend  v2rayt if path_beg {{ hconfigs['path_ss'] }}{{ hconfigs['path_tcp'] }}
-    use_backend trojant if path_beg {{ hconfigs['path_trojan'] }}{{ hconfigs['path_tcp'] }}
+    {% if 1 or  hconfigs["log_level"]!="CRITICAL" %}
+        http-request set-var(txn.path) path
+        http-request set-var(txn.sni) req.hdr(host)
+        log-format "inh1: SNI: %[var(txn.sni)] - %[var(txn.sni),map_dom_key(/opt/hiddify-manager/haproxy/maps/sni)]  --- Path: %[var(txn.path)] - %[var(txn.path),map_beg_key(/opt/hiddify-manager/haproxy/maps/path)]"
     {%endif%}
-
-
-    {%if hconfigs['ws_enable']%}
-    use_backend vmessw if path_beg {{ hconfigs['path_vmess'] }}{{ hconfigs['path_ws'] }}
-    use_backend vlessw if path_beg {{ hconfigs['path_vless'] }}{{ hconfigs['path_ws'] }}
-    use_backend v2rayw if path_beg {{ hconfigs['path_ss'] }}{{ hconfigs['path_ws'] }}
-    use_backend trojanw if path_beg {{ hconfigs['path_trojan'] }}{{ hconfigs['path_ws'] }}
-    {%endif%}
-
-    {%if hconfigs['httpupgrade_enable']%}
-    use_backend vmesshu if path_beg {{ hconfigs['path_vmess'] }}{{ hconfigs['path_httpupgrade'] }}
-    use_backend vlesshu if path_beg {{ hconfigs['path_vless'] }}{{ hconfigs['path_httpupgrade'] }}
-    # use_backend v2rayhu if path_beg {{ hconfigs['path_ss'] }}{{ hconfigs['path_httpupgrade'] }}
-    use_backend trojanhu if path_beg {{ hconfigs['path_trojan'] }}{{ hconfigs['path_httpupgrade'] }}
-    {%endif%}
-
-    {%if hconfigs['splithttp_enable']%}
-    use_backend vmesshs if path_beg {{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }}
-    use_backend vlesshs if path_beg {{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }}
-    #use_backend v2rayhs if path_beg {{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }}
-    use_backend trojanhs if path_beg {{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }}
-    {%endif%}
-
-
+    
+    #multimap not supported use trick
+    #use_backend %[req.hdr(host),map_dom(/opt/hiddify-manager/haproxy/maps/http_domain)]
+    #use_backend %[path,map_beg(/opt/hiddify-manager/haproxy/maps/path)]
+    http-request set-var(txn.backend) req.hdr(host),map_dom(/opt/hiddify-manager/haproxy/maps/http_domain,default)
+    http-request set-var(txn.backend) path,map_beg(/opt/hiddify-manager/haproxy/maps/path,nginx_dispatcher) if  { var(txn.backend) -m str default }
+    use_backend %[var(txn.backend)]
 
 
     
 
-    
-
-    
-    default_backend nginx_dispatcher
+    # acl speak_alpn_h2 ssl_fc_alpn -i h2
+    # use_backend nginx_dispatcher_h2 if speak_alpn_h2
+    #default_backend nginx_dispatcher
 
 # this server handles xray http2 proxies
 backend nginx_dispatcher_h2
