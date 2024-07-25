@@ -9,11 +9,47 @@
 
 ### Fix
 
+* Permission for sshd. [hiddify-com]
+
 * Version. [hiddify-com]
 
 * Tls bug in fake domain. [hiddify-com]
 
 * Bug. [hiddify-com]
+
+### Other
+
+* Remove cdn from getting cert. [hiddify-com]
+
+* Merge pull request #4287 from SATORU-FUJINUMA/main. [Hiddify]
+
+  Add automated support for LXC containers
+
+* Create README.fa.md. [Satoru]
+
+* Update README.md. [Satoru]
+
+* README.md for LXC containers. [Satoru]
+
+* Add utils to bind container ports automatically. [SATORU-FUJINUMA]
+
+* Fix fedora LXD installation. [SATORU-FUJINUMA]
+
+* Add scripts to bind ports from LXC. [SATORU-FUJINUMA]
+
+* Fix echo bug. [SATORU-FUJINUMA]
+
+* Print admin links and TUI information. [SATORU-FUJINUMA]
+
+* Add printing admin links. [SATORU-FUJINUMA]
+
+* Make alma/rocky suport. [SATORU-FUJINUMA]
+
+* Rename operation dir. [SATORU-FUJINUMA]
+
+* Be verbose about OS detection. [Satoru]
+
+* Add LXD setup file. [SATORU-FUJINUMA]
 
 
 ## v10.50.4 (2024-07-17)
