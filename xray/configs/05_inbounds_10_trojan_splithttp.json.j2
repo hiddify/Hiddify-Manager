@@ -3,7 +3,7 @@
 		"inbounds": [
 			{
 				"tag":"trojan-splithttp",
-#				"listen": "@@trojan-splithttp", 
+				{#"listen": "@@trojan-splithttp", #}
 			"listen": "127.0.0.1", "port":1015,
 				"protocol": "trojan",
 				"settings": {
@@ -17,7 +17,7 @@
 				"network": "splithttp",
 				"security": "none",
 				"splithttpSettings": {
-					# "acceptProxyProtocol": true, 
+					{# "acceptProxyProtocol": true, #}
 					"path":"/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }}", 
 				}
 				},

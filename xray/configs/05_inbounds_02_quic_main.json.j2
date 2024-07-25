@@ -32,7 +32,7 @@
 					"certificateFile": "/opt/hiddify-manager/ssl/{{d.domain[0:64]}}.crt", 
 					"keyFile": "/opt/hiddify-manager/ssl/{{d.domain[0:64]}}.crt.key",
 					{%else %}
-					{%set cert=exec("ls /opt/hiddify-manager/ssl/*.crt | tail -1")%}
+					{%set cert=exec("ls /opt/hiddify-manager/ssl/*.crt | tail -1").strip()%}
 					"certificateFile": "{{cert}}",
 					"keyFile": "{{cert}}.key",
 					{%endif%}
