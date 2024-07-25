@@ -115,18 +115,18 @@ frontend https-in-h2
     {% include '/opt/hiddify-manager/haproxy/common_h1h2rules.lst.pj2' %}
 
     {%if hconfigs['tcp_enable']%}
-    use_backend vmesst_h2 if path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }} 
-    use_backend vlesst_h2 if path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_tcp'] }}
-    use_backend v2rayt_h2 if path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_tcp'] }}  
-    use_backend trojant_h2 if path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_tcp'] }} 
+    use_backend vmesst_h2 if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }}  }
+    use_backend vlesst_h2 if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_tcp'] }} }
+    use_backend v2rayt_h2 if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_tcp'] }}   }
+    use_backend trojant_h2 if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_tcp'] }}  }
     {%endif%}
     
 
     {%if hconfigs['splithttp_enable']%}
-    use_backend vmesshs_h2 if path_beg {{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }}
-    use_backend vlesshs_h2 if path_beg {{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }}
-    #use_backend v2rayhs_h2 if path_beg {{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }}
-    use_backend trojanhs_h2 if path_beg {{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }}
+    use_backend vmesshs_h2 if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }} }
+    use_backend vlesshs_h2 if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }} }
+    #use_backend v2rayhs_h2 if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }} }
+    use_backend trojanhs_h2 if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }} }
     {%endif%}
 
     {%if hconfigs['grpc_enable']%}
@@ -134,15 +134,15 @@ frontend https-in-h2
     # /{{ hconfigs['path_vless'] }}{{ hconfigs['path_grpc'] }}/TunMulti vlessg
     # #/{{ hconfigs['path_ss'] }}{{ hconfigs['path_grpc'] }}/TunMulti v2rayg
     # /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_grpc'] }}/TunMulti trojang
-    use_backend vmessg if path_beg {{ hconfigs['path_vmess'] }}{{ hconfigs['path_grpc'] }}
-    use_backend vlessg if path_beg {{ hconfigs['path_vless'] }}{{ hconfigs['path_grpc'] }}
-    #use_backend v2rayg if path_beg {{ hconfigs['path_ss'] }}{{ hconfigs['path_grpc'] }}
-    use_backend trojang if path_beg {{ hconfigs['path_trojan'] }}{{ hconfigs['path_grpc'] }}
+    use_backend vmessg if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_grpc'] }} }
+    use_backend vlessg if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_grpc'] }} }
+    #use_backend v2rayg if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_grpc'] }} }
+    use_backend trojang if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_grpc'] }} }
     {%endif%}
     {% if hconfigs['core_type'] == 'xray' %}
-#    default_backend nginx_dispatcher_h2 
+     default_backend nginx_dispatcher_h2 
     {% else %}
- #   default_backend singbox_grpc_dispatcher 
+    default_backend singbox_grpc_dispatcher 
     {% endif %}
     
 
@@ -170,32 +170,32 @@ frontend http-https-in
     {% include '/opt/hiddify-manager/haproxy/common_h1h2rules.lst.pj2' %}
 
     {%if hconfigs['tcp_enable']%}
-    use_backend vmesst if path_beg {{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }}
-    use_backend vlesst if path_beg {{ hconfigs['path_vless'] }}{{ hconfigs['path_tcp'] }}
-    use_backend  v2rayt if path_beg {{ hconfigs['path_ss'] }}{{ hconfigs['path_tcp'] }}
-    use_backend trojant if path_beg {{ hconfigs['path_trojan'] }}{{ hconfigs['path_tcp'] }}
+    use_backend vmesst if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }} }
+    use_backend vlesst if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_tcp'] }} }
+    use_backend  v2rayt if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_tcp'] }} }
+    use_backend trojant if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_tcp'] }} }
     {%endif%}
 
 
     {%if hconfigs['ws_enable']%}
-    use_backend vmessw if path_beg {{ hconfigs['path_vmess'] }}{{ hconfigs['path_ws'] }}
-    use_backend vlessw if path_beg {{ hconfigs['path_vless'] }}{{ hconfigs['path_ws'] }}
-    use_backend v2rayw if path_beg {{ hconfigs['path_ss'] }}{{ hconfigs['path_ws'] }}
-    use_backend trojanw if path_beg {{ hconfigs['path_trojan'] }}{{ hconfigs['path_ws'] }}
+    use_backend vmessw if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_ws'] }} }
+    use_backend vlessw if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_ws'] }} }
+    use_backend v2rayw if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_ws'] }} }
+    use_backend trojanw if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_ws'] }} }
     {%endif%}
 
     {%if hconfigs['httpupgrade_enable']%}
-    use_backend vmesshu if path_beg {{ hconfigs['path_vmess'] }}{{ hconfigs['path_httpupgrade'] }}
-    use_backend vlesshu if path_beg {{ hconfigs['path_vless'] }}{{ hconfigs['path_httpupgrade'] }}
-    # use_backend v2rayhu if path_beg {{ hconfigs['path_ss'] }}{{ hconfigs['path_httpupgrade'] }}
-    use_backend trojanhu if path_beg {{ hconfigs['path_trojan'] }}{{ hconfigs['path_httpupgrade'] }}
+    use_backend vmesshu if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_httpupgrade'] }} }
+    use_backend vlesshu if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_httpupgrade'] }} }
+    # use_backend v2rayhu if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_httpupgrade'] }} }
+    use_backend trojanhu if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_httpupgrade'] }} }
     {%endif%}
 
     {%if hconfigs['splithttp_enable']%}
-    use_backend vmesshs if path_beg {{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }}
-    use_backend vlesshs if path_beg {{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }}
-    #use_backend v2rayhs if path_beg {{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }}
-    use_backend trojanhs if path_beg {{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }}
+    use_backend vmesshs if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }} }
+    use_backend vlesshs if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }} }
+    #use_backend v2rayhs if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }} }
+    use_backend trojanhs if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }} }
     {%endif%}
 
 

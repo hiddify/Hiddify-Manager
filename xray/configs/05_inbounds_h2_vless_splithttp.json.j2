@@ -1,0 +1,32 @@
+{
+	{% if hconfigs['vless_enable'] and hconfigs['splithttp_enable'] %}
+		"inbounds": [
+			{
+				"tag":"vless-splithttp-h2",
+				{# "listen": "@@vless-splithttp",#}
+				"listen": "127.0.0.1", "port":1125,
+				"protocol": "vless",
+				"settings": {
+				"clients": [
+					{% for u in users %}
+						{"id": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com"},
+					{% endfor %}
+				],
+				"decryption": "none"
+				},
+				"streamSettings": {
+				"network": "splithttp",
+				"security": "none",
+				"splithttpSettings": {
+					{# "acceptProxyProtocol": true,#}
+					"path": "/{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }}", //Change to your own path
+				}
+				},
+				"sniffing": {
+				"enabled": true,
+				"destOverride": ["http","tls", "quic"]
+				}
+			}
+		]
+	{% endif %}
+}
