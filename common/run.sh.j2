@@ -70,26 +70,13 @@ allow_port "tcp" {{port}} #panel ports
 
 # Check if PasswordAuthentication is enabled
 if ! grep -rxq "PasswordAuthentication.*no" /etc/ssh/sshd*; then
-  # @hiddify/@iam54r1n4 make a better message with a link to why should disable pass-auth
-  WARNING_MSG="Your server is vulnerable to abuses because PasswordAuthentication is enabled. To secure your server, please switch to key authentication mechanism and turn off PasswordAuthentication in your ssh config file."
-
-  # Keep the orginal motd file as motd.org
-  if [ -f /etc/motd ]; then
-    MOTD_CONTENT=$(cat /etc/motd)
-    if [[ "$MOTD_CONTENT" != "$WARNING_MSG" ]]; then
-      mv /etc/motd /etc/motd.org
-    fi
-  fi
-
-  # Create new /etc/motd file
-  error "$WARNING_MSG" >/etc/motd 2>&1
+  chmod a+r /etc/ssh/sshd*
+  WARNING_MSG="Hiddify! Your server is vulnerable to abuses because PasswordAuthentication is enabled. To secure your server, please switch to key authentication mechanism and turn off PasswordAuthentication in your ssh config file."
+  
+if [[ $(grep "Your server is vulnerable" /etc/motd | wc -l) > 0 ]]; then
+  error "$WARNING_MSG" >>/etc/motd 2>&1
 else
-  # Show orginal /etc/motd
-  MOTD_CONTENT=$(cat /etc/motd)
-  if [[ "$MOTD_CONTENT" == "$WARNING_MSG" ]]; then
-    rm /etc/motd
-    mv /etc/motd.org /etc/motd
-  fi
+  sed -i "/Your server is vulnerable/d" /etc/motd
 fi
 
 # Restart sshd/ssh
