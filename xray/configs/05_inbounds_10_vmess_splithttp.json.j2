@@ -3,7 +3,8 @@
 		"inbounds": [
 			{
 				"tag":"vmess-splithttp",
-				"listen": "@@vmess-splithttp",
+				# "listen": "@@vmess-splithttp",
+				"listen": "127.0.0.1", "port":1035,
 				"protocol": "vmess",
 				"settings": {
 				"clients": [
@@ -16,7 +17,7 @@
 				"network": "splithttp",
 				"security": "none",
 				"splithttpSettings": {
-					"acceptProxyProtocol": true,
+					# "acceptProxyProtocol": true,
 					"path": "/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }}", 
 				}
 				},
