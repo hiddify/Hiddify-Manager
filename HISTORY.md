@@ -5,6 +5,8 @@
 
 ### New
 
+* Add quic support for splithttp and panel. [hiddify-com]
+
 * Some optimization and add splithttp. [hiddify-com]
 
 ### Fix
@@ -22,6 +24,18 @@
 * Bug. [hiddify-com]
 
 ### Other
+
+* Merge branch 'haproxyv3' [hiddify-com]
+
+* Update haproxy to v3. [hiddify-com]
+
+* Add splithttp h2 to nginx. [hiddify-com]
+
+* Revert using map. [hiddify-com]
+
+* Change to map for extra performance. [hiddify-com]
+
+* Update app.cfg. [Hiddify]
 
 * Remove cdn from getting cert. [hiddify-com]
 
