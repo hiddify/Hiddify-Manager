@@ -1,9 +1,10 @@
 {
-	{% if hconfigs['vmess_enable'] and hconfigs['ws_enable'] %}
+	{% if 0 and hconfigs['vmess_enable'] and hconfigs['splithttp_enable'] %}
 		"inbounds": [
 			{
-				"tag":"vmess-ws-new",
-				"listen": "@@vmess-ws-new",
+				"tag":"vmess-splithttp-h2",
+				{# "listen": "@@vmess-splithttp-h2",#}
+				"listen": "127.0.0.1", "port":1036,
 				"protocol": "vmess",
 				"settings": {
 				"clients": [
@@ -13,18 +14,18 @@
 				]
 				},
 				"streamSettings": {
-				"network": "ws",
+				"network": "splithttp",
 				"security": "none",
-				"wsSettings": {
-					"acceptProxyProtocol": true,
-					"path": "/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_ws'] }}", 
+				"splithttpSettings": {
+					{#"acceptProxyProtocol": true,#}
+					"path": "/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }}2", 
 				}
 				},
 				"sniffing": {
 				"enabled": true,
 				"destOverride": ["http","tls", "quic"]
 				}
-			}
+			}	  
 		]
 	{% endif %}
 }

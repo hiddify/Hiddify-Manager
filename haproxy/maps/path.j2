@@ -1,0 +1,35 @@
+/{{hconfigs['proxy_path_client']}}/ hiddifypanel
+/{{hconfigs['proxy_path_admin']}}/ hiddifypanel
+/{{hconfigs['proxy_path']}}/ hiddifypanel
+
+{%if hconfigs['tcp_enable']%}
+/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }} vmesst
+/{{ hconfigs['path_vless'] }}{{ hconfigs['path_tcp'] }} vlesst
+/{{ hconfigs['path_ss'] }}{{ hconfigs['path_tcp'] }}  v2rayt
+/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_tcp'] }} trojant
+{%endif%}
+
+
+{%if hconfigs['ws_enable']%}
+/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_ws'] }} vmessw
+/{{ hconfigs['path_vless'] }}{{ hconfigs['path_ws'] }} vlessw
+/{{ hconfigs['path_ss'] }}{{ hconfigs['path_ws'] }} v2rayw
+/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_ws'] }} trojanw
+{%endif%}
+
+{%if hconfigs['httpupgrade_enable']%}
+/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_httpupgrade'] }} vmesshu
+/{{ hconfigs['path_vless'] }}{{ hconfigs['path_httpupgrade'] }} vlesshu
+# /{{ hconfigs['path_ss'] }}{{ hconfigs['path_httpupgrade'] }} v2rayhu
+/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_httpupgrade'] }} trojanhu
+{%endif%}
+
+{%if hconfigs['splithttp_enable']%}
+/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }} vmesshs
+/{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }} vlesshs
+#/{{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }} v2rayhs
+/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }} trojanhs
+{%endif%}
+
+
+

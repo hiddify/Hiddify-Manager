@@ -159,16 +159,3 @@ backend trojanhu
   server trojanw abns@trojan-httpu send-proxy-v2
 
 
-backend vmesshs
-  mode http
- # server vmesshs abns@vmess-splithttp send-proxy-v2 
-  server vmesshs 127.0.0.1:1035
-
-backend vlesshs 
-  mode http
-  #server vlesshs abns@vless-splithttp send-proxy-v2 
-  server vlesshs 127.0.0.1:1025
-backend trojanhs
-  mode http
-  # server trojanhs abns@trojan-splithttp send-proxy-v2
-  server trojanhs 127.0.0.1:1015

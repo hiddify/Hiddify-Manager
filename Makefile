@@ -10,19 +10,23 @@ debug-panel:
 	FLASK_DEBUG=1 \
 	python -m flask run --host=0.0.0.0 --port=9000 --reload\
 
-
-build:
-	if [ "$(PWD)" = "/opt/hiddify-manager" -o "$(PWD)" = "/opt/hiddify-config" ]; then \
+apply:
+	@if [ "$(PWD)" = "/opt/hiddify-manager" -o "$(PWD)" = "/opt/hiddify-config" ]; then \
 		echo "You cannot build from /opt/hiddify-manager. Clone the repository outside this folder."; \
 		exit 2; \
 	else \
 		mkdir -p /opt/hiddify-manager && \
 		cp -r ./* /opt/hiddify-manager/ && \
-		rm -rf /opt/hiddify-manager/hiddify-panel/src/ && \
+		rm -rf /opt/hiddify-manager/hiddify-panel/src/; \
 		export HIDDIFY_DEBUG=1 && \
-		export HIDDIFY_PANLE_SOURCE_DIR="$(PWD)/hiddify-panel/src/" && \
-		(cd /opt/hiddify-manager/ && bash install.sh --no-gui); \
+		export HIDDIFY_PANLE_SOURCE_DIR="$(PWD)/hiddify-panel/src/" &&\
+		(cd /opt/hiddify-manager/hiddify-panel && bash install.sh && bash ../common/replace_variables.sh); 	
 	fi
+.PHONY: apply
+build: apply
+	
+	(cd /opt/hiddify-manager/ && bash install.sh --no-gui); 
+
 
 # sync_panel:
 # 	@bash -c '\

@@ -1,0 +1,29 @@
+/{{hconfigs['proxy_path_client']}}/ hiddifypanel
+/{{hconfigs['proxy_path_admin']}}/ hiddifypanel
+/{{hconfigs['proxy_path']}}/ hiddifypanel
+
+{%if hconfigs['tcp_enable']%}
+/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }} vmesst_h2
+/{{ hconfigs['path_vless'] }}{{ hconfigs['path_tcp'] }} vlesst_h2
+/{{ hconfigs['path_ss'] }}{{ hconfigs['path_tcp'] }}  v2rayt_h2
+/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_tcp'] }} trojant_h2
+{%endif%}
+  
+
+{%if hconfigs['splithttp_enable']%}
+/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }} vmesshs_h2
+/{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }} vlesshs_h2
+#/{{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }} v2rayhs_h2
+/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }} trojanhs_h2
+{%endif%}
+
+{%if hconfigs['grpc_enable']%}
+# /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_grpc'] }}/TunMulti vmessg
+# /{{ hconfigs['path_vless'] }}{{ hconfigs['path_grpc'] }}/TunMulti vlessg
+# #/{{ hconfigs['path_ss'] }}{{ hconfigs['path_grpc'] }}/TunMulti v2rayg
+# /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_grpc'] }}/TunMulti trojang
+/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_grpc'] }} vmessg
+/{{ hconfigs['path_vless'] }}{{ hconfigs['path_grpc'] }} vlessg
+#/{{ hconfigs['path_ss'] }}{{ hconfigs['path_grpc'] }} v2rayg
+/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_grpc'] }} trojang
+{%endif%}

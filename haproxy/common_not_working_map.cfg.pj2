@@ -1,0 +1,285 @@
+global
+    {%if hconfigs['log_level']!="CRITICAL"%}
+    # # Access logs
+    # #log-format %ci:%cp\ [%t]\ %ft\ %b/%s\ %Tcc\ %Tw/%Tc/%Tr/%Ta\ %ST\ %B\ %CC\ %CS\ %tsc\ %ac/%fc/%bc/%sc/%rc\ %sq/%bq\ %hr\ %hs\ %{+Q}r
+    # option httplog
+    # option http-server-close
+    # option forwardfor except 127.0.0.1  # Add X-Forwarded-For header except for HAProxy itself
+    # log /opt/hiddify/hiddify-manager/log/system/haproxy.log local0
+
+    log /opt/hiddify-manager/log/system/haproxy.err.log local0 warning
+        
+    {%endif%}
+
+
+
+defaults
+    log global
+    retry-on all-retryable-errors
+
+    timeout connect 5s
+    timeout client 50s
+    timeout client-fin 50s
+    timeout server 50s
+    timeout tunnel 1h
+    default-server init-addr none
+    default-server inter 15s fastinter 2s downinter 5s rise 3 fall 3
+    mode tcp
+    #tune.h2.initial-window-size 536870912
+    #tune.h2.max-concurrent-streams 512
+
+### standalone stats page
+listen stats
+        # accessible at http://192.168.1.100/haproxy?stats
+        bind 127.0.0.1:8181
+      	
+      	option httplog
+      	stats enable
+      	stats admin if TRUE
+      	stats refresh 5m
+
+frontend https-in
+    bind :443,:::443 v4v6 tfo 
+    {% for port in hconfigs['tls_ports'].split(",")%}
+    bind :{{port}},:::{{port}} v4v6 tfo 
+    {%endfor%}
+    # option tcplog
+    # option dontlognull
+    tcp-request inspect-delay 5s
+    tcp-request content accept if { req.ssl_hello_type 1 }
+    acl tls1_2 req.ssl_ver 3.3
+    acl tls1_3 req.ssl_ver 3.4
+    
+    acl alpnh2 req.ssl_alpn h2 
+    {% if 1 or  hconfigs["log_level"]!="CRITICAL" %}
+        http-request set-var(txn.sni) req.ssl_sni
+        http-request set-var(txn.alpn) req.ssl_alpn
+        log-format "inhttps_%[var(txn.alpn)]: SNI_h2: %[var(txn.sni)]: maph1: %[var(txn.sni)] - %[var(txn.sni),map_dom_key(/opt/hiddify-manager/haproxy/maps/sni)] - maph2 %[var(txn.sni),map_dom_key(/opt/hiddify-manager/haproxy/maps/sni_h2)]"
+    {%endif%}
+    
+    acl is_cdn src -f /opt/hiddify-manager/haproxy/cloudflare.lst -f /opt/hiddify-manager/haproxy/arvan.lst -f /opt/hiddify-manager/haproxy/cloudfront.lst
+    use_backend to_https_in_ssl if is_cdn
+    
+    #use_backend %[req.ssl_sni,map_dom(/opt/hiddify-manager/haproxy/map_sni_backend_h2.map)] if h2
+    
+
+    use_backend %[req.ssl_sni,map_dom(/opt/hiddify-manager/haproxy/map_sni_backend.map)] 
+
+
+    use_backend to_https_in_ssl_h2 if alpnh2
+    default_backend to_https_in_ssl
+    
+
+backend to_https_in_ssl
+    server haproxy abns@https_in_ssl send-proxy-v2 tfo
+backend to_https_in_ssl_h2
+    server haproxy abns@https_in_ssl_h2 send-proxy-v2 tfo
+
+# backend to_https_in_ssl
+# #     server xray abns@https_in_ssl send-proxy-v2
+
+frontend onlypanel_in
+    mode http
+    bind abns@onlypanel_in accept-proxy ssl crt /opt/hiddify-manager/ssl/ alpn h2,http/1.1,h3
+
+    
+    acl hpanel path_reg ^/{{hconfigs['proxy_path']}}/[1-9a-f][1-9a-f]
+    use_backend hiddifypanel if hpanel
+
+    default_backend nginx_dispatcher_http
+
+backend to_panel_only
+    server to_panel_only abns@onlypanel_in send-proxy-v2
+
+frontend https-in-h2
+    bind abns@https_in_ssl_h2 tfo accept-proxy ssl crt /opt/hiddify-manager/ssl/ alpn h2
+    
+    # http-response set-header alt-svc "h3=\":443\";ma=900;"
+    
+    #acl is_cloudflare src -f /opt/hiddify-manager/haproxy/cloudflare.lst
+    #acl is_arvan src -f /opt/hiddify-manager/haproxy/arvan.lst
+    #acl is_cloudfront src -f /opt/hiddify-manager/haproxy/cloudfront.lst
+
+    # http-request set-header X-Real-IP %[req.hdr(CF-Connecting-IP)] if is_cloudflare
+    # http-request set-header X-Real-IP %[req.hdr(X-Forward-For)] if is_cloudfront
+    # http-request set-header X-Real-IP %[req.hdr(X-Forward-For)] if is_arvan
+    # http-request set-header X-Real-IP %[src] if !is_cloudflare !is_arvan !is_cloudfront
+
+
+    tcp-request inspect-delay 5s
+    tcp-request content accept if HTTP
+
+    #acl hpanel path_reg ^/{{hconfigs['proxy_path']}}/[1-9a-f][1-9a-f]
+    #use_backend hiddifypanel if hpanel
+    
+    {% if 1 or  hconfigs["log_level"]!="CRITICAL" %}
+        http-request set-var(txn.path) path
+        #http-request set-var(txn.sni) hdr(:authority)
+        http-request set-var(txn.sni) hdr(host)
+        log-format "inh2: SNI: %[var(txn.sni)] - %[var(txn.sni),map_dom_key(/opt/hiddify-manager/haproxy/maps/sni)] ---SNI_h2: %[var(txn.sni)] - %[var(txn.sni),map_dom_key(/opt/hiddify-manager/haproxy/maps/sni_h2)] --- Path: %[var(txn.path)] - %[var(txn.path),map_beg_key(/opt/hiddify-manager/haproxy/maps/path_h2)]"
+    {%endif%}
+    
+    
+
+    #multimap not supported use trick
+    #use_backend %[hdr(:authority),map_dom(/opt/hiddify-manager/haproxy/maps/http_domain)]
+    #use_backend %[path,map_beg(/opt/hiddify-manager/haproxy/maps/path_h2)]
+    http-request set-var(txn.backend) req.hdr(host),map_dom(/opt/hiddify-manager/haproxy/maps/http_domain,default)
+    http-request set-var(txn.backend) path,map_beg(/opt/hiddify-manager/haproxy/maps/path_h2,ginx_dispatcher_h2) if  { var(txn.backend) -m str default }
+    use_backend %[var(txn.backend)]    
+    
+
+    {% if hconfigs['core_type'] == 'xray' %}
+#    default_backend nginx_dispatcher_h2 
+    {% else %}
+ #   default_backend singbox_grpc_dispatcher 
+    {% endif %}
+    
+
+    
+    
+    
+    
+    
+
+
+frontend http-https-in
+    bind :80,:::80 v4v6 tfo #proto h2 
+    {% for port in hconfigs['http_ports'].split(",")%}
+    bind :{{port}},:::{{port}} v4v6 tfo
+    {%endfor%}
+
+    bind abns@https_in_ssl tfo accept-proxy ssl crt /opt/hiddify-manager/ssl/ alpn h2,http/1.1,h3
+
+    #bind quic4@abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-manager/ssl/ alpn h3    
+    # http-response set-header alt-svc "h3=\":443\";ma=900;"
+    tcp-request inspect-delay 5s
+    tcp-request content accept if HTTP
+
+    
+
+    {% if 1 or  hconfigs["log_level"]!="CRITICAL" %}
+        http-request set-var(txn.path) path
+        http-request set-var(txn.sni) req.hdr(host)
+        log-format "inh1: SNI: %[var(txn.sni)] - %[var(txn.sni),map_dom_key(/opt/hiddify-manager/haproxy/maps/sni)]  --- Path: %[var(txn.path)] - %[var(txn.path),map_beg_key(/opt/hiddify-manager/haproxy/maps/path)]"
+    {%endif%}
+    
+    #multimap not supported use trick
+    #use_backend %[req.hdr(host),map_dom(/opt/hiddify-manager/haproxy/maps/http_domain)]
+    #use_backend %[path,map_beg(/opt/hiddify-manager/haproxy/maps/path)]
+    http-request set-var(txn.backend) req.hdr(host),map_dom(/opt/hiddify-manager/haproxy/maps/http_domain,default)
+    http-request set-var(txn.backend) path,map_beg(/opt/hiddify-manager/haproxy/maps/path,nginx_dispatcher) if  { var(txn.backend) -m str default }
+    use_backend %[var(txn.backend)]
+
+
+    
+
+    # acl speak_alpn_h2 ssl_fc_alpn -i h2
+    # use_backend nginx_dispatcher_h2 if speak_alpn_h2
+    #default_backend nginx_dispatcher
+
+# this server handles xray http2 proxies
+backend nginx_dispatcher_h2
+    server nginx unix@/opt/hiddify-manager/nginx/run/h2.sock send-proxy-v2 tfo
+
+# this server doesn't handle any proxy
+backend nginx_dispatcher
+    server nginx unix@/opt/hiddify-manager/nginx/run/h1.sock send-proxy-v2 tfo
+
+backend nginx_dispatcher_http
+    mode http
+    server nginx unix@/opt/hiddify-manager/nginx/run/h1.sock send-proxy-v2 tfo
+
+
+
+
+
+
+
+
+
+
+backend decoy
+    server xraydecoy abns@xtlsindecoy send-proxy-v2
+
+backend tgdecoy
+    server tgdecoy {{hconfigs['telegram_fakedomain']}}
+
+backend tgdecoy_http
+    
+    server tgdecoy_http {{hconfigs['telegram_fakedomain']}}
+
+backend telegram
+    server telegram 127.0.0.1:1001
+
+{%if hconfigs['ssfaketls_enable'] and hconfigs['ssfaketls_fakedomain'] %}
+backend ssdecoy_http
+    server ssdecoy {{hconfigs['ssfaketls_fakedomain']}}
+backend ssfake
+    server ssfake 127.0.0.1:1010 tfo
+{%endif%}
+
+
+
+
+
+
+
+
+
+{%if hconfigs['shadowtls_enable'] and hconfigs['shadowtls_fakedomain']%}
+backend shadowtls_decoy_http
+    server shadowtls_decoy_http {{hconfigs['shadowtls_fakedomain']}}
+backend shadowtls_decoy
+    server shadowtls_decoy {{hconfigs['shadowtls_fakedomain']}}
+{%endif%}
+
+# backend ssrdecory
+#     server ssrdecoy ssrtlsdomain
+# backend ssr
+#     server ssr 127.0.0.1:1004
+
+
+backend xray_force
+    # server xray unix@/dev/shm/hiddify-xtls-main.sock
+    server xray abns@xtlsin send-proxy-v2
+
+
+backend hiddifypanel
+    mode http
+    http-request set-header X-Forwarded-For %[src]
+    server hpanel 127.0.0.1:9000
+
+
+
+
+{% for d in domains if d['internal_port_reality'] and d['grpc'] %}
+    {%set domain=d['domain']%}
+    {%set port=d['internal_port_reality']%}
+backend reality_grpc_http_{{port}}
+    mode http
+    server reality_{{port}} {{domain}}:80 
+{%endfor%}
+
+{% for d in domains if d['internal_port_reality'] and not d['grpc'] %}
+    {%set domain=d['domain']%}
+    {%set port=d['internal_port_reality']%}
+backend reality_http_{{port}}
+    mode http
+    server reality_{{port}} {{domain}}:80 
+{%endfor%}
+
+
+
+
+backend shadowtls
+    server singbox 127.0.0.1:1030 tfo 
+
+
+backend v2rayw
+  server v2rayw 127.0.0.1:1020  tfo 
+
+backend v2rayw_h2
+  server v2rayw 127.0.0.1:1020  tfo 
+
+

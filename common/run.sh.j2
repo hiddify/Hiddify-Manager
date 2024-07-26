@@ -73,8 +73,9 @@ if ! grep -rxq "PasswordAuthentication.*no" /etc/ssh/sshd*; then
   chmod a+r /etc/ssh/sshd*
   WARNING_MSG="Hiddify! Your server is vulnerable to abuses because PasswordAuthentication is enabled. To secure your server, please switch to key authentication mechanism and turn off PasswordAuthentication in your ssh config file."
   
-if [[ $(grep "Your server is vulnerable" /etc/motd | wc -l) > 0 ]]; then
-  error "$WARNING_MSG" >>/etc/motd 2>&1
+  if [[ $(grep "Your server is vulnerable" /etc/motd | wc -l) > 0 ]]; then
+    error "$WARNING_MSG" >>/etc/motd 2>&1
+  fi
 else
   sed -i "/Your server is vulnerable/d" /etc/motd
 fi
