@@ -205,7 +205,7 @@
         "security": "none",
         "wsSettings": {
           "acceptProxyProtocol": true, 
-          "path": "/defaultusersecret/trojanws" //Change to your own path
+          "path": "/defaultusersecret/trojanws" 
         }
       },
       "sniffing": {

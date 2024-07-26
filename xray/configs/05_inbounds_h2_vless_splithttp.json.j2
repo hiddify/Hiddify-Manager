@@ -1,10 +1,10 @@
 {
-	{% if hconfigs['vless_enable'] and hconfigs['splithttp_enable'] %}
+	{% if 0 and hconfigs['vless_enable'] and hconfigs['splithttp_enable'] %}
 		"inbounds": [
 			{
 				"tag":"vless-splithttp-h2",
-				{# "listen": "@@vless-splithttp",#}
-				"listen": "127.0.0.1", "port":1125,
+				{# "listen": "@@vless-splithttp-h2",#}
+				"listen": "127.0.0.1", "port":1026,
 				"protocol": "vless",
 				"settings": {
 				"clients": [
@@ -19,7 +19,7 @@
 				"security": "none",
 				"splithttpSettings": {
 					{# "acceptProxyProtocol": true,#}
-					"path": "/{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }}", //Change to your own path
+					"path": "/{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }}2", 
 				}
 				},
 				"sniffing": {

@@ -1,10 +1,10 @@
 {
-	{% if hconfigs['trojan_enable'] and hconfigs['splithttp_enable'] %}
+	{% if 0 and hconfigs['trojan_enable'] and hconfigs['splithttp_enable'] %}
 		"inbounds": [
 			{
-				"tag":"trojan-splithttp",
-				{#"listen": "@@trojan-splithttp", #}
-			"listen": "127.0.0.1", "port":1015,
+				"tag":"trojan-splithttp-h2",
+				{#"listen": "@@trojan-splithttp-h2", #}
+			"listen": "127.0.0.1", "port":1016,
 				"protocol": "trojan",
 				"settings": {
 				"clients": [
@@ -18,7 +18,7 @@
 				"security": "none",
 				"splithttpSettings": {
 					{# "acceptProxyProtocol": true, #}
-					"path":"/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }}1", 
+					"path":"/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }}2", 
 				}
 				},
 				"sniffing": {

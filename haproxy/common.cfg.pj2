@@ -51,22 +51,47 @@ frontend https-in
     acl tls1_3 req.ssl_ver 3.4
     
     acl alpnh2 req.ssl_alpn h2 
-    {% if 1 or  hconfigs["log_level"]!="CRITICAL" %}
-        http-request set-var(txn.sni) req.ssl_sni
-        http-request set-var(txn.alpn) req.ssl_alpn
-        log-format "inhttps_%[var(txn.alpn)]: SNI_h2: %[var(txn.sni)]: maph1: %[var(txn.sni)] - %[var(txn.sni),map_dom_key(/opt/hiddify-manager/haproxy/maps/sni)] - maph2 %[var(txn.sni),map_dom_key(/opt/hiddify-manager/haproxy/maps/sni_h2)]"
-    {%endif%}
+    
     
     acl is_cdn src -f /opt/hiddify-manager/haproxy/cloudflare.lst -f /opt/hiddify-manager/haproxy/arvan.lst -f /opt/hiddify-manager/haproxy/cloudfront.lst
     use_backend to_https_in_ssl if is_cdn
     
-    #use_backend %[req.ssl_sni,map_dom(/opt/hiddify-manager/haproxy/map_sni_backend_h2.map)] if h2
-    
+    {%for d in domain if d['mode']=='sub_link_only'%} 
+    use_backend to_panel_only if { hdr(host) -i {{d['domain']}} }
+    {%endfor%}
+        
+    {% for d in domains if d['internal_port_reality'] and d['grpc'] %}
+    {%set domain=d['domain']%}
+    {%set port=d['internal_port_reality']%}
+    use_backend reality_grpc_{{port}} if { hdr(host) -i {{domain}}  }
+    {%endfor%}
 
-    use_backend %[req.ssl_sni,map_dom(/opt/hiddify-manager/haproxy/map_sni_backend.map)] 
+    {% for d in domains if d['internal_port_reality'] and not d['grpc'] %}
+    {%set domain=d['domain']%}
+    {%set port=d['internal_port_reality']%}
+    use_backend reality_{{port}} if { hdr(host) -i {{domain}}  }
+    {%endfor%}
 
 
-    use_backend to_https_in_ssl_h2 if alpnh2
+        
+    {%if hconfigs['ssfaketls_enable'] and hconfigs['ssfaketls_fakedomain'] %}
+    use_backend ssfake if { hdr(host) -i {{hconfigs['ssfaketls_fakedomain']}}  }
+    {%endif%}
+        
+        
+    {%if hconfigs['telegram_enable'] and hconfigs['telegram_fakedomain'] %}
+    use_backend telegram if { hdr(host) -i {{hconfigs['telegram_fakedomain']}} }
+    {%endif%}
+
+    {%if hconfigs['shadowtls_enable'] and hconfigs['shadowtls_fakedomain']%}
+    use_backend shadowtls if { hdr(host) -i {{hconfigs['shadowtls_fakedomain'] }} } 
+    {%endif%}
+        
+    {% for d in domains if d['mode']=='old_xtls_direct' %}
+    use_backend xray_force if { hdr(host) -i {{d['domain']}}  }
+    {%endfor%}
+
+    #use_backend to_https_in_ssl_h2 if alpnh2
     default_backend to_https_in_ssl
     
 
@@ -91,66 +116,6 @@ frontend onlypanel_in
 backend to_panel_only
     server to_panel_only abns@onlypanel_in send-proxy-v2
 
-frontend https-in-h2
-    bind abns@https_in_ssl_h2 tfo accept-proxy ssl crt /opt/hiddify-manager/ssl/ alpn h2
-    
-    # http-response set-header alt-svc "h3=\":443\";ma=900;"
-    
-    #acl is_cloudflare src -f /opt/hiddify-manager/haproxy/cloudflare.lst
-    #acl is_arvan src -f /opt/hiddify-manager/haproxy/arvan.lst
-    #acl is_cloudfront src -f /opt/hiddify-manager/haproxy/cloudfront.lst
-
-    # http-request set-header X-Real-IP %[req.hdr(CF-Connecting-IP)] if is_cloudflare
-    # http-request set-header X-Real-IP %[req.hdr(X-Forward-For)] if is_cloudfront
-    # http-request set-header X-Real-IP %[req.hdr(X-Forward-For)] if is_arvan
-    # http-request set-header X-Real-IP %[src] if !is_cloudflare !is_arvan !is_cloudfront
-
-
-    tcp-request inspect-delay 5s
-    tcp-request content accept if HTTP
-
-    #acl hpanel path_reg ^/{{hconfigs['proxy_path']}}/[1-9a-f][1-9a-f]
-    #use_backend hiddifypanel if hpanel
-    
-    {% include '/opt/hiddify-manager/haproxy/common_h1h2rules.lst.pj2' %}
-
-    {%if hconfigs['tcp_enable']%}
-    use_backend vmesst_h2 if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }}  }
-    use_backend vlesst_h2 if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_tcp'] }} }
-    use_backend v2rayt_h2 if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_tcp'] }}   }
-    use_backend trojant_h2 if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_tcp'] }}  }
-    {%endif%}
-    
-
-    {%if hconfigs['splithttp_enable']%}
-    use_backend vmesshs_h2 if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }} }
-    use_backend vlesshs_h2 if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }} }
-    #use_backend v2rayhs_h2 if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }} }
-    use_backend trojanhs_h2 if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }} }
-    {%endif%}
-
-    {%if hconfigs['grpc_enable']%}
-    # /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_grpc'] }}/TunMulti vmessg
-    # /{{ hconfigs['path_vless'] }}{{ hconfigs['path_grpc'] }}/TunMulti vlessg
-    # #/{{ hconfigs['path_ss'] }}{{ hconfigs['path_grpc'] }}/TunMulti v2rayg
-    # /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_grpc'] }}/TunMulti trojang
-    use_backend vmessg if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_grpc'] }} }
-    use_backend vlessg if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_grpc'] }} }
-    #use_backend v2rayg if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_grpc'] }} }
-    use_backend trojang if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_grpc'] }} }
-    {%endif%}
-    {% if hconfigs['core_type'] == 'xray' %}
-     default_backend nginx_dispatcher_h2 
-    {% else %}
-    default_backend singbox_grpc_dispatcher 
-    {% endif %}
-    
-
-    
-    
-    
-    
-    
 
 
 frontend http-https-in
@@ -158,8 +123,10 @@ frontend http-https-in
     {% for port in hconfigs['http_ports'].split(",")%}
     bind :{{port}},:::{{port}} v4v6 tfo
     {%endfor%}
-
-    bind abns@https_in_ssl tfo accept-proxy ssl crt /opt/hiddify-manager/ssl/ alpn h2,http/1.1,h3
+    bind abns@https_in_ssl tfo accept-proxy ssl crt /opt/hiddify-manager/ssl/ alpn h2,http/1.1,h3 allow-0rtt
+    acl h2 ssl_fc_alpn -i h2
+    #acl h2 ssl_fc_npn -i h2
+    
 
     #bind quic4@abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-manager/ssl/ alpn h3    
     # http-response set-header alt-svc "h3=\":443\";ma=900;"
@@ -192,13 +159,13 @@ frontend http-https-in
     {%endif%}
 
     {%if hconfigs['splithttp_enable']%}
-    use_backend vmesshs if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }} }
-    use_backend vlesshs if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }} }
-    #use_backend v2rayhs if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }} }
-    use_backend trojanhs if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }} }
+    use_backend vmesshs if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }}1 }
+    use_backend vlesshs if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }}1 }
+    #use_backend v2rayhs if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }}1 }
+    use_backend trojanhs if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }}1 }
     {%endif%}
 
-
+    use_backend nginx_dispatcher_h2 if h2
 
 
     
