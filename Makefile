@@ -22,7 +22,7 @@ apply:
 		export HIDDIFY_PANLE_SOURCE_DIR="$(PWD)/hiddify-panel/src/" &&\
 		(cd /opt/hiddify-manager/hiddify-panel && bash install.sh && bash ../common/replace_variables.sh); 	
 	fi
-
+.PHONY: apply
 build: apply
 	
 	(cd /opt/hiddify-manager/ && bash install.sh --no-gui); 

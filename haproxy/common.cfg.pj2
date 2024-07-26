@@ -1,4 +1,5 @@
 global
+    limited-quic
     {%if hconfigs['log_level']!="CRITICAL"%}
     # # Access logs
     # #log-format %ci:%cp\ [%t]\ %ft\ %b/%s\ %Tcc\ %Tw/%Tc/%Tr/%Ta\ %ST\ %B\ %CC\ %CS\ %tsc\ %ac/%fc/%bc/%sc/%rc\ %sq/%bq\ %hr\ %hs\ %{+Q}r
@@ -32,15 +33,15 @@ defaults
 listen stats
         # accessible at http://192.168.1.100/haproxy?stats
         bind 127.0.0.1:8181
-      	
+      	mode http
       	option httplog
       	stats enable
       	stats admin if TRUE
       	stats refresh 5m
 
 frontend https-in
-    bind :443,:::443 v4v6 tfo 
-    {% for port in hconfigs['tls_ports'].split(",")%}
+    
+    {% for port in (["443"] + hconfigs['tls_ports'].split(',')) | unique %}
     bind :{{port}},:::{{port}} v4v6 tfo 
     {%endfor%}
     # option tcplog
@@ -50,7 +51,7 @@ frontend https-in
     acl tls1_2 req.ssl_ver 3.3
     acl tls1_3 req.ssl_ver 3.4
     
-    acl alpnh2 req.ssl_alpn h2 
+    #acl alpnh2 req.ssl_alpn h2 
     
     
     acl is_cdn src -f /opt/hiddify-manager/haproxy/cloudflare.lst -f /opt/hiddify-manager/haproxy/arvan.lst -f /opt/hiddify-manager/haproxy/cloudfront.lst
@@ -116,11 +117,24 @@ frontend onlypanel_in
 backend to_panel_only
     server to_panel_only abns@onlypanel_in send-proxy-v2
 
+frontend quic-in
+  {% for port in (["443"] + hconfigs['tls_ports'].split(',')) | unique %}
+    bind quic4@:{{port}},quic6@:{{port}} v4v6 tfo ssl crt /opt/hiddify-manager/ssl/ alpn h3    
+    {%endfor%}
+  mode http
+    {% include '/opt/hiddify-manager/haproxy/common_h1h2rules4http.lst.pj2' %}
+{%if hconfigs['splithttp_enable']%}
+    use_backend vmesshs_http_h2 if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }} }
+    use_backend vlesshs_http_h2 if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }} }
+    #use_backend v2rayhs_http_h2 if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }} }
+    use_backend trojanhs_http_h2 if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }} }
+    {%endif%}
 
+
+    default_backend nginx_dispatcher_http_h2
 
 frontend http-https-in
-    bind :80,:::80 v4v6 tfo #proto h2 
-    {% for port in hconfigs['http_ports'].split(",")%}
+    {% for port in (["80"] + hconfigs['http_ports'].split(',')) | unique%}
     bind :{{port}},:::{{port}} v4v6 tfo
     {%endfor%}
     bind abns@https_in_ssl tfo accept-proxy ssl crt /opt/hiddify-manager/ssl/ alpn h2,http/1.1,h3 allow-0rtt
@@ -128,13 +142,13 @@ frontend http-https-in
     #acl h2 ssl_fc_npn -i h2
     
 
-    #bind quic4@abns@https_in_ssl accept-proxy ssl crt /opt/hiddify-manager/ssl/ alpn h3    
-    # http-response set-header alt-svc "h3=\":443\";ma=900;"
+
+    http-response set-header alt-svc "h3=\":443\";ma=900;"
     tcp-request inspect-delay 5s
     tcp-request content accept if HTTP
 
     
-    {% include '/opt/hiddify-manager/haproxy/common_h1h2rules.lst.pj2' %}
+    {% include '/opt/hiddify-manager/haproxy/common_h1h2rules4http.lst.pj2' %}
 
     {%if hconfigs['tcp_enable']%}
     use_backend vmesst if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }} }
@@ -159,10 +173,10 @@ frontend http-https-in
     {%endif%}
 
     {%if hconfigs['splithttp_enable']%}
-    use_backend vmesshs if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }}1 }
-    use_backend vlesshs if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }}1 }
-    #use_backend v2rayhs if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }}1 }
-    use_backend trojanhs if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }}1 }
+    use_backend vmesshs if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }} }
+    use_backend vlesshs if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }} }
+    #use_backend v2rayhs if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }} }
+    use_backend trojanhs if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }} }
     {%endif%}
 
     use_backend nginx_dispatcher_h2 if h2
@@ -187,6 +201,9 @@ backend nginx_dispatcher_http
     mode http
     server nginx unix@/opt/hiddify-manager/nginx/run/h1.sock send-proxy-v2 tfo
 
+backend nginx_dispatcher_http_h2
+    mode http
+    server nginx unix@/opt/hiddify-manager/nginx/run/h2.sock send-proxy-v2 tfo proto h2
 
 
 
@@ -203,7 +220,7 @@ backend tgdecoy
     server tgdecoy {{hconfigs['telegram_fakedomain']}}
 
 backend tgdecoy_http
-    
+    mode http
     server tgdecoy_http {{hconfigs['telegram_fakedomain']}}
 
 backend telegram
@@ -280,3 +297,32 @@ backend v2rayw_h2
   server v2rayw 127.0.0.1:1020  tfo 
 
 
+
+backend vmesshs
+  #mode http
+ # server vmesshs abns@vmess-splithttp send-proxy-v2 
+  server vmesshs 127.0.0.1:1035
+
+backend vlesshs 
+  #mode http
+  #server vlesshs abns@vless-splithttp send-proxy-v2 
+  server vlesshs 127.0.0.1:1025
+backend trojanhs
+  #mode http
+  # server trojanhs abns@trojan-splithttp send-proxy-v2
+  server trojanhs 127.0.0.1:1015
+
+
+backend vmesshs_http_h2
+  mode http
+ # server vmesshs abns@vmess-splithttp send-proxy-v2 
+  server vmesshs 127.0.0.1:1035 proto h2
+
+backend vlesshs_http_h2
+  mode http
+  #server vlesshs abns@vless-splithttp send-proxy-v2 
+  server vlesshs 127.0.0.1:1025  proto h2
+backend trojanhs_http_h2
+  mode http
+  # server trojanhs abns@trojan-splithttp send-proxy-v2
+  server trojanhs 127.0.0.1:1015 proto h2
