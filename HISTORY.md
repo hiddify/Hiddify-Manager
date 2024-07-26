@@ -11,6 +11,10 @@
 
 ### Fix
 
+* Ssh error bug. [hiddify-com]
+
+* Cert issue first install. [hiddify-com]
+
 * Bugs. [hiddify-com]
 
 * Split http bug. [hiddify-com]
