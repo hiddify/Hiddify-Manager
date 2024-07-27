@@ -243,6 +243,7 @@ backend ssfake
 
 {%if hconfigs['shadowtls_enable'] and hconfigs['shadowtls_fakedomain']%}
 backend shadowtls_decoy_http
+    mode http
     server shadowtls_decoy_http {{hconfigs['shadowtls_fakedomain']}}
 backend shadowtls_decoy
     server shadowtls_decoy {{hconfigs['shadowtls_fakedomain']}}
