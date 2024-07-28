@@ -41,6 +41,8 @@
 
 ### Other
 
+* Show all domain configs in cli. [hiddify-com]
+
 * Merge branch 'haproxyv3' [hiddify-com]
 
 * Update haproxy to v3. [hiddify-com]
