@@ -64,9 +64,9 @@ remove_port "tcp" {{hconfigs['ssh_server_port']}}  #ssh_server
 {% for port in (hconfigs['tls_ports']+","+ hconfigs['http_ports']).split(',') if port %}
 allow_port "tcp" {{port}} #panel ports
 {%endfor%}
-{# {% for port in (hconfigs['tls_ports']).split(',') if port %}
+{% for port in (hconfigs['tls_ports']).split(',') if port %}
   allow_port "udp" {{port}}
-{%endfor%} #}
+{%endfor%}
 
 # Check if PasswordAuthentication is enabled
 if ! grep -rxq "PasswordAuthentication.*no" /etc/ssh/sshd*; then
