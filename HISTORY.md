@@ -11,6 +11,10 @@
 
 ### Fix
 
+* Cert bugs. [hiddify-com]
+
+* Firewall for quic. [hiddify-com]
+
 * Haproxy ss bug. [hiddify-com]
 
 * Bug. [hiddify-com]
