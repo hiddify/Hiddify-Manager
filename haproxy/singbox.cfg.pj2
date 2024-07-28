@@ -112,12 +112,3 @@ backend trojanhu
 
 
 
-backend vmesshs
-  server vmesshs abns@vmess-splithttp send-proxy-v2 
-
-backend vlesshs 
-  server vlesshs abns@vless-splithttp send-proxy-v2 
-
-backend trojanhs
-  server trojanhs abns@trojan-splithttp send-proxy-v2
-
