@@ -11,6 +11,8 @@
 
 ### Fix
 
+* Haproxy ss bug. [hiddify-com]
+
 * Bug. [hiddify-com]
 
 * Ssh error bug. [hiddify-com]
