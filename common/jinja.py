@@ -19,8 +19,9 @@ def exec(command):
         )
         return output
     except subprocess.CalledProcessError as e:
+        print(command)
         print(f"Command failed with exit code {e.returncode}:")
-        print(e.output)
+        print(e.output, e)
     return ""
 
 

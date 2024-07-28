@@ -45,7 +45,7 @@
 					"certificates": [
 					{%for d in domains if d['need_valid_ssl']%}
 						{"ocspStapling": 3600, 
-					{% if exec("[ -f /opt/hiddify-manager/ssl/"+d.domain[0:64]+".crt ]&& echo -n 'true'")=='true' %}
+					{% if exec("[ -f /opt/hiddify-manager/ssl/"+d.domain[0:64]+".crt ]&& echo -n 'true' || echo -n 'false'")=='true' %}
 					"certificateFile": "/opt/hiddify-manager/ssl/{{d.domain[0:64]}}.crt", 
 					"keyFile": "/opt/hiddify-manager/ssl/{{d.domain[0:64]}}.crt.key",
 					{%else %}

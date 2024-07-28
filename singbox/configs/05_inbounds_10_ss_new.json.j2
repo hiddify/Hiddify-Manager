@@ -18,7 +18,7 @@
 					{"name": "{{ u['uuid'] }}@hiddify.com", "password": "{{ u['uuid'].replace('-','')|b64encode}}"},
 				{% endfor%}
 				],
-				{% include "includes/multiplex.json.j2"%}
+				{% include "includes/multiplex.json.pj2"%}
 			}
 		]
 	{% endif %}

@@ -21,7 +21,7 @@
 					"path": "/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_ws'] }}",
 					"early_data_header_name": "Sec-WebSocket-Protocol"
 				},
-				{% include "includes/multiplex.json.j2"%}
+				{% include "includes/multiplex.json.pj2"%}
 			}	  
 		]
 	{% endif %}

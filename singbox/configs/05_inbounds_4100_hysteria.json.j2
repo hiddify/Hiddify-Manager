@@ -29,7 +29,7 @@
 					"alpn": ["h3"],
 					"min_version": "1.2",
 					"max_version": "1.3",
-					{% if exec("[ -f /opt/hiddify-manager/ssl/"+domain[0:64]+".crt ]&& echo -n 'true'")=='true' %}
+					{% if exec("[ -f /opt/hiddify-manager/ssl/"+domain[0:64]+".crt ] && echo -n 'true' || echo -n 'false'")=='true' %}
 					"certificate_path": "/opt/hiddify-manager/ssl/{{domain[0:64]}}.crt",
 					"key_path": "/opt/hiddify-manager/ssl/{{domain[0:64]}}.crt.key",
 					{%else %}

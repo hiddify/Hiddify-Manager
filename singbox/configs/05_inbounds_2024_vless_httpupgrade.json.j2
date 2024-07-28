@@ -19,7 +19,7 @@
 					"type": "httpupgrade",
 					"path": "/{{ hconfigs['path_vless'] }}{{ hconfigs['path_httpupgrade'] }}"
 				},
-				{% include "includes/multiplex.json.j2"%}
+				{% include "includes/multiplex.json.pj2"%}
 			}	  
 		]
 	{% endif %}
