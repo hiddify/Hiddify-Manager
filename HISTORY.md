@@ -11,6 +11,8 @@
 
 ### Fix
 
+* Singbox bug. [hiddify-com]
+
 * Cert bugs. [hiddify-com]
 
 * Firewall for quic. [hiddify-com]
