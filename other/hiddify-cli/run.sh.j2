@@ -7,6 +7,7 @@ rm clash.db
 # Create systemd env file
 PANEL_DOMAIN=$(echo "{{ panel_links[panel_links|length -1] }}" | sed 's|^https\?://\([^/]\+\).*|\1|')
 PANEL_DOMAIN=https://$PANEL_DOMAIN
+PANEL_DOMAIN=http://127.0.0.1:9000
 SUB_LINK="$PANEL_DOMAIN/{{ hconfigs['proxy_path_client'] }}/{{ users[0]['uuid'] }}/singbox/"
 echo "SUB_LINK=$SUB_LINK" > .env
 
