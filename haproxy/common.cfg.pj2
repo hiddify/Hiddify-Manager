@@ -228,6 +228,7 @@ backend telegram
 
 {%if hconfigs['ssfaketls_enable'] and hconfigs['ssfaketls_fakedomain'] %}
 backend ssdecoy_http
+    mode http
     server ssdecoy {{hconfigs['ssfaketls_fakedomain']}}
 backend ssfake
     server ssfake 127.0.0.1:1010 tfo
