@@ -11,6 +11,8 @@
 
 ### Fix
 
+* Bug. [hiddify-com]
+
 * Ssh error bug. [hiddify-com]
 
 * Cert issue first install. [hiddify-com]
