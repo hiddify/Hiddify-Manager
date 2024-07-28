@@ -58,38 +58,38 @@ frontend https-in
     use_backend to_https_in_ssl if is_cdn
     
     {%for d in domain if d['mode']=='sub_link_only'%} 
-    use_backend to_panel_only if { hdr(host) -i {{d['domain']}} }
+    use_backend to_panel_only if { req.ssl_sni -i {{d['domain']}} }
     {%endfor%}
         
     {% for d in domains if d['internal_port_reality'] and d['grpc'] %}
     {%set domain=d['domain']%}
     {%set port=d['internal_port_reality']%}
-    use_backend reality_grpc_{{port}} if { hdr(host) -i {{domain}}  }
+    use_backend reality_grpc_{{port}} if { req.ssl_sni -i {{domain}}  }
     {%endfor%}
 
     {% for d in domains if d['internal_port_reality'] and not d['grpc'] %}
     {%set domain=d['domain']%}
     {%set port=d['internal_port_reality']%}
-    use_backend reality_{{port}} if { hdr(host) -i {{domain}}  }
+    use_backend reality_{{port}} if { req.ssl_sni -i {{domain}}  }
     {%endfor%}
 
 
         
     {%if hconfigs['ssfaketls_enable'] and hconfigs['ssfaketls_fakedomain'] %}
-    use_backend ssfake if { hdr(host) -i {{hconfigs['ssfaketls_fakedomain']}}  }
+    use_backend ssfake if { req.ssl_sni -i {{hconfigs['ssfaketls_fakedomain']}}  }
     {%endif%}
         
         
     {%if hconfigs['telegram_enable'] and hconfigs['telegram_fakedomain'] %}
-    use_backend telegram if { hdr(host) -i {{hconfigs['telegram_fakedomain']}} }
+    use_backend telegram if { req.ssl_sni -i {{hconfigs['telegram_fakedomain']}} }
     {%endif%}
 
     {%if hconfigs['shadowtls_enable'] and hconfigs['shadowtls_fakedomain']%}
-    use_backend shadowtls if { hdr(host) -i {{hconfigs['shadowtls_fakedomain'] }} } 
+    use_backend shadowtls if { req.ssl_sni -i {{hconfigs['shadowtls_fakedomain'] }} } 
     {%endif%}
         
     {% for d in domains if d['mode']=='old_xtls_direct' %}
-    use_backend xray_force if { hdr(host) -i {{d['domain']}}  }
+    use_backend xray_force if { req.ssl_sni -i {{d['domain']}}  }
     {%endfor%}
 
     #use_backend to_https_in_ssl_h2 if alpnh2
