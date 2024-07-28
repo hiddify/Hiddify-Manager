@@ -140,7 +140,7 @@ frontend http-https-in
     bind abns@https_in_ssl tfo accept-proxy ssl crt /opt/hiddify-manager/ssl/ alpn h2,http/1.1,h3 allow-0rtt
     acl h2 ssl_fc_alpn -i h2
     #acl h2 ssl_fc_npn -i h2
-    
+    mode http    
 
 
     http-response set-header alt-svc "h3=\":443\";ma=900;"
@@ -191,10 +191,12 @@ frontend http-https-in
 
 # this server handles xray http2 proxies
 backend nginx_dispatcher_h2
+    mode http
     server nginx unix@/opt/hiddify-manager/nginx/run/h2.sock send-proxy-v2 tfo
 
 # this server doesn't handle any proxy
 backend nginx_dispatcher
+    mode http
     server nginx unix@/opt/hiddify-manager/nginx/run/h1.sock send-proxy-v2 tfo
 
 backend nginx_dispatcher_http
@@ -293,24 +295,26 @@ backend shadowtls
 
 
 backend v2rayw
+  mode http
   server v2rayw 127.0.0.1:1020  tfo 
 
 backend v2rayw_h2
-  server v2rayw 127.0.0.1:1020  tfo 
+  mode http
+  server v2rayw 127.0.0.1:1020  tfo proto h2
 
 
 
 backend vmesshs
-  #mode http
+  mode http
  # server vmesshs abns@vmess-splithttp send-proxy-v2 
   server vmesshs 127.0.0.1:1035
 
 backend vlesshs 
-  #mode http
+  mode http
   #server vlesshs abns@vless-splithttp send-proxy-v2 
   server vlesshs 127.0.0.1:1025
 backend trojanhs
-  #mode http
+  mode http
   # server trojanhs abns@trojan-splithttp send-proxy-v2
   server trojanhs 127.0.0.1:1015
 

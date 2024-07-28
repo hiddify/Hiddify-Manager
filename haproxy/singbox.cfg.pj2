@@ -6,21 +6,24 @@ backend reality
 
 
 # the singbox_grpc_dispatcher handles these things
-# backend vmessg  
-#   timeout server 1h
-#   server vmessg 127.0.0.1:2033  send-proxy-v2  tfo 
+backend vmessg  
+   mode http
+   timeout server 1h
+   server vmessg 127.0.0.1:2033   tfo  proto h2
 
-# backend vlessg
-#   timeout server 1h
-#   server vlessg 127.0.0.1:2023   send-proxy-v2  tfo 
+backend vlessg
+  mode http
+  timeout server 1h
+  server vlessg 127.0.0.1:2023   tfo proto h2
 
 # backend v2rayg
 #   timeout server 1h
 #   server v2rayg 127.0.0.1:2053  send-proxy-v2  tfo 
 
-# backend trojang
-#   timeout server 1h
-#   server trojang 127.0.0.1:2013  send-proxy-v2  tfo 
+backend trojang
+   mode http
+   timeout server 1h
+   server trojang 127.0.0.1:2013   tfo  proto h2
 
 backend vmesst
   server vmesst 127.0.0.1:2031  send-proxy-v2 tfo 
