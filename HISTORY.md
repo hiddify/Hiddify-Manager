@@ -11,6 +11,8 @@
 
 ### Fix
 
+* Fakesni bugs. [hiddify-com]
+
 * Singbox bug. [hiddify-com]
 
 * Cert bugs. [hiddify-com]
