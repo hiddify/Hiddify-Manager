@@ -316,28 +316,34 @@ backend v2rayw_h2
 backend vmesshs
   #mode http
  # server vmesshs abns@vmess-splithttp send-proxy-v2 
-  server vmesshs 127.0.0.1:1035
+  #server vmesshs 127.0.0.1:1035
+  server vmesshs unix@/opt/hiddify-manager/xray/run/vmess-splithttp.sock 
 
 backend vlesshs 
   #mode http
   #server vlesshs abns@vless-splithttp send-proxy-v2 
-  server vlesshs 127.0.0.1:1025
+  #server vlesshs 127.0.0.1:1025
+  server vlesshs unix@/opt/hiddify-manager/xray/run/vless-splithttp.sock 
 backend trojanhs
   #mode http
   # server trojanhs abns@trojan-splithttp send-proxy-v2
-  server trojanhs 127.0.0.1:1015
+  #server trojanhs 127.0.0.1:1015
+  server trojanhs unix@/opt/hiddify-manager/xray/run/trojan-splithttp.sock 
 
 
 backend vmesshs_http_h2
   mode http
- # server vmesshs abns@vmess-splithttp send-proxy-v2 
-  server vmesshs 127.0.0.1:1035 proto h2
+  #server vmesshs abns@vmess-splithttp proto h2
+  server vmesshs unix@/opt/hiddify-manager/xray/run/vmess-splithttp.sock proto h2
+  #server vmesshs 127.0.0.1:1035 proto h2
 
 backend vlesshs_http_h2
   mode http
-  #server vlesshs abns@vless-splithttp send-proxy-v2 
-  server vlesshs 127.0.0.1:1025  proto h2
+  #server vlesshs abns@vless-splithttp proto h2
+  server vlesshs unix@/opt/hiddify-manager/xray/run/vless-splithttp.sock proto h2
+  #server vlesshs 127.0.0.1:1025  proto h2
 backend trojanhs_http_h2
   mode http
-  # server trojanhs abns@trojan-splithttp send-proxy-v2
-  server trojanhs 127.0.0.1:1015 proto h2
+  #server trojanhs abns@trojan-splithttp proto h2
+  server trojanhs unix@/opt/hiddify-manager/xray/run/trojan-splithttp.sock proto h2
+  #server trojanhs 127.0.0.1:1015 proto h2

@@ -104,7 +104,7 @@ function main() {
         
         if [[ $(hconfig "warp_mode") != "disable" ]];then
             install_run other/warp 1
-        else
+        else   
             install_run other/warp 0
         fi
         
