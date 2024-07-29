@@ -5,6 +5,8 @@
 
 ### New
 
+* Add custom url test. [hiddify-com]
+
 * Add quic support for splithttp and panel. [hiddify-com]
 
 * Some optimization and add splithttp. [hiddify-com]
