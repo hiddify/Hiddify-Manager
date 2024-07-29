@@ -1,3 +1,7 @@
+location /{{ hconfigs['proxy_path_client'] }}/generate_204 {
+  return 204;
+}
+
 
 if ($request_uri ~ "^/{{ hconfigs['proxy_path_client'] }}/redirect/(.*)(%3A%2F%2F|://)(.*)$") {
   return 307 $1://$3;

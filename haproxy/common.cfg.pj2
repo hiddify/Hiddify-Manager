@@ -104,9 +104,18 @@ backend to_https_in_ssl_h2
 # backend to_https_in_ssl
 # #     server xray abns@https_in_ssl send-proxy-v2
 
+backend generate_204
+    mode http
+    http-request return status 204
+
 frontend onlypanel_in
     mode http
     bind abns@onlypanel_in accept-proxy ssl crt /opt/hiddify-manager/ssl/ alpn h2,http/1.1,h3
+    use_backend generate_204 if { path -i /{{hconfigs['proxy_path_client']}}/generate_204 }
+    use_backend generate_204 if { path -i /{{hconfigs['proxy_path']}}/generate_204 }
+
+
+    
 
     
     acl hpanel path_reg ^/{{hconfigs['proxy_path']}}/[1-9a-f][1-9a-f]
@@ -122,6 +131,9 @@ frontend quic-in
     bind quic4@:{{port}},quic6@:{{port}} v4v6 tfo ssl crt /opt/hiddify-manager/ssl/ alpn h3    
     {%endfor%}
   mode http
+    use_backend generate_204 if { path -i /{{hconfigs['proxy_path_client']}}/generate_204 }
+    use_backend generate_204 if { path -i /{{hconfigs['proxy_path']}}/generate_204 }
+
     {% include '/opt/hiddify-manager/haproxy/common_h1h2rules4http.lst.pj2' %}
 {%if hconfigs['splithttp_enable']%}
     use_backend vmesshs_http_h2 if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }} }
@@ -142,12 +154,13 @@ frontend http-https-in
     #acl h2 ssl_fc_npn -i h2
     
 
-
+    
     http-response set-header alt-svc "h3=\":443\";ma=900;"
     tcp-request inspect-delay 5s
     tcp-request content accept if HTTP
 
     
+
     {% include '/opt/hiddify-manager/haproxy/common_h1h2rules4http.lst.pj2' %}
 
     {%if hconfigs['tcp_enable']%}
