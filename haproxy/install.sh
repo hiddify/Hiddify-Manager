@@ -9,7 +9,7 @@ fi
 
 if ! is_installed_package "haproxy=3.0"; then
     add-apt-repository -y ppa:vbernat/haproxy-3.0
-    install_package haproxy=3.0.*
+    install_package haproxy=3.0.\*
 fi
 systemctl kill haproxy >/dev/null 2>&1
 systemctl stop haproxy >/dev/null 2>&1
