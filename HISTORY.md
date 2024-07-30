@@ -3,6 +3,19 @@
 
 ## (unreleased)
 
+### Fix
+
+* Changing default os python version. [hiddify-com]
+
+* Haproxy installation bug. [hiddify-com]
+
+### Other
+
+* Use: domain socket instead of port in splithttp. [hiddify-com]
+
+
+## v10.70.0 (2024-07-29)
+
 ### New
 
 * Add custom url test. [hiddify-com]
