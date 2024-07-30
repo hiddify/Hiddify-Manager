@@ -224,17 +224,17 @@ function install_python() {
     # region install python3.10 system-widely
     rm -rf /usr/lib/python3/dist-packages/blinker*
     if ! python3.10 --version &>/dev/null; then
-        echo "Python 3.10 is not installed. Removing existing Python installations..."
+        echo "Python 3.10 is not installed. "
         install_package software-properties-common
         add-apt-repository -y ppa:deadsnakes/ppa
-        sudo apt-get -y remove python*
+    #    sudo apt-get -y remove python*
     fi
     install_package python3.10-dev
-    ln -sf $(which python3.10) /usr/bin/python3
-    ln -sf /usr/bin/python3 /usr/bin/python
+    #ln -sf $(which python3.10) /usr/bin/python3
+    #ln -sf /usr/bin/python3 /usr/bin/python
     if ! is_installed pip; then
-        curl https://bootstrap.pypa.io/get-pip.py | python3 -
-        pip install -U pip
+        curl https://bootstrap.pypa.io/get-pip.py | python3.10 -
+        python3.10 -m pip install -U pip
     fi
     # endregion
 
