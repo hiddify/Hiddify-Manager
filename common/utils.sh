@@ -561,12 +561,7 @@ function check_venv_compatibility() {
         ;;
         release)
             # Get the latest release version
-            latest=$(get_release_version hiddify-manager)
-            ver=$(vercomp "$latest" "$first_release_compatible_venv_version")
-
-            if [[ "$ver" == 0 ]] || [[ "$ver" == 1 ]]; then
-                USE_VENV=true
-            fi
+            USE_VENV=true
         ;;
         *)
             echo "Unknown package mode: $package_mode"

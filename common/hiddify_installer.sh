@@ -84,13 +84,13 @@ function update_panel() {
             update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
             panel_path=$(hiddifypanel_path)
             disable_panel_services
-            #if [ $(vercomp "" "$first_release_compatible_venv_version") == 0 ] || [ $(vercomp "$package_mode" "$first_release_compatible_venv_version") == 1 ]; then
-                /opt/hiddify-manager/.venv/bin/python -m pip install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel#${package_mode}
-                /opt/hiddify-manager/.venv/bin/python -m pip install git+https://github.com/hiddify/HiddifyPanel#${package_mode}
-            #else 
-            #    pip3 install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel#${package_mode}
-            #    pip3 install git+https://github.com/hiddify/HiddifyPanel#${package_mode}
-            #fi
+            if [ "$USE_VENV" = "true" ]; then
+                /opt/hiddify-manager/.venv/bin/python -m pip install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+                /opt/hiddify-manager/.venv/bin/python -m pip install git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+            else 
+               pip3 install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+               pip3 install git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+            fi
             update_progress "Updated..." "Hiddify Panel to ${package_mode}" 50
             return 0
         ;;
