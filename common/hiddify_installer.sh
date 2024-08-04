@@ -167,7 +167,8 @@ function update_config() {
     case "$package_mode" in
         v*)
             update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
-            update_from_github "hiddify-manager.zip" "https://github.com/hiddify/Hiddify-Manager/archive/refs/tags/${package_mode}.zip" $latest
+            #update_from_github "hiddify-manager.tar.gz" "https://github.com/hiddify/Hiddify-Manager/archive/refs/tags/${package_mode}.tar.gz" $latest
+            update_from_github "hiddify-manager.zip" "https://github.com/hiddify/Hiddify-Manager/releases/download/${package_mode}/hiddify-manager.zip" $latest
             update_progress "Updated..." "Hiddify Config to $latest" 100
             return 0
         ;;
@@ -264,7 +265,7 @@ function update_from_github() {
     if [[ "$file_type" == "zip" ]]; then
         install_package unzip
         unzip -q -o "$file_name"
-        elif [[ "$file_type" == "gz" ]]; then
+    elif [[ "$file_type" == "gz" ]]; then
         tar xzf "$file_name" --strip-components=1
     else
         echo "Unsupported file type: $file_type"
@@ -279,8 +280,34 @@ function update_from_github() {
     bash install.sh --no-gui --no-log
 }
 
-check_venv_compatibility "$@"
+function custom_version_installer(){
+    TAGS=$(curl -s "https://api.github.com/repos/hiddify/hiddify-manager/tags?per_page=1000" | jq -r '.[].name')
+    version_gt() {
+        [ "$(printf '%s\n' "$@" | sort -V | head -n 1)" != "$1" ]
+    }
+    FILTERED_TAGS=("release" "" "beta" "" "dev" "")
+    for tag in $TAGS; do
+        if [[ ! $tag =~ dev ]] && version_gt "$tag" "10.0.0"; then
+            FILTERED_TAGS+=("$tag" "")
+        fi
+    done
+    TAG_LIST=$(printf "%s " "${FILTERED_TAGS[@]}")
+    SELECTED_TAG=$(whiptail --title "Custom version Installer" --menu "Choose a version! Note: Downgrade is not supported!" 20 70 12 "${FILTERED_TAGS[@]}" 3>&1 1>&2 2>&3)
+    if [ $? -eq 0 ]; then
+        echo "You selected: $SELECTED_TAG"
+        $0 $SELECTED_TAG
+    else
+        echo "No tag selected."
+        exit 1
+    fi
+}
 
+if [[ " $@ " == *" custom "* ]];then
+    custom_version_installer
+    exit $?
+fi
+
+check_venv_compatibility "$@"
 install_python
 pip3 install --upgrade pip
 
