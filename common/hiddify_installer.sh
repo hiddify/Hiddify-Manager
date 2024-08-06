@@ -281,14 +281,15 @@ function update_from_github() {
 }
 
 function custom_version_installer(){
-    TAGS=$(curl -s "https://api.github.com/repos/hiddify/hiddify-manager/tags?per_page=1000" | jq -r '.[].name')
+    #TAGS=$(curl -s "https://api.github.com/repos/hiddify/hiddify-manager/tags?per_page=1000" | jq -r '.[].name')
+    TAGS=$(curl -s "https://pypi.org/pypi/hiddifypanel/json" | jq -r '.releases | keys[]'|sort -V -r)
     version_gt() {
         [ "$(printf '%s\n' "$@" | sort -V | head -n 1)" != "$1" ]
     }
     FILTERED_TAGS=("release" "" "beta" "" "dev" "")
     for tag in $TAGS; do
         if [[ ! $tag =~ dev ]] && version_gt "$tag" "10.0.0"; then
-            FILTERED_TAGS+=("$tag" "")
+            FILTERED_TAGS+=("v$tag" "")
         fi
     done
     TAG_LIST=$(printf "%s " "${FILTERED_TAGS[@]}")
