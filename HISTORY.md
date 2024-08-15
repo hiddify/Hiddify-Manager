@@ -1,6 +1,21 @@
 # Changelog
 
 
+## (unreleased)
+
+### New
+
+* Add custom version installer UI. [hiddify-com]
+
+### Fix
+
+* Custom version installer. [hiddify-com]
+
+### Other
+
+* Use pypi for version dialog. [hiddify-com]
+
+
 ## v10.70.1 (2024-07-30)
 
 ### Fix
