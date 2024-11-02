@@ -7,9 +7,9 @@ function check_wireguard_connection() {
   echo "Checking WARP ..."
   if ! [ -f "wgcf-account.toml" ]; then
     mv wgcf-account.toml wgcf-account.toml.backup
-    wgcf register --accept-tos -m hiddify -n $(hostname) >/dev/null 2>&1
+    ./wgcf register --accept-tos -m hiddify -n $(hostname) >/dev/null 2>&1
   fi
-  wgcf update >/dev/null 2>&1 || return $?
+  ./wgcf update >/dev/null 2>&1 || return $?
   generate_warp_config
   systemctl restart wg-quick@warp
   echo "Starting WARP.... checking real connectivitiy"
@@ -33,7 +33,7 @@ function real_test() {
 
 function generate_warp_config() {
   echo "Generating WARP config..."
-  wgcf generate >/dev/null 2>&1
+  ./wgcf generate >/dev/null 2>&1
   sed -i 's/\[Peer\]/Table = off\n\[Peer\]/g' wgcf-profile.conf
   curl --connect-timeout 1 -s https://v6.ident.me/ 2>&1 >/dev/null
   if [ $? != 0 ] || [ $(cat /proc/sys/net/ipv6/conf/all/disable_ipv6) == 1 ]; then
@@ -52,7 +52,7 @@ function generate_warp_config() {
 #   bash disable.sh
 # else
 
-#api.zeroteam.top/warp?format=wgcf for change warp
+#api.zeroteam.top/warp?format=./wgcf for change warp
 export WGCF_LICENSE_KEY="{{hconfigs['warp_plus_code']}}"
 if ! check_wireguard_connection; then
   mv wgcf-account.toml wgcf-account.toml.backup

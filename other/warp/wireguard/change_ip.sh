@@ -15,8 +15,8 @@ change_warp_ip() {
     return
     echo "Trying to change IP"
     # Update WARP configuration
-    wget -qN https://gitlab.com/fscarmen/warp/-/raw/main/api.sh
-    bash api.sh -u -f wgcf-account.toml
+    # wget -qN https://gitlab.com/fscarmen/warp/-/raw/main/api.sh
+    # bash api.sh -u -f wgcf-account.toml
 
     # Backup the existing configuration
     mv wgcf-account.toml wgcf-account.toml.backup

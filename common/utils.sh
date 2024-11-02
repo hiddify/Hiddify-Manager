@@ -601,3 +601,31 @@ function reload_all_configs(){
     chmod 600 /opt/hiddify-manager/current.json
     cat /opt/hiddify-manager/current.json
 }
+
+
+
+#!
+download_and_check_hash() {
+    local url="$2"
+    local path="$1"
+    local expected_hash="$3"
+
+    # Download the file
+    curl -sLo "$path" "$url" > /dev/null
+    if [ $? -ne 0 ]; then
+        error "Error downloading file. $url"
+        return 1
+    fi
+
+    # Calculate the SHA1 hash of the downloaded file
+    local actual_hash
+    actual_hash=$(sha1sum "$path" | awk '{ print $1 }')
+
+    # Check if the actual hash matches the expected hash
+    if [ "$actual_hash" != "$expected_hash" ]; then
+        error "SHA1 hash for $url mismatch: expected $expected_hash, got $actual_hash."
+        rm -f "$path"  # Remove the downloaded file if hashes don't match
+        return 1
+    fi
+    return 0
+}
