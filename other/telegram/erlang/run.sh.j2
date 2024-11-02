@@ -15,4 +15,5 @@ echo "y\n" | bash install_mtproxy.sh -p 1001 -s {{ hconfigs['shared_secret'].rep
 
 rm -rf mtproto_proxy.tar.gz
 
+chmod 600  prod-sys.config
 yes | cp -f prod-sys.config mtproto_proxy/config/prod-sys.config

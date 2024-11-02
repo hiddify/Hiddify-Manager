@@ -3,6 +3,7 @@ activate_python_venv
 install_package wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config
 
 useradd -m hiddify-panel -s /bin/bash >/dev/null 2>&1
+
 echo -n "" >> ../log/system/panel.log
 chown hiddify-panel ../log/system/panel.log
 chsh hiddify-panel -s /bin/bash
@@ -11,6 +12,7 @@ chown -R hiddify-panel:hiddify-panel /home/hiddify-panel/ >/dev/null 2>&1
 localectl set-locale LANG=C.UTF-8 >/dev/null 2>&1
 su hiddify-panel -c update-locale LANG=C.UTF-8 >/dev/null 2>&1
 chown -R hiddify-panel:hiddify-panel . >/dev/null 2>&1
+chmod 600 app.cfg
 # activate venv for hiddify-panel user
 if ! grep -Fxq "source /opt/hiddify-manager/.venv/bin/activate" "/home/hiddify-panel/.bashrc" && ! grep -Fxq "export PATH=/opt/hiddify-manager/.venv/bin:\$PATH" "/home/hiddify-panel/.bashrc"; then
     echo "source /opt/hiddify-manager/.venv/bin/activate" >> "/home/hiddify-panel/.bashrc"
@@ -35,6 +37,11 @@ sed -i '/SQLALCHEMY_DATABASE_URI/d' app.cfg
 MYSQL_PASS=$(cat ../other/mysql/mysql_pass)
 echo "SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://hiddifypanel:$MYSQL_PASS@127.0.0.1/hiddifypanel?charset=utf8mb4'" >>app.cfg
 
+
+sed -i '/REDIS_URI/d' app.cfg
+REDIS_PASS=$(grep '^requirepass' "../other/redis/redis.conf" | awk '{print $2}')
+echo "REDIS_URI = 'redis://:$REDIS_PASS@127.0.0.1:6379/0'" >>app.cfg
+chmod 600 app.cfg
 # if [ -f hiddifypanel.db ]; then
 #     sqlite3mysql -f hiddifypanel.db -d hiddifypanel -u hiddifypanel -h 127.0.0.1 --mysql-password $MYSQL_PASS
 #     mv hiddifypanel.db hiddifypanel.db.old

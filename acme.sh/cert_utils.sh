@@ -68,7 +68,8 @@ function get_cert() {
         bash generate_self_signed_cert.sh $DOMAIN
     fi
 
-    chmod 644 $ssl_cert_path/$DOMAIN.crt.key
+    chmod 600 $ssl_cert_path/$DOMAIN.crt.key
+    chmod 600 -R $ssl_cert_path
     echo "" >/opt/hiddify-manager/nginx/parts/acme.conf
     systemctl reload --now hiddify-nginx
 
@@ -123,5 +124,6 @@ function get_self_signed_cert() {
         openssl req -x509 -newkey rsa:2048 -keyout "$private_key" -out "$certificate" -days 3650 -nodes -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=$d"
         echo "New certificate and private key generated."
     fi
+    chmod 600 -R $ssl_cert_path
 
 }

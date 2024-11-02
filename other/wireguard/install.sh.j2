@@ -27,7 +27,7 @@ SERVER_PRIV_KEY=${SERVER_PRIV_KEY}
 CLIENT_DNS_1={{hconfigs["dns_server"]}}
 CLIENT_DNS_2=1.1.1.1
 ALLOWED_IPS=0.0.0.0,::/0" >/etc/wireguard/params
-
+chmod 600 /etc/wireguard/params
 	# Add server interface
 	echo "[Interface]
 Address = ${SERVER_WG_IPV4}/16,${SERVER_WG_IPV6}/90

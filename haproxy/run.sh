@@ -6,6 +6,7 @@
 #
 source ../common/utils.sh
 
+chmod 600 *.cfg*
 # systemctl reload hiddify-haproxy
 systemctl restart hiddify-haproxy.service
 systemctl start hiddify-haproxy

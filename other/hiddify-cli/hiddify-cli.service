@@ -9,6 +9,6 @@ RestartSec=3
 WorkingDirectory=/opt/hiddify-manager/other/hiddify-cli
 EnvironmentFile=/opt/hiddify-manager/other/hiddify-cli/.env
 ExecStart=/opt/hiddify-manager/other/hiddify-cli/HiddifyCli run -c $SUB_LINK -d h_client_config.json
-
+User=hiddify-cli
 [Install]
 WantedBy=multi-user.target

@@ -73,6 +73,12 @@ def render_j2_templates(start_path):
 
                 with open(output_file_path, "w", encoding="utf-8") as output_file:
                     output_file.write(str(rendered_content))
+                
+                input_stat = os.stat(file)
+                os.chmod(output_file_path, input_stat.st_mode)
+                # os.chmod(output_file_path, 0o600)
+                os.chown(output_file_path, input_stat.st_uid, input_stat.st_gid)
+                
 
                 # print(f'Rendered and stored: {output_file_path}')
 
