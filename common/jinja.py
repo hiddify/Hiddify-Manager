@@ -81,6 +81,7 @@ start_path = "/opt/hiddify-manager/"
 
 if len(sys.argv) > 1 and sys.argv[1] == "apply_users":
     render_j2_templates(start_path + "singbox/")
+    render_j2_templates(start_path + "xray/")
     render_j2_templates(start_path + "other/wireguard/")
 else:
     render_j2_templates(start_path)
