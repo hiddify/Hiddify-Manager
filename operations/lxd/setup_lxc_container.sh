@@ -87,9 +87,9 @@ setup_container() {
     lxc exec $LXC_CONTAINER_NAME -- apt-get install -y apt-transport-https ca-certificates curl wget gnupg-agent software-properties-common git jq
   
     if [ $DEBUG -eq 1 ]; then
-      lxc exec $LXC_CONTAINER_NAME -- bash -x -c "cd /opt && export CREATE_EASYSETUP_LINK='true'; sleep 5; curl i.hiddify.com/release|bash -x -s -- --no-gui; exit 0"
+      lxc exec $LXC_CONTAINER_NAME -- bash -x -c "cd /opt && export CREATE_EASYSETUP_LINK='true'; sleep 5; curl https://i.hiddify.com/release|bash -x -s -- --no-gui; exit 0"
     else
-      lxc exec $LXC_CONTAINER_NAME -- bash -c "cd /opt && export CREATE_EASYSETUP_LINK='true'; sleep 5;curl i.hiddify.com/release|bash -s -- --no-gui; exit 0"
+      lxc exec $LXC_CONTAINER_NAME -- bash -c "cd /opt && export CREATE_EASYSETUP_LINK='true'; sleep 5;curl https://i.hiddify.com/release|bash -s -- --no-gui; exit 0"
     fi
   else
     echo -e "Container $LXC_CONTAINER_NAME already exists.\n"
