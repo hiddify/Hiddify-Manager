@@ -7,14 +7,4 @@ if [ "$(cat VERSION 2>/dev/null)" != $latest ]; then
     echo $latest >VERSION
     useradd liberty-bridge
 fi
-
-if [[ ! -d host_key ]]; then
-    mkdir -p ./tmp/etc/ssh/
-    ssh-keygen -A -f ./tmp/ 2>/dev/null # Creates the required keys in /tmp/etc/ssh
-    rm ./tmp/etc/ssh/ssh_host_dsa_key*
-    rm ./tmp/etc/ssh/ssh_host_rsa_key*
-    mkdir -p host_key
-    cp ./tmp/etc/ssh/* host_key/
-    rm -rf ./tmp
-fi
-chown -R liberty-bridge host_key
+chown liberty-bridge .env* 
