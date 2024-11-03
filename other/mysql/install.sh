@@ -6,7 +6,7 @@ install_package mariadb-server
 
 if [ ! -f "mysql_pass" ]; then
     echo "Generating a random password..."
-    random_password=$(openssl rand -base64 40)
+    random_password=$(< /dev/urandom tr -dc 'a-zA-Z0-9' | head -c49; echo)
     echo "$random_password" >"mysql_pass"
     chmod 600 "mysql_pass"
     # Secure MariaDB installation
