@@ -33,12 +33,12 @@ fi
 
 
 # set mysql password to flask app config
-sed -i '/SQLALCHEMY_DATABASE_URI/d' app.cfg
+sed -i '/^SQLALCHEMY_DATABASE_URI/d' app.cfg
 MYSQL_PASS=$(cat ../other/mysql/mysql_pass)
 echo "SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://hiddifypanel:$MYSQL_PASS@127.0.0.1/hiddifypanel?charset=utf8mb4'" >>app.cfg
 
 
-sed -i '/REDIS_URI/d' app.cfg
+sed -i '/^REDIS_URI/d' app.cfg
 REDIS_PASS=$(grep '^requirepass' "../other/redis/redis.conf" | awk '{print $2}')
 echo "REDIS_URI_MAIN = 'redis://:${REDIS_PASS}@127.0.0.1:6379/0'" >>app.cfg
 echo "REDIS_URI_SSH = 'redis://:${REDIS_PASS}@127.0.0.1:6379/1'" >>app.cfg
