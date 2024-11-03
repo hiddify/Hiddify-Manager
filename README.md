@@ -117,6 +117,7 @@ And dozens of other features that you will notice upon installation.
 | Vmess:<br>- TLS WS<br>- TLS TCP<br>- HTTP WS<br>- HTTP TCP<br>- TLS gRPC<br>- TLS H2 WS<br>- TLS H2 TCP<br> | Vmess:<br>- TLS WS<br>- TLS gRPC<br>- HTTP WS<br>- TLS H2 WS<br>- TLS H2 gRPC<br><br><br> | Vmess:<br>- TLS WS Fake<br>- HTTP WS Fake<br><br><br><br><br><br> |
 | V2ray:<br>- TLS WS<br>- HTTP WS<br>- TLS H2 |  V2ray:<br>- TLS WS<br>- HTTP WS<br>- TLS H2 | |
 | Shadowsocks:<br>- TLS Shadowtls<br>- HTTP Shadowtls<br>- TLS H2 Shadowtls<br>- TLS H3 Shadowtls | | |
+| -Wiregaurd <br>- SSH <br>- TUIC<br>- Hysteria2|||
 
 <!--
 | Supported Configs | Supported Configs |
