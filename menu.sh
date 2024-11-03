@@ -165,6 +165,13 @@ function menu() {
     "admin")
         source common/utils.sh
         check_hiddify_panel
+        read -p "Press 'r' to reset admin password or press any other key to return to the main menu: " -n 1 key
+        echo  # This adds a newline for better output readability
+        if [[ "$key" == 'r' ]]; then
+            echo "reseting owner password..."
+            hiddify-panel-cli reset-owner-password
+        fi
+        NEED_KEY=0
         ;;
     "status")
         bash status.sh | less -r -P"Press q to exit" +G
