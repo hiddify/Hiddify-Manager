@@ -1,6 +1,5 @@
 #!/bin/bash
-rm clash.db
-
+rm clash.db > /dev/null 2>&1
 # TODO: it'll back to the old title after few seconds
 #sed -i 's|<title>yacd</title>|<title>Hiddify Cli \| Admin \| Hiddify Manager</title>|g' webui/index.html
 	
@@ -11,5 +10,7 @@ PANEL_DOMAIN=http://127.0.0.1:9000
 SUB_LINK="$PANEL_DOMAIN/{{ hconfigs['proxy_path_client'] }}/{{ users[0]['uuid'] }}/singbox/"
 echo "SUB_LINK=$SUB_LINK" > .env
 chown hiddify-cli .env
-chmod 600 .env
+chmod 600 .env*
+chown hiddify-cli -R .
+
 systemctl restart hiddify-cli.service

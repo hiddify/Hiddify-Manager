@@ -36,8 +36,8 @@
     },
     "tls-tricks": {
         "enable-fragment": false,
-        "fragment-size": "1-500",
-        "fragment-sleep": "0-500",
+        "fragment-size": "1-200",
+        "fragment-sleep": "0-100",
         "mixed-sni-case": false,
         "enable-padding": false,
         "padding-size": "1-1500"
