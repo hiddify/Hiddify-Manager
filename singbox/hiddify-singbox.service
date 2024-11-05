@@ -4,8 +4,8 @@ After=network.target nss-lookup.target
 [Service]
 User=root
 WorkingDirectory=/opt/hiddify-manager/singbox
-CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW
-AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW
+#CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW
+#AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW
 ExecStart=/opt/hiddify-manager/singbox/sing-box run -C /opt/hiddify-manager/singbox/configs
 ExecReload=/bin/kill -HUP $MAINPID
 Restart=always
