@@ -6,7 +6,7 @@ if [ "$(cat VERSION 2>/dev/null)" != "$latest" ] || ! is_installed ./bin/xray; t
     pkg=$(dpkg --print-architecture)
     
     if [[ $pkg == "arm64" ]]; then
-        download_and_check_hash sb.zip https://github.com/XTLS/Xray-core/releases/download/v$latest/Xray-linux-arm64-v8a.zip 056b4f4acf624884eaf9196829d6c14ba04918ea || return $0
+        download_and_check_hash sb.zip https://github.com/XTLS/Xray-core/releases/download/v$latest/Xray-linux-arm64-v8a.zip 1243ad2fe83a06124fefa29936fcd1404f759366 || return $0
     else
         download_and_check_hash sb.zip https://github.com/XTLS/Xray-core/releases/download/v$latest/Xray-linux-64.zip a229388bbd9d8e07f9b8242be3e215745f07c794 || return $0
     fi
