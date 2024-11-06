@@ -48,7 +48,7 @@ function menu() {
         admin "Show admin link"
         log "view system logs"
         restart "Restart Services without changing the configs"
-        apply_configs "Apply the changed configs"
+        install "Reinstall the server"
         update "Update $UPDATE_NEED"
         advanced "Uninstall, Remote Assistant, Downgrade,..."
         Quit ""
