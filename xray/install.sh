@@ -1,6 +1,6 @@
 source ../common/utils.sh
 # latest= #$(get_release_version hiddify-sing-box)
-latest=24.11.05
+latest=24.11.5
 mkdir -p bin
 if [ "$(cat VERSION 2>/dev/null)" != "$latest" ] || ! is_installed ./bin/xray; then
     pkg=$(dpkg --print-architecture)
