@@ -1,6 +1,69 @@
 # Changelog
 
 
+## (unreleased)
+
+### New
+
+* Update xray apis. [hiddify-com]
+
+* Add reset owner password button in admin menu. [hiddify-com]
+
+* Reduce the installation permission. [hiddify-com]
+
+* Add seperate REDIS config for main and ssh usage. [hiddify-com]
+
+* Add host key from env variable, make consistent between differnet servers. [hiddify-com]
+
+* Generate xray configs in apply config to fix xray crash cold start. [hiddify-com]
+
+### Changes
+
+* Add install to the menu. [hiddify-com]
+
+* Set hiddify cli permission. [hiddify-com]
+
+### Fix
+
+* Installation. [hiddify-com]
+
+* Wiregaurd dl signture. [hiddify-com]
+
+* Xray arm sha1. [hiddify-com]
+
+* Permission issues. [hiddify-com]
+
+* Ssh libery bug. [hiddify-com]
+
+* Ssh liberty plus. [hiddify-com]
+
+* Bug. [hiddify-com]
+
+* Issues and permissions. [hiddify-com]
+
+* Key. [hiddify-com]
+
+### Other
+
+* Better prop. [hiddify-com]
+
+* Update README.md. [Hiddify]
+
+* Change permission of all data to 600. [hiddify-com]
+
+* Use https download link. [hiddify-com]
+
+* Check hash during download for more security. [hiddify-com]
+
+* Update CONTRIBUTING.md. [lymanjre]
+
+* Update CONTRIBUTING.md. [lymanjre]
+
+* Update CONTRIBUTING.md. [Hiddify]
+
+* Update README.md. [Hiddify]
+
+
 ## v10.70.5 (2024-08-15)
 
 ### New
