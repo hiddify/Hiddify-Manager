@@ -25,6 +25,8 @@
 
 ### Fix
 
+* Installation bug python missing. [hiddify-com]
+
 * Installation. [hiddify-com]
 
 * Wiregaurd dl signture. [hiddify-com]
