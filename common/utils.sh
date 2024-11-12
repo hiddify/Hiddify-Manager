@@ -230,8 +230,8 @@ function install_python() {
     #    sudo apt-get -y remove python*
     fi
     install_package python3.10-dev
-    #ln -sf $(which python3.10) /usr/bin/python3
-    #ln -sf /usr/bin/python3 /usr/bin/python
+    # ln -sf $(which python3.10) /usr/bin/python3
+    ln -sf /usr/bin/python3 /usr/bin/python
     if ! is_installed pip; then
         curl https://bootstrap.pypa.io/get-pip.py | python3.10 -
         python3.10 -m pip install -U pip
