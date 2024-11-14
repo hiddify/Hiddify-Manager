@@ -6,7 +6,7 @@ function main(){
 # curl -s --interface warp https://cloudflare.com/cdn-cgi/status --connect-timeout 1
 warning "- Warp Status:"
 warning "  - Profile:"
-status=$(wgcf status 2>&1)
+status=$(./wgcf status 2>&1)
 if [ $? -eq 0 ]; then
     echo "$status" | sed 's|^|\t|'
 else
