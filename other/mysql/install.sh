@@ -2,10 +2,6 @@
 cd $(dirname -- "$0")
 source ../../common/utils.sh
 
-if [data folder is empty]
-copy /var/lib/mariadb/  to data folder
-endif
-
 if [ -z "$(ls -A data 2>/dev/null)" ];then
     mkdir -p data
     cp -R /var/lib/mariadb/* data/
@@ -45,7 +41,7 @@ fi
 
 
 
-if [ $MODE != "docker-install" ];then
+if [ "$MODE" != "docker-install" ];then
 
 if [ ! -f "mysql_pass" ]; then
     echo "Generating a random password..."

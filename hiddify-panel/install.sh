@@ -21,7 +21,7 @@ fi
 pip uninstall -y flask-babelex >/dev/null 2>&1
 
 # install/build hiddifypanel package
-if [ "$HIDDIFY_DEBUG" = "1" ] && [ -n "$HIDDIFY_PANLE_SOURCE_DIR" ]; then
+if [ -n "$HIDDIFY_PANLE_SOURCE_DIR" ]; then
     echo "NOTICE: building hiddifypanel package from source..."
     echo "NOTICE: the source dir $HIDDIFY_PANLE_SOURCE_DIR"
     pip install -e "$HIDDIFY_PANLE_SOURCE_DIR"
