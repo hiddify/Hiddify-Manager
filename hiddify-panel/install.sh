@@ -60,6 +60,8 @@ ln -sf $(which uwsgi) /usr/local/bin/uwsgi >/dev/null 2>&1
 ln -sf $(pwd)/hiddify-panel.service /etc/systemd/system/hiddify-panel.service
 systemctl enable hiddify-panel.service
 
+ln -sf $(pwd)/hiddify-panel-background-tasks.service /etc/systemd/system/hiddify-panel-background-tasks.service
+systemctl enable hiddify-panel-background-tasks.service
 
 
 if [ -f "../config.env" ]; then
@@ -79,8 +81,9 @@ fi
 systemctl daemon-reload >/dev/null 2>&1
 
 systemctl start hiddify-panel.service
-echo "*/1 * * * * root $(pwd)/update_usage.sh" >/etc/cron.d/hiddify_usage_update
-echo "0 */6 * * * hiddify-panel $(pwd)/backup.sh" >/etc/cron.d/hiddify_auto_backup
+rm -rf /etc/cron.d/{hiddify_usage_update,hiddify_auto_backup}
+# echo "*/1 * * * * root $(pwd)/update_usage.sh" >/etc/cron.d/hiddify_usage_update
+# echo "0 */6 * * * hiddify-panel $(pwd)/backup.sh" >/etc/cron.d/hiddify_auto_backup
 service cron reload >/dev/null 2>&1
 
 
