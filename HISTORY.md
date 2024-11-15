@@ -5,6 +5,8 @@
 
 ### New
 
+* Add background task handler. [hiddify-com]
+
 * Update xray apis. [hiddify-com]
 
 * Add reset owner password button in admin menu. [hiddify-com]
@@ -24,6 +26,8 @@
 * Set hiddify cli permission. [hiddify-com]
 
 ### Fix
+
+* Warp status. [hiddify-com]
 
 * Installation bug python missing. [hiddify-com]
 
