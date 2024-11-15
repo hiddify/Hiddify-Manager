@@ -22,7 +22,7 @@ fi
 function main() {
     update_progress "Please wait..." "We are going to install Hiddify..." 0
     export ERROR=0
-    ]
+    
     export PROGRESS_ACTION="Installing..."
     if [ "$MODE" == "apply_users" ];then
         export DO_NOT_INSTALL="true"
