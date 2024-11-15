@@ -22,11 +22,13 @@ fi
 function main() {
     update_progress "Please wait..." "We are going to install Hiddify..." 0
     export ERROR=0
-    
+    ]
     export PROGRESS_ACTION="Installing..."
     if [ "$MODE" == "apply_users" ];then
-    export DO_NOT_INSTALL="true"
-    fi 
+        export DO_NOT_INSTALL="true"
+    elif [ -d "/hiddify-data-default/" ] && [ -z "$(ls -A /hiddify-data/ 2>/dev/null)" ]; then
+        cp -r /hiddify-data-default/* /hiddify-data/
+    fi
     if [ "$DO_NOT_INSTALL" == "true" ];then
         PROGRESS_ACTION="Applying..."
     fi
@@ -161,8 +163,11 @@ function set_config_from_hpanel() {
 
 function install_run() {
     echo "==========================================================="
-    if [ "$DO_NOT_INSTALL" != "true" ];then
-        runsh install.sh $@
+    if [ "$mode" != "install-docker" ];then 
+            runsh install.sh
+            return
+    elif [ "$DO_NOT_INSTALL" != "true" ];then
+            runsh install.sh $@
         if [ "$MODE" != "apply_users" ]; then
             systemctl daemon-reload
         fi
