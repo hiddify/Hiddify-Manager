@@ -12,7 +12,6 @@ chown -R hiddify-panel:hiddify-panel /home/hiddify-panel/ >/dev/null 2>&1
 localectl set-locale LANG=C.UTF-8 >/dev/null 2>&1
 su hiddify-panel -c update-locale LANG=C.UTF-8 >/dev/null 2>&1
 chown -R hiddify-panel:hiddify-panel . >/dev/null 2>&1
-chmod 600 app.cfg
 # activate venv for hiddify-panel user
 if ! grep -Fxq "source /opt/hiddify-manager/.venv/bin/activate" "/home/hiddify-panel/.bashrc" && ! grep -Fxq "export PATH=/opt/hiddify-manager/.venv/bin:\$PATH" "/home/hiddify-panel/.bashrc"; then
     echo "source /opt/hiddify-manager/.venv/bin/activate" >> "/home/hiddify-panel/.bashrc"
@@ -32,31 +31,7 @@ else
 fi
 
 
-# set mysql password to flask app config
-sed -i '/^SQLALCHEMY_DATABASE_URI/d' app.cfg
-MYSQL_PASS=$(cat ../other/mysql/mysql_pass)
-echo "SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://hiddifypanel:$MYSQL_PASS@127.0.0.1/hiddifypanel?charset=utf8mb4'" >>app.cfg
-
-
-sed -i '/^REDIS_URI/d' app.cfg
-REDIS_PASS=$(grep '^requirepass' "../other/redis/redis.conf" | awk '{print $2}')
-echo "REDIS_URI_MAIN = 'redis://:${REDIS_PASS}@127.0.0.1:6379/0'" >>app.cfg
-echo "REDIS_URI_SSH = 'redis://:${REDIS_PASS}@127.0.0.1:6379/1'" >>app.cfg
-chmod 600 app.cfg
-# if [ -f hiddifypanel.db ]; then
-#     sqlite3mysql -f hiddifypanel.db -d hiddifypanel -u hiddifypanel -h 127.0.0.1 --mysql-password $MYSQL_PASS
-#     mv hiddifypanel.db hiddifypanel.db.old
-# fi
-
-# ln -sf $(which gunicorn) /usr/bin/gunicorn
-
-#pip3 --disable-pip-version-check install -q -U hiddifypanel
-# pip uninstall -y hiddifypanel
-# pip --disable-pip-version-check install -q -U git+https://github.com/hiddify/HiddifyPanel
-
-# ln -sf $(which gunicorn) /usr/bin/gunicorn
 ln -sf $(which uwsgi) /usr/local/bin/uwsgi >/dev/null 2>&1
-# hiddifypanel init-db
 ln -sf $(pwd)/hiddify-panel.service /etc/systemd/system/hiddify-panel.service
 systemctl enable hiddify-panel.service
 
@@ -80,7 +55,6 @@ if [ -f "../config.env" ]; then
 fi
 systemctl daemon-reload >/dev/null 2>&1
 
-systemctl start hiddify-panel.service
 rm -rf /etc/cron.d/{hiddify_usage_update,hiddify_auto_backup}
 # echo "*/1 * * * * root $(pwd)/update_usage.sh" >/etc/cron.d/hiddify_usage_update
 # echo "0 */6 * * * hiddify-panel $(pwd)/backup.sh" >/etc/cron.d/hiddify_auto_backup
