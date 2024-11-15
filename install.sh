@@ -163,8 +163,8 @@ function set_config_from_hpanel() {
 
 function install_run() {
     echo "==========================================================="
-    if [ "$mode" != "install-docker" ];then 
-            runsh install.sh
+    if [ "$MODE" == "install-docker" ];then 
+            runsh install.sh $1
             return
     elif [ "$DO_NOT_INSTALL" != "true" ];then
             runsh install.sh $@
