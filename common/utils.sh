@@ -611,7 +611,7 @@ download_and_check_hash() {
     local expected_hash="$3"
 
     # Download the file
-    curl -sLo "$path" "$url" > /dev/null
+    curl -sfSLo "$path" "$url" 
     if [ $? -ne 0 ]; then
         error "Error downloading file. $url"
         return 1
