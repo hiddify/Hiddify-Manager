@@ -8,7 +8,7 @@ on:
     branches: [ main ]
 env:
     REGISTRY_IMAGE: ghcr.io/hiddify/hiddify-manager
-
+jobs:
   make-upload-docker:
     permissions: write-all
     
