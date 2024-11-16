@@ -72,7 +72,7 @@ jobs:
     needs:
       - make-upload-docker
     env:
-      LATEST: ${{ endsWith(inputs.tag-name , 'dev') && 'beta' ||'latest'}}
+      LATEST: ${{ endsWith(github.ref_name , 'dev') && 'beta' ||'latest'}}
     steps:
       - name: Download digests
         uses: actions/download-artifact@v4
@@ -93,10 +93,10 @@ jobs:
         run: |
           docker buildx imagetools create \
             -t "${{ env.REGISTRY_IMAGE }}:${{ env.LATEST }}" \
-            -t "${{ env.REGISTRY_IMAGE }}:${{ inputs.tag-name   }}" \
+            -t "${{ env.REGISTRY_IMAGE }}:${{ github.ref_name  }}" \
             $(printf '${{ env.REGISTRY_IMAGE }}@sha256:%s ' *)
       - name: Inspect image
         
         run: |
           docker buildx imagetools inspect ${{ env.REGISTRY_IMAGE }}:${{ env.LATEST }}
-          docker buildx imagetools inspect ${{ env.REGISTRY_IMAGE }}:${{ inputs.tag-name  }}
+          docker buildx imagetools inspect ${{ env.REGISTRY_IMAGE }}:${{ github.ref_name  }}
