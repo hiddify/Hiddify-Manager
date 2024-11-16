@@ -19,6 +19,8 @@ jobs:
         platform:
           - linux/amd64
           - linux/arm64
+      exclude:
+        - platform: ${{ github.ref != 'tag' && 'linux/arm64' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
