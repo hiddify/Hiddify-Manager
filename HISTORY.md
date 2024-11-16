@@ -37,6 +37,10 @@
 
 ### Fix
 
+* Ssh bug. [hiddify-com]
+
+* Bug. [hiddify-com]
+
 * Bug. [hiddify-com]
 
 * Issue in other services. [hiddify-com]
@@ -86,6 +90,8 @@
 * Key. [hiddify-com]
 
 ### Other
+
+* Update. [hiddify-com]
 
 * Exclude arm build in dev. [hiddify-com]
 
