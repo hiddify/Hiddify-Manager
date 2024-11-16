@@ -39,48 +39,49 @@ def render_j2_templates(start_path):
     env.filters['hexencode'] = lambda s: ''.join(hex(ord(c))[2:].zfill(2) for c in s)
 
     # Dirs to ignore from Jinja2 rendering
-    exclude_dirs = ['/opt/hiddify-manager/singbox/configs/includes', '/opt/hiddify-manager/.venv']
+    exclude_dirs = ['/opt/hiddify-manager/singbox/configs/includes', '/opt/hiddify-manager/.venv',"/opt/hiddify-manager/hiddify-panel/src/"]
 
     for root, dirs, files in os.walk(start_path):
         for file in files:
-            if file.endswith(".j2") and not any(os.path.commonpath([exclude_dir, root]) == exclude_dir for exclude_dir in exclude_dirs):
-                template_path = os.path.join(root, file)
+            if not file.endswith(".j2"):continue
+            if any(exclude_dir in root for exclude_dir in exclude_dirs):continue
+            template_path = os.path.join(root, file)
 
-                print("Rendering: " + template_path)
+            print("Rendering: " + template_path)
 
-                # Create a template object by reading the file
-                template = env.get_template(template_path)
+            # Create a template object by reading the file
+            template = env.get_template(template_path)
 
-                # Render the template
-                rendered_content = template.render(**configs, exec=exec, os=os)
-                if not rendered_content:
-                    print(f'Warning jinja2: {template_path} - Empty')
+            # Render the template
+            rendered_content = template.render(**configs, exec=exec, os=os)
+            if not rendered_content:
+                print(f'Warning jinja2: {template_path} - Empty')
 
-                # Write the rendered content to a new file without the .j2 extension
-                output_file_path = os.path.splitext(template_path)[0]
-                if output_file_path.endswith(".json"):
-                    # Remove trailing comma and comments from json
-                    try:
-                        json5object = json5.loads(rendered_content)
-                        rendered_content = json5.dumps(
-                            json5object,
-                            trailing_commas=False,
-                            indent=2,
-                            quote_keys=True,
-                        )
-                    except Exception as e:
-                        print(f"Error parsing json: {e}")
+            # Write the rendered content to a new file without the .j2 extension
+            output_file_path = os.path.splitext(template_path)[0]
+            if output_file_path.endswith(".json"):
+                # Remove trailing comma and comments from json
+                try:
+                    json5object = json5.loads(rendered_content)
+                    rendered_content = json5.dumps(
+                        json5object,
+                        trailing_commas=False,
+                        indent=2,
+                        quote_keys=True,
+                    )
+                except Exception as e:
+                    print(f"Error parsing json: {e}")
 
-                with open(output_file_path, "w", encoding="utf-8") as output_file:
-                    output_file.write(str(rendered_content))
-                
-                input_stat = os.stat(template_path)
-                os.chmod(output_file_path, input_stat.st_mode)
-                # os.chmod(output_file_path, 0o600)
-                os.chown(output_file_path, input_stat.st_uid, input_stat.st_gid)
-                
+            with open(output_file_path, "w", encoding="utf-8") as output_file:
+                output_file.write(str(rendered_content))
+            
+            input_stat = os.stat(template_path)
+            os.chmod(output_file_path, input_stat.st_mode)
+            # os.chmod(output_file_path, 0o600)
+            os.chown(output_file_path, input_stat.st_uid, input_stat.st_gid)
+            
 
-                # print(f'Rendered and stored: {output_file_path}')
+            # print(f'Rendered and stored: {output_file_path}')
 
 
 start_path = "/opt/hiddify-manager/"

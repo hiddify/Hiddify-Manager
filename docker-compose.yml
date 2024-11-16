@@ -1,8 +1,12 @@
-version: '3'
+version: '3.8'
+
 
 services:
   hiddify:
-    image: hiddify
+
+    depends_on: 
+      - mariadb
+      - redis
     build: .
     ports:
       - 443:443
@@ -11,5 +15,29 @@ services:
     # cap_add:
     #   - NET_ADMIN
     volumes:
-       - ./hiddify-panel/hiddifypanel.db:/opt/hiddify-manager/hiddify-panel/hiddifypanel.db
-       - ./ssl/:/opt/hiddify-manager/ssl/
+       - ./docker-data/:/hiddify-data/
+    environment:
+      REDIS_URI_MAIN: 'redis://:REDIS_STRONG_PASS@redis:6379/0'
+      REDIS_URI_SSH: 'redis://:REDIS_STRONG_PASS@redis:6379/1'
+      SQLALCHEMY_DATABASE_URI: 'mysql+mysqldb://hiddifypanel:MYSQL_STRONG_PASS@mariadb/hiddifypanel?charset=utf8mb4'
+    
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb_container
+    restart: always
+    environment:
+      MARIADB_RANDOM_ROOT_PASSWORD: 1       # Root user password
+      MYSQL_DATABASE: hiddifypanel             # Initial database name
+      MYSQL_USER: hiddifypanel                     # Custom username
+      MYSQL_PASSWORD: MYSQL_STRONG_PASS             # Custom user password
+    volumes:
+      - ./docker-data/mariadb_data:/var/lib/mysql          # Persistent storage for database files
+
+  redis:
+    image: redis:latest
+    container_name: redis_container
+    restart: always
+    command: ["redis-server", "--requirepass", "REDIS_STRONG_PASS"]
+    volumes:
+      - ./docker-data/redis_data:/data                # Persistent storage for Redis data
+    

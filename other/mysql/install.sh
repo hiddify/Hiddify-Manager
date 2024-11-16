@@ -16,7 +16,7 @@ if [ ! -f "$MARIADB_CONF" ]; then
     echo "MariaDB configuration file ($MARIADB_CONF) not found."
 fi
 
-
+sudo -u mysql mkdir /run/mysqld/
 
 # Check if bind-address is already set to 127.0.0.1
 if ! grep -q "^[^#]*bind-address\s*=\s*127.0.0.1" "$MARIADB_CONF"; then
@@ -41,7 +41,7 @@ fi
 
 
 
-if [ "$MODE" != "docker-install" ];then
+if [ "$MODE" != "install-docker" ];then
 
 if [ ! -f "mysql_pass" ]; then
     echo "Generating a random password..."

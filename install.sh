@@ -43,9 +43,10 @@ function main() {
         clean_files
         update_progress "${PROGRESS_ACTION}" "Common Tools and Requirements" 2
         runsh install.sh common
-        install_run other/redis
-        install_run other/mysql
-        
+        if [ "${DOCKER_MODE}" != "true" ];then
+            install_run other/redis
+            install_run other/mysql
+        fi        
         # Because we need to generate reality pair in panel
         # is_installed xray || bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.4
         

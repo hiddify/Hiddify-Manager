@@ -1,6 +1,6 @@
 source ../common/utils.sh
 activate_python_venv
-install_package wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config
+install_package wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config ssh-client
 
 useradd -m hiddify-panel -s /bin/bash >/dev/null 2>&1
 
@@ -24,7 +24,7 @@ pip uninstall -y flask-babelex >/dev/null 2>&1
 if [ -n "$HIDDIFY_PANLE_SOURCE_DIR" ]; then
     echo "NOTICE: building hiddifypanel package from source..."
     echo "NOTICE: the source dir $HIDDIFY_PANLE_SOURCE_DIR"
-    pip install -e "$HIDDIFY_PANLE_SOURCE_DIR"
+    /opt/hiddify-manager/.venv/bin/pip install -e "$HIDDIFY_PANLE_SOURCE_DIR"
 else
     echo "Installing hiddifypanel with the pip"
     python -c "import hiddifypanel" || pip install -U hiddifypanel
