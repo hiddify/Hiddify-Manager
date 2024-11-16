@@ -26,4 +26,4 @@ RUN cp /opt/hiddify-manager/other/docker/* /usr/bin/
 
 
     
-ENTRYPOINT ["/bin/bash","-c", "./apply_configs.sh --no-gui && ./status.sh --no-gui && tail -f /opt/hiddify-manager/log/system/*"]
+ENTRYPOINT ["./docker-init.sh"]
