@@ -20,8 +20,8 @@ cd hiddify-manager
 wget https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/main/docker-compose.yml
 
 # Generate random passwords for MySQL and Redis
-mysqlpassword=$(openssl rand -base64 40)
-redispassword=$(openssl rand -base64 40)
+mysqlpassword=$(< /dev/urandom tr -dc 'a-zA-Z0-9' | head -c49; echo)
+redispassword=$(< /dev/urandom tr -dc 'a-zA-Z0-9' | head -c49; echo)
 
 # Update docker-compose.yml with the specified tag and passwords
 sed -i "s/hiddify-manager:latest/hiddify-manager:$TAG" docker-compose.yml
