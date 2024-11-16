@@ -5,6 +5,16 @@
 
 ### New
 
+* Add docker install version. [hiddify-com]
+
+* Add docker-init for creating default folders. [hiddify-com]
+
+* Show status in docekr. [hiddify-com]
+
+* Add docker build. [hiddify-com]
+
+* Add docker. [hiddify-com]
+
 * Add background task handler. [hiddify-com]
 
 * Update xray apis. [hiddify-com]
@@ -26,6 +36,32 @@
 * Set hiddify cli permission. [hiddify-com]
 
 ### Fix
+
+* Bug. [hiddify-com]
+
+* Issue in other services. [hiddify-com]
+
+* Bug. [hiddify-com]
+
+* Permissions. [hiddify-com]
+
+* Permissions. [hiddify-com]
+
+* Docker taghidd. [hiddify-com]
+
+* Reload issue in docker. [hiddify-com]
+
+* Git-submoudle. [hiddify-com]
+
+* Bug. [hiddify-com]
+
+* Bugs. [hiddify-com]
+
+* Bug. [hiddify-com]
+
+* Bug. [hiddify-com]
+
+* Typo. [hiddify-com]
 
 * Warp status. [hiddify-com]
 
@@ -50,6 +86,24 @@
 * Key. [hiddify-com]
 
 ### Other
+
+* Exclude arm build in dev. [hiddify-com]
+
+* Update dependecy. [hiddify-com]
+
+* Update. [hiddify-com]
+
+* Start background tasks. [hiddify-com]
+
+* Improve docker. [hiddify-com]
+
+* Bring mariadb to the local folder. [hiddify-com]
+
+* Sepeate panel installation and run. [hiddify-com]
+
+* Update to xray 24.11.11. [hiddify-com]
+
+* Change to xhttp. [hiddify-com]
 
 * Better prop. [hiddify-com]
 
