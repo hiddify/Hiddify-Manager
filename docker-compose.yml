@@ -14,6 +14,7 @@ services:
 
     #specific version
     #image: ghcr.io/hiddify/hiddify-manager:v10.80.0
+    network_mode: "host"        
 
     ports:
       - 443:443
