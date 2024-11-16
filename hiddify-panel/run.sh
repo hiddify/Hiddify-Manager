@@ -12,15 +12,15 @@ chmod 600 app.cfg
 sed -i '/^SQLALCHEMY_DATABASE_URI/d' app.cfg
 if [ -z "${SQLALCHEMY_DATABASE_URI}" ]; then
     MYSQL_PASS=$(cat ../other/mysql/mysql_pass)
-    SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://hiddifypanel:$MYSQL_PASS@127.0.0.1/hiddifypanel?charset=utf8mb4'
+    SQLALCHEMY_DATABASE_URI="mysql+mysqldb://hiddifypanel:$MYSQL_PASS@127.0.0.1/hiddifypanel?charset=utf8mb4"
 fi
 echo "SQLALCHEMY_DATABASE_URI ='$SQLALCHEMY_DATABASE_URI'" >>app.cfg
 
 sed -i '/^REDIS_URI/d' app.cfg
 if [ -z "${REDIS_URI_MAIN}" ]; then
     REDIS_PASS=$(grep '^requirepass' "../other/redis/redis.conf" | awk '{print $2}')
-    REDIS_URI_MAIN = 'redis://:${REDIS_PASS}@127.0.0.1:6379/0'
-    REDIS_URI_SSH = 'redis://:${REDIS_PASS}@127.0.0.1:6379/1'
+    REDIS_URI_MAIN="redis://:${REDIS_PASS}@127.0.0.1:6379/0"
+    REDIS_URI_SSH="redis://:${REDIS_PASS}@127.0.0.1:6379/1"
 fi
 
 echo "REDIS_URI_MAIN = '$REDIS_URI_MAIN'">>app.cfg
