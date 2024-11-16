@@ -219,7 +219,7 @@ function install_python() {
     # Check if USE_VENV is not set or is empty
     if [ -z "${USE_VENV}" ]; then
         echo "USE_VENV variable is not set or is empty. Exiting..."
-        exit 666
+        export USE_VENV=true
     fi
     # region install python3.10 system-widely
     rm -rf /usr/lib/python3/dist-packages/blinker*
