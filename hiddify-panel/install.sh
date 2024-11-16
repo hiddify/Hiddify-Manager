@@ -3,6 +3,7 @@ activate_python_venv
 install_package wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config ssh-client
 
 useradd -m hiddify-panel -s /bin/bash >/dev/null 2>&1
+usermod -aG hiddify-common hiddify-panel
 
 echo -n "" >> ../log/system/panel.log
 chown hiddify-panel ../log/system/panel.log

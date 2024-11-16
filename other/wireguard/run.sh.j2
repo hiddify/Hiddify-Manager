@@ -1,7 +1,7 @@
 source ./wg_utils.sh
 
 sed -i '/\[Peer\]/,$d' /etc/wireguard/${SERVER_WG_NIC}.conf
-chmod 600 /etc/wireguard/${SERVER_WG_NIC}.conf
+chmod 660 /etc/wireguard/${SERVER_WG_NIC}.conf
 
 {% for u in users %}
 CLIENT_WG_IPV4=$(add_number_to_ipv4 {{hconfigs["wireguard_ipv4"]}} {{u.id}})

@@ -5,7 +5,7 @@ install_package wireguard
 
 mkdir /etc/wireguard >/dev/null 2>&1
 
-chmod 600 -R /etc/wireguard/
+chmod 660 -R /etc/wireguard/
 
 SERVER_PUB_NIC="$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1)"
 SERVER_WG_IPV4="{{hconfigs["wireguard_ipv4"]}}"

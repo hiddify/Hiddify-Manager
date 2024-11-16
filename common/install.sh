@@ -17,6 +17,9 @@ else
     sudo timedatectl set-timezone Asia/Tehran
 fi
 
+groupadd hiddify-common
+usermod -aG hiddify-common root
+
 # rm /run/resolvconf/interface/*
 #echo "nameserver 8.8.8.8" >/etc/resolv.conf
 #echo "nameserver 1.1.1.1" >>/etc/resolv.conf

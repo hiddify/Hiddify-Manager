@@ -1,25 +1,35 @@
-version: '3.8'
-
-
 services:
   hiddify:
+    #only for local build and development
+    #build: .
 
-    depends_on: 
-      - mariadb
-      - redis
-    build: .
+    #latest release version
+    image: ghcr.io/hiddify/hiddify-manager:latest
+
+    #latest beta version
+    #image: ghcr.io/hiddify/hiddify-manager:beta
+
+    #latest build of current development
+    #image: ghcr.io/hiddify/hiddify-manager:dev
+
+    #specific version
+    #image: ghcr.io/hiddify/hiddify-manager:v10.80.0
+
     ports:
       - 443:443
       - 80:80
-    # privileged: true
-    # cap_add:
-    #   - NET_ADMIN
+    privileged: true
+    cap_add:
+      - NET_ADMIN
     volumes:
        - ./docker-data/:/hiddify-data/
     environment:
       REDIS_URI_MAIN: 'redis://:REDIS_STRONG_PASS@redis:6379/0'
       REDIS_URI_SSH: 'redis://:REDIS_STRONG_PASS@redis:6379/1'
       SQLALCHEMY_DATABASE_URI: 'mysql+mysqldb://hiddifypanel:MYSQL_STRONG_PASS@mariadb/hiddifypanel?charset=utf8mb4'
+    depends_on: 
+      - mariadb
+      - redis
     
   mariadb:
     image: mariadb:latest
