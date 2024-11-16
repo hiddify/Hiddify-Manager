@@ -1,6 +1,7 @@
 source /opt/hiddify-manager/common/utils.sh
 ln -sf $(pwd)/hiddify-singbox.service /etc/systemd/system/hiddify-singbox.service
 systemctl enable hiddify-singbox.service
+chown root:hiddify-common -R configs
 chmod -R 660 configs
 
 # curl -s -x socks://127.0.0.1:3000 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
