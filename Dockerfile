@@ -21,7 +21,7 @@ ENV HIDDIFY_PANLE_SOURCE_DIR=/opt/hiddify-manager/hiddify-panel/src/
 ENV DOCKER_MODE=true
 ENV USE_VENV=true
 RUN bash install.sh install-docker --no-gui
-RUN cp /opt/hiddify-manager/other/docker/*y /usr/bin/ 
+RUN cp /opt/hiddify-manager/other/docker/* /usr/bin/ 
 
 
 

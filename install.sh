@@ -34,10 +34,9 @@ function main() {
     fi
     if [ "$HIDDIFY_DEBUG" = "1" ]; then
         export USE_VENV=true
-        install_python
-    else
-        activate_python_venv
     fi
+    install_python
+    activate_python_venv
     
     if [ "$MODE" != "apply_users" ]; then
         clean_files
