@@ -223,18 +223,21 @@ function install_python() {
     fi
     # region install python3.10 system-widely
     rm -rf /usr/lib/python3/dist-packages/blinker*
-    if ! python3.10 --version &>/dev/null; then
-        echo "Python 3.10 is not installed. "
+    if ! is_installed /opt/hiddify-manager/.venv/bin/python3.12 ;then
+        rm -rf /opt/hiddify-manager/.venv/
+    fi
+    if ! python3.12 --version &>/dev/null; then
+        echo "Python 3.12 is not installed. "
         install_package software-properties-common
         add-apt-repository -y ppa:deadsnakes/ppa
     #    sudo apt-get -y remove python*
     fi
-    install_package python3.10-dev
+    install_package python3.12-dev
     # ln -sf $(which python3.10) /usr/bin/python3
     ln -sf /usr/bin/python3 /usr/bin/python
-    if ! is_installed pip; then
-        curl https://bootstrap.pypa.io/get-pip.py | python3.10 -
-        python3.10 -m pip install -U pip
+    if ! pip --version>/dev/null; then
+        curl https://bootstrap.pypa.io/get-pip.py | python3.12 -
+        python3.12 -m pip install -U pip
     fi
     # endregion
 
@@ -251,8 +254,8 @@ function install_python() {
 function create_python_venv() {
     venv_path="/opt/hiddify-manager/.venv/"
     if [ ! -d "$venv_path" ]; then
-        install_package python3.10-venv
-        python3.10 -m venv "$venv_path"
+        install_package python3.12-venv
+        python3.12 -m venv "$venv_path"
     fi
 }
 function activate_python_venv() {
@@ -385,7 +388,7 @@ function save_firewall() {
 function show_progress_window() {
     disable_ansii_modes
     install_pypi_package cli_progress
-    cli_progress --title "Hiddify Manager" $@
+    python -m cli_progress --title "Hiddify Manager" $@
     exit_code=$?
     disable_ansii_modes
     return $exit_code

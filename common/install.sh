@@ -17,7 +17,7 @@ else
     sudo timedatectl set-timezone Asia/Tehran
 fi
 
-groupadd hiddify-common
+groupadd -f hiddify-common
 usermod -aG hiddify-common root
 
 # rm /run/resolvconf/interface/*
