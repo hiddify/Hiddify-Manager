@@ -10,13 +10,13 @@ MARIADB_CONF="/etc/mysql/mariadb.conf.d/50-server.cnf"
 
 install_package mariadb-server
 
-ln -s $(pwd)/conf/maria.cnf $MARIADB_CONF
+ln -sf $(pwd)/conf/maria.cnf $MARIADB_CONF
 
 if [ ! -f "$MARIADB_CONF" ]; then
     echo "MariaDB configuration file ($MARIADB_CONF) not found."
 fi
 
-sudo -u mysql mkdir /run/mysqld/
+sudo -u mysql mkdir -p /run/mysqld/
 
 # Check if bind-address is already set to 127.0.0.1
 if ! grep -q "^[^#]*bind-address\s*=\s*127.0.0.1" "$MARIADB_CONF"; then

@@ -218,7 +218,7 @@ function msg() {
 function install_python() {
     # Check if USE_VENV is not set or is empty
     if [ -z "${USE_VENV}" ]; then
-        echo "USE_VENV variable is not set or is empty. Exiting..."
+        # echo "USE_VENV variable is not set or is empty. Exiting..."
         export USE_VENV=true
     fi
     # region install python3.10 system-widely
@@ -631,4 +631,10 @@ download_and_check_hash() {
         return 1
     fi
     return 0
+}
+
+set_folder_accessible_to_group() {
+    # Ensure paths with spaces or special characters are handled correctly
+    find "$1" -type d -exec chmod 770 {} \;  # Directories get rwx for owner, rw- for group
+    find "$1" -type f -exec chmod 660 {} \;  # Files get rw- for owner and group
 }

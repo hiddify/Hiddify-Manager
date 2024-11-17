@@ -1,8 +1,10 @@
 source /opt/hiddify-manager/common/utils.sh
 ln -sf $(pwd)/hiddify-singbox.service /etc/systemd/system/hiddify-singbox.service
 systemctl enable hiddify-singbox.service
-chown root:hiddify-common -R configs
-chmod -R 660 configs
+chown root:hiddify-common configs/01_api.json configs . 
+set_folder_accessible_to_group .
+set_folder_accessible_to_group configs
+
 
 # curl -s -x socks://127.0.0.1:3000 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
 
