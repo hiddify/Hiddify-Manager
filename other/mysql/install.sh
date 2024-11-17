@@ -4,8 +4,9 @@ source ../../common/utils.sh
 
 if [ -z "$(ls -A data 2>/dev/null)" ];then
     mkdir -p data
-    cp -R /var/lib/mariadb/* data/
+    cp -R /var/lib/mysql/* data/
 fi
+chown -R mysql .
 MARIADB_CONF="/etc/mysql/mariadb.conf.d/50-server.cnf"
 
 install_package mariadb-server
