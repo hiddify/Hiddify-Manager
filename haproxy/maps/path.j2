@@ -24,11 +24,11 @@
 /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_httpupgrade'] }} trojanhu
 {%endif%}
 
-{%if hconfigs['splithttp_enable']%}
-/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }} vmesshs
-/{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }} vlesshs
-#/{{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }} v2rayhs
-/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }} trojanhs
+{%if hconfigs['xhttp_enable']%}
+/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_xhttp'] }} vmesshs
+/{{ hconfigs['path_vless'] }}{{ hconfigs['path_xhttp'] }} vlesshs
+#/{{ hconfigs['path_ss'] }}{{ hconfigs['path_xhttp'] }} v2rayhs
+/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_xhttp'] }} trojanhs
 {%endif%}
 
 

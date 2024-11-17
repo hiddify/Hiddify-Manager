@@ -1,10 +1,10 @@
 {
-	{% if hconfigs['trojan_enable'] and hconfigs['splithttp_enable'] %}
+	{% if hconfigs['trojan_enable'] and hconfigs['xhttp_enable'] %}
 		"inbounds": [
 			{
-				"tag":"trojan-splithttp",
-				{#"listen": "@@trojan-splithttp", #}
-				"listen": "/opt/hiddify-manager/xray/run/trojan-splithttp.sock,666",
+				"tag":"trojan-xhttp",
+				{#"listen": "@@trojan-xhttp", #}
+				"listen": "/opt/hiddify-manager/xray/run/trojan-xhttp.sock,666",
 			{#"listen": "127.0.0.1", "port":1015,#}
 				"protocol": "trojan",
 				"settings": {
@@ -19,7 +19,7 @@
 				"security": "none",
 				"xhttpSettings": {
 					{# "acceptProxyProtocol": true, #}
-					"path":"/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }}", 
+					"path":"/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_xhttp'] }}", 
 				}
 				},
 				"sniffing": {

@@ -1,9 +1,9 @@
 {
-	{% if 0 and hconfigs['trojan_enable'] and hconfigs['splithttp_enable'] %}
+	{% if 0 and hconfigs['trojan_enable'] and hconfigs['xhttp_enable'] %}
 		"inbounds": [
 			{
-				"tag":"trojan-splithttp-h2",
-				{#"listen": "@@trojan-splithttp-h2", #}
+				"tag":"trojan-xhttp-h2",
+				{#"listen": "@@trojan-xhttp-h2", #}
 			"listen": "127.0.0.1", "port":1016,
 				"protocol": "trojan",
 				"settings": {
@@ -14,11 +14,11 @@
 				]
 				},
 				"streamSettings": {
-				"network": "splithttp",
+				"network": "xhttp",
 				"security": "none",
-				"splithttpSettings": {
+				"xhttpSettings": {
 					{# "acceptProxyProtocol": true, #}
-					"path":"/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }}2", 
+					"path":"/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_xhttp'] }}2", 
 				}
 				},
 				"sniffing": {

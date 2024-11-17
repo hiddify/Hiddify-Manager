@@ -10,11 +10,11 @@
 {%endif%}
   
 
-{%if hconfigs['splithttp_enable']%}
-/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }} vmesshs_h2
-/{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }} vlesshs_h2
-#/{{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }} v2rayhs_h2
-/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }} trojanhs_h2
+{%if hconfigs['xhttp_enable']%}
+/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_xhttp'] }} vmesshs_h2
+/{{ hconfigs['path_vless'] }}{{ hconfigs['path_xhttp'] }} vlesshs_h2
+#/{{ hconfigs['path_ss'] }}{{ hconfigs['path_xhttp'] }} v2rayhs_h2
+/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_xhttp'] }} trojanhs_h2
 {%endif%}
 
 {%if hconfigs['grpc_enable']%}

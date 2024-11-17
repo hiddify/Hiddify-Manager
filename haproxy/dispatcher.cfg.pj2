@@ -146,15 +146,15 @@
     # handle httpupgrade (backend)
   {%endif%}
 
-  {%if hconfigs['splithttp_enable']%}
-    # handle splithttp (acl)
-    acl vmesshs path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }}
+  {%if hconfigs['xhttp_enable']%}
+    # handle xhttp (acl)
+    acl vmesshs path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_xhttp'] }}
     use_backend vmesshs if vmesshs
-    acl vlesshs path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }}
+    acl vlesshs path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_xhttp'] }}
     use_backend vlesshs if vlesshs
-    #acl v2rayhs path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }}
+    #acl v2rayhs path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_xhttp'] }}
     #use_backend v2rayhs if v2rayhs
-    acl trojanhs path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }}
+    acl trojanhs path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_xhttp'] }}
     use_backend trojanhs if trojanhs
 
   {%endif%}

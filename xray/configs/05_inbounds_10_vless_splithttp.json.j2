@@ -1,10 +1,10 @@
 {
-	{% if hconfigs['vless_enable'] and hconfigs['splithttp_enable'] %}
+	{% if hconfigs['vless_enable'] and hconfigs['xhttp_enable'] %}
 		"inbounds": [
 			{
-				"tag":"vless-splithttp",
-				 {#"listen": "@@vless-splithttp",#}
-				 "listen": "/opt/hiddify-manager/xray/run/vless-splithttp.sock,666",
+				"tag":"vless-xhttp",
+				 {#"listen": "@@vless-xhttp",#}
+				 "listen": "/opt/hiddify-manager/xray/run/vless-xhttp.sock,666",
 				{#"listen": "127.0.0.1", "port":1025,#}
 				"protocol": "vless",
 				"settings": {
@@ -20,7 +20,7 @@
 				"security": "none",
 				"xhttpSettings": {
 					{# "acceptProxyProtocol": true,#}
-					"path": "/{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }}", 
+					"path": "/{{ hconfigs['path_vless'] }}{{ hconfigs['path_xhttp'] }}", 
 				}
 				},
 				"sniffing": {

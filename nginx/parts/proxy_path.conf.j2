@@ -49,25 +49,25 @@
         proxy_pass http://unix:/opt/hiddify-manager/xray/run/trojanw.sock;
     }
 
-{%if hconfigs['splithttp_enable']%}
-    location /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }} {
-        include /opt/hiddify-manager/nginx/parts/splithttp.conf;
+{%if hconfigs['xhttp_enable']%}
+    location /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_xhttp'] }} {
+        include /opt/hiddify-manager/nginx/parts/xhttp.conf;
         #proxy_pass http://127.0.0.1:1035;
-        proxy_pass http://unix:/opt/hiddify-manager/xray/run/vmess-splithttp.sock;
+        proxy_pass http://unix:/opt/hiddify-manager/xray/run/vmess-xhttp.sock;
     }
-    location /{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }} {
-        include /opt/hiddify-manager/nginx/parts/splithttp.conf;
+    location /{{ hconfigs['path_vless'] }}{{ hconfigs['path_xhttp'] }} {
+        include /opt/hiddify-manager/nginx/parts/xhttp.conf;
         #proxy_pass http://127.0.0.1:1025;
-        proxy_pass http://unix:/opt/hiddify-manager/xray/run/vless-splithttp.sock;
+        proxy_pass http://unix:/opt/hiddify-manager/xray/run/vless-xhttp.sock;
     }
-    {#location #/{{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }} {
-        include /opt/hiddify-manager/nginx/parts/splithttp.conf;
+    {#location #/{{ hconfigs['path_ss'] }}{{ hconfigs['path_xhttp'] }} {
+        include /opt/hiddify-manager/nginx/parts/xhttp.conf;
         v2rayhs_h2
     }#}
-    location /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }} {
-        include /opt/hiddify-manager/nginx/parts/splithttp.conf;
+    location /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_xhttp'] }} {
+        include /opt/hiddify-manager/nginx/parts/xhttp.conf;
         #proxy_pass http://127.0.0.1:1015;
-        proxy_pass http://unix:/opt/hiddify-manager/xray/run/trojan-splithttp.sock;
+        proxy_pass http://unix:/opt/hiddify-manager/xray/run/trojan-xhttp.sock;
     }
 
     

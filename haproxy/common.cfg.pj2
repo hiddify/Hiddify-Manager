@@ -135,11 +135,11 @@ frontend quic-in
     use_backend generate_204 if { path -i /{{hconfigs['proxy_path']}}/generate_204 }
 
     {% include '/opt/hiddify-manager/haproxy/common_h1h2rules4http.lst.pj2' %}
-{%if hconfigs['splithttp_enable']%}
-    use_backend vmesshs_http_h2 if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }} }
-    use_backend vlesshs_http_h2 if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }} }
-    #use_backend v2rayhs_http_h2 if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }} }
-    use_backend trojanhs_http_h2 if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }} }
+{%if hconfigs['xhttp_enable']%}
+    use_backend vmesshs_http_h2 if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_xhttp'] }} }
+    use_backend vlesshs_http_h2 if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_xhttp'] }} }
+    #use_backend v2rayhs_http_h2 if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_xhttp'] }} }
+    use_backend trojanhs_http_h2 if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_xhttp'] }} }
     {%endif%}
 
 
@@ -185,11 +185,11 @@ frontend http-https-in
     use_backend trojanhu if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_httpupgrade'] }} }
     {%endif%}
 
-    {%if hconfigs['splithttp_enable']%}
-    use_backend vmesshs if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }} }
-    use_backend vlesshs if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_splithttp'] }} }
-    #use_backend v2rayhs if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_splithttp'] }} }
-    use_backend trojanhs if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_splithttp'] }} }
+    {%if hconfigs['xhttp_enable']%}
+    use_backend vmesshs if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_xhttp'] }} }
+    use_backend vlesshs if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_xhttp'] }} }
+    #use_backend v2rayhs if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_xhttp'] }} }
+    use_backend trojanhs if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_xhttp'] }} }
     {%endif%}
 
     use_backend nginx_dispatcher_h2 if h2
@@ -315,35 +315,35 @@ backend v2rayw_h2
 
 backend vmesshs
   #mode http
- # server vmesshs abns@vmess-splithttp send-proxy-v2 
+ # server vmesshs abns@vmess-xhttp send-proxy-v2 
   #server vmesshs 127.0.0.1:1035
-  server vmesshs unix@/opt/hiddify-manager/xray/run/vmess-splithttp.sock 
+  server vmesshs unix@/opt/hiddify-manager/xray/run/vmess-xhttp.sock 
 
 backend vlesshs 
   #mode http
-  #server vlesshs abns@vless-splithttp send-proxy-v2 
+  #server vlesshs abns@vless-xhttp send-proxy-v2 
   #server vlesshs 127.0.0.1:1025
-  server vlesshs unix@/opt/hiddify-manager/xray/run/vless-splithttp.sock 
+  server vlesshs unix@/opt/hiddify-manager/xray/run/vless-xhttp.sock 
 backend trojanhs
   #mode http
-  # server trojanhs abns@trojan-splithttp send-proxy-v2
+  # server trojanhs abns@trojan-xhttp send-proxy-v2
   #server trojanhs 127.0.0.1:1015
-  server trojanhs unix@/opt/hiddify-manager/xray/run/trojan-splithttp.sock 
+  server trojanhs unix@/opt/hiddify-manager/xray/run/trojan-xhttp.sock 
 
 
 backend vmesshs_http_h2
   mode http
-  #server vmesshs abns@vmess-splithttp proto h2
-  server vmesshs unix@/opt/hiddify-manager/xray/run/vmess-splithttp.sock proto h2
+  #server vmesshs abns@vmess-xhttp proto h2
+  server vmesshs unix@/opt/hiddify-manager/xray/run/vmess-xhttp.sock proto h2
   #server vmesshs 127.0.0.1:1035 proto h2
 
 backend vlesshs_http_h2
   mode http
-  #server vlesshs abns@vless-splithttp proto h2
-  server vlesshs unix@/opt/hiddify-manager/xray/run/vless-splithttp.sock proto h2
+  #server vlesshs abns@vless-xhttp proto h2
+  server vlesshs unix@/opt/hiddify-manager/xray/run/vless-xhttp.sock proto h2
   #server vlesshs 127.0.0.1:1025  proto h2
 backend trojanhs_http_h2
   mode http
-  #server trojanhs abns@trojan-splithttp proto h2
-  server trojanhs unix@/opt/hiddify-manager/xray/run/trojan-splithttp.sock proto h2
+  #server trojanhs abns@trojan-xhttp proto h2
+  server trojanhs unix@/opt/hiddify-manager/xray/run/trojan-xhttp.sock proto h2
   #server trojanhs 127.0.0.1:1015 proto h2

@@ -1,9 +1,9 @@
 {
-	{% if 0 and hconfigs['vmess_enable'] and hconfigs['splithttp_enable'] %}
+	{% if 0 and hconfigs['vmess_enable'] and hconfigs['xhttp_enable'] %}
 		"inbounds": [
 			{
-				"tag":"vmess-splithttp-h2",
-				{# "listen": "@@vmess-splithttp-h2",#}
+				"tag":"vmess-xhttp-h2",
+				{# "listen": "@@vmess-xhttp-h2",#}
 				"listen": "127.0.0.1", "port":1036,
 				"protocol": "vmess",
 				"settings": {
@@ -14,11 +14,11 @@
 				]
 				},
 				"streamSettings": {
-				"network": "splithttp",
+				"network": "xhttp",
 				"security": "none",
-				"splithttpSettings": {
+				"xhttpSettings": {
 					{#"acceptProxyProtocol": true,#}
-					"path": "/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_splithttp'] }}2", 
+					"path": "/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_xhttp'] }}2", 
 				}
 				},
 				"sniffing": {
