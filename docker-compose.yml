@@ -14,11 +14,10 @@ services:
 
     #specific version
     #image: ghcr.io/hiddify/hiddify-manager:v10.80.0
-    network_mode: "host"        
-
     ports:
       - 443:443
       - 80:80
+      - "11000-60000"  #for custom protocols like hysteria tuic wiregaurd 
     privileged: true
     cap_add:
       - NET_ADMIN
