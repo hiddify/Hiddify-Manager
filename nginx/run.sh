@@ -2,8 +2,8 @@
 
 source ../common/utils.sh
 chown nginx -R .
-set_folder_accessible_to_group .
-chown nginx:hiddify-common parts/short-link.conf parts .
+set_files_in_folder_readable_to_hiddify_common_group parts/short-link.conf
+chmod g+w parts/short-link.conf
 
 systemctl restart hiddify-nginx
 systemctl start hiddify-nginx

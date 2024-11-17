@@ -633,8 +633,17 @@ download_and_check_hash() {
     return 0
 }
 
-set_folder_accessible_to_group() {
+set_files_in_folder_readable_to_hiddify_common_group() {
     # Ensure paths with spaces or special characters are handled correctly
-    find "$1" -type d -exec chmod 770 {} \;  # Directories get rwx for owner, rw- for group
-    find "$1" -type f -exec chmod 660 {} \;  # Files get rw- for owner and group
+    find "$1" -type d -exec chmod u+rx g+rx,o-rwx {} \;  # Directories get rwx for owner, rw- for group
+    find "$1" -type f -exec chmod 640 {} \;  # Files get rw- for owner and group
+    find "$1" -exec chown :hiddify-common {} \;
+    # Handle parent directories if the parent is not "hiddify-manager"
+    parent=$(dirname "$1")  # Get the parent directory
+
+    while [[ $(basename "$parent") != "hiddify-manager" && "$parent" != "/" ]]; do
+        chmod u+rx g+rx "$parent"  # Set permissions on the parent
+        chown :hiddify-common $parent
+        parent=$(dirname "$parent")  # Move to the next parent directory
+    done
 }
