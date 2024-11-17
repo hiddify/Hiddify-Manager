@@ -635,12 +635,14 @@ download_and_check_hash() {
 
 set_files_in_folder_readable_to_hiddify_common_group() {
     # Ensure paths with spaces or special characters are handled correctly
-    find "$1" -type d -exec chmod u+rx,g+rx,o-rwx {} \;  # Directories get rwx for owner, rw- for group
-    find "$1" -type f -exec chmod 640 {} \;  # Files get rw- for owner and group
-    find "$1" -exec chown :hiddify-common {} \;
+    file=$1
+    find "$file" -type d -exec chmod u+rx,g+rx,o-rwx {} \;  # Directories get rwx for owner, rw- for group
+    find "$file" -type f -exec chmod 640 {} \;  # Files get rw- for owner and group
+    find "$file" -exec chown :hiddify-common {} \;
     # Handle parent directories if the parent is not "hiddify-manager"
     # Resolve the absolute path of the input
-    parent=$("$(realpath "$1")")
+    
+    parent=$(realpath "$file")
 
     while [[ $(basename "$parent") != "hiddify-manager" && "$parent" != "/" ]]; do
         echo "Setting permissions on $parent"
