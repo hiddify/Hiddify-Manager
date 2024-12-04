@@ -110,7 +110,7 @@ function main() {
             install_run other/warp 0
         fi
         
-        update_progress "${PROGRESS_ACTION}" "HiddifyCli" 90
+        update_progress "${PROGRESS_ACTION}" "HiddifyCli" 80
         install_run other/hiddify-cli $(hconfig "hiddifycli_enable")
         
     fi
