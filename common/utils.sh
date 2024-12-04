@@ -607,31 +607,6 @@ function reload_all_configs(){
 
 
 
-#!
-download_and_check_hash() {
-    local url="$2"
-    local path="$1"
-    local expected_hash="$3"
-
-    # Download the file
-    curl -sfSLo "$path" "$url" 
-    if [ $? -ne 0 ]; then
-        error "Error downloading file. $url"
-        return 1
-    fi
-
-    # Calculate the SHA1 hash of the downloaded file
-    local actual_hash
-    actual_hash=$(sha1sum "$path" | awk '{ print $1 }')
-
-    # Check if the actual hash matches the expected hash
-    if [ "$actual_hash" != "$expected_hash" ]; then
-        error "SHA1 hash for $url mismatch: expected $expected_hash, got $actual_hash."
-        rm -f "$path"  # Remove the downloaded file if hashes don't match
-        return 1
-    fi
-    return 0
-}
 
 set_files_in_folder_readable_to_hiddify_common_group() {
     # Ensure paths with spaces or special characters are handled correctly
