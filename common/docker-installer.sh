@@ -24,7 +24,7 @@ mysqlpassword=$(< /dev/urandom tr -dc 'a-zA-Z0-9' | head -c49; echo)
 redispassword=$(< /dev/urandom tr -dc 'a-zA-Z0-9' | head -c49; echo)
 
 # Update docker-compose.yml with the specified tag and passwords
-sed -i "s/hiddify-manager:latest/hiddify-manager:$TAG" docker-compose.yml
+sed -i "s/hiddify-manager:latest/hiddify-manager:$TAG/g" docker-compose.yml
 sed -i "s/REDIS_STRONG_PASS/$redispassword/g" docker-compose.yml
 sed -i "s/MYSQL_STRONG_PASS/$mysqlpassword/g" docker-compose.yml
 
