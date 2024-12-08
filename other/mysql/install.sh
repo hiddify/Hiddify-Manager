@@ -2,25 +2,7 @@
 cd $(dirname -- "$0")
 source ../../common/utils.sh
 
-if [ -z "$(ls -A data 2>/dev/null)" ];then
-    mkdir -p data
-    cp -R /var/lib/mysql/* data/
-fi
-chown -R mysql .
-
 install_package mariadb-server
-
-ln -sf $(pwd)/conf/maria.cnf "/etc/mysql/mariadb.conf.d/50-server.cnf"
-
-
-sudo -u mysql mkdir -p /run/mysqld/
-
-
-
-
-
-
-if [ "$MODE" != "install-docker" ];then
 
 if [ ! -f "mysql_pass" ]; then
     echo "Generating a random password..."
@@ -38,6 +20,10 @@ y
 y
 EOF
 
+    # Disable external access
+    sudo sed -i 's/bind-address/#bind-address/' /etc/mysql/mariadb.conf.d/50-server.cnf
+    sudo systemctl restart mariadb
+
     # Create user with localhost access
     sudo mysql -u root -f <<MYSQL_SCRIPT
 CREATE USER 'hiddifypanel'@'localhost' IDENTIFIED BY '$random_password';
@@ -50,9 +36,36 @@ FLUSH PRIVILEGES;
 MYSQL_SCRIPT
     
     echo "MariaDB setup complete."
-
-systemctl restart mariadb    
+    
 fi
+
+# Path to the MariaDB configuration file
+MARIADB_CONF="/etc/mysql/mariadb.conf.d/50-server.cnf"
+
+# Check if the MariaDB configuration file exists
+if [ ! -f "$MARIADB_CONF" ]; then
+    echo "MariaDB configuration file ($MARIADB_CONF) not found."
+fi
+
+# Check if bind-address is already set to 127.0.0.1
+if ! grep -q "^[^#]*bind-address\s*=\s*127.0.0.1" "$MARIADB_CONF"; then
+    # Add or modify bind-address in the configuration file
+    if grep -q "^#\+bind-address" "$MARIADB_CONF"; then
+        # Uncomment and modify existing bind-address
+        sed -i "s/^#\+bind-address\s*=\s*[0-9.]*/bind-address = 127.0.0.1/" "$MARIADB_CONF"
+    else
+        # Add new bind-address under [mysqld]
+        sed -i "/\[mysqld\]/a bind-address = 127.0.0.1" "$MARIADB_CONF"
+    fi
+    echo "bind-address set to 127.0.0.1 in $MARIADB_CONF"
+    
+    # Restart the MariaDB service
+    if systemctl is-active --quiet mariadb; then
+        sudo systemctl restart mariadb
+        echo "MariaDB service restarted"
+    else
+        echo "MariaDB service is not running. Please start it manually."
+    fi
 fi
 
 systemctl start mariadb
