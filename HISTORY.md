@@ -115,6 +115,8 @@
 
 ### Other
 
+* Update. [hiddify-com]
+
 * Update to latest version of nginx. [hiddify-com]
 
 * Refactor package manager, add .lock to a specific version. [hiddify-com]
