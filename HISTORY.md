@@ -5,6 +5,8 @@
 
 ### New
 
+* Update to python 3.12. [hiddify-com]
+
 * Add docker install version. [hiddify-com]
 
 * Add docker-init for creating default folders. [hiddify-com]
@@ -36,6 +38,28 @@
 * Set hiddify cli permission. [hiddify-com]
 
 ### Fix
+
+* File name issue. [hiddify-com]
+
+* Mariadb installation. [hiddify-com]
+
+* Docker installer. [hiddify-com]
+
+* Installation progress issue. [hiddify-com]
+
+* Bug. [hiddify-com]
+
+* Bug. [hiddify-com]
+
+* Mysql host. [hiddify-com]
+
+* Bug. [hiddify-com]
+
+* Singbox and nginx common data. [hiddify-com]
+
+* Mysql data permission. [hiddify-com]
+
+* Permission issues. [hiddify-com]
 
 * Ssh bug. [hiddify-com]
 
@@ -90,6 +114,20 @@
 * Key. [hiddify-com]
 
 ### Other
+
+* Update to latest version of nginx. [hiddify-com]
+
+* Refactor package manager, add .lock to a specific version. [hiddify-com]
+
+* Bump panel. [hiddify-com]
+
+* Revert python to 3.10. [hiddify-com]
+
+* Rename splithttp to xhttp. [hiddify-com]
+
+* Reduce the docker size. [hiddify-com]
+
+* Add port range for supporting other protocols. [hiddify-com]
 
 * Update. [hiddify-com]
 
