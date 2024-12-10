@@ -39,6 +39,8 @@
 
 ### Fix
 
+* New nginx installation. [hiddify-com]
+
 * File name issue. [hiddify-com]
 
 * Mariadb installation. [hiddify-com]
