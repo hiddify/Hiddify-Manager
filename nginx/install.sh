@@ -8,8 +8,8 @@ if ! is_installed nginx; then
         sudo tee /etc/apt/sources.list.d/nginx.list
     sudo apt update -y
 
-    install_package nginx
 fi
+install_package nginx=1.26*
 
 systemctl kill nginx >/dev/null 2>&1
 systemctl disable nginx >/dev/null 2>&1
