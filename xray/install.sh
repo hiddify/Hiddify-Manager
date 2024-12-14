@@ -5,7 +5,8 @@ version="" #use specific version if needed otherwise it will use the latest
 mkdir -p bin run
 
 
-function install_xray() {
+download_package xray sb.zip $version
+if [ "$?" == "0"  ] || ! is_installed ./bin/xray; then
     systemctl stop hiddify-xray.service > /dev/null 2>&1 
     rm -rf bin/*
     install_package unzip 
@@ -14,14 +15,5 @@ function install_xray() {
     chown root:root bin/xray || return 2
     chmod +x bin/xray || return 3
     ln -sf /opt/hiddify-manager/xray/bin/xray /usr/bin/xray || return 3
-}
-
-download_package xray sb.zip $version
-if [ "$?" == "0"  ] || ! is_installed ./bin/xray; then
-    if install_xray; then
-        set_installed_version xray $version
-    else
-        echo "Failed to install xray $?"
-        exit 1
-    fi
+    set_installed_version xray $version
 fi
