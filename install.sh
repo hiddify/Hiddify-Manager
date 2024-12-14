@@ -63,31 +63,31 @@ function main() {
     if [ "$MODE" != "apply_users" ]; then
         bash ./other/deprecated/remove_deprecated.sh
         update_progress "Configuring..." "System and Firewall settings" 10
-        runsh run.sh common
+        runsh run.sh common &
         
         update_progress "${PROGRESS_ACTION}" "Nginx" 15
-        install_run nginx
+        install_run nginx &
         
         update_progress "${PROGRESS_ACTION}" "Haproxy for Spliting Traffic" 20
         install_run haproxy
         
         update_progress "${PROGRESS_ACTION}" "Getting Certificates" 30
-        install_run acme.sh
+        install_run acme.sh &
         
         update_progress "${PROGRESS_ACTION}" "Personal SpeedTest" 35
-        install_run other/speedtest $(hconfig "speed_test")
+        install_run other/speedtest $(hconfig "speed_test") &
         
         update_progress "${PROGRESS_ACTION}" "Telegram Proxy" 40
-        install_run other/telegram $(hconfig "telegram_enable")
+        install_run other/telegram $(hconfig "telegram_enable") &
         
         update_progress "${PROGRESS_ACTION}" "FakeTlS Proxy" 45
-        install_run other/ssfaketls $(hconfig "ssfaketls_enable")
+        install_run other/ssfaketls $(hconfig "ssfaketls_enable") &
         
         # update_progress "${PROGRESS_ACTION}" "V2ray WS Proxy" 50
         # install_run other/v2ray $ENABLE_V2RAY
         
         update_progress "${PROGRESS_ACTION}" "SSH Proxy" 55
-        install_run other/ssh $(hconfig "ssh_server_enable")
+        install_run other/ssh $(hconfig "ssh_server_enable") &
         
         #update_progress "${PROGRESS_ACTION}" "ShadowTLS" 60
         #install_run other/shadowtls $(hconfig "shadowtls_enable")
@@ -95,9 +95,9 @@ function main() {
         
         update_progress "${PROGRESS_ACTION}" "Xray" 70
         if [[ $(hconfig "core_type") == "xray" ]];then
-            install_run xray 1
+            install_run xray 1 &
         else
-            install_run xray 0
+            install_run xray 0 &
         fi
         
         
@@ -105,23 +105,23 @@ function main() {
         update_progress "${PROGRESS_ACTION}" "Warp" 75
         
         if [[ $(hconfig "warp_mode") != "disable" ]];then
-            install_run other/warp 1
+            install_run other/warp 1 &
         else   
-            install_run other/warp 0
+            install_run other/warp 0 &
         fi
         
         update_progress "${PROGRESS_ACTION}" "HiddifyCli" 80
-        install_run other/hiddify-cli $(hconfig "hiddifycli_enable")
+        install_run other/hiddify-cli $(hconfig "hiddifycli_enable") &
         
     fi
     update_progress "${PROGRESS_ACTION}" "Wireguard" 85
-    install_run other/wireguard $(hconfig "wireguard_enable")
+    install_run other/wireguard $(hconfig "wireguard_enable") &
     
     update_progress "${PROGRESS_ACTION}" "Singbox" 95
-    install_run singbox
+    install_run singbox &
     
     update_progress "${PROGRESS_ACTION}" "Almost Finished" 98
-    
+    wait 
     echo "---------------------Finished!------------------------"
     remove_lock $NAME
     if [ "$MODE" != "apply_users" ]; then

@@ -1,5 +1,6 @@
 #!/bin/bash
 SCRIPT_DIR="$(dirname "$BASH_SOURCE")"
+SCRIPT_DIR="/opt/hiddify-manager/common"
 
 source $SCRIPT_DIR/utils.sh
 # File to store package information
@@ -105,7 +106,7 @@ download_package() {
     IFS='|' read -r name version arch url stored_hash <<< "$entry"
 
     # Download the file
-    echo "Downloading package $package_name version $version for $arch..."
+    echo "Downloading package $package_name version $requested_version for $arch... current version is $existing_version"
     local tmp_file=$(mktemp)
     curl -sL -o "$tmp_file" "$url"
     if [[ $? -ne 0 ]]; then

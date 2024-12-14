@@ -14,5 +14,5 @@ if [ "$?" == "0"  ] || ! is_installed ./sing-box; then
     ln -sf /opt/hiddify-manager/singbox/sing-box /usr/bin/sing-box
     rm geosite.db 2>/dev/null
 
-    set_installed_version xray $version
+    set_installed_version singbox $version
 fi
