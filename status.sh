@@ -38,7 +38,7 @@ function main(){
             continue
         fi
         if systemctl is-enabled $s >/dev/null 2>&1 ; then
-            printf "    %-30s" "$s"
+            printf "    %-50s" "$s"
             get_pretty_service_status $s
         fi
     done
