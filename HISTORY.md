@@ -39,6 +39,8 @@
 
 ### Fix
 
+* Issue in incomplete installation. [hiddify-com]
+
 * New nginx installation. [hiddify-com]
 
 * File name issue. [hiddify-com]
@@ -116,6 +118,26 @@
 * Key. [hiddify-com]
 
 ### Other
+
+* Update. [hiddify-com]
+
+* Set installed version for all packages. [hiddify-com]
+
+* Only set installed version if instation success. [hiddify-com]
+
+* Fix. [hiddify-com]
+
+* Merge branch 'main' of github.com:hiddify/Hiddify-Manager. [hiddify-com]
+
+* Merge pull request #4603 from kursataktas/hiddify-manager-guru. [Hiddify]
+
+  Introducing Hiddify-Manager Guru on Gurubase.io
+
+* Fix guru badge. [Kursat Aktas]
+
+* Introducing Hiddify-Manager Guru on Gurubase.io. [Kursat Aktas]
+
+* Speed up installation process. [hiddify-com]
 
 * Update. [hiddify-com]
 
