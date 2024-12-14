@@ -10,10 +10,10 @@ if [ "$?" == "0"  ] || ! is_installed ./bin/xray; then
     systemctl stop hiddify-xray.service > /dev/null 2>&1 
     rm -rf bin/*
     install_package unzip 
-    unzip -o sb.zip -d bin/ > /dev/null || return 1
+    unzip -o sb.zip -d bin/ > /dev/null || exit 1
     rm -r sb.zip 
-    chown root:root bin/xray || return 2
-    chmod +x bin/xray || return 3
-    ln -sf /opt/hiddify-manager/xray/bin/xray /usr/bin/xray || return 3
+    chown root:root bin/xray || exit 2
+    chmod +x bin/xray || exit 3
+    ln -sf /opt/hiddify-manager/xray/bin/xray /usr/bin/xray || exit 3
     set_installed_version xray $version
 fi
