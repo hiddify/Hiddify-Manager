@@ -4,7 +4,7 @@ rm -rf configs/*.template
 
 # latest= #$(get_release_version hiddify-sing-box)
 version="" #use specific version if needed otherwise it will use the latest
-download_package singbox sb.zip $version
+
 
 function install_singbox() {
     install_package unzip 
@@ -16,6 +16,7 @@ function install_singbox() {
     ln -sf /opt/hiddify-manager/singbox/sing-box /usr/bin/sing-box || return 6
     rm geosite.db 2>/dev/null 
 }
+download_package singbox sb.zip $version
 if [ "$?" == "0"  ] || ! is_installed ./sing-box; then
     if install_singbox; then
         set_installed_version singbox $version
