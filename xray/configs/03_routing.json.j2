@@ -3,7 +3,7 @@
     // "domainStrategy": "AsIs",
     "domainStrategy": "IPOnDemand",
     "domainMatcher":"hybrid",
-    "settings": {
+    
       "rules": [
         {
           "type":"field",
@@ -14,20 +14,14 @@
           ],
           "port":"443,80,53"
         },
-        // {
-        //   "type": "field", 
-        //   "outboundTag": "freedom",
-        //   "domain":[
-        //     "www.google.com",
-        //     "cp.cloudflare.com"
-        //   ]
-        // },
+        
         { //DNS Cache rule
           "type": "field", "port": 53, "network": "tcp,udp", "outboundTag": "DNS-Internal"
         },
         { //block quic
           "type": "field", "port": 443, "network": "udp", "outboundTag": "blackhole"
         },
+        {% if hconfigs['warp_mode'] != 'all' %}
         {
             "type": "field", 
             "outboundTag": {% if hconfigs['warp_mode'] == 'disable' %}"forbidden_sites"{% else %}"WARP"{% endif %},
@@ -110,7 +104,7 @@
                     {% endif %}
                 ]
             },
-        
+        {% endif %}
         {
           "inboundTag": ["api"], "outboundTag": "api", "type": "field"
         },
@@ -126,7 +120,7 @@
           "outboundTag": {% if hconfigs['warp_mode'] == 'all' %}"WARP"{% else %}"freedom"{% endif %}
         }
       ]
-    }
+    
   }
 
 }
