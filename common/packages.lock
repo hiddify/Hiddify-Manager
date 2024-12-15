@@ -16,3 +16,5 @@ v2ray-plugin|1.3.2|arm64|https://github.com/shadowsocks/v2ray-plugin/releases/do
 v2ray-plugin|1.3.2|amd64|https://github.com/shadowsocks/v2ray-plugin/releases/download/v1.3.2/v2ray-plugin-linux-amd64-v1.3.2.tar.gz|b578514235b98b230f881aa2a01a7277205f85135bc09fc3832e5f3993ee541a
 wgcf|2.2.23|amd64|https://github.com/ViRb3/wgcf/releases/download/v2.2.23/wgcf_2.2.23_linux_amd64|2d4f9402c85982f5e6fdc64945b41491c651bbaca4e0aaf20bc31b63d3adab42
 wgcf|2.2.23|arm64|https://github.com/ViRb3/wgcf/releases/download/v2.2.23/wgcf_2.2.23_linux_arm64|3921a7af8e87be66692cf228851d0bb1290f3b1d2f2b3cebaa191dff8f0fb4c3
+ssh-liberty-bridge|1.3.0|arm64|https://github.com/hiddify/ssh-liberty-bridge/releases/download/v1.3.0/ssh-liberty-bridge-arm64|78cbbbf05a4d442ea79359649df76caa9c7e8d19b8889ea2d077eb2c72122a0f
+ssh-liberty-bridge|1.3.0|amd64|https://github.com/hiddify/ssh-liberty-bridge/releases/download/v1.3.0/ssh-liberty-bridge-amd64|2361ac482b5dccedab9e3910af204980353856b6a2b4da586cb67b8336bd0c9c
