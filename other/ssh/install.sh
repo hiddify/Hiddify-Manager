@@ -1,10 +1,12 @@
 source /opt/hiddify-manager/common/utils.sh
-latest=$(get_release_version ssh-liberty-bridge)
+source /opt/hiddify-manager/common/package_manager.sh
+
 mkdir -p host_key
-if [ "$(cat VERSION 2>/dev/null)" != $latest ]; then
-    curl -sL -o ssh-liberty-bridge https://github.com/hiddify/ssh-liberty-bridge/releases/latest/download/ssh-liberty-bridge-$(dpkg --print-architecture)
+version="" #use specific version if needed otherwise it will use the latest
+download_package ssh-liberty-bridge ssh-liberty-bridge $version
+if [ "$?" == "0"  ] || ! is_installed ./ssh-liberty-bridge; then
     chmod +x ssh-liberty-bridge
-    echo $latest >VERSION
     useradd liberty-bridge
+    set_installed_version ssh-liberty-bridge $version
 fi
 chown liberty-bridge .env* 
