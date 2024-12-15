@@ -32,17 +32,19 @@ function main(){
     warning "- Services Status:"
     
     for s in other/**/*.service **/*.service wg-quick@warp mtproto-proxy.service mtproxy.service;do
+        (
         s=${s##*/}
         s=${s%%.*}
         if [[ $s == "wg-quick@warp" ]] && [[ $(hconfig "warp_mode") == "disable" ]]; then
             continue
         fi
         if systemctl is-enabled $s >/dev/null 2>&1 ; then
-            printf "    %-50s" "$s"
-            get_pretty_service_status $s
+            status=$(get_pretty_service_status $s 2>&1)
+            printf "    %-50s %+19s \n" "$s" "$status"
         fi
+        )&
     done
-    
+    wait
     echo "----------------------------------------------------------------"
     
     # echo "ignoring xray test"
