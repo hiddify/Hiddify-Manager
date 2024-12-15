@@ -226,9 +226,6 @@ backend nginx_dispatcher_http_h2
 
 
 
-backend decoy
-    server xraydecoy abns@xtlsindecoy send-proxy-v2
-
 backend tgdecoy
     server tgdecoy {{hconfigs['telegram_fakedomain']}}
 
