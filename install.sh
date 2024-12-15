@@ -41,11 +41,12 @@ function main() {
     if [ "$MODE" != "apply_users" ]; then
         clean_files
         update_progress "${PROGRESS_ACTION}" "Common Tools and Requirements" 2
-        runsh install.sh common
+        runsh install.sh common &
         if [ "${DOCKER_MODE}" != "true" ];then
-            install_run other/redis
-            install_run other/mysql
-        fi        
+            install_run other/redis &
+            install_run other/mysql &
+        fi    
+        wait
         # Because we need to generate reality pair in panel
         # is_installed xray || bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.4
         
@@ -68,11 +69,13 @@ function main() {
         update_progress "${PROGRESS_ACTION}" "Nginx" 15
         install_run nginx &
         
-        update_progress "${PROGRESS_ACTION}" "Haproxy for Spliting Traffic" 20
-        install_run haproxy
+        (
+            update_progress "${PROGRESS_ACTION}" "Haproxy for Spliting Traffic" 20
+            install_run haproxy
         
-        update_progress "${PROGRESS_ACTION}" "Getting Certificates" 30
-        install_run acme.sh &
+            update_progress "${PROGRESS_ACTION}" "Getting Certificates" 30
+            install_run acme.sh 
+        )&
         
         update_progress "${PROGRESS_ACTION}" "Personal SpeedTest" 35
         install_run other/speedtest $(hconfig "speed_test") &
