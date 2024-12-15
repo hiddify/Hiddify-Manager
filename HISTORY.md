@@ -3,6 +3,31 @@
 
 ## (unreleased)
 
+### New
+
+* Speed up cert by parallel req. [hiddify-com]
+
+* Use warp when needed with ssh protocol. [hiddify-com]
+
+* Speedup rendering configs. [hiddify-com]
+
+### Fix
+
+* Bug. [hiddify-com]
+
+* Jinja issue. [hiddify-com]
+
+### Other
+
+* Remove useless configs. [hiddify-com]
+
+* More consistant check of installation hiddify panel. [hiddify-com]
+
+* Speed up installation. [hiddify-com]
+
+
+## v10.80.2 (2024-12-15)
+
 ### Changes
 
 * Considering latest change in xray in routing. [hiddify-com]
