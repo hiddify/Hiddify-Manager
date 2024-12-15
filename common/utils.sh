@@ -308,19 +308,21 @@ function check_hiddify_panel() {
             [ $s == "hiddify-xray" ] && [ "$(hconfig 'core_type')" != "xray" ] && continue
             s=${s##*/}
             s=${s%%.*}
-            if [[ "$(systemctl is-active "$s")" != "active" ]]; then
-                warning "an important service $s is not working yet"
-                sleep 5
-                echo "checking again..."
-                if [[ "$(systemctl is-active "$s")" != "active" ]]; then
-                    error "an important service $s is not working again"
-                    error "Installation Failed!"
-                    echo "32" >/opt/hiddify-manager/log/error.lock
-                    exit 32
+            for i in $(seq 1 10); do
+                if [[ "$(systemctl is-active "$s")" == "active" ]]; then
+                    break
+                else
+                    if [ $i -eq 10 ]; then
+                        error "important service $s is not activated after 10 seconds"
+                        error "Installation Failed!"
+                        echo "32" >/opt/hiddify-manager/log/error.lock
+                        exit 32
+                    fi
+                    warning "an important service $s is not activating yet"
+                    sleep 1
                 fi
-
-            fi
-
+            done
+            
         done
     fi
 }
@@ -387,8 +389,9 @@ function save_firewall() {
 
 function show_progress_window() {
     disable_ansii_modes
+    activate_python_venv
     install_pypi_package cli_progress
-    python -m cli_progress --title "Hiddify Manager" $@
+    /opt/hiddify-manager/.venv/bin/python -m cli_progress --title "Hiddify Manager" $@
     exit_code=$?
     disable_ansii_modes
     return $exit_code
