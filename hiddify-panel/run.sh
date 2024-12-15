@@ -44,5 +44,5 @@ if [ -f "../config.env" ]; then
 fi
 
 systemctl start hiddify-panel.service
-systemctl start hiddify-panel-background-tasks.service
+systemctl restart hiddify-panel-background-tasks.service
 
