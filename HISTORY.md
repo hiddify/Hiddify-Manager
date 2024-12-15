@@ -1,6 +1,13 @@
 # Changelog
 
 
+## (unreleased)
+
+### Fix
+
+* Ssh libery packages. [hiddify-com]
+
+
 ## v10.80.3 (2024-12-15)
 
 ### New
