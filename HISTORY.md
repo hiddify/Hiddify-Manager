@@ -3,6 +3,19 @@
 
 ## (unreleased)
 
+### Changes
+
+* Considering latest change in xray in routing. [hiddify-com]
+
+### Other
+
+* Make status and restart in parallel with hirarchy. [hiddify-com]
+
+* Remove redundent. [hiddify-com]
+
+
+## v10.80.1 (2024-12-15)
+
 ### New
 
 * Update to python 3.12. [hiddify-com]
