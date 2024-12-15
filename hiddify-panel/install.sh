@@ -40,20 +40,6 @@ ln -sf $(pwd)/hiddify-panel-background-tasks.service /etc/systemd/system/hiddify
 systemctl enable hiddify-panel-background-tasks.service
 
 
-if [ -f "../config.env" ]; then
-    # systemctl restart --now mariadb
-    # sleep 4
-    
-    hiddify-panel-cli import-config -c $(pwd)/../config.env
-    
-    # doesn't load virtual env
-    #su hiddify-panel -c "hiddifypanel import-config -c $(pwd)/../config.env"
-    
-    if [ "$?" == 0 ]; then
-        rm -f ../config.env
-        # echo "temporary disable removing config.env"
-    fi
-fi
 systemctl daemon-reload >/dev/null 2>&1
 
 rm -rf /etc/cron.d/{hiddify_usage_update,hiddify_auto_backup}
