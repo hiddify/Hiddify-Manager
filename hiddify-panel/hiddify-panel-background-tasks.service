@@ -8,7 +8,8 @@ Type=simple
 User=hiddify-panel
 WorkingDirectory=/opt/hiddify-manager/hiddify-panel/
 Environment="LANG=C.UTF-8"
-ExecStart=/opt/hiddify-manager/.venv/bin/python -m celery -A hiddifypanel.apps.celery_app:celery_app worker --beat --loglevel debug
+#maximum 5 worker minimum 1 worker
+ExecStart=/opt/hiddify-manager/.venv/bin/python -m celery -A hiddifypanel.apps.celery_app:celery_app worker --beat --loglevel debug --concurrency 1 
 ExecReload=/bin/kill -HUP $MAINPID
 #RestartSec=1
 ExecStop=/bin/kill -INT $MAINPID

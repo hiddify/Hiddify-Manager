@@ -32,7 +32,7 @@ function main() {
                 continue
                 ;;
             wg-quick@warp)
-                [ $(hconfig "warp_mode") == "disable" ] && continue
+                [ "$(hconfig warp_mode)" == "disable" ] && continue
                 ;;
         esac
         restart_service $ss &
