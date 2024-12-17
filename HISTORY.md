@@ -3,6 +3,13 @@
 
 ## (unreleased)
 
+### Changes
+
+* Optimize background tasks. [hiddify-com]
+
+
+## v10.80.7 (2024-12-15)
+
 ### Fix
 
 * Conflict. [hiddify-com]
