@@ -1,6 +1,13 @@
 # Changelog
 
 
+## (unreleased)
+
+### Fix
+
+* Nginx installation. [hiddify-com]
+
+
 ## v10.80.8 (2024-12-17)
 
 ### Changes
