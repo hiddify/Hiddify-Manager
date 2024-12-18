@@ -1,5 +1,5 @@
 source ../common/utils.sh
-if ! is_installed nginx; then
+if ! is_installed "nginx=1.26.*"; then
     useradd nginx
     curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor |
         sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
@@ -9,7 +9,7 @@ if ! is_installed nginx; then
     sudo apt update -y
 
 fi
-install_package nginx=1.26*
+install_package "nginx=1.26.*"
 
 systemctl kill nginx >/dev/null 2>&1
 systemctl disable nginx >/dev/null 2>&1
