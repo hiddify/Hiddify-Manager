@@ -8,15 +8,15 @@ python -m pip config set global.index-url https://pypi.org/simple > /dev/null
 # remove_package resolvconf
 # rm /etc/resolv.conf
 # ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
-
-if [[ $COUNTRY == 'cn' ]]; then
-    sudo timedatectl set-timezone Asia/Shanghai
-elif [[ $COUNTRY == 'ru' ]]; then
-    sudo timedatectl set-timezone Asia/Moscow
-else
-    sudo timedatectl set-timezone Asia/Tehran
+if [ "${MODE}" != "install-docker" ];then
+  if [[ $COUNTRY == 'cn' ]]; then
+      sudo timedatectl set-timezone Asia/Shanghai
+  elif [[ $COUNTRY == 'ru' ]]; then
+      sudo timedatectl set-timezone Asia/Moscow
+  else
+      sudo timedatectl set-timezone Asia/Tehran
+  fi
 fi
-
 groupadd -f hiddify-common
 usermod -aG hiddify-common root
 
@@ -39,7 +39,9 @@ fi
 
 ln -sf $(pwd)/sysctl.conf /etc/sysctl.d/hiddify.conf
 
-sysctl --system > /dev/null
+if [ "${MODE}" != "install-docker" ];then
+  sysctl --system > /dev/null
+fi
 
 if [[ "$ONLY_IPV4" != true ]]; then
     sysctl -w net.ipv6.conf.all.disable_ipv6=0
@@ -83,7 +85,10 @@ echo "@reboot root /opt/hiddify-manager/install.sh --no-gui --no-log >> /opt/hid
 echo "@daily root /opt/hiddify-manager/common/daily_actions.sh >> /opt/hiddify-manager/log/system/daily_actions.log 2>&1" >/etc/cron.d/hiddify_daily_memory_release
 service cron reload
 
-localectl set-locale LANG=C.UTF-8
+if [ "${MODE}" != "install-docker" ];then
+  localectl set-locale LANG=C.UTF-8
+fi
+
 update-locale LANG=C.UTF-8
 
 echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/common/commander.py" >/etc/sudoers.d/hiddify
