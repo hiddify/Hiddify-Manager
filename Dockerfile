@@ -14,7 +14,7 @@ COPY . .
 RUN apt-get update && apt-get install -y apt-utils curl sudo systemd xxd lsof gawk  iproute2 &&\
     mkdir -p /hiddify-data/ssl/ && \
     rm -rf /opt/hiddify-manager/ssl && \
-    ln -sf /hiddify-data/ssl /opt/hiddify-manager/ssl &&\
+    ln -sf /hiddify-data/ssl /opt/hiddify-manager/ssl
 
 RUN bash install.sh install-docker --no-gui &&\
 RUN rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
