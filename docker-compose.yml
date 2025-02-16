@@ -14,10 +14,6 @@ services:
 
     #specific version
     #image: ghcr.io/hiddify/hiddify-manager:v10.80.0
-    ports:
-      - 443:443
-      - 80:80
-      - "11000-60000"  #for custom protocols like hysteria tuic wiregaurd 
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -30,6 +26,7 @@ services:
     depends_on: 
       - mariadb
       - redis
+    network_mode: host
     
   mariadb:
     image: mariadb:latest
