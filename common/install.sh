@@ -8,6 +8,7 @@ python -m pip config set global.index-url https://pypi.org/simple > /dev/null
 # remove_package resolvconf
 # rm /etc/resolv.conf
 # ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+
 if [ "${MODE}" != "install-docker" ];then
   if [[ $COUNTRY == 'cn' ]]; then
       sudo timedatectl set-timezone Asia/Shanghai
@@ -17,6 +18,7 @@ if [ "${MODE}" != "install-docker" ];then
       sudo timedatectl set-timezone Asia/Tehran
   fi
 fi
+
 groupadd -f hiddify-common
 usermod -aG hiddify-common root
 
