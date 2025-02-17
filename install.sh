@@ -42,7 +42,7 @@ function main() {
         clean_files
         update_progress "${PROGRESS_ACTION}" "Common Tools and Requirements" 2
         runsh install.sh common &
-        if [ "${DOCKER_MODE}" != "true" ];then
+        if [ "$MODE" != "install-docker" ];then
             install_run other/redis &
             install_run other/mysql &
         fi    
@@ -166,7 +166,7 @@ function set_config_from_hpanel() {
 
 function install_run() {
     echo "==========================================================="
-    if [ "$MODE" == "install-docker" ];then 
+    if [ "$MODE" == "install-docker" ];then
             runsh install.sh $1
             return
     elif [ "$DO_NOT_INSTALL" != "true" ];then
