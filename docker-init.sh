@@ -2,7 +2,8 @@
 
 mkdir /hiddify-data/ssl/
 rm -rf /opt/hiddify-manager/log/*.lock
-./apply_configs.sh --no-gui
+cd $(dirname -- "$0")
+DO_NOT_INSTALL=true ./install.sh install-docker $@
 ./status.sh --no-gui
 
 echo Hiddify is started!!!! in 5 seconds you will see the system logs
