@@ -15,9 +15,7 @@ services:
     #specific version
     #image: ghcr.io/hiddify/hiddify-manager:v10.80.0
     ports:
-      - "443:443"
       - "80:80"
-      - "22:22"
       - "80:80"
       - "443:443"
       - "53:53/udp"
