@@ -1,7 +1,7 @@
 services:
   hiddify:
     #only for local build and development
-    build: .
+    #build: .
 
     #latest release version
     #image: ghcr.io/hiddify/hiddify-manager:latest
@@ -10,7 +10,7 @@ services:
     #image: ghcr.io/hiddify/hiddify-manager:beta
 
     #latest build of current development
-    #image: ghcr.io/hiddify/hiddify-manager:dev
+    image: ghcr.io/hiddify/hiddify-manager:dev
 
     #specific version
     #image: ghcr.io/hiddify/hiddify-manager:v10.80.0
