@@ -1,10 +1,10 @@
 services:
   hiddify:
     #only for local build and development
-    #build: .
+    build: .
 
     #latest release version
-    image: ghcr.io/hiddify/hiddify-manager:latest
+    #image: ghcr.io/hiddify/hiddify-manager:latest
 
     #latest beta version
     #image: ghcr.io/hiddify/hiddify-manager:beta
@@ -15,9 +15,6 @@ services:
     #specific version
     #image: ghcr.io/hiddify/hiddify-manager:v10.80.0
     ports:
-      - "443:443"
-      - "80:80"
-      - "22:22"
       - "80:80"
       - "443:443"
       - "53:53/udp"
@@ -37,8 +34,7 @@ services:
     depends_on: 
       - mariadb
       - redis
-    network_mode: host
-    
+
   mariadb:
     image: mariadb:latest
     container_name: mariadb_container
