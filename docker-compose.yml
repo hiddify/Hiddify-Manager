@@ -37,8 +37,7 @@ services:
     depends_on: 
       - mariadb
       - redis
-    network_mode: host
-    
+
   mariadb:
     image: mariadb:latest
     container_name: mariadb_container
