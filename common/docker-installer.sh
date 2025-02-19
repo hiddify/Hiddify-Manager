@@ -18,6 +18,7 @@ cd hiddify-manager
 
 # Download the docker-compose.yml file
 wget https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/main/docker-compose.yml
+wget https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/main/hiddify-panel/app.cfg
 
 # Generate random passwords for MySQL and Redis
 mysqlpassword=$(< /dev/urandom tr -dc 'a-zA-Z0-9' | head -c49; echo)
@@ -27,6 +28,8 @@ redispassword=$(< /dev/urandom tr -dc 'a-zA-Z0-9' | head -c49; echo)
 sed -i "s/hiddify-manager:latest/hiddify-manager:$TAG/g" docker-compose.yml
 sed -i "s/REDIS_STRONG_PASS/$redispassword/g" docker-compose.yml
 sed -i "s/MYSQL_STRONG_PASS/$mysqlpassword/g" docker-compose.yml
+sed -i "s/REDIS_STRONG_PASS/$redispassword/g" app.cfg
+sed -i "s/MYSQL_STRONG_PASS/$mysqlpassword/g" app.cfg
 
 # Start the containers using Docker Compose
 docker compose up -d

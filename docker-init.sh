@@ -5,6 +5,7 @@ rm -rf /opt/hiddify-manager/log/*.lock
 cd $(dirname -- "$0")
 DO_NOT_INSTALL=true ./install.sh install-docker --no-gui $@
 ./status.sh --no-gui
+./apply_configs.sh --no-gui
 
 echo Hiddify is started!!!! in 5 seconds you will see the system logs
 sleep 5
