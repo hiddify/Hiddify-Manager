@@ -25,7 +25,7 @@ services:
       - NET_ADMIN
     volumes:
        - ./docker-data/:/hiddify-data/
-       - ./app.cfg/:/opt/hiddify-manager/hiddify-panel/app.cfg
+       - ./app.cfg:/opt/hiddify-manager/hiddify-panel/app.cfg
     environment:
       REDIS_URI_MAIN: 'redis://:REDIS_STRONG_PASS@redis:6379/0'
       REDIS_URI_SSH: 'redis://:REDIS_STRONG_PASS@redis:6379/1'
