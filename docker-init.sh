@@ -4,6 +4,7 @@ mkdir /hiddify-data/ssl/
 rm -rf /opt/hiddify-manager/log/*.lock
 cd $(dirname -- "$0")
 ./install.sh install-docker --no-gui $@
+
 DO_NOT_INSTALL=true ./install.sh install-docker --no-gui $@
 ./apply_configs.sh --no-gui
 ./status.sh --no-gui
