@@ -32,6 +32,7 @@ sed -i "s/REDIS_STRONG_PASS/$redispassword/g" app.cfg
 sed -i "s/MYSQL_STRONG_PASS/$mysqlpassword/g" app.cfg
 
 # Start the containers using Docker Compose
+docker compose pull
 docker compose up -d
 
 # Follow the logs from the containers
