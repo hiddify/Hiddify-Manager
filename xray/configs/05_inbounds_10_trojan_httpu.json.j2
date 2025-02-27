@@ -13,9 +13,10 @@
 				]
 				},
 				"streamSettings": {
-				"network": "httpupgrade",
+				"network": "xhttp",
 				"security": "none",
-				"httpupgradeSettings": {
+				"xhttpSettings": {
+                    "mode": "stream-one",
 					"acceptProxyProtocol": true, 
 					"path":"/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_httpupgrade'] }}", 
 				}
