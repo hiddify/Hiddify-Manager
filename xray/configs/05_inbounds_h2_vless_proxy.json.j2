@@ -15,12 +15,13 @@
 				"decryption": "none"
 				},
 				"streamSettings": {
-				"network": "h2",
+				"network": "xhttp",
 				"security": "none",
 				"tcpSettings": {
 					"acceptProxyProtocol": true
 					},
-				"httpSettings": {
+				"xhttpSettings": {
+                    "mode": "stream-one",
 					"path": "/{{ hconfigs['path_vless'] }}{{ hconfigs['path_tcp'] }}",
 					}
 				

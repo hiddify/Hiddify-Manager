@@ -14,9 +14,10 @@
 				]
 				},
 				"streamSettings": {
-				"network": "h2",
+				"network": "xhttp",
 				"security": "none",
-				"httpSettings": {
+				"xhttpSettings": {
+                        "mode": "stream-one",
 						"path": "/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_tcp'] }}",
 					}
 				},
