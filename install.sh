@@ -95,16 +95,6 @@ function main() {
         #update_progress "${PROGRESS_ACTION}" "ShadowTLS" 60
         #install_run other/shadowtls $(hconfig "shadowtls_enable")
         
-        
-        update_progress "${PROGRESS_ACTION}" "Xray" 70
-        if [[ $(hconfig "core_type") == "xray" ]];then
-            install_run xray 1 &
-        else
-            install_run xray 0 &
-        fi
-        
-        
-        
         update_progress "${PROGRESS_ACTION}" "Warp" 75
         
         if [[ $(hconfig "warp_mode") != "disable" ]];then
@@ -117,6 +107,14 @@ function main() {
         install_run other/hiddify-cli $(hconfig "hiddifycli_enable") &
         
     fi
+
+     update_progress "${PROGRESS_ACTION}" "Xray" 70
+     if [[ $(hconfig "core_type") == "xray" ]];then
+         install_run xray 1 &
+     else
+         install_run xray 0 &
+     fi
+
     update_progress "${PROGRESS_ACTION}" "Wireguard" 85
     install_run other/wireguard $(hconfig "wireguard_enable") &
     
