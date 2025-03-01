@@ -13,7 +13,7 @@ if [ "${MODE}" != "install-docker" ];then
   if [[ $COUNTRY == 'cn' ]]; then
       sudo timedatectl set-timezone Asia/Shanghai
   elif [[ $COUNTRY == 'ru' ]]; then
-      sudo timedatectl set-timezone Asia/Moscow
+      sudo timedatectl set-timezone Europe/Moscow
   else
       sudo timedatectl set-timezone Asia/Tehran
   fi
