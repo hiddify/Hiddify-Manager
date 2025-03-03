@@ -29,22 +29,25 @@ backend reality
 backend vmesst
   server vmesst abns@vmess-tcp-new  send-proxy-v2 tfo 
 
-backend vmesst_h2
-  server vmesst abns@vmess-tcp-new-h2  send-proxy-v2 tfo 
+# Deprecated by xray, using vmesshs
+#backend vmesst_h2
+#  server vmesst abns@vmess-tcp-new-h2  send-proxy-v2 tfo
 
 
 backend vmesst_get
   server vmesst abns@vmess-tcp-new  send-proxy-v2 tfo 
 
-backend vmesst_get_h2
-  server vmesst abns@vmess-tcp-new-h2  send-proxy-v2 tfo   
+# Deprecated by xray, using vmesshs
+#backend vmesst_get_h2
+#  server vmesst abns@vmess-tcp-new-h2  send-proxy-v2 tfo
 
 
 backend vlesst
   server vlesst abns@vless-tcp-new  send-proxy-v2 tfo 
 
-backend vlesst_h2
-  server vlesst abns@vless-tcp-new-h2  send-proxy-v2 tfo 
+# Deprecated by xray, using vlesshs
+#backend vlesst_h2
+#  server vlesst abns@vless-tcp-new-h2  send-proxy-v2 tfo
 
 backend v2rayt
   server v2rayt abns@v2ray-tcp-new  send-proxy-v2 tfo 
@@ -55,8 +58,9 @@ backend v2rayt_h2
 backend trojant
   server trojant abns@trojan-tcp-new  send-proxy-v2 tfo 
 
-backend trojant_h2
-  server trojant abns@trojan-tcp-new-h2  send-proxy-v2 tfo   
+# Deprecated by xray, using vmesshs
+#backend trojant_h2
+#  server trojant abns@trojan-tcp-new-h2  send-proxy-v2 tfo   
 
 backend vmessw
   server vmessw abns@vmess-ws-new  send-proxy-v2 tfo 
@@ -141,21 +145,25 @@ backend reality_{{port}}
     mode tcp
     server xray abns@realityin_{{port}} send-proxy-v2
 
-backend reality_h2_{{port}}
-    mode tcp
-    server xray abns@realityinh2_{{port}} send-proxy-v2
-{%endfor%}    
+# Deprecated by xray, using vmesshs
+#backend reality_h2_{{port}}
+#    mode tcp
+#    server xray abns@realityinh2_{{port}} send-proxy-v2
+{%endfor%}
 
 
 
+# Deprecated by xray, using vmesshs
+#backend vmesshu
+#  server vmesshu abns@vmess-httpu send-proxy-v2
 
-backend vmesshu
-  server vmesshu abns@vmess-httpu send-proxy-v2 
+# Deprecated by xray, using vlesshs
+#backend vlesshu
+#  server vlesshu abns@vless-httpu send-proxy-v2
 
-backend vlesshu  
-  server vlesshu abns@vless-httpu send-proxy-v2 
 
-backend trojanhu
-  server trojanw abns@trojan-httpu send-proxy-v2
+# Deprecated by xray, using trojanhs
+#backend trojanhu
+#  server trojanw abns@trojan-httpu send-proxy-v2
 
 
