@@ -25,20 +25,20 @@ backend reality
 backend vmesst
   server vmesst 127.0.0.1:2031  send-proxy-v2 tfo 
 
-backend vmesst_h2
-  server vmesst 127.0.0.1:2031  send-proxy-v2 tfo 
+#backend vmesst_h2
+#  server vmesst 127.0.0.1:2031  send-proxy-v2 tfo
 
 backend vmesst_get
   server vmesst 127.0.0.1:2039  send-proxy-v2 tfo 
 
-backend vmesst_get_h2
-  server vmesst 127.0.0.1:2039  send-proxy-v2 tfo 
+#backend vmesst_get_h2
+#  server vmesst 127.0.0.1:2039  send-proxy-v2 tfo
 
 backend vlesst
   server vlesst 127.0.0.1:2021  send-proxy-v2 tfo 
 
-backend vlesst_h2
-  server vlesst 127.0.0.1:2021  send-proxy-v2 tfo 
+#backend vlesst_h2
+#  server vlesst 127.0.0.1:2021  send-proxy-v2 tfo
 
 backend v2rayt
   server v2rayt 127.0.0.1:2051  send-proxy-v2 tfo 
@@ -49,8 +49,8 @@ backend v2rayt_h2
 backend trojant
   server trojant 127.0.0.1:2011  send-proxy-v2 tfo 
 
-backend trojant_h2
-  server trojant 127.0.0.1:2011  send-proxy-v2 tfo 
+#backend trojant_h2
+#  server trojant 127.0.0.1:2011  send-proxy-v2 tfo
 
 backend vmessw
   server vmessw 127.0.0.1:2032  send-proxy-v2  tfo 
@@ -73,8 +73,8 @@ backend vlessw_h2
 backend trojanw
   server trojanw 127.0.0.1:2012 send-proxy-v2 tfo 
 
-backend trojanw_h2
-  server trojanw 127.0.0.1:2012 send-proxy-v2 tfo 
+#backend trojanw_h2
+#  server trojanw 127.0.0.1:2012 send-proxy-v2 tfo
 
 
 {% for d in domains if d['internal_port_reality'] and d['grpc'] %}
@@ -93,22 +93,22 @@ backend reality_{{port}}
     mode tcp
     server singbox 127.0.0.1:{{port}} send-proxy-v2
 
-backend reality_h2_{{port}}
-    mode tcp
-    server singbox 127.0.0.1:{{port}} send-proxy-v2
+#backend reality_h2_{{port}}
+#    mode tcp
+#    server singbox 127.0.0.1:{{port}} send-proxy-v2
 {%endfor%}
 
 
 
 
-backend vmesshu
-  server vmesshu 127.0.0.1:2034 send-proxy-v2  tfo 
+#backend vmesshu
+#  server vmesshu 127.0.0.1:2034 send-proxy-v2  tfo
 
-backend vlesshu
-  server vlesshu 127.0.0.1:2024 send-proxy-v2 tfo 
+#backend vlesshu
+#  server vlesshu 127.0.0.1:2024 send-proxy-v2 tfo
 
-backend trojanhu
-  server trojanw 127.0.0.1:2014 send-proxy-v2 tfo 
+#backend trojanhu
+#  server trojanw 127.0.0.1:2014 send-proxy-v2 tfo
 
 
 
