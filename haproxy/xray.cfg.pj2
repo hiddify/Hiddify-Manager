@@ -83,8 +83,8 @@ backend vlessw_h2
 backend trojanw
   server trojanw abns@trojan-ws-new send-proxy-v2 tfo 
 
-backend trojanw_h2
-  server trojanw abns@trojan-ws-new-h2 send-proxy-v2 tfo 
+#backend trojanw_h2
+#  server trojanw abns@trojan-ws-new-h2 send-proxy-v2 tfo
 
 
 

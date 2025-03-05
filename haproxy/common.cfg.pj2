@@ -376,5 +376,3 @@ backend trojanw_h2
 backend trojant_h2
   server trojant 127.0.0.1:2011  send-proxy-v2 tfo
 
-backend vlesst_h2
-  server vlesst 127.0.0.1:2021  send-proxy-v2 tfo
