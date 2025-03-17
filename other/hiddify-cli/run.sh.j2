@@ -12,5 +12,6 @@ echo "SUB_LINK=$SUB_LINK" > .env
 chown hiddify-cli .env
 chmod 600 .env*
 chown hiddify-cli -R .
-
+echo "Updating Sublink config from hpanel to hiddifycli"
+curl -s "$SUB_LINK" -o config_.json
 systemctl restart hiddify-cli.service
