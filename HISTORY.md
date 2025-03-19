@@ -1,6 +1,130 @@
 # Changelog
 
 
+## (unreleased)
+
+### Fix
+
+* Correct timezone for Russia in script. [Tesla]
+
+  The timezone for Russia was previously set to 'Asia/Moscow', which is incorrect.
+  Updated the script to use 'Europe/Moscow' to correctly reflect the timezone.
+
+### Other
+
+* Merge pull request #4820 from tesilaaliset/fix/fix-hiddify-cli. [lymanjre]
+
+  Update Cli run and change the usage to the config_.josn file instead …
+
+* Update Cli run and change the usage to the config_.josn file instead of url due EOF JSON error. [Tesla]
+
+* Merge pull request #4809 from tesilaaliset/fix_xray_reset. [lymanjre]
+
+  Fix Haproxy configuration
+
+* Fix Haproxy configuration. [Tesla]
+
+* Merge pull request #4807 from tesilaaliset/fix_xray_reset. [lymanjre]
+
+  Update and change h2 paths to the singbox
+
+* Update and change h2 paths to the singbox. [Tesla]
+
+* Merge pull request #4798 from tesilaaliset/fix_xray_reset. [lymanjre]
+
+  Fix xray_reset on apply_users mode.
+
+* Fix xray_reset on apply_users mode. [Tesla]
+
+* Merge pull request #4797 from tesilaaliset/update_xray_25. [lymanjre]
+
+  Update xray 25
+
+* Update configs and replace `h2` with `xhttp` [Tesla]
+
+* Update Packages.lock and add xray25.2.21 to it. [Tesla]
+
+* Merge pull request #4788 from tesilaaliset/fix/fix-docker-run. [lymanjre]
+
+* Restart services due needs. [Tesla]
+
+* Update. [Tesla]
+
+* Merge branch 'main' into fix/fix-docker-run. [Tesla]
+
+* Merge pull request #4787 from tesilaaliset/fix/fix-docker-run. [lymanjre]
+
+* Merge pull request #4786 from tesilaaliset/fix/fix-docker-run. [lymanjre]
+
+  Use Image Tag due script use the image.
+
+* Update docker-init. [Tesla]
+
+* Merge branch 'main' into fix/fix-docker-run. [Tesla]
+
+* Merge pull request #4785 from tesilaaliset/fix/fix-docker-run. [lymanjre]
+
+  Fix/fix docker run
+
+* Improve docker. [Tesla]
+
+* Fix docker compose. [Tesla]
+
+* Update Docker init. [Tesla]
+
+* Fix app.cfg and docker installer to change passwords in the app.cfg. [Tesla]
+
+* Remove ports 53 due systemd-reslove LISTEN on it. [Tesla]
+
+* Update docker init no-gui. [Tesla]
+
+* Update docker-init. [Tesla]
+
+* Use Image Tag due script use the image. [Tesla]
+
+* Remove Duplicate 80 port in docker compose. [Tesla]
+
+* Fix ports. [Tesla]
+
+* Fix network_mode for hiddify-manager. [Tesla]
+
+* Make build. [Tesla]
+
+* Merge pull request #4777 from tesilaaliset/fix-docker. [lymanjre]
+
+  Fix docker
+
+* Merge branch 'main' into fix-docker. [Tesi La]
+
+* Merge pull request #4764 from tesilaaliset/fix/fix-docker. [lymanjre]
+
+  Fix Docker Compose
+
+* Fix Docker Compose port allocation issue. [Tesla]
+
+* Merge pull request #4763 from tesilaaliset/fix/typo-in-timezone. [lymanjre]
+
+  fix: correct timezone for Russia in script
+
+* Update. [Tesla]
+
+* Fix syntax error in Dockerfile. [Tesla]
+
+* Fix typo in Dockerfile. [Tesla]
+
+* Update Dockerfile layers. [Tesla]
+
+* Update common intall for docker. [Tesla]
+
+* Fix on installing redis and mysql on docker mode. [Tesla]
+
+* Update Hiddify panel install script for docker. [Tesla]
+
+* Update Wiregurd installation for docker. [Tesla]
+
+* Update common/run.sh for docker. [Tesla]
+
+
 ## v10.80.11 (2024-12-18)
 
 ### Fix
