@@ -1,5 +1,5 @@
 {
-	{% if 0 and hconfigs['trojan_enable'] and hconfigs['xhttp_enable'] %}
+	{% and hconfigs['trojan_enable'] and hconfigs['xhttp_enable'] %}
 		"inbounds": [
 			{
 				"tag":"trojan-xhttp-h2",
