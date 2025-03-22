@@ -12,17 +12,25 @@
 
 ### Other
 
+* Merge pull request #4825 from tesilaaliset/fix/fix-hiddify-cli. [lymanjre]
+
+  Fix/fix hiddify cli
+
+* Merge branch 'main' into fix/fix-hiddify-cli. [Tesla]
+
 * Merge pull request #4820 from tesilaaliset/fix/fix-hiddify-cli. [lymanjre]
 
   Update Cli run and change the usage to the config_.josn file instead …
-
-* Update Cli run and change the usage to the config_.josn file instead of url due EOF JSON error. [Tesla]
 
 * Merge pull request #4809 from tesilaaliset/fix_xray_reset. [lymanjre]
 
   Fix Haproxy configuration
 
 * Fix Haproxy configuration. [Tesla]
+
+* Updates. [Tesla]
+
+* Update Cli run and change the usage to the config_.josn file instead of url due EOF JSON error. [Tesla]
 
 * Merge pull request #4807 from tesilaaliset/fix_xray_reset. [lymanjre]
 
