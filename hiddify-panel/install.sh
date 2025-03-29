@@ -21,22 +21,15 @@ fi
 
 pip uninstall -y flask-babelex >/dev/null 2>&1
 
-if [ "${MODE}" == "install-docker" ];then
-  rm -rf /opt/hiddify-manager/hiddify-panel/src
-  mkdir -p  /opt/hiddify-manager/hiddify-panel/src
-  git clone --depth 1 --branch main https://github.com/hiddify/hiddifypanel.git  /opt/hiddify-manager/hiddify-panel/src
-  HIDDIFY_PANLE_SOURCE_DIR=/opt/hiddify-manager/hiddify-panel/src
-fi
+rm -rf /opt/hiddify-manager/hiddify-panel/src
+mkdir -p  /opt/hiddify-manager/hiddify-panel/src
+git clone --depth 1 --branch main https://github.com/hiddify/hiddifypanel.git  /opt/hiddify-manager/hiddify-panel/src
+HIDDIFY_PANLE_SOURCE_DIR=/opt/hiddify-manager/hiddify-panel/src
 
 # install/build hiddifypanel package
-if [ -n "$HIDDIFY_PANLE_SOURCE_DIR" ]; then
-    echo "NOTICE: building hiddifypanel package from source..."
-    echo "NOTICE: the source dir $HIDDIFY_PANLE_SOURCE_DIR"
-    /opt/hiddify-manager/.venv/bin/pip install -e "$HIDDIFY_PANLE_SOURCE_DIR"
-else
-    echo "Installing hiddifypanel with the pip"
-    python -c "import hiddifypanel" || pip install -U hiddifypanel
-fi
+echo "NOTICE: building hiddifypanel package from source..."
+echo "NOTICE: the source dir $HIDDIFY_PANLE_SOURCE_DIR"
+/opt/hiddify-manager/.venv/bin/pip install -e "$HIDDIFY_PANLE_SOURCE_DIR"
 
 
 ln -sf $(which uwsgi) /usr/local/bin/uwsgi >/dev/null 2>&1
