@@ -365,6 +365,8 @@ backend vmesst_h2
   server vmesst 127.0.0.1:2031  send-proxy-v2 tfo
 
 {% for d in domains if d['internal_port_reality'] and not d['grpc'] %}
+    {%set domain=d['domain']%}
+    {%set port=d['internal_port_reality']%}
 backend reality_h2_{{port}}
     mode tcp
     server singbox 127.0.0.1:{{port}} send-proxy-v2
