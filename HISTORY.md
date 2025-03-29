@@ -12,6 +12,18 @@
 
 ### Other
 
+* Merge pull request #4838 from tesilaaliset/fix/fix_relase_bugs. [lymanjre]
+
+* Update the common to fix reality_h2 problem. [Tesla]
+
+* Update the hiddify panel installation to install from source. [Tesla]
+
+* Merge pull request #4803 from JeelsBoobz/patch-1. [Hiddify]
+
+  Fix timezone typo
+
+* Fix timezone typo. [JeelsBoobz]
+
 * Merge pull request #4825 from tesilaaliset/fix/fix-hiddify-cli. [lymanjre]
 
   Fix/fix hiddify cli
