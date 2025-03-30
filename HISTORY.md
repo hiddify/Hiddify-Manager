@@ -12,7 +12,19 @@
 
 ### Other
 
+* Merge pull request #4842 from tesilaaliset/fix/fix_relase_bugs. [lymanjre]
+
+* Fix trojan and h2 vless problems on rendering. [Tesla]
+
+* Fix trojan and h2 vless problems on rendering. [Tesla]
+
+* Merge branch 'main' into fix/fix_relase_bugs. [Tesla]
+
 * Merge pull request #4838 from tesilaaliset/fix/fix_relase_bugs. [lymanjre]
+
+* Update splithttp (XHTTP) configurations. and changes. [Tesla]
+
+* Add new version for handling v2rayng and h3 and h2 working on client. [Tesla]
 
 * Update the common to fix reality_h2 problem. [Tesla]
 
