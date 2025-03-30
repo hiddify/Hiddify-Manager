@@ -1,5 +1,5 @@
 {
-	{% and hconfigs['vless_enable'] and hconfigs['xhttp_enable'] %}
+	{% if hconfigs['vless_enable'] and hconfigs['xhttp_enable'] %}
 		"inbounds": [
 			{
 				"tag":"vless-xhttp-h2",
@@ -19,7 +19,8 @@
 				"security": "none",
 				"xhttpSettings": {
 					{# "acceptProxyProtocol": true,#}
-					"path": "/{{ hconfigs['path_vless'] }}{{ hconfigs['path_xhttp'] }}2", 
+					"path": "/{{ hconfigs['path_vless'] }}{{ hconfigs['path_xhttp'] }}2",
+                    "mode": "auto"
 				}
 				},
 				"sniffing": {
