@@ -1,5 +1,5 @@
 {
-	{%  hconfigs['vless_enable'] and hconfigs['xhttp_enable'] %}
+	{% if hconfigs['vless_enable'] and hconfigs['xhttp_enable'] %}
 		"inbounds": [
 			{
 				"tag":"vless-xhttp-h2",
