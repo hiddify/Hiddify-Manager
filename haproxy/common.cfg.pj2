@@ -18,12 +18,9 @@ defaults
     default-server init-addr none
     default-server inter 15s fastinter 2s downinter 5s rise 3 fall 3
     mode tcp
-    #tune.h2.initial-window-size 536870912
-    #tune.h2.max-concurrent-streams 512
 
 ### standalone stats page
 listen stats
-        # accessible at http://192.168.1.100/haproxy?stats
         bind 127.0.0.1:8181
       	mode http
       	option httplog
@@ -36,8 +33,6 @@ frontend https-in
     {% for port in (["443"] + hconfigs['tls_ports'].split(',')) | unique %}
     bind :{{port}},:::{{port}} v4v6 tfo 
     {%endfor%}
-    # option tcplog
-    # option dontlognull
     tcp-request inspect-delay 5s
     tcp-request content accept if { req.ssl_hello_type 1 }
     acl tls1_2 req.ssl_ver 3.3
@@ -218,7 +213,6 @@ backend shadowtls_decoy
 {%endif%}
 
 backend xray_force
-    # server xray unix@/dev/shm/hiddify-xtls-main.sock
     server xray abns@xtlsin send-proxy-v2
 
 backend hiddifypanel
