@@ -1,4 +1,3 @@
-    
 backend xray
     server xray abns@xtlsin send-proxy-v2 tfo
 
