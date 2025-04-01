@@ -9,7 +9,6 @@ global
 defaults
     log global
     retry-on all-retryable-errors
-
     timeout connect 5s
     timeout client 50s
     timeout client-fin 50s
