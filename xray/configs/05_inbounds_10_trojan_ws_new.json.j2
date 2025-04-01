@@ -1,30 +1,33 @@
 {
-	{% if hconfigs['trojan_enable'] and hconfigs['ws_enable'] %}
-		"inbounds": [
-			{
-				"tag":"trojan-ws-new",
-				"listen": "@@trojan-ws-new", //trojan+ws listener process
-				"protocol": "trojan",
-				"settings": {
-				"clients": [
-					{% for u in users %}
-						{"password": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com"},
-					{% endfor %}
-				]
-				},
-				"streamSettings": {
-				"network": "ws",
-				"security": "none",
-				"wsSettings": {
-					"acceptProxyProtocol": true, 
-					"path":"/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_ws'] }}", 
-				}
-				},
-				"sniffing": {
-				"enabled": true,
-				"destOverride": ["http","tls", "quic"]
-				}
-			}
-		]
-	{% endif %}
+  {% if hconfigs['trojan_enable'] and hconfigs['ws_enable'] %}
+  "inbounds": [
+    {
+      "tag": "trojan-xhttp-new",
+      "listen": "@@trojan-ws-new", //trojan+xhttp listener process
+      "protocol": "trojan",
+      "settings": {
+        "clients": [
+          {% for u in users %}
+          {"password": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com"} {% if not loop.last %},{% endif %}
+          {% endfor %}
+        ]
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "none",
+        "xhttpSettings": {
+          "mode": "stream-up",
+          "path": "/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_ws'] }}"
+        },
+        "tcpSettings": {
+          "acceptProxyProtocol": true
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"]
+      }
+    }
+  ]
+  {% endif %}
 }
