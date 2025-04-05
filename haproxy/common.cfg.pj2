@@ -114,6 +114,7 @@ frontend onlypanel_in
     use_backend generate_204 if { path -i /{{hconfigs['proxy_path_client']}}/generate_204 }
     use_backend generate_204 if { path -i /{{hconfigs['proxy_path']}}/generate_204 }
 
+    http-response set-header alt-svc "h3=\":443\";ma=900;"
 
     
 
@@ -126,11 +127,17 @@ frontend onlypanel_in
 backend to_panel_only
     server to_panel_only abns@onlypanel_in send-proxy-v2
 
+backend to_http_in_h2
+    server to_http_in_h2 abns@http_in_h2 send-proxy-v2 
+
 frontend quic-in
+  bind abns@http_in_h2 accept-proxy allow-0rtt
+
   {% for port in (["443"] + hconfigs['tls_ports'].split(',')) | unique %}
     bind quic4@:{{port}},quic6@:{{port}} v4v6 tfo ssl crt /opt/hiddify-manager/ssl/ alpn h3    
     {%endfor%}
   mode http
+    http-response set-header alt-svc "h3=\":443\";ma=900;"
     use_backend generate_204 if { path -i /{{hconfigs['proxy_path_client']}}/generate_204 }
     use_backend generate_204 if { path -i /{{hconfigs['proxy_path']}}/generate_204 }
 
@@ -151,15 +158,14 @@ frontend http-https-in
     {%endfor%}
     bind abns@https_in_ssl tfo accept-proxy ssl crt /opt/hiddify-manager/ssl/ alpn h2,http/1.1,h3 allow-0rtt
     acl h2 ssl_fc_alpn -i h2
-    #acl h2 ssl_fc_npn -i h2
-    
+    acl h2 ssl_fc_alpn -i h3
 
-    
     http-response set-header alt-svc "h3=\":443\";ma=900;"
-    tcp-request inspect-delay 5s
-    tcp-request content accept if HTTP
-
     
+    tcp-request inspect-delay 5s
+    tcp-request content accept if HTTP h2
+
+    use_backend to_http_in_h2 if h2
 
     {% include '/opt/hiddify-manager/haproxy/common_h1h2rules4http.lst.pj2' %}
 
@@ -192,7 +198,6 @@ frontend http-https-in
     use_backend trojanhs if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_xhttp'] }} }
     {%endif%}
 
-    use_backend nginx_dispatcher_h2 if h2
 
 
     
