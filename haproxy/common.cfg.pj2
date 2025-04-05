@@ -132,25 +132,23 @@ backend to_http_in_h2
 
 frontend quic-in
   bind abns@http_in_h2 accept-proxy allow-0rtt
-
   {% for port in (["443"] + hconfigs['tls_ports'].split(',')) | unique %}
-    bind quic4@:{{port}},quic6@:{{port}} v4v6 tfo ssl crt /opt/hiddify-manager/ssl/ alpn h3    
-    {%endfor%}
+  bind quic4@:{{port}},quic6@:{{port}} v4v6 tfo ssl crt /opt/hiddify-manager/ssl/ alpn h3    
+  {%endfor%}
+
   mode http
-    http-response set-header alt-svc "h3=\":443\";ma=900;"
-    use_backend generate_204 if { path -i /{{hconfigs['proxy_path_client']}}/generate_204 }
-    use_backend generate_204 if { path -i /{{hconfigs['proxy_path']}}/generate_204 }
-
-    {% include '/opt/hiddify-manager/haproxy/common_h1h2rules4http.lst.pj2' %}
-{%if hconfigs['xhttp_enable']%}
-    use_backend vmesshs_http_h2 if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_xhttp'] }} }
-    use_backend vlesshs_http_h2 if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_xhttp'] }} }
-    #use_backend v2rayhs_http_h2 if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_xhttp'] }} }
-    use_backend trojanhs_http_h2 if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_xhttp'] }} }
-    {%endif%}
+  http-response set-header alt-svc "h3=\":443\";ma=900;"
+    
+    
+  #multimap not supported use trick
+  #use_backend %[hdr(:authority),map_dom(/opt/hiddify-manager/haproxy/maps/http_domain)]
+  #use_backend %[path,map_beg(/opt/hiddify-manager/haproxy/maps/path_h2)]
+  http-request set-var(txn.backend) req.hdr(host),map_dom(/opt/hiddify-manager/haproxy/maps/http_domain,default)
+  http-request set-var(txn.backend) path,map_beg(/opt/hiddify-manager/haproxy/maps/path_h2,nginx_dispatcher_h2) if  { var(txn.backend) -m str default }
+  use_backend %[var(txn.backend)]    
 
 
-    default_backend nginx_dispatcher_http_h2
+  default_backend nginx_dispatcher_http_h2
 
 frontend http-https-in
     {% for port in (["80"] + hconfigs['http_ports'].split(',')) | unique%}
@@ -383,3 +381,33 @@ backend trojanw_h2
 backend trojant_h2
   server trojant 127.0.0.1:2011  send-proxy-v2 tfo
 
+
+
+
+
+
+
+
+
+
+
+
+ #the singbox_grpc_dispatcher handles these things
+ backend vmessg  
+   mode http
+   timeout server 1h
+   server vmessg 127.0.0.1:2033  send-proxy-v2  tfo proto h2
+
+backend vlessg
+  mode http
+  timeout server 1h
+   server vlessg 127.0.0.1:2023   send-proxy-v2  tfo proto h2
+
+# backend v2rayg
+#   timeout server 1h
+#   server v2rayg 127.0.0.1:2053  send-proxy-v2  tfo  proto h2
+
+backend trojang
+   mode http
+   timeout server 1h
+   server trojang 127.0.0.1:2013  send-proxy-v2  tfo  proto h2

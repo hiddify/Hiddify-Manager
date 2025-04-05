@@ -2,6 +2,7 @@
 /{{hconfigs['proxy_path_admin']}}/ hiddifypanel
 /{{hconfigs['proxy_path']}}/ hiddifypanel
 
+
 {%if hconfigs['tcp_enable']%}
 /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }} vmesst_h2
 /{{ hconfigs['path_vless'] }}{{ hconfigs['path_tcp'] }} vlesst_h2
@@ -11,10 +12,10 @@
   
 
 {%if hconfigs['xhttp_enable']%}
-/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_xhttp'] }} vmesshs_h2
-/{{ hconfigs['path_vless'] }}{{ hconfigs['path_xhttp'] }} vlesshs_h2
-#/{{ hconfigs['path_ss'] }}{{ hconfigs['path_xhttp'] }} v2rayhs_h2
-/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_xhttp'] }} trojanhs_h2
+/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_xhttp'] }} vmesshs_http_h2
+/{{ hconfigs['path_vless'] }}{{ hconfigs['path_xhttp'] }} vlesshs_http_h2
+#/{{ hconfigs['path_ss'] }}{{ hconfigs['path_xhttp'] }} v2rayhs_http_h2
+/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_xhttp'] }} trojanhs_http_h2
 {%endif%}
 
 {%if hconfigs['grpc_enable']%}
@@ -27,3 +28,9 @@
 #/{{ hconfigs['path_ss'] }}{{ hconfigs['path_grpc'] }} v2rayg
 /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_grpc'] }} trojang
 {%endif%}
+
+
+
+
+/{{hconfigs['proxy_path_client']}}/generate_204 generate_204
+/{{hconfigs['proxy_path']}}/generate_204 generate_204
