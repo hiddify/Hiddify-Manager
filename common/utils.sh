@@ -439,6 +439,16 @@ function show_progress_window() {
     return $exit_code
 }
 
+function show_progress_window310() {
+    disable_ansii_modes
+    activate_python_venv310
+    pip install cli-progress
+    python -m cli_progress --title "Hiddify Manager" $@
+    exit_code=$?
+    disable_ansii_modes
+    return $exit_code
+}
+
 function log_dir() {
     LOG_DIR="/opt/hiddify-manager/log/system"
     mkdir -p "$LOG_DIR" >/dev/null 2>&1

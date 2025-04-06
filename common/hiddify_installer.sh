@@ -55,9 +55,7 @@ function install_panel() {
         echo "cd /opt/hiddify-manager/" >>~/.bashrc
     fi
 
-    if [ "$USE_VENV" = "true" ]; then
-        activate_python_venv
-    fi
+    
 
     install_package jq wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config
     update_panel "$package_mode" "$force"
@@ -85,7 +83,7 @@ function update_panel() {
             panel_path=$(hiddifypanel_path)
             disable_panel_services
             if [ "$USE_VENV" = "true" ]; then
-                activate_python_venv
+                activate_python_venv310
                 uv pip install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel@${package_mode}
                 uv pip install git+https://github.com/hiddify/HiddifyPanel@${package_mode}
             else 
@@ -133,7 +131,8 @@ function update_panel() {
                 return 0
             fi
         ;;
-        release) #TODO release should change to 3.13
+        release) 
+            #TODO release should change to 3.13
             activate_python_venv310
             # error "you can not install release version 8 using this script"
             # exit 1
@@ -326,7 +325,11 @@ if [[ " $@ " == *" --no-gui "* || "$(get_installed_panel_version) " == "8."* ]];
     error_code=$?
     remove_lock $NAME
 else
-    show_progress_window --subtitle "Installer" --log $LOG_FILE $0 $@ --no-gui --no-log
+    if [[ " $@ " == *" release "*  ]];then
+        show_progress_window310 --subtitle "Installer" --log $LOG_FILE $0 $@ --no-gui --no-log
+    else 
+        show_progress_window --subtitle "Installer" --log $LOG_FILE $0 $@ --no-gui --no-log
+    fi
     error_code=$?
     if [[ $error_code != "0" ]]; then
         # echo less -r -P"Installation Failed! Press q to exit" +G "$log_file"
