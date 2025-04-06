@@ -85,9 +85,11 @@ function update_panel() {
             panel_path=$(hiddifypanel_path)
             disable_panel_services
             if [ "$USE_VENV" = "true" ]; then
-                /opt/hiddify-manager/.venv/bin/python -m pip install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel@${package_mode}
-                /opt/hiddify-manager/.venv/bin/python -m pip install git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+                activate_python_venv
+                uv pip install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+                uv pip install git+https://github.com/hiddify/HiddifyPanel@${package_mode}
             else 
+               install_python310
                pip3 install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel@${package_mode}
                pip3 install git+https://github.com/hiddify/HiddifyPanel@${package_mode}
             fi
@@ -107,8 +109,8 @@ function update_panel() {
                 panel_path=$(hiddifypanel_path)
                 disable_panel_services
                 
-                /opt/hiddify-manager/.venv/bin/python -m pip install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel
-                /opt/hiddify-manager/.venv/bin/python -m pip install git+https://github.com/hiddify/HiddifyPanel
+                uv pip install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel
+                uv pip install git+https://github.com/hiddify/HiddifyPanel
                 echo $latest >$panel_path/VERSION
                 sed -i "s/__version__='[^']*'/__version__='$latest'/" $panel_path/VERSION.py
                 update_progress "Updated..." "Hiddify Panel to $latest" 50
@@ -126,13 +128,13 @@ function update_panel() {
                 update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
                 # pip install -U --pre hiddifypanel==$latest
                 disable_panel_services
-                /opt/hiddify-manager/.venv/bin/python -m pip install -U --pre hiddifypanel
+                uv pip install -U --pre hiddifypanel
                 update_progress "Updated..." "Hiddify Panel to $latest" 50
                 return 0
             fi
         ;;
-        release)
-            activate_python_venv
+        release) #TODO release should change to 3.13
+            activate_python_venv310
             # error "you can not install release version 8 using this script"
             # exit 1
             latest=$(get_release_version hiddify-panel)
@@ -144,7 +146,7 @@ function update_panel() {
                 update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
                 # pip3 install -U hiddifypanel==$latest
                 disable_panel_services
-                /opt/hiddify-manager/.venv/bin/python -m pip install -U hiddifypanel
+                pip install -U hiddifypanel
                 update_progress "Updated..." "Hiddify Panel to $latest" 50
                 return 0
             fi
@@ -308,9 +310,6 @@ if [[ " $@ " == *" custom "* ]];then
     exit $?
 fi
 
-check_venv_compatibility "$@"
-install_python
-pip3 install --upgrade pip
 
 
 

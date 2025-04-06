@@ -20,7 +20,7 @@ apply:
 		rm -rf /opt/hiddify-manager/hiddify-panel/src/; \
 		export HIDDIFY_DEBUG=1 && \
 		export HIDDIFY_PANLE_SOURCE_DIR="$(PWD)/hiddify-panel/src/" &&\
-		(cd /opt/hiddify-manager/hiddify-panel && bash install.sh && bash ../common/replace_variables.sh); 	
+		(cd /opt/hiddify-manager/hiddify-panel && bash install.sh && bash run.sh && bash ../common/replace_variables.sh); 	
 	fi
 .PHONY: apply
 build: apply
@@ -38,8 +38,8 @@ build: apply
 release:
 ifeq ($(TAG),)
 	@echo "previous tag was $$(git describe --tags $$(git rev-list --tags --max-count=1))"
-	@echo "release last version $$(lastversion Hiddify-Manager) "
-	@echo "beta last version $$(lastversion --pre Hiddify-Manager) "
+	#@echo "release last version $$(lastversion Hiddify-Manager) "
+	#@echo "beta last version $$(lastversion --pre Hiddify-Manager) "
 	@echo "WARNING: This operation will create s version tag and push to github"
 	@read -p "Version? (provide the next x.y.z semver) : " TAG
 endif

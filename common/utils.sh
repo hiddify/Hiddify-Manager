@@ -1,3 +1,5 @@
+export venv_path="/opt/hiddify-manager/.venv313"
+
 function get_commit_version() {
     json_data=$(curl -sL -H "Accept: application/json" "https://github.com/hiddify/$1/commits/main.atom")
     latest_commit_date=$(echo "$json_data" | jq -r '.payload.commitGroups[0].commits[0].committedDate')
@@ -34,7 +36,7 @@ function get_release_version() {
 
 function hiddifypanel_path() {
     activate_python_venv
-    /opt/hiddify-manager/.venv/bin/python -c "import os,hiddifypanel;print(os.path.dirname(hiddifypanel.__file__),end='')" 2>&1 || echo "panel is not installed yet."
+    python -c "import os,hiddifypanel;print(os.path.dirname(hiddifypanel.__file__),end='')" 2>&1 || echo "panel is not installed yet."
 }
 function get_installed_panel_version() {
     activate_python_venv
@@ -115,7 +117,7 @@ function is_installed_pypi_package() {
     activate_python_venv
     package_name="$1"
 
-    if pip list --format=freeze --disable-pip-version-check | grep -E "^$package_name" >/dev/null; then
+    if uv pip list --format=freeze | grep -E "^$package_name" >/dev/null; then
         return 0
     else
         echo "Package $package_name is not installed."
@@ -127,7 +129,7 @@ function install_pypi_package() {
     activate_python_venv
     for package in $@; do
         if ! is_installed_pypi_package $package; then
-            pip install -U $package
+            uv pip install -U $package
         fi
     done
 }
@@ -221,6 +223,62 @@ function install_python() {
         # echo "USE_VENV variable is not set or is empty. Exiting..."
         export USE_VENV=true
     fi
+    
+    # region install python3.10 system-widely
+    rm -rf /usr/lib/python3/dist-packages/blinker*
+    
+
+    # endregion
+
+    # region make virtual env
+    # Some third-party packages are not compatible with python3.13 eg. grpcio-tools
+    # Therefore we still use python3.10 
+    # Check if USE_VENV doesn't exist or is true
+    if [ "${USE_VENV}" = true ]; then
+        activate_python_venv
+    fi
+    # endregion
+
+}
+function create_python_venv() {
+    if ! is_installed ${venv_path}/bin/python3.13 ;then
+        rm -rf ${venv_path}
+        if ! is_installed uv ;then
+            curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR=/usr/bin/ sh -s -- --no-modify-path
+        fi
+        uv venv ${venv_path} --python=3.13
+    fi
+}
+function activate_python_venv() {
+    create_python_venv
+    if [ -z "$VIRTUAL_ENV" ]; then
+        source "${venv_path}/bin/activate"
+    fi
+}
+function create_python_venv310() {
+    venv_path="/opt/hiddify-manager/.venv/"
+    if [ ! -d "$venv_path" ]; then
+        install_python310
+        install_package python3.10-venv
+        python3.10 -m venv "$venv_path"
+    fi
+}
+function activate_python_venv310() {
+    
+    create_python_venv310
+    venv_path="/opt/hiddify-manager/.venv"
+    if [ -z "$VIRTUAL_ENV" ]; then
+        #echo "Activating virtual environment..."
+        source "$venv_path/bin/activate"
+    fi
+}
+
+function install_python310() {
+    # Check if USE_VENV is not set or is empty
+    if [ -z "${USE_VENV}" ]; then
+        # echo "USE_VENV variable is not set or is empty. Exiting..."
+        export USE_VENV=true
+    fi
     # region install python3.10 system-widely
     rm -rf /usr/lib/python3/dist-packages/blinker*
     if ! is_installed /opt/hiddify-manager/.venv/bin/python3.10 ;then
@@ -251,22 +309,6 @@ function install_python() {
     # endregion
 
 }
-function create_python_venv() {
-    venv_path="/opt/hiddify-manager/.venv/"
-    if [ ! -d "$venv_path" ]; then
-        install_package python3.10-venv
-        python3.10 -m venv "$venv_path"
-    fi
-}
-function activate_python_venv() {
-    create_python_venv
-    venv_path="/opt/hiddify-manager/.venv"
-    if [ -z "$VIRTUAL_ENV" ]; then
-        #echo "Activating virtual environment..."
-        source "$venv_path/bin/activate"
-    fi
-}
-
 function check_hiddify_panel() {
     if [ "$MODE" != "apply_users" ]; then
         reload_all_configs >/dev/null
@@ -390,8 +432,8 @@ function save_firewall() {
 function show_progress_window() {
     disable_ansii_modes
     activate_python_venv
-    install_pypi_package cli_progress
-    /opt/hiddify-manager/.venv/bin/python -m cli_progress --title "Hiddify Manager" $@
+    install_pypi_package cli-progress
+    python -m cli_progress --title "Hiddify Manager" $@
     exit_code=$?
     disable_ansii_modes
     return $exit_code
@@ -446,7 +488,7 @@ function hconfig() {
 #TODO: check functionality when not using the venv
 function hiddify-panel-run() {
     local user=$(whoami)
-    local base_command="cd /opt/hiddify-manager/hiddify-panel/; source /opt/hiddify-manager/.venv/bin/activate && $@"
+    local base_command="cd /opt/hiddify-manager/hiddify-panel/; source ${venv_path}/bin/activate && $@"
     local command=""
 
     if [ "$user" == "hiddify-panel" ]; then
