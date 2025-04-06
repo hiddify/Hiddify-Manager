@@ -256,7 +256,6 @@ function create_python_venv() {
     if [ "${USE_VENV}" = "310" ]; then
         venv_path="/opt/hiddify-manager/.venv/"
         if [ ! -d "$venv_path" ]; then
-            install_python310
             install_package python3.10-venv
             python3.10 -m venv "$venv_path"
         fi
