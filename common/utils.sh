@@ -263,9 +263,9 @@ function create_python_venv() {
         if ! is_installed ${venv_path}/bin/python3.13 ;then
             rm -rf ${venv_path}
             if ! is_installed uv ;then
-                curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR=/usr/bin/ sh -s -- --no-modify-path
+                curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR=/usr/bin/ UV_NO_MODIFY_PATH=1 UV_PYTHON_INSTALL_DIR=/usr/local/share/uv sh -s --
             fi
-            uv venv ${venv_path} --python=3.13
+            UV_PYTHON_INSTALL_DIR=/usr/local/share/uv uv venv ${venv_path} --python=3.13
         fi
     fi
     
