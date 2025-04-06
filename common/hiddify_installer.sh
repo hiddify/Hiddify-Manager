@@ -82,10 +82,15 @@ function update_panel() {
             update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
             panel_path=$(hiddifypanel_path)
             disable_panel_services
-            if [ "$USE_VENV" = "true" ]; then
-                activate_python_venv310
-                uv pip install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel@${package_mode}
-                uv pip install git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+            if [ ! -z "$USE_VENV" ]; then
+                activate_python_venv
+                if [ "$USE_VENV" == "310" ];then
+                    pip install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+                    pip install git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+                else
+                    uv pip install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+                    uv pip install git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+                fi
             else 
                install_python310
                pip3 install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel@${package_mode}
@@ -133,7 +138,7 @@ function update_panel() {
         ;;
         release) 
             #TODO release should change to 3.13
-            activate_python_venv310
+            activate_python_venv
             # error "you can not install release version 8 using this script"
             # exit 1
             latest=$(get_release_version hiddify-panel)
@@ -310,7 +315,10 @@ if [[ " $@ " == *" custom "* ]];then
 fi
 
 
-
+export USE_VENV=310
+if [[ " $@ " == *" dev "* ||  " $@ " == *" develop "* ]];then
+    export USE_VENV=313
+fi
 
 # Run the main function and log the output
 if [[ " $@ " == *" --no-gui "* || "$(get_installed_panel_version) " == "8."* ]]; then
@@ -325,11 +333,9 @@ if [[ " $@ " == *" --no-gui "* || "$(get_installed_panel_version) " == "8."* ]];
     error_code=$?
     remove_lock $NAME
 else
-    if [[ " $@ " == *" release "*  ]];then
-        show_progress_window310 --subtitle "Installer" --log $LOG_FILE $0 $@ --no-gui --no-log
-    else 
-        show_progress_window --subtitle "Installer" --log $LOG_FILE $0 $@ --no-gui --no-log
-    fi
+    
+    show_progress_window --subtitle "Installer" --log $LOG_FILE $0 $@ --no-gui --no-log
+    
     error_code=$?
     if [[ $error_code != "0" ]]; then
         # echo less -r -P"Installation Failed! Press q to exit" +G "$log_file"
