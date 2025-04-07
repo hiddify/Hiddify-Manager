@@ -67,7 +67,7 @@ function install_panel() {
     if is_installed hiddifypanel && [[ -z "$package_mode" || ($package_mode == "develop" || $package_mode == "beta" || $package_mode == "release") ]]; then
         hiddify-panel-cli set-setting -k package_mode -v $1
     fi
-    bash /opt/hiddify-manager/apply_configs.sh
+    bash /opt/hiddify-manager/apply_configs.sh --no-gui --no-log
 }
 
 function update_panel() {
