@@ -33,7 +33,7 @@ function main() {
         PROGRESS_ACTION="Applying..."
     fi
     if [ "$HIDDIFY_DEBUG" = "1" ]; then
-        export USE_VENV=true
+        export USE_VENV=313
     fi
     install_python
     activate_python_venv

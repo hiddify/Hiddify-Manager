@@ -1,5 +1,11 @@
 {
     "python.analysis.extraPaths": [
         "./hiddify-panel/src"
-    ]
+    ],
+    
+    "python.envFile": "/opt/hiddify-manager/.venv313",
+    "autopep8.args": [
+        "--max-line-length", "200",
+    ],
+
 }

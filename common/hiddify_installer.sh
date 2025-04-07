@@ -55,9 +55,7 @@ function install_panel() {
         echo "cd /opt/hiddify-manager/" >>~/.bashrc
     fi
 
-    if [ "$USE_VENV" = "true" ]; then
-        activate_python_venv
-    fi
+    
 
     install_package jq wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config
     update_panel "$package_mode" "$force"
@@ -84,10 +82,17 @@ function update_panel() {
             update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
             panel_path=$(hiddifypanel_path)
             disable_panel_services
-            if [ "$USE_VENV" = "true" ]; then
-                /opt/hiddify-manager/.venv/bin/python -m pip install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel@${package_mode}
-                /opt/hiddify-manager/.venv/bin/python -m pip install git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+            if [ ! -z "$USE_VENV" ]; then
+                activate_python_venv
+                if [ "$USE_VENV" == "310" ];then
+                    pip install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+                    pip install git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+                else
+                    uv pip install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+                    uv pip install git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+                fi
             else 
+               install_python310
                pip3 install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel@${package_mode}
                pip3 install git+https://github.com/hiddify/HiddifyPanel@${package_mode}
             fi
@@ -104,12 +109,14 @@ function update_panel() {
             fi
             if [[ $force == "true" || "$latest" != "$current_panel_version" ]]; then
                 update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
-                panel_path=$(hiddifypanel_path)
+               
                 disable_panel_services
                 
-                /opt/hiddify-manager/.venv/bin/python -m pip install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel
-                /opt/hiddify-manager/.venv/bin/python -m pip install git+https://github.com/hiddify/HiddifyPanel
-                echo $latest >$panel_path/VERSION
+                uv pip install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel
+                uv pip install git+https://github.com/hiddify/HiddifyPanel
+                panel_path=$(hiddifypanel_path)
+                echo "setting $latest in $panel_path/VERSION"
+                echo $latest > $panel_path/VERSION
                 sed -i "s/__version__='[^']*'/__version__='$latest'/" $panel_path/VERSION.py
                 update_progress "Updated..." "Hiddify Panel to $latest" 50
                 return 0
@@ -126,12 +133,13 @@ function update_panel() {
                 update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
                 # pip install -U --pre hiddifypanel==$latest
                 disable_panel_services
-                /opt/hiddify-manager/.venv/bin/python -m pip install -U --pre hiddifypanel
+                uv pip install -U --pre hiddifypanel
                 update_progress "Updated..." "Hiddify Panel to $latest" 50
                 return 0
             fi
         ;;
-        release)
+        release) 
+            #TODO release should change to 3.13
             activate_python_venv
             # error "you can not install release version 8 using this script"
             # exit 1
@@ -144,7 +152,7 @@ function update_panel() {
                 update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
                 # pip3 install -U hiddifypanel==$latest
                 disable_panel_services
-                /opt/hiddify-manager/.venv/bin/python -m pip install -U hiddifypanel
+                pip install -U hiddifypanel
                 update_progress "Updated..." "Hiddify Panel to $latest" 50
                 return 0
             fi
@@ -308,11 +316,11 @@ if [[ " $@ " == *" custom "* ]];then
     exit $?
 fi
 
-check_venv_compatibility "$@"
-install_python
-pip3 install --upgrade pip
 
-
+export USE_VENV=310
+if [[ " $@ " == *" dev "* ||  " $@ " == *" develop "* ]];then
+    export USE_VENV=313
+fi
 
 # Run the main function and log the output
 if [[ " $@ " == *" --no-gui "* || "$(get_installed_panel_version) " == "8."* ]]; then
@@ -327,7 +335,9 @@ if [[ " $@ " == *" --no-gui "* || "$(get_installed_panel_version) " == "8."* ]];
     error_code=$?
     remove_lock $NAME
 else
+    
     show_progress_window --subtitle "Installer" --log $LOG_FILE $0 $@ --no-gui --no-log
+    
     error_code=$?
     if [[ $error_code != "0" ]]; then
         # echo less -r -P"Installation Failed! Press q to exit" +G "$log_file"
