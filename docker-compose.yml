@@ -26,7 +26,7 @@ services:
       REDIS_URI_MAIN: 'redis://:REDIS_STRONG_PASS@redis:6379/0'
       REDIS_URI_SSH: 'redis://:REDIS_STRONG_PASS@redis:6379/1'
       SQLALCHEMY_DATABASE_URI: 'mysql+mysqldb://hiddifypanel:MYSQL_STRONG_PASS@mariadb/hiddifypanel?charset=utf8mb4'
-    network_mode: host
+    #network_mode: host
     depends_on: 
       - mariadb
       - redis

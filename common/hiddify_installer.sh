@@ -78,6 +78,11 @@ function update_panel() {
     # Set panel_update to 1 if an update is performed
     
     case "$package_mode" in
+        docker)
+            activate_python_venv
+            # uv pip install -U --no-deps --force-reinstall hiddify-panel/src
+            uv pip install /opt/hiddify-manager/hiddify-panel/src
+        ;;
         v*)
             update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
             panel_path=$(hiddifypanel_path)
@@ -173,6 +178,9 @@ function update_config() {
     local current_config_version=$(get_installed_config_version)
     
     case "$package_mode" in
+        docker)
+            bash install.sh --no-gui --no-log
+        ;;
         v*)
             update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
             #update_from_github "hiddify-manager.tar.gz" "https://github.com/hiddify/Hiddify-Manager/archive/refs/tags/${package_mode}.tar.gz" $latest
@@ -318,7 +326,7 @@ fi
 
 
 export USE_VENV=310
-if [[ " $@ " == *" dev "* ||  " $@ " == *" develop "* ]];then
+if [[ " $@ " == *" dev "* || " $@ " == *" docker "* || " $@ " == *" develop "* ]];then
     export USE_VENV=313
 fi
 
