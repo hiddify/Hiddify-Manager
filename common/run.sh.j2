@@ -1,6 +1,6 @@
 source /opt/hiddify-manager/common/utils.sh
 
-if [ "${MODE}" != "install-docker" ];then
+#if [ "${MODE}" != "install-docker" ];then
 
 # open essential ports
 allow_port "tcp" 22
@@ -101,7 +101,7 @@ ip6tables -P INPUT ACCEPT
 save_firewall
 
 #add2iptables "INPUT -p tcp --dport 9000 -j DROP"
-fi
+#fi
 {% if hconfigs['auto_update'] %}
 echo "0 3 * * * root $(pwd)/../update.sh --no-gui --no-log" >/etc/cron.d/hiddify_auto_update
 service cron reload

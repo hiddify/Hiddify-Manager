@@ -20,24 +20,17 @@ if ! grep -Fxq "source /opt/hiddify-manager/.venv313/bin/activate" "/home/hiddif
 fi
 
 
-# rm -rf /opt/hiddify-manager/hiddify-panel/src
-# mkdir -p  /opt/hiddify-manager/hiddify-panel/src
-# git clone --depth 1 --branch main https://github.com/hiddify/hiddifypanel.git  /opt/hiddify-manager/hiddify-panel/src
-# HIDDIFY_PANLE_SOURCE_DIR=/opt/hiddify-manager/hiddify-panel/src
-
-# # install/build hiddifypanel package
-# echo "NOTICE: building hiddifypanel package from source..."
-# echo "NOTICE: the source dir $HIDDIFY_PANLE_SOURCE_DIR"
-# /opt/hiddify-manager/.venv/bin/pip install -e "$HIDDIFY_PANLE_SOURCE_DIR"
-
-
-ln -sf $(which uwsgi) /usr/local/bin/uwsgi >/dev/null 2>&1
 ln -sf $(pwd)/hiddify-panel.service /etc/systemd/system/hiddify-panel.service
 systemctl enable hiddify-panel.service
 
 ln -sf $(pwd)/hiddify-panel-background-tasks.service /etc/systemd/system/hiddify-panel-background-tasks.service
 systemctl enable hiddify-panel-background-tasks.service
 
+if [ -n "$HIDDIFY_PANLE_SOURCE_DIR" ]; then
+    echo "NOTICE: building hiddifypanel package from source..."
+    echo "NOTICE: the source dir $HIDDIFY_PANLE_SOURCE_DIR"
+    uv pip install -e "$HIDDIFY_PANLE_SOURCE_DIR"
+fi
 
 systemctl daemon-reload >/dev/null 2>&1
 
