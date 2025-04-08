@@ -57,7 +57,7 @@ function install_panel() {
 
     
 
-    install_package jq wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config git
+    install_package jq wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config git apt-utils curl sudo systemd xxd lsof gawk  iproute2
     update_panel "$package_mode" "$force"
     panel_update=$?
     update_config "$package_mode" "$force"

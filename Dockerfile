@@ -9,17 +9,13 @@ ENV DEBIAN_FRONTEND noninteractive
 USER root
 WORKDIR /opt/hiddify-manager/
 
-RUN apt-get update && apt-get install -y apt-utils curl sudo systemd xxd lsof gawk  iproute2  
-
 COPY . .
 
-RUN mkdir -p /hiddify-data/ssl/ && \
+RUN cp other/docker/* /usr/bin/ && \
+    mkdir -p /hiddify-data/ssl/ && \
     rm -rf /opt/hiddify-manager/ssl && \
     ln -sf /hiddify-data/ssl /opt/hiddify-manager/ssl && \
-    bash common/hiddify_installer.sh docker --no-gui
-    #&&\
-    #rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
-
-COPY other/docker/ /usr/bin/
+    bash common/hiddify_installer.sh docker --no-gui &&\
+    rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
 
 ENTRYPOINT ["./docker-init.sh"]
