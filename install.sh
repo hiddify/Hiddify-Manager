@@ -3,7 +3,6 @@ cd $(dirname -- "$0")
 source ./common/utils.sh
 NAME="0-install"
 LOG_FILE="$(log_file $NAME)"
-
 # Fix the installation directory
 if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-server/" ]; then
     mv /opt/hiddify-server /opt/hiddify-manager
@@ -164,18 +163,17 @@ function set_config_from_hpanel() {
 }
 
 function install_run() {
-    echo "==========================================================="
-    if [ "$MODE" == "install-docker" ];then
-            runsh install.sh $1
-            return
-    elif [ "$DO_NOT_INSTALL" != "true" ];then
+    echo "======================$1====================================={"
+   if [ "$DO_NOT_INSTALL" != "true" ];then
             runsh install.sh $@
-        if [ "$MODE" != "apply_users" ]; then
+        if [ "$MODE" != "apply_users" ] && [ "$MODE" != "install-docker"  ]; then
             systemctl daemon-reload
         fi
     fi
-    runsh run.sh $@
-    echo "==========================================================="
+    if [ "$DO_NOT_RUN" != "true" ];then
+         runsh run.sh $@
+    fi   
+    echo "}========================$1==================================="
 }
 
 function runsh() {

@@ -26,12 +26,11 @@ redispassword=$(< /dev/urandom tr -dc 'a-zA-Z0-9' | head -c49; echo)
 
 # Update docker-compose.yml with the specified tag and passwords
 sed -i "s/hiddify-manager:latest/hiddify-manager:$TAG/g" docker-compose.yml
-sed -i "s/REDIS_STRONG_PASS/$redispassword/g" docker-compose.yml
-sed -i "s/MYSQL_STRONG_PASS/$mysqlpassword/g" docker-compose.yml
+echo "REDIS_PASSWORD=$redispassword"> docker.env
+echo "MYSQL_PASSWORD=$mysqlpassword">> docker.env
 
 # Start the containers using Docker Compose
-docker compose pull
-docker compose up -d
+docker compose up -d --pull
 
 # Follow the logs from the containers
 docker compose logs -f

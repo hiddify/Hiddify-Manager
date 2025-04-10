@@ -1,6 +1,6 @@
 source ../common/utils.sh
 activate_python_venv
-install_package wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config ssh-client
+install_package wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config ssh
 
 useradd -m hiddify-panel -s /bin/bash >/dev/null 2>&1
 usermod -aG hiddify-common hiddify-panel

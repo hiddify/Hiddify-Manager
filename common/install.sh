@@ -1,8 +1,7 @@
 #!/bin/bash
 source utils.sh
-
 remove_package apache2 needrestart needrestart-session
-install_package apt-transport-https at ca-certificates cron curl dnsutils git gnupg2 gnupg-agent iptables jq less libssl-dev locales lsb-release lsof qrencode software-properties-common ubuntu-keyring wget whiptail build-essential
+install_package apt-transport-https apt-utils at build-essential ca-certificates cron curl default-libmysqlclient-dev dnsutils gawk git gnupg-agent gnupg2 iproute2 iptables jq less libev-dev libevdev2 libssl-dev locales lsb-release lsof pkg-config qrencode software-properties-common sudo ubuntu-keyring wget whiptail
 activate_python_venv
 #python -m pip config set global.index-url https://pypi.org/simple > /dev/null
 # remove_package resolvconf

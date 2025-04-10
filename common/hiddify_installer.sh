@@ -57,7 +57,10 @@ function install_panel() {
 
     
 
-    install_package jq wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config git apt-utils curl sudo systemd xxd lsof gawk  iproute2
+    install_package curl libev-dev libevdev2 default-libmysqlclient-dev build-essential git ca-certificates pkg-config   #needed for installing uv and hiddifypanel
+
+    
+    
     update_panel "$package_mode" "$force"
     panel_update=$?
     update_config "$package_mode" "$force"
@@ -81,7 +84,7 @@ function update_panel() {
         docker)
             activate_python_venv
             # uv pip install -U --no-deps --force-reinstall hiddify-panel/src
-            uv pip install /opt/hiddify-manager/hiddify-panel/src
+            uv pip install /opt/hiddify-manager/hiddify-panel/src 
         ;;
         v*)
             update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
@@ -179,7 +182,9 @@ function update_config() {
     
     case "$package_mode" in
         docker)
-            bash install.sh --no-gui --no-log
+            echo "installing in docker mode"
+            DO_NOT_RUN=true bash /opt/hiddify-manager/install.sh install-docker --no-gui --no-log
+            echo "installing in docker mode finishs"
         ;;
         v*)
             update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
@@ -337,10 +342,12 @@ if [[ " $@ " == *" --no-gui "* || "$(get_installed_panel_version) " == "8."* ]];
     if [[ " $@ " == *" --no-log "* ]]; then
         set -- "${@/--no-log/}"
         install_panel "$@"
+        error_code=$?
     else
         install_panel "$@" |& tee $LOG_FILE
+        error_code="${PIPESTATUS[0]}"
     fi
-    error_code=$?
+    
     remove_lock $NAME
 else
     
