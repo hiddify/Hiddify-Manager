@@ -57,7 +57,7 @@ function install_panel() {
 
     
 
-    install_package curl libev-dev libevdev2 default-libmysqlclient-dev build-essential git ca-certificates pkg-config   #needed for installing uv and hiddifypanel
+    install_package curl libev-dev libevdev2 default-libmysqlclient-dev build-essential git ca-certificates pkg-config   jq wireguard  pkg-config #needed for installing uv and hiddifypanel
 
     
     
