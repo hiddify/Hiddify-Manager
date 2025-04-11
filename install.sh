@@ -105,7 +105,7 @@ function main() {
         fi
 
         update_progress "${PROGRESS_ACTION}" "Xray" 75
-        if [[ $(hconfig "core_type") == "xray" ]];then
+        if [[ $(hconfig "core_type") == "xray" ||  "$MODE" == "install-docker" ]];then
             install_run xray 1 &
         else
             install_run xray 0 &
