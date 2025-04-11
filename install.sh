@@ -53,12 +53,14 @@ function main() {
     fi
     
     # source common/set_config_from_hpanel.sh
-    update_progress "HiddifyPanel" "Reading Configs from Panel..." 5
-    set_config_from_hpanel
-    
-    update_progress "Applying Configs" "..." 8
-    
-    bash common/replace_variables.sh
+    if [ "$DO_NOT_RUN" != "true" ];then
+      update_progress "HiddifyPanel" "Reading Configs from Panel..." 5
+      set_config_from_hpanel
+
+      update_progress "Applying Configs" "..." 8
+
+      bash common/replace_variables.sh
+    fi
     
     if [ "$MODE" != "apply_users" ]; then
         bash ./other/deprecated/remove_deprecated.sh

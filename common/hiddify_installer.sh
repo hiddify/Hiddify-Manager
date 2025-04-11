@@ -245,31 +245,34 @@ function post_update_tasks() {
         echo "---------------------Finished!------------------------"
     fi
     remove_lock $NAME
-    if [[ $panel_update == 0 ]]; then
-        systemctl kill -s SIGTERM hiddify-panel
-    fi
-    systemctl start hiddify-panel
-    
-    
-    cd /opt/hiddify-manager/hiddify-panel
-    if [ "$CREATE_EASYSETUP_LINK" == "true" ];then
-        hiddify-panel-cli set-setting --key create_easysetup_link --val True
-    fi
-    
-    case "$package_mode" in
-        release|beta)
-            hiddify-panel-cli set-setting --key package_mode --val $package_mode
-        ;;
-        dev|develop)
-            hiddify-panel-cli set-setting --key package_mode --val develop
-        ;;
-        *)
-            hiddify-panel-cli set-setting --key auto_update --val False
-        ;;
-    esac
-    
-    if [[ $panel_update == 0 && $config_update != 0 ]]; then
-        bash /opt/hiddify-manager/apply_configs.sh --no-gui --no-log
+
+    if [ "$package_mode" != "docker" ];then
+      if [[ $panel_update == 0 ]]; then
+              systemctl kill -s SIGTERM hiddify-panel
+      fi
+
+      systemctl start hiddify-panel
+
+      cd /opt/hiddify-manager/hiddify-panel
+      if [ "$CREATE_EASYSETUP_LINK" == "true" ];then
+          hiddify-panel-cli set-setting --key create_easysetup_link --val True
+      fi
+
+      case "$package_mode" in
+          release|beta)
+              hiddify-panel-cli set-setting --key package_mode --val $package_mode
+          ;;
+          dev|develop)
+              hiddify-panel-cli set-setting --key package_mode --val develop
+          ;;
+          *)
+              hiddify-panel-cli set-setting --key auto_update --val False
+          ;;
+      esac
+
+      if [[ $panel_update == 0 && $config_update != 0 ]]; then
+          bash /opt/hiddify-manager/apply_configs.sh --no-gui --no-log
+      fi
     fi
 }
 
