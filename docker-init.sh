@@ -33,6 +33,14 @@ fi
 
 cd $(dirname -- "$0")
 
+# Check systemctl is setup correctly for docker.
+systemctl is-active --quiet hiddify-panel
+if [ $? -ne 0 ]; then
+  echo "systemctl returned non-zero exit code. Re install systemctl..."
+  cp other/docker/* /usr/bin/
+  systemctl restart hiddify-panel
+fi
+
 DO_NOT_INSTALL=true ./install.sh install-docker --no-gui $@
 ./status.sh --no-gui
 
