@@ -1,6 +1,7 @@
 #!/bin/bash
 SCRIPT_DIR="$(dirname "$BASH_SOURCE")"
-SCRIPT_DIR="/opt/hiddify-manager/common"
+
+# echo $SCRIPT_DIR && exit 1
 
 source $SCRIPT_DIR/utils.sh
 # File to store package information
