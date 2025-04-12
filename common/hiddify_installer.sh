@@ -337,7 +337,7 @@ fi
 
 export USE_VENV=310
 if [[ " $@ " == *" dev "* || " $@ " == *" docker "* || " $@ " == *" develop "* ]];then
-    export USE_VENV=310
+    export USE_VENV=313
 fi
 
 # Run the main function and log the output
