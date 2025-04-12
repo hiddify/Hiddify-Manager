@@ -8,7 +8,7 @@ activate_python_venv
 # rm /etc/resolv.conf
 # ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
-if [ "${MODE}" != "install-docker" ];then
+if [ "${MODE}" != "docker" ];then
   if [[ $COUNTRY == 'cn' ]]; then
       sudo timedatectl set-timezone Asia/Shanghai
   elif [[ $COUNTRY == 'ru' ]]; then
@@ -40,7 +40,7 @@ fi
 
 ln -sf $(pwd)/sysctl.conf /etc/sysctl.d/hiddify.conf
 
-if [ "${MODE}" != "install-docker" ];then
+if [ "${MODE}" != "docker" ];then
   sysctl --system > /dev/null
 fi
 
@@ -86,7 +86,7 @@ echo "@reboot root /opt/hiddify-manager/install.sh --no-gui --no-log >> /opt/hid
 echo "@daily root /opt/hiddify-manager/common/daily_actions.sh >> /opt/hiddify-manager/log/system/daily_actions.log 2>&1" >/etc/cron.d/hiddify_daily_memory_release
 service cron reload
 
-if [ "${MODE}" != "install-docker" ];then
+if [ "${MODE}" != "docker" ];then
   localectl set-locale LANG=C.UTF-8
 fi
 

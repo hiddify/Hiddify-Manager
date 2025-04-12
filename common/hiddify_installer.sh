@@ -187,11 +187,12 @@ function update_config() {
     case "$package_mode" in
         docker)
             echo "installing in docker mode"
-            DO_NOT_RUN=true bash /opt/hiddify-manager/install.sh install-docker --no-gui --no-log
+            DO_NOT_RUN=true bash /opt/hiddify-manager/install.sh docker --no-gui --no-log
             echo "installing in docker mode finishs"
         ;;
         v*)
             update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
+            export HIDDIFY_DISABLE_UPDATE=true
             #update_from_github "hiddify-manager.tar.gz" "https://github.com/hiddify/Hiddify-Manager/archive/refs/tags/${package_mode}.tar.gz" $latest
             update_from_github "hiddify-manager.zip" "https://github.com/hiddify/Hiddify-Manager/releases/download/${package_mode}/hiddify-manager.zip" $latest
             update_progress "Updated..." "Hiddify Config to $latest" 100
@@ -268,9 +269,6 @@ function post_update_tasks() {
           ;;
           dev|develop)
               hiddify-panel-cli set-setting --key package_mode --val develop
-          ;;
-          *)
-              hiddify-panel-cli set-setting --key auto_update --val False
           ;;
       esac
 

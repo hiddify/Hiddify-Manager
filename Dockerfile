@@ -5,7 +5,7 @@ EXPOSE 443
 ENV TERM=xterm
 ENV TZ=Etc/UTC
 ENV DEBIAN_FRONTEND=noninteractive
-
+ENV HIDDIFY_DISABLE_UPDATE=true
 USER root
 WORKDIR /opt/hiddify-manager/
 

@@ -41,7 +41,7 @@ if [ $? -ne 0 ]; then
   systemctl restart hiddify-panel
 fi
 
-DO_NOT_INSTALL=true ./install.sh install-docker --no-gui $@
+DO_NOT_INSTALL=true ./install.sh docker --no-gui $@
 ./status.sh --no-gui
 
 echo Hiddify is started!!!! in 5 seconds you will see the system logs

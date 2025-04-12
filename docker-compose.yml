@@ -53,9 +53,9 @@ services:
     image: redis:latest
     container_name: redis_container
     restart: always
-    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"]
     env_file:
       - path: ./docker.env
+    command: sh -c "redis-server --requirepass \"$REDIS_PASSWORD\""
     volumes:
       - ./docker-data/redis_data:/data                # Persistent storage for Redis data
     
