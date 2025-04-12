@@ -53,12 +53,14 @@ function main() {
     fi
     
     # source common/set_config_from_hpanel.sh
-    update_progress "HiddifyPanel" "Reading Configs from Panel..." 5
-    set_config_from_hpanel
-    
-    update_progress "Applying Configs" "..." 8
-    
-    bash common/replace_variables.sh
+    if [ "$DO_NOT_RUN" != "true" ];then
+      update_progress "HiddifyPanel" "Reading Configs from Panel..." 5
+      set_config_from_hpanel
+
+      update_progress "Applying Configs" "..." 8
+
+      bash common/replace_variables.sh
+    fi
     
     if [ "$MODE" != "apply_users" ]; then
         bash ./other/deprecated/remove_deprecated.sh
@@ -103,7 +105,7 @@ function main() {
         fi
 
         update_progress "${PROGRESS_ACTION}" "Xray" 75
-        if [[ $(hconfig "core_type") == "xray" ]];then
+        if [[ $(hconfig "core_type") == "xray" ||  "$MODE" == "install-docker" ]];then
             install_run xray 1 &
         else
             install_run xray 0 &
