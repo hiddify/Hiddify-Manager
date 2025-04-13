@@ -71,8 +71,10 @@ function main() {
     echo "---------------------Finished!------------------------"
 
 }
-
-if [[ " $@ " == *" --no-gui "* ]]; then
+if [[ "$HIDDIFY_DISABLE_UPDATE" == "1" || "$HIDDIFY_DISABLE_UPDATE" == "true" ]];then
+    error "Updating is disabled because env variable HIDDIFY_DISABLE_UPDATE == $HIDDIFY_DISABLE_UPDATE"
+    exit 9
+elif [[ " $@ " == *" --no-gui "* ]]; then
     set -- "${@/--no-gui/}"
     set_lock $NAME
     if [[ " $@ " == *" --no-log "* ]]; then

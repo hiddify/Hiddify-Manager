@@ -20,7 +20,7 @@
                 "FLASK_DEBUG": "1",
                 "HIDDIFY_CFG_PATH": "/opt/hiddify-manager/hiddify-panel/app.cfg",
             },
-            "python": "/opt/hiddify-manager/.venv/bin/python",
+            "python": "/opt/hiddify-manager/.venv313/bin/python",
             "args": [
                 "run",
                 // "--no-debugger",
@@ -46,7 +46,7 @@
                 "FLASK_DEBUG": "1",
                 "HIDDIFY_CFG_PATH": "/opt/hiddify-manager/hiddify-panel/app.cfg",
             },
-            "python": "/opt/hiddify-manager/.venv/bin/python",
+            "python": "/opt/hiddify-manager/.venv313/bin/python",
             "args": [
                 "run",
                 // "--no-debugger",

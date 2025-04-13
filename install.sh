@@ -3,7 +3,6 @@ cd $(dirname -- "$0")
 source ./common/utils.sh
 NAME="0-install"
 LOG_FILE="$(log_file $NAME)"
-
 # Fix the installation directory
 if [ ! -d "/opt/hiddify-manager/" ] && [ -d "/opt/hiddify-server/" ]; then
     mv /opt/hiddify-server /opt/hiddify-manager
@@ -33,7 +32,7 @@ function main() {
         PROGRESS_ACTION="Applying..."
     fi
     if [ "$HIDDIFY_DEBUG" = "1" ]; then
-        export USE_VENV=true
+        export USE_VENV=313
     fi
     install_python
     activate_python_venv
@@ -42,7 +41,7 @@ function main() {
         clean_files
         update_progress "${PROGRESS_ACTION}" "Common Tools and Requirements" 2
         runsh install.sh common &
-        if [ "$MODE" != "install-docker" ];then
+        if [ "$MODE" != "docker" ];then
             install_run other/redis &
             install_run other/mysql &
         fi    
@@ -54,12 +53,14 @@ function main() {
     fi
     
     # source common/set_config_from_hpanel.sh
-    update_progress "HiddifyPanel" "Reading Configs from Panel..." 5
-    set_config_from_hpanel
-    
-    update_progress "Applying Configs" "..." 8
-    
-    bash common/replace_variables.sh
+    if [ "$DO_NOT_RUN" != "true" ];then
+      update_progress "HiddifyPanel" "Reading Configs from Panel..." 5
+      set_config_from_hpanel
+
+      update_progress "Applying Configs" "..." 8
+
+      bash common/replace_variables.sh
+    fi
     
     if [ "$MODE" != "apply_users" ]; then
         bash ./other/deprecated/remove_deprecated.sh
@@ -95,12 +96,19 @@ function main() {
         #update_progress "${PROGRESS_ACTION}" "ShadowTLS" 60
         #install_run other/shadowtls $(hconfig "shadowtls_enable")
         
-        update_progress "${PROGRESS_ACTION}" "Warp" 75
+        update_progress "${PROGRESS_ACTION}" "Warp" 70
         
         if [[ $(hconfig "warp_mode") != "disable" ]];then
             install_run other/warp 1 &
         else   
             install_run other/warp 0 &
+        fi
+
+        update_progress "${PROGRESS_ACTION}" "Xray" 75
+        if [[ $(hconfig "core_type") == "xray" ||  "$MODE" == "docker" ]];then
+            install_run xray 1 &
+        else
+            install_run xray 0 &
         fi
         
         update_progress "${PROGRESS_ACTION}" "HiddifyCli" 80
@@ -108,12 +116,6 @@ function main() {
         
     fi
 
-     update_progress "${PROGRESS_ACTION}" "Xray" 70
-     if [[ $(hconfig "core_type") == "xray" ]];then
-         install_run xray 1 &
-     else
-         install_run xray 0 &
-     fi
 
     update_progress "${PROGRESS_ACTION}" "Wireguard" 85
     install_run other/wireguard $(hconfig "wireguard_enable") &
@@ -163,18 +165,17 @@ function set_config_from_hpanel() {
 }
 
 function install_run() {
-    echo "==========================================================="
-    if [ "$MODE" == "install-docker" ];then
-            runsh install.sh $1
-            return
-    elif [ "$DO_NOT_INSTALL" != "true" ];then
+    echo "======================$1====================================={"
+   if [ "$DO_NOT_INSTALL" != "true" ];then
             runsh install.sh $@
-        if [ "$MODE" != "apply_users" ]; then
+        if [ "$MODE" != "apply_users" ] && [ "$MODE" != "docker"  ]; then
             systemctl daemon-reload
         fi
     fi
-    runsh run.sh $@
-    echo "==========================================================="
+    if [ "$DO_NOT_RUN" != "true" ];then
+         runsh run.sh $@
+    fi   
+    echo "}========================$1==================================="
 }
 
 function runsh() {
