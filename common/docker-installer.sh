@@ -37,10 +37,9 @@ sed -i "s/hiddify-manager:latest/hiddify-manager:$TAG/g" docker-compose.yml
 echo "REDIS_PASSWORD=$redispassword"> docker.env
 echo "MYSQL_PASSWORD=$mysqlpassword">> docker.env
 
-cp docker.env .env
-
 # Start the containers using Docker Compose
-docker compose up -d --pull
+docker compose pull
+docker compose up -d 
 
 # Follow the logs from the containers
 docker compose logs -f
