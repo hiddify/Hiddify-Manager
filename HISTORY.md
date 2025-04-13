@@ -5,6 +5,8 @@
 
 ### Fix
 
+* Beta bug. [hiddify-com]
+
 * Docker. [hiddify-com]
 
 * Beta version. [hiddify-com]
