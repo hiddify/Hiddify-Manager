@@ -65,6 +65,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: "*.zip"
-          prerelease: ${{ contains(github.ref_name,'dev') }}
+          prerelease: ${{ contains(github.ref_name,'b') }}
           body_path: release_message.md
     
