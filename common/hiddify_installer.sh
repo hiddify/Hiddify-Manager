@@ -336,7 +336,7 @@ fi
 
 
 export USE_VENV=310
-if [[ " $@ " == *" dev "* || " $@ " == *" docker "* || " $@ " == *" develop "* ]];then
+if [[ " $@ " == *" dev "* || " $@ " == *" docker "* || " $@ " == *" develop "* || " $@ " == *" beta "* ]];then
     export USE_VENV=313
 fi
 

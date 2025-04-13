@@ -5,6 +5,12 @@
 
 ### Fix
 
+* Beta bug. [hiddify-com]
+
+* Docker. [hiddify-com]
+
+* Beta version. [hiddify-com]
+
 * Fixed location. [hiddify-com]
 
 * Docker issue, disable auto update by env variable. [hiddify-com]
