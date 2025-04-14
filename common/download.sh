@@ -28,7 +28,7 @@ mkdir -p /tmp/hiddify/
 chmod 600 /tmp/hiddify/
 rm -rf /tmp/hiddify/*
 
-if [ "$1" == "v*" ];then
+if [[ "$1" == v* ]]; then
     base_url=https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/tags/$1/
 else 
     base_url=https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/$1/
