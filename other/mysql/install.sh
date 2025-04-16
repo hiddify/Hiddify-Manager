@@ -59,13 +59,8 @@ if ! grep -q "^[^#]*bind-address\s*=\s*127.0.0.1" "$MARIADB_CONF"; then
     fi
     echo "bind-address set to 127.0.0.1 in $MARIADB_CONF"
     
-    # Restart the MariaDB service
-    if systemctl is-active --quiet mariadb; then
-        sudo systemctl restart mariadb
-        echo "MariaDB service restarted"
-    else
-        echo "MariaDB service is not running. Please start it manually."
-    fi
+    sudo systemctl restart mariadb
+    
 fi
 
 systemctl start mariadb

@@ -56,10 +56,11 @@ ifeq ($(TAG),)
 	@echo "WARNING: This operation will create s version tag and push to github"
 	@read -p "Version? (provide the next x.y.z semver) : " TAG
 endif
-	@VERSION_STR=$$(echo $$TAG | grep -Eo '^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}((b|\.dev)[0-9]{1,2})?') 
+	@VERSION_STR=$$(echo $$TAG | grep -Eo '^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}((b)[0-9]{1,2})?') 
 	[ ! -z "$$VERSION_STR" ] || { echo "Incorrect tag. e.g., 1.2.3 or 1.2.3b1"; exit 1; } 
 	@echo "$${TAG}" > VERSION 
 	@make -C ./hiddify-panel/src release TAG=$${TAG}
+	@{git checkout beta && git pull&&git merge dev} || {git checkout dev; echo "error in merging to beta branch"; exit 1}
 	@git tag $${TAG} > /dev/null
 	@gitchangelog > HISTORY.md || { git tag -d $${TAG}; echo "Please run pip install gitchangelog pystache mustache markdown"; exit 2; } 
 	@git tag -d $${TAG} > /dev/null
@@ -68,5 +69,6 @@ endif
 	@echo "creating git tag : v$${TAG}" 
 	@git tag v$${TAG} 
 	@git push -u origin HEAD --tags 
+	@git checkout dev && git merge beta
 	@echo "Github Actions will detect the new tag and release the new version."
 	
