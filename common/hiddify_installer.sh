@@ -251,12 +251,16 @@ function post_update_tasks() {
     fi
     remove_lock $NAME
 
+    ln -sf /opt/hiddify-manager/hiddify-panel/hiddify-panel.service /etc/systemd/system/hiddify-panel.service
+    systemctl enable --now hiddify-panel.service
+
+    ln -sf /opt/hiddify-manager/hiddify-panel/hiddify-panel-background-tasks.service /etc/systemd/system/hiddify-panel-background-tasks.service
+    systemctl enable --now hiddify-panel-background-tasks.service
+
     if [ "$package_mode" != "docker" ];then
       if [[ $panel_update == 0 ]]; then
               systemctl kill -s SIGTERM hiddify-panel
       fi
-
-      systemctl start hiddify-panel
 
       cd /opt/hiddify-manager/hiddify-panel
       if [ "$CREATE_EASYSETUP_LINK" == "true" ];then
