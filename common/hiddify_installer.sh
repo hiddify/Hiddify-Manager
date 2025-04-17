@@ -69,6 +69,9 @@ function install_panel() {
     if is_installed hiddifypanel && [[ -z "$package_mode" || ($package_mode == "develop" || $package_mode == "beta" || $package_mode == "release") ]]; then
         hiddify-panel-cli set-setting -k package_mode -v $1
     fi
+
+    # We downgrade the marshmallow because of api_flask is not supporting v4
+    pip install -U "marshmallow<=3.26.1"
 }
 
 function update_panel() {
