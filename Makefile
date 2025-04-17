@@ -58,9 +58,9 @@ ifeq ($(TAG),)
 endif
 	@VERSION_STR=$$(echo $$TAG | grep -Eo '^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}((b)[0-9]{1,2})?') 
 	[ ! -z "$$VERSION_STR" ] || { echo "Incorrect tag. e.g., 1.2.3 or 1.2.3b1"; exit 1; } 
+	@( git checkout beta && git pull && git merge dev ) || ( git checkout dev; echo "error in merging to beta branch"; exit 1 )
 	@echo "$${TAG}" > VERSION 
 	@make -C ./hiddify-panel/src release TAG=$${TAG}
-	@{git checkout beta && git pull&&git merge dev} || {git checkout dev; echo "error in merging to beta branch"; exit 1}
 	@git tag $${TAG} > /dev/null
 	@gitchangelog > HISTORY.md || { git tag -d $${TAG}; echo "Please run pip install gitchangelog pystache mustache markdown"; exit 2; } 
 	@git tag -d $${TAG} > /dev/null
