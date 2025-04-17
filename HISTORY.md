@@ -5,6 +5,18 @@
 
 ### Fix
 
+* Bug. [hiddify-com]
+
+* Update script. [hiddify-com]
+
+* Issue. [hiddify-com]
+
+* Beta. [hiddify-com]
+
+* Beta installer. [hiddify-com]
+
+* Beta installer. [hiddify-com]
+
 * Beta bug. [hiddify-com]
 
 * Docker. [hiddify-com]
@@ -41,6 +53,32 @@
   Updated the script to use 'Europe/Moscow' to correctly reflect the timezone.
 
 ### Other
+
+* Merge branch 'dev' into beta. [hiddify-com]
+
+* Update release script. [hiddify-com]
+
+* Merge pull request #4878 from tesilaaliset/fix/fix_dev_installation. [Hiddify]
+
+  Download dev version when using dev
+
+* Download dev version when using dev. [tesla]
+
+* Merge pull request #4877 from tesilaaliset/fix/fix_using_313_always. [Hiddify]
+
+  Update and using 313 for apply_config and else.
+
+* Update and using 313 for apply_config and else. [tesla]
+
+* Merge branch 'dev' into beta. [hiddify-com]
+
+* Merge pull request #4873 from hiddify/dev. [Hiddify]
+
+  10.85.0b4
+
+* Merge pull request #4872 from hiddify/dev. [Hiddify]
+
+  update to 10.85.0b2
 
 * Merge pull request #4869 from tesilaaliset/update/update-docker-installation. [Hiddify]
 
