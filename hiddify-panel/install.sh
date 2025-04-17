@@ -37,6 +37,8 @@ rm -rf /etc/cron.d/{hiddify_usage_update,hiddify_auto_backup}
 # echo "0 */6 * * * hiddify-panel $(pwd)/backup.sh" >/etc/cron.d/hiddify_auto_backup
 service cron reload >/dev/null 2>&1
 
+## TODO: Pinning marshmellow version, it will be removed and api_flask should pin it
+uv pip install marshmellow==3.26.1
 
 ##### download videos
 
