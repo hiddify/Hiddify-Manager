@@ -42,10 +42,11 @@ if [ -f "../config.env" ]; then
     #su hiddify-panel -c "hiddifypanel import-config -c $(pwd)/../config.env"
     
     if [ "$?" == 0 ]; then
-        rm -f ../config.env
+        mv ../config.env ../config.env.old
         # echo "temporary disable removing config.env"
     fi
 fi
+hiddify-panel-cli init-db
 
 systemctl start hiddify-panel.service
 systemctl restart hiddify-panel-background-tasks.service

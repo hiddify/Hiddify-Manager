@@ -31,9 +31,9 @@ function main() {
     if [ "$DO_NOT_INSTALL" == "true" ];then
         PROGRESS_ACTION="Applying..."
     fi
-    if [ "$HIDDIFY_DEBUG" = "1" ]; then
-        export USE_VENV=313
-    fi
+
+    export USE_VENV=313
+
     install_python
     activate_python_venv
     

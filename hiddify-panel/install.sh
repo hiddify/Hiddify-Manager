@@ -32,8 +32,6 @@ if [ -n "$HIDDIFY_PANLE_SOURCE_DIR" ]; then
     uv pip install -e "$HIDDIFY_PANLE_SOURCE_DIR"
 fi
 
-systemctl daemon-reload >/dev/null 2>&1
-
 rm -rf /etc/cron.d/{hiddify_usage_update,hiddify_auto_backup}
 # echo "*/1 * * * * root $(pwd)/update_usage.sh" >/etc/cron.d/hiddify_usage_update
 # echo "0 */6 * * * hiddify-panel $(pwd)/backup.sh" >/etc/cron.d/hiddify_auto_backup

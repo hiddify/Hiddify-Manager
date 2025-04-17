@@ -203,7 +203,7 @@ function update_config() {
             echo "DEVELOP: Current Config Version=$current_config_version -- Latest=$latest"
             if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
                 update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
-                update_from_github "hiddify-manager.tar.gz" "https://github.com/hiddify/hiddify-manager/archive/refs/heads/main.tar.gz" $latest
+                update_from_github "hiddify-manager.tar.gz" "https://github.com/hiddify/hiddify-manager/archive/refs/heads/dev.tar.gz" $latest
                 
                 update_progress "Updated..." "Hiddify Config to $latest" 100
                 return 0
@@ -256,8 +256,10 @@ function post_update_tasks() {
               systemctl kill -s SIGTERM hiddify-panel
       fi
 
+      if [[ $panel_update == 0 && $config_update != 0 ]]; then
+          bash /opt/hiddify-manager/apply_configs.sh --no-gui --no-log
+      fi
       systemctl start hiddify-panel
-
       cd /opt/hiddify-manager/hiddify-panel
       if [ "$CREATE_EASYSETUP_LINK" == "true" ];then
           hiddify-panel-cli set-setting --key create_easysetup_link --val True
@@ -271,10 +273,6 @@ function post_update_tasks() {
               hiddify-panel-cli set-setting --key package_mode --val develop
           ;;
       esac
-
-      if [[ $panel_update == 0 && $config_update != 0 ]]; then
-          bash /opt/hiddify-manager/apply_configs.sh --no-gui --no-log
-      fi
     fi
 }
 
