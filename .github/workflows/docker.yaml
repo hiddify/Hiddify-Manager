@@ -11,7 +11,8 @@ env:
 jobs:
   make-upload-docker:
     permissions: write-all
-    
+    timeout-minutes: 10
+
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
