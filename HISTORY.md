@@ -54,6 +54,8 @@
 
 ### Other
 
+* Update release script. [hiddify-com]
+
 * Merge branch 'dev' into beta. [hiddify-com]
 
 * Update release script. [hiddify-com]
