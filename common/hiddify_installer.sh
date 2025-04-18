@@ -282,6 +282,7 @@ function update_from_github() {
     rm -f xray/configs/*.json
     rm -f singbox/configs/*.json
     bash install.sh --no-gui --no-log
+    bash install.sh --no-gui --no-log #temporary fix
 }
 
 function custom_version_installer(){
