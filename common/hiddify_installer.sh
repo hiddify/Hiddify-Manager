@@ -63,7 +63,7 @@ function install_panel() {
     update_panel "$package_mode" "$force"
     panel_update=$?
     # We downgrade the marshmallow because of api_flask is not supporting v4
-    pip install -U "marshmallow<=3.26.1"
+    /opt/hiddify-manager/.venv/bin/pip install "marshmallow<=3.26.1"
     
     update_config "$package_mode" "$force"
     config_update=$?
@@ -319,7 +319,7 @@ pip3 install --upgrade pip
 
 
 # Run the main function and log the output
-if [[ " $@ " == *" --no-gui "* || "$(get_installed_panel_version) " == "8."* ]]; then
+if [[ " $@ " == *" --no-gui "* || "$(get_installed_panel_version) " == "8."* || "$NO_UI" == "true" ]]; then
     set -- "${@/--no-gui/}"
     set_lock $NAME
     if [[ " $@ " == *" --no-log "* ]]; then
