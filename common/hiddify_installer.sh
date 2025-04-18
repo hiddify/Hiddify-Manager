@@ -62,6 +62,9 @@ function install_panel() {
     install_package jq wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config
     update_panel "$package_mode" "$force"
     panel_update=$?
+    # We downgrade the marshmallow because of api_flask is not supporting v4
+    pip install -U "marshmallow<=3.26.1"
+    
     update_config "$package_mode" "$force"
     config_update=$?
     post_update_tasks  "$panel_update" "$config_update" "$package_mode"
@@ -70,8 +73,6 @@ function install_panel() {
         hiddify-panel-cli set-setting -k package_mode -v $1
     fi
 
-    # We downgrade the marshmallow because of api_flask is not supporting v4
-    pip install -U "marshmallow<=3.26.1"
 }
 
 function update_panel() {
