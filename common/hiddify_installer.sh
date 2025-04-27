@@ -57,7 +57,7 @@ function install_panel() {
 
     
 
-    install_package curl libev-dev libevdev2 default-libmysqlclient-dev build-essential git ca-certificates pkg-config   jq wireguard  pkg-config #needed for installing uv and hiddifypanel
+    install_package curl libev-dev libevdev2 default-libmysqlclient-dev build-essential git ca-certificates pkg-config   jq wireguard  pkg-config clang #needed for installing uv and hiddifypanel
 
     
     
@@ -79,6 +79,16 @@ function update_panel() {
     local current_panel_version=$(get_installed_panel_version)
     # Your existing logic for checking and updating the panel version based on the package mode
     # Set panel_update to 1 if an update is performed
+
+    # TODO: Temporary workaround for building netifaces==0.11.0 on Ubuntu 24.04.
+    # The package cannot be built using `uv` due to library management issues.
+    # As a result, we manually install it via `pip`. This should be resolved by
+    # updating the build package dependencies, after which these lines can be removed.
+    # https://github.com/astral-sh/uv/issues/7288
+    activate_python_venv
+    uv pip install -U pip 
+    pip install netifaces==0.11
+    deactivate
     
     case "$package_mode" in
         docker)
@@ -150,21 +160,19 @@ function update_panel() {
             fi
         ;;
         release) 
-            #TODO release should change to 3.13
-            install_python310
             activate_python_venv
             # error "you can not install release version 8 using this script"
             # exit 1
             latest=$(get_release_version hiddify-panel)
             if [[ "$current_panel_version" != "$latest" ]]; then
-                error "The current beta version is outdated! Updating..."
+                error "The current release version is outdated! Updating..."
             fi
             warning "hiddify panel version current=$current_panel_version latest=$latest"
             if [[ $force == "true" || "$current_panel_version" != "$latest" ]]; then
                 update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
                 # pip3 install -U hiddifypanel==$latest
                 disable_panel_services
-                pip install -U wheel hiddifypanel
+                uv pip install -U --pre hiddifypanel
                 update_progress "Updated..." "Hiddify Panel to $latest" 50
                 return 0
             fi
@@ -220,8 +228,6 @@ function update_config() {
             fi
         ;;
         release)
-            # error "you can not install release version 8 using this script"
-            # exit 1
             local latest=$(get_release_version hiddify-manager)
             echo "RELEASE: Current Config Version=$current_config_version -- Latest=$latest"
             if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
@@ -333,9 +339,9 @@ if [[ " $@ " == *" custom "* ]];then
 fi
 
 
-export USE_VENV=310
-if [[ " $@ " == *" dev "* || " $@ " == *" docker "* || " $@ " == *" develop "* || " $@ " == *" beta "* ]];then
-    export USE_VENV=313
+export USE_VENV=313
+if [[ " $@ " == v* ]];then
+    export USE_VENV=310
 fi
 
 # Run the main function and log the output
