@@ -11,59 +11,29 @@ Swap فضای کمکی روی دیسک است که وقتی رم اصلی سیس
 بررسی وضعیت فعلی Swap در اوبونتو
 برای دیدن وضعیت Swap در سرور خود، این دستور را وارد کنید:
 
-bash
-Copy
-Edit
 sudo swapon --show
 اگر چیزی نمایش داده نشد، یعنی هیچ Swap فعالی ندارید.
 
 آموزش کامل ساخت و افزایش Swap در اوبونتو
 1. غیرفعال کردن Swap قبلی (در صورت وجود)
-bash
-Copy
-Edit
 sudo swapoff -a
 2. ساخت فایل جدید Swap (مثلاً ۸ گیگ)
-bash
-Copy
-Edit
 sudo fallocate -l 8G /swapfile
 اگر fallocate در سیستم شما کار نکرد:
 
-bash
-Copy
-Edit
 sudo dd if=/dev/zero of=/swapfile bs=1G count=8
 3. تعیین سطح دسترسی صحیح
-bash
-Copy
-Edit
 sudo chmod 600 /swapfile
 4. آماده‌سازی فایل برای Swap
-bash
-Copy
-Edit
 sudo mkswap /swapfile
 5. فعال‌سازی Swap
-bash
-Copy
-Edit
 sudo swapon /swapfile
 6. بررسی فعال‌سازی موفق
-bash
-Copy
-Edit
 free -h
 خروجی باید چیزی شبیه این باشد:
 
-makefile
-Copy
-Edit
-Swap:  8.0G   0B   8.0G
+Swap:  2.0G   0B   2.0G
 7. دائمی‌سازی Swap در فایل fstab
-bash
-Copy
-Edit
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 تجربه ما با hiddify manager
 ما این روش را روی یکی از سرورهایی که فقط ۱ گیگابایت رم داشت و روی آن hiddify manager اجرا می‌شد، امتحان کردیم.
