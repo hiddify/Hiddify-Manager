@@ -59,7 +59,7 @@ function install_panel() {
         activate_python_venv
     fi
 
-    install_package jq wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config
+    install_package jq wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config clang
     update_panel "$package_mode" "$force"
     panel_update=$?
     # We downgrade the marshmallow because of api_flask is not supporting v4
