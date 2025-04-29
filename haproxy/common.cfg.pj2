@@ -114,6 +114,10 @@ frontend onlypanel_in
     use_backend generate_204 if { path -i /{{hconfigs['proxy_path_client']}}/generate_204 }
     use_backend generate_204 if { path -i /{{hconfigs['proxy_path']}}/generate_204 }
 
+    use_backend proxy_stats_api_backend if { path_beg /{{ hconfigs['proxy_path_admin'] }}/proxy-stats/api/ }
+    use_backend proxy_stats_ui_backend if { path_beg /{{ hconfigs['proxy_path_admin'] }}/proxy-stats/ }
+
+
     http-response set-header alt-svc "h3=\":443\";ma=900;"
 
     
@@ -143,8 +147,17 @@ frontend quic-in
   #multimap not supported use trick
   #use_backend %[hdr(:authority),map_dom(/opt/hiddify-manager/haproxy/maps/http_domain)]
   #use_backend %[path,map_beg(/opt/hiddify-manager/haproxy/maps/path_h2)]
+
+
+
+
+
   http-request set-var(txn.backend) req.hdr(host),map_dom(/opt/hiddify-manager/haproxy/maps/http_domain,default)
   http-request set-var(txn.backend) path,map_beg(/opt/hiddify-manager/haproxy/maps/path_h2,nginx_dispatcher_h2) if  { var(txn.backend) -m str default }
+
+  use_backend proxy_stats_api_backend if { path_beg /{{ hconfigs['proxy_path_admin'] }}/proxy-stats/api/ }
+  use_backend proxy_stats_ui_backend if { path_beg /{{ hconfigs['proxy_path_admin'] }}/proxy-stats/ }
+
   use_backend %[var(txn.backend)]    
 
 
@@ -411,3 +424,16 @@ backend trojang
    mode http
    timeout server 1h
    server trojang 127.0.0.1:2013  send-proxy-v2  tfo  proto h2
+
+
+
+
+backend proxy_stats_ui_backend
+    mode http
+    http-request set-path %[path,regsub(^/{{ hconfigs['proxy_path_admin'] }}/proxy-stats/,/ui/)]
+    server proxy_stats_ui 127.0.0.1:6756
+
+backend proxy_stats_api_backend
+    mode http
+    http-request set-path %[path,regsub(^/{{ hconfigs['proxy_path_admin'] }}/proxy-stats/api/,/)]
+    server proxy_stats_api 127.0.0.1:6756

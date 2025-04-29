@@ -2,6 +2,9 @@
 /{{hconfigs['proxy_path_admin']}}/ hiddifypanel
 /{{hconfigs['proxy_path']}}/ hiddifypanel
 
+/{{ hconfigs['proxy_path_admin'] }}/proxy-stats/api/ proxy_stats_ui_backend
+/{{ hconfigs['proxy_path_admin'] }}/proxy-stats/ proxy_stats_ui_backend
+
 
 {%if hconfigs['tcp_enable']%}
 /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }} vmesst_h2
