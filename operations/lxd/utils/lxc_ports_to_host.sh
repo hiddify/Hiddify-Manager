@@ -31,7 +31,7 @@ fetch_services_from_csv() {
 
         # Detect TCP/UDP
         PROTOCOL="tcp"
-        if [[ "$PROTOCOL_NAME" == "hysteria" || "$PROTOCOL_NAME" == "tuic" || "$PROTOCOL_DOMAIN" == "wireguard" ]]; then
+        if [[ "$PROTOCOL_NAME" == "hysteria" || "$PROTOCOL_NAME" == "tuic" || "$PROTOCOL_NAME" == "wireguard" ]]; then
     	PROTOCOL="udp"	
         fi
     
