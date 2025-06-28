@@ -54,6 +54,10 @@
 
 ### Other
 
+* Upgrade to xray 25.6.8. [hiddify-com]
+
+* Fix proxy status page. [hiddify-com]
+
 * Add clang dependency. [hiddify-com]
 
 * Update release script. [hiddify-com]
