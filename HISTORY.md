@@ -7,6 +7,8 @@
 
 * Bug. [hiddify-com]
 
+* Bug. [hiddify-com]
+
 * Update script. [hiddify-com]
 
 * Issue. [hiddify-com]
