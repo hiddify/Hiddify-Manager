@@ -50,12 +50,12 @@ def render(template_path):
 
         # Render the template
         rendered_content = template.render(**configs, exec=exec, os=os)
-        if not rendered_content:
-            print(f"Warning jinja2: {template_path} - Empty")
+        
+        #     print(f"Warning jinja2: {template_path} - Empty")
 
         # Write the rendered content to a new file without the .j2 extension
         output_file_path = os.path.splitext(template_path)[0]
-        if output_file_path.endswith(".json"):
+        if rendered_content and output_file_path.endswith(".json"):
             # Remove trailing comma and comments from json
             try:
                 json5object = json5.loads(rendered_content)
@@ -66,7 +66,7 @@ def render(template_path):
                     quote_keys=True,
                 )
             except Exception as e:
-                print(f"Error parsing json: {e}", file=sys.stderr)
+                print(f"Error parsing json {template_path}: {e}", file=sys.stderr)
 
         with open(output_file_path, "w", encoding="utf-8") as output_file:
             output_file.write(str(rendered_content))

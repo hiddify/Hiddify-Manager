@@ -5,6 +5,7 @@
     'ru': 'ru'
 }.get(hconfigs['country'], 'cn') %}
 
+{% set geo_sites=['spotify','speedtest','google','netflix','nvidia','bytedance','tiktok','unity','reddit','openai'] %}
 {
   "route": {
     "rule_set":[
@@ -21,7 +22,17 @@
             "format":"binary",
             "update_interval":"1d",
             "url":"https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-{{region}}.srs"
-         }
+         },
+         {% for site in geo_sites %}
+          {
+            "tag":"geosite-{{site}}",
+            "type":"remote",
+            "format":"binary",
+            "update_interval":"1d",
+            "url":"https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/{{site}}.srs"
+         },
+         {% endfor %}
+
     ],
     // "domainStrategy": "AsIs",
     "final": {% if hconfigs['warp_mode'] == 'all' %}"WARP"{% else %}"freedom"{% endif %},
@@ -37,15 +48,12 @@
         },
         {
             "outbound": {% if hconfigs['warp_mode'] == 'disable' %}"forbidden_sites"{% else %}"WARP"{% endif %},
-             "rule_set":["geoip-{{region}}", "geosite-{{region}}"]
-        },
-        {
-            "outbound": {% if hconfigs['warp_mode'] == 'disable' %}"freedom"{% else %}"WARP"{% endif %},
-            "geosite":[
-                "hiddify-hetzner-warp",
-                "ookla-speedtest"
-              
-            ]
+             "rule_set":[
+              "geoip-{{region}}", "geosite-{{region}}",
+              {% for site in geo_sites %}
+                "geosite-{{site}}",
+              {% endfor %}
+             ]
         },
         {% if hconfigs['warp_mode'] != 'disable' and hconfigs.get('warp_sites','').split('\n') %}
         {
