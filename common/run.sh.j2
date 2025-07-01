@@ -1,5 +1,21 @@
 source /opt/hiddify-manager/common/utils.sh
 
+if [ "$MODE" != "docker" ];then
+  if [[ '{{hconfigs['country']}}' == 'cn' ]]; then
+      TIMEZONE=Asia/Shanghai
+  elif [[ '{{hconfigs['country']}}' == 'ru' ]]; then
+      TIMEZONE=Europe/Moscow
+  else
+      TIMEZONE=Asia/Tehran
+  fi
+  CURRENT_TZ=$(timedatectl show --property=Timezone --value)
+  if [[ "$CURRENT_TZ" != "$TIMEZONE" ]]; then
+      echo "Current timezone is $CURRENT_TZ. Changing to $TIMEZONE..."
+      sudo timedatectl set-timezone "$TIMEZONE"
+      sudo systemctl restart mariadb
+  fi
+fi
+
 #if [ "${MODE}" != "docker" ];then
 
 # open essential ports

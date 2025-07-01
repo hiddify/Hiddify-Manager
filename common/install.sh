@@ -8,15 +8,7 @@ activate_python_venv
 # rm /etc/resolv.conf
 # ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
-if [ "${MODE}" != "docker" ];then
-  if [[ $COUNTRY == 'cn' ]]; then
-      sudo timedatectl set-timezone Asia/Shanghai
-  elif [[ $COUNTRY == 'ru' ]]; then
-      sudo timedatectl set-timezone Europe/Moscow
-  else
-      sudo timedatectl set-timezone Asia/Tehran
-  fi
-fi
+
 
 groupadd -f hiddify-common
 usermod -aG hiddify-common root
