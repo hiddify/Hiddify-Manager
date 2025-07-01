@@ -5,6 +5,8 @@
 
 ### Fix
 
+* Timezone issue. [hiddify-com]
+
 * Bug. [hiddify-com]
 
 * Bug. [hiddify-com]
@@ -55,6 +57,8 @@
   Updated the script to use 'Europe/Moscow' to correctly reflect the timezone.
 
 ### Other
+
+* Add routing of forbidden site for warp in singbox. [hiddify-com]
 
 * Upgrade to xray 25.6.8. [hiddify-com]
 
