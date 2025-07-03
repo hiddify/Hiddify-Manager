@@ -9,30 +9,18 @@ fi
 
 OS_VERSION=$(lsb_release -rs | cut -d'.' -f1)
 echo "Detected OS version: Ubuntu $OS_VERSION"
-
+HAPROXY_VERSION=3.2
 if [ "$OS_VERSION" -eq 22 ]; then
-    echo "OS version is 22, checking for haproxy=3.0"
-    if ! is_installed_package "haproxy=3.0"; then
-        echo "Adding PPA for haproxy-3.0"
-        add-apt-repository -y ppa:vbernat/haproxy-3.0
-        echo "Installing haproxy 3.0"
-        install_package haproxy=3.0.*
-    else
-        echo "haproxy 3.0 is already installed"
-    fi
-elif [ "$OS_VERSION" -eq 24 ]; then
-    echo "OS version is 24, checking for haproxy=3.1"
-    if ! is_installed_package "haproxy=3.1"; then
-        echo "Adding PPA for haproxy-3.1"
-        add-apt-repository -y ppa:vbernat/haproxy-3.1
-        echo "Installing haproxy 3.1"
-        install_package haproxy=3.1.*
-    else
-        echo "haproxy 3.1 is already installed"
-    fi
+    HAPROXY_VERSION=3.0
+    echo "OS version is 22, checking for haproxy=${HAPROXY_VERSION}"
+fi
+if ! is_installed_package "haproxy=${HAPROXY_VERSION}"; then
+    echo "Adding PPA for haproxy-${HAPROXY_VERSION}"
+    add-apt-repository -y ppa:vbernat/haproxy-${HAPROXY_VERSION}
+    echo "Installing haproxy ${HAPROXY_VERSION}"
+    install_package "haproxy=${HAPROXY_VERSION}.*"
 else
-    echo "OS version is neither 22 nor 24, skipping haproxy installation"
-    exit 1
+    echo "haproxy ${HAPROXY_VERSION} is already installed"
 fi
 systemctl kill haproxy >/dev/null 2>&1
 systemctl stop haproxy >/dev/null 2>&1
