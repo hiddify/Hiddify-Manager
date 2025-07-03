@@ -58,6 +58,8 @@
 
 ### Other
 
+* Update to haproxy 3.2. [hiddify-com]
+
 * Add routing of forbidden site for warp in singbox. [hiddify-com]
 
 * Upgrade to xray 25.6.8. [hiddify-com]
