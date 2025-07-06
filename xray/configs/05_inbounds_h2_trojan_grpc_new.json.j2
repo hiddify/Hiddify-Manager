@@ -1,5 +1,5 @@
 {
-	{% if hconfigs['trojan_enable'] and hconfigs['grpc_enable'] and hconfigs['h2_enable'] %}
+	{% if 0 and hconfigs['trojan_enable'] and hconfigs['grpc_enable'] and hconfigs['h2_enable'] %}
 		"inbounds": [
 			{
 				"tag": "h2-trojan-grpc-new",
@@ -14,8 +14,8 @@
 				]
 				},
 				"streamSettings": {
-				"network": "grpc",
 				"security": "none",
+				"network": "grpc",
 				"grpcSettings": {
 					"serviceName": "{{ hconfigs['path_trojan'] }}{{ hconfigs['path_grpc'] }}",
 				}

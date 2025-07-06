@@ -3,8 +3,8 @@
 		"inbounds": [
 			{
 				"tag":"vmess-xhttp",
-				 {#"listen": "@@vmess-xhttp",#}
-				 "listen": "/opt/hiddify-manager/xray/run/vmess-xhttp.sock,666",
+				 "listen": "@@vmess-xhttp",
+				 {#"listen": "/opt/hiddify-manager/xray/run/vmess-xhttp.sock,666",#}
 				{#"listen": "127.0.0.1", "port":1035,#}
 				"protocol": "vmess",
 				"settings": {
@@ -19,13 +19,16 @@
 				"security": "none",
 				"xhttpSettings": {
                     "mode": "auto",
-					{#"acceptProxyProtocol": true,#}
+					
 					"path": "/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_xhttp'] }}", 
 				}
 				},
 				"sniffing": {
 				"enabled": true,
 				"destOverride": ["http","tls", "quic"]
+				},
+				"sockopt": {
+				"acceptProxyProtocol": true
 				}
 			}	  
 		]

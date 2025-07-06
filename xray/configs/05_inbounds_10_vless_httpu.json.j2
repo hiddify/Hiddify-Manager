@@ -14,16 +14,18 @@
 				"decryption": "none"
 				},
 				"streamSettings": {
-				"network": "xhttp",
-				"security": "none",
-				"xhttpSettings": {
-					"acceptProxyProtocol": true,
-					"path": "/{{ hconfigs['path_vless'] }}{{ hconfigs['path_httpupgrade'] }}", 
-				}
+					"network": "httpupgrade",
+					"security": "none",
+					"sockopt": {
+						"acceptProxyProtocol": true
+					},
+					"httpupgradeSettings": {		
+						"path": "/{{ hconfigs['path_vless'] }}{{ hconfigs['path_httpupgrade'] }}", 
+					}
 				},
 				"sniffing": {
-				"enabled": true,
-				"destOverride": ["http","tls", "quic"]
+					"enabled": true,
+					"destOverride": ["http","tls", "quic"]
 				}
 			}
 		]

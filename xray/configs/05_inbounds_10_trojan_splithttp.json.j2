@@ -3,30 +3,11 @@
 		"inbounds": [
 			{
 				"tag":"trojan-xhttp",
-				{#"listen": "@@trojan-xhttp", #}
-				"listen": "/opt/hiddify-manager/xray/run/trojan-xhttp.sock,666",
-			{#"listen": "127.0.0.1", "port":1015,#}
-				"protocol": "trojan",
-				"settings": {
-				"clients": [
-					{% for u in users %}
-						{"password": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com"},
-					{% endfor %}
-				]
-				},
-				"streamSettings": {
-				"network": "xhttp",
-				"security": "none",
-				"xhttpSettings": {
-                    "mode": "auto",
-                    {# "acceptProxyProtocol": true, #}
-					"path":"/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_xhttp'] }}", 
-				}
-				},
-				"sniffing": {
-				"enabled": true,
-				"destOverride": ["http","tls", "quic"]
-				}
+				"listen": "@@trojan-xhttp", 
+			{#	"listen": "/opt/hiddify-manager/xray/run/trojan-xhttp.sock,666",
+				"listen": "127.0.0.1", "port":1015,#}
+				{% include '/opt/hiddify-manager/xray/configs/common/trojan.pj2' %}
+				
 			}
 		]
 	{% endif %}
