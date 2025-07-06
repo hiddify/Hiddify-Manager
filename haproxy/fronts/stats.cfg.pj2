@@ -1,0 +1,10 @@
+### standalone stats page
+listen stats
+        # accessible at http://192.168.1.100/haproxy?stats
+        bind 127.0.0.1:8181
+      	mode http
+      	option httplog
+      	stats enable
+      	stats admin if TRUE
+      	stats refresh 5m
+

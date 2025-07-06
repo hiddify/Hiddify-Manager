@@ -9,20 +9,20 @@ backend reality
 backend vmesst
   server vmesst 127.0.0.1:2031  send-proxy-v2 tfo 
 
-#backend vmesst_h2
-#  server vmesst 127.0.0.1:2031  send-proxy-v2 tfo
+backend vmesst_h2
+  server vmesst 127.0.0.1:2031  send-proxy-v2 tfo
 
 backend vmesst_get
   server vmesst 127.0.0.1:2039  send-proxy-v2 tfo 
 
-#backend vmesst_get_h2
-#  server vmesst 127.0.0.1:2039  send-proxy-v2 tfo
+backend vmesst_get_h2
+  server vmesst 127.0.0.1:2039  send-proxy-v2 tfo
 
 backend vlesst
   server vlesst 127.0.0.1:2021  send-proxy-v2 tfo 
 
-#backend vlesst_h2
-#  server vlesst 127.0.0.1:2021  send-proxy-v2 tfo
+backend vlesst_h2
+  server vlesst 127.0.0.1:2021  send-proxy-v2 tfo
 
 backend v2rayt
   server v2rayt 127.0.0.1:2051  send-proxy-v2 tfo 
@@ -33,8 +33,8 @@ backend v2rayt_h2
 backend trojant
   server trojant 127.0.0.1:2011  send-proxy-v2 tfo 
 
-#backend trojant_h2
-#  server trojant 127.0.0.1:2011  send-proxy-v2 tfo
+backend trojant_h2
+  server trojant 127.0.0.1:2011  send-proxy-v2 tfo
 
 backend vmessw
   server vmessw 127.0.0.1:2032  send-proxy-v2  tfo 
@@ -57,8 +57,8 @@ backend vlessw_h2
 backend trojanw
   server trojanw 127.0.0.1:2012 send-proxy-v2 tfo 
 
-#backend trojanw_h2
-#  server trojanw 127.0.0.1:2012 send-proxy-v2 tfo
+backend trojanw_h2
+  server trojanw 127.0.0.1:2012 send-proxy-v2 tfo
 
 
 {% for d in domains if d['internal_port_reality'] and d['grpc'] %}
@@ -85,8 +85,8 @@ backend reality_{{port}}
 
 
 
-#backend vmesshu
-#  server vmesshu 127.0.0.1:2034 send-proxy-v2  tfo
+backend vmesshu
+  server vmesshu 127.0.0.1:2034 send-proxy-v2  tfo
 
 #backend vlesshu
 #  server vlesshu 127.0.0.1:2024 send-proxy-v2 tfo
@@ -95,4 +95,26 @@ backend reality_{{port}}
 #  server trojanw 127.0.0.1:2014 send-proxy-v2 tfo
 
 
+
+
+
+ #the singbox_grpc_dispatcher handles these things
+ backend vmessg  
+   mode http
+   timeout server 1h
+   server vmessg 127.0.0.1:2033  send-proxy-v2  tfo proto h2
+
+backend vlessg
+  mode http
+  timeout server 1h
+   server vlessg 127.0.0.1:2023   send-proxy-v2  tfo proto h2
+
+# backend v2rayg
+#   timeout server 1h
+#   server v2rayg 127.0.0.1:2053  send-proxy-v2  tfo  proto h2
+
+backend trojang
+   mode http
+   timeout server 1h
+   server trojang 127.0.0.1:2013  send-proxy-v2  tfo  proto h2
 

@@ -1,0 +1,46 @@
+frontend https-in
+    
+    {% for port in (["443"] + hconfigs['tls_ports'].split(',')) | unique %}
+    bind :{{port}},:::{{port}} v4v6 tfo 
+    {%endfor%}
+    # option tcplog
+    # option dontlognull
+    tcp-request inspect-delay 5s
+    tcp-request content accept if { req.ssl_hello_type 1 }
+    acl tls1_2 req.ssl_ver 3.3
+    acl tls1_3 req.ssl_ver 3.4
+    #SNI PROXY
+    #acl alpnh2 req.ssl_alpn h2 
+    {%for d in domain if d['mode']=='sub_link_only'%} 
+        use_backend to_https_in_http_mode if { req.ssl_sni -i {{d['domain']}} } 
+    {%endfor%} 
+    
+    acl is_cdn src -f /opt/hiddify-manager/haproxy/iplists/cloudflare.lst -f /opt/hiddify-manager/haproxy/iplists/arvan.lst -f /opt/hiddify-manager/haproxy/iplists/cloudfront.lst
+    use_backend to_https_in_ssl if is_cdn
+    
+    
+    {% for d in domains if d['internal_port_special'] %}
+      {%set domain=d['domain']%}
+      {%set port=d['internal_port_special']%}
+      use_backend sp_{{d['mode']}}_{{port}} if { req.ssl_sni -i {{domain}}  }
+    {%endfor%}
+        
+    {%if hconfigs['ssfaketls_enable'] and hconfigs['ssfaketls_fakedomain'] %}
+    use_backend ssfake if { req.ssl_sni -i {{hconfigs['ssfaketls_fakedomain']}}  }
+    {%endif%}
+        
+        
+    {%if hconfigs['telegram_enable'] and hconfigs['telegram_fakedomain'] %}
+    use_backend telegram if { req.ssl_sni -i {{hconfigs['telegram_fakedomain']}} }
+    {%endif%}
+
+    {%if hconfigs['shadowtls_enable'] and hconfigs['shadowtls_fakedomain']%}
+    use_backend shadowtls if { req.ssl_sni -i {{hconfigs['shadowtls_fakedomain'] }} } 
+    {%endif%}
+        
+    {% for d in domains if d['mode']=='old_xtls_direct' %}
+    use_backend xray_force if { req.ssl_sni -i {{d['domain']}}  }
+    {%endfor%}
+
+    default_backend to_https_in_ssl
+    
