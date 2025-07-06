@@ -8,6 +8,8 @@ import json
 import subprocess
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 import traceback
+from urllib.parse import urlencode
+
 
 with open("/opt/hiddify-manager/current.json") as f:
     configs = json.load(f)
@@ -39,6 +41,7 @@ env = Environment(loader=FileSystemLoader(env_paths))
 def render(template_path):
     try:
         env.filters["b64encode"] = b64encode
+        env.filters['urlencode'] = urlencode
         env.filters["hexencode"] = lambda s: "".join(
             hex(ord(c))[2:].zfill(2) for c in s
         )
