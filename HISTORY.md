@@ -58,6 +58,8 @@
 
 ### Other
 
+* Add retry for instllation. [hiddify-com]
+
 * Refactor haproxy and xray configs. [hiddify-com]
 
 * Add urlencode. [hiddify-com]
