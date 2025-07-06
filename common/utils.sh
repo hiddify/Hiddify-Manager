@@ -176,7 +176,9 @@ install_package() {
         if [ $? -ne 0 ]; then
             apt --fix-broken install -y
             apt update
-            apt install -y $not_installed_packages
+            #retries for 3 times
+            apt install -y $not_installed_packages ||apt install -y $not_installed_packages||apt install -y $not_installed_packages
+            
         fi
     fi
 }

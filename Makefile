@@ -52,6 +52,10 @@ dev:
 
 .PHONY: release
 release: latest-tags
+	@if [ -z "$$VIRTUAL_ENV" ]; then \
+		echo "❌ Python virtual environment is NOT active. Please activate it first."; \
+		exit 1; \
+	fi
 ifeq ($(TAG),)
 	@echo "WARNING: This operation will create s version tag and push to github"
 	@read -p "Version? (provide the next x.y.z semver) : " TAG
