@@ -1,0 +1,32 @@
+{
+    "inbounds":[
+        {% for protocol in ['vless','vmess','trojan']%}
+            {%for stream in ['xhttp','ws','grpc','tcp','httpupgrade']%}
+                {% if hconfigs[protocol~'_enable'] and hconfigs[stream~'_enable'] %}
+                    {
+                    "tag":"v10-{{protocol}}-{{stream}}",
+                    "listen": "@@v10-{{protocol}}-{{stream}}", 
+                    {% include '/opt/hiddify-manager/xray/configs/common/protocols/'~protocol~'.pj2' %},
+                    
+                    "streamSettings": {
+                        {% with path=hconfigs['path_'~ protocol]~hconfigs['path_'~stream] %}
+                            {% include '/opt/hiddify-manager/xray/configs/common/streams/'~stream~'.pj2' %},
+                        {%endwith %}
+                        
+                        "security": "none",
+                        "sockopt": {
+                            "acceptProxyProtocol": true,
+                            "tcpFastOpen": true
+                        }
+                    },
+
+                    "sniffing": {
+                        "enabled": true,
+                        "destOverride": ["http","tls", "quic"]
+                    }
+                },
+                {%endif%}
+            {%endfor%}
+        {%endfor%}
+    ]
+}

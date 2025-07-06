@@ -1,0 +1,22 @@
+
+{% for protocol in ['vless','vmess','trojan']%}
+    {%for stream in ['xhttp','ws','grpc','tcp','httpupgrade']%}
+        {% if hconfigs[protocol~'_enable'] and hconfigs[stream~'_enable'] %}
+backend v10-{{protocol}}-{{stream}}
+            {% if hconfigs['core_type'] == 'xray' %}
+    server xray abns@v10-{{protocol}}-{{stream}} send-proxy-v2 tfo 
+            {%else%}
+    server singbox abns@v10-{{protocol}}-{{stream}} send-proxy-v2 tfo 
+            {%endif%}
+
+
+backend v10-{{protocol}}-{{stream}}-http
+    mode http
+            {% if hconfigs['core_type'] == 'xray' %}
+    server xray abns@v10-{{protocol}}-{{stream}} send-proxy-v2 tfo proto {{"h1" if stream in ['ws',"httpupgrade"] else "h2" }}
+            {%else%}
+    server singbox abns@v10-{{protocol}}-{{stream}} send-proxy-v2 tfo proto {{"h1" if stream in ['ws',"httpupgrade"] else "h2" }}
+            {%endif%}
+        {%endif%}
+    {%endfor%}
+{%endfor%}

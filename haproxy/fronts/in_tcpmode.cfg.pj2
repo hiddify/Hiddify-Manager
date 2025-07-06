@@ -18,7 +18,6 @@ frontend in-tcpmode
 
 
 
-
     use_backend generate_204 if { path -i /{{hconfigs['proxy_path_client']}}/generate_204 }
     use_backend generate_204 if { path -i /{{hconfigs['proxy_path']}}/generate_204 }
     use_backend hiddifypanel if { path_beg /{{hconfigs['proxy_path_client']}}/  }
@@ -54,35 +53,19 @@ frontend in-tcpmode
 
 
 
-    {%if hconfigs['tcp_enable']%}
-    use_backend vmesst if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }} }
-    use_backend vlesst if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_tcp'] }} }
-    #use_backend  v2rayt if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_tcp'] }} }
-    use_backend trojant if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_tcp'] }} }
-    {%endif%}
-
-
-    {%if hconfigs['ws_enable']%}
-    use_backend vmessw if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_ws'] }} }
-    use_backend vlessw if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_ws'] }} }
-    #use_backend v2rayw if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_ws'] }} }
-    use_backend trojanw if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_ws'] }} }
-    {%endif%}
-
-    {%if hconfigs['httpupgrade_enable']%}
-    use_backend vmesshu if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_httpupgrade'] }} }
-    use_backend vlesshu if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_httpupgrade'] }} }
-    # use_backend v2rayhu if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_httpupgrade'] }} }
-    use_backend trojanhu if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_httpupgrade'] }} }
-    {%endif%}
-
-    {%if hconfigs['xhttp_enable']%}
-    use_backend vmesshs if { path_beg /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_xhttp'] }} }
-    use_backend vlesshs if { path_beg /{{ hconfigs['path_vless'] }}{{ hconfigs['path_xhttp'] }} }
-    #use_backend v2rayhs if { path_beg /{{ hconfigs['path_ss'] }}{{ hconfigs['path_xhttp'] }} }
-    use_backend trojanhs if { path_beg /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_xhttp'] }} }
-    {%endif%}
-
+    
+    {% for protocol in ['vless','vmess','trojan']%}
+        {%for stream in ['xhttp','ws','grpc','tcp','httpupgrade']%}
+            {% if hconfigs[protocol~'_enable'] and hconfigs[stream~'_enable'] %}
+                {% set path=hconfigs['path_'~ protocol]~hconfigs['path_'~stream] %}
+                {%if stream=='grpc' %}
+    use_backend v10-{{protocol}}-{{stream}} if { path_beg /{{path|quote}} }
+                {%else%}
+    use_backend v10-{{protocol}}-{{stream}} if { path_beg /{{path}} }
+                {%endif%}
+            {%endif%}
+        {%endfor%}
+    {%endfor%}
 
 
     

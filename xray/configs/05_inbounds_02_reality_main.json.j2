@@ -13,7 +13,7 @@
 					"decryption": "none",
 					"clients": [
 						{% for u in users %}
-							{"id": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com","flow": "xtls-rprx-vision"},
+							{"id": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com"},
 						{% endfor %}
 					],
 					"fallbacks": [
@@ -29,7 +29,6 @@
 					
 					"xhttpSettings": {
 						"path": "/{{ hconfigs['path_vless'] }}{{ hconfigs['path_xhttp'] }}",
-						"noSSEHeader": false,
 						"mode": "auto"
 					},
 					"sockopt": {

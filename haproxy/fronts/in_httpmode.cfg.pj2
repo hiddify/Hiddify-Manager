@@ -15,7 +15,7 @@ frontend in-httpmode
   #use_backend %[path,map_beg(/opt/hiddify-manager/haproxy/maps/path_h2)]
 
   http-request set-var(txn.backend) req.hdr(host),map_dom(/opt/hiddify-manager/haproxy/maps/http_domain,default)
-  http-request set-var(txn.backend) path,map_beg(/opt/hiddify-manager/haproxy/maps/path_h2,to_decoy_http) if  { var(txn.backend) -m str default }
+  http-request set-var(txn.backend) path,map_beg(/opt/hiddify-manager/haproxy/maps/path_v10,nginx_dispatcher_http_h2) if  { var(txn.backend) -m str default }
 
   use_backend %[var(txn.backend)]    
 

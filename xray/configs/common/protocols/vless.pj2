@@ -1,0 +1,9 @@
+"protocol": "vless",
+"settings": {
+    "clients": [
+        {% for u in users %}
+            {"id": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com"},
+        {% endfor %}
+    ],
+    "decryption": "none"
+}
