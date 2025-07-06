@@ -58,6 +58,14 @@
 
 ### Other
 
+* Refactor haproxy and xray configs. [hiddify-com]
+
+* Add urlencode. [hiddify-com]
+
+* Introcude to xhttp. [hiddify-com]
+
+* Refactor haproxy. [hiddify-com]
+
 * Update to haproxy 3.2. [hiddify-com]
 
 * Add routing of forbidden site for warp in singbox. [hiddify-com]
