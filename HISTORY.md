@@ -58,6 +58,8 @@
 
 ### Other
 
+* Add support for reality tcp remove old configs. [hiddify-com]
+
 * Add retry for instllation. [hiddify-com]
 
 * Refactor haproxy and xray configs. [hiddify-com]
