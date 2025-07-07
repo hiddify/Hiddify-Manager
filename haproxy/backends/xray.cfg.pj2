@@ -17,25 +17,5 @@ backend reality
 
 
 
-{% for d in domains if d['internal_port_reality'] and d['grpc'] %}
-        {%set domain=d['domain']%}
-        {%set port=d['internal_port_reality']%}
-backend reality_grpc_{{port}}
-    mode tcp
-    server xray abns@realityingrpc_{{port}} #send-proxy-v2
-{%endfor%}    
-
-{% for d in domains if d['internal_port_reality'] and not d['grpc'] %}
-        {%set domain=d['domain']%}
-        {%set port=d['internal_port_reality']%}
-backend reality_{{port}}
-    mode tcp
-    server xray abns@realityin_{{port}} send-proxy-v2
-
-# Deprecated by xray, using vmesshs
-#backend reality_h2_{{port}}
-#    mode tcp
-#    server xray abns@realityinh2_{{port}} send-proxy-v2
-{%endfor%}
 
 

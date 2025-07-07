@@ -151,11 +151,11 @@ backend trojanhs_http_h2
 {%set port=d['internal_port_special']%}
 backend sp_{{d['mode']}}_{{port}}
   mode tcp
-  {%if d['mode'] in ['special_reality_tcp','special_reality_grpc'] %}
-    server singbox 127.0.0.1:{{port}} send-proxy-v2
-  {%elif d['mode'] == 'special_reality_xhttp' %}
-    server xray abns@realityin_{{port}} send-proxy-v2
-  {%endif%}
+  server xray abns@realityin_{{port}} send-proxy-v2
+  
+  {#  server singbox 127.0.0.1:{{port}} send-proxy-v2 #}
+  
+  
 {%endfor%}
 
 backend proxy_stats_ui_backend
