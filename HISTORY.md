@@ -3,6 +3,13 @@
 
 ## (unreleased)
 
+### Other
+
+* Update dl script. [hiddify-com]
+
+
+## v10.86.4 (2025-07-10)
+
 ### Fix
 
 * Update. [hiddify-com]
