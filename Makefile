@@ -73,6 +73,9 @@ endif
 	@echo "creating git tag : v$${TAG}" 
 	@git tag v$${TAG} 
 	@git push -u origin HEAD --tags 
+	@if ! echo "$(VERSION_STR)" | grep -q "b"; then \
+		git checkout main && git merge beta && git push \ 
+	fi
 	@git checkout dev && git merge beta && git push
 	@echo "Github Actions will detect the new tag and release the new version."
 	
