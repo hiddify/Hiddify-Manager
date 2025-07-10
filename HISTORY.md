@@ -3,6 +3,45 @@
 
 ## (unreleased)
 
+### Fix
+
+* Temporary way for issue. [hiddify-com]
+
+* Release installer. [hiddify-com]
+
+### Other
+
+* Merge branch 'main' into dev. [hiddify-com]
+
+* Merge branch 'dev' [hiddify-com]
+
+* Merge pull request #4998 from hiddify/beta. [Hiddify]
+
+  10.86.0
+
+* Merge branch 'beta' into dev. [hiddify-com]
+
+* Merge branch 'main' into beta. [Hiddify]
+
+* Merge pull request #4902 from tesilaaliset/tesi/fix_update. [Hiddify]
+
+  add `clang` to dependencies
+
+* Add `clang` to dependencies. [tesla]
+
+* Add timeout workflow. [hiddify-com]
+
+* Update hiddify_installer.sh. [Hiddify]
+
+* Merge pull request #4889 from tesilaaliset/main. [Hiddify]
+
+  downgrade the marshmallow because of api_flask is not supporting v4
+
+* Downgrade the marshmallow because of api_flask is not supporting v4. [tesla]
+
+
+## v11.0.0 (2025-07-10)
+
 ### Other
 
 * Update dl script. [hiddify-com]
