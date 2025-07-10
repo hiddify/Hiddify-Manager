@@ -3,6 +3,13 @@
 
 ## (unreleased)
 
+### Other
+
+* Upgrade release installation. [hiddify-com]
+
+
+## v10.86.1 (2025-07-10)
+
 ### Fix
 
 * Timezone issue. [hiddify-com]
