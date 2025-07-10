@@ -617,11 +617,11 @@ function check_venv_compatibility() {
         ;;
         beta)
             # Beta is always venv compatible
-            USE_VENV=310
+            USE_VENV=313
         ;;
         release)
             # Get the latest release version
-            USE_VENV=310
+            USE_VENV=313
         ;;
         *)
             echo "Unknown package mode: $package_mode"
