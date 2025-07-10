@@ -151,7 +151,7 @@ function update_panel() {
         ;;
         release) 
             #TODO release should change to 3.13
-            install_python310
+            #install_python310
             activate_python_venv
             # error "you can not install release version 8 using this script"
             # exit 1
@@ -164,7 +164,7 @@ function update_panel() {
                 update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
                 # pip3 install -U hiddifypanel==$latest
                 disable_panel_services
-                pip install -U wheel hiddifypanel
+                uv pip install -U wheel hiddifypanel
                 update_progress "Updated..." "Hiddify Panel to $latest" 50
                 return 0
             fi
@@ -333,7 +333,7 @@ if [[ " $@ " == *" custom "* ]];then
 fi
 
 
-export USE_VENV=310
+export USE_VENV=313
 if [[ " $@ " == *" dev "* || " $@ " == *" docker "* || " $@ " == *" develop "* || " $@ " == *" beta "* ]];then
     export USE_VENV=313
 fi
