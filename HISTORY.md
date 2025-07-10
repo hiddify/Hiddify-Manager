@@ -1,6 +1,13 @@
 # Changelog
 
 
+## (unreleased)
+
+### Fix
+
+* Update. [hiddify-com]
+
+
 ## v10.86.2 (2025-07-10)
 
 ### Other
