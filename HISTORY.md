@@ -5,6 +5,13 @@
 
 ### Fix
 
+* Download script. [hiddify-com]
+
+
+## v11.0.1 (2025-07-10)
+
+### Fix
+
 * Temporary way for issue. [hiddify-com]
 
 * Release installer. [hiddify-com]

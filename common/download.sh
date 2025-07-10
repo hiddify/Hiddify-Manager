@@ -34,6 +34,9 @@ branch="${1:-release}"
 if [[ "$branch" == v* ]]; then
     # If input starts with 'v', treat it as a tag
     base_url="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/tags/$branch/"
+elif [[ "$branch" == "beta" ]]; then
+    # If input is 'release' or empty, use main
+    base_url="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/beta/"
 elif [[ "$branch" == "dev" ]]; then
     # If input is 'release' or empty, use main
     base_url="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/dev/"
