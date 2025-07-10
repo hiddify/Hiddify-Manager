@@ -2,18 +2,14 @@
 d['domain'] to_panel_only
 {%endfor%}
 
-{% for d in domains if d['internal_port_reality'] and d['grpc'] %}
-{%set domain=d['domain']%}
-{%set port=d['internal_port_reality']%}
-{{domain}} reality_grpc_http_{{port}}
-{%endfor%}
 
-{% for d in domains if d['internal_port_reality'] and not d['grpc'] %}
+{% for d in domains if d['internal_port_special'] %}
 {# if happen, it means active probing... sending to decoy#}
 {%set domain=d['domain']%}
-{%set port=d['internal_port_reality']%}
-{{domain}} reality_http_{{port}}
+{%set port=d['internal_port_special']%}
+{{domain}}  sp_{{d['mode']}}_http_{{port}}
 {%endfor%}
+
 
 {%if hconfigs['ssfaketls_enable'] and hconfigs['ssfaketls_fakedomain'] %}
 {# if happen, it means active probing... sending to decoy#}

@@ -1,69 +1,56 @@
+{%set modes={'special_reality_tcp':'tcp','special_reality_grpc':'grpc','special_reality_xhttp':'xhttp'}%}
 {
 	{% if hconfigs['reality_enable'] %}
 		"inbounds": [
-			{% for d in domains if d['internal_port_reality'] and not d['grpc'] %}
-			{%set domain=d['domain']%}
-			{%set port=d['internal_port_reality']%}
+			{% for d in domains if d['internal_port_special'] and d['mode'] in  modes  %}
+				{%set domain=d['domain']%}
+				{%set port=d['internal_port_special']%}
+				{%set protocol='vless'%}
+				{%set stream=modes[d['mode']]%}
 			{
 				"tag":"realityin_{{port}}",
 				// "port": {{port}}, // This is TLS entrypoint. This entrypoint does the SSL Termination then routes the request based on the Path or ALPN type.
 				"listen": "@@realityin_{{port}}",
-				"protocol": "vless",
-				"settings": {
-				"decryption": "none",
-				"clients": [
-					{% for u in users %}
-						{"id": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com","flow": "xtls-rprx-vision"},
-					{% endfor %}
-				],
-				"fallbacks": [
-					{
-						"alpn": "h4",
-						"dest": "/opt/hiddify-manager/xray/run/vlessg.sock",
-						"xver": 0
-					},
-					{
-						"alpn": "h3",
-						"dest": "/opt/hiddify-manager/xray/run/vlessg.sock",
-						"xver": 0
-					},
-					{
-						"alpn": "h2",
-						"dest": "/opt/hiddify-manager/xray/run/vlessg.sock",
-						"xver": 0
-					},
-					{
-					"dest": "/opt/hiddify-manager/xray/run/vlessg.sock",
-					"xver": 0
-					}
-				]
-				},
+
+				{% with flow="xtls-rprx-vision" if d['mode']=='special_reality_tcp' else "" %}
+					{% include '/opt/hiddify-manager/xray/configs/common/protocols/'~protocol~'.pj2' %},
+				{%endwith%}
+				
+				
 				"streamSettings": {
-				"network": "tcp",
-				"tcpSettings": {
-					"acceptProxyProtocol": true 
-				},
-				"security": "reality", 
-				"realitySettings": {
-						"show": false, 
-						"dest": "{{domain}}:443", 
-						"xver": 0,
-						"serverNames": [ 
-							"{{domain}}"
-						],
-						"privateKey": "{{hconfigs['reality_private_key']}}",
-						"shortIds": [ 
-							"", 
-							{%for sid in hconfigs['reality_short_ids'].split(',') %}
-							"{{sid}}",
-							{%endfor%}
-						]
-				}
-				},
-				"sniffing": {
-				"enabled": true,
-				"destOverride": ["http","tls","quic"]
-				}
+					{% if stream!='tcp' %}
+						{% with path=hconfigs['path_'~ protocol]~hconfigs['path_'~stream] %}
+                            {% include '/opt/hiddify-manager/xray/configs/common/streams/'~stream~'.pj2' %},
+                        {%endwith %}
+                        {%endif%}
+                        "security": "reality",
+						"realitySettings": {
+							"show": {%if hconfigs['log_level']=="DEBUG"%} true {%else%}false{%endif%}, 
+							"dest": "{{domain}}:443", 
+							"xver": 0,
+							"serverNames": [ 
+								"{{domain}}"
+							],
+							"privateKey": "{{hconfigs['reality_private_key']}}",
+							"shortIds": [ 
+								"", 
+								{%for sid in hconfigs['reality_short_ids'].split(',') %}
+								"{{sid}}",
+								{%endfor%}
+							]
+						},
+                        "sockopt": {
+                            "acceptProxyProtocol": true,
+                            "tcpFastOpen": true
+                        }
+                    },
+
+                    "sniffing": {
+                        "enabled": true,
+                        "destOverride": ["http","tls", "quic"]
+                    }
+					
+					
 			},
 			{%endfor%}	  
 		]

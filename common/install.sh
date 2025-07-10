@@ -1,21 +1,14 @@
 #!/bin/bash
 source utils.sh
-
 remove_package apache2 needrestart needrestart-session
-install_package apt-transport-https at ca-certificates cron curl dnsutils git gnupg2 gnupg-agent iptables jq less libssl-dev locales lsb-release lsof qrencode software-properties-common ubuntu-keyring wget whiptail build-essential
+install_package apt-transport-https apt-utils at build-essential ca-certificates cron curl default-libmysqlclient-dev dnsutils gawk git gnupg-agent gnupg2 iproute2 iptables jq less libev-dev libevdev2 libssl-dev locales lsb-release lsof pkg-config qrencode software-properties-common sudo ubuntu-keyring wget whiptail
 activate_python_venv
-python -m pip config set global.index-url https://pypi.org/simple > /dev/null
+#python -m pip config set global.index-url https://pypi.org/simple > /dev/null
 # remove_package resolvconf
 # rm /etc/resolv.conf
 # ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
-if [[ $COUNTRY == 'cn' ]]; then
-    sudo timedatectl set-timezone Asia/Shanghai
-elif [[ $COUNTRY == 'ru' ]]; then
-    sudo timedatectl set-timezone Asia/Moscow
-else
-    sudo timedatectl set-timezone Asia/Tehran
-fi
+
 
 groupadd -f hiddify-common
 usermod -aG hiddify-common root
@@ -39,7 +32,9 @@ fi
 
 ln -sf $(pwd)/sysctl.conf /etc/sysctl.d/hiddify.conf
 
-sysctl --system > /dev/null
+if [ "${MODE}" != "docker" ];then
+  sysctl --system > /dev/null
+fi
 
 if [[ "$ONLY_IPV4" != true ]]; then
     sysctl -w net.ipv6.conf.all.disable_ipv6=0
@@ -83,7 +78,10 @@ echo "@reboot root /opt/hiddify-manager/install.sh --no-gui --no-log >> /opt/hid
 echo "@daily root /opt/hiddify-manager/common/daily_actions.sh >> /opt/hiddify-manager/log/system/daily_actions.log 2>&1" >/etc/cron.d/hiddify_daily_memory_release
 service cron reload
 
-localectl set-locale LANG=C.UTF-8
+if [ "${MODE}" != "docker" ];then
+  localectl set-locale LANG=C.UTF-8
+fi
+
 update-locale LANG=C.UTF-8
 
 echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/common/commander.py" >/etc/sudoers.d/hiddify

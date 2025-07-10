@@ -1,11 +1,15 @@
 #!/bin/bash
 SCRIPT_DIR="$(dirname "$BASH_SOURCE")"
-SCRIPT_DIR="/opt/hiddify-manager/common"
+
+if [[ *develop* != $(realpath $SCRIPT_DIR) ]];then 
+    SCRIPT_DIR="/opt/hiddify-manager/common/"
+fi
 
 source $SCRIPT_DIR/utils.sh
 # File to store package information
 PACKAGES_LOCK="$SCRIPT_DIR/packages.lock"
 CURRENT_PACKAGES="$SCRIPT_DIR/packages.db"
+touch $CURRENT_PACKAGES
 
 # Function to calculate file hash
 generate_hash() {

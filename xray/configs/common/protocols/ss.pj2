@@ -1,0 +1,8 @@
+"protocol": "shadowsocks",
+"settings": {
+    "clients":[
+        {% for u in users %}
+            {"password": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com","method": "Chacha20-IETF-Poly1305"},
+        {% endfor %}
+    ]
+}

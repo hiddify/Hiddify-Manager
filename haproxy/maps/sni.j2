@@ -2,16 +2,11 @@
 {{d['domain']}} to_panel_only
 {%endfor%}
     
-{% for d in domains if d['internal_port_reality'] and d['grpc'] %}
-{%set domain=d['domain']%}
-{%set port=d['internal_port_reality']%}
-{{domain}} reality_grpc_{{port}}
-{%endfor%}
 
-{% for d in domains if d['internal_port_reality'] and not d['grpc'] %}
+{% for d in domains if d['internal_port_special'] %}
 {%set domain=d['domain']%}
-{%set port=d['internal_port_reality']%}
-{{domain}} reality_{{port}}
+{%set port=d['internal_port_special']%}
+{{domain}}  sp_{{d['mode']}}_{{port}}
 {%endfor%}
 
 

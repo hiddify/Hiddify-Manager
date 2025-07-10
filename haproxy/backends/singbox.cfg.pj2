@@ -1,0 +1,120 @@
+backend singbox_grpc_dispatcher
+    server nginx unix@/opt/hiddify-manager/nginx/run/grpc-singbox.sock   send-proxy-v2 tfo 
+
+backend reality
+    server singbox 127.0.0.1:2001 send-proxy-v2 tfo 
+
+
+
+backend vmesst
+  server vmesst 127.0.0.1:2031  send-proxy-v2 tfo 
+
+backend vmesst_h2
+  server vmesst 127.0.0.1:2031  send-proxy-v2 tfo
+
+backend vmesst_get
+  server vmesst 127.0.0.1:2039  send-proxy-v2 tfo 
+
+backend vmesst_get_h2
+  server vmesst 127.0.0.1:2039  send-proxy-v2 tfo
+
+backend vlesst
+  server vlesst 127.0.0.1:2021  send-proxy-v2 tfo 
+
+backend vlesst_h2
+  server vlesst 127.0.0.1:2021  send-proxy-v2 tfo
+
+backend v2rayt
+  server v2rayt 127.0.0.1:2051  send-proxy-v2 tfo 
+
+backend v2rayt_h2
+  server v2rayt 127.0.0.1:2051  send-proxy-v2 tfo 
+
+backend trojant
+  server trojant 127.0.0.1:2011  send-proxy-v2 tfo 
+
+backend trojant_h2
+  server trojant 127.0.0.1:2011  send-proxy-v2 tfo
+
+backend vmessw
+  server vmessw 127.0.0.1:2032  send-proxy-v2  tfo 
+
+backend vmessw_h2
+  server vmessw 127.0.0.1:2032  send-proxy-v2  tfo 
+
+backend vlessw
+  server vlessw 127.0.0.1:2022  send-proxy-v2 tfo 
+
+backend vlessw_h2
+  server vlessw 127.0.0.1:2022  send-proxy-v2 tfo 
+
+#backend v2rayw
+#  server v2rayw 127.0.0.1:2052  send-proxy-v2 tfo 
+
+#backend v2rayw_h2
+#  server v2rayw 127.0.0.1:2052  send-proxy-v2 tfo 
+
+backend trojanw
+  server trojanw 127.0.0.1:2012 send-proxy-v2 tfo 
+
+backend trojanw_h2
+  server trojanw 127.0.0.1:2012 send-proxy-v2 tfo
+
+
+{% for d in domains if d['internal_port_reality'] and d['grpc'] %}
+        {%set domain=d['domain']%}
+        {%set port=d['internal_port_reality']%}
+backend reality_grpc_{{port}}
+    mode tcp
+    server singbox 127.0.0.1:{{port}} send-proxy-v2
+{%endfor%}
+
+
+{% for d in domains if d['internal_port_reality'] and not d['grpc'] %}
+        {%set domain=d['domain']%}
+        {%set port=d['internal_port_reality']%}
+backend reality_{{port}}
+    mode tcp
+    server singbox 127.0.0.1:{{port}} send-proxy-v2
+
+#backend reality_h2_{{port}}
+#    mode tcp
+#    server singbox 127.0.0.1:{{port}} send-proxy-v2
+{%endfor%}
+
+
+
+
+backend vmesshu
+  server vmesshu 127.0.0.1:2034 send-proxy-v2  tfo
+
+#backend vlesshu
+#  server vlesshu 127.0.0.1:2024 send-proxy-v2 tfo
+
+#backend trojanhu
+#  server trojanw 127.0.0.1:2014 send-proxy-v2 tfo
+
+
+
+
+
+ #the singbox_grpc_dispatcher handles these things
+ backend vmessg  
+   mode http
+   timeout server 1h
+   server vmessg 127.0.0.1:2033  send-proxy-v2  tfo proto h2
+
+backend vlessg
+  mode http
+  timeout server 1h
+   server vlessg 127.0.0.1:2023   send-proxy-v2  tfo proto h2
+
+# backend v2rayg
+#   timeout server 1h
+#   server v2rayg 127.0.0.1:2053  send-proxy-v2  tfo  proto h2
+
+backend trojang
+   mode http
+   timeout server 1h
+   server trojang 127.0.0.1:2013  send-proxy-v2  tfo  proto h2
+

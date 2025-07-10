@@ -20,7 +20,7 @@ apply:
 		rm -rf /opt/hiddify-manager/hiddify-panel/src/; \
 		export HIDDIFY_DEBUG=1 && \
 		export HIDDIFY_PANLE_SOURCE_DIR="$(PWD)/hiddify-panel/src/" &&\
-		(cd /opt/hiddify-manager/hiddify-panel && bash install.sh && bash ../common/replace_variables.sh); 	
+		(cd /opt/hiddify-manager/hiddify-panel && bash install.sh && bash run.sh && bash ../common/replace_variables.sh); 	
 	fi
 .PHONY: apply
 build: apply
@@ -32,19 +32,37 @@ build: apply
 # 	@bash -c '\
 # 	cd hiddify-panel/src && \
 # 	git pull'
+latest-tags:
+	@tags=$$(git for-each-ref --sort=-creatordate --format='%(refname:short)' refs/tags); \
+	stable=""; beta=""; \
+	for tag in $$tags; do \
+	  echo $$tag | grep -qE '^v[0-9]+\.[0-9]+\.[0-9]+$$' && [ -z "$$stable" ] && stable=$$tag; \
+	  echo $$tag | grep -qE '^v[0-9]+\.[0-9]+\.[0-9]+(b|\.dev)[0-9]+$$' && [ -z "$$beta" ] && beta=$$tag; \
+	  [ "$$beta" != "" ] && [ "$$stable" != "" ] && break; \
+	done; \
+	echo "Stable: $${stable:-❌} | Beta: $${beta:-❌}"
 
+
+dev:
+	@echo "dev" > VERSION
+	@gitchangelog > HISTORY.md || { git tag -d $${TAG}; echo "Please run pip install gitchangelog pystache mustache markdown"; exit 2; } 
+	@make -C ./hiddify-panel/src dev
+	@git add VERSION HISTORY.md hiddify-panel/src
+	@git commit -m "release: switch to develop"
 
 .PHONY: release
-release:
+release: latest-tags
+	@if [ -z "$$VIRTUAL_ENV" ]; then \
+		echo "❌ Python virtual environment is NOT active. Please activate it first."; \
+		exit 1; \
+	fi
 ifeq ($(TAG),)
-	@echo "previous tag was $$(git describe --tags $$(git rev-list --tags --max-count=1))"
-	@echo "release last version $$(lastversion Hiddify-Manager) "
-	@echo "beta last version $$(lastversion --pre Hiddify-Manager) "
 	@echo "WARNING: This operation will create s version tag and push to github"
 	@read -p "Version? (provide the next x.y.z semver) : " TAG
 endif
-	@VERSION_STR=$$(echo $$TAG | grep -Eo '^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}(\.dev[0-9]{1,2})?') 
-	[ ! -z "$$VERSION_STR" ] || { echo "Incorrect tag. e.g., 1.2.3 or 1.2.3.dev1"; exit 1; } 
+	@VERSION_STR=$$(echo $$TAG | grep -Eo '^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}((b)[0-9]{1,2})?') 
+	[ ! -z "$$VERSION_STR" ] || { echo "Incorrect tag. e.g., 1.2.3 or 1.2.3b1"; exit 1; } 
+	@( git checkout beta && git pull && git merge dev ) || ( git checkout dev; echo "error in merging to beta branch"; exit 1 )
 	@echo "$${TAG}" > VERSION 
 	@make -C ./hiddify-panel/src release TAG=$${TAG}
 	@git tag $${TAG} > /dev/null
@@ -55,5 +73,6 @@ endif
 	@echo "creating git tag : v$${TAG}" 
 	@git tag v$${TAG} 
 	@git push -u origin HEAD --tags 
+	@git checkout dev && git merge beta && git push
 	@echo "Github Actions will detect the new tag and release the new version."
 	

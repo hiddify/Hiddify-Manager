@@ -43,19 +43,23 @@ function main() {
     echo "Creating a backup ..."
     ./hiddify-panel/backup.sh
 
+    update_script="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/main/common/download.sh"
     case "$package_mode" in
     develop)
         # Use the latest commit from GitHub
         latest_panel=$(get_commit_version Hiddify-Panel)
         latest_manager=$(get_commit_version hiddify-manager)
+        update_script="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/dev/common/download.sh"
         ;;
     beta)
         latest_panel=$(get_pre_release_version hiddify-panel)
         latest_manager=$(get_pre_release_version hiddify-manager)
+        update_script="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/beta/common/download.sh"
         ;;
     release)
         latest_panel=$(get_release_version hiddify-panel)
         latest_manager=$(get_release_version hiddify-manager)
+        update_script="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/main/common/download.sh"
         ;;
     esac
 
@@ -63,7 +67,7 @@ function main() {
     [[ "$latest_manager" != "$current_config_version" ]] && manager_update=1
     echo "$package_mode Latest panel version: $latest_panel Installed: $current_panel_version Lastest manager version: $latest_manager Installed: $current_config_version"
     if [[ "$force" == "true" || $panel_update == 1 || $manager_update == 1 ]]; then
-        bash <(curl -sSL https://raw.githubusercontent.com/hiddify/hiddify-config/main/common/download.sh) "$package_mode" "$force" "--no-gui" "--no-log"
+        bash <(curl -sSL $update_script) "$package_mode" "$force" "--no-gui" "--no-log"
     else
         echo "Nothing to update"
     fi
@@ -71,8 +75,10 @@ function main() {
     echo "---------------------Finished!------------------------"
 
 }
-
-if [[ " $@ " == *" --no-gui "* ]]; then
+if [[ "$HIDDIFY_DISABLE_UPDATE" == "1" || "$HIDDIFY_DISABLE_UPDATE" == "true" ]];then
+    error "Updating is disabled because env variable HIDDIFY_DISABLE_UPDATE == $HIDDIFY_DISABLE_UPDATE"
+    exit 9
+elif [[ " $@ " == *" --no-gui "* ]]; then
     set -- "${@/--no-gui/}"
     set_lock $NAME
     if [[ " $@ " == *" --no-log "* ]]; then

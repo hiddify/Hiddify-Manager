@@ -1,5 +1,23 @@
 source /opt/hiddify-manager/common/utils.sh
 
+if [ "$MODE" != "docker" ];then
+  if [[ '{{hconfigs['country']}}' == 'cn' ]]; then
+      TIMEZONE=Asia/Shanghai
+  elif [[ '{{hconfigs['country']}}' == 'ru' ]]; then
+      TIMEZONE=Europe/Moscow
+  else
+      TIMEZONE=Asia/Tehran
+  fi
+  CURRENT_TZ=$(timedatectl show --property=Timezone --value)
+  if [[ "$CURRENT_TZ" != "$TIMEZONE" ]]; then
+      echo "Current timezone is $CURRENT_TZ. Changing to $TIMEZONE..."
+      sudo timedatectl set-timezone "$TIMEZONE"
+      sudo systemctl restart mariadb
+  fi
+fi
+
+#if [ "${MODE}" != "docker" ];then
+
 # open essential ports
 allow_port "tcp" 22
 allow_port "tcp" 80
@@ -99,7 +117,7 @@ ip6tables -P INPUT ACCEPT
 save_firewall
 
 #add2iptables "INPUT -p tcp --dport 9000 -j DROP"
-
+#fi
 {% if hconfigs['auto_update'] %}
 echo "0 3 * * * root $(pwd)/../update.sh --no-gui --no-log" >/etc/cron.d/hiddify_auto_update
 service cron reload

@@ -75,7 +75,7 @@ jobs:
     needs:
       - make-upload-docker
     env:
-      LATEST: "${{ github.ref_type == 'tag' && (endsWith(github.ref_name , 'dev') && 'beta' ||'latest') || 'dev' }}"
+      LATEST: "${{ github.ref_type == 'tag' && (contains(github.ref_name, 'b') && 'beta' ||'latest') || 'dev' }}"
     steps:
       - name: Download digests
         uses: actions/download-artifact@v4

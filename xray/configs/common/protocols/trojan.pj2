@@ -1,0 +1,8 @@
+"protocol": "trojan",
+"settings": {
+    "clients": [
+        {% for u in users %}
+            {"password": "{{ u['uuid'] }}", "email": "{{ u['uuid'] }}@hiddify.com"},
+        {% endfor %}
+    ]
+}

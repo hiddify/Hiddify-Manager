@@ -8,6 +8,7 @@ import json
 import subprocess
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 import traceback
+from urllib.parse import quote
 
 with open("/opt/hiddify-manager/current.json") as f:
     configs = json.load(f)
@@ -33,12 +34,12 @@ def b64encode(s):
         s = s.encode("utf-8")
     return base64.b64encode(s).decode("utf-8")
 
-
 env_paths = ["/", "/opt/hiddify-manager/singbox/configs/"]
 env = Environment(loader=FileSystemLoader(env_paths))
 def render(template_path):
     try:
         env.filters["b64encode"] = b64encode
+        env.filters['quote'] = lambda s: quote(s,safe='')
         env.filters["hexencode"] = lambda s: "".join(
             hex(ord(c))[2:].zfill(2) for c in s
         )
@@ -50,12 +51,12 @@ def render(template_path):
 
         # Render the template
         rendered_content = template.render(**configs, exec=exec, os=os)
-        if not rendered_content:
-            print(f"Warning jinja2: {template_path} - Empty")
+        
+        #     print(f"Warning jinja2: {template_path} - Empty")
 
         # Write the rendered content to a new file without the .j2 extension
         output_file_path = os.path.splitext(template_path)[0]
-        if output_file_path.endswith(".json"):
+        if rendered_content and output_file_path.endswith(".json"):
             # Remove trailing comma and comments from json
             try:
                 json5object = json5.loads(rendered_content)
@@ -66,7 +67,7 @@ def render(template_path):
                     quote_keys=True,
                 )
             except Exception as e:
-                print(f"Error parsing json: {e}", file=sys.stderr)
+                print(f"Error parsing json {template_path}: {e}", file=sys.stderr)
 
         with open(output_file_path, "w", encoding="utf-8") as output_file:
             output_file.write(str(rendered_content))
@@ -77,7 +78,7 @@ def render(template_path):
         os.chown(output_file_path, input_stat.st_uid, input_stat.st_gid)
     except Exception as e:
         print(f"Error rendering {template_path}: {e}", file=sys.stderr)
-        traceback.print_exc(file == sys.stderr)
+        traceback.print_exc(file = sys.stderr)
 
 
 def render_j2_templates(*start_paths):
@@ -103,7 +104,8 @@ def render_j2_templates(*start_paths):
     # Render templates in parallel using ThreadPoolExecutor
     with ProcessPoolExecutor(4) as executor:
         executor.map(render, templates_to_render)
-
+    # for t in templates_to_render:
+    #     render(t)
 
 start_path = "/opt/hiddify-manager/"
 if __name__ == "__main__":

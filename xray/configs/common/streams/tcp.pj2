@@ -1,0 +1,12 @@
+
+"network": "tcp",
+"tcpSettings": {
+    "header": {
+        "type": "http",
+        "request": {
+            "path": [
+                "/{{ path }}",
+            ]
+        }
+    }
+}

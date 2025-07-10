@@ -1,6 +1,6 @@
 source ../common/utils.sh
 activate_python_venv
-install_package wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config ssh-client
+install_package wireguard libev-dev libevdev2 default-libmysqlclient-dev build-essential pkg-config ssh
 
 useradd -m hiddify-panel -s /bin/bash >/dev/null 2>&1
 usermod -aG hiddify-common hiddify-panel
@@ -14,33 +14,23 @@ localectl set-locale LANG=C.UTF-8 >/dev/null 2>&1
 su hiddify-panel -c update-locale LANG=C.UTF-8 >/dev/null 2>&1
 chown -R hiddify-panel:hiddify-panel . >/dev/null 2>&1
 # activate venv for hiddify-panel user
-if ! grep -Fxq "source /opt/hiddify-manager/.venv/bin/activate" "/home/hiddify-panel/.bashrc" && ! grep -Fxq "export PATH=/opt/hiddify-manager/.venv/bin:\$PATH" "/home/hiddify-panel/.bashrc"; then
-    echo "source /opt/hiddify-manager/.venv/bin/activate" >> "/home/hiddify-panel/.bashrc"
-    echo "export PATH=/opt/hiddify-manager/.venv/bin:\$PATH" >> "/home/hiddify-panel/.bashrc"
-fi
-
-pip uninstall -y flask-babelex >/dev/null 2>&1
-
-# install/build hiddifypanel package
-if [ -n "$HIDDIFY_PANLE_SOURCE_DIR" ]; then
-    echo "NOTICE: building hiddifypanel package from source..."
-    echo "NOTICE: the source dir $HIDDIFY_PANLE_SOURCE_DIR"
-    /opt/hiddify-manager/.venv/bin/pip install -e "$HIDDIFY_PANLE_SOURCE_DIR"
-else
-    echo "Installing hiddifypanel with the pip"
-    python -c "import hiddifypanel" || pip install -U hiddifypanel
+if ! grep -Fxq "source /opt/hiddify-manager/.venv313/bin/activate" "/home/hiddify-panel/.bashrc" && ! grep -Fxq "export PATH=/opt/hiddify-manager/.venv313/bin:\$PATH" "/home/hiddify-panel/.bashrc"; then
+    echo "source /opt/hiddify-manager/.venv313/bin/activate" >> "/home/hiddify-panel/.bashrc"
+    echo "export PATH=/opt/hiddify-manager/.venv313/bin:\$PATH" >> "/home/hiddify-panel/.bashrc"
 fi
 
 
-ln -sf $(which uwsgi) /usr/local/bin/uwsgi >/dev/null 2>&1
 ln -sf $(pwd)/hiddify-panel.service /etc/systemd/system/hiddify-panel.service
 systemctl enable hiddify-panel.service
 
 ln -sf $(pwd)/hiddify-panel-background-tasks.service /etc/systemd/system/hiddify-panel-background-tasks.service
 systemctl enable hiddify-panel-background-tasks.service
 
-
-systemctl daemon-reload >/dev/null 2>&1
+if [ -n "$HIDDIFY_PANLE_SOURCE_DIR" ]; then
+    echo "NOTICE: building hiddifypanel package from source..."
+    echo "NOTICE: the source dir $HIDDIFY_PANLE_SOURCE_DIR"
+    uv pip install -e "$HIDDIFY_PANLE_SOURCE_DIR"
+fi
 
 rm -rf /etc/cron.d/{hiddify_usage_update,hiddify_auto_backup}
 # echo "*/1 * * * * root $(pwd)/update_usage.sh" >/etc/cron.d/hiddify_usage_update

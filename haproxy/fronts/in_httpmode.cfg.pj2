@@ -1,0 +1,23 @@
+frontend in-httpmode
+  bind abns@http_in_h2 accept-proxy allow-0rtt
+  bind abns@https_in_http_mode accept-proxy allow-0rtt ssl crt /opt/hiddify-manager/ssl/ alpn h3,h2,http/1.1
+
+  {% for port in (["443"] + hconfigs['tls_ports'].split(',')) | unique %}
+  bind quic4@:{{port}},quic6@:{{port}} v4v6 tfo ssl crt /opt/hiddify-manager/ssl/ alpn h3    
+  {%endfor%}
+
+  mode http
+  http-response set-header alt-svc "h3=\":443\";ma=900;"
+    
+    
+  #multimap not supported use trick
+  #use_backend %[hdr(:authority),map_dom(/opt/hiddify-manager/haproxy/maps/http_domain)]
+  #use_backend %[path,map_beg(/opt/hiddify-manager/haproxy/maps/path_h2)]
+
+  http-request set-var(txn.backend) req.hdr(host),map_dom(/opt/hiddify-manager/haproxy/maps/http_domain,default)
+  http-request set-var(txn.backend) path,map_beg(/opt/hiddify-manager/haproxy/maps/path_v10,nginx_dispatcher_http_h2) if  { var(txn.backend) -m str default }
+
+  use_backend %[var(txn.backend)]    
+
+
+  default_backend nginx_dispatcher_http_h2

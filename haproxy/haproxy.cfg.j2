@@ -1,6 +1,48 @@
-{% include '/opt/hiddify-manager/haproxy/common.cfg.pj2' %}
+global
+    limited-quic
+    {%if hconfigs['log_level']!="CRITICAL"%}
+    # # Access logs
+    # #log-format %ci:%cp\ [%t]\ %ft\ %b/%s\ %Tcc\ %Tw/%Tc/%Tr/%Ta\ %ST\ %B\ %CC\ %CS\ %tsc\ %ac/%fc/%bc/%sc/%rc\ %sq/%bq\ %hr\ %hs\ %{+Q}r
+    # option httplog
+    # option http-server-close
+    # option forwardfor except 127.0.0.1  # Add X-Forwarded-For header except for HAProxy itself
+    # log /opt/hiddify/hiddify-manager/log/system/haproxy.log local0
+
+    log /opt/hiddify-manager/log/system/haproxy.err.log local0 warning
+        
+    {%endif%}
+
+
+
+defaults
+    log global
+    retry-on all-retryable-errors
+
+    timeout connect 5s
+    timeout client 50s
+    timeout client-fin 50s
+    timeout server 50s
+    timeout tunnel 1h
+    default-server init-addr none
+    default-server inter 15s fastinter 2s downinter 5s rise 3 fall 3
+    mode tcp
+    #tune.h2.initial-window-size 536870912
+    #tune.h2.max-concurrent-streams 512
+
+
+{% include '/opt/hiddify-manager/haproxy/fronts/in_httpmode.cfg.pj2' %}
+
+{% include '/opt/hiddify-manager/haproxy/fronts/in_tcpmode.cfg.pj2' %}
+
+{% include '/opt/hiddify-manager/haproxy/fronts/sni_proxy.cfg.pj2' %}
+
+{% include '/opt/hiddify-manager/haproxy/fronts/stats.cfg.pj2' %}
+
+{% include '/opt/hiddify-manager/haproxy/backends/common.cfg.pj2' %}
+
+{% include '/opt/hiddify-manager/haproxy/backends/v10.cfg.pj2' %}
 {% if hconfigs['core_type'] == 'xray' %}
-{% include '/opt/hiddify-manager/haproxy/xray.cfg.pj2' %}
+{% include '/opt/hiddify-manager/haproxy/backends/xray.cfg.pj2' %}
 {%else%}
-{% include '/opt/hiddify-manager/haproxy/singbox.cfg.pj2' %}
+{% include '/opt/hiddify-manager/haproxy/backends/singbox.cfg.pj2' %}
 {%endif%}

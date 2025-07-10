@@ -1,11 +1,12 @@
 {
+ {% if hconfigs['trojan_enable'] %}
 	{% set has_old_xtls_direct = false %}
 	{% for domain in hconfigs['domains'] %}
     	{% if domain.mode == "old_xtls_direct" %}
         	{% set has_old_xtls_direct = true %}
     	{% endif %}
 	{% endfor %}
-	{% if has_old_xtls_direct and hconfigs['trojan_enable'] %}
+	{% if has_old_xtls_direct %}
 		"inbounds": [
 			{
 				"tag":"dispatcher",
@@ -84,4 +85,5 @@
 			}
 		]
 	{% endif %}
+ {% endif %}
 }

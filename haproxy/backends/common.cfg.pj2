@@ -1,0 +1,169 @@
+
+
+
+backend to_https_in_http_mode
+    server to_https_in_http_modey abns@https_in_http_mode send-proxy-v2
+
+backend to_http_in_h2_http
+    mode http
+    server to_http_in_h2 abns@http_in_h2 send-proxy-v2 proto h2
+
+backend to_httpmode
+    server to_httpmode abns@http_in_h2 send-proxy-v2 
+
+backend to_https_in_ssl
+    server haproxy abns@https_in_ssl send-proxy-v2 tfo
+
+
+# backend to_https_in_ssl
+# #     server xray abns@https_in_ssl send-proxy-v2
+
+backend generate_204
+    mode http
+    http-request return status 204
+
+# this server handles xray http2 proxies
+backend nginx_dispatcher_h2
+    server nginx unix@/opt/hiddify-manager/nginx/run/h2.sock send-proxy-v2 tfo
+
+# this server doesn't handle any proxy
+backend nginx_dispatcher
+    server nginx unix@/opt/hiddify-manager/nginx/run/h1.sock send-proxy-v2 tfo
+
+backend nginx_dispatcher_http
+    mode http
+    server nginx unix@/opt/hiddify-manager/nginx/run/h1.sock send-proxy-v2 tfo
+
+backend nginx_dispatcher_http_h2
+    mode http
+    server nginx unix@/opt/hiddify-manager/nginx/run/h2.sock send-proxy-v2 tfo proto h2
+
+
+
+
+
+
+
+
+
+backend tgdecoy
+    server tgdecoy {{hconfigs['telegram_fakedomain']}}
+
+backend tgdecoy_http
+    mode http
+    server tgdecoy_http {{hconfigs['telegram_fakedomain']}}
+
+backend telegram
+    server telegram 127.0.0.1:1001
+
+{%if hconfigs['ssfaketls_enable'] and hconfigs['ssfaketls_fakedomain'] %}
+backend ssdecoy_http
+    mode http
+    server ssdecoy {{hconfigs['ssfaketls_fakedomain']}}
+backend ssfake
+    server ssfake 127.0.0.1:1010 tfo
+{%endif%}
+
+
+
+
+
+
+
+
+
+{%if hconfigs['shadowtls_enable'] and hconfigs['shadowtls_fakedomain']%}
+backend shadowtls_decoy_http
+    mode http
+    server shadowtls_decoy_http {{hconfigs['shadowtls_fakedomain']}}
+backend shadowtls_decoy
+    server shadowtls_decoy {{hconfigs['shadowtls_fakedomain']}}
+{%endif%}
+
+# backend ssrdecory
+#     server ssrdecoy ssrtlsdomain
+# backend ssr
+#     server ssr 127.0.0.1:1004
+
+
+backend xray_force
+    # server xray unix@/dev/shm/hiddify-xtls-main.sock
+    server xray abns@xtlsin send-proxy-v2
+
+
+backend hiddifypanel
+    mode http
+    http-request set-header X-Forwarded-For %[src]
+    server hpanel 127.0.0.1:9000
+
+
+
+
+{% for d in domains if d['internal_port_special'] %}
+{# if happen, it means active probing... sending to decoy#}
+{%set domain=d['domain']%}
+{%set port=d['internal_port_special']%}
+backend sp_{{d['mode']}}_http_{{port}}
+  mode http
+  server sp_{{d['mode']}}_{{port}} {{domain}}:80 
+{%endfor%}
+
+
+
+
+backend shadowtls
+    server singbox 127.0.0.1:1030 tfo 
+
+
+#backend v2rayw
+#  server v2rayw 127.0.0.1:1020  tfo 
+
+#backend v2rayw_h2
+#  server v2rayw 127.0.0.1:1020  tfo 
+
+
+
+backend vmesshs
+  server vmesshs unix@/opt/hiddify-manager/xray/run/vmess-xhttp.sock send-proxy-v2 
+backend vlesshs 
+  server vlesshs unix@/opt/hiddify-manager/xray/run/vless-xhttp.sock send-proxy-v2 
+backend trojanhs
+  server trojanhs unix@/opt/hiddify-manager/xray/run/trojan-xhttp.sock send-proxy-v2 
+
+
+backend vmesshs_http_h2
+  mode http
+  server vmesshs_h2 abns@vmess-xhttp proto h2 send-proxy-v2
+  
+
+backend vlesshs_http_h2
+  mode http
+  server vlesshs abns@vless-xhttp proto h2 send-proxy-v2
+
+backend trojanhs_http_h2
+  mode http
+  server trojanhs abns@trojan-xhttp proto h2 send-proxy-v2
+  
+
+
+{% for d in domains if d['internal_port_special'] %}
+{%set domain=d['domain']%}
+{%set port=d['internal_port_special']%}
+backend sp_{{d['mode']}}_{{port}}
+  mode tcp
+  server xray abns@realityin_{{port}} send-proxy-v2
+  
+  {#  server singbox 127.0.0.1:{{port}} send-proxy-v2 #}
+  
+  
+{%endfor%}
+
+backend proxy_stats_ui_backend
+    mode http
+    http-request set-path %[path,regsub(^/{{ hconfigs['proxy_path_admin'] }}/proxy-stats/,/ui/)]
+    server proxy_stats_ui 127.0.0.1:6756
+
+backend proxy_stats_api_backend
+    mode http
+    http-request set-path %[path,regsub(^/{{ hconfigs['proxy_path_admin'] }}/proxy-stats/api/,/)]
+    server proxy_stats_api 127.0.0.1:6756

@@ -1,0 +1,5 @@
+"network": "xhttp",
+"xhttpSettings": {
+    "mode": "auto",
+    "path":"/{{path}}", 
+}

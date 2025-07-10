@@ -5,6 +5,446 @@
 
 ### Fix
 
+* Update. [hiddify-com]
+
+
+## v10.86.2 (2025-07-10)
+
+### Other
+
+* Upgrade release installation. [hiddify-com]
+
+
+## v10.86.1 (2025-07-10)
+
+### Fix
+
+* Timezone issue. [hiddify-com]
+
+* Bug. [hiddify-com]
+
+* Bug. [hiddify-com]
+
+* Update script. [hiddify-com]
+
+* Issue. [hiddify-com]
+
+* Beta. [hiddify-com]
+
+* Beta installer. [hiddify-com]
+
+* Beta installer. [hiddify-com]
+
+* Beta bug. [hiddify-com]
+
+* Docker. [hiddify-com]
+
+* Beta version. [hiddify-com]
+
+* Fixed location. [hiddify-com]
+
+* Docker issue, disable auto update by env variable. [hiddify-com]
+
+* Installation bug. [hiddify-com]
+
+* Bug. [hiddify-com]
+
+* Systemd issue. [hiddify-com]
+
+* Docker installation. [hiddify-com]
+
+* Docker installation. [hiddify-com]
+
+* Installer issue. [hiddify-com]
+
+* Bug. [hiddify-com]
+
+* Bug. [hiddify-com]
+
+* Python installation multiuser. [hiddify-com]
+
+* Bug. [hiddify-com]
+
+* Correct timezone for Russia in script. [Tesla]
+
+  The timezone for Russia was previously set to 'Asia/Moscow', which is incorrect.
+  Updated the script to use 'Europe/Moscow' to correctly reflect the timezone.
+
+### Other
+
+* Add support for reality tcp remove old configs. [hiddify-com]
+
+* Add retry for instllation. [hiddify-com]
+
+* Refactor haproxy and xray configs. [hiddify-com]
+
+* Add urlencode. [hiddify-com]
+
+* Introcude to xhttp. [hiddify-com]
+
+* Refactor haproxy. [hiddify-com]
+
+* Update to haproxy 3.2. [hiddify-com]
+
+* Add routing of forbidden site for warp in singbox. [hiddify-com]
+
+* Upgrade to xray 25.6.8. [hiddify-com]
+
+* Fix proxy status page. [hiddify-com]
+
+* Add clang dependency. [hiddify-com]
+
+* Update release script. [hiddify-com]
+
+* Merge branch 'dev' into beta. [hiddify-com]
+
+* Update release script. [hiddify-com]
+
+* Merge pull request #4878 from tesilaaliset/fix/fix_dev_installation. [Hiddify]
+
+  Download dev version when using dev
+
+* Download dev version when using dev. [tesla]
+
+* Merge pull request #4877 from tesilaaliset/fix/fix_using_313_always. [Hiddify]
+
+  Update and using 313 for apply_config and else.
+
+* Update and using 313 for apply_config and else. [tesla]
+
+* Merge branch 'dev' into beta. [hiddify-com]
+
+* Merge pull request #4873 from hiddify/dev. [Hiddify]
+
+  10.85.0b4
+
+* Merge pull request #4872 from hiddify/dev. [Hiddify]
+
+  update to 10.85.0b2
+
+* Merge pull request #4869 from tesilaaliset/update/update-docker-installation. [Hiddify]
+
+  if it's dev or development, clone the project, build it and deploy it…
+
+* If it's dev or development, clone the project, build it and deploy it using docker compose. else, use the default way. [tesla]
+
+* Merge pull request #4868 from tesilaaliset/update/update_docker_image. [Hiddify]
+
+  Update Docker image ubuntu from 22 to 24
+
+* Update Docker image ubuntu from 22 to 24. [tesla]
+
+* Merge pull request #4867 from tesilaaliset/fix/fix-ha-proxy-installation. [Hiddify]
+
+  Fix installation of haproxy based on ubuntu version.
+
+* Fix installation of haproxy based on ubuntu version. [tesla]
+
+* Merge pull request #4866 from tesilaaliset/fix/fix-docker. [Hiddify]
+
+  Using version 313 when we are on dev or docker
+
+* Using version 313 when we are on dev or docker. [tesla]
+
+* Merge pull request #4865 from tesilaaliset/fix/fix_docker. [Hiddify]
+
+  Fixing systemctl problem
+
+* Fix install.sh to install xray if mode is docker-install. [tesla]
+
+* Changes: 1. copy docker.env to .env for docker-compose compatibility. 2. Do not use systemctl and run things when we are building docker image. 3. remove apply config when we are building image. [tesla]
+
+* Fixing systemctl problem. [root]
+
+* Merge pull request #4864 from tesilaaliset/update/update_ha_proxy. [Hiddify]
+
+  Upgrade HAProxy from 3.0 to 3.1
+
+* Upgrade HAProxy from 3.0 to 3.1. [root]
+
+  - Updated installation to target HAProxy 3.1 via vbernat/haproxy-3.1 PPA
+
+* Imporved docker installation. [hiddify-com]
+
+* Revert changes. [hiddify-com]
+
+* Fix bug. [hiddify-com]
+
+* Fix bug. [hiddify-com]
+
+* Fix bug. [hiddify-com]
+
+* Update python to 3.13. [hiddify-com]
+
+* Improve haproxy performance by using map. [hiddify-com]
+
+* Improve h2 support. [hiddify-com]
+
+* Merge pull request #4849 from tesilaaliset/fix/fix_relase_bugs. [lymanjre]
+
+* Merge branch 'main' into fix/fix_relase_bugs. [Tesla]
+
+* Merge pull request #4848 from tesilaaliset/fix/fix_relase_bugs. [lymanjre]
+
+* Update. [Tesla]
+
+* Merge branch 'main' into fix/fix_relase_bugs. [Tesla]
+
+* Reduce workers in celery. [hiddify-com]
+
+* Merge pull request #4842 from tesilaaliset/fix/fix_relase_bugs. [lymanjre]
+
+* 1. **VLESS gRPC (h2-vless-grpc-new)**    ```    Migrate h2-vless-grpc-new from gRPC to XHTTP stream-up H2. [Tesla]
+
+  Replace network: "grpc" with network: "xhttp" and update to xhttpSettings with mode: "stream-up" to address gRPC deprecation warning. Preserve Unix socket and VLESS settings. Ref: Xray-core v24.11.21 release notes, issue #4113.
+     ```
+
+  2. **VLESS gRPC Proxy (h2-vless-grpc-proxy)**
+     ```
+     Migrate h2-vless-grpc-proxy from gRPC to XHTTP stream-up H2
+
+     Switch network: "grpc" to network: "xhttp", replace grpcSettings with xhttpSettings (mode: "stream-up"), and retain tcpSettings with acceptProxyProtocol. Ref: Xray-core v24.11.21 release notes, issue #4113.
+     ```
+
+  3. **VMess gRPC (h2-vmess-grpc-new)**
+     ```
+     Migrate h2-vmess-grpc-new from gRPC to XHTTP stream-up H2
+
+     Update network: "grpc" to network: "xhttp", replace grpcSettings with xhttpSettings (mode: "stream-up"), and keep VMess settings intact. Ref: Xray-core v24.11.21 release notes, issue #4113.
+     ```
+
+  4. **VMess gRPC Proxy (h2-vmess-grpc-proxy)**
+     ```
+     Migrate h2-vmess-grpc-proxy from gRPC to XHTTP stream-up H2
+
+     Change network: "grpc" to network: "xhttp", replace grpcSettings with xhttpSettings (mode: "stream-up"), and preserve tcpSettings with acceptProxyProtocol. Ref: Xray-core v24.11.21 release notes, issue #4113.
+     ```
+
+  ---
+
+  5. **VLESS WS (vless-ws-new)**
+     ```
+     Migrate vless-ws-new from WebSocket to XHTTP stream-up H2
+
+     Replace network: "ws" with network: "xhttp", update to xhttpSettings (mode: "stream-up"), move acceptProxyProtocol to tcpSettings, and retain sniffing. Ref: Xray-core v24.11.21 release notes, issue #4113.
+     ```
+
+  6. **Trojan WS (trojan-ws-new)**
+     ```
+     Migrate trojan-ws-new from WebSocket to XHTTP stream-up H2
+
+     Switch network: "ws" to network: "xhttp", replace wsSettings with xhttpSettings (mode: "stream-up"), move acceptProxyProtocol to tcpSettings, and keep Trojan settings. Ref: Xray-core v24.11.21 release notes, issue #4113.
+     ```
+
+  7. **VMess WS (vmess-ws-new)**
+     ```
+     Migrate vmess-ws-new from WebSocket to XHTTP stream-up H2
+
+     Update network: "ws" to network: "xhttp", replace wsSettings with xhttpSettings (mode: "stream-up"), move acceptProxyProtocol to tcpSettings, and preserve VMess settings. Ref: Xray-core v24.11.21 release notes, issue #4113.
+     ```
+
+  8. **Shadowsocks WS (h2-ss-ws-new-proxy)**
+     ```
+     Migrate h2-ss-ws-new-proxy from WebSocket to XHTTP stream-up H2
+
+     Change network: "ws" to network: "xhttp", replace wsSettings with xhttpSettings (mode: "stream-up"), move acceptProxyProtocol to tcpSettings, and retain Shadowsocks settings. Ref: Xray-core v24.11.21 release notes, issue #4113.
+     ```
+
+  9. **Trojan WS (h2-trojan-ws-new)**
+     ```
+     Migrate h2-trojan-ws-new from WebSocket to XHTTP stream-up H2
+
+     Replace network: "ws" with network: "xhttp", update to xhttpSettings (mode: "stream-up"), and keep Trojan settings with Unix socket. Ref: Xray-core v24.11.21 release notes, issue #4113.
+     ```
+
+  10. **Trojan WS Proxy (h2-trojan-ws-new-proxy)**
+      ```
+      Migrate h2-trojan-ws-new-proxy from WebSocket to XHTTP stream-up H2
+
+      Switch network: "ws" to network: "xhttp", replace wsSettings with xhttpSettings (mode: "stream-up"), move acceptProxyProtocol to tcpSettings, and preserve sniffing. Ref: Xray-core v24.11.21 release notes, issue #4113.
+      ```
+
+  11. **VLESS WS (h2-vless-ws-new)**
+      ```
+      Migrate h2-vless-ws-new from WebSocket to XHTTP stream-up H2
+
+      Update network: "ws" to network: "xhttp", replace wsSettings with xhttpSettings (mode: "stream-up"), and retain VLESS settings with Unix socket. Ref: Xray-core v24.11.21 release notes, issue #4113.
+      ```
+
+  12. **VLESS WS Proxy (h2-vless-ws-new-proxy)**
+      ```
+      Migrate h2-vless-ws-new-proxy from WebSocket to XHTTP stream-up H2
+
+      Change network: "ws" to network: "xhttp", replace wsSettings with xhttpSettings (mode: "stream-up"), move acceptProxyProtocol to tcpSettings, and keep sniffing. Ref: Xray-core v24.11.21 release notes, issue #4113.
+      ```
+
+  13. **VMess WS (h2-vmess-ws-new)**
+      ```
+      Migrate h2-vmess-ws-new from WebSocket to XHTTP stream-up H2
+
+      Replace network: "ws" with network: "xhttp", update to xhttpSettings (mode: "stream-up"), and preserve VMess settings with Unix socket. Ref: Xray-core v24.11.21 release notes, issue #4113.
+      ```
+
+  14. **VMess WS Proxy (h2-vmess-ws-new-proxy)**
+      ```
+      Migrate h2-vmess-ws-new-proxy from WebSocket to XHTTP stream-up H2
+
+      Switch network: "ws" to network: "xhttp", replace wsSettings with xhttpSettings (mode: "stream-up"), move acceptProxyProtocol to tcpSettings, and retain sniffing. Ref: Xray-core v24.11.21 release notes, issue #4113.
+      ```
+
+  ---
+
+  - **Consistency**: Each message follows a pattern: it identifies the config, describes the migration (gRPC or WS to XHTTP), details key changes, and references the Xray-core documentation.
+  - **References**: The v24.11.21 release notes and issue #4113 are cited as they discuss the deprecation of gRPC and WebSocket in favor of XHTTP, providing context for these changes.
+  - **Flexibility**: If you’re using a different versioning system or need adjustments (e.g., adding ticket numbers), let me know!
+
+* Fix trojan and h2 vless problems on rendering. [Tesla]
+
+* Fix trojan and h2 vless problems on rendering. [Tesla]
+
+* Merge branch 'main' into fix/fix_relase_bugs. [Tesla]
+
+* Merge pull request #4838 from tesilaaliset/fix/fix_relase_bugs. [lymanjre]
+
+* Update splithttp (XHTTP) configurations. and changes. [Tesla]
+
+* Add new version for handling v2rayng and h3 and h2 working on client. [Tesla]
+
+* Update the common to fix reality_h2 problem. [Tesla]
+
+* Update the hiddify panel installation to install from source. [Tesla]
+
+* Merge pull request #4803 from JeelsBoobz/patch-1. [Hiddify]
+
+  Fix timezone typo
+
+* Fix timezone typo. [JeelsBoobz]
+
+* Merge pull request #4825 from tesilaaliset/fix/fix-hiddify-cli. [lymanjre]
+
+  Fix/fix hiddify cli
+
+* Merge branch 'main' into fix/fix-hiddify-cli. [Tesla]
+
+* Merge pull request #4820 from tesilaaliset/fix/fix-hiddify-cli. [lymanjre]
+
+  Update Cli run and change the usage to the config_.josn file instead …
+
+* Merge pull request #4809 from tesilaaliset/fix_xray_reset. [lymanjre]
+
+  Fix Haproxy configuration
+
+* Fix Haproxy configuration. [Tesla]
+
+* Updates. [Tesla]
+
+* Update Cli run and change the usage to the config_.josn file instead of url due EOF JSON error. [Tesla]
+
+* Merge pull request #4807 from tesilaaliset/fix_xray_reset. [lymanjre]
+
+  Update and change h2 paths to the singbox
+
+* Update and change h2 paths to the singbox. [Tesla]
+
+* Merge pull request #4798 from tesilaaliset/fix_xray_reset. [lymanjre]
+
+  Fix xray_reset on apply_users mode.
+
+* Fix xray_reset on apply_users mode. [Tesla]
+
+* Merge pull request #4797 from tesilaaliset/update_xray_25. [lymanjre]
+
+  Update xray 25
+
+* Update configs and replace `h2` with `xhttp` [Tesla]
+
+* Update Packages.lock and add xray25.2.21 to it. [Tesla]
+
+* Merge pull request #4788 from tesilaaliset/fix/fix-docker-run. [lymanjre]
+
+* Restart services due needs. [Tesla]
+
+* Update. [Tesla]
+
+* Merge branch 'main' into fix/fix-docker-run. [Tesla]
+
+* Merge pull request #4787 from tesilaaliset/fix/fix-docker-run. [lymanjre]
+
+* Merge pull request #4786 from tesilaaliset/fix/fix-docker-run. [lymanjre]
+
+  Use Image Tag due script use the image.
+
+* Update docker-init. [Tesla]
+
+* Merge branch 'main' into fix/fix-docker-run. [Tesla]
+
+* Merge pull request #4785 from tesilaaliset/fix/fix-docker-run. [lymanjre]
+
+  Fix/fix docker run
+
+* Improve docker. [Tesla]
+
+* Fix docker compose. [Tesla]
+
+* Update Docker init. [Tesla]
+
+* Fix app.cfg and docker installer to change passwords in the app.cfg. [Tesla]
+
+* Remove ports 53 due systemd-reslove LISTEN on it. [Tesla]
+
+* Update docker init no-gui. [Tesla]
+
+* Update docker-init. [Tesla]
+
+* Use Image Tag due script use the image. [Tesla]
+
+* Remove Duplicate 80 port in docker compose. [Tesla]
+
+* Fix ports. [Tesla]
+
+* Fix network_mode for hiddify-manager. [Tesla]
+
+* Make build. [Tesla]
+
+* Merge pull request #4777 from tesilaaliset/fix-docker. [lymanjre]
+
+  Fix docker
+
+* Merge branch 'main' into fix-docker. [Tesi La]
+
+* Merge pull request #4764 from tesilaaliset/fix/fix-docker. [lymanjre]
+
+  Fix Docker Compose
+
+* Fix Docker Compose port allocation issue. [Tesla]
+
+* Merge pull request #4763 from tesilaaliset/fix/typo-in-timezone. [lymanjre]
+
+  fix: correct timezone for Russia in script
+
+* Update. [Tesla]
+
+* Fix syntax error in Dockerfile. [Tesla]
+
+* Fix typo in Dockerfile. [Tesla]
+
+* Update Dockerfile layers. [Tesla]
+
+* Update common intall for docker. [Tesla]
+
+* Fix on installing redis and mysql on docker mode. [Tesla]
+
+* Update Hiddify panel install script for docker. [Tesla]
+
+* Update Wiregurd installation for docker. [Tesla]
+
+* Update common/run.sh for docker. [Tesla]
+
+
+## v10.80.11 (2024-12-18)
+
+### Fix
+
 * Nginx installation. [hiddify-com]
 
 

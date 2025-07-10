@@ -1,9 +1,12 @@
 {
 	{% if hconfigs['reality_enable'] %}
 		"inbounds": [
-			{% for d in domains if d['internal_port_reality'] and not d['grpc'] %}
-			{%set domain=d['domain']%}
-			{%set port=d['internal_port_reality']%}
+			{% for d in domains if d['internal_port_special'] and d['mode']=='special_reality_tcp' %}
+			
+				{%set domain=d['domain']%}
+				{%set port=d['internal_port_special']%}
+
+
 			{
 				"tag":"realityin_{{port}}",
 				"listen": "127.0.0.1",

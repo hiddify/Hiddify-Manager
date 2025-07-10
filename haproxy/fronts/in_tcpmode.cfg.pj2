@@ -1,0 +1,77 @@
+frontend in-tcpmode
+    {% for port in (["80"] + hconfigs['http_ports'].split(',')) | unique%}
+    bind :{{port}},:::{{port}} v4v6 tfo
+    {%endfor%}
+    bind abns@https_in_ssl tfo accept-proxy ssl crt /opt/hiddify-manager/ssl/ alpn h2,http/1.1,h3 allow-0rtt
+    acl h2 ssl_fc_alpn -i h2
+    acl h3 ssl_fc_alpn -i h3
+
+    http-response set-header alt-svc "h3=\":443\";ma=900;"
+    
+    tcp-request inspect-delay 5s
+    tcp-request content accept if HTTP h2
+
+    use_backend to_httpmode if h2
+    use_backend to_httpmode if h3
+    
+    #map is not working in tcp mode
+
+
+
+    use_backend generate_204 if { path -i /{{hconfigs['proxy_path_client']}}/generate_204 }
+    use_backend generate_204 if { path -i /{{hconfigs['proxy_path']}}/generate_204 }
+    use_backend hiddifypanel if { path_beg /{{hconfigs['proxy_path_client']}}/  }
+    use_backend hiddifypanel if { path_beg /{{hconfigs['proxy_path_admin']}}/ hiddifypanel }
+    use_backend hiddifypanel if { path_beg /{{hconfigs['proxy_path']}}/ hiddifypanel }
+
+    {%for d in domain if d['mode']=='sub_link_only'%} 
+        use_backend to_panel_only if { hdr(host) -i d['domain'] }
+    {%endfor%}
+
+    {% for d in domains if d['internal_port_special'] %}
+    {# if happen, it means active probing... sending to decoy#}
+        {%set domain=d['domain']%}
+        {%set port=d['internal_port_special']%}
+        use_backend sp_{{d['mode']}}_http_{{port}} if { hdr(host) -i {{domain}} }
+    {%endfor%}
+
+
+    {%if hconfigs['ssfaketls_enable'] and hconfigs['ssfaketls_fakedomain'] %}
+    {# if happen, it means active probing... sending to decoy#}
+    use_backend ssdecoy_http if { hdr(host) -i {{hconfigs['ssfaketls_fakedomain']}} }
+    {%endif%}
+
+    {%if hconfigs['telegram_enable'] and hconfigs['telegram_fakedomain'] %}
+    {# if happen, it means active probing... sending to decoy#}
+    use_backend tgdecoy_http if { hdr(host) -i {{hconfigs['telegram_fakedomain']}} }
+    {%endif%}
+
+    {%if hconfigs['shadowtls_enable'] and hconfigs['shadowtls_fakedomain']%}
+    {# if happen, it means active probing... sending to decoy#}
+    use_backend shadowtls_decoy_http if { hdr(host) -i {{hconfigs['shadowtls_fakedomain'] }} }
+    {%endif%}
+
+
+
+    
+    {% for protocol in ['vless','vmess','trojan']%}
+        {%for stream in ['xhttp','ws','grpc','tcp','httpupgrade']%}
+            {% if hconfigs[protocol~'_enable'] and hconfigs[stream~'_enable'] %}
+                {% set path=hconfigs['path_'~ protocol]~hconfigs['path_'~stream] %}
+                {%if stream=='grpc' %}
+    use_backend v10-{{protocol}}-{{stream}} if { path_beg /{{path|quote}} }
+                {%else%}
+    use_backend v10-{{protocol}}-{{stream}} if { path_beg /{{path}} }
+                {%endif%}
+            {%endif%}
+        {%endfor%}
+    {%endfor%}
+
+
+    
+
+    
+
+    
+    default_backend to_httpmode
+

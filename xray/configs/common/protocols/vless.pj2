@@ -1,0 +1,19 @@
+"protocol": "vless",
+"settings": {
+    "clients": [
+        {% for u in users %}
+            {
+                "id": "{{ u['uuid'] }}", 
+                "email": "{{ u['uuid'] }}@hiddify.com",
+                "flow": "{{flow}}"
+            },
+        {% endfor %}
+    ],
+    "decryption": "none",
+    "fallbacks": [   
+        {
+            "dest": "@@http_in_h2", //redirect to haproxy
+            "xver": 2
+        }
+    ]
+}

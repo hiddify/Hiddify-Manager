@@ -1,0 +1,23 @@
+ {% for protocol in ['vless','vmess','trojan']%}
+    {%for stream in ['xhttp','ws','grpc','tcp','httpupgrade']%}
+        {% if hconfigs[protocol~'_enable'] and hconfigs[stream~'_enable'] %}
+            {% set path=hconfigs['path_'~ protocol]~hconfigs['path_'~stream] %}
+            {%if stream=='grpc' %}
+/{{path|quote}} v10-{{protocol}}-{{stream}}-http
+            {%else%}
+/{{path}} v10-{{protocol}}-{{stream}}-http
+            {%endif%}
+        {%endif%}
+    {%endfor%}
+{%endfor%}
+
+/{{hconfigs['proxy_path_client']}}/generate_204 generate_204
+/{{hconfigs['proxy_path']}}/generate_204 generate_204
+
+/{{ hconfigs['proxy_path_admin'] }}/proxy-stats/api/ proxy_stats_api_backend
+/{{ hconfigs['proxy_path_admin'] }}/proxy-stats/ proxy_stats_ui_backend
+
+/{{hconfigs['proxy_path_client']}}/static/ nginx_dispatcher_http_h2
+/{{hconfigs['proxy_path_client']}}/ hiddifypanel
+/{{hconfigs['proxy_path_admin']}}/ hiddifypanel
+/{{hconfigs['proxy_path']}}/ hiddifypanel

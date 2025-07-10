@@ -1,6 +1,11 @@
+/{{hconfigs['proxy_path_client']}}/static/ nginx_dispatcher_http_h2
 /{{hconfigs['proxy_path_client']}}/ hiddifypanel
 /{{hconfigs['proxy_path_admin']}}/ hiddifypanel
 /{{hconfigs['proxy_path']}}/ hiddifypanel
+
+/{{ hconfigs['proxy_path_admin'] }}/proxy-stats/api/ proxy_stats_api_backend
+/{{ hconfigs['proxy_path_admin'] }}/proxy-stats/ proxy_stats_ui_backend
+
 
 {%if hconfigs['tcp_enable']%}
 /{{ hconfigs['path_vmess'] }}{{ hconfigs['path_tcp'] }} vmesst_h2
@@ -11,10 +16,10 @@
   
 
 {%if hconfigs['xhttp_enable']%}
-/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_xhttp'] }} vmesshs_h2
-/{{ hconfigs['path_vless'] }}{{ hconfigs['path_xhttp'] }} vlesshs_h2
-#/{{ hconfigs['path_ss'] }}{{ hconfigs['path_xhttp'] }} v2rayhs_h2
-/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_xhttp'] }} trojanhs_h2
+/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_xhttp'] }} vmesshs_http_h2
+/{{ hconfigs['path_vless'] }}{{ hconfigs['path_xhttp'] }} vlesshs_http_h2
+#/{{ hconfigs['path_ss'] }}{{ hconfigs['path_xhttp'] }} v2rayhs_http_h2
+/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_xhttp'] }} trojanhs_http_h2
 {%endif%}
 
 {%if hconfigs['grpc_enable']%}
@@ -22,8 +27,14 @@
 # /{{ hconfigs['path_vless'] }}{{ hconfigs['path_grpc'] }}/TunMulti vlessg
 # #/{{ hconfigs['path_ss'] }}{{ hconfigs['path_grpc'] }}/TunMulti v2rayg
 # /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_grpc'] }}/TunMulti trojang
-/{{ hconfigs['path_vmess'] }}{{ hconfigs['path_grpc'] }} vmessg
-/{{ hconfigs['path_vless'] }}{{ hconfigs['path_grpc'] }} vlessg
-#/{{ hconfigs['path_ss'] }}{{ hconfigs['path_grpc'] }} v2rayg
-/{{ hconfigs['path_trojan'] }}{{ hconfigs['path_grpc'] }} trojang
+/{{ hconfigs['path_vmess'] |urlencode}}{{ hconfigs['path_grpc'] |urlencode}} vmessg
+/{{ hconfigs['path_vless'] |urlencode}}{{ hconfigs['path_grpc'] |urlencode}} vlessg
+#/{{ hconfigs['path_ss'] |urlencode}}{{ hconfigs['path_grpc'] |urlencode}} v2rayg
+/{{ hconfigs['path_trojan'] |urlencode}}{{ hconfigs['path_grpc'] |urlencode}} trojang
 {%endif%}
+
+
+
+
+/{{hconfigs['proxy_path_client']}}/generate_204 generate_204
+/{{hconfigs['proxy_path']}}/generate_204 generate_204
