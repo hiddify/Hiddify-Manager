@@ -3,6 +3,13 @@
 
 ## (unreleased)
 
+### Other
+
+* Update. [hiddify-com]
+
+
+## v11.0.6 (2025-07-11)
+
 ### Fix
 
 * Issue python not detected in some cases. [hiddify-com]
