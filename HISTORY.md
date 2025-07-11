@@ -3,6 +3,19 @@
 
 ## (unreleased)
 
+### Other
+
+* Merge branch 'main' of github.com:hiddify/Hiddify-Manager. [hiddify-com]
+
+* Merge pull request #4999 from hiddify/dev. [Hiddify]
+
+  update
+
+* Update release script. [hiddify-com]
+
+
+## v11.0.3 (2025-07-11)
+
 ### New
 
 * Add singbox unified proxy. [hiddify-com]
