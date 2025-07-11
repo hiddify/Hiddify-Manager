@@ -63,7 +63,7 @@ function install_panel() {
     update_panel "$package_mode" "$force"
     panel_update=$?
     # We downgrade the marshmallow because of api_flask is not supporting v4
-    /opt/hiddify-manager/.venv/bin/pip install "marshmallow<=3.26.1"
+    #/opt/hiddify-manager/.venv/bin/pip install "marshmallow<=3.26.1"
     
     update_config "$package_mode" "$force"
     config_update=$?

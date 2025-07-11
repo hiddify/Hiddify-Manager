@@ -32,4 +32,4 @@ rm -f /opt/hiddify-manager/singbox/configs/05_inbounds_2071_realitygrpc_main.jso
 rm -f /opt/hiddify-manager/singbox/configs/05_inbounds_20[123][1234]*.json*
 
 
-./opt/hiddify-manager/common/jinja.py $MODE
+/opt/hiddify-manager/common/jinja.py $MODE
