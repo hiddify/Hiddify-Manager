@@ -3,6 +3,13 @@
 
 ## (unreleased)
 
+### Fix
+
+* Installer. bug. [hiddify-com]
+
+
+## v11.0.4 (2025-07-11)
+
 ### Other
 
 * Merge branch 'main' of github.com:hiddify/Hiddify-Manager. [hiddify-com]
