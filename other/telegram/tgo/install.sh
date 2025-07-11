@@ -15,7 +15,7 @@ systemctl disable mtproxy.service >/dev/null 2>&1
 download_package mtproxygo mtg-linux.tar.gz
 tar -xf mtg-linux.tar.gz || exit 1
 rm -rf mtg-linux 
-mv mtg-linux/mtg mtg || exit 2
+mv mtg*/mtg mtg || exit 2
 set_installed_version mtproxygo
 # export GOPATH=/opt/hiddify-manager/other/telegram/tgo/go/
 # export GOCACHE=/opt/hiddify-manager/other/telegram/tgo/gocache/
