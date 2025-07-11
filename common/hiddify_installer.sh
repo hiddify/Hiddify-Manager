@@ -309,7 +309,7 @@ function update_from_github() {
     rm -f /opt/hiddify-manager/xray/configs/05_inbounds_02_realitygrpc*.json*
     rm -f /opt/hiddify-manager/xray/configs/05_inbounds_02_realityh2*.json*
     rm -f /opt/hiddify-manager/singbox/configs/05_inbounds_2071_realitygrpc_main.json*
-    rm -f /opt/hiddify-manager/singbox/configs/05_inbounds_20+([123])+([1234])*.json*
+    rm -f /opt/hiddify-manager/singbox/configs/05_inbounds_20[123][1234]*.json*
 
     bash install.sh --no-gui --no-log
     bash install.sh --no-gui --no-log #temporary fix
