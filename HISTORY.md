@@ -3,6 +3,19 @@
 
 ## (unreleased)
 
+### New
+
+* Add singbox unified proxy. [hiddify-com]
+
+### Other
+
+* Update hiddify cli. [hiddify-com]
+
+* Fix tgo installation. [hiddify-com]
+
+
+## v11.0.2 (2025-07-10)
+
 ### Fix
 
 * Download script. [hiddify-com]
