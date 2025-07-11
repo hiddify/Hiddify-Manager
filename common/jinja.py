@@ -1,3 +1,4 @@
+#!/opt/hiddify-manager/.venv313/bin/python
 import base64
 import os
 import sys
