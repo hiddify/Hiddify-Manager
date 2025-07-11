@@ -55,6 +55,12 @@ function main() {
     # source common/set_config_from_hpanel.sh
     if [ "$DO_NOT_RUN" != "true" ];then
       update_progress "HiddifyPanel" "Reading Configs from Panel..." 5
+      # TODO: temporary fix, find out what's the problem we need to restart db
+      if [ "$MODE" != "docker" ];then
+         systemctl daemon-reload
+         systemctl restart mariadb
+      fi
+
       set_config_from_hpanel
 
       update_progress "Applying Configs" "..." 8
