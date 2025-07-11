@@ -88,9 +88,9 @@ location /{{ hconfigs['proxy_path_admin'] }}/ {
 }
 
 location /{{ hconfigs['proxy_path_admin'] }}/proxy-stats/ {
-  proxy_pass http://localhost:6756/ui/;
+  proxy_pass http://localhost:16756/ui/;
 }
 location /{{ hconfigs['proxy_path_admin'] }}/proxy-stats/api/ {
-  proxy_pass http://localhost:6756/;
+  proxy_pass http://localhost:16756/;
 }
 resolver 8.8.8.8;
