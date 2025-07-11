@@ -26,7 +26,7 @@ systemctl enable --now systemd-resolved >/dev/null 2>&1
 install_pypi_package pyyaml > /dev/null
 if ! nslookup google.com &> /dev/null; then
     warning "DNS is not working."
-    python change_dns.py 8.8.8.8 1.1.1.1
+    ./change_dns.py 8.8.8.8 1.1.1.1
 fi
 
 
