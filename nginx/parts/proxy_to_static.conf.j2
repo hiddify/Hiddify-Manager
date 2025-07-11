@@ -5,4 +5,4 @@ expires 1y;
 etag off;
 if_modified_since off;
 add_header Cache-Control "public, no-transform";
-alias {{exec('/opt/hiddify-manager/.venv/bin/python -c "import os,hiddifypanel;print(os.path.dirname(hiddifypanel.__file__),end=\'\')"')}}/static;
+alias {{exec('/opt/hiddify-manager/.venv313/bin/python -c "import os,hiddifypanel;print(os.path.dirname(hiddifypanel.__file__),end=\'\')"')}}/static;

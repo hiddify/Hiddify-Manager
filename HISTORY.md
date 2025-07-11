@@ -1,7 +1,7 @@
 # Changelog
 
 
-## (unreleased)
+## v11.0.8 (2025-07-11)
 
 ### Other
 
