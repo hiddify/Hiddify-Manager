@@ -5,6 +5,13 @@
 
 ### Fix
 
+* Issue python not detected in some cases. [hiddify-com]
+
+
+## v11.0.5 (2025-07-11)
+
+### Fix
+
 * Installer. bug. [hiddify-com]
 
 
