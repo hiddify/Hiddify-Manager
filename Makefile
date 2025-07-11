@@ -73,6 +73,7 @@ endif
 	@git tag v$${TAG} 
 	@git push -u origin HEAD --tags 
 	@git checkout beta && git pull && git rebase dev
+	@git push
 	@if ! echo "$${VERSION_STR}" | grep -q "b"; then \
 		git checkout main && git rebase dev && git push \ 
 	fi
