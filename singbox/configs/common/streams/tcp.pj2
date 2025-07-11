@@ -1,0 +1,4 @@
+"type": "http",
+"path": "/{{ path }}",
+"idle_timeout": "15s",
+"ping_timeout": "15s"

@@ -105,11 +105,9 @@ function main() {
         fi
 
         update_progress "${PROGRESS_ACTION}" "Xray" 75
-        if [[ $(hconfig "core_type") == "xray" ||  "$MODE" == "docker" ]];then
-            install_run xray 1 &
-        else
-            install_run xray 0 &
-        fi
+        
+        install_run xray 1 &
+        
         
         update_progress "${PROGRESS_ACTION}" "HiddifyCli" 80
         install_run other/hiddify-cli $(hconfig "hiddifycli_enable") &

@@ -1,0 +1,27 @@
+{
+    "inbounds":[
+        {% for ip, protocol in enumerate(['vless','vmess','trojan'])%}
+            {%for is,stream in enumerate(['ws','grpc','tcp','httpupgrade','xhttp'])%}
+                {% if hconfigs['core_type']=="singbox" and stream!='xhttp' and hconfigs[protocol~'_enable'] and hconfigs[stream~'_enable'] %}
+                {
+                    "tag":"v10-{{protocol}}-{{stream}}",
+                    "listen": "127.0.0.1",
+                    "listen_port":50{{ip}}{{is}},
+                    "tcp_fast_open": true,
+                    "sniff": true,
+                    "sniff_override_destination": true,
+                    "domain_strategy": "prefer_ipv4",
+                    "proxy_protocol":true,	
+                    {% include '/opt/hiddify-manager/singbox/configs/common/protocols/'~protocol~'.pj2' %},
+                    "transport": {
+                        {% with path=hconfigs['path_'~ protocol]~hconfigs['path_'~stream] %}
+                            {% include '/opt/hiddify-manager/singbox/configs/common/streams/'~stream~'.pj2' %},
+                        {%endwith %}
+                    },
+                    {% include "includes/multiplex.json.pj2"%}
+                },
+                {%endif%}
+            {%endfor%}
+        {%endfor%}
+    ]
+}

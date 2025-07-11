@@ -38,6 +38,7 @@ env_paths = ["/", "/opt/hiddify-manager/singbox/configs/"]
 env = Environment(loader=FileSystemLoader(env_paths))
 def render(template_path):
     try:
+        env.globals['enumerate'] = enumerate 
         env.filters["b64encode"] = b64encode
         env.filters['quote'] = lambda s: quote(s,safe='')
         env.filters["hexencode"] = lambda s: "".join(

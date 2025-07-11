@@ -2,7 +2,7 @@
     "inbounds":[
         {% for protocol in ['vless','vmess','trojan']%}
             {%for stream in ['xhttp','ws','grpc','tcp','httpupgrade']%}
-                {% if hconfigs[protocol~'_enable'] and hconfigs[stream~'_enable'] %}
+                {% if (stream=='xhttp' or hconfigs['core_type']=="xray") and hconfigs[protocol~'_enable'] and hconfigs[stream~'_enable'] %}
                     {
                     "tag":"v10-{{protocol}}-{{stream}}",
                     "listen": "@@v10-{{protocol}}-{{stream}}", 

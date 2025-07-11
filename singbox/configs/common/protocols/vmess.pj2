@@ -1,0 +1,6 @@
+"type": "vmess",
+"users": [
+    {% for u in users %}
+        {"uuid": "{{ u['uuid'] }}", "name": "{{ u['uuid'] }}@hiddify.com", "alterId": 0},
+    {% endfor%}
+]

@@ -1,14 +1,16 @@
+
+{%set modes={'special_reality_tcp':'tcp','special_reality_grpc':'grpc'}%}
 {
-	{% if hconfigs['reality_enable'] %}
+	{% if hconfigs['core_type']=="singbox" and hconfigs['reality_enable'] %}
 		"inbounds": [
-			{% for d in domains if d['internal_port_special'] and d['mode']=='special_reality_tcp' %}
-			
+			{% for d in domains if d['internal_port_special'] and d['mode'] in  modes  %}
 				{%set domain=d['domain']%}
 				{%set port=d['internal_port_special']%}
-
-
+				{%set protocol='vless'%}
+				{%set stream=modes[d['mode']]%}
 			{
 				"tag":"realityin_{{port}}",
+				// "port": {{port}}, // This is TLS entrypoint. This entrypoint does the SSL Termination then routes the request based on the Path or ALPN type.
 				"listen": "127.0.0.1",
 				"listen_port": {{ port }},
 				"tcp_fast_open": true,
@@ -16,12 +18,16 @@
 				"sniff_override_destination": true,
 				"domain_strategy": "prefer_ipv4",
 				"proxy_protocol":true,
-				"type": "vless",
-				"users": [
-					{% for u in users %}
-						{"name": "{{ u['uuid'] }}@hiddify.com", "uuid": "{{ u['uuid'] }}","flow": "xtls-rprx-vision"},
-					{% endfor%}
-				],
+				{% with flow="xtls-rprx-vision" if stream=='tcp' else "" %}
+					{% include '/opt/hiddify-manager/singbox/configs/common/protocols/'~protocol~'.pj2' %},
+				{%endwith%}
+				"transport": {
+					{% if stream!='tcp' %}
+						{% with path=hconfigs['path_'~ protocol]~hconfigs['path_'~stream] %}
+                            {% include '/opt/hiddify-manager/singbox/configs/common/streams/'~stream~'.pj2' %},
+                        {%endwith %}
+					{%endif%}
+				},
 				"tls":{
 					"enabled": true,
 					"server_name": "{{domain}}",
@@ -41,9 +47,9 @@
 						"max_time_difference": "2h"
 					}
 				},
-				{% include "includes/multiplex.json.pj2"%}
+				{% include "includes/multiplex.json.pj2"%}	
 			},
-			{%endfor %}
+			{%endfor%}	  
 		]
 	{% endif %}
 }

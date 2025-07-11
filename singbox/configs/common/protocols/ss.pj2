@@ -1,0 +1,8 @@
+"type": "shadowsocks",
+"method": "{{hconfigs['shadowsocks2022_method']}}",
+"password": "{{ hconfigs['shared_secret'].replace('-','')|b64encode}}",
+"users": [
+{% for u in users %}
+    {"name": "{{ u['uuid'] }}@hiddify.com", "password": "{{ u['uuid'].replace('-','')|b64encode}}"},
+{% endfor%}
+]

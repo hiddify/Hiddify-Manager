@@ -41,8 +41,3 @@ defaults
 {% include '/opt/hiddify-manager/haproxy/backends/common.cfg.pj2' %}
 
 {% include '/opt/hiddify-manager/haproxy/backends/v10.cfg.pj2' %}
-{% if hconfigs['core_type'] == 'xray' %}
-{% include '/opt/hiddify-manager/haproxy/backends/xray.cfg.pj2' %}
-{%else%}
-{% include '/opt/hiddify-manager/haproxy/backends/singbox.cfg.pj2' %}
-{%endif%}

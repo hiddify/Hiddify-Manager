@@ -1,22 +1,41 @@
 
-{% for protocol in ['vless','vmess','trojan']%}
-    {%for stream in ['xhttp','ws','grpc','tcp','httpupgrade']%}
+{% for ip, protocol in enumerate(['vless','vmess','trojan'])%}
+    {%for is,stream in enumerate(['ws','grpc','tcp','httpupgrade','xhttp'])%}
         {% if hconfigs[protocol~'_enable'] and hconfigs[stream~'_enable'] %}
 backend v10-{{protocol}}-{{stream}}
-            {% if hconfigs['core_type'] == 'xray' %}
+            {% if hconfigs['core_type'] == 'xray' or 'xhttp'== stream %}
     server xray abns@v10-{{protocol}}-{{stream}} send-proxy-v2 tfo 
             {%else%}
-    server singbox abns@v10-{{protocol}}-{{stream}} send-proxy-v2 tfo 
+    server singbox 127.0.0.1:50{{ip}}{{is}} send-proxy-v2 tfo 
             {%endif%}
 
 
 backend v10-{{protocol}}-{{stream}}-http
     mode http
-            {% if hconfigs['core_type'] == 'xray' %}
+            {% if hconfigs['core_type'] == 'xray' or 'xhttp' == stream %}
     server xray abns@v10-{{protocol}}-{{stream}} send-proxy-v2 tfo proto {{"h1" if stream in ['ws',"httpupgrade"] else "h2" }}
             {%else%}
-    server singbox abns@v10-{{protocol}}-{{stream}} send-proxy-v2 tfo proto {{"h1" if stream in ['ws',"httpupgrade"] else "h2" }}
+    server singbox 127.0.0.1:50{{ip}}{{is}} send-proxy-v2 tfo proto {{"h1" if stream in ['ws',"httpupgrade"] else "h2" }}
             {%endif%}
         {%endif%}
     {%endfor%}
 {%endfor%}
+
+
+
+{% for d in domains if d['internal_port_special'] %}
+{%set domain=d['domain']%}
+{%set port=d['internal_port_special']%}
+backend sp_{{d['mode']}}_{{port}}
+  mode tcp
+  {% if hconfigs['core_type'] == 'xray' or 'xhttp' in d['mode'] %}
+  server xray abns@realityin_{{port}} send-proxy-v2
+  {%else%}
+  server singbox 127.0.0.1:{{port}} send-proxy-v2 
+  {%endif%}
+
+backend sp_{{d['mode']}}_http_{{port}}
+  mode http
+  server sp_{{d['mode']}}_{{port}} {{domain}}:80 
+{%endfor%}
+

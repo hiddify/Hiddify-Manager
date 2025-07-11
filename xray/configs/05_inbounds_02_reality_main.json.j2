@@ -1,4 +1,8 @@
-{%set modes={'special_reality_tcp':'tcp','special_reality_grpc':'grpc','special_reality_xhttp':'xhttp'}%}
+{% if hconfigs['core_type']=="xray" %}
+	{%set modes={'special_reality_tcp':'tcp','special_reality_grpc':'grpc','special_reality_xhttp':'xhttp'}%}
+{%else%}
+	{%set modes={'special_reality_xhttp':'xhttp'}%}
+{%endif%}
 {
 	{% if hconfigs['reality_enable'] %}
 		"inbounds": [
@@ -8,11 +12,11 @@
 				{%set protocol='vless'%}
 				{%set stream=modes[d['mode']]%}
 			{
-				"tag":"realityin_{{port}}",
+				"tag":"realityin_{{stream}}_{{port}}",
 				// "port": {{port}}, // This is TLS entrypoint. This entrypoint does the SSL Termination then routes the request based on the Path or ALPN type.
 				"listen": "@@realityin_{{port}}",
 
-				{% with flow="xtls-rprx-vision" if d['mode']=='special_reality_tcp' else "" %}
+				{% with flow="xtls-rprx-vision" if stream=='tcp' else "" %}
 					{% include '/opt/hiddify-manager/xray/configs/common/protocols/'~protocol~'.pj2' %},
 				{%endwith%}
 				

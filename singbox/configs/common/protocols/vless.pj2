@@ -1,0 +1,6 @@
+"type": "vless",
+"users": [
+    {% for u in users %}
+        {"name": "{{ u['uuid'] }}@hiddify.com", "uuid": "{{ u['uuid'] }}","flow": "{{flow}}"},
+    {% endfor%}
+]

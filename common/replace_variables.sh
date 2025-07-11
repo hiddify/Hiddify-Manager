@@ -28,4 +28,8 @@ rm -f /opt/hiddify-manager/xray/configs/05_inbounds_10*.json*
 rm -f /opt/hiddify-manager/xray/configs/05_inbounds_h2*.json*
 rm -f /opt/hiddify-manager/xray/configs/05_inbounds_02_realitygrpc*.json*
 rm -f /opt/hiddify-manager/xray/configs/05_inbounds_02_realityh2*.json*
+rm -f /opt/hiddify-manager/singbox/configs/05_inbounds_2071_realitygrpc_main.json*
+shopt -s extglob
+rm -f /opt/hiddify-manager/singbox/configs/05_inbounds_20+([123])+([1234])*.json*
+
 python /opt/hiddify-manager/common/jinja.py $MODE
