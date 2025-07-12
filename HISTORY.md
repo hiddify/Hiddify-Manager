@@ -1,6 +1,13 @@
 # Changelog
 
 
+## (unreleased)
+
+### Fix
+
+* Routing in singbox. [hiddify-com]
+
+
 ## v11.0.8 (2025-07-11)
 
 ### Other
