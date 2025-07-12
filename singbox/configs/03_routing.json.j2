@@ -49,21 +49,28 @@
         {
             "outbound": {% if hconfigs['warp_mode'] == 'disable' %}"forbidden_sites"{% else %}"WARP"{% endif %},
              "rule_set":[
-              "geoip-{{region}}", "geosite-{{region}}",
-              {% for site in geo_sites %}
-                "geosite-{{site}}",
-              {% endfor %}
+              "geoip-{{region}}", "geosite-{{region}}"
              ]
         },
-        {% if hconfigs['warp_mode'] != 'disable' and hconfigs.get('warp_sites','').split('\n') %}
-        {
-            "outbound": "WARP",
-            "domain":[                
-                  {%for d in hconfigs.get('warp_sites','').split('\n')%}
-                      "{{d.strip()}}",
-                  {% endfor %}
-            ]
-        },
+        {% if hconfigs['warp_mode'] != 'disable' %}
+          {
+              "outbound": "WARP",
+              "rule_set":[
+                {% for site in geo_sites %}
+                  "geosite-{{site}}",
+                {% endfor %}
+              ]
+          },
+          {% if hconfigs.get('warp_sites','').split('\n') %}
+          {
+              "outbound": "WARP",
+              "domain":[                
+                    {%for d in hconfigs.get('warp_sites','').split('\n')%}
+                        "{{d.strip()}}",
+                    {% endfor %}
+              ]
+          },
+          {% endif %}
         {% endif %}
         {
           "outbound": "blackhole", "geoip": ["private"]
