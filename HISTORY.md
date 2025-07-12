@@ -1,7 +1,7 @@
 # Changelog
 
 
-## (unreleased)
+## v11.0.10 (2025-07-12)
 
 ### Fix
 
