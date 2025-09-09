@@ -1,0 +1,21 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: Install dependencies
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - wget
+          - gnupg-agent
+          - software-properties-common
+          - git
+          - jq
+        state: present
+        update_cache: yes
+
+    - name: Run Hiddify installation script
+      shell: "cd /opt && export CREATE_EASYSETUP_LINK='true' && curl -L https://i.hiddify.com/release | bash -s -- --no-gui"
+      args:
+        creates: /opt/hiddify-manager/install.sh # This makes the task idempotent
