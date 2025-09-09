@@ -1,0 +1,3 @@
+sudo apt update && sudo apt upgrade -y
+sudo apt install curl git -y
+bash <(curl -sSL https://raw.githubusercontent.com/hiddify/hiddify-manager/main/common/download_install.sh)
