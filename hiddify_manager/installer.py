@@ -15,7 +15,7 @@ def install_module(module_name, enable=True):
     
     # Check for python module
     try:
-        py_module_name = f"hiddify_manager.modules.{module_name.replace('-', '_')}"
+        py_module_name = f"hiddify_manager.modules.{module_name.replace('-', '_').replace('.', '_')}"
         py_module = importlib.import_module(py_module_name)
         if hasattr(py_module, 'install'):
             log.info(f"Running Python installer for {module_name}")
