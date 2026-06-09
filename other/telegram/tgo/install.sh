@@ -5,8 +5,8 @@ systemctl kill mtproxy.service >/dev/null 2>&1
 systemctl disable mtproxy.service >/dev/null 2>&1
 
 # sudo add-apt-repository -y ppa:longsleep/golang-backports
-# sudo apt update
-# apt install -y make golang
+# sudo apt-get update
+# apt-get install -y make golang
 
 # wget -q --show-progress -c https://go.dev/dl/go1.19.linux-$pkg.tar.gz
 # tar -xf go1.19.linux-amd64.tar.gz

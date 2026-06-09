@@ -179,7 +179,7 @@ function installWireGuard() {
 			echo "deb http://deb.debian.org/debian buster-backports main" >/etc/apt/sources.list.d/backports.list
 			apt-get update
 		fi
-		apt update
+		apt-get update
 		apt-get install -y iptables resolvconf qrencode
 		apt-get install -y -t buster-backports wireguard
 	elif [[ ${OS} == 'fedora' ]]; then

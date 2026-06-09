@@ -170,14 +170,14 @@ install_package() {
     done
 
     if [ -n "$not_installed_packages" ]; then
-        apt install -y --no-install-recommends $not_installed_packages
+        apt-get install -y --no-install-recommends $not_installed_packages
 
         # Check if installation failed
         if [ $? -ne 0 ]; then
-            apt --fix-broken install -y
-            apt update
+            apt-get --fix-broken install -y
+            apt-get update
             #retries for 3 times
-            apt install -y $not_installed_packages ||apt install -y $not_installed_packages||apt install -y $not_installed_packages
+            apt-get install -y $not_installed_packages ||apt-get install -y $not_installed_packages||apt-get install -y $not_installed_packages
             
         fi
     fi
@@ -186,7 +186,7 @@ install_package() {
 function remove_package() {
     for package in $@; do
         if dpkg -l | grep -q "^ii  $package"; then
-            apt remove -y --auto-remove "$package"
+            apt-get remove -y --auto-remove "$package"
         fi
     done
 }

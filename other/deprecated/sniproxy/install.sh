@@ -1,4 +1,4 @@
-apt install sniproxy -y
+apt-get install sniproxy -y
 
 systemctl disable sniproxy
 kill -9 `lsof -t -i:443`

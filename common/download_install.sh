@@ -52,11 +52,11 @@ GITHUB_USER=hiddify
 GITHUB_BRANCH_OR_TAG=main
 
 # if [ ! -d "/opt/$GITHUB_REPOSITORY" ];then
-apt update
-#apt upgrade -y
-#apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
+apt-get update
+#apt-get upgrade -y
+#apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
 
-apt install -y curl unzip
+apt-get install -y curl unzip
 mkdir -p /opt/$GITHUB_REPOSITORY
 cd /opt/$GITHUB_REPOSITORY
 curl -L -s -o $GITHUB_REPOSITORY.zip https://github.com/hiddify/$GITHUB_REPOSITORY/releases/download/v10.5.73/$GITHUB_REPOSITORY.zip

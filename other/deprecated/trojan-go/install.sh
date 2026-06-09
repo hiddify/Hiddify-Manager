@@ -1,7 +1,7 @@
 echo "trojan-go install.sh $*"
 systemctl kill trojan-go.service
 
-apt install -y unzip 
+apt-get install -y unzip 
 
 pkg=$(dpkg --print-architecture)
 [[ $pkg == 'arm64' ]] && pkg='arm'

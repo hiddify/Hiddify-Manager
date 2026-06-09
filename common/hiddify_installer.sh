@@ -43,10 +43,10 @@ function install_panel() {
     local update=0
     local panel_update=0
     update_progress "Upgrading..." "Upgrading Linux Packages for extra security..." 5
-    apt update
-    #apt upgrade -y
-    # apt -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --only-upgrade upgrade
-    # apt dist-upgrade -y
+    apt-get update
+    #apt-get upgrade -y
+    # apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --only-upgrade upgrade
+    # apt-get dist-upgrade -y
     
     if ! is_installed hiddifypanel; then
         sed -i "s|/opt/hiddify-manager/menu.sh||g" ~/.bashrc

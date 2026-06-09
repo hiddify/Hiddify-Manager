@@ -1,4 +1,4 @@
-apt install -y netdata
+apt-get install -y netdata
 
 echo "" >/etc/netdata/apps_groups.conf
 
