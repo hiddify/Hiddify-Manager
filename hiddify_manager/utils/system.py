@@ -1,6 +1,6 @@
 import os
 import sys
-from .logger import log
+from hiddify_manager.utils.logger import log
 
 def check_root():
     """Ensure the script is running as root."""

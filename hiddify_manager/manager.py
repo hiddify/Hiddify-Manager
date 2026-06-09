@@ -1,7 +1,7 @@
 import argparse
-from utils.logger import log
-from utils.system import check_root
-from installer import install_module
+from hiddify_manager.utils.logger import log
+from hiddify_manager.utils.system import check_root
+from hiddify_manager.installer import install_module
 
 def main():
     parser = argparse.ArgumentParser(description="Hiddify-Manager Configuration Tool")

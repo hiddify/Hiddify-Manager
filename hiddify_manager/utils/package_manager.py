@@ -6,7 +6,7 @@ import urllib.request
 import zipfile
 import tarfile
 from packaging import version
-from .logger import log
+from hiddify_manager.utils.logger import log
 
 def get_arch():
     arch = platform.machine().lower()

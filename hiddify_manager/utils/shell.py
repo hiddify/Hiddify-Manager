@@ -1,5 +1,5 @@
 import subprocess
-from .logger import log
+from hiddify_manager.utils.logger import log
 
 def run_cmd(command, check=True, shell=False, capture_output=False, cwd=None):
     """

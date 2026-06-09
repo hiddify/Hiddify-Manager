@@ -1,9 +1,9 @@
 import os
 import shutil
 import glob
-from utils.logger import log
-from utils.shell import run_cmd
-from utils.package_manager import download_package, extract_package
+from hiddify_manager.utils.logger import log
+from hiddify_manager.utils.shell import run_cmd
+from hiddify_manager.utils.package_manager import download_package, extract_package
 
 def install():
     module_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "singbox")
@@ -20,12 +20,18 @@ def install():
         if extract_package(archive_path, module_dir):
             os.remove(archive_path)
             
-            # Extract logic: tarball contains a directory `hiddify-core-*` which needs to be moved to `module_dir`
             extracted_dirs = glob.glob(os.path.join(module_dir, "hiddify-core-*"))
             if extracted_dirs:
                 src_dir = extracted_dirs[0]
                 for item in os.listdir(src_dir):
-                    shutil.move(os.path.join(src_dir, item), module_dir)
+                    src_item = os.path.join(src_dir, item)
+                    dst_item = os.path.join(module_dir, item)
+                    if os.path.exists(dst_item):
+                        if os.path.isdir(dst_item):
+                            shutil.rmtree(dst_item)
+                        else:
+                            os.remove(dst_item)
+                    shutil.move(src_item, dst_item)
                 shutil.rmtree(src_dir)
             
             sb_bin = os.path.join(module_dir, "hiddify-core")

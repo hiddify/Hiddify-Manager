@@ -1,8 +1,8 @@
 import os
 import shutil
-from utils.logger import log
-from utils.shell import run_cmd
-from utils.package_manager import download_package, extract_package
+from hiddify_manager.utils.logger import log
+from hiddify_manager.utils.shell import run_cmd
+from hiddify_manager.utils.package_manager import download_package, extract_package
 
 def install():
     module_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "xray")
