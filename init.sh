@@ -26,7 +26,7 @@ echo "Activating virtual environment..."
 source "$VENV_DIR/bin/activate"
 
 # Install requirements
-pip install packaging
+pip install packaging questionary rich
 
 # Execute the python manager
 python3 hiddify_manager/manager.py "$@"
