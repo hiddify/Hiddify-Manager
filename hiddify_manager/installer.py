@@ -1,4 +1,5 @@
 import os
+import importlib
 from utils.logger import log
 from utils.shell import run_cmd
 
@@ -11,6 +12,18 @@ def install_module(module_name, enable=True):
         return
         
     log.info(f"======================{module_name}=====================================")
+    
+    # Check for python module
+    try:
+        py_module_name = f"modules.{module_name.replace('-', '_')}"
+        py_module = importlib.import_module(py_module_name)
+        if hasattr(py_module, 'install'):
+            log.info(f"Running Python installer for {module_name}")
+            py_module.install()
+            log.info(f"}}========================{module_name}===================================")
+            return
+    except ImportError:
+        pass # Fallback to bash
     
     # Path to the module directory relative to the repository root
     module_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), module_name)

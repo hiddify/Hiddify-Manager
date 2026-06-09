@@ -25,5 +25,8 @@ fi
 echo "Activating virtual environment..."
 source "$VENV_DIR/bin/activate"
 
+# Install requirements
+pip install packaging
+
 # Execute the python manager
 python3 hiddify_manager/manager.py "$@"
