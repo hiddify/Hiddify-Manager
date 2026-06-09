@@ -1,7 +1,7 @@
 import subprocess
 from .logger import log
 
-def run_cmd(command, check=True, shell=False, capture_output=False):
+def run_cmd(command, check=True, shell=False, capture_output=False, cwd=None):
     """
     Safely runs a shell command.
     """
@@ -13,7 +13,8 @@ def run_cmd(command, check=True, shell=False, capture_output=False):
             check=check,
             shell=shell,
             capture_output=capture_output,
-            text=True
+            text=True,
+            cwd=cwd
         )
         if capture_output and result.stdout:
             log.debug(result.stdout)
