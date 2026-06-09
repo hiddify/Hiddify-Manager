@@ -29,4 +29,4 @@ source "$VENV_DIR/bin/activate"
 pip install packaging questionary rich
 
 # Execute the python manager
-python3 hiddify_manager/manager.py "$@"
+python3 -m hiddify_manager.manager "$@"
