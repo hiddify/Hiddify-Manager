@@ -184,6 +184,48 @@ When you want to share Telegram proxy or Shadowsocks proxy through other program
 </details>
 
 ## Installation and tutorials
+
+### Quick Start (New Python-based Manager)
+
+The new Python-based manager is the recommended way to install and manage Hiddify. It replaces the legacy Bash scripts (`install.sh`, `menu.sh`, `update.sh`).
+
+```bash
+# Clone the repository
+git clone https://github.com/hiddify/Hiddify-Manager.git /opt/hiddify-manager
+cd /opt/hiddify-manager
+
+# Run init.sh — it will install Python 3.13, set up a virtualenv, and launch the manager
+sudo bash init.sh
+```
+
+#### Available Commands
+
+| Command | Description |
+|---|---|
+| `./init.sh` | Launch the interactive menu |
+| `./init.sh install` | Run a full installation of all modules |
+| `./init.sh update` | Update Hiddify-Manager |
+| `./init.sh status` | Show system status |
+| `./init.sh migrate` | Migrate data from a legacy installation |
+| `./init.sh menu` | Launch the interactive menu |
+
+#### Migrating from a Legacy Installation
+
+If you have an existing installation at `/opt/hiddify-manager` (or `/opt/hiddify-server`), the migration tool will automatically detect it and copy your database, SSL certificates, acme.sh data, and configuration:
+
+```bash
+./init.sh migrate
+```
+
+For a custom legacy path:
+```bash
+python3 -m hiddify_manager.migrate --legacy-dir /path/to/old/install
+```
+
+Use `--dry-run` to preview changes without modifying anything.
+
+### Tutorials
+
 **Please find tutorial information on our website by clicking on image below.**
 
 <div align="center">

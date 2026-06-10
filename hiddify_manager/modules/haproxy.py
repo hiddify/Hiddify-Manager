@@ -1,10 +1,11 @@
 import os
 from hiddify_manager.utils.logger import log
 from hiddify_manager.utils.shell import run_cmd
+from hiddify_manager.utils.paths import module_dir as _module_dir
 import glob
 
 def install():
-    module_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "haproxy")
+    module_dir = _module_dir("haproxy")
     
     for template in glob.glob(os.path.join(module_dir, "*.template")):
         os.remove(template)

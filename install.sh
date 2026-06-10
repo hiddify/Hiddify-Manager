@@ -1,5 +1,23 @@
 #!/bin/bash
 cd $(dirname -- "$0")
+
+# =============================================================================
+# DEPRECATION NOTICE: This script is deprecated and will be removed in a
+# future release. Please use the new Python-based manager instead:
+#
+#   ./init.sh install
+#
+# For migration from an existing installation:
+#   ./init.sh migrate
+# =============================================================================
+echo ""
+echo "================================================================"
+echo " WARNING: install.sh is DEPRECATED."
+echo " Please use './init.sh install' instead."
+echo " This script will be removed in a future release."
+echo "================================================================"
+echo ""
+
 source ./common/utils.sh
 NAME="0-install"
 LOG_FILE="$(log_file $NAME)"

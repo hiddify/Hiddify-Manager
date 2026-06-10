@@ -1,6 +1,22 @@
 #!/bin/bash
 # cd "$(dirname -- "$0")"
 cd /opt/hiddify-manager/
+
+# =============================================================================
+# DEPRECATION NOTICE: This script is deprecated and will be removed in a
+# future release. Please use the new Python-based manager instead:
+#
+#   ./init.sh menu
+#   (or simply: ./init.sh)
+# =============================================================================
+echo ""
+echo "================================================================"
+echo " WARNING: menu.sh is DEPRECATED."
+echo " Please use './init.sh menu' (or just './init.sh') instead."
+echo " This script will be removed in a future release."
+echo "================================================================"
+echo ""
+
 source common/utils.sh
 
 sed -i "s|/opt/hiddify-config/menu.sh|/opt/hiddify-manager/menu.sh|g" ~/.bashrc

@@ -15,7 +15,7 @@ if ! command -v python3.13 >/dev/null 2>&1; then
     sudo apt-get install -y python3.13 python3.13-venv
 fi
 
-VENV_DIR="/opt/hiddify-manager/.venv313"
+VENV_DIR="$(pwd)/.venv313"
 
 if [ ! -d "$VENV_DIR" ]; then
     echo "Creating virtual environment..."

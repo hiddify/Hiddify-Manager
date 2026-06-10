@@ -2,9 +2,10 @@ import os
 import shutil
 from hiddify_manager.utils.logger import log
 from hiddify_manager.utils.shell import run_cmd
+from hiddify_manager.utils.paths import module_dir as _module_dir
 
 def install():
-    module_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "nginx")
+    module_dir = _module_dir("nginx")
     
     run_cmd(["useradd", "nginx"], check=False)
     

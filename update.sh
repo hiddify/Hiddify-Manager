@@ -1,5 +1,20 @@
 #!/bin/bash
 cd $(dirname -- "$0")
+
+# =============================================================================
+# DEPRECATION NOTICE: This script is deprecated and will be removed in a
+# future release. Please use the new Python-based manager instead:
+#
+#   ./init.sh update
+# =============================================================================
+echo ""
+echo "================================================================"
+echo " WARNING: update.sh is DEPRECATED."
+echo " Please use './init.sh update' instead."
+echo " This script will be removed in a future release."
+echo "================================================================"
+echo ""
+
 source ./common/utils.sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 

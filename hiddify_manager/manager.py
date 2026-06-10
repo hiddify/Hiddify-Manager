@@ -17,7 +17,7 @@ def run_install():
 
 def main():
     parser = argparse.ArgumentParser(description="Hiddify-Manager Configuration Tool")
-    parser.add_argument("command", nargs="?", choices=["install", "update", "status", "menu"], help="Command to run")
+    parser.add_argument("command", nargs="?", choices=["install", "update", "status", "menu", "migrate"], help="Command to run")
     
     args = parser.parse_args()
     
@@ -36,6 +36,9 @@ def main():
         log.info("Checking status...")
         from hiddify_manager.utils.shell import run_cmd
         run_cmd(["bash", "status.sh"])
+    elif args.command == "migrate":
+        from hiddify_manager.migrate import run_migration
+        run_migration()
 
 if __name__ == "__main__":
     main()

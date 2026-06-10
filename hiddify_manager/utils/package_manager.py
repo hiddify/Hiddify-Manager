@@ -7,6 +7,7 @@ import zipfile
 import tarfile
 from packaging import version
 from hiddify_manager.utils.logger import log
+from hiddify_manager.utils.paths import PACKAGES_LOCK
 
 def get_arch():
     arch = platform.machine().lower()
@@ -24,7 +25,7 @@ def calculate_hash(file_path):
     return sha256_hash.hexdigest()
 
 def get_latest_package_info(package_name):
-    packages_lock_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "common", "packages.lock")
+    packages_lock_path = PACKAGES_LOCK
     arch = get_arch()
     
     latest_ver = None

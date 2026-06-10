@@ -2,6 +2,7 @@ import os
 import importlib
 from hiddify_manager.utils.logger import log
 from hiddify_manager.utils.shell import run_cmd
+from hiddify_manager.utils.paths import module_dir as _module_dir
 
 def install_module(module_name, enable=True):
     """
@@ -26,7 +27,7 @@ def install_module(module_name, enable=True):
         pass # Fallback to bash
     
     # Path to the module directory relative to the repository root
-    module_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), module_name)
+    module_dir = _module_dir(module_name)
     
     if not os.path.exists(module_dir):
         log.error(f"Module directory does not exist: {module_dir}")

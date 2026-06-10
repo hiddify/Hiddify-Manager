@@ -3,9 +3,10 @@ import shutil
 from hiddify_manager.utils.logger import log
 from hiddify_manager.utils.shell import run_cmd
 from hiddify_manager.utils.package_manager import download_package, extract_package
+from hiddify_manager.utils.paths import module_dir as _module_dir
 
 def install():
-    module_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "xray")
+    module_dir = _module_dir("xray")
     bin_dir = os.path.join(module_dir, "bin")
     run_dir = os.path.join(module_dir, "run")
     

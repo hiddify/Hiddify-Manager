@@ -1,9 +1,10 @@
 import os
 from hiddify_manager.utils.logger import log
 from hiddify_manager.utils.shell import run_cmd
+from hiddify_manager.utils.paths import module_dir as _module_dir
 
 def install():
-    module_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "acme.sh")
+    module_dir = _module_dir("acme.sh")
     
     run_cmd(["apt-get", "install", "-y", "socat"])
     run_cmd(["apt-get", "remove", "-y", "certbot"], check=False)
