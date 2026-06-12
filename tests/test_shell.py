@@ -17,7 +17,10 @@ def test_run_cmd_success():
             shell=False,
             capture_output=False,
             text=True,
-            cwd=None
+            cwd=None,
+            input=None,
+            env=None,
+            stdout=None,
         )
         assert result == mock_result
 
@@ -50,6 +53,9 @@ def test_run_cmd_capture_output():
             shell=False,
             capture_output=True,
             text=True,
-            cwd=None
+            cwd=None,
+            input=None,
+            env=None,
+            stdout=None,
         )
         assert result.stdout == "hello\n"

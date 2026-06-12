@@ -1,7 +1,7 @@
 import subprocess
 from hiddify_manager.utils.logger import log
 
-def run_cmd(command, check=True, shell=False, capture_output=False, cwd=None):
+def run_cmd(command, check=True, shell=False, capture_output=False, cwd=None, input_data=None, env=None, stdout=None):
     """
     Safely runs a shell command.
     """
@@ -14,7 +14,10 @@ def run_cmd(command, check=True, shell=False, capture_output=False, cwd=None):
             shell=shell,
             capture_output=capture_output,
             text=True,
-            cwd=cwd
+            cwd=cwd,
+            input=input_data,
+            env=env,
+            stdout=stdout,
         )
         if capture_output and result.stdout:
             log.debug(result.stdout)
