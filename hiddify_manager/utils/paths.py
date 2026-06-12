@@ -13,6 +13,8 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(_
 LOG_DIR = os.path.join(PROJECT_ROOT, "log", "system")
 COMMON_DIR = os.path.join(PROJECT_ROOT, "common")
 PACKAGES_LOCK = os.path.join(COMMON_DIR, "packages.lock")
+VENV_DIR = os.path.join(PROJECT_ROOT, ".venv313")
+CURRENT_JSON = os.path.join(PROJECT_ROOT, "current.json")
 
 
 def module_dir(module_name: str) -> str:
