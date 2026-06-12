@@ -2,3 +2,7 @@ log
 dump.rdb
 hiddify_usages.json
 docker-data
+__pycache__/
+*.pyc
+.venv/
+.venv313/
