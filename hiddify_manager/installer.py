@@ -14,9 +14,12 @@ def install_module(module_name, enable=True):
         
     log.info(f"======================{module_name}=====================================")
     
-    # Check for python module
+    # Check for python module. Use basename so paths like "other/redis"
+    # resolve to hiddify_manager.modules.redis instead of an invalid dotted
+    # path with a slash in it.
     try:
-        py_module_name = f"hiddify_manager.modules.{module_name.replace('-', '_').replace('.', '_')}"
+        short = os.path.basename(module_name)
+        py_module_name = f"hiddify_manager.modules.{short.replace('-', '_').replace('.', '_')}"
         py_module = importlib.import_module(py_module_name)
         if hasattr(py_module, 'install'):
             log.info(f"Running Python installer for {module_name}")
