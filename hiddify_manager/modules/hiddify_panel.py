@@ -3,13 +3,68 @@ import shutil
 from urllib.request import urlretrieve
 from hiddify_manager.utils.logger import log
 from hiddify_manager.utils.shell import run_cmd
-from hiddify_manager.utils.paths import module_dir as _module_dir, PROJECT_ROOT, LOG_DIR
+from hiddify_manager.utils.paths import (
+    module_dir as _module_dir, PROJECT_ROOT, LOG_DIR, VENV_DIR,
+)
 
 def check_file_age_days(filepath, days=1):
     import time
     if not os.path.exists(filepath):
         return True
     return (time.time() - os.path.getmtime(filepath)) > (days * 86400)
+
+
+def _read_mysql_password():
+    """The mysql module writes the panel's db password to other/mysql/mysql_pass."""
+    pw_file = os.path.join(_module_dir("other/mysql"), "mysql_pass")
+    if not os.path.exists(pw_file):
+        return None
+    with open(pw_file) as f:
+        return f.read().strip() or None
+
+
+def _read_redis_password():
+    """Parse `requirepass <pw>` out of other/redis/redis.conf."""
+    conf = os.path.join(_module_dir("other/redis"), "redis.conf")
+    if not os.path.exists(conf):
+        return None
+    with open(conf) as f:
+        for line in f:
+            parts = line.strip().split(None, 1)
+            if len(parts) == 2 and parts[0] == "requirepass":
+                return parts[1]
+    return None
+
+
+def _set_app_cfg_keys(cfg_path, kv):
+    """
+    Rewrite cfg_path so that, for each KEY in kv, any existing line starting
+    with 'KEY' (mirrors `sed -i '/^KEY/d'`) is dropped and replaced with the
+    given value at the bottom. Keeps the rest of the file intact.
+
+    Writes atomically via tempfile + os.replace so a crash mid-write can't
+    leave the panel with a half-truncated app.cfg.
+    """
+    existing = []
+    if os.path.exists(cfg_path):
+        with open(cfg_path) as f:
+            existing = f.readlines()
+
+    keys = list(kv.keys())
+    kept = [
+        ln for ln in existing
+        if not any(ln.lstrip().startswith(k) for k in keys)
+    ]
+    tail = [f"{k} = '{v}'\n" for k, v in kv.items()]
+
+    tmp = cfg_path + ".tmp"
+    with open(tmp, "w") as f:
+        f.writelines(kept)
+        if kept and not kept[-1].endswith("\n"):
+            f.write("\n")
+        f.writelines(tail)
+    os.chmod(tmp, 0o600)
+    os.replace(tmp, cfg_path)
 
 def install():
     module_dir = _module_dir("hiddify-panel")
