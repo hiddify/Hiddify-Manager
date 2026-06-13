@@ -60,23 +60,39 @@ def run_install():
             _render_all_templates()
     log.info("Installation completed successfully.")
 
+
+def run_update(mode):
+    """
+    Update the hiddifypanel package, then re-run the install loop so the
+    new code lands in /opt/hiddify-manager and its dependents (templates,
+    firewall, services) get reapplied.
+    """
+    from hiddify_manager.modules.panel_installer import update_panel
+    log.info(f"Starting panel update (mode={mode!r})...")
+    if not update_panel(mode):
+        log.error("Panel update failed; skipping install loop.")
+        return
+    log.info("Panel update finished; reapplying install loop.")
+    run_install()
+
+
 def main():
     parser = argparse.ArgumentParser(description="Hiddify-Manager Configuration Tool")
     parser.add_argument("command", nargs="?", choices=["install", "update", "status", "menu", "migrate"], help="Command to run")
-    
+    parser.add_argument("mode", nargs="?", default="release",
+                        help="Update mode (release/beta/dev/develop/docker/v<tag>); only used with `update`")
+
     args = parser.parse_args()
-    
+
     check_root()
-    
+
     if not args.command or args.command == "menu":
         from hiddify_manager.menu import show_menu
         show_menu()
     elif args.command == "install":
         run_install()
     elif args.command == "update":
-        log.info("Starting update...")
-        from hiddify_manager.utils.shell import run_cmd
-        run_cmd(["bash", "update.sh"])
+        run_update(args.mode)
     elif args.command == "status":
         log.info("Checking status...")
         from hiddify_manager.utils.shell import run_cmd
