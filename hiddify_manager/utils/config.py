@@ -1,8 +1,11 @@
 import os
 import json
 from hiddify_manager.utils.shell import run_cmd
-from hiddify_manager.utils.paths import CURRENT_JSON, VENV_DIR
+from hiddify_manager.utils.paths import CURRENT_JSON, VENV_DIR, PROJECT_ROOT
 from hiddify_manager.utils.logger import log
+
+
+PANEL_DIR = os.path.join(PROJECT_ROOT, "hiddify-panel")
 
 def generate_current_json():
     """Generates current.json by calling hiddifypanel all-configs.
@@ -14,11 +17,14 @@ def generate_current_json():
     venv_python = os.path.join(VENV_DIR, "bin", "python3")
     tmp_path = CURRENT_JSON + ".tmp"
 
+    # cwd must be the panel dir so hiddifypanel picks up ./app.cfg
+    # (which holds SQLALCHEMY_DATABASE_URI / REDIS_URI_MAIN).
     with open(tmp_path, "w") as out:
         res = run_cmd(
             [venv_python, "-m", "hiddifypanel", "all-configs"],
             check=False,
             stdout=out,
+            cwd=PANEL_DIR,
         )
     if res.returncode != 0:
         log.error(f"hiddifypanel all-configs exited {res.returncode}")
