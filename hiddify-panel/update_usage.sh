@@ -1,20 +1,5 @@
 #!/bin/bash
-
-cd $(dirname -- "$0")
-source ../common/utils.sh
-NAME="update_usage"
-function main() {
-    echo "trying to update usage"
-    
-    
-    hiddify-http-api admin/update_user_usage/
-    if [ "$?" != 0 ] && [ -z $(pgrep -f 'hiddifypanel update-usage') ]; then
-        hiddify-panel-cli "update-usage"
-    fi
-    
-
-}
-
-set_lock $NAME
-main |& tee -a ../log/system/update_usage.log
-remove_lock $NAME
+# Thin shim: real implementation in hiddify_manager.modules.update_usage.
+# Kept as a .sh so commander.py's Command.update_usage path doesn't churn.
+cd "$(dirname -- "$0")/.."
+exec /opt/hiddify-manager/.venv313/bin/python -m hiddify_manager.modules.update_usage "$@"
