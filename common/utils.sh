@@ -55,10 +55,6 @@ function get_installed_config_version() {
     echo $version
 }
 
-function get_package_mode() {
-    reload_all_configs | jq -r '.chconfigs["0"].package_mode'
-}
-
 function error() {
     echo -e "\033[91m$1\033[0m" >&2
 }
@@ -69,32 +65,6 @@ function warning() {
 
 function success() {
     echo -e "\033[92m$1\033[0m" >&2
-}
-
-function get_pretty_service_status() {
-    status=$(systemctl is-active $1)
-    if [ $? == 0 ]; then
-        success $status
-	else
-        error $status
-	fi
-}
-function add_DNS_if_failed() {
-    # Domain to check
-    DOMAIN="yahoo.com"
-
-    # Use dig to resolve the domain
-    dig +short $DOMAIN >/dev/null 2>&1
-
-    # Check the exit status of the dig command
-    if [ $? -ne 0 ]; then
-        echo "Dig failed to resolve $DOMAIN! Adding nameserver 8.8.8.8 to /etc/resolv.conf..."
-        # Check if 8.8.8.8 is already in the file to avoid appending it multiple times
-        grep -q "8.8.8.8" /etc/resolv.conf || echo "nameserver 8.8.8.8" | sudo tee -a /etc/resolv.conf
-        # else
-        # echo "Dig resolved $DOMAIN successfully!"
-    fi
-
 }
 
 function disable_ansii_modes() {
@@ -181,14 +151,6 @@ install_package() {
             
         fi
     fi
-}
-
-function remove_package() {
-    for package in $@; do
-        if dpkg -l | grep -q "^ii  $package"; then
-            apt-get remove -y --auto-remove "$package"
-        fi
-    done
 }
 
 function is_installed() {
@@ -399,44 +361,9 @@ function allow_port() { #allow_port "tcp" "80"
     # fi
 }
 
-function block_port() { #allow_port "tcp" "80"
-    add2iptables46 "INPUT -p $1 --dport $2 -j DROP"
-}
-
 function remove_port() { #allow_port "tcp" "80"
     iptables -D INPUT -p "$1" --dport "$2" -j ACCEPT
     ip6tables -D INPUT -p "$1" --dport "$2" -j ACCEPT
-}
-
-function allow_apps_ports() {
-    local service_name=$1
-
-    # Get ports and paths for the service
-    local ports=$(ss -tulpn | grep "$service_name" | awk '{print $5}' | cut -d':' -f2)
-    local paths=$(pgrep -f "$service_name" | while read -r pid; do readlink -f /proc/"$pid"/exe; done | awk '!seen[$0]++')
-
-    if [[ -z $ports ]]; then
-        echo "Service not found or not running"
-    else
-        IFS=' ' read -ra portArray <<<"$ports"
-        for p in "${portArray[@]}"; do
-            for path in $paths; do
-                echo "Service is running on port $p and path $path"
-                allow_port "tcp" "$p"
-            done
-        done
-    fi
-}
-function save_firewall() {
-    mkdir -p /etc/iptables/
-    iptables-save >/etc/iptables/rules.v4
-    awk -i inplace '!seen[$0]++' /etc/iptables/rules.v4
-    echo "COMMIT" >> /etc/iptables/rules.v4
-    ip6tables-save >/etc/iptables/rules.v6
-    awk -i inplace '!seen[$0]++' /etc/iptables/rules.v6
-    echo "COMMIT" >> /etc/iptables/rules.v6
-    ip6tables-restore </etc/iptables/rules.v6
-    iptables-restore </etc/iptables/rules.v4
 }
 
 function show_progress_window() {
@@ -594,42 +521,6 @@ function vercomp () {
 }
 
 
-function check_venv_compatibility() {
-    package_mode=${1:-release}
-
-    if [ "$package_mode" == "false" ]; then
-        package_mode="release"
-    fi
-
-    first_release_compatible_venv_version=v10.30
-
-    case "$package_mode" in
-        v*)
-            # Check if version is greater than or equal to the compatible release version
-            
-            if [ $(vercomp "$package_mode" "$first_release_compatible_venv_version") == 0 ] || [ $(vercomp "$package_mode" "$first_release_compatible_venv_version") == 1 ]; then
-                USE_VENV=310
-            fi
-        ;;
-        develop|dev)
-            # Develop is always venv compatible
-            USE_VENV=313
-        ;;
-        beta)
-            # Beta is always venv compatible
-            USE_VENV=313
-        ;;
-        release)
-            # Get the latest release version
-            USE_VENV=313
-        ;;
-        *)
-            echo "Unknown package mode: $package_mode"
-            exit 1
-        ;;
-    esac
-}
-
 function hiddify-http-api(){
     api_path=$(jq -r '.api_path' /opt/hiddify-manager/current.json)
     api_key=$(jq -r '.api_key' /opt/hiddify-manager/current.json)
@@ -665,21 +556,3 @@ function reload_all_configs(){
 
 
 
-set_files_in_folder_readable_to_hiddify_common_group() {
-    # Ensure paths with spaces or special characters are handled correctly
-    file=$1
-    find "$file" -type d -exec chmod u+rx,g+rx,o-rwx {} \;  # Directories get rwx for owner, rw- for group
-    find "$file" -type f -exec chmod 640 {} \;  # Files get rw- for owner and group
-    find "$file" -exec chown :hiddify-common {} \;
-    # Handle parent directories if the parent is not "hiddify-manager"
-    # Resolve the absolute path of the input
-    
-    parent=$(realpath "$file")
-
-    while [[ $(basename "$parent") != "hiddify-manager" && "$parent" != "/" ]]; do
-        echo "Setting permissions on $parent"
-        chmod u+rx,g+rx "$parent"  # Set permissions on the parent
-        chown :hiddify-common "$parent"  # Change ownership to the group
-        parent=$(dirname "$parent")  # Move to the next parent directory
-    done
-}
