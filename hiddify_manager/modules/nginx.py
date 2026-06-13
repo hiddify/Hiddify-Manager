@@ -35,4 +35,9 @@ def install():
     if os.path.exists(hiddify_nginx_svc):
         run_cmd(["ln", "-sf", hiddify_nginx_svc, "/etc/systemd/system/hiddify-nginx.service"])
         run_cmd(["systemctl", "enable", "hiddify-nginx.service"])
+
+    # Match the legacy run.sh: chown the tree to nginx so it can read its
+    # rendered configs, then bring the service up.
+    run_cmd(["chown", "-R", "nginx", module_dir], check=False)
+    run_cmd(["systemctl", "restart", "hiddify-nginx.service"], check=False)
     log.info("Nginx setup complete.")
