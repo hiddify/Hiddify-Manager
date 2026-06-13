@@ -8,7 +8,22 @@ from hiddify_manager.utils.config import hiddify_config
 from hiddify_manager.utils.template import render_template
 
 
+UNIT = "hiddify-ss-faketls.service"
+
+
+def _disable():
+    run_cmd(["systemctl", "stop", UNIT], check=False)
+    run_cmd(["systemctl", "disable", UNIT], check=False)
+
+
 def install():
+    configs = hiddify_config() or {}
+    hconfigs = configs.get("hconfigs") or {}
+    if not hconfigs.get("ssfaketls_enable"):
+        log.info("ssfaketls: ssfaketls_enable is false — stopping unit and skipping install")
+        _disable()
+        return
+
     module_dir = _module_dir("other/ssfaketls")
     run_cmd(["apt-get", "install", "-y", "shadowsocks-libev", "simple-obfs"])
 
@@ -17,12 +32,7 @@ def install():
 
     tpl = os.path.join(module_dir, "hiddify-ss-faketls.service.j2")
     if os.path.exists(tpl):
-        configs = hiddify_config()
-        if not configs:
-            log.error("ssfaketls: no panel configs available — cannot render service")
-            return
-        rendered = render_template(tpl, configs)
-        if not rendered:
+        if not render_template(tpl, configs):
             return
 
     svc_path = os.path.join(module_dir, "hiddify-ss-faketls.service")
