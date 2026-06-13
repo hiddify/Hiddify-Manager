@@ -25,8 +25,14 @@ fi
 echo "Activating virtual environment..."
 source "$VENV_DIR/bin/activate"
 
-# Install requirements
-pip install packaging questionary rich jinja2
+# Install orchestrator requirements
+pip install packaging questionary rich jinja2 json5
+
+# Install panel runtime requirements. bjoern is imported directly by
+# hiddify-panel/app.py; hiddifypanel ships hiddify-panel-cli on PATH and
+# pulls bjoern as a transitive dep, but we still pin bjoern explicitly so a
+# partial install can't strand the panel.
+pip install --quiet bjoern hiddifypanel || echo "WARN: panel deps install failed; the panel service may not start"
 
 # Execute the python manager
 python3 -m hiddify_manager.manager "$@"
