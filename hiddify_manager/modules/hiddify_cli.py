@@ -59,13 +59,13 @@ def _write_env(module_dir, configs):
         except AttributeError:
             hconfigs = {}
 
-    panel_links = configs.get("panel_links") or []
-    panel_domain = "http://127.0.0.1:9000"  # mirrors run.sh.j2 (override above is dead)
-    if panel_links:
-        last = panel_links[-1]
-        parsed = urlparse(last)
-        if parsed.netloc:
-            panel_domain = f"https://{parsed.netloc}"
+    # Legacy run.sh.j2 computes a public PANEL_DOMAIN from panel_links then
+    # immediately overrides it to http://127.0.0.1:9000, so the public value
+    # is dead code. We use localhost directly — that way hiddify-cli works
+    # before nginx/haproxy bind 443, and won't get stranded on a public DNS
+    # name pointing somewhere else.
+    panel_domain = "http://127.0.0.1:9000"
+    _ = configs.get("panel_links")  # kept for parity with the legacy template
 
     proxy_path = hconfigs.get("proxy_path_client", "")
     users = configs.get("users") or []
