@@ -76,7 +76,8 @@ def show_advanced_menu():
     elif choice == "remove_remote":
         run_cmd(["bash", "common/remove_remote_assistant.sh"], check=False)
     elif choice == "uninstall":
-        run_cmd(["bash", "uninstall.sh"], check=False)
+        from hiddify_manager.uninstall import run as run_uninstall
+        run_uninstall(purge=False)
         
     if choice != "back":
         questionary.text("Press Enter to return...").ask()
