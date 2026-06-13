@@ -38,7 +38,15 @@ def _b64encode(s):
 
 
 def _build_env(search_paths=None):
-    paths = [PROJECT_ROOT, "/"]
+    # singbox/configs/ ships an `includes/` dir consumed by {% include
+    # "includes/multiplex.json.pj2" %} from sibling templates; the legacy
+    # common/jinja.py shipped this in its loader paths so the relative
+    # include resolves. Keep parity.
+    paths = [
+        PROJECT_ROOT,
+        os.path.join(PROJECT_ROOT, "singbox", "configs"),
+        "/",
+    ]
     if search_paths:
         paths = list(search_paths) + paths
     env = Environment(loader=FileSystemLoader(paths))
@@ -71,7 +79,9 @@ def render_template(template_path, configs, output_path=None, env=None):
     Render a single .j2 template to its non-.j2 path (or output_path), copying
     mode/ownership from the source. Returns the output path, or None on error.
     """
-    env = env or _build_env()
+    # Add the template's own directory so {% include "sibling.j2" %} works
+    # without forcing the caller to set up search paths.
+    env = env or _build_env(search_paths=[os.path.dirname(template_path)])
     ctx = _prepare_configs(configs)
     try:
         with open(template_path, "r", encoding="utf-8") as f:

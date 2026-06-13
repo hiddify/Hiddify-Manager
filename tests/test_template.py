@@ -59,3 +59,16 @@ def test_render_template_missing_key_returns_none(tmp_path):
 def test_prepare_configs_empty():
     assert _prepare_configs(None) == {}
     assert _prepare_configs({}) == {}
+
+
+def test_render_template_relative_include(tmp_path):
+    """`{% include "sibling.j2" %}` should resolve against the template's dir."""
+    inc_dir = tmp_path / "parts"
+    inc_dir.mkdir()
+    (inc_dir / "snippet.j2").write_text("hello {{ hconfigs['warp_plus_code'] }}")
+    tpl = tmp_path / "main.j2"
+    tpl.write_text('{% include "parts/snippet.j2" %}!\n')
+
+    out = render_template(str(tpl), CONFIGS)
+    assert out == str(tmp_path / "main")
+    assert (tmp_path / "main").read_text().strip() == "hello ABC123!"
