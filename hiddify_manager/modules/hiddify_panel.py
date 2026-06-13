@@ -144,18 +144,82 @@ def install():
         except Exception as e:
             log.error(f"Failed to download GeoLite2-Country.mmdb: {e}")
             
-    # Hand off to bash run.sh for the post-install dance: write app.cfg
-    # with the mysql + redis URIs (passwords read from sibling module dirs),
-    # run hiddify-panel-cli init-db, import-config from config.env if present,
-    # and start the panel + background tasks services.
-    #
-    # Re-implementing this in python would mean re-deriving the panel's
-    # config schema; deferring to run.sh keeps the migration mechanical.
-    run_sh = os.path.join(module_dir, "run.sh")
-    if os.path.exists(run_sh):
-        log.info("Running hiddify-panel run.sh for app.cfg + init-db")
-        res = run_cmd(["bash", "run.sh"], cwd=module_dir, check=False)
-        if getattr(res, "returncode", 0) != 0:
-            log.error(f"hiddify-panel run.sh exited {res.returncode}")
+    # --- Post-install: app.cfg seeding + db init + start services ----------
+    # Previously this was bash hiddify-panel/run.sh. Inlined here so the
+    # panel boot is fully python-driven.
+
+    # Touch + chown the panel log file (uvicorn/bjoern writes here).
+    panel_log = os.path.join(LOG_DIR, "panel.log")
+    os.makedirs(LOG_DIR, exist_ok=True)
+    if not os.path.exists(panel_log):
+        open(panel_log, "w").close()
+    run_cmd(["chown", "hiddify-panel", panel_log], check=False)
+
+    # Reassert ownership in case it drifted, lock down app.cfg.
+    run_cmd(["chown", "-R", "hiddify-panel:hiddify-panel", module_dir], check=False)
+    app_cfg = os.path.join(module_dir, "app.cfg")
+    if os.path.exists(app_cfg):
+        os.chmod(app_cfg, 0o600)
+
+    # Build connection URIs. Env vars win over the on-disk credentials —
+    # mirrors the bash precedence (`if [ -z "$SQLALCHEMY_DATABASE_URI" ]`).
+    sqlalchemy_uri = os.environ.get("SQLALCHEMY_DATABASE_URI")
+    if not sqlalchemy_uri:
+        mysql_pw = os.environ.get("MYSQL_PASS") or _read_mysql_password()
+        if mysql_pw:
+            sqlalchemy_uri = (
+                f"mysql+mysqldb://hiddifypanel:{mysql_pw}"
+                "@localhost/hiddifypanel?charset=utf8mb4"
+            )
+
+    redis_main = os.environ.get("REDIS_URI_MAIN")
+    redis_ssh = os.environ.get("REDIS_URI_SSH")
+    if not redis_main or not redis_ssh:
+        redis_pw = os.environ.get("REDIS_PASS") or _read_redis_password()
+        if redis_pw:
+            redis_main = redis_main or f"redis://:{redis_pw}@127.0.0.1:6379/0"
+            redis_ssh = redis_ssh or f"redis://:{redis_pw}@127.0.0.1:6379/1"
+
+    updates = {}
+    if sqlalchemy_uri:
+        updates["SQLALCHEMY_DATABASE_URI"] = sqlalchemy_uri
+    if redis_main:
+        updates["REDIS_URI_MAIN"] = redis_main
+    if redis_ssh:
+        updates["REDIS_URI_SSH"] = redis_ssh
+
+    if updates:
+        _set_app_cfg_keys(app_cfg, updates)
+        run_cmd(["chown", "hiddify-panel:hiddify-panel", app_cfg], check=False)
+    else:
+        log.warning("hiddify-panel: no mysql/redis credentials found — app.cfg left untouched")
+
+    # Run hiddifypanel CLI tasks. cwd=module_dir so app.cfg is picked up.
+    venv_python = os.path.join(VENV_DIR, "bin", "python3")
+    config_env = os.path.join(PROJECT_ROOT, "config.env")
+    if os.path.exists(config_env):
+        log.info("Importing config.env into the panel...")
+        res = run_cmd(
+            [venv_python, "-m", "hiddifypanel", "import-config", "-c", config_env],
+            cwd=module_dir,
+            check=False,
+        )
+        if getattr(res, "returncode", 0) == 0:
+            try:
+                os.rename(config_env, config_env + ".old")
+            except OSError as e:
+                log.warning(f"could not rename config.env: {e}")
+        else:
+            log.error(f"hiddifypanel import-config exited {res.returncode}")
+
+    log.info("Running hiddifypanel init-db...")
+    run_cmd(
+        [venv_python, "-m", "hiddifypanel", "init-db"],
+        cwd=module_dir,
+        check=False,
+    )
+
+    run_cmd(["systemctl", "start", "hiddify-panel.service"], check=False)
+    run_cmd(["systemctl", "restart", "hiddify-panel-background-tasks.service"], check=False)
 
     log.info("Hiddify Panel setup complete.")
