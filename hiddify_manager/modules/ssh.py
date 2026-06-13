@@ -1,10 +1,19 @@
 import os
 import re
 
+from hiddify_manager.utils.config import hiddify_config
 from hiddify_manager.utils.logger import log
 from hiddify_manager.utils.paths import module_dir as _module_dir
 from hiddify_manager.utils.shell import run_cmd
 from hiddify_manager.utils.package_manager import download_package
+
+
+UNIT = "hiddify-ssh-liberty-bridge.service"
+
+
+def _disable():
+    run_cmd(["systemctl", "stop", UNIT], check=False)
+    run_cmd(["systemctl", "disable", UNIT], check=False)
 
 
 def _redis_password():
@@ -21,6 +30,23 @@ def _redis_password():
 
 
 def install():
+    """
+    ssh-liberty-bridge is the panel's SSH-as-proxy backend. The legacy
+    install.sh ran `install_run other/ssh 0` — hardcoded false — so this
+    was never installed by default. We gate on hconfigs['ssh_server_enable']
+    so an operator who DOES want it gets it, and the default install
+    (matching legacy behaviour) stops the unit.
+
+    Without this gate ssh-liberty-bridge would race singbox's `inbound/ssh`
+    for the same TCP port and one or the other crashloops.
+    """
+    configs = hiddify_config() or {}
+    hconfigs = configs.get("hconfigs") or {}
+    if not hconfigs.get("ssh_server_enable"):
+        log.info("ssh: ssh_server_enable is false — stopping unit and skipping install")
+        _disable()
+        return
+
     module_dir = _module_dir("other/ssh")
     os.makedirs(os.path.join(module_dir, "host_key"), exist_ok=True)
 
