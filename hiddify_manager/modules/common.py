@@ -1,12 +1,21 @@
 """
-Replaces common/install.sh: the system bootstrap that runs before any
-service module. Installs base apt packages, sets up the hiddify-common
-group, applies sysctl tuning, toggles IPv6 per ONLY_IPV4, writes cron
-entries, sets locale, and disables rpcbind.
+Replaces common/install.sh + common/run.sh.j2.
+
+install() is the pre-panel system bootstrap (called from the install
+loop with no current.json yet): apt packages, hiddify-common group,
+sysctl, IPv6 toggle, cron entries, locale, rpcbind disable.
+
+apply_runtime_config(configs) is the post-panel system configuration
+(called by manager.run_install after the panel produces current.json):
+country-based timezone, the full INPUT/FORWARD firewall ruleset built
+from hconfigs + per-domain ports, SSH PasswordAuthentication audit,
+auto-update cron.
 """
 import os
+import re
 import shutil
 
+from hiddify_manager.utils import firewall
 from hiddify_manager.utils.logger import log
 from hiddify_manager.utils.paths import COMMON_DIR, PROJECT_ROOT, LOG_DIR
 from hiddify_manager.utils.shell import run_cmd
@@ -160,3 +169,225 @@ def install():
 
     for unit in ("rpcbind.socket", "rpcbind"):
         run_cmd(["systemctl", "disable", "--now", unit], check=False)
+
+
+# ---------------------------------------------------------------------------
+# Post-panel runtime config — replaces common/run.sh.j2.
+# ---------------------------------------------------------------------------
+
+# Country -> tz, matches the legacy if/elif/else chain.
+_TIMEZONE_BY_COUNTRY = {"cn": "Asia/Shanghai", "ru": "Europe/Moscow"}
+_DEFAULT_TIMEZONE = "Asia/Tehran"
+
+# Ports we always open. Mirrors the hard-coded allow_port block at the
+# top of common/run.sh.j2.
+_FIXED_PORTS = [("tcp", 22), ("tcp", 80), ("tcp", 443), ("udp", 443),
+                ("udp", 53), ("tcp", 53)]
+
+
+def _hconfigs(configs):
+    return (configs or {}).get("hconfigs") or {}
+
+
+def _split_csv_ports(raw):
+    """Parse a comma-separated port list from hconfigs, ignoring blanks."""
+    if not raw:
+        return []
+    out = []
+    for chunk in str(raw).split(","):
+        chunk = chunk.strip()
+        if not chunk:
+            continue
+        try:
+            out.append(int(chunk))
+        except ValueError:
+            log.warning(f"common: skipping unparseable port {chunk!r}")
+    return out
+
+
+def _apply_timezone(configs):
+    """Set system timezone based on hconfigs['country']."""
+    if os.environ.get("MODE") == "docker":
+        return
+    hconfigs = _hconfigs(configs)
+    country = (hconfigs.get("country") or "").lower()
+    target = _TIMEZONE_BY_COUNTRY.get(country, _DEFAULT_TIMEZONE)
+    res = run_cmd(["timedatectl", "show", "--property=Timezone", "--value"],
+                  check=False, capture_output=True)
+    current = (res.stdout or "").strip()
+    if current == target:
+        return
+    log.info(f"common: changing timezone {current!r} -> {target!r}")
+    run_cmd(["timedatectl", "set-timezone", target], check=False)
+    run_cmd(["systemctl", "restart", "mariadb"], check=False)
+
+
+def _apply_ports(configs):
+    """Open every port the panel config says we should be listening on."""
+    hconfigs = _hconfigs(configs)
+    domains = (configs or {}).get("domains") or []
+
+    for proto, port in _FIXED_PORTS:
+        firewall.allow_port(proto, port)
+
+    if hconfigs.get("wireguard_port"):
+        firewall.allow_port("udp", hconfigs["wireguard_port"])
+
+    if hconfigs.get("shadowsocks2022_enable") and hconfigs.get("shadowsocks2022_port"):
+        port = hconfigs["shadowsocks2022_port"]
+        firewall.allow_port("tcp", port)
+        firewall.allow_port("udp", port)
+
+    for d in domains:
+        for key in ("internal_port_hysteria2", "internal_port_tuic", "internal_port_naive"):
+            port = (d or {}).get(key)
+            if port and int(port) > 0:
+                firewall.allow_port("udp", int(port))
+
+    if hconfigs.get("mieru_enable"):
+        for port in _split_csv_ports(hconfigs.get("mieru_tcp_ports")):
+            firewall.allow_port("tcp", port)
+        for port in _split_csv_ports(hconfigs.get("mieru_udp_ports")):
+            firewall.allow_port("udp", port)
+
+    # Per-protocol panel ports (TLS + HTTP). Legacy opened both TCP for
+    # every port in tls+http and additionally UDP for TLS-only.
+    tls_ports = _split_csv_ports(hconfigs.get("tls_ports"))
+    http_ports = _split_csv_ports(hconfigs.get("http_ports"))
+    for port in tls_ports + http_ports:
+        firewall.allow_port("tcp", port)
+    for port in tls_ports:
+        firewall.allow_port("udp", port)
+
+    # SSH server (proxy, not the OS sshd).
+    ssh_port = hconfigs.get("ssh_server_port")
+    if ssh_port:
+        if hconfigs.get("ssh_server_enable"):
+            firewall.allow_port("tcp", ssh_port)
+        else:
+            firewall.remove_port("tcp", ssh_port)
+
+
+def _apply_static_rules():
+    """The fixed INPUT/OUTPUT/ICMP rules from the bottom of run.sh.j2."""
+    firewall.add_rule([
+        "INPUT", "-p", "udp",
+        "-m", "conntrack", "--ctstatus", "SEEN_REPLY,ASSURED,CONFIRMED",
+        "-j", "ACCEPT",
+    ])
+    firewall.add_rule(["OUTPUT", "-p", "udp", "-j", "ACCEPT"])
+    firewall.add_rule(["OUTPUT", "-p", "tcp", "-j", "ACCEPT"])
+    firewall.add_rule(["INPUT", "-i", "lo", "-j", "ACCEPT"])
+    # ICMP allow (v4 + v6 forms differ)
+    firewall.add_rule(["INPUT", "-p", "icmp", "-j", "ACCEPT"], both=False)
+    firewall.add_rule_v6_only(["INPUT", "-p", "ipv6-icmp", "-j", "ACCEPT"])
+    firewall.add_rule(["INPUT", "-m", "state", "--state", "ESTABLISHED,RELATED", "-j", "ACCEPT"])
+    firewall.add_rule(["INPUT", "-m", "conntrack", "--ctstate", "RELATED,ESTABLISHED", "-j", "ACCEPT"])
+
+
+_MOTD_WARNING = (
+    "Hiddify! Your server is vulnerable to abuses because "
+    "PasswordAuthentication is enabled. To secure your server, please "
+    "switch to key authentication mechanism and turn off "
+    "PasswordAuthentication in your ssh config file."
+)
+
+
+def _audit_sshd_password_auth():
+    """Mirror the legacy MOTD audit: write a warning if sshd allows passwords."""
+    # Find any sshd config line with PasswordAuthentication no.
+    pw_disabled = False
+    for path in ("/etc/ssh/sshd_config", *_glob_sshd_includes()):
+        try:
+            with open(path) as f:
+                for line in f:
+                    line = line.strip()
+                    if re.fullmatch(r"PasswordAuthentication\s+no", line):
+                        pw_disabled = True
+                        break
+        except OSError:
+            continue
+        if pw_disabled:
+            break
+
+    motd_path = "/etc/motd"
+    try:
+        with open(motd_path) as f:
+            motd = f.read()
+    except OSError:
+        motd = ""
+
+    if not pw_disabled:
+        if "Your server is vulnerable" not in motd:
+            try:
+                with open(motd_path, "a") as f:
+                    f.write(_MOTD_WARNING + "\n")
+            except OSError as e:
+                log.warning(f"common: could not append MOTD warning: {e}")
+    else:
+        if "Your server is vulnerable" in motd:
+            new_motd = "\n".join(
+                ln for ln in motd.splitlines()
+                if "Your server is vulnerable" not in ln
+            )
+            try:
+                with open(motd_path, "w") as f:
+                    f.write(new_motd + ("\n" if new_motd else ""))
+            except OSError as e:
+                log.warning(f"common: could not rewrite MOTD: {e}")
+
+    run_cmd(["systemctl", "restart", "sshd.service"], check=False)
+    run_cmd(["systemctl", "restart", "ssh.service"], check=False)
+
+
+def _glob_sshd_includes():
+    """Mirror the legacy `grep -rxq ... /etc/ssh/sshd*` semantics."""
+    import glob
+    return sorted(glob.glob("/etc/ssh/sshd*"))
+
+
+def _apply_auto_update_cron(configs):
+    cron = "/etc/cron.d/hiddify_auto_update"
+    if _hconfigs(configs).get("auto_update"):
+        # Legacy ran `$(pwd)/../update.sh`; relative to common/, that's the
+        # repo root. With the python orchestrator, init.sh update is the
+        # entrypoint.
+        with open(cron, "w") as f:
+            f.write(
+                f"0 3 * * * root {PROJECT_ROOT}/init.sh update "
+                f">> {LOG_DIR}/auto_update.log 2>&1\n"
+            )
+    else:
+        try:
+            os.remove(cron)
+        except FileNotFoundError:
+            pass
+    run_cmd(["service", "cron", "reload"], check=False)
+
+
+def apply_runtime_config(configs):
+    """
+    Post-panel system config. Called from manager._render_all_templates
+    once current.json has been generated and templates have been rendered.
+
+    Steps mirror common/run.sh.j2 top-to-bottom: timezone, the full
+    iptables/ip6tables ruleset, SSH MOTD audit, INPUT/FORWARD policy
+    from hconfigs['firewall'], save the ruleset, manage auto-update cron.
+    """
+    if not configs:
+        log.warning("common: no panel configs available — skipping runtime config")
+        return
+
+    _apply_timezone(configs)
+    _apply_ports(configs)
+    _apply_static_rules()
+    _audit_sshd_password_auth()
+
+    # The firewall policy flag controls whether unknown traffic is dropped.
+    # Apply *after* opening the per-service ports above, otherwise DROP
+    # would close the door before we held it open.
+    policy = "DROP" if _hconfigs(configs).get("firewall") else "ACCEPT"
+    firewall.set_input_policy(policy)
+
+    firewall.save()
+    _apply_auto_update_cron(configs)
