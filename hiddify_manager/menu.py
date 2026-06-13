@@ -24,7 +24,8 @@ def show_menu():
         if choice == "quit" or choice is None:
             sys.exit(0)
         elif choice == "status":
-            run_cmd(["bash", "status.sh"], check=False)
+            from hiddify_manager.modules.services import status
+            status()
             questionary.text("Press Enter to return...").ask()
         elif choice == "admin":
             console.print("[bold yellow]Showing admin link...[/bold yellow]")
@@ -62,7 +63,14 @@ def show_advanced_menu():
     ).ask()
     
     if choice == "warp":
-        run_cmd(["bash", "other/warp/status.sh"], check=False)
+        # other/warp/status.sh is gone; the WARP probe lives in
+        # the python warp module now. Re-run the install path,
+        # which validates connectivity as part of bring-up.
+        from hiddify_manager.modules.warp import _real_test
+        if _real_test():
+            console.print("[green]WARP is WORKING[/green]")
+        else:
+            console.print("[yellow]WARP is NOT working[/yellow]")
     elif choice == "add_remote":
         run_cmd(["bash", "common/add_remote_assistant.sh"], check=False)
     elif choice == "remove_remote":
