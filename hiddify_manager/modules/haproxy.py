@@ -26,4 +26,9 @@ def install():
     if os.path.exists(svc_file):
         run_cmd(["ln", "-sf", svc_file, "/etc/systemd/system/hiddify-haproxy.service"])
         run_cmd(["systemctl", "enable", "hiddify-haproxy.service"])
+
+    # Legacy run.sh chmod'd the rendered configs and restarted the unit.
+    for cfg in glob.glob(os.path.join(module_dir, "*.cfg")):
+        os.chmod(cfg, 0o600)
+    run_cmd(["systemctl", "restart", "hiddify-haproxy.service"], check=False)
     log.info("HAProxy setup complete.")
