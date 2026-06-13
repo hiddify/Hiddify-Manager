@@ -95,8 +95,8 @@ def main():
         run_update(args.mode)
     elif args.command == "status":
         log.info("Checking status...")
-        from hiddify_manager.utils.shell import run_cmd
-        run_cmd(["bash", "status.sh"])
+        from hiddify_manager.modules.services import status
+        status()
     elif args.command == "migrate":
         from hiddify_manager.migrate import run_migration
         run_migration()

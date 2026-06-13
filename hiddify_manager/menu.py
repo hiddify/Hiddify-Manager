@@ -35,7 +35,8 @@ def show_menu():
             run_cmd(["ls", "-lah", "log/system/"], check=False)
             questionary.text("Press Enter to return...").ask()
         elif choice == "restart":
-            run_cmd(["bash", "restart.sh"], check=False)
+            from hiddify_manager.modules.services import restart
+            restart()
             questionary.text("Press Enter to return...").ask()
         elif choice == "install":
             from hiddify_manager.manager import run_install
