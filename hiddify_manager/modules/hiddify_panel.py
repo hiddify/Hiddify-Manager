@@ -89,4 +89,18 @@ def install():
         except Exception as e:
             log.error(f"Failed to download GeoLite2-Country.mmdb: {e}")
             
+    # Hand off to bash run.sh for the post-install dance: write app.cfg
+    # with the mysql + redis URIs (passwords read from sibling module dirs),
+    # run hiddify-panel-cli init-db, import-config from config.env if present,
+    # and start the panel + background tasks services.
+    #
+    # Re-implementing this in python would mean re-deriving the panel's
+    # config schema; deferring to run.sh keeps the migration mechanical.
+    run_sh = os.path.join(module_dir, "run.sh")
+    if os.path.exists(run_sh):
+        log.info("Running hiddify-panel run.sh for app.cfg + init-db")
+        res = run_cmd(["bash", "run.sh"], cwd=module_dir, check=False)
+        if getattr(res, "returncode", 0) != 0:
+            log.error(f"hiddify-panel run.sh exited {res.returncode}")
+
     log.info("Hiddify Panel setup complete.")
