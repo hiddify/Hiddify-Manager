@@ -74,6 +74,32 @@ def _prepare_configs(configs):
     return out
 
 
+def _sanitize_json_output(path, body):
+    """
+    Many singbox/xray templates rely on json5-style trailing commas and
+    comments that strict JSON parsers reject. The legacy common/jinja.py
+    re-parsed the rendered text as json5 and re-emitted it as canonical
+    JSON. Mirror that here for any output that ends in .json.
+
+    Returns the sanitized text. On parse error, returns the original body
+    (so the caller still writes *something* — diagnosing a bad template is
+    easier when the broken file is on disk).
+    """
+    if not path.endswith(".json") or not body.strip():
+        return body
+    try:
+        import json5
+    except ImportError:
+        log.warning("template: json5 not installed; skipping JSON sanitize")
+        return body
+    try:
+        obj = json5.loads(body)
+    except Exception as e:
+        log.error(f"template: {path} produced invalid json5: {e}")
+        return body
+    return json5.dumps(obj, trailing_commas=False, indent=2, quote_keys=True)
+
+
 def render_template(template_path, configs, output_path=None, env=None):
     """
     Render a single .j2 template to its non-.j2 path (or output_path), copying
@@ -89,8 +115,9 @@ def render_template(template_path, configs, output_path=None, env=None):
         rendered = template.render(**ctx, exec=_shell_exec, os=os)
         if output_path is None:
             output_path = os.path.splitext(template_path)[0]
+        rendered = _sanitize_json_output(output_path, str(rendered))
         with open(output_path, "w", encoding="utf-8") as out:
-            out.write(str(rendered))
+            out.write(rendered)
         st = os.stat(template_path)
         os.chmod(output_path, st.st_mode)
         try:

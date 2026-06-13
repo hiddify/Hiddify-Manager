@@ -61,6 +61,48 @@ def test_prepare_configs_empty():
     assert _prepare_configs({}) == {}
 
 
+def test_render_json_strips_trailing_commas(tmp_path):
+    """
+    Regression test for the singbox crashloop: jinja-rendered .json files
+    can have trailing commas (legal in json5, used by the upstream
+    templates) but the hiddify-core consumer parses strict JSON. When
+    the output path ends in .json, we re-parse via json5 and re-emit
+    canonical JSON.
+    """
+    tpl = tmp_path / "x.json.j2"
+    tpl.write_text('{\n  "users": [\n    {"name": "a"},\n  ],\n}\n')
+    out_path = render_template(str(tpl), CONFIGS)
+    assert out_path == str(tmp_path / "x.json")
+    import json
+    # Strict json.loads should succeed on the rendered output.
+    data = json.loads((tmp_path / "x.json").read_text())
+    assert data == {"users": [{"name": "a"}]}
+
+
+def test_render_non_json_output_unchanged(tmp_path):
+    """The json5 reparse should NOT touch non-.json output."""
+    tpl = tmp_path / "x.cfg.j2"
+    tpl.write_text("[block]\nkey = value,\n")
+    render_template(str(tpl), CONFIGS)
+    # Jinja's render strips a single trailing newline; assert structure
+    # rather than byte-for-byte equality.
+    out = (tmp_path / "x.cfg").read_text()
+    assert "key = value," in out
+    assert "[block]" in out
+
+
+def test_render_json_with_invalid_json5_falls_through(tmp_path):
+    """
+    If the rendered output isn't even valid json5, write it anyway so the
+    operator can see the broken file (legacy common/jinja.py did the same).
+    """
+    tpl = tmp_path / "x.json.j2"
+    tpl.write_text("this is not json at all")
+    out_path = render_template(str(tpl), CONFIGS)
+    assert out_path is not None
+    assert "not json" in (tmp_path / "x.json").read_text()
+
+
 def test_render_template_relative_include(tmp_path):
     """`{% include "sibling.j2" %}` should resolve against the template's dir."""
     inc_dir = tmp_path / "parts"
