@@ -53,5 +53,5 @@ def test_install_module_bash_fallback(mock_log, mock_module_dir, mock_exists, mo
         install_module('dummy')
     
     assert mock_run_cmd.call_count == 2
-    mock_run_cmd.assert_any_call(["bash", "install.sh"], cwd="/mock/dir/dummy")
-    mock_run_cmd.assert_any_call(["bash", "run.sh"], cwd="/mock/dir/dummy")
+    mock_run_cmd.assert_any_call(["bash", "install.sh"], cwd="/mock/dir/dummy", check=False)
+    mock_run_cmd.assert_any_call(["bash", "run.sh"], cwd="/mock/dir/dummy", check=False)
