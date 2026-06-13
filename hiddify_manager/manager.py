@@ -39,6 +39,12 @@ def _render_all_templates():
                     capture_output=True,
                 )
 
+    # Post-panel system config: timezone, firewall, SSH MOTD audit,
+    # auto-update cron. Replaces common/run.sh.j2.
+    from hiddify_manager.modules.common import apply_runtime_config
+    log.info("Applying post-panel system config (timezone, firewall, sshd)...")
+    apply_runtime_config(configs)
+
 
 def run_install():
     log.info("Starting installation...")
