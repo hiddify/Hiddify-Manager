@@ -79,7 +79,22 @@ def _write_env(module_dir, configs):
     os.chmod(env_file, 0o600)
 
 
+UNIT = "hiddify-cli.service"
+
+
+def _disable():
+    run_cmd(["systemctl", "stop", UNIT], check=False)
+    run_cmd(["systemctl", "disable", UNIT], check=False)
+
+
 def install():
+    configs = hiddify_config() or {}
+    hconfigs = configs.get("hconfigs") or {}
+    if not hconfigs.get("hiddifycli_enable"):
+        log.info("hiddify-cli: hiddifycli_enable is false — stopping unit and skipping install")
+        _disable()
+        return
+
     module_dir = _module_dir("other/hiddify-cli")
     run_cmd(["useradd", "-m", "hiddify-cli", "-s", "/bin/bash"], check=False)
 
@@ -100,6 +115,6 @@ def install():
         run_cmd(["ln", "-sf", svc, "/etc/systemd/system/hiddify-cli.service"])
     run_cmd(["systemctl", "enable", "hiddify-cli.service"], check=False)
 
-    _write_env(module_dir, hiddify_config())
+    _write_env(module_dir, configs)
     run_cmd(["chown", "-R", "hiddify-cli", module_dir], check=False)
     run_cmd(["systemctl", "restart", "hiddify-cli.service"], check=False)
