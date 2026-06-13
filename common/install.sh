@@ -75,7 +75,7 @@ bash google-bbr.sh > /dev/null
 
 
 echo "@reboot root /opt/hiddify-manager/install.sh --no-gui --no-log >> /opt/hiddify-manager/log/system/reboot.log 2>&1" >/etc/cron.d/hiddify_reinstall_on_reboot
-mv /etc/cron.d/hiddify_daily_memory_release /etc/cron.d/hiddify_daily
+mv /etc/cron.d/hiddify_daily_memory_release /etc/cron.d/hiddify_daily 2>/dev/null || true
 echo "@daily root /opt/hiddify-manager/common/daily_actions.sh >> /opt/hiddify-manager/log/system/daily_actions.log 2>&1" >/etc/cron.d/hiddify_daily
 service cron reload
 
