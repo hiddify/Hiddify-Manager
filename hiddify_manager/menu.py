@@ -42,7 +42,8 @@ def show_menu():
             run_install()
             questionary.text("Press Enter to return...").ask()
         elif choice == "update":
-            run_cmd(["bash", "update.sh"], check=False)
+            from hiddify_manager.manager import run_update
+            run_update("release")
             questionary.text("Press Enter to return...").ask()
         elif choice == "advanced":
             show_advanced_menu()
