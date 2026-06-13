@@ -5,21 +5,40 @@ from hiddify_manager.utils.paths import CURRENT_JSON, VENV_DIR
 from hiddify_manager.utils.logger import log
 
 def generate_current_json():
-    """Generates current.json by calling hiddifypanel all-configs"""
-    venv_python = os.path.join(VENV_DIR, "bin", "python3")
+    """Generates current.json by calling hiddifypanel all-configs.
 
-    with open(CURRENT_JSON, "w") as out:
+    Writes to a tempfile first; only renames into place if the CLI exits 0
+    and the output is parseable JSON. Otherwise the existing current.json
+    (if any) is preserved instead of being replaced by an empty/garbled file.
+    """
+    venv_python = os.path.join(VENV_DIR, "bin", "python3")
+    tmp_path = CURRENT_JSON + ".tmp"
+
+    with open(tmp_path, "w") as out:
         res = run_cmd(
             [venv_python, "-m", "hiddifypanel", "all-configs"],
             check=False,
             stdout=out,
         )
-    if res.returncode == 0:
-        os.chmod(CURRENT_JSON, 0o600)
-        return True
+    if res.returncode != 0:
+        log.error(f"hiddifypanel all-configs exited {res.returncode}")
+        try: os.unlink(tmp_path)
+        except OSError: pass
+        return False
 
-    log.error("Failed to generate current.json using hiddifypanel cli.")
-    return False
+    # Validate JSON before replacing the live file.
+    try:
+        with open(tmp_path) as f:
+            json.load(f)
+    except (json.JSONDecodeError, OSError) as e:
+        log.error(f"hiddifypanel all-configs produced invalid JSON: {e}")
+        try: os.unlink(tmp_path)
+        except OSError: pass
+        return False
+
+    os.replace(tmp_path, CURRENT_JSON)
+    os.chmod(CURRENT_JSON, 0o600)
+    return True
 
 def load_configs():
     if not os.path.exists(CURRENT_JSON):

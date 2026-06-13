@@ -25,6 +25,12 @@ fi
 echo "Activating virtual environment..."
 source "$VENV_DIR/bin/activate"
 
+# Build deps for bjoern (libev) and mysqlclient (libmysqlclient + python headers).
+# Must come before pip install — wheels for these don't ship on PyPI.
+sudo apt-get install -y --no-install-recommends \
+    python3.13-dev build-essential pkg-config \
+    libev-dev libevdev2 default-libmysqlclient-dev >/dev/null
+
 # Install orchestrator requirements
 pip install packaging questionary rich jinja2 json5
 
