@@ -1,12 +1,36 @@
 import os
 
+from hiddify_manager.utils.config import hiddify_config
 from hiddify_manager.utils.logger import log
 from hiddify_manager.utils.paths import module_dir as _module_dir
 from hiddify_manager.utils.shell import run_cmd
 from hiddify_manager.utils.package_manager import download_package
 
 
+UNIT = "hiddify-dnstm-router.service"
+
+
+def _disable():
+    """Stop the unit if it's running. Idempotent — fine if the unit was never installed."""
+    run_cmd(["systemctl", "stop", UNIT], check=False)
+    run_cmd(["systemctl", "disable", UNIT], check=False)
+
+
 def install():
+    """
+    Set up the dnstt DNS-tunnel server *if* the panel has dnstt_enable set.
+    Legacy install_run other/dnstt $(hconfig "dnstt_enable") gated the
+    whole install on that flag; without the gate we end up crash-looping
+    the service on dev boxes where dnstt_enable is false (UDP/53 is bound
+    by systemd-resolved or the real DNS resolver).
+    """
+    configs = hiddify_config() or {}
+    hconfigs = configs.get("hconfigs") or {}
+    if not hconfigs.get("dnstt_enable"):
+        log.info("dnstt: dnstt_enable is false — stopping unit and skipping install")
+        _disable()
+        return
+
     module_dir = _module_dir("other/dnstt")
     os.makedirs(module_dir, exist_ok=True)
 
