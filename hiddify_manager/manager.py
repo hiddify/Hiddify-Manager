@@ -22,17 +22,21 @@ def _render_all_templates():
     if not configs:
         log.warning("render_all: no panel configs available — skipping global render")
         return
-    log.info("Rendering all *.j2 templates against current.json...")
-    render_tree([PROJECT_ROOT], configs)
 
-    # Generate self-signed certs for every domain so haproxy/nginx can start.
-    # Real certs are fetched later by acme.sh if/when DNS points here.
+    # Generate self-signed certs BEFORE the template render — some
+    # templates (singbox/xray inbounds with TLS) shell to `ls ssl/*.crt`
+    # via the exec() helper and bake the listing into their JSON. If we
+    # render first, those captures contain the "ls: cannot access" error
+    # string and the config consumer fails to parse it.
     from hiddify_manager.utils.certs import ensure_self_signed_cert
     ssl_dir = os.path.join(PROJECT_ROOT, "ssl")
     for d in (configs.get("domains") or []):
         domain = d.get("domain") if isinstance(d, dict) else None
         if domain:
             ensure_self_signed_cert(domain, ssl_dir)
+
+    log.info("Rendering all *.j2 templates against current.json...")
+    render_tree([PROJECT_ROOT], configs)
 
     # Post-panel system config: timezone, firewall, SSH MOTD audit,
     # auto-update cron. Replaces common/run.sh.j2.
