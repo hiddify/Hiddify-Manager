@@ -27,17 +27,12 @@ def _render_all_templates():
 
     # Generate self-signed certs for every domain so haproxy/nginx can start.
     # Real certs are fetched later by acme.sh if/when DNS points here.
-    cert_script = os.path.join(PROJECT_ROOT, "acme.sh", "generate_self_signed_cert.sh")
-    if os.path.exists(cert_script):
-        for d in (configs.get("domains") or []):
-            domain = d.get("domain") if isinstance(d, dict) else None
-            if domain:
-                run_cmd(
-                    ["bash", cert_script, domain],
-                    cwd=os.path.dirname(cert_script),
-                    check=False,
-                    capture_output=True,
-                )
+    from hiddify_manager.utils.certs import ensure_self_signed_cert
+    ssl_dir = os.path.join(PROJECT_ROOT, "ssl")
+    for d in (configs.get("domains") or []):
+        domain = d.get("domain") if isinstance(d, dict) else None
+        if domain:
+            ensure_self_signed_cert(domain, ssl_dir)
 
     # Post-panel system config: timezone, firewall, SSH MOTD audit,
     # auto-update cron. Replaces common/run.sh.j2.
