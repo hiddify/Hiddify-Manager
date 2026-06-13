@@ -122,10 +122,13 @@ def _bring_up(wg_dir, env):
     run_cmd(["systemctl", "enable", "wg-quick@warp"], check=False)
     run_cmd(["systemctl", "restart", "wg-quick@warp"], check=False)
 
-    # Two probe attempts with a short pause (matches legacy real_test x2).
+    # Give wg-quick a moment to actually install routes before probing —
+    # matches the legacy `sleep .5 ; test ; sleep .5 ; test` cadence.
+    import time
+    time.sleep(0.5)
     if _real_test():
         return True
-    import time; time.sleep(0.5)
+    time.sleep(0.5)
     return _real_test()
 
 
