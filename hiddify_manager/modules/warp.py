@@ -148,7 +148,25 @@ def _bring_up(wg_dir, env):
     return _real_test()
 
 
+def _disable_warp():
+    """Tear down wg-quick@warp + the dormant hiddify-warp.service unit."""
+    for unit in ("wg-quick@warp", "hiddify-warp.service"):
+        run_cmd(["systemctl", "stop", unit], check=False)
+        run_cmd(["systemctl", "disable", unit], check=False)
+
+
 def install():
+    configs = hiddify_config() or {}
+    hconfigs = configs.get("hconfigs") or {}
+    # Legacy: install warp unless hconfigs['warp_mode'] == 'disable'.
+    # An absent warp_mode key was treated as "not disabled" → install.
+    warp_mode = (hconfigs.get("warp_mode") or "").lower()
+    if warp_mode == "disable":
+        log.info("warp: warp_mode is 'disable' — stopping wg-quick@warp and skipping install")
+        _disable_warp()
+        return
+    license_key = hconfigs.get("warp_plus_code") or ""
+
     base = _module_dir("other/warp")
     wg_dir = os.path.join(base, "wireguard")
     os.makedirs(wg_dir, exist_ok=True)
@@ -164,14 +182,6 @@ def install():
 
     # The legacy install.sh disabled the dormant hiddify-warp.service unit.
     run_cmd(["systemctl", "disable", "hiddify-warp.service"], check=False)
-
-    configs = hiddify_config()
-    if not configs:
-        log.warning("warp: no panel configs available — using empty WGCF_LICENSE_KEY")
-        license_key = ""
-    else:
-        hconfigs = configs.get("hconfigs") or {}
-        license_key = hconfigs.get("warp_plus_code") or ""
 
     account = os.path.join(wg_dir, ACCOUNT)
 
