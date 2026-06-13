@@ -8,7 +8,6 @@ symlink it to /etc/wireguard/warp.conf, and bring up wg-quick@warp.
 Verified by probing http://ip-api.com via the warp interface.
 """
 import os
-import re
 import socket
 
 from hiddify_manager.utils.logger import log
@@ -38,6 +37,26 @@ def _ipv6_usable():
     return res.returncode == 0
 
 
+def _strip_v6_from_csv(prefix, line, ipv6_ok):
+    """
+    wgcf emits Address/DNS lines like `Address = 172.16.0.2/32, 2606:...`.
+    If v6 is unusable, drop just the v6 entries (anything containing ':')
+    instead of commenting the whole line — that would strand the interface
+    with no v4 address and break routing.
+
+    If everything in the list is v6, comment the line so wg-quick doesn't
+    error on an empty value.
+    """
+    if ipv6_ok or not line.startswith(prefix):
+        return line
+    rest = line[len(prefix):].rstrip("\n")
+    entries = [e.strip() for e in rest.split(",") if e.strip()]
+    kept = [e for e in entries if ":" not in e]
+    if not kept:
+        return "# " + line
+    return f"{prefix}{', '.join(kept)}\n"
+
+
 def _patch_profile(wg_dir, ipv6_ok):
     """Equivalent to the three sed -i invocations in the legacy run.sh.j2."""
     path = os.path.join(wg_dir, PROFILE)
@@ -53,14 +72,11 @@ def _patch_profile(wg_dir, ipv6_ok):
         # [Peer] -> Table = off\n[Peer]
         if ln.strip() == "[Peer]":
             out.append("Table = off\n")
-        # Comment out IPv6 'Address = ...:...' lines when v6 is unusable.
-        # Match hex addresses with at least 4 hex chars before ':' (legacy regex).
-        if (ln.startswith("Address = ")
-                and re.search(r"[0-9a-fA-F]{4,}:", ln)
-                and not ipv6_ok):
-            ln = "# " + ln
-        # Comment out the hardcoded Cloudflare DNS line.
-        if "DNS = 1.1.1.1" in ln:
+        ln = _strip_v6_from_csv("Address = ", ln, ipv6_ok)
+        ln = _strip_v6_from_csv("DNS = ", ln, ipv6_ok)
+        # Even with v6 working, we don't want to push Cloudflare's
+        # resolver onto every client — comment the DNS line entirely.
+        if ln.lstrip().startswith("DNS = ") and "1.1.1.1" in ln:
             ln = "# " + ln
         out.append(ln)
 
