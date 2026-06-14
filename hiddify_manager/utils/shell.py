@@ -1,12 +1,17 @@
 import subprocess
 from hiddify_manager.utils.logger import log
 
-def run_cmd(command, check=True, shell=False, capture_output=False, cwd=None, input_data=None, env=None, stdout=None):
+def run_cmd(command, check=True, shell=False, capture_output=False, cwd=None, input_data=None, env=None, stdout=None, quiet=False):
     """
     Safely runs a shell command.
+
+    quiet=True suppresses the "Running command:" INFO log line — useful for
+    hot loops (status/restart probes via systemctl is-active) and inside
+    interactive menu paths where the log line is just noise.
     """
-    cmd_str = ' '.join(command) if isinstance(command, list) else command
-    log.info(f"Running command: {cmd_str}")
+    if not quiet:
+        cmd_str = ' '.join(command) if isinstance(command, list) else command
+        log.info(f"Running command: {cmd_str}")
     try:
         result = subprocess.run(
             command,

@@ -59,3 +59,23 @@ def test_run_cmd_capture_output():
             stdout=None,
         )
         assert result.stdout == "hello\n"
+
+
+def test_run_cmd_quiet_suppresses_log_line():
+    """quiet=True should NOT emit the 'Running command:' log line."""
+    with patch('subprocess.run') as mock_run, \
+         patch('hiddify_manager.utils.shell.log') as mock_log:
+        mock_run.return_value = MagicMock(returncode=0)
+        run_cmd(["echo", "hi"], quiet=True)
+    # log.info shouldn't have been invoked at all.
+    mock_log.info.assert_not_called()
+
+
+def test_run_cmd_default_logs_command():
+    """Without quiet=, the 'Running command:' line stays — default behaviour."""
+    with patch('subprocess.run') as mock_run, \
+         patch('hiddify_manager.utils.shell.log') as mock_log:
+        mock_run.return_value = MagicMock(returncode=0)
+        run_cmd(["echo", "hi"])
+    mock_log.info.assert_called_once()
+    assert "Running command" in mock_log.info.call_args.args[0]

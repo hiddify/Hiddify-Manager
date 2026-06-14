@@ -63,12 +63,12 @@ def _warp_enabled():
 
 
 def _is_enabled(unit):
-    res = run_cmd(["systemctl", "is-enabled", unit], check=False, capture_output=True)
+    res = run_cmd(["systemctl", "is-enabled", unit], check=False, capture_output=True, quiet=True)
     return res.returncode == 0
 
 
 def _is_active(unit):
-    res = run_cmd(["systemctl", "is-active", unit], check=False, capture_output=True)
+    res = run_cmd(["systemctl", "is-active", unit], check=False, capture_output=True, quiet=True)
     return (res.stdout or "").strip()
 
 
@@ -83,7 +83,7 @@ def _restart_unit(unit):
     if _should_skip(unit) or not _is_enabled(unit):
         return None
     before = _is_active(unit)
-    run_cmd(["systemctl", "restart", unit], check=False)
+    run_cmd(["systemctl", "restart", unit], check=False, quiet=True)
     after = _is_active(unit)
     return (unit, before, after)
 
@@ -95,6 +95,30 @@ def _restart_group(units, max_workers=8):
             if row:
                 rows.append(row)
     return rows
+
+
+def _print_table(headers, rows, status_col_idx=None):
+    """Print a fixed-width table to stdout (no log timestamp prefix)."""
+    from rich.console import Console
+    from rich.table import Table
+
+    table = Table(show_header=True, header_style="bold cyan")
+    for h in headers:
+        table.add_column(h)
+    for row in rows:
+        formatted = []
+        for i, cell in enumerate(row):
+            text = str(cell)
+            if status_col_idx is not None and i == status_col_idx:
+                if text == "active":
+                    text = f"[green]{text}[/green]"
+                elif text in ("inactive", "failed"):
+                    text = f"[red]{text}[/red]"
+                else:
+                    text = f"[yellow]{text}[/yellow]"
+            formatted.append(text)
+        table.add_row(*formatted)
+    Console().print(table)
 
 
 def restart():
@@ -110,9 +134,7 @@ def restart():
     rows.extend(_restart_group(panel))
     rows.extend(_restart_group(cli))
 
-    log.info(f"{'Name':<30}{'Before':<20}{'After'}")
-    for u, before, after in rows:
-        log.info(f"{u:<30}{before:<20}{after}")
+    _print_table(["Name", "Before", "After"], rows, status_col_idx=2)
     return rows
 
 
@@ -124,7 +146,5 @@ def status():
             continue
         rows.append((unit, _is_active(unit)))
 
-    log.info(f"{'Name':<40}{'Status'}")
-    for u, st in rows:
-        log.info(f"{u:<40}{st}")
+    _print_table(["Service", "Status"], rows, status_col_idx=1)
     return rows
