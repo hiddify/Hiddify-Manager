@@ -39,13 +39,13 @@ def install():
             if os.path.exists(sb_bin):
                 run_cmd(["chown", "root:root", sb_bin])
                 run_cmd(["chmod", "+x", sb_bin])
-                
+
                 run_cmd(["ln", "-sf", sb_bin, "/usr/bin/hiddify-core"])
-                
+
                 geosite_db = os.path.join(module_dir, "geosite.db")
                 if os.path.exists(geosite_db):
                     os.remove(geosite_db)
-                    
+
                 log.info("Singbox (hiddify-core) installed successfully.")
             else:
                 log.error("hiddify-core binary not found after extraction.")
@@ -53,3 +53,12 @@ def install():
             log.error("Failed to extract Singbox.")
     else:
         log.error("Failed to download Singbox.")
+
+    # Wire + start the systemd unit. Without this the service stays in
+    # whatever state it was in before (often inactive), even after a fresh
+    # binary install — same gap I fixed for nginx + haproxy.
+    svc = os.path.join(module_dir, "hiddify-singbox.service")
+    if os.path.exists(svc):
+        run_cmd(["ln", "-sf", svc, "/etc/systemd/system/hiddify-singbox.service"])
+        run_cmd(["systemctl", "enable", "hiddify-singbox.service"], check=False)
+        run_cmd(["systemctl", "restart", "hiddify-singbox.service"], check=False)

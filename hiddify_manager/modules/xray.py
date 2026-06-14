@@ -33,7 +33,7 @@ def install():
             if os.path.exists(xray_bin):
                 run_cmd(["chown", "root:root", xray_bin])
                 run_cmd(["chmod", "+x", xray_bin])
-                
+
                 # Symlink
                 run_cmd(["ln", "-sf", xray_bin, "/usr/bin/xray"])
                 log.info("Xray installed successfully.")
@@ -43,3 +43,12 @@ def install():
             log.error("Failed to extract Xray.")
     else:
         log.error("Failed to download Xray.")
+
+    # We `systemctl stop` at the top to swap the binary cleanly; restart
+    # after install so the service comes back online. Same gap I fixed
+    # for nginx + haproxy + singbox.
+    svc = os.path.join(module_dir, "hiddify-xray.service")
+    if os.path.exists(svc):
+        run_cmd(["ln", "-sf", svc, "/etc/systemd/system/hiddify-xray.service"])
+        run_cmd(["systemctl", "enable", "hiddify-xray.service"], check=False)
+        run_cmd(["systemctl", "restart", "hiddify-xray.service"], check=False)
