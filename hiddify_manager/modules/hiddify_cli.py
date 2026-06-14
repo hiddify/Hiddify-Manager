@@ -2,7 +2,6 @@ import json
 import os
 import tarfile
 import urllib.request
-from urllib.parse import urlparse
 
 from hiddify_manager.utils.logger import log
 from hiddify_manager.utils.paths import module_dir as _module_dir

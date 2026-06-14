@@ -8,7 +8,7 @@ configuration and user data from a previous installation.
 import os
 import sys
 import shutil
-import glob
+
 from hiddify_manager.utils.logger import log
 from hiddify_manager.utils.paths import PROJECT_ROOT
 

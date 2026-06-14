@@ -40,7 +40,6 @@ def _render_all_templates():
     import os
     from hiddify_manager.utils.config import hiddify_config
     from hiddify_manager.utils.template import render_tree
-    from hiddify_manager.utils.shell import run_cmd
     from hiddify_manager.utils.paths import PROJECT_ROOT
 
     configs = hiddify_config()

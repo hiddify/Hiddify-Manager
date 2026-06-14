@@ -10,7 +10,6 @@ import time
 
 import questionary
 from rich.console import Console
-from rich.syntax import Syntax
 
 from hiddify_manager.utils.paths import LOG_DIR
 

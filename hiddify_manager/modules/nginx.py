@@ -1,5 +1,4 @@
 import os
-import shutil
 from hiddify_manager.utils.logger import log
 from hiddify_manager.utils.shell import run_cmd
 from hiddify_manager.utils.paths import module_dir as _module_dir

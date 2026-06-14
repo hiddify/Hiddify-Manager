@@ -1,5 +1,4 @@
 import os
-import re
 
 from hiddify_manager.utils.config import hiddify_config
 from hiddify_manager.utils.logger import log

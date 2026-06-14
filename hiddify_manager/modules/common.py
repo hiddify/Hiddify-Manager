@@ -17,7 +17,7 @@ import shutil
 
 from hiddify_manager.utils import firewall
 from hiddify_manager.utils.logger import log
-from hiddify_manager.utils.paths import COMMON_DIR, PROJECT_ROOT, LOG_DIR
+from hiddify_manager.utils.paths import COMMON_DIR, PROJECT_ROOT, LOG_DIR, VENV_DIR
 from hiddify_manager.utils.shell import run_cmd
 
 

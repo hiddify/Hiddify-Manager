@@ -17,7 +17,6 @@ import os
 from concurrent.futures import ThreadPoolExecutor
 
 from hiddify_manager.utils.config import hiddify_config
-from hiddify_manager.utils.logger import log
 from hiddify_manager.utils.paths import PROJECT_ROOT
 from hiddify_manager.utils.shell import run_cmd
 

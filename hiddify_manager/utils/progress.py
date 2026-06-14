@@ -17,7 +17,6 @@ Legacy bash printed these via `update_progress` in common/utils.sh:
 
 Same shape here.
 """
-import sys
 
 
 def progress(percent, title, subtitle=""):
