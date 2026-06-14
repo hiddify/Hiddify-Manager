@@ -68,6 +68,13 @@ def _render_all_templates():
     log.info("Applying post-panel system config (timezone, firewall, sshd)...")
     apply_runtime_config(configs)
 
+    # Fetch real (Let's Encrypt / ZeroSSL) certs for direct-mode domains.
+    # Replaces the legacy acme.sh/run.sh per-domain get_cert loop. Falls
+    # back to the self-signed certs generated above on any failure.
+    from hiddify_manager.modules.cert_issuer import fetch_real_certs
+    log.info("Fetching real certs for direct-mode domains...")
+    fetch_real_certs(configs)
+
 
 def run_install():
     log.info("Starting installation...")
@@ -170,6 +177,17 @@ def run_apply_configs(apply_users_only=False):
     progress(85, "Restarting services", "")
     log.info("Restarting services...")
     restart()
+
+    # Fetch real certs AFTER services are up — nginx/haproxy must be
+    # running to serve the ACME HTTP-01 challenge. Skipped for the
+    # users-only path (no domains added/changed there). Mirrors the
+    # legacy acme.sh/run.sh per-domain get_cert loop.
+    if not apply_users_only:
+        from hiddify_manager.modules.cert_issuer import fetch_real_certs
+        progress(92, "Fetching certs", "Let's Encrypt / ZeroSSL")
+        log.info("Fetching real certs for direct-mode domains...")
+        fetch_real_certs(configs)
+
     progress(100, "Done", "Configs applied")
 
 

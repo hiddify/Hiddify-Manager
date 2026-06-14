@@ -223,3 +223,69 @@ def test_prepare_acme_skips_restart_when_conf_already_correct(tmp_path, unmock_p
         if c.args[0][:2] == ["systemctl", "restart"]
     ]
     assert restart_calls == []
+
+
+# ---- fetch_real_certs ------------------------------------------------------
+
+def test_fetch_real_certs_only_fetches_real_cert_modes():
+    """get_cert is called only for domains whose mode is in REAL_CERT_MODES."""
+    configs = {
+        "domains": [
+            {"domain": "direct.example.com", "mode": "direct"},
+            {"domain": "relay.example.com", "mode": "relay"},
+            {"domain": "fake.example.com", "mode": "fake"},
+            {"domain": "cdn.example.com", "mode": "cdn"},
+            {"domain": "old.example.com", "mode": "old_xtls_direct"},
+            {"domain": "sub.example.com", "mode": "sub_link_only"},
+        ],
+    }
+    fetched = []
+    with patch.object(ci, "get_cert", side_effect=lambda d: fetched.append(d) or True), \
+         patch.object(ci, "run_cmd"):
+        obtained = ci.fetch_real_certs(configs)
+    assert set(fetched) == {
+        "direct.example.com", "relay.example.com",
+        "old.example.com", "sub.example.com",
+    }
+    # fake + cdn must NOT be fetched
+    assert "fake.example.com" not in fetched
+    assert "cdn.example.com" not in fetched
+    assert set(obtained) == set(fetched)
+
+
+def test_fetch_real_certs_reloads_singbox_at_end():
+    configs = {"domains": [{"domain": "a.example.com", "mode": "direct"}]}
+    with patch.object(ci, "get_cert", return_value=True), \
+         patch.object(ci, "run_cmd") as m:
+        ci.fetch_real_certs(configs)
+    assert any(
+        c.args[0] == ["systemctl", "reload", "hiddify-singbox"]
+        for c in m.call_args_list
+    )
+
+
+def test_fetch_real_certs_noop_when_no_real_domains():
+    configs = {"domains": [{"domain": "f.example.com", "mode": "fake"}]}
+    with patch.object(ci, "get_cert") as gc, patch.object(ci, "run_cmd") as m:
+        obtained = ci.fetch_real_certs(configs)
+    gc.assert_not_called()
+    assert obtained == []
+    # no singbox reload either — nothing changed
+    assert not any(c.args[0][:2] == ["systemctl", "reload"] for c in m.call_args_list)
+
+
+def test_fetch_real_certs_excludes_domains_that_failed():
+    """A domain whose get_cert returns False (fell back to self-signed) is
+    not in the obtained list, but the loop still continues."""
+    configs = {
+        "domains": [
+            {"domain": "ok.example.com", "mode": "direct"},
+            {"domain": "bad.example.com", "mode": "direct"},
+        ],
+    }
+    def fake_get_cert(d):
+        return d == "ok.example.com"
+    with patch.object(ci, "get_cert", side_effect=fake_get_cert), \
+         patch.object(ci, "run_cmd"):
+        obtained = ci.fetch_real_certs(configs)
+    assert obtained == ["ok.example.com"]

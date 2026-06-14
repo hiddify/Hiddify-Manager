@@ -37,6 +37,14 @@ ACME_NGINX_BLOCK = (
 
 MAX_DOMAIN_LEN = 64
 
+# Domain modes that should get a REAL (Let's Encrypt / ZeroSSL) cert.
+# Mirrors the `select(.mode | IN(...))` in the legacy acme.sh/run.sh.
+# Every other mode (fake, cdn, worker, auto_cdn_ip, ...) keeps the
+# self-signed cert that the render step already generated.
+REAL_CERT_MODES = frozenset({
+    "direct", "relay", "old_xtls_direct", "sub_link_only",
+})
+
 # Same list as cert_utils.sh: TLDs that ZeroSSL's policy doesn't accept.
 RESTRICTED_TLDS = frozenset({
     "af", "by", "cu", "er", "gn", "ir", "kp", "lr", "ru", "ss", "su",
@@ -241,6 +249,45 @@ def get_cert(domain):
     _lockdown(domain)
     _stop_nginx_acme()
     return True
+
+
+def fetch_real_certs(configs):
+    """
+    Walk every domain in current.json and fetch a real cert for the ones
+    whose mode is in REAL_CERT_MODES. Ports the per-domain `get_cert $d`
+    loop from the legacy acme.sh/run.sh that ran on every install/apply.
+
+    Self-signed certs for all domains are assumed to already exist (the
+    render step calls ensure_self_signed_cert first), so get_cert only
+    *upgrades* the real-cert-mode domains; on ACME failure it leaves the
+    self-signed in place.
+
+    Runs sequentially (one ACME challenge at a time) — easier to read in
+    the log and to pin down a single domain's failure. Reloads singbox at
+    the end (get_cert already reloads haproxy+nginx per call).
+
+    Returns the list of domains for which a real cert was obtained.
+    """
+    domains = configs.get("domains") or []
+    real_domains = [
+        d["domain"] for d in domains
+        if isinstance(d, dict) and d.get("domain")
+        and d.get("mode") in REAL_CERT_MODES
+    ]
+    if not real_domains:
+        log.info("cert_issuer: no domains in a real-cert mode; skipping ACME fetch")
+        return []
+
+    obtained = []
+    for domain in real_domains:
+        log.info(f"cert_issuer: fetching real cert for {domain} (mode in {sorted(REAL_CERT_MODES)})")
+        if get_cert(domain):
+            obtained.append(domain)
+
+    # haproxy/nginx are reloaded inside get_cert; singbox isn't.
+    run_cmd(["systemctl", "reload", "hiddify-singbox"], check=False)
+    log.info(f"cert_issuer: real certs obtained for {obtained or 'none'}")
+    return obtained
 
 
 def main():
