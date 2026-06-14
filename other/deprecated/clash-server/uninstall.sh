@@ -1,1 +1,0 @@
-systemctl disable clash-server.service

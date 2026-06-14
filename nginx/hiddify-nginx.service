@@ -7,7 +7,11 @@ Wants=network-online.target
 [Service]
 Type=forking
 PIDFile=/run/hiddify-nginx.pid
-ExecStartPre=/opt/hiddify-manager/nginx/pre-start.sh
+# Replaces the legacy nginx/pre-start.sh: clear leftovers from a previous
+# run, make sure the PID file path exists. The `-` prefix and the shell
+# wrapper tolerate the empty-glob case (`rm -rf run/*` with no entries).
+ExecStartPre=-/bin/sh -c "rm -rf /opt/hiddify-manager/nginx/run/* 2>/dev/null"
+ExecStartPre=/bin/touch /run/hiddify-nginx.pid
 ExecStart=/usr/sbin/nginx -c /opt/hiddify-manager/nginx/nginx.conf
 # -g "daemon off;"
 ExecReload=/bin/sh -c "/bin/kill -s HUP $(/bin/cat /run/hiddify-nginx.pid)"

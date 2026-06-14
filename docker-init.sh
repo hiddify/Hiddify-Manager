@@ -41,8 +41,14 @@ if [ $? -ne 0 ]; then
   systemctl restart hiddify-panel
 fi
 
-DO_NOT_INSTALL=true ./install.sh docker --no-gui $@
-./status.sh --no-gui
+# The old `./install.sh docker --no-gui` and `./status.sh --no-gui` shims
+# were removed when those legacy entrypoints were deleted. Hand off to the
+# python orchestrator instead.  MODE=docker is honoured by common.py to skip
+# host-level steps that don't make sense inside a container (sysctl --system,
+# timezone changes via timedatectl).
+export MODE=docker
+./init.sh install
+./init.sh status
 
 echo Hiddify is started!!!! in 5 seconds you will see the system logs
 sleep 5
