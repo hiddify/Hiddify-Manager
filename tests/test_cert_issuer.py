@@ -36,6 +36,26 @@ def mock_nginx():
         yield
 
 
+@pytest.fixture(autouse=True)
+def mock_prepare_acme(request):
+    """
+    get_cert calls _prepare_acme(); stub it for tests that don't care.
+    Tests with `unmock_prepare_acme` in their fixture list opt out so
+    they can exercise the real implementation.
+    """
+    if "unmock_prepare_acme" in request.fixturenames:
+        yield
+        return
+    with patch.object(ci, "_prepare_acme"):
+        yield
+
+
+@pytest.fixture
+def unmock_prepare_acme():
+    """Marker fixture — see mock_prepare_acme above."""
+    return None
+
+
 # ---- helpers ---------------------------------------------------------------
 
 def test_is_ip_distinguishes_v4_v6_and_hostname():
@@ -170,3 +190,36 @@ def test_get_cert_handles_ip_literal_skips_dns_resolution(
 def test_resolve_returns_empty_string_on_lookup_failure():
     with patch.object(ci.socket, "getaddrinfo", side_effect=socket.gaierror):
         assert ci._resolve("nope.invalid", socket.AF_INET) == ""
+
+
+# ---- _prepare_acme ---------------------------------------------------------
+
+def test_prepare_acme_writes_conf_and_restarts_when_missing(tmp_path, unmock_prepare_acme):
+    """First call: conf doesn't exist → write it and restart nginx."""
+    conf = tmp_path / "acme.conf"
+    webroot = tmp_path / "www"
+    with patch.object(ci, "NGINX_ACME_CONF", str(conf)), \
+         patch.object(ci, "WEBROOT", str(webroot)), \
+         patch.object(ci, "run_cmd") as m:
+        ci._prepare_acme()
+    assert conf.exists()
+    assert "acme-challenge" in conf.read_text()
+    # nginx restart was invoked
+    assert any(c.args[0] == ["systemctl", "restart", "hiddify-nginx"] for c in m.call_args_list)
+
+
+def test_prepare_acme_skips_restart_when_conf_already_correct(tmp_path, unmock_prepare_acme):
+    """Second call with matching conf: NO nginx restart."""
+    conf = tmp_path / "acme.conf"
+    webroot = tmp_path / "www"
+    conf.write_text(ci.ACME_NGINX_BLOCK)
+    with patch.object(ci, "NGINX_ACME_CONF", str(conf)), \
+         patch.object(ci, "WEBROOT", str(webroot)), \
+         patch.object(ci, "run_cmd") as m:
+        ci._prepare_acme()
+    # chown still runs, but no restart.
+    restart_calls = [
+        c for c in m.call_args_list
+        if c.args[0][:2] == ["systemctl", "restart"]
+    ]
+    assert restart_calls == []

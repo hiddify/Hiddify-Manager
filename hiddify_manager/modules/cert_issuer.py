@@ -29,8 +29,11 @@ ACME_DIR = os.path.join(PROJECT_ROOT, "acme.sh")
 ACME_BIN = os.path.join(ACME_DIR, "lib", "acme.sh")
 WEBROOT = os.path.join(ACME_DIR, "www")
 ACME_LOG = os.path.join(PROJECT_ROOT, "log", "system", "acme.log")
-PREPARE_HOOK = os.path.join(ACME_DIR, "prepare_acme.sh")
 NGINX_ACME_CONF = os.path.join(PROJECT_ROOT, "nginx", "parts", "acme.conf")
+ACME_NGINX_BLOCK = (
+    "location /.well-known/acme-challenge "
+    "{root /opt/hiddify-manager/acme.sh/www/;}\n"
+)
 
 MAX_DOMAIN_LEN = 64
 
@@ -79,13 +82,42 @@ def _public_ip(version):
     return (res.stdout or "").strip()
 
 
+def _prepare_acme():
+    """
+    One-time setup that the legacy acme.sh --pre-hook
+    bash prepare_acme.sh did per challenge: create the webroot
+    challenge dir, install the nginx location block that exposes
+    /.well-known/acme-challenge, chown the webroot to nginx, restart
+    hiddify-nginx — but ONLY restart when the config actually changed.
+
+    The original ran on every domain (and restarted nginx every time);
+    we run it once per cert_issuer invocation and skip the restart
+    when acme.conf already matches.
+    """
+    os.makedirs(os.path.join(WEBROOT, ".well-known", "acme-challenge"), exist_ok=True)
+
+    current = ""
+    if os.path.exists(NGINX_ACME_CONF):
+        try:
+            with open(NGINX_ACME_CONF) as f:
+                current = f.read()
+        except OSError:
+            current = ""
+    if current != ACME_NGINX_BLOCK:
+        os.makedirs(os.path.dirname(NGINX_ACME_CONF), exist_ok=True)
+        with open(NGINX_ACME_CONF, "w") as f:
+            f.write(ACME_NGINX_BLOCK)
+        run_cmd(["systemctl", "restart", "hiddify-nginx"], check=False)
+
+    run_cmd(["chown", "-R", "nginx", WEBROOT], check=False)
+
+
 def _acmecmd(extra_args):
     """Equivalent of the legacy acmecmd() in cert_utils.sh."""
     base = [
         ACME_BIN, "--issue",
         "-w", WEBROOT,
         "--log", ACME_LOG,
-        "--pre-hook", f"bash {PREPARE_HOOK}",
     ]
     os.makedirs(os.path.dirname(ACME_LOG), exist_ok=True)
     return run_cmd(base + list(extra_args), cwd=ACME_DIR, check=False)
@@ -187,6 +219,11 @@ def get_cert(domain):
                 f"cert_issuer: {domain} doesn't resolve to this server; "
                 "ACME will probably fail but trying anyway"
             )
+
+    # The legacy --pre-hook ran prepare_acme.sh per challenge (and
+    # restarted nginx every time). Do it once here; _prepare_acme
+    # short-circuits the nginx restart when acme.conf is already correct.
+    _prepare_acme()
 
     rc = _try_issue(domain, ip_version)
     if rc == 0:
