@@ -1,5 +1,5 @@
 #!/bin/bash
-# Thin shim: commander.py restart-services path. Hands off to
-# ./init.sh restart (services.restart waves + rich status table).
+# Thin shim: commander.py restart-services path. init.sh writes
+# log/system/restart.log.
 cd "$(dirname -- "$0")"
 exec ./init.sh restart

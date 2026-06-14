@@ -40,5 +40,30 @@ pip install packaging questionary rich jinja2 json5
 # partial install can't strand the panel.
 pip install --quiet bjoern hiddifypanel || echo "WARN: panel deps install failed; the panel service may not start"
 
-# Execute the python manager
-python3 -m hiddify_manager.manager "$@"
+# Execute the python manager.
+# PYTHONUNBUFFERED=1 + -u so stdout flushes per-line when piped through
+# `tee` (the panel's live-log endpoint polls log/system/<action>.log).
+#
+# We also tee the output to a per-command log file so the panel's
+# AdminLogApi can stream it — and so the same file exists regardless
+# of who invoked the action (the panel via commander shim, the menu,
+# or `./init.sh foo` from a shell). The shims should NOT tee again;
+# centralising it here means one place to fix.
+log_file=
+case "${1:-}" in
+    install|apply-configs|apply-users) log_file="log/system/0-install.log" ;;
+    update|upgrade)                    log_file="log/system/update.log"    ;;
+    restart)                           log_file="log/system/restart.log"   ;;
+    status)                            log_file="log/system/status.log"    ;;
+esac
+
+if [ -n "$log_file" ]; then
+    mkdir -p "$(dirname "$log_file")"
+    # set -o pipefail so a non-zero exit from python propagates through
+    # the tee (otherwise tee's success would shadow a real failure).
+    set -o pipefail
+    env PYTHONUNBUFFERED=1 python3 -u -m hiddify_manager.manager "$@" 2>&1 \
+        | stdbuf -oL tee "$log_file"
+    exit "${PIPESTATUS[0]}"
+fi
+exec env PYTHONUNBUFFERED=1 python3 -u -m hiddify_manager.manager "$@"
