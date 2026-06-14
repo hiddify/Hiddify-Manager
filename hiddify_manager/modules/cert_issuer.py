@@ -120,8 +120,25 @@ def _prepare_acme():
     run_cmd(["chown", "-R", "nginx", WEBROOT], check=False)
 
 
+class _MissingBinary:
+    """Stand-in result when the acme.sh binary isn't present, so callers
+    that read .returncode get a non-zero (failure) without an exception."""
+    returncode = 127
+    stdout = ""
+
+
 def _acmecmd(extra_args):
-    """Equivalent of the legacy acmecmd() in cert_utils.sh."""
+    """Equivalent of the legacy acmecmd() in cert_utils.sh.
+
+    Returns a non-zero result (rather than raising) if the acme.sh binary
+    is missing — e.g. the acme.sh module hasn't run yet, or a deploy wiped
+    acme.sh/lib/. get_cert() then falls back to a self-signed cert instead
+    of taking down the whole install with a FileNotFoundError.
+    """
+    if not os.path.exists(ACME_BIN):
+        log.error(f"cert_issuer: acme.sh binary missing at {ACME_BIN}; "
+                  "skipping real-cert issuance (self-signed fallback)")
+        return _MissingBinary()
     base = [
         ACME_BIN, "--issue",
         "-w", WEBROOT,

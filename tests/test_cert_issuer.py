@@ -289,3 +289,27 @@ def test_fetch_real_certs_excludes_domains_that_failed():
          patch.object(ci, "run_cmd"):
         obtained = ci.fetch_real_certs(configs)
     assert obtained == ["ok.example.com"]
+
+
+# ---- _acmecmd resilience ---------------------------------------------------
+
+def test_acmecmd_returns_nonzero_when_binary_missing(tmp_path):
+    """A missing acme.sh binary must NOT raise — it should return a
+    non-zero result so get_cert falls back to self-signed."""
+    with patch.object(ci, "ACME_BIN", str(tmp_path / "nope" / "acme.sh")), \
+         patch.object(ci, "run_cmd") as m:
+        res = ci._acmecmd(["-d", "example.com", "--server", "letsencrypt"])
+    assert res.returncode != 0
+    m.assert_not_called()  # never tried to exec the missing binary
+
+
+def test_acmecmd_execs_when_binary_present(tmp_path):
+    fake_bin = tmp_path / "acme.sh"
+    fake_bin.write_text("#!/bin/bash\n")
+    with patch.object(ci, "ACME_BIN", str(fake_bin)), \
+         patch.object(ci, "run_cmd", return_value=_result(0)) as m:
+        ci._acmecmd(["-d", "example.com", "--server", "letsencrypt"])
+    m.assert_called_once()
+    argv = m.call_args.args[0]
+    assert argv[0] == str(fake_bin)
+    assert "--issue" in argv

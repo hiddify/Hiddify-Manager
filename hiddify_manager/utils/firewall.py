@@ -87,16 +87,26 @@ def save():
         if dump.returncode != 0:
             log.warning(f"firewall: {ipt_save} failed; skipping {target}")
             continue
-        seen = set()
-        deduped = []
+
+        # Dedup ONLY actual rule lines ('-A ...' / '-I ...'), per table.
+        # Structural lines (*table, :CHAIN policy, COMMIT, comments) are
+        # kept verbatim and in order — collapsing or reordering those (the
+        # old "dedup everything + append COMMIT" approach) corrupted the
+        # restore and produced "ip6tables-restore: line N failed".
+        seen_rules = set()
+        out = []
         for line in (dump.stdout or "").splitlines():
-            if line in seen:
-                continue
-            seen.add(line)
-            deduped.append(line)
-        deduped.append("COMMIT")  # matches the legacy `echo "COMMIT" >> ...`
+            if line.startswith("-"):
+                if line in seen_rules:
+                    continue
+                seen_rules.add(line)
+            elif line.startswith("*"):
+                # New table — rule-uniqueness resets per table.
+                seen_rules = set()
+            out.append(line)
+
         with open(target, "w") as f:
-            f.write("\n".join(deduped) + "\n")
-        # Apply the deduped ruleset.
+            f.write("\n".join(out) + "\n")
+        # Apply the cleaned ruleset.
         with open(target) as f:
             run_cmd([ipt_restore], check=False, input_data=f.read())

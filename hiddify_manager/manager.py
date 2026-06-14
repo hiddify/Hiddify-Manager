@@ -68,10 +68,18 @@ def _render_all_templates():
     log.info("Applying post-panel system config (timezone, firewall, sshd)...")
     apply_runtime_config(configs)
 
-    # Fetch real (Let's Encrypt / ZeroSSL) certs for direct-mode domains.
-    # Replaces the legacy acme.sh/run.sh per-domain get_cert loop. Falls
-    # back to the self-signed certs generated above on any failure.
+
+def _fetch_real_certs():
+    """Fetch real certs for direct-mode domains. Must run AFTER the full
+    module loop — needs the acme.sh binary installed (acme.sh module) and
+    nginx/haproxy running (to serve the HTTP-01 challenge). Replaces the
+    legacy acme.sh/run.sh per-domain get_cert loop."""
+    from hiddify_manager.utils.config import hiddify_config
     from hiddify_manager.modules.cert_issuer import fetch_real_certs
+    configs = hiddify_config()
+    if not configs:
+        log.warning("fetch_certs: no panel configs available — skipping")
+        return
     log.info("Fetching real certs for direct-mode domains...")
     fetch_real_certs(configs)
 
@@ -93,6 +101,11 @@ def run_install():
         if mod == "hiddify-panel":
             progress(30, "Configuring...", "Rendering configs + system setup")
             _render_all_templates()
+    # Real-cert fetch happens last: the acme.sh binary is installed by the
+    # acme.sh module (index 6) and the HTTP-01 challenge needs nginx +
+    # haproxy already up — both only true after the loop completes.
+    progress(96, "Certificates", "Fetching real certs")
+    _fetch_real_certs()
     progress(98, "Almost finished", "Wrapping up")
     log.info("Installation completed successfully.")
     progress(100, "Done", "")

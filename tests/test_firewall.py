@@ -99,11 +99,12 @@ def test_set_input_policy_refuses_invalid_value():
 
 
 def test_save_dedupes_and_restores(tmp_path):
-    """save() should dump, dedupe lines, write to /etc/iptables/rules.vX,
+    """save() should dump, dedupe ONLY rule lines, preserve structural
+    lines (incl. the dump's own COMMIT), write to /etc/iptables/rules.vX,
     and feed the result back through *-restore."""
     dumps = {
-        "iptables-save": "*filter\n:INPUT ACCEPT [0:0]\n-A INPUT -j ACCEPT\n-A INPUT -j ACCEPT\n",
-        "ip6tables-save": "*filter\n:INPUT ACCEPT [0:0]\n",
+        "iptables-save": "*filter\n:INPUT ACCEPT [0:0]\n-A INPUT -j ACCEPT\n-A INPUT -j ACCEPT\nCOMMIT\n",
+        "ip6tables-save": "*filter\n:INPUT ACCEPT [0:0]\nCOMMIT\n",
     }
     restore_inputs = {}
     def fake(argv, **kw):
@@ -137,9 +138,43 @@ def test_save_dedupes_and_restores(tmp_path):
 
     # v4 dump had a duplicate '-A INPUT -j ACCEPT'; expect it kept only once.
     assert written["/etc/iptables/rules.v4"].count("-A INPUT -j ACCEPT\n") == 1
-    # COMMIT line was appended
-    assert "COMMIT\n" in written["/etc/iptables/rules.v4"]
-    assert "COMMIT\n" in written["/etc/iptables/rules.v6"]
-    # restore was invoked with the deduped content
+    # Structural lines preserved verbatim, exactly one COMMIT (the dump's),
+    # NOT a second appended one (the old bug).
+    assert written["/etc/iptables/rules.v4"].count("COMMIT\n") == 1
+    assert written["/etc/iptables/rules.v6"].count("COMMIT\n") == 1
+    assert "*filter\n" in written["/etc/iptables/rules.v4"]
+    assert ":INPUT ACCEPT [0:0]\n" in written["/etc/iptables/rules.v4"]
+    # restore was invoked with the cleaned content
     assert "iptables-restore" in restore_inputs
     assert "-A INPUT -j ACCEPT" in restore_inputs["iptables-restore"]
+
+
+def test_save_dedups_rules_per_table_not_across(tmp_path):
+    """A rule line identical across two tables must survive in both —
+    dedup resets at each '*table' boundary."""
+    dump = (
+        "*filter\n:INPUT ACCEPT [0:0]\n-A INPUT -j ACCEPT\nCOMMIT\n"
+        "*nat\n:PREROUTING ACCEPT [0:0]\n-A INPUT -j ACCEPT\nCOMMIT\n"
+    )
+    written = {}
+    def fake(argv, **kw):
+        if argv[0] == "iptables-save":
+            return _result(0, dump)
+        return _result(0)
+    with patch.object(fw, "run_cmd", side_effect=fake), \
+         patch("os.makedirs"), \
+         patch("builtins.open") as mock_open:
+        def open_side(path, mode="r", **kw):
+            from io import StringIO
+            if "w" in mode:
+                buf = StringIO(); orig = buf.close
+                buf.close = lambda: (written.__setitem__(path, buf.getvalue()), orig())
+                return buf
+            return StringIO(written.get(path, ""))
+        mock_open.side_effect = open_side
+        # Only exercise the v4 path by making v6 dump empty/fail.
+        fw.save()
+    v4 = written["/etc/iptables/rules.v4"]
+    # The identical -A line appears once per table = twice total.
+    assert v4.count("-A INPUT -j ACCEPT\n") == 2
+    assert v4.count("*filter\n") == 1 and v4.count("*nat\n") == 1
