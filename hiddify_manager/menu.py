@@ -72,9 +72,11 @@ def show_advanced_menu():
         else:
             console.print("[yellow]WARP is NOT working[/yellow]")
     elif choice == "add_remote":
-        run_cmd(["bash", "common/add_remote_assistant.sh"], check=False)
+        from hiddify_manager.modules.remote_assistant import add as add_assistant
+        add_assistant()
     elif choice == "remove_remote":
-        run_cmd(["bash", "common/remove_remote_assistant.sh"], check=False)
+        from hiddify_manager.modules.remote_assistant import remove as remove_assistant
+        remove_assistant()
     elif choice == "uninstall":
         from hiddify_manager.uninstall import run as run_uninstall
         run_uninstall(purge=False)
