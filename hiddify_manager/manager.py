@@ -75,11 +75,35 @@ def run_update(mode):
     run_install()
 
 
+def run_upgrade(mode):
+    """
+    Full upgrade: pull the latest hiddify-manager source from GitHub,
+    then re-exec ./init.sh update <mode> so the new code drives the
+    rest of the flow (panel package + install loop).
+
+    This is what `bash hiddify_installer.sh <mode>` used to do.
+    """
+    import os
+    from hiddify_manager.modules.manager_updater import update_manager_source
+    from hiddify_manager.utils.paths import PROJECT_ROOT
+
+    log.info(f"Starting full upgrade (mode={mode!r})...")
+    if not update_manager_source(mode):
+        log.error("Manager source update failed; skipping panel update.")
+        return
+
+    init_sh = os.path.join(PROJECT_ROOT, "init.sh")
+    log.info(f"Re-executing {init_sh} update {mode} with the updated source...")
+    os.execv(init_sh, [init_sh, "update", mode])
+
+
 def main():
     parser = argparse.ArgumentParser(description="Hiddify-Manager Configuration Tool")
-    parser.add_argument("command", nargs="?", choices=["install", "update", "status", "menu", "migrate"], help="Command to run")
+    parser.add_argument("command", nargs="?",
+                        choices=["install", "update", "upgrade", "status", "menu", "migrate"],
+                        help="Command to run")
     parser.add_argument("mode", nargs="?", default="release",
-                        help="Update mode (release/beta/dev/develop/docker/v<tag>); only used with `update`")
+                        help="Mode (release/beta/dev/develop/docker/v<tag>); used with `update` and `upgrade`")
 
     args = parser.parse_args()
 
@@ -92,6 +116,8 @@ def main():
         run_install()
     elif args.command == "update":
         run_update(args.mode)
+    elif args.command == "upgrade":
+        run_upgrade(args.mode)
     elif args.command == "status":
         log.info("Checking status...")
         from hiddify_manager.modules.services import status

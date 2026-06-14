@@ -1,51 +1,71 @@
 #!/bin/bash
+#
+# First-install bootstrap: download a Hiddify-Manager release archive
+# straight from GitHub, extract it to /opt/hiddify-manager, and hand off
+# to the python orchestrator (./init.sh upgrade <mode>) for everything
+# else.
+#
+# Replaces the previous flow which downloaded hiddify_installer.sh +
+# utils.sh from raw.githubusercontent and ran them — the installer's
+# logic now lives in modules/manager_updater + modules/panel_installer.
 
-if [[ "$VER" != "" ]];then
-    set -- $VER  $@
+set -eu
 
-fi
+mode="${1:-release}"
 
-echo "$0 input params are $@"
-
-
-if [[ " $@ " != *"--no-gui"* ]] &&  [[ "$0" == "bash" ]]; then
-    echo "This script is deprecated! Please use the following command"
-    echo ""
-    echo "bash <(curl https://i.hiddify.com/$1)"
-    echo ""
+if [ "$(id -u)" -ne 0 ]; then
+    echo "This script must be run as root" >&2
     exit 1
 fi
 
-echo "Downloading '$@'"
+case "$mode" in
+    release)
+        archive_url="https://github.com/hiddify/Hiddify-Manager/releases/latest/download/hiddify-manager.zip"
+        ;;
+    beta)
+        echo "beta mode needs an explicit v<tag>; resolve via the GitHub API and pass it." >&2
+        exit 2
+        ;;
+    dev|develop)
+        archive_url="https://github.com/hiddify/hiddify-manager/archive/refs/heads/dev.tar.gz"
+        ;;
+    v*)
+        archive_url="https://github.com/hiddify/Hiddify-Manager/releases/download/${mode}/hiddify-manager.zip"
+        ;;
+    docker)
+        echo "docker bootstrap goes through common/docker-installer.sh, not download.sh" >&2
+        exit 2
+        ;;
+    *)
+        echo "Unknown mode: $mode (expected release|beta|dev|develop|v<tag>)" >&2
+        exit 2
+        ;;
+esac
 
-if [[ " $@ " == *" v8 "* ]]; then
-    sudo bash -c "$(curl -sLfo- https://raw.githubusercontent.com/hiddify/hiddify-config/main/common/download_install.sh)"
-    exit $?
-fi
+target=/opt/hiddify-manager
+mkdir -p "$target"
+cd "$target"
 
+# Bootstrap needs unzip / tar to be present before init.sh can run.
+apt-get install -y --no-install-recommends curl ca-certificates unzip tar >/dev/null
 
-mkdir -p /tmp/hiddify/
-chmod 600 /tmp/hiddify/
-rm -rf /tmp/hiddify/*
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
 
+case "$archive_url" in
+    *.zip)
+        echo "Downloading $archive_url..."
+        curl -fsSL -o "$tmp/manager.zip" "$archive_url"
+        unzip -q -o "$tmp/manager.zip" -d "$target"
+        ;;
+    *.tar.gz)
+        echo "Downloading $archive_url..."
+        curl -fsSL -o "$tmp/manager.tar.gz" "$archive_url"
+        tar -xzf "$tmp/manager.tar.gz" -C "$target" --strip-components=1
+        ;;
+esac
 
-branch="${1:-release}"
-
-if [[ "$branch" == v* ]]; then
-    # If input starts with 'v', treat it as a tag
-    base_url="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/tags/$branch/"
-elif [[ "$branch" == "beta" ]]; then
-    # If input is 'release' or empty, use main
-    base_url="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/beta/"
-elif [[ "$branch" == "dev" ]]; then
-    # If input is 'release' or empty, use main
-    base_url="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/dev/"
-else
-    # Otherwise, use the input as a branch name
-    base_url="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/main/"
-fi
-curl -sL -o /tmp/hiddify/hiddify_installer.sh $base_url/common/hiddify_installer.sh
-curl -sL -o /tmp/hiddify/utils.sh $base_url/common/utils.sh
-chmod 700 /tmp/hiddify/*
-
-/tmp/hiddify/hiddify_installer.sh $@
+cd "$target"
+# We just downloaded the source; hand off to `update` (panel install +
+# install loop), not `upgrade` (which would re-download the source).
+exec ./init.sh update "$mode"
