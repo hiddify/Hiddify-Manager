@@ -13,6 +13,48 @@ from hiddify_manager.modules import common
 
 # ---- helpers ---------------------------------------------------------------
 
+def test_ensure_bashrc_lines_strips_stale_and_appends(tmp_path):
+    rc = tmp_path / ".bashrc"
+    rc.write_text(
+        "# user stuff\n"
+        "export PS1='$ '\n"
+        "/opt/hiddify-manager/menu.sh\n"      # stale (legacy menu)
+        "cd /opt/hiddify-manager/\n"           # stale (legacy cd)
+        "alias ll='ls -la'\n"
+    )
+    common._ensure_bashrc_lines(
+        str(rc),
+        ["cd /opt/hiddify-manager", "hiddify"],
+        stale_patterns=["/opt/hiddify-manager/menu.sh", "cd /opt/hiddify-manager/"],
+    )
+    out = rc.read_text()
+    # stale lines gone
+    assert "/opt/hiddify-manager/menu.sh\n" not in out
+    assert "cd /opt/hiddify-manager/\n" not in out
+    # user lines preserved
+    assert "export PS1='$ '" in out
+    assert "alias ll='ls -la'" in out
+    # new lines present (exactly once each)
+    assert out.count("cd /opt/hiddify-manager\n") == 1
+    assert out.count("hiddify\n") == 1
+
+
+def test_ensure_bashrc_lines_no_dupes_on_rerun(tmp_path):
+    rc = tmp_path / ".bashrc"
+    rc.write_text("existing\n")
+    for _ in range(3):
+        common._ensure_bashrc_lines(str(rc), ["alpha", "beta"])
+    out = rc.read_text()
+    assert out.count("alpha\n") == 1
+    assert out.count("beta\n") == 1
+
+
+def test_ensure_bashrc_lines_creates_missing_file(tmp_path):
+    rc = tmp_path / "absent"
+    common._ensure_bashrc_lines(str(rc), ["foo"])
+    assert rc.read_text() == "foo\n"
+
+
 def test_split_csv_ports_handles_blanks_and_garbage():
     assert common._split_csv_ports("80, 443,, 8443") == [80, 443, 8443]
     assert common._split_csv_ports("") == []

@@ -23,15 +23,41 @@ from hiddify_manager.utils.shell import run_cmd
 
 APT_BASE_PACKAGES = [
     "apt-transport-https", "apt-utils", "at", "build-essential",
-    "ca-certificates", "cron", "curl", "default-libmysqlclient-dev",
-    "dnsutils", "gawk", "git", "gnupg-agent", "gnupg2", "iproute2",
-    "iptables", "jq", "less", "libev-dev", "libevdev2", "libssl-dev",
-    "locales", "lsb-release", "lsof", "pkg-config", "qrencode",
-    "software-properties-common", "sudo", "ubuntu-keyring", "wget",
-    "whiptail",
+    "ca-certificates", "clang", "cron", "curl",
+    "default-libmysqlclient-dev", "dnsutils", "gawk", "git",
+    "gnupg-agent", "gnupg2", "iproute2", "iptables", "jq", "less",
+    "libev-dev", "libevdev2", "libssl-dev", "locales", "lsb-release",
+    "lsof", "pkg-config", "qrencode", "software-properties-common",
+    "sudo", "ubuntu-keyring", "wget", "whiptail", "wireguard",
 ]
 APT_REMOVE_PACKAGES = ["apache2", "needrestart", "needrestart-session"]
 EXCLUDED_IFACES = {"warp", "lo"}
+
+
+def _ensure_bashrc_lines(rc_path, lines, stale_patterns=()):
+    """
+    Strip any line containing one of stale_patterns, then append the
+    given lines if they're not already present. Equivalent to the legacy
+    `sed -i s|X||g; echo Y >> .bashrc` pattern.
+    """
+    if not os.path.exists(rc_path):
+        existing = []
+    else:
+        with open(rc_path) as f:
+            existing = f.readlines()
+
+    def is_stale(ln):
+        return any(p in ln for p in stale_patterns)
+
+    out = [ln for ln in existing if not is_stale(ln)]
+    for line in lines:
+        wanted = line.rstrip("\n") + "\n"
+        if wanted not in out:
+            if out and not out[-1].endswith("\n"):
+                out[-1] = out[-1] + "\n"
+            out.append(wanted)
+    with open(rc_path, "w") as f:
+        f.writelines(out)
 
 
 def _apt_install(packages):
@@ -164,9 +190,27 @@ def install():
         )
     os.chmod("/etc/sudoers.d/hiddify", 0o440)
 
-    menu_sh = os.path.join(PROJECT_ROOT, "menu.sh")
-    if os.path.exists(menu_sh):
-        run_cmd(["ln", "-sf", menu_sh, "/usr/bin/hiddify"], check=False)
+    # /usr/bin/hiddify wrapper. Legacy symlinked /opt/hiddify-manager/menu.sh
+    # but that script was deleted in 20d2d792. Write a tiny shim that hands
+    # off to ./init.sh menu (the python menu).
+    hiddify_bin = "/usr/bin/hiddify"
+    with open(hiddify_bin, "w") as f:
+        f.write(
+            "#!/bin/bash\n"
+            f"exec {PROJECT_ROOT}/init.sh menu \"$@\"\n"
+        )
+    os.chmod(hiddify_bin, 0o755)
+
+    # Auto-cd into the project on login + show menu. Legacy appended
+    # /opt/hiddify-manager/menu.sh directly; use the new wrapper instead.
+    _ensure_bashrc_lines(
+        "/root/.bashrc",
+        [f"cd {PROJECT_ROOT}", "hiddify"],
+        stale_patterns=[
+            "/opt/hiddify-manager/menu.sh",
+            "cd /opt/hiddify-manager/",
+        ],
+    )
 
     for unit in ("rpcbind.socket", "rpcbind"):
         run_cmd(["systemctl", "disable", "--now", unit], check=False)
