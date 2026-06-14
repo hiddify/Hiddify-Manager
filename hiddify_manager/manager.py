@@ -75,6 +75,63 @@ def run_update(mode):
     run_install()
 
 
+def run_apply_configs(apply_users_only=False):
+    """
+    Lightweight "the panel config changed, re-derive everything from it" pass.
+    This is what `apply_configs.sh` did in the bash era — called by the
+    panel via commander.py on every Apply-Configs / user-add / user-remove.
+
+    Unlike run_install(), no apt installs, no binary downloads. Just:
+      1. Force-regenerate current.json from the panel.
+      2. Render every *.j2 against the fresh configs.
+      3. Re-generate self-signed certs for any new domain.
+      4. Re-apply firewall + timezone + sshd audit.
+      5. Restart services so they pick up the new configs.
+
+    `apply_users_only=True` (the commander.py `apply-users` route) skips
+    the firewall + timezone pass — only users/peers changed, no need to
+    touch system-level config.
+    """
+    import os
+    from hiddify_manager.utils.config import generate_current_json, hiddify_config
+    from hiddify_manager.utils.template import render_tree
+    from hiddify_manager.utils.paths import PROJECT_ROOT
+    from hiddify_manager.utils.certs import ensure_self_signed_cert
+
+    log.info(
+        f"Applying configs (apply_users_only={apply_users_only})..."
+    )
+
+    # Force a fresh current.json — without this the panel's new state
+    # wouldn't be visible until something else triggered regeneration.
+    if not generate_current_json():
+        log.error("apply_configs: could not regenerate current.json — aborting")
+        return
+
+    configs = hiddify_config()
+    if not configs:
+        log.error("apply_configs: current.json present but unreadable — aborting")
+        return
+
+    ssl_dir = os.path.join(PROJECT_ROOT, "ssl")
+    for d in (configs.get("domains") or []):
+        domain = d.get("domain") if isinstance(d, dict) else None
+        if domain:
+            ensure_self_signed_cert(domain, ssl_dir)
+
+    log.info("Rendering all *.j2 templates against current.json...")
+    render_tree([PROJECT_ROOT], configs)
+
+    if not apply_users_only:
+        from hiddify_manager.modules.common import apply_runtime_config
+        log.info("Re-applying system config (firewall, timezone, sshd)...")
+        apply_runtime_config(configs)
+
+    from hiddify_manager.modules.services import restart
+    log.info("Restarting services...")
+    restart()
+
+
 def run_upgrade(mode):
     """
     Full upgrade: pull the latest hiddify-manager source from GitHub,
@@ -100,7 +157,8 @@ def run_upgrade(mode):
 def main():
     parser = argparse.ArgumentParser(description="Hiddify-Manager Configuration Tool")
     parser.add_argument("command", nargs="?",
-                        choices=["install", "update", "upgrade", "status", "menu", "migrate"],
+                        choices=["install", "update", "upgrade", "status", "menu",
+                                 "migrate", "apply-configs", "apply-users", "restart"],
                         help="Command to run")
     parser.add_argument("mode", nargs="?", default="release",
                         help="Mode (release/beta/dev/develop/docker/v<tag>); used with `update` and `upgrade`")
@@ -122,6 +180,13 @@ def main():
         log.info("Checking status...")
         from hiddify_manager.modules.services import status
         status()
+    elif args.command == "restart":
+        from hiddify_manager.modules.services import restart
+        restart()
+    elif args.command == "apply-configs":
+        run_apply_configs(apply_users_only=False)
+    elif args.command == "apply-users":
+        run_apply_configs(apply_users_only=True)
     elif args.command == "migrate":
         from hiddify_manager.migrate import run_migration
         run_migration()
