@@ -18,8 +18,10 @@ RestartSec=3
 #ExecReload=/bin/sh -c "/opt/hiddify-manager/xray/bin/xray run -test -confdir /opt/hiddify-manager/xray/configs/ && systemctl restart hiddify-xray"
 Restart=always
 #RestartPreventExitStatus=23
-#StandardOutput=file:/opt/hiddify-manager/log/system/xray.out.log
-#StandardError=file:/opt/hiddify-manager/log/system/xray.err.log
+# Panel's log viewer (admin/get_log) allowlists these specific filenames.
+# Leaving the redirects commented makes the route 404 with "Invalid log file".
+StandardOutput=file:/opt/hiddify-manager/log/system/xray.out.log
+StandardError=file:/opt/hiddify-manager/log/system/xray.err.log
 LimitNOFILE=infinity
 OOMScoreAdjust=100
 
