@@ -108,7 +108,8 @@ def _write_cron_entries():
 
     with open(daily_cron, "w") as f:
         f.write(
-            "@daily root /opt/hiddify-manager/common/daily_actions.sh "
+            f"@daily root {VENV_DIR}/bin/python3 -m "
+            "hiddify_manager.modules.daily_actions "
             ">> /opt/hiddify-manager/log/system/daily_actions.log 2>&1\n"
         )
 
