@@ -11,7 +11,7 @@ cd ..
 
 
 pip install hiddifypanel==$(get_release_version hiddify-panel)
-curl -L -s -o hiddify-manager.zip https://github.com/hiddify/hiddify-manager/releases/latest/download/hiddify-manager.zip
+download_with_fallback hiddify-manager.zip https://github.com/hiddify/hiddify-manager/releases/latest/download/hiddify-manager.zip || exit 1
 unzip -o hiddify-manager.zip
 rm hiddify-manager.zip
 ln -s /opt/hiddify-manager /opt/hiddify-config

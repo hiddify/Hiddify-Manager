@@ -1,7 +1,9 @@
 export venv_path="/opt/hiddify-manager/.venv313"
 
+GH_META_CURL_OPTS="--connect-timeout 10 --retry 3 --retry-all-errors"
+
 function get_commit_version() {
-    json_data=$(curl -sL -H "Accept: application/json" "https://github.com/hiddify/$1/commits/main.atom")
+    json_data=$(curl $GH_META_CURL_OPTS -sL -H "Accept: application/json" "https://github.com/hiddify/$1/commits/main.atom")
     latest_commit_date=$(echo "$json_data" | jq -r '.payload.commitGroups[0].commits[0].committedDate')
     # xml_data=$(curl -sl "https://github.com/hiddify/$1/commits/main.atom")
     # latest_commit_date=$(echo "$xml_data" | grep -m 1 '<updated>' | awk -F'>|<' '{print $3}')
@@ -12,19 +14,19 @@ function get_commit_version() {
 
 function get_pre_release_version() {
     # lastversion "$1" --pre --at github
-    VERSION=$(curl -sL "https://api.github.com/repos/hiddify/$1/releases" | jq -r 'map(select(.prerelease == true or .draft == true)) | sort_by(.created_at) | last | .tag_name')
+    VERSION=$(curl $GH_META_CURL_OPTS -sL "https://api.github.com/repos/hiddify/$1/releases" | jq -r 'map(select(.prerelease == true or .draft == true)) | sort_by(.created_at) | last | .tag_name')
     VERSION=${VERSION/#v/}
     echo $VERSION
 }
 
 function get_release_version() {
-    VERSION=$(curl -sL "https://api.github.com/repos/hiddify/$1/releases" | jq -r 'map(select(.prerelease == false)) | sort_by(.created_at) | last | .tag_name')
+    VERSION=$(curl $GH_META_CURL_OPTS -sL "https://api.github.com/repos/hiddify/$1/releases" | jq -r 'map(select(.prerelease == false)) | sort_by(.created_at) | last | .tag_name')
     if [ -z $VERSION ]; then
         # COMMIT_URL=https://api.github.com/repos/hiddify/$1/releases/latest
         # VERSION=$(curl -s --connect-timeout 1 $COMMIT_URL | jq -r .tag_name)
-        location=$(curl -sI "https://github.com/hiddify/$1/releases/latest" | grep -i location | awk -F' ' '{print $2}' | tr -d '\r')
+        location=$(curl $GH_META_CURL_OPTS -sI "https://github.com/hiddify/$1/releases/latest" | grep -i location | awk -F' ' '{print $2}' | tr -d '\r')
         if [[ $location == *"latest"* ]]; then
-            location=$(curl -sI "$location" | grep -i location | awk -F' ' '{print $2}' | tr -d '\r')
+            location=$(curl $GH_META_CURL_OPTS -sI "$location" | grep -i location | awk -F' ' '{print $2}' | tr -d '\r')
         fi
 
         VERSION=$(echo $location | rev | awk -F/ '{print $1}' | rev)
@@ -682,4 +684,45 @@ set_files_in_folder_readable_to_hiddify_common_group() {
         chown :hiddify-common "$parent"  # Change ownership to the group
         parent=$(dirname "$parent")  # Move to the next parent directory
     done
+}
+
+# NOTE: download.sh and docker-installer.sh keep minimal inline copies of this
+# logic because they run before utils.sh is on disk.
+function download_with_fallback() {
+    local file_name=$1
+    local url=$2
+    local max_retries=3
+    local retry_delay=3
+
+    local mirrors=(
+        ""
+        "https://ghproxy.net/"
+        "https://gh-proxy.com/"
+    )
+
+    # Download to a temp file next to the target and replace it only on success,
+    # so a failed download never destroys an existing file.
+    local tmp_file
+    tmp_file=$(mktemp "${file_name}.XXXXXX") || return 1
+
+    for mirror in "${mirrors[@]}"; do
+        local try_url="${mirror}${url}"
+        for attempt in $(seq 1 $max_retries); do
+            echo "Downloading $file_name (mirror='${mirror:-direct}', attempt=$attempt)..."
+            if curl -fL --connect-timeout 15 --retry 2 -o "$tmp_file" "$try_url"; then
+                if [[ -s "$tmp_file" ]]; then
+                    mv -f "$tmp_file" "$file_name"
+                    echo "Downloaded $file_name successfully."
+                    return 0
+                fi
+                echo "Downloaded file is empty, retrying..."
+            fi
+            rm -f "$tmp_file"
+            sleep $retry_delay
+        done
+    done
+
+    rm -f "$tmp_file"
+    echo "ERROR: Failed to download $file_name from all sources (tried direct + ${#mirrors[@]} mirrors)."
+    return 1
 }
