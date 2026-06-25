@@ -111,10 +111,9 @@ download_package() {
     # Download the file
     echo "Downloading package $package_name version $requested_version for $arch... current version is $existing_version"
     local tmp_file=$(mktemp)
-    curl -sL -o "$tmp_file" "$url"
-    if [[ $? -ne 0 ]]; then
+    if ! download_with_fallback "$tmp_file" "$url"; then
         error "Error downloading file: $url"
-        rm "$tmp_file"
+        rm -f "$tmp_file"
         return 3
     fi
     mv "$tmp_file" "$output_file"

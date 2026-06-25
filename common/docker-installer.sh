@@ -25,7 +25,16 @@ else
   # Create the 'hiddify-manager' directory
   mkdir hiddify-manager
   cd hiddify-manager
-  wget https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/main/docker-compose.yml
+  _url="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/main/docker-compose.yml"
+  _mirrors=("" "https://ghproxy.net/" "https://gh-proxy.com/")
+  # mirror+retry fetch (canonical: download_with_fallback in common/utils.sh);
+  for _m in "${_mirrors[@]}"; do
+    for _a in 1 2 3; do
+      curl -fL --connect-timeout 15 -o docker-compose.yml "${_m}${_url}" && [[ -s docker-compose.yml ]] && break 2
+      rm -f docker-compose.yml; sleep 3
+    done
+  done
+  [[ -s docker-compose.yml ]] || { echo "ERROR: failed to download docker-compose.yml"; exit 1; }
 fi
 
 # Generate random passwords for MySQL and Redis

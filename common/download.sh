@@ -44,8 +44,32 @@ else
     # Otherwise, use the input as a branch name
     base_url="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/main/"
 fi
-curl -sL -o /tmp/hiddify/hiddify_installer.sh $base_url/common/hiddify_installer.sh
-curl -sL -o /tmp/hiddify/utils.sh $base_url/common/utils.sh
+
+function _bootstrap_download() {
+    local file_name=$1
+    local url=$2
+    local mirrors=(
+        ""
+        "https://ghproxy.net/"
+        "https://gh-proxy.com/"
+    )
+    for mirror in "${mirrors[@]}"; do
+        for attempt in 1 2 3; do
+            echo "Fetching $file_name (mirror='${mirror:-direct}', attempt=$attempt)..."
+            if curl -fL --connect-timeout 15 --retry 2 -o "$file_name" "${mirror}${url}"; then
+                [[ -s "$file_name" ]] && return 0
+                echo "Empty file, retrying..."
+            fi
+            rm -f "$file_name"
+            sleep 3
+        done
+    done
+    echo "ERROR: Failed to download $file_name"
+    return 1
+}
+
+_bootstrap_download /tmp/hiddify/hiddify_installer.sh "${base_url}common/hiddify_installer.sh" || exit 1
+_bootstrap_download /tmp/hiddify/utils.sh "${base_url}common/utils.sh" || exit 1
 chmod 700 /tmp/hiddify/*
 
 /tmp/hiddify/hiddify_installer.sh $@

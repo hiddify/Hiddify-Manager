@@ -287,7 +287,7 @@ function update_from_github() {
     local file_type=${file_name##*.}
     mkdir -p /opt/hiddify-manager
     cd /opt/hiddify-manager
-    curl -sL -o "$file_name" "$url"
+    download_with_fallback "$file_name" "$url" || return 1
     
     if [[ "$file_type" == "zip" ]]; then
         install_package unzip
