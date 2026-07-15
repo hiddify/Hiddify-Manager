@@ -31,6 +31,7 @@ acmecmd() {
         -w /opt/hiddify-manager/acme.sh/www/ \
         --log /opt/hiddify-manager/log/system/acme.log \
         --pre-hook "bash /opt/hiddify-manager/acme.sh/prepare_acme.sh" \
+        --post-hook "hiddify-panel-cli sync-tls-store -d $2" \
         "$@"
 }
 
@@ -93,6 +94,7 @@ function get_cert() {
 
     if [[ $err != 0 ]]; then
         get_self_signed_cert $DOMAIN  #it will check the certificate if is valid it will not create 
+    
     fi
 
     chmod 600 $ssl_cert_path/$DOMAIN.crt.key
@@ -143,6 +145,7 @@ function get_self_signed_cert() {
     if [ "$generate_new_cert" -eq 1 ]; then
         openssl req -x509 -newkey rsa:2048 -keyout "$private_key" -out "$certificate" -days 3650 -nodes -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=$d"
         echo "New certificate and private key generated."
+        hiddify-panel-cli sync-tls-store -d "$d"
     fi
     chmod 600 -R $private_key
 

@@ -1,8 +1,8 @@
 {
     "inbounds":[
-        {% if  hconfigs['mieru_enable'] and hconfigs["mieru_tcp_ports"]!="" %}
+        {% if  hconfigs['mieru_enable'] and hconfigs["mieru_tcp_ports"]!="" or hconfigs["mieru_udp_ports"]!="" %}
                 {
-                    "tag":"v10-mieru-tcp",
+                    "tag":"v10-mieru",
                     "listen": "0.0.0.0",
                     
                     "portBindings":[
@@ -11,7 +11,11 @@
                         {"port":{{port}},"protocol":"TCP"},
                         {%endif%}
                     {%endfor%}
-                    
+                    {% for port in hconfigs["mieru_udp_ports"].split(",") %}
+                       {%if port %}
+                        {"port":{{port}},"protocol":"UDP"},
+                        {%endif%}
+                    {%endfor%}
                     ],
                     "tcp_fast_open": true,
                     "sniff": true,
@@ -23,27 +27,5 @@
             
         {%endif%}
 
-        {% if  hconfigs['mieru_enable'] and hconfigs["mieru_udp_ports"]!="" %}
-                {
-                    "tag":"v10-mieru-udp",
-                    "listen": "0.0.0.0",
-                    
-                    "portBindings":[
-                   
-                    {% for port in hconfigs["mieru_udp_ports"].split(",") %}
-                       {%if port %}
-                        {"port":{{port}},"protocol":"UDP"},
-                        {%endif%}
-                    {%endfor%}
-                    ],
-                   
-                    "sniff": true,
-                    
-                    "sniff_override_destination": true,
-                    "domain_strategy": "prefer_ipv4",
-                    {% include '/opt/hiddify-manager/singbox/configs/common/protocols/mieru.pj2' %},
-                },    
-            
-        {%endif%}
     ]
 }

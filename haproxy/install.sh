@@ -7,20 +7,18 @@ if is_installed sniproxy; then
     pkill -9 sniproxy >/dev/null 2>&1
 fi
 
-HAPROXY_VERSION=3.3
-if grep -q '^VERSION_CODENAME=jammy' /etc/os-release; then \
-    warning "Deprecated Warning: OS is Jammy (Ubuntu 22.04). haproxy max version is 3.0"; \
-    HAPROXY_VERSION=3.0
-    echo "OS version is 22, checking for haproxy=${HAPROXY_VERSION}"
-fi
-if ! is_installed_package "haproxy=${HAPROXY_VERSION}"; then
-    echo "Adding PPA for haproxy-${HAPROXY_VERSION}"
-    add-apt-repository -y ppa:vbernat/haproxy-${HAPROXY_VERSION}
-    if [ $? -ne 0 ]; then
-        add-apt-repository -y ppa:vbernat/haproxy-${HAPROXY_VERSION}
-    fi
+HAPROXY_VERSION=3.4
+if ! is_installed_package "haproxy-awslc"; then
+    CODENAME=$(. /etc/os-release && echo "$VERSION_CODENAME")
+    REPO_TAG="ha${HAPROXY_VERSION//./}"
+
+    echo "Adding HAProxy repo for ${CODENAME} (haproxy-${HAPROXY_VERSION})"
+    install -d -m 0755 /usr/share/keyrings
+    wget -qO /usr/share/keyrings/HAPROXY-key-community.asc https://pks.haproxy.com/linux/community/RPM-GPG-KEY-HAProxy
+    echo "deb [signed-by=/usr/share/keyrings/HAPROXY-key-community.asc] https://www.haproxy.com/download/haproxy/performance/ubuntu/${REPO_TAG} ${CODENAME} main" >/etc/apt/sources.list.d/haproxy.list
+    apt-get update -qq
     echo "Installing haproxy ${HAPROXY_VERSION}"
-    install_package "haproxy=${HAPROXY_VERSION}.*"
+    install_package "haproxy-awslc"
 else
     echo "haproxy ${HAPROXY_VERSION} is already installed"
 fi

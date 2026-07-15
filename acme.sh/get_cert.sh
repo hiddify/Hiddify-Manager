@@ -5,6 +5,7 @@ source cert_utils.sh
 
 get_cert $1
 
+
 echo "cert installation is done."
 sleep 2
 stop_nginx_acme

@@ -8,7 +8,7 @@ Type=simple
 User=hiddify-panel
 WorkingDirectory=/opt/hiddify-manager/hiddify-panel/
 Environment="LANG=C.UTF-8"
-ExecStart=/opt/hiddify-manager/.venv313/bin/python /opt/hiddify-manager/hiddify-panel/app.py
+ExecStart=/opt/hiddify-manager/.venv313/bin/python -m granian --interface wsgi hiddifypanel.apps.wsgi_app:app  --blocking-threads 10 
 ExecReload=/bin/kill -HUP $MAINPID
 #RestartSec=1
 #ExecStop=/bin/bash -c "/bin/kill -INT $(/usr/bin/pgrep -f 'hiddifypanel')||echo 'nothing to kill'"

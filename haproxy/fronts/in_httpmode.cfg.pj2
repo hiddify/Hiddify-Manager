@@ -1,6 +1,6 @@
 frontend in-httpmode
   bind abns@http_in_h2 accept-proxy allow-0rtt
-  bind abns@https_in_http_mode accept-proxy allow-0rtt ssl crt /opt/hiddify-manager/ssl/ alpn h3,h2,http/1.1
+  bind abns@https_in_http_mode accept-proxy allow-0rtt ssl crt /opt/hiddify-manager/ssl/ alpn h2,http/1.1
   mode http
 
   http-request set-var(txn.naive_secret) req.hdr(hiddify-naive-secret)

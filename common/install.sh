@@ -1,5 +1,6 @@
 #!/bin/bash
 source utils.sh
+SCRIPT_DIR="$(cd "$(dirname -- "$0")" && pwd)"
 remove_package apache2 needrestart needrestart-session
 install_package apt-transport-https apt-utils at build-essential ca-certificates cron curl default-libmysqlclient-dev dnsutils gawk git gnupg-agent gnupg2 iproute2 iptables jq less libev-dev libevdev2 libssl-dev locales lsb-release lsof pkg-config qrencode software-properties-common sudo ubuntu-keyring wget whiptail
 activate_python_venv

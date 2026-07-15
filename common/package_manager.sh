@@ -66,6 +66,7 @@ download_package() {
     local package_name=$1
     local output_file=$2
     local requested_version=$3
+    echo "Entry: $entry"
 
     if [[ -z "$package_name" || -z "$output_file" ]]; then
         error "Usage: $0 download <package_name> <output_file> [<version>]"
@@ -97,6 +98,7 @@ download_package() {
     entry=$(grep "^$package_name|$requested_version" "$PACKAGES_LOCK" | grep "$arch")
     
     if [[ $force == 0 && "$requested_version" == "$existing_version" ]]; then
+        echo "Package $package_name version $requested_version for $arch already downloaded."
         return 1
     fi
 
@@ -104,7 +106,6 @@ download_package() {
         error "Package $package_name version $requested_version for $arch not found."
         return 2
     fi
-
     # Parse the entry
     IFS='|' read -r name version arch url stored_hash <<< "$entry"
 

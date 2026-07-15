@@ -1,0 +1,68 @@
+# rpxy-l4 SNI multiplexer — routes TLS streams to local proxy ports by SNI.
+# Generated from panel domains/proxy settings (same data as haproxy/maps/sni.j2).
+
+listen_port = {{ (hconfigs.get('tls_ports', '443') or '443').split(',') | map('trim') | list | first }}
+listen_ipv6 = true
+tcp_backlog = 4096
+tcp_max_connections = 8192
+udp_max_connections = 2048
+tcp_send_proxy_protocol = "v2"
+
+{% if hconfigs.get('rpxy_l4_default_port') %}
+tcp_target = ["127.0.0.1:{{ hconfigs['rpxy_l4_default_port'] }}"]
+tcp_load_balance = "none"
+{% endif %}
+
+{% for d in domains if d['internal_port_special'] %}
+{% set port = d['internal_port_special'] %}
+[protocols."sp_{{ d['mode'] }}_{{ port }}"]
+protocol = "tls"
+server_names = ["{{ d['domain'] }}"]
+target = ["127.0.0.1:{{ port }}"]
+send_proxy_protocol = "v2"
+load_balance = "none"
+
+{% endfor %}
+
+{% if hconfigs['ssfaketls_enable'] and hconfigs['ssfaketls_fakedomain'] %}
+[protocols."ssfaketls"]
+protocol = "tls"
+server_names = ["{{ hconfigs['ssfaketls_fakedomain'] }}"]
+target = ["127.0.0.1:1010"]
+send_proxy_protocol = "v2"
+load_balance = "none"
+
+{% endif %}
+
+{% if hconfigs['telegram_enable'] and hconfigs['telegram_fakedomain'] %}
+[protocols."telegram"]
+protocol = "tls"
+server_names = ["{{ hconfigs['telegram_fakedomain'] }}"]
+target = ["127.0.0.1:1001"]
+load_balance = "none"
+
+{% endif %}
+
+{% if hconfigs['shadowtls_enable'] and hconfigs['shadowtls_fakedomain'] %}
+[protocols."shadowtls"]
+protocol = "tls"
+server_names = ["{{ hconfigs['shadowtls_fakedomain'] }}"]
+target = ["127.0.0.1:1030"]
+send_proxy_protocol = "v2"
+load_balance = "none"
+
+{% endif %}
+
+{% for d in domains if d['mode'] == 'old_xtls_direct' %}
+[protocols."xray_force_{{ d['domain'] | replace('.', '_') }}"]
+protocol = "tls"
+server_names = ["{{ d['domain'] }}"]
+{% if hconfigs.get('rpxy_l4_xray_force_port') %}
+target = ["127.0.0.1:{{ hconfigs['rpxy_l4_xray_force_port'] }}"]
+send_proxy_protocol = "v2"
+{% else %}
+target = ["127.0.0.1:445"]
+{% endif %}
+load_balance = "none"
+
+{% endfor %}

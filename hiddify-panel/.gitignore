@@ -1,0 +1,6 @@
+# Hiddify-Panel submodule (git root: hiddify-panel/src)
+# Mirror frontend ignore rules for paths visible from the manager repo.
+src/hiddifypanel/admin_v2/node_modules/
+src/hiddifypanel/admin_v2/dist/
+src/hiddifypanel/admin_v2/.vite/
+src/hiddifypanel/admin_v2/public/

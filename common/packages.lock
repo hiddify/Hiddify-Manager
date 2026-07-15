@@ -51,3 +51,5 @@ vaydns|0.2.5|arm64|https://github.com/net2share/vaydns/releases/download/v0.2.5/
 vaydns|0.2.5|amd64|https://github.com/net2share/vaydns/releases/download/v0.2.5/vaydns-server-linux-amd64|0f013f8431bb48c3443979f95afd324343c2e93ad910af5146f8c6311014f425
 xray|26.3.27|arm64|https://github.com/XTLS/Xray-core/releases/download/v26.3.27/Xray-linux-arm64-v8a.zip|4d30283ae614e3057f730f67cd088a42be6fdf91f8639d82cb69e48cde80413c
 xray|26.3.27|amd64|https://github.com/XTLS/Xray-core/releases/download/v26.3.27/Xray-linux-64.zip|23cd9af937744d97776ee35ecad4972cf4b2109d1e0fe6be9930467608f7c8ae
+rpxy-l4|0.2.3|amd64|https://github.com/junkurihara/rust-rpxy-l4/releases/download/0.2.3/rpxy-l4-x86_64-unknown-linux-musl.tar.gz|87f0c7e7a22bb375650ade7a721b4209f6e82f13879252e2f8c58b2a1be9f5a1
+rpxy-l4|0.2.3|arm64|https://github.com/junkurihara/rust-rpxy-l4/releases/download/0.2.3/rpxy-l4-aarch64-unknown-linux-musl.tar.gz|4295250ce49af006b0bbceb37a966bf60bb5f08d3a49175e1de70011932b2634
