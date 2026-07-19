@@ -442,6 +442,33 @@ function save_firewall() {
 function show_progress_window() {
     disable_ansii_modes
     activate_python_venv
+    # Non-interactive runs (SSH without PTY, cron, background apply) hang forever in
+    # cli_progress urwid when wrapped this way. Run the target command directly.
+    # See https://github.com/hiddify/Hiddify-Manager/issues/5479
+    if [[ ! -t 1 ]]; then
+        local -a run_cmd=()
+        local skip=0
+        for arg in "$@"; do
+            if [[ $skip -eq 1 ]]; then
+                skip=0
+                continue
+            fi
+            case "$arg" in
+                --log|--title|--subtitle|--regex)
+                    skip=1
+                    ;;
+                --)
+                    ;;
+                *)
+                    run_cmd+=("$arg")
+                    ;;
+            esac
+        done
+        bash "${run_cmd[@]}"
+        exit_code=$?
+        disable_ansii_modes
+        return $exit_code
+    fi
     install_pypi_package cli-progress
     python -m cli_progress --title "Hiddify Manager" "$@"
     exit_code=$?
