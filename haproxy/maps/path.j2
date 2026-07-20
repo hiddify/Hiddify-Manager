@@ -1,3 +1,6 @@
+{% if hconfigs['speed_test'] %}
+/{{hconfigs['proxy_path_client']}}/speedtest/ nginx_dispatcher_http_h2
+{% endif %}
 /{{hconfigs['proxy_path_client']}}/ hiddifypanel
 /{{hconfigs['proxy_path_admin']}}/ hiddifypanel
 /{{hconfigs['proxy_path']}}/ hiddifypanel
@@ -30,6 +33,5 @@
 #/{{ hconfigs['path_ss'] }}{{ hconfigs['path_xhttp'] }} v2rayhs
 /{{ hconfigs['path_trojan'] }}{{ hconfigs['path_xhttp'] }} trojanhs
 {%endif%}
-
 
 
