@@ -20,6 +20,9 @@ frontend in-tcpmode
 
     use_backend generate_204 if { path -i /{{hconfigs['proxy_path_client']}}/generate_204 }
     use_backend generate_204 if { path -i /{{hconfigs['proxy_path']}}/generate_204 }
+    {% if hconfigs['speed_test'] %}
+    use_backend nginx_dispatcher_http_h2 if { path_beg /{{hconfigs['proxy_path_client']}}/speedtest/ }
+    {% endif %}
     use_backend hiddifypanel if { path_beg /{{hconfigs['proxy_path_client']}}/  }
     use_backend hiddifypanel if { path_beg /{{hconfigs['proxy_path_admin']}}/ hiddifypanel }
     use_backend hiddifypanel if { path_beg /{{hconfigs['proxy_path']}}/ hiddifypanel }
@@ -74,4 +77,3 @@ frontend in-tcpmode
 
     
     default_backend to_httpmode
-
