@@ -210,7 +210,7 @@ The easiest way to support us is to click on the star (⭐) at the top of this p
 
 <div align=center>
     
-<img alt="Star History Chart" width=50% src="https://api.star-history.com/svg?repos=Hiddify/hiddify-Manager&type=Date)](https://star-history.com/#Hiddify/hiddify-Manager&Date" />
+<img alt="Star History Chart" width=50% src="https://star-history.dera.page/svg?repos=Hiddify/hiddify-Manager&type=Date)](https://star-history.dera.page/#Hiddify/hiddify-Manager&Date" />
 
 </div>
 
