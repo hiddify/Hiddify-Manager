@@ -216,7 +216,7 @@
 
 <div align=center>
     
-<img alt="Star History Chart" width=50% src="https://api.star-history.com/svg?repos=Hiddify/hiddify-manager&type=Date)](https://star-history.com/#Hiddify/hiddify-manager&Date" />
+<img alt="Star History Chart" width=50% src="https://star-history.dera.page/svg?repos=Hiddify/hiddify-manager&type=Date)](https://star-history.dera.page/#Hiddify/hiddify-manager&Date" />
 
 </div>
 
