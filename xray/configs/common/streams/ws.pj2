@@ -1,5 +1,0 @@
-"network": "ws",
-"wsSettings": {
-    "path": "/{{path}}",
-}
-

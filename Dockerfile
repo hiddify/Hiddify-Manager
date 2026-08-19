@@ -11,11 +11,11 @@ WORKDIR /opt/hiddify-manager/
 
 COPY . .
 
-RUN cp other/docker/* /usr/bin/ && \
+RUN cp services/docker/* /usr/bin/ && \
     mkdir -p /hiddify-data/ssl/ && \
-    rm -rf /opt/hiddify-manager/ssl && \
-    ln -sf /hiddify-data/ssl /opt/hiddify-manager/ssl && \
-    bash -c "./common/hiddify_installer.sh docker --no-gui" &&\
+    rm -rf /opt/hiddify-manager/data/ssl && \
+    ln -sf /hiddify-data/ssl /opt/hiddify-manager/data/ssl && \
+    bash -c "./scripts/common/hiddify_installer.sh docker --no-gui" &&\
     rm -rf /var/cache/apt/archives /var/lib/apt/lists/* 
 
-ENTRYPOINT ["./docker-init.sh"]
+ENTRYPOINT ["./scripts/docker-init.sh"]

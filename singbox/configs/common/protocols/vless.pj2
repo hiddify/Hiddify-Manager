@@ -1,6 +1,0 @@
-"type": "vless",
-"users": [
-    {% for u in users %}
-        {"name": "{{ u['uuid'] }}", "uuid": "{{ u['uuid'] }}","flow": "{{flow}}"},
-    {% endfor%}
-]

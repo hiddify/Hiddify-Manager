@@ -1,6 +1,0 @@
-"type": "trojan",
-"users": [
-    {% for u in users %}
-        {"name": "{{ u['uuid'] }}", "password": "{{ u['uuid'] }}"},
-    {% endfor%}
-]

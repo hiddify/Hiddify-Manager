@@ -139,7 +139,7 @@ verify_container
 
 # Prints admin links
 echo -e "\n\n\nYour admin links are printed. The ones that start with \`https\` should be preferred"
-lxc exec $LXC_CONTAINER_NAME -- bash -c "cat /opt/hiddify-manager/current.json | jq -r '.panel_links[]'"
+lxc exec $LXC_CONTAINER_NAME -- bash -c "cat /opt/hiddify-manager/data/current.json | jq -r '.panel_links[]'"
 
 echo -e "\n\nIf you need TUI or shell for your container try:"
 echo "${GREEN}lxc shell $LXC_CONTAINER_NAME${NOCOLOR}"

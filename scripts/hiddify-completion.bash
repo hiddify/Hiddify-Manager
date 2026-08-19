@@ -1,0 +1,26 @@
+# bash completion for hiddify
+if ! command -v complete >/dev/null 2>&1; then
+    return 0 2>/dev/null || exit 0
+fi
+
+_hiddify() {
+    local cur="${COMP_WORDS[COMP_CWORD]}"
+    local cmds="install run upgrade status restart apply"
+
+    COMPREPLY=()
+    if [[ $COMP_CWORD -eq 1 ]]; then
+        COMPREPLY=($(compgen -W "$cmds" -- "$cur"))
+        return 0
+    fi
+
+    case "${COMP_WORDS[1]}" in
+    upgrade | update)
+        COMPREPLY=($(compgen -W "release beta develop --no-gui --no-log" -- "$cur"))
+        ;;
+    install | run | apply | restart | status | uninstall)
+        COMPREPLY=($(compgen -W "--no-gui --no-log" -- "$cur"))
+        ;;
+    esac
+}
+
+complete -F _hiddify hiddify

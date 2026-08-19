@@ -1,0 +1,76 @@
+#!/bin/bash
+# Hiddify Manager CLI. Installed as /usr/bin/hiddify
+HIDDIFY_DIR="${HIDDIFY_DIR:-/opt/hiddify-manager}"
+SCRIPTS="$HIDDIFY_DIR/scripts"
+
+usage() {
+    cat <<EOF
+Usage: hiddify [command] [options]
+
+Commands:
+  install     Install or reinstall Hiddify Manager
+  run         Start Hiddify services
+  upgrade     Upgrade Hiddify Manager
+  status      Show service status
+  restart     Restart services
+  apply       Apply panel configs to the system
+
+If no command is given, the interactive menu is shown.
+
+Examples:
+  hiddify
+  hiddify install --no-gui
+  hiddify upgrade release
+  hiddify apply --no-gui
+EOF
+}
+
+cmd="${1:-}"
+if [[ -n "$cmd" ]]; then
+    shift
+fi
+
+case "$cmd" in
+-h | --help | help)
+    usage
+    exit 0
+    ;;
+esac
+
+cd "$HIDDIFY_DIR" || {
+    echo "Hiddify Manager is not installed at $HIDDIFY_DIR" >&2
+    exit 1
+}
+
+case "$cmd" in
+"" | menu)
+    exec bash "$SCRIPTS/menu.sh" "$@"
+    ;;
+install)
+    exec bash "$SCRIPTS/install.sh" "$@"
+    ;;
+run)
+    HIDDIFY_SYSTEMCTL_ACTION=start exec bash "$SCRIPTS/restart.sh" "$@"
+    ;;
+upgrade | update)
+    exec bash "$SCRIPTS/update.sh" "$@"
+    ;;
+status)
+    exec bash "$SCRIPTS/status.sh" "$@"
+    ;;
+restart)
+    exec bash "$SCRIPTS/restart.sh" "$@"
+    ;;
+apply)
+    exec bash "$SCRIPTS/apply_configs.sh" "$@"
+    ;;
+uninstall)
+    exec bash "$SCRIPTS/uninstall.sh" "$@"
+    ;;
+*)
+    echo "Unknown command: $cmd" >&2
+    echo >&2
+    usage >&2
+    exit 1
+    ;;
+esac

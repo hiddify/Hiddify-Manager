@@ -1,0 +1,13 @@
+[Unit]
+Description=Telemt
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/hiddify-manager/services/telegram/telemt/
+ExecStart=/opt/hiddify-manager/services/telegram/telemt/telemt ./config.toml
+Restart=on-failure
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

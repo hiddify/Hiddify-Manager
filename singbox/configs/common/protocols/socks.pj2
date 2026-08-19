@@ -1,9 +1,0 @@
-
-  "type": "socks",
-
-  "users": [
-    {% for u in users %}
-    {"username": "{{ u['uuid'] }}", "password":"h"},
-    {% endfor%}
-
-  ]

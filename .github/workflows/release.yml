@@ -24,13 +24,13 @@ jobs:
   #         sudo mkdir /opt/hiddify-manager
   #         sudo cp -r * /opt/hiddify-manager/
   #         cd /opt/hiddify-manager/
-  #         sudo bash install.sh
+  #         sudo bash scripts/install.sh
   #     - name: check working
   #       env:
-  #         SQLALCHEMY_DATABASE_URI: sqlite:////opt/hiddify-manager/hiddify-panel/database.db
+  #         SQLALCHEMY_DATABASE_URI: sqlite:////opt/hiddify-manager/services/hiddify-panel/database.db
   #       run: |
   #         cd /opt/hiddify-manager/
-  #         grep -q -e '-----Finished!-----' log/system/0-install.log 
+  #         grep -q -e '-----Finished!-----' data/log/system/0-install.log 
   #         cd hiddify-panel;hiddifypanel all-configs
 
 

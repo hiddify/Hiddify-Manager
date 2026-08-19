@@ -1,0 +1,20 @@
+#!/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+cd /opt/hiddify-manager/services/telegram/orig/MTProxy/objs/bin/
+
+SERVER_IP="$(curl -sS http://v4.ident.me/)"
+CURL_EXIT_STATUS=$?
+if [ $CURL_EXIT_STATUS -ne 0 ]; then
+    SERVER_IP=$(curl -Lso- https://api.ipify.org)
+fi
+CPU_CORES=$(nproc --all)
+NEW_CORE=$((CPU_CORES - 1))
+ARGS_STR="-u nobody -H 1001 -S {{ hconfigs['shared_secret'].replace("-","") }} -D {{ hconfigs['telegram_fakedomain'] }} -M $NEW_CORE --aes-pwd proxy-secret proxy-multi.conf --nat-info 0.0.0.0:$SERVER_IP"
+TAG={{ hconfigs['telegram_adtag'] }}
+if [ -n "$TAG" ]; then
+    ARGS_STR+=" -P $TAG "
+fi
+
+echo ./mtproto-proxy  $ARGS_STR
+./mtproto-proxy  $ARGS_STR

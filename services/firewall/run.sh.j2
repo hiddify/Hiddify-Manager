@@ -1,0 +1,107 @@
+source /opt/hiddify-manager/scripts/common/utils.sh
+
+# open essential ports
+allow_port "tcp" 22
+allow_port "tcp" 80
+allow_port "tcp" 443
+allow_port "udp" 443
+allow_port "udp" 53
+allow_port "tcp" 53
+# allow_port "udp" 3478
+
+allow_port "udp" {{hconfigs['wireguard_port']}} #wireguard
+
+
+add2iptables46 "INPUT -p udp -m conntrack --ctstatus SEEN_REPLY,ASSURED,CONFIRMED -j ACCEPT"
+
+
+add2iptables46 "OUTPUT -p udp -j ACCEPT"
+add2iptables46 "OUTPUT -p tcp -j ACCEPT"
+add2iptables46 "INPUT -i lo -j ACCEPT"
+
+{% if hconfigs['shadowsocks2022_enable'] %}
+  allow_port "udp" {{hconfigs['shadowsocks2022_port']}} #shadowsocks
+  allow_port "tcp" {{hconfigs['shadowsocks2022_port']}} #shadowsocks
+{% endif %}
+
+{% for d in domains if d['internal_port_hysteria2'] or d['internal_port_tuic'] or d['internal_port_naive']  %}
+  {% if d['internal_port_hysteria2']>0 %}
+  allow_port "udp" {{d['internal_port_hysteria2']}} #hysteria2
+  {%endif%}
+  {% if d['internal_port_tuic']>0 %}
+  allow_port "udp" {{d['internal_port_tuic']}} #tuic
+  {%endif%}
+
+  {% if d['internal_port_naive']>0 %}
+  allow_port "udp" {{d['internal_port_naive']}} #naive_quic
+  {%endif%}
+{%endfor%}
+
+{% if hconfigs['mieru_enable'] %}
+  {% for port in hconfigs["mieru_tcp_ports"].split(",") %}
+    {%if port %}
+    allow_port "tcp" {{port}} #tcp_mieru
+    {%endif%}
+  {%endfor%}
+  {% for port in hconfigs["mieru_udp_ports"].split(",") %}
+    {%if port %}
+    allow_port "udp" {{port}} #udp_mieru
+    {%endif%}
+  {%endfor%}
+{%endif%}
+# ICMP for ipv4
+add2iptables "INPUT -p icmp -j ACCEPT"
+# add2iptables "INPUT -p icmp -m icmp --icmp-type 0 -m conntrack --ctstate NEW -j ACCEPT"
+# add2iptables "INPUT -p icmp -m icmp --icmp-type 3 -m conntrack --ctstate NEW -j ACCEPT"
+# add2iptables "INPUT -p icmp -m icmp --icmp-type 11 -m conntrack --ctstate NEW -j ACCEPT"
+# add2iptables "INPUT -p icmp -m icmp --icmp-type 12 -m conntrack --ctstate NEW -j ACCEPT"
+
+# ICMP for ipv6
+add2ip6tables "INPUT -p ipv6-icmp -j ACCEPT"
+# add2ip6tables "INPUT -p ipv6-icmp --icmpv6-type 128 -m conntrack --ctstate NEW -j ACCEPT"
+# add2ip6tables "INPUT -p ipv6-icmp --icmpv6-type 129 -m conntrack --ctstate NEW -j ACCEPT"
+# add2ip6tables "INPUT -p ipv6-icmp --icmpv6-type 1 -m conntrack --ctstate NEW -j ACCEPT"
+# add2ip6tables "INPUT -p ipv6-icmp --icmpv6-type 4 -m conntrack --ctstate NEW -j ACCEPT"
+# add2ip6tables "INPUT -p ipv6-icmp --icmpv6-type 2 -m conntrack --ctstate NEW -j ACCEPT"
+
+allow_apps_ports "sshd"
+allow_apps_ports "x-ui"
+
+add2iptables46 "INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT"
+add2iptables46 "INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT"
+
+# Check if SSH server should be enabled
+{% if hconfigs['ssh_server_enable'] %}
+allow_port "tcp" {{hconfigs['ssh_server_port']}} #ssh_server
+{%else%}
+remove_port "tcp" {{hconfigs['ssh_server_port']}}  #ssh_server
+{%endif%}
+
+{% for port in (hconfigs['tls_ports']+","+ hconfigs['http_ports']).split(',') if port %}
+allow_port "tcp" {{port}} #panel ports
+{%endfor%}
+{% for port in (hconfigs['tls_ports']).split(',') if port %}
+  allow_port "udp" {{port}}
+{%endfor%}
+
+{% if hconfigs['firewall'] %}
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+ip6tables -P INPUT DROP
+ip6tables -P FORWARD DROP
+{%else%}
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+ip6tables -P FORWARD ACCEPT
+ip6tables -P INPUT ACCEPT
+{%endif%}
+
+
+
+
+
+save_firewall
+
+
+
+

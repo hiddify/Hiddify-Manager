@@ -1,0 +1,96 @@
+location /{{ hconfigs['proxy_path_client'] }}/generate_204 {
+  return 204;
+}
+
+
+if ($request_uri ~ "^/{{ hconfigs['proxy_path_client'] }}/redirect/(.*)(%3A%2F%2F|://)(.*)$") {
+  return 307 $1://$3;
+}
+
+location /{{ hconfigs['proxy_path_admin'] }}/{{ hconfigs['admin_secret'] }}/admin/stats/ {
+	proxy_pass  http://localhost:8181/;
+  sub_filter '="/' '="';
+  sub_filter_once off;
+	error_page 301 302 307 = @handle_redirect;
+}
+
+location /{{ hconfigs['proxy_path_client'] }}/ghr/ {
+  #for proxy github raw
+  proxy_set_header Host raw.githubusercontent.com;
+  set $upstream https://raw.githubusercontent.com:443/;
+  proxy_pass $upstream;
+}
+
+location /{{ hconfigs['proxy_path_client'] }}/gho/ {
+  #for proxy github object
+  proxy_set_header Host objects.githubusercontent.com;
+  set $upstream https://objects.githubusercontent.com:443/;
+  proxy_pass $upstream;
+}
+
+location /{{ hconfigs['proxy_path_client'] }}/gh/ {
+  #for proxy github
+  resolver 8.8.8.8;
+  proxy_set_header Host github.com;
+  proxy_pass https://github.com:443/;
+  #proxy_pass $upstream;
+  proxy_redirect https://raw.githubusercontent.com/ https://$host/{{ hconfigs['proxy_path'] }}/ghr/;
+  proxy_redirect https://objects.githubusercontent.com/ https://$host/{{ hconfigs['proxy_path'] }}/gho/;
+
+  proxy_set_header Accept-Encoding "";
+  sub_filter_once off;
+  sub_filter    https://github.com/ /{{ hconfigs['proxy_path'] }}/gh/;
+  sub_filter    href="/ href="/{{ hconfigs['proxy_path'] }}/gh/;
+  sub_filter    src="/ src="/{{ hconfigs['proxy_path'] }}/gh/;
+}
+
+location /{{ hconfigs['proxy_path_client'] }}/dns/dns-query {
+  # use it in your browser as https://defaultserverhost/{{ hconfigs['proxy_path_client'] }}/dns/dns-query/
+
+  # set $upstream https://1.1.1.1/dns-query;
+  # set $upstream https://dns.google/dns-query;
+  # set $upstream https://dns.google/dns-query;
+  # set $upstream https://sky.rethinkdns.com/;
+  
+  set $upstream https://8.8.8.8/dns-query;
+  proxy_pass $upstream$is_args$args;
+  
+}
+location /{{ hconfigs['proxy_path_client'] }}/speedtest/ {
+  client_max_body_size 10000M;
+  proxy_pass          http://localhost:438/;
+}
+location /{{ hconfigs['proxy_path'] }}/static {
+  include /opt/hiddify-manager/data/services/nginx/parts/proxy_to_static.conf;
+}
+location /{{ hconfigs['proxy_path_client'] }}/static {
+  include /opt/hiddify-manager/data/services/nginx/parts/proxy_to_static.conf;
+}
+location /{{ hconfigs['proxy_path_admin'] }}/static {
+  include /opt/hiddify-manager/data/services/nginx/parts/proxy_to_static.conf;
+}
+
+
+
+#Backward Compatibility
+location /{{ hconfigs['proxy_path'] }}/ {
+  include /opt/hiddify-manager/data/services/nginx/parts/proxy_to_panel.conf;
+}
+
+location /{{ hconfigs['proxy_path_client'] }}/ {
+  include /opt/hiddify-manager/data/services/nginx/parts/proxy_to_panel.conf;
+}
+
+location /{{ hconfigs['proxy_path_admin'] }}/ {
+  # Fix nginx: 403 request entity is too large (backup file)
+  client_max_body_size 10M;
+  include /opt/hiddify-manager/data/services/nginx/parts/proxy_to_panel.conf;
+}
+
+location /{{ hconfigs['proxy_path_admin'] }}/proxy-stats/ {
+  proxy_pass http://localhost:16756/ui/;
+}
+location /{{ hconfigs['proxy_path_admin'] }}/proxy-stats/api/ {
+  proxy_pass http://localhost:16756/;
+}
+resolver 8.8.8.8;

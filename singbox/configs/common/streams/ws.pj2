@@ -1,3 +1,0 @@
-"type": "ws",
-"path": "/{{ path }}",
-"early_data_header_name": "Sec-WebSocket-Protocol"

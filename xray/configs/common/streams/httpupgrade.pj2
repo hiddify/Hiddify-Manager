@@ -1,5 +1,0 @@
-
-"network": "httpupgrade",
-"httpupgradeSettings": {		
-    "path": "/{{ path }}", 
-}

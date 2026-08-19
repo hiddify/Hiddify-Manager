@@ -1,0 +1,17 @@
+[Unit]
+Description=ss-server faketls
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/hiddify-manager/services/shadowtls
+ExecStart=/opt/hiddify-manager/services/shadowtls/shadowtls
+Environment=RUST_LOG=error
+Environment=CONFIG_FILE=/opt/hiddify-manager/services/shadowtls/shadowtls.conf
+Restart=on-failure
+#StandardOutput=file:/opt/hiddify-manager/data/log/system/ssplugin-shadowtls.out.log
+StandardOutput=null
+StandardError=file:/opt/hiddify-manager/data/log/system/ssplugin-shadowtls.err.log
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "primevue": {
+      "source": "kindy/skills",
+      "sourceType": "github",
+      "skillPath": "primevue/SKILL.md",
+      "computedHash": "8c8fc1a48e793fbf149971ea2626292710e4232be7efef443c19d3b78014772d"
+    }
+  }
+}

@@ -1,6 +1,0 @@
-"type": "vmess",
-"users": [
-    {% for u in users %}
-        {"uuid": "{{ u['uuid'] }}", "name": "{{ u['uuid'] }}", "alterId": 0},
-    {% endfor%}
-]

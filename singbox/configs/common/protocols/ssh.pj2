@@ -1,9 +1,0 @@
-"type": "ssh",
-"users": [
-    {% for u in users %}
-        {
-            "user": "{{ u['uuid'] }}",
-            "public_key": "{{u['ed25519_public_key']}}"
-        },
-    {% endfor%}
-]

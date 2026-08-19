@@ -1,4 +1,11 @@
 log
+old/
+data/log
+data/ssl
+data/current.json
+data/**
+generated/**
+
 dump.rdb
 hiddify_usages.json
 docker-data

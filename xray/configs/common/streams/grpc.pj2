@@ -1,4 +1,0 @@
-"network": "grpc",
-"grpcSettings": {
-    "serviceName": "{{ path }}",
-}
