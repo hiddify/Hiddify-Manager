@@ -28,12 +28,15 @@ function ensure_hiddify_data_dirs() {
         "$HIDDIFY_DATA/services/hiddify-panel" \
         "$HIDDIFY_DATA/services/mysql" \
         "$HIDDIFY_DATA/services/redis" \
-        "$HIDDIFY_GENERATED/client"
+        "$HIDDIFY_GENERATED/client" \
+        "$HIDDIFY_GENERATED/include"
     if getent group hiddify-common >/dev/null 2>&1; then
-        chown root:hiddify-common "$HIDDIFY_GENERATED" "$HIDDIFY_GENERATED/client" 2>/dev/null || true
-        chmod 775 "$HIDDIFY_GENERATED" "$HIDDIFY_GENERATED/client" 2>/dev/null || true
+        chmod 775 "$HIDDIFY_GENERATED" "$HIDDIFY_GENERATED/client" "$HIDDIFY_GENERATED/include" 2>/dev/null || true
         if id -u hiddify-panel >/dev/null 2>&1; then
-            chown hiddify-panel:hiddify-common "$HIDDIFY_GENERATED" "$HIDDIFY_GENERATED/client" 2>/dev/null || true
+            chown -R hiddify-panel:hiddify-common "$HIDDIFY_GENERATED"
+            find "$HIDDIFY_GENERATED" -type d -exec chmod 775 {} \;
+        else
+            chown -R root:hiddify-common "$HIDDIFY_GENERATED" 2>/dev/null || true
         fi
     fi
     link_generated_server_configs

@@ -31,7 +31,7 @@ acmecmd() {
         -w /opt/hiddify-manager/data/services/acme.sh/www/ \
         --log /opt/hiddify-manager/data/log/system/acme.log \
         --pre-hook "bash /opt/hiddify-manager/services/acme.sh/prepare_acme.sh" \
-        --post-hook "hiddify-panel-cli sync-tls-store -d $2" \
+        --post-hook "bash -c 'source /opt/hiddify-manager/scripts/common/utils.sh && hiddify-panel-cli sync-tls-store -d $2'" \
         "$@"
 }
 

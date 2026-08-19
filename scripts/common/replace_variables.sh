@@ -35,6 +35,11 @@ if getent group hiddify-common >/dev/null 2>&1; then
             chown hiddify-panel:hiddify-common "$HIDDIFY_GENERATED/$f"
         fi
     done
+    if [ -d "$HIDDIFY_GENERATED/include" ]; then
+        chown -R hiddify-panel:hiddify-common "$HIDDIFY_GENERATED/include"
+        find "$HIDDIFY_GENERATED/include" -type d -exec chmod 775 {} \;
+        find "$HIDDIFY_GENERATED/include" -type f -exec chmod 640 {} \;
+    fi
 fi
 
 # Remaining .j2 templates (run.sh, firewall, ssh, …) — not dump-server-configs output.

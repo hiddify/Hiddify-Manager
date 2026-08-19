@@ -77,6 +77,7 @@ function main() {
         update_progress "${PROGRESS_ACTION}" "Nginx" 15
         install_run services/nginx &
         
+        install_run services/rust-rpxy-l4 &
         (
             update_progress "${PROGRESS_ACTION}" "Haproxy for Spliting Traffic" 20
             install_run services/haproxy
