@@ -119,8 +119,6 @@ function main() {
         
         install_run services/xray 1 &
         
-        update_progress "${PROGRESS_ACTION}" "rpxy-l4 SNI Proxy" 76
-        install_run services/rust-rpxy-l4 0 &
         
         update_progress "${PROGRESS_ACTION}" "HiddifyCli" 80
         install_run services/hiddify-cli $(hconfig "hiddifycli_enable") &
