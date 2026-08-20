@@ -307,7 +307,7 @@ function update_from_github() {
     rm "$file_name"
 
     bash scripts/install.sh --no-gui --no-log
-    bash scripts/install.sh --no-gui --no-log #temporary fix
+#    bash scripts/install.sh --no-gui --no-log #temporary fix
 }
 
 function custom_version_installer(){
