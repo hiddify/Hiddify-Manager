@@ -157,8 +157,15 @@ def apply_users():
 
 @cli.command('update-wg-usage')
 def update_wg_usage():
-    wg_raw_output = subprocess.check_output(['wg', 'show', 'hiddifywg', 'transfer'])
-    print(wg_raw_output.decode())
+    try:
+        wg_raw_output = subprocess.check_output(
+            ['wg', 'show', 'hiddifywg', 'transfer'],
+            stderr=subprocess.DEVNULL,
+        )
+        print(wg_raw_output.decode())
+    except (FileNotFoundError, subprocess.CalledProcessError):
+        # Interface not up yet (common in Docker / before wg-quick).
+        pass
 
 
 if __name__ == "__main__":

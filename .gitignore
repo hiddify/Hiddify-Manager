@@ -9,3 +9,4 @@ generated/**
 dump.rdb
 hiddify_usages.json
 docker-data
+node_modules
