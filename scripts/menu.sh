@@ -178,6 +178,7 @@ function menu() {
     "admin")
         source /opt/hiddify-manager/scripts/common/utils.sh
         check_hiddify_panel
+        echo "Hint: hiddify admin    |    hiddify reset-password"
         read -p "Press 'r' to reset admin password or press any other key to return to the main menu: " -n 1 key
         echo  # This adds a newline for better output readability
         if [[ "$key" == 'r' ]]; then

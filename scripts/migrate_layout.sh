@@ -79,7 +79,7 @@ if [ ! -d "$HIDDIFY_DIR/singbox" ] || [ -L "$HIDDIFY_DIR/singbox" ]; then
     fi
     # acme.sh --upgrade can recreate the old working dir after migration.
     move_to_old "$HIDDIFY_DIR/acme.sh"
-    log "no singbox/ folder; skipping layout migration"
+    
     rename_singbox_unit
     install_hiddify_cli
     exit 0
@@ -166,4 +166,4 @@ done
 rename_singbox_unit
 install_hiddify_cli
 
-log "layout migration complete"
+

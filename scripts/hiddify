@@ -8,20 +8,29 @@ usage() {
 Usage: hiddify [command] [options]
 
 Commands:
-  install     Install or reinstall Hiddify Manager
-  run         Start Hiddify services
-  upgrade     Upgrade Hiddify Manager
-  status      Show service status
-  restart     Restart services
-  apply       Apply panel configs to the system
+  install           Install or reinstall Hiddify Manager
+  run               Start Hiddify services
+  upgrade           Upgrade Hiddify Manager
+  status            Show service status
+  restart           Restart services
+  apply             Apply panel configs to the system
+  admin             Show admin panel links
+  reset-password    Reset the owner admin password
 
 If no command is given, the interactive menu is shown.
+
+Hints:
+  hiddify admin
+  hiddify reset-password
+  Open a Secure https admin link in the browser (avoid the http/IP ones if a domain link works).
 
 Examples:
   hiddify
   hiddify install --no-gui
   hiddify upgrade release
   hiddify apply --no-gui
+  hiddify admin
+  hiddify reset-password
 EOF
 }
 
@@ -66,6 +75,19 @@ apply)
     ;;
 uninstall)
     exec bash "$SCRIPTS/uninstall.sh" "$@"
+    ;;
+admin)
+    # shellcheck source=/opt/hiddify-manager/scripts/common/utils.sh
+    source "$SCRIPTS/common/utils.sh"
+    check_hiddify_panel
+    echo
+    echo "Hint: hiddify reset-password"
+    ;;
+reset-password)
+    # shellcheck source=/opt/hiddify-manager/scripts/common/utils.sh
+    source "$SCRIPTS/common/utils.sh"
+    echo "resetting owner password..."
+    hiddify-panel-cli reset-owner-password
     ;;
 *)
     echo "Unknown command: $cmd" >&2

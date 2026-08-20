@@ -5,7 +5,7 @@ fi
 
 _hiddify() {
     local cur="${COMP_WORDS[COMP_CWORD]}"
-    local cmds="install run upgrade status restart apply"
+    local cmds="install run upgrade status restart apply admin reset-password"
 
     COMPREPLY=()
     if [[ $COMP_CWORD -eq 1 ]]; then
