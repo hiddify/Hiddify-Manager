@@ -21,7 +21,7 @@ services:
     volumes:
        - ./docker-data/:/opt/hiddify-manager/data/
     env_file:
-      - path: ./docker.env
+      - path: docker.env
     #environment:
       #REDIS_PASSWORD used if REDIS_URI_MAIN or REDIS_URI_SSH is not set
       #MYSQL_PASSWORD used if SQLALCHEMY_DATABASE_URI is not set
@@ -38,7 +38,7 @@ services:
     container_name: mariadb_container
     restart: always
     env_file:
-      - path: ./docker.env
+      - path: docker.env
     environment:
       MARIADB_RANDOM_ROOT_PASSWORD: 1       # Root user password
       MYSQL_DATABASE: hiddifypanel             
@@ -51,8 +51,8 @@ services:
     container_name: redis_container
     restart: always
     env_file:
-      - path: ./docker.env
-    command: sh -c "redis-server --requirepass \"$REDIS_PASSWORD\""
+      - path: docker.env
+    command: sh -c "redis-server --requirepass \"$${REDIS_PASSWORD}\""
     volumes:
       - ./docker-data/redis_data:/data                # Persistent storage for Redis data
     
