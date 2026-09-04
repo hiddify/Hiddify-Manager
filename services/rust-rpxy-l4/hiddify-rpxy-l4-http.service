@@ -1,0 +1,17 @@
+[Unit]
+Description=rpxy-l4 HTTP Proxy
+Documentation=https://github.com/junkurihara/rust-rpxy-l4
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/opt/hiddify-manager/services/rust-rpxy-l4/bin/rpxy-l4 --config /opt/hiddify-manager/generated/rust-rpxy-l4-http.toml --log-dir /opt/hiddify-manager/data/log/system/rpxy-l4-http
+Restart=always
+RestartSec=3
+LimitNOFILE=infinity
+OOMScoreAdjust=100
+
+[Install]
+WantedBy=multi-user.target

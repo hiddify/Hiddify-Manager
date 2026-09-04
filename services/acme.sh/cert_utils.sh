@@ -188,7 +188,10 @@ function get_self_signed_cert() {
 
     # Generate a new certificate if necessary
     if [ "$generate_new_cert" -eq 1 ]; then
-        openssl req -x509 -newkey rsa:2048 -keyout "$private_key" -out "$certificate" -days 3650 -nodes -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=$d"
+        openssl req -x509 -newkey rsa:2048 -keyout "$private_key" -out "$certificate" -days 90 -nodes \
+            -subj "/C=GB/ST=London/L=London/O=Google Trust Services LLC/CN=$d" \
+            -addext "subjectAltName=DNS:$d"
+
         echo "New certificate and private key generated."
         set_files_in_folder_readable_to_hiddify_common_group /opt/hiddify-manager/data/ssl
         hiddify-panel-cli sync-tls-store -d "$d"

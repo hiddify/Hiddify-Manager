@@ -27,9 +27,18 @@ other/rust-rpxy-l4/
 
 All TCP backends use PROXY protocol v2 (`send-proxy-v2`), matching HAProxy backends.
 
-## Port 443 note
+## Services
 
-HAProxy also binds `:443` for `https-in`. Enable **either** HAProxy SNI frontend **or** rpxy-l4 on 443, not both.
+Two systemd units share the same `bin/rpxy-l4` binary:
+
+| Unit | Config | Listen | Backend |
+|------|--------|--------|---------|
+| `hiddify-rpxy-l4` | `generated/rust-rpxy-l4.toml` | 443 TLS/QUIC | HAProxy `127.0.0.1:901` / `:902` |
+| `hiddify-rpxy-l4-http` | `generated/rust-rpxy-l4-http.toml` | 80 HTTP | HAProxy `127.0.0.1:801` |
+
+## Port 443 / 80 note
+
+HAProxy no longer binds public `:443` or `:80`. Those sockets belong to rpxy-l4; HAProxy listens on localhost (`901`/`902`/`801`) with PROXY protocol.
 
 Install is wired in `install.sh` with `rpxy_l4_enable` (disabled by default). When enabling:
 
