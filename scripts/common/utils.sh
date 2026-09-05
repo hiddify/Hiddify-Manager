@@ -12,7 +12,6 @@ HIDDIFY_SERVER_CONFIG_FILES=(
     "haproxy.cfg"
     "nginx.cfg"
     "rust-rpxy-l4.toml"
-    "rust-rpxy-l4-http.toml"
 )
 
 function ensure_hiddify_data_dirs() {
@@ -50,7 +49,6 @@ function link_generated_server_configs() {
     ln -sfn "$HIDDIFY_GENERATED/haproxy.cfg" "$HIDDIFY_SERVICES/haproxy/haproxy.cfg"
     ln -sfn "$HIDDIFY_GENERATED/nginx.cfg" "$HIDDIFY_SERVICES/nginx/nginx.cfg"
     ln -sfn "$HIDDIFY_GENERATED/rust-rpxy-l4.toml" "$HIDDIFY_SERVICES/rust-rpxy-l4/rust-rpxy-l4.toml"
-    ln -sfn "$HIDDIFY_GENERATED/rust-rpxy-l4-http.toml" "$HIDDIFY_SERVICES/rust-rpxy-l4/rust-rpxy-l4-http.toml"
 }
 
 function get_commit_version() {
