@@ -14,6 +14,7 @@ Commands:
   status            Show service status
   restart           Restart services
   apply             Apply panel configs to the system
+  sync-configs      Regenerate server configs from the panel
   admin             Show admin panel links
   reset-password    Reset the owner admin password
 
@@ -29,6 +30,7 @@ Examples:
   hiddify install --no-gui
   hiddify upgrade release
   hiddify apply --no-gui
+  hiddify sync-configs
   hiddify admin
   hiddify reset-password
 EOF
@@ -72,6 +74,9 @@ restart)
     ;;
 apply)
     exec bash "$SCRIPTS/apply_configs.sh" "$@"
+    ;;
+sync-configs | sync-config)
+    exec bash "$SCRIPTS/sync_configs.sh" "$@"
     ;;
 uninstall)
     exec bash "$SCRIPTS/uninstall.sh" "$@"
