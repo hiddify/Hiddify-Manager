@@ -28,9 +28,6 @@ else
   sed -i "/Your server is vulnerable/d" /etc/motd
 fi
 
-# Restart sshd/ssh
-sudo systemctl restart sshd.service
-sudo systemctl restart ssh.service
 
 {% if hconfigs['auto_update'] %}
 echo "0 3 * * * root $(pwd)/../update.sh --no-gui --no-log" >/etc/cron.d/hiddify_auto_update
