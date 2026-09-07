@@ -17,7 +17,7 @@ services:
 
   mariadb:
     image: mariadb:latest
-    container_name: mariadb_container
+
     restart: always
     ports:
       - "127.0.0.1:3306:3306"
@@ -37,7 +37,7 @@ services:
   redis:
 
     image: redis:latest
-    container_name: redis_container
+
     restart: always
     ports:
       - "127.0.0.1:6379:6379"
