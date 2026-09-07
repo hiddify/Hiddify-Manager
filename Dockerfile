@@ -17,10 +17,11 @@ COPY . .
 RUN chmod +x /opt/hiddify-manager/services/docker/systemctl /opt/hiddify-manager/services/docker/journalctl && \
     cp /opt/hiddify-manager/services/docker/systemctl /usr/bin/systemctl && \
     cp /opt/hiddify-manager/services/docker/journalctl /usr/bin/journalctl && \
+    mkdir -p /etc/sudoers.d/ && \
     echo "Defaults:hiddify-panel !requiretty" >/etc/sudoers.d/hiddify && \
     echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/scripts/common/commander.py" >>/etc/sudoers.d/hiddify && \
     chmod 440 /etc/sudoers.d/hiddify
-    
+
 # WORKDIR breaks). data/ is not in the git tree.
 RUN apt-get update && apt-get install -y --no-install-recommends python3 ca-certificates \
     && mkdir -p /opt/hiddify-manager/data \
