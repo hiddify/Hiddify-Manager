@@ -45,7 +45,7 @@ function main() {
         clean_files
         update_progress "${PROGRESS_ACTION}" "Common Tools and Requirements" 2
         runsh install.sh scripts/common &
-        if [ "$MODE" != "docker" ];then
+        if [ "$DOCKER_MODE" != "true" ];then
             install_run services/redis &
             install_run services/mysql &
         fi    
@@ -183,7 +183,7 @@ function install_run() {
     echo "======================$1====================================={"
    if [ "$DO_NOT_INSTALL" != "true" ];then
             runsh install.sh $@
-        if [ "$MODE" != "apply_users" ] && [ "$MODE" != "docker"  ]; then
+        if [ "$MODE" != "apply_users" ] && [ "$DOCKER_MODE" != "true"  ]; then
             systemctl daemon-reload
         fi
     fi

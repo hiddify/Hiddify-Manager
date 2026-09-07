@@ -24,11 +24,11 @@ if [ -z "${REDIS_URI_MAIN}" ]; then
         REDIS_PASS=$(grep '^requirepass' "/opt/hiddify-manager/services/redis/redis.conf" | awk '{print $2}')
     fi
     REDIS_URI_MAIN="redis://:${REDIS_PASS}@127.0.0.1:6379/0"
-    REDIS_URI_SSH="redis://:${REDIS_PASS}@127.0.0.1:6379/1"
+
 fi
 
 echo "REDIS_URI_MAIN = '$REDIS_URI_MAIN'">>app.cfg
-echo "REDIS_URI_SSH = '$REDIS_URI_SSH'">>app.cfg
+
 
 
 

@@ -1,42 +1,27 @@
 
 services:
-  hiddify:
-    build: .
-    image: ghcr.io/hiddify/hiddify-manager:latest
+  hiddifymanager:
+    build: . 
+    #image: ghcr.io/hiddify/hiddify-manager:latest #latest 
+    #image: ghcr.io/hiddify/hiddify-manager:beta 
+    #image: ghcr.io/hiddify/hiddify-manager:dev #specific version #image: ghcr.io/hiddify/hiddify-manager:v10.80.0 ports: - "80:80" - "443:443" privileged: true cap_add: - NET_ADMIN volumes: - ./docker-data/:/opt/hiddify-manager/data/ env_file: - path: ./docker.env
 
-    #latest beta version
-    #image: ghcr.io/hiddify/hiddify-manager:beta
-
-    #latest build of current development
-    # image: ghcr.io/hiddify/hiddify-manager:dev
-
-    #specific version
-    #image: ghcr.io/hiddify/hiddify-manager:v10.80.0
-    ports:
-      - "80:80"
-      - "443:443"
-    privileged: true
-    cap_add:
-      - NET_ADMIN
-    volumes:
-       - ./docker-data/:/opt/hiddify-manager/data/
+    network_mode: host
     env_file:
       - path: ./docker.env
-    #environment:
-      #REDIS_PASSWORD used if REDIS_URI_MAIN or REDIS_URI_SSH is not set
-      #MYSQL_PASSWORD used if SQLALCHEMY_DATABASE_URI is not set
-      #REDIS_URI_MAIN: 'redis://:${REDIS_PASSWORD}@redis:6379/0' 
-      #REDIS_URI_SSH: 'redis://:${REDIS_PASSWORD}@redis:6379/1'
-      #SQLALCHEMY_DATABASE_URI: 'mysql+mysqldb://hiddifypanel:${MYSQL_PASSWORD}@mariadb/hiddifypanel?charset=utf8mb4'
-    #network_mode: host
-    depends_on: 
-      - mariadb
-      - redis
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
   mariadb:
     image: mariadb:latest
     container_name: mariadb_container
     restart: always
+    ports:
+      - "127.0.0.1:3306:3306"
+
     env_file:
       - path: ./docker.env
     environment:
@@ -45,14 +30,24 @@ services:
       MYSQL_USER: hiddifypanel                     
     volumes:
       - ./docker-data/mariadb_data:/var/lib/mysql          # Persistent storage for database files
-
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect"]
+      interval: 5s
+      retries: 10
   redis:
+
     image: redis:latest
     container_name: redis_container
     restart: always
+    ports:
+      - "127.0.0.1:6379:6379"
     env_file:
       - path: ./docker.env
-    command: sh -c "redis-server --requirepass \"$REDIS_PASSWORD\""
+    command: sh -c "redis-server --requirepass \"$$REDIS_PASSWORD\""
     volumes:
       - ./docker-data/redis_data:/data                # Persistent storage for Redis data
     
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "$$REDIS_PASSWORD", "ping"]
+      interval: 5s
+      retries: 10

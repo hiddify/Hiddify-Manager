@@ -409,6 +409,7 @@ function check_hiddify_panel() {
         
         for s in hiddify-xray hiddify-core hiddify-nginx hiddify-haproxy mysql; do
             [ $s == "hiddify-xray" ] && [ "$(hconfig 'core_type')" != "xray" ] && continue
+            [ $s == "mysql" ] && [ "$DOCKER_MODE" == "true" ] && continue
             s=${s##*/}
             s=${s%%.*}
             for i in $(seq 1 10); do

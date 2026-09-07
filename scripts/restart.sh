@@ -5,9 +5,10 @@ cd /opt/hiddify-manager
 source /opt/hiddify-manager/scripts/common/utils.sh
 ACTION="${HIDDIFY_SYSTEMCTL_ACTION:-restart}"
 LOG_NAME="restart"
-if [ "$ACTION" = "start" ]; then
-    LOG_NAME="run"
-fi
+case "$ACTION" in
+start) LOG_NAME="run" ;;
+stop) LOG_NAME="stop" ;;
+esac
 function restart_service() {
     local s=$1
     s=${s##*/}
@@ -18,8 +19,10 @@ function restart_service() {
         sleep 2
         for i in {1..10};do
             new_status=$(get_pretty_service_status $s 2>&1)
-            if [[ "$new_status" == *active* ]]; then
-                break
+            if [ "$ACTION" = "stop" ]; then
+                [[ "$new_status" != *active* ]] && break
+            else
+                [[ "$new_status" == *active* ]] && break
             fi
             sleep 1
         done

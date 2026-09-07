@@ -32,17 +32,16 @@ function main(){
     warning "- Services Status:"
     
     for s in services/**/*.service wg-quick@warp mtproto-proxy.service mtproxy.service;do
-        (
         s=${s##*/}
         s=${s%%.*}
-        if [[ $s == "wg-quick@warp" ]] && [[ $(hconfig "warp_mode") == "disable" ]]; then
-            return
-        fi
-        if systemctl is-enabled $s >/dev/null 2>&1 ; then
+        [ $s == "wg-quick@warp" ] && [ $(hconfig "warp_mode") == "disable" ] && continue
+        
+        [ $s == "mysql" ] && [ "$DOCKER_MODE" == "true" ] && continue
+        
+        (if systemctl is-enabled $s >/dev/null 2>&1 ; then
             status=$(get_pretty_service_status $s 2>&1)
             printf "    %-50s %+19s \n" "$s" "$status"
-        fi
-        )&
+        fi)&
     done
     wait
     echo "----------------------------------------------------------------"

@@ -9,12 +9,14 @@ Usage: hiddify [command] [options]
 
 Commands:
   install           Install or reinstall Hiddify Manager
-  run               Start Hiddify services
-  upgrade           Upgrade Hiddify Manager
-  status            Show service status
-  restart           Restart services
   apply             Apply panel configs to the system
+  upgrade           Upgrade Hiddify Manager
+  start               Start Hiddify services
+  stop              Stop all Hiddify services
+  restart           Restart services
+  status            Show service status
   sync-configs      Regenerate server configs from the panel
+  uninstall         Uninstall Hiddify Manager
   admin             Show admin panel links
   reset-password    Reset the owner admin password
 
@@ -32,7 +34,12 @@ Examples:
   hiddify apply --no-gui
   hiddify sync-configs
   hiddify admin
-  hiddify reset-password
+  hiddify reset-password    
+  hiddify uninstall
+  hiddify start
+  hiddify stop
+  hiddify restart
+  hiddify status
 EOF
 }
 
@@ -60,8 +67,11 @@ case "$cmd" in
 install)
     exec bash "$SCRIPTS/install.sh" "$@"
     ;;
-run)
+start)
     HIDDIFY_SYSTEMCTL_ACTION=start exec bash "$SCRIPTS/restart.sh" "$@"
+    ;;
+stop)
+    HIDDIFY_SYSTEMCTL_ACTION=stop exec bash "$SCRIPTS/restart.sh" "$@"
     ;;
 upgrade | update)
     exec bash "$SCRIPTS/update.sh" "$@"

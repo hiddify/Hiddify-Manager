@@ -5,7 +5,7 @@ fi
 
 _hiddify() {
     local cur="${COMP_WORDS[COMP_CWORD]}"
-    local cmds="install run upgrade status restart apply sync-configs admin reset-password"
+    local cmds="install start stop upgrade status restart apply sync-configs admin reset-password"
 
     COMPREPLY=()
     if [[ $COMP_CWORD -eq 1 ]]; then
@@ -17,7 +17,7 @@ _hiddify() {
     upgrade | update)
         COMPREPLY=($(compgen -W "release beta develop --no-gui --no-log" -- "$cur"))
         ;;
-    install | run | apply | sync-configs | restart | status | uninstall)
+    install | start | stop | apply | sync-configs | restart | status | uninstall)
         COMPREPLY=($(compgen -W "--no-gui --no-log" -- "$cur"))
         ;;
     esac
