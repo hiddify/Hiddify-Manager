@@ -52,17 +52,3 @@ send_proxy_protocol = "v2"
 load_balance = "none"
 
 {% endif %}
-
-{% for d in domains if d['mode'] == 'old_xtls_direct' %}
-[protocols."xray_force_{{ d['domain'] | replace('.', '_') }}"]
-protocol = "tls"
-server_names = ["{{ d['domain'] }}"]
-{% if hconfigs.get('rpxy_l4_xray_force_port') %}
-target = ["127.0.0.1:{{ hconfigs['rpxy_l4_xray_force_port'] }}"]
-send_proxy_protocol = "v2"
-{% else %}
-target = ["127.0.0.1:445"]
-{% endif %}
-load_balance = "none"
-
-{% endfor %}

@@ -136,11 +136,12 @@ function main() {
     wait 
     echo "---------------------Finished!------------------------"
     remove_lock $NAME
-    if [ "$MODE" != "apply_users" ]; then
-        systemctl kill -s SIGTERM hiddify-panel
-    fi
-    systemctl start hiddify-panel
     update_progress "${PROGRESS_ACTION}" "Done" 100
+    if [ "$MODE" != "apply_users" ]; then
+        restart_hiddify_panel restart
+    else
+        restart_hiddify_panel start
+    fi
     
 }
 

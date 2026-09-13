@@ -7,7 +7,7 @@ source ./cert_utils.sh
 domains=$(jq -r '
   .domains[]
   | select(.fake_mode == "valid")
-  | select(.mode | IN("direct", "cdn", "worker", "relay", "auto_cdn_ip", "old_xtls_direct", "sub_link_only"))
+  | select(.mode | IN("direct", "cdn", "worker", "relay", "sub_link_only"))
   | select(.domain != null and .domain != "" and (.domain | contains("*") | not))
   | .domain
 ' /opt/hiddify-manager/data/current.json)

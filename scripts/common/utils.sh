@@ -157,6 +157,22 @@ function update_progress() {
     echo -e "####$percentage####$title####$text####"
 }
 
+function restart_hiddify_panel() {
+    # Finish apply/install work (including progress 100) before calling this.
+    # ``systemctl kill`` / a blocking restart SIGTERMs every process in the
+    # hiddify-panel cgroup. apply must run outside that cgroup (commander.py
+    # uses systemd-run) and restart here must be --no-block.
+    if ! command -v systemctl >/dev/null 2>&1; then
+        return 0
+    fi
+    local mode="${1:-restart}"
+    if [ "$mode" = "start" ]; then
+        systemctl start --no-block hiddify-panel
+    else
+        systemctl restart --no-block hiddify-panel
+    fi
+}
+
 function is_installed_pypi_package() {
     activate_python_venv
     package_name="$1"

@@ -258,15 +258,13 @@ function post_update_tasks() {
     remove_lock $NAME
 
     if [ "$package_mode" != "docker" ];then
-      if [[ $panel_update == 0 ]]; then
-              systemctl kill -s SIGTERM hiddify-panel
-      fi
-
       if [[ $panel_update == 0 && $config_update != 0 ]]; then
           bash /opt/hiddify-manager/scripts/apply_configs.sh --no-gui --no-log
+      elif [[ $panel_update == 0 ]]; then
+          restart_hiddify_panel restart
+      else
+          restart_hiddify_panel start
       fi
-      systemctl start hiddify-panel
-      cd /opt/hiddify-manager/services/hiddify-panel
       if [ "$CREATE_EASYSETUP_LINK" == "true" ];then
           hiddify-panel-cli set-setting --key create_easysetup_link --val True
       fi
