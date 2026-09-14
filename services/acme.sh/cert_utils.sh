@@ -31,7 +31,6 @@ acmecmd() {
         -w /opt/hiddify-manager/data/services/acme.sh/www/ \
         --log /opt/hiddify-manager/data/log/system/acme.log \
         --pre-hook "bash /opt/hiddify-manager/services/acme.sh/prepare_acme.sh" \
-        --post-hook "bash -c 'source /opt/hiddify-manager/scripts/common/utils.sh && hiddify-panel-cli sync-tls-store -d $2'" \
         "$@"
 }
 
@@ -122,7 +121,7 @@ function get_cert() {
             acme.sh --installcert -d $DOMAIN \
                 --fullchainpath $ssl_cert_path/$DOMAIN.crt \
                 --keypath $ssl_cert_path/$DOMAIN.crt.key \
-                --reloadcmd "echo success"
+                --reloadcmd "bash -c 'source /opt/hiddify-manager/scripts/common/utils.sh && hiddify-panel-cli sync-tls-store -d \"$DOMAIN\"'"
             err=$?
             if [[ $err == 0 ]] && ! is_valid_x509 "$ssl_cert_path/$DOMAIN.crt"; then
                 error "Installed certificate for $DOMAIN is missing or invalid"
@@ -142,6 +141,8 @@ function get_cert() {
     fi
 
     set_files_in_folder_readable_to_hiddify_common_group "$ssl_cert_path"
+    # Always re-import after ACME/self-signed so tls_store cannot keep a stale/wrong cert.
+    hiddify-panel-cli sync-tls-store -d "$DOMAIN" || true
 }
 
 
@@ -194,7 +195,7 @@ function get_self_signed_cert() {
 
         echo "New certificate and private key generated."
         set_files_in_folder_readable_to_hiddify_common_group /opt/hiddify-manager/data/ssl
-        hiddify-panel-cli sync-tls-store -d "$d"
     fi
     set_files_in_folder_readable_to_hiddify_common_group /opt/hiddify-manager/data/ssl
+    hiddify-panel-cli sync-tls-store -d "$d" || true
 }

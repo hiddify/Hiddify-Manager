@@ -7,5 +7,9 @@ get_cert $1
 
 
 echo "cert installation is done."
+
+source /opt/hiddify-manager/scripts/common/utils.sh
+hiddify-panel-cli sync-tls-store -d "$1"
 sleep 2
 stop_nginx_acme
+
