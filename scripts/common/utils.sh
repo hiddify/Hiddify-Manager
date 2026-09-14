@@ -80,7 +80,7 @@ function get_release_version() {
 
 function hiddifypanel_path() {
     activate_python_venv
-    /opt/hiddify-manager/.venv313/bin/python -c "import os,hiddifypanel;print(os.path.dirname(hiddifypanel.__file__),end='')" 2>&1 || echo "panel is not installed yet."
+    timeout 15 /opt/hiddify-manager/.venv313/bin/python -c "import os,hiddifypanel;print(os.path.dirname(hiddifypanel.__file__),end='')" 2>&1 || echo "panel is not installed yet."
 }
 function get_installed_panel_version() {
     activate_python_venv
