@@ -61,3 +61,5 @@ masterdns|2026.06.13.234407-7de2476|arm64|https://github.com/masterking32/Master
 masterdns|2026.06.13.234407-7de2476|amd64|https://github.com/masterking32/MasterDnsVPN/releases/download/v2026.06.13.234407-7de2476/MasterDnsVPN_Server_Linux_X86.zip|72b9114085e9f3b8e19b6db4c14575ce63b0bffac3252b093cc89b1bc10d8bf0
 slipstream|0.1.1|arm64|https://github.com/EndPositive/slipstream/releases/download/v0.1.1/slipstream-server-v0.1.1-linux-arm64|03a7e2b1fba5428f3bfee4b7a0c6ef58b044ea89b221cc8d13d72482a2bb586e
 slipstream|0.1.1|amd64|https://github.com/EndPositive/slipstream/releases/download/v0.1.1/slipstream-server-v0.1.1-linux-x86_64|505f1809bc9feb682d2eb5716232c5aed0fcd34344ea1194b684629f1b7cbab8
+wgcf|2.2.31|arm64|https://github.com/ViRb3/wgcf/releases/download/v2.2.31/wgcf_2.2.31_linux_arm64|b9bdbdeaa3f9f4ba741ba55b8bd94c24f7166c27668eb7e8192ccf9746961182
+wgcf|2.2.31|amd64|https://github.com/ViRb3/wgcf/releases/download/v2.2.31/wgcf_2.2.31_linux_amd64|69147e1a517c66129edd8ac8cb60484d6c9515178d7b4a2f95e3c925f225572a
