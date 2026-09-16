@@ -1,5 +1,5 @@
 source /opt/hiddify-manager/scripts/common/utils.sh
-if ! is_installed "nginx=1.26.*"; then
+if ! is_installed "nginx=1.30.*"; then
     useradd nginx
     curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor |
         sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
@@ -9,7 +9,7 @@ if ! is_installed "nginx=1.26.*"; then
     sudo apt update -y
 
 fi
-install_package "nginx=1.26.*"
+install_package "nginx=1.30.*"
 usermod -aG hiddify-common nginx 2>/dev/null || true
 
 systemctl kill nginx >/dev/null 2>&1
