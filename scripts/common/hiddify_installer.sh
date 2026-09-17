@@ -19,7 +19,7 @@ NAME="installer"
 LOG_FILE="$(log_file $NAME)"
 export USE_VENV=true
 
-if [ ! -f /opt/hiddify-manager/scripts/install.sh ]; then
+if [ ! -f /opt/hiddify-manager/common/scripts/install.sh ] && [ ! -f /opt/hiddify-manager/scripts/install.sh ]; then
     rm -rf /opt/hiddify-manager
 fi
 
