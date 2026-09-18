@@ -136,12 +136,32 @@ function migrate_mysql_datadir() {
     echo "MariaDB datadir move complete."
 }
 
+# Initialize the datadir's system tables if they don't exist yet.
+# Needed because migrate_mysql_datadir only relocates an already-initialized
+# datadir; it does nothing when the source datadir is itself empty (e.g. after
+# the data dir was wiped, or on a host where the package postinst skipped
+# initialization because /var/lib/mysql was already a symlink).
+function ensure_mysql_initialized() {
+    local datadir="$1"
+    [ -d "$datadir/mysql" ] && return 0
+
+    echo "Initializing new MariaDB data directory at $datadir ..."
+    mkdir -p "$datadir"
+    chown -R mysql:mysql "$datadir"
+    if command -v mariadb-install-db >/dev/null 2>&1; then
+        sudo -u mysql mariadb-install-db --datadir="$datadir" >/dev/null
+    else
+        sudo -u mysql mysql_install_db --datadir="$datadir" >/dev/null
+    fi
+}
+
 function configure_mysql_server() {
     local datadir="$HIDDIFY_MYSQL_DATADIR"
     local conf="/etc/mysql/mariadb.conf.d/50-server.cnf"
 
     mkdir -p "$datadir"
     chown -R mysql:mysql "$datadir"
+    ensure_mysql_initialized "$datadir"
 
     cat >"$HIDDIFY_MYSQL_DROPIN" <<EOF
 [mysqld]
