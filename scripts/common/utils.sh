@@ -4,7 +4,7 @@ export HIDDIFY_SERVICES="$HIDDIFY_DIR/services"
 export HIDDIFY_DATA="$HIDDIFY_DIR/data"
 export HIDDIFY_GENERATED="$HIDDIFY_DIR/generated"
 # Single source of truth for the panel's durable config — must match the default
-# baked into hiddifypanel/__init__.py, base.py and celery.py.
+# baked into hiddifypanel/__init__.py and base.py.
 export HIDDIFY_PANEL_CFG_PATH="$HIDDIFY_DATA/hiddify-panel/app.cfg"
 export venv_path="/opt/hiddify-manager/.venv313"
 

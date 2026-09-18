@@ -60,7 +60,5 @@ if [ -f "/opt/hiddify-manager/config.env" ]; then
         # echo "temporary disable removing config.env"
     fi
 fi
-systemctl stop hiddify-panel-background-tasks.service 2>/dev/null || true
 hiddify-panel-cli init-db
 systemctl start hiddify-panel.service
-systemctl restart hiddify-panel-background-tasks.service

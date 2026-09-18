@@ -5,6 +5,8 @@ data/ssl
 data/current.json
 data/**
 generated/**
+scripts/common/packages.db
+docker-compose.override.yaml
 
 dump.rdb
 hiddify_usages.json

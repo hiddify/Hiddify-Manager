@@ -23,8 +23,13 @@ fi
 ln -sf $(pwd)/hiddify-panel.service /etc/systemd/system/hiddify-panel.service
 systemctl enable hiddify-panel.service
 
-ln -sf $(pwd)/hiddify-panel-background-tasks.service /etc/systemd/system/hiddify-panel-background-tasks.service
-systemctl enable hiddify-panel-background-tasks.service
+# The background-tasks Celery worker+beat process was folded into an in-process
+# APScheduler inside hiddify-panel.service. Tear it down on upgrades so existing
+# installs don't keep running it alongside the new scheduler (double usage/backup runs).
+if [ -e /etc/systemd/system/hiddify-panel-background-tasks.service ]; then
+    systemctl disable --now hiddify-panel-background-tasks.service 2>/dev/null || true
+    rm -f /etc/systemd/system/hiddify-panel-background-tasks.service
+fi
 
 if [ -n "$HIDDIFY_PANLE_SOURCE_DIR" ]; then
     echo "NOTICE: building hiddifypanel package from source..."

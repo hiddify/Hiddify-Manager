@@ -47,7 +47,7 @@ function main() {
     done
     wait
     # Restart hiddify-panel separately from others
-    for ss in hiddify-panel hiddify-panel-background-tasks;do
+    for ss in hiddify-panel;do
         restart_service $ss &
     done
     wait
