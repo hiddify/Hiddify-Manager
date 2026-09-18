@@ -37,7 +37,7 @@ if [[ "$branch" == v* ]]; then
 elif [[ "$branch" == "beta" ]]; then
     # If input is 'release' or empty, use main
     base_url="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/beta/"
-elif [[ "$branch" == "dev" ]]; then
+elif [[ "$branch" == "dev" || "$branch" == "develop" ]]; then
     # If input is 'release' or empty, use main
     base_url="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/dev/scripts"
 else
