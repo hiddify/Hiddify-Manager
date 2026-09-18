@@ -15,7 +15,7 @@ Environment="MALLOC_ARENA_MAX=2"
 # This is a low-traffic admin panel, not a public API; a handful of blocking
 # threads is enough concurrency and each idle thread still costs real RSS.
 # workers-max-rss is a safety net that respawns the worker if it ever balloons.
-ExecStart=/opt/hiddify-manager/.venv313/bin/python -m granian --interface wsgi hiddifypanel.apps.wsgi_app:app --port 9000 --blocking-threads 4 --workers-max-rss 200
+ExecStart=/opt/hiddify-manager/.venv313/bin/python -m granian --interface wsgi hiddifypanel.apps.wsgi_app:app --port 9000 --blocking-threads 10 --workers-max-rss 500
 ExecReload=/bin/kill -HUP $MAINPID
 #RestartSec=1
 #ExecStop=/bin/bash -c "/bin/kill -INT $(/usr/bin/pgrep -f 'hiddifypanel')||echo 'nothing to kill'"
