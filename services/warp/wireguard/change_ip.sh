@@ -2,6 +2,9 @@
 
 # Change to the directory of the script
 cd "$(dirname -- "$0")"
+source /opt/hiddify-manager/scripts/common/utils.sh
+source /opt/hiddify-manager/services/warp/utils.sh
+ensure_warp_data_links wireguard "$(pwd)"
 
 # Function to get current WARP IP
 get_current_warp_ip() {
@@ -20,6 +23,7 @@ change_warp_ip() {
 
     # Backup the existing configuration
     mv wgcf-account.toml wgcf-account.toml.backup
+    ensure_warp_data_links wireguard "$(pwd)"
 
     # Download and run WARP
     # Uncomment these lines if needed

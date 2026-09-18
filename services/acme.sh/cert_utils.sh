@@ -1,7 +1,7 @@
 restricted_tlds=("af" "by" "cu" "er" "gn" "ir" "kp" "lr" "ru" "ss" "su" "sy" "zw" "amazonaws.com","azurewebsites.net","cloudapp.net")
 shopt -s expand_aliases
 
-source ./lib/acme.sh.env
+source /opt/hiddify-manager/data/services/acme.sh/acme.sh.env
 source /opt/hiddify-manager/scripts/common/utils.sh
 # Function to check if a domain is restricted
 is_ok_domain_zerossl() {
@@ -58,8 +58,11 @@ is_valid_private_key() {
 acme_issued_dir() {
     local domain="$1"
     local config_home="${LE_CONFIG_HOME:-$LE_WORKING_DIR}"
+    local cert_home="${LE_CERT_HOME:-$LE_WORKING_DIR/certs}"
     local dir cert key
     for dir in \
+        "$cert_home/${domain}_ecc" \
+        "$cert_home/${domain}" \
         "$config_home/${domain}_ecc" \
         "$config_home/${domain}" \
         "$LE_WORKING_DIR/certs/${domain}_ecc" \
@@ -78,7 +81,7 @@ acme_issued_dir() {
 
 function get_cert() {
     cd /opt/hiddify-manager/services/acme.sh/
-    source ./lib/acme.sh.env
+    source /opt/hiddify-manager/data/services/acme.sh/acme.sh.env
     # ./lib/acme.sh --register-account -m my@example.com
 
     DOMAIN=$1

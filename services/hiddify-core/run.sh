@@ -9,6 +9,7 @@ if [ -e /etc/systemd/system/hiddify-singbox.service ]; then
 	systemctl daemon-reload
 fi
 
+mkdir -p /opt/hiddify-manager/data/hiddify-core
 set_files_in_folder_readable_to_hiddify_common_group /opt/hiddify-manager/generated/hiddify-core.json
 
 # curl -s -x socks://127.0.0.1:3000 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query

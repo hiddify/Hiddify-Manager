@@ -1,4 +1,7 @@
 source /opt/hiddify-manager/scripts/common/utils.sh
+source /opt/hiddify-manager/services/redis/utils.sh
+cd "$(dirname -- "$0")"
+
 if ! is_installed redis-server; then
     add-apt-repository -y universe
     install_package redis-server
@@ -8,31 +11,20 @@ fi
 systemctl disable --now redis-server >/dev/null 2>&1 || true
 pkill -9 redis-server >/dev/null 2>&1 || true
 
-chown -R redis:redis .
-chmod 600 redis.conf
-mkdir -p /opt/hiddify-manager/data/redis
-chown redis:redis /opt/hiddify-manager/data/redis
-if [ -f dump.rdb ] && [ ! -f /opt/hiddify-manager/data/redis/dump.rdb ]; then
-    mv dump.rdb /opt/hiddify-manager/data/redis/dump.rdb
-    chown redis:redis /opt/hiddify-manager/data/redis/dump.rdb
+ensure_redis_data_dirs
+
+if [ -f dump.rdb ] && [ ! -f "$HIDDIFY_DATA/redis/dump.rdb" ]; then
+    mv dump.rdb "$HIDDIFY_DATA/redis/dump.rdb"
+    chown redis:redis "$HIDDIFY_DATA/redis/dump.rdb"
 fi
 
-# Ensure a password exists in repo config before starting any service
-if ! grep -q "^requirepass" "redis.conf"; then
-    # Generate a random password
-    random_password=$(< /dev/urandom tr -dc 'a-zA-Z0-9' | head -c49; echo)
-    # Add requirepass with the generated password to redis.conf
-    echo "requirepass $random_password" >>redis.conf
-fi
+# Password + live conf: create once; --sync repairs requirepass (install-only changes)
+ensure_redis_data --sync "$(pwd)/redis.conf"
 
-# Wire up and start the managed service using the repo config
-ln -sf $(pwd)/hiddify-redis.service /etc/systemd/system/hiddify-redis.service >/dev/null 2>&1
-systemctl enable --now hiddify-redis
+ln -sf "$(pwd)/hiddify-redis.service" /etc/systemd/system/hiddify-redis.service >/dev/null 2>&1
+systemctl daemon-reload >/dev/null 2>&1 || true
+systemctl enable hiddify-redis
 
-# Ensure logging path exists/owned
-touch /opt/hiddify-manager/data/log/system/redis-server.log
-chown redis:redis /opt/hiddify-manager/data/log/system/redis-server.log
-
-
-
-# systemctl reload hiddify-redis
+mkdir -p "$HIDDIFY_DATA/log/system"
+touch "$HIDDIFY_DATA/log/system/redis-server.log"
+chown redis:redis "$HIDDIFY_DATA/log/system/redis-server.log"

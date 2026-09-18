@@ -1,3 +1,6 @@
+services/hiddify-panel/src
+docker-compose.override.yaml
+docker-data/
 **/.idea
 **/.github
 **/.gith

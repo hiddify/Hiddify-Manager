@@ -5,7 +5,7 @@ debug: build debug-panel
 debug-panel: 
 	(cd services/hiddify-panel/src/ &&\
 	systemctl stop hiddify-panel &&\
-	HIDDIFY_CFG_PATH=/opt/hiddify-manager/services/hiddify-panel/app.cfg \
+	HIDDIFY_CFG_PATH=/opt/hiddify-manager/data/hiddify-panel/app.cfg \
 	FLASK_APP=wsgi.py \
 	FLASK_DEBUG=1 \
 	python -m flask run --host=0.0.0.0 --port=9000 --reload\

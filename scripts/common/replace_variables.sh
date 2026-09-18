@@ -23,11 +23,7 @@ for d in $domains; do
     (bash /opt/hiddify-manager/services/acme.sh/generate_self_signed_cert.sh $d >/dev/null 2>&1)
 done
 
-dump_flags=()
-if [ "$MODE" = "apply_users" ]; then
-    dump_flags+=(--no-invalidate-cache)
-fi
-hiddify-panel-cli dump-server-configs "$HIDDIFY_GENERATED" "${dump_flags[@]}" || {
+dump_server_configs || {
     echo "Failed to dump server configs into $HIDDIFY_GENERATED" >&2
     exit 1
 }

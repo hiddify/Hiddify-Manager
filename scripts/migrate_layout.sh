@@ -16,8 +16,12 @@ OLD="$HIDDIFY_DIR/old"
 
 log() { echo "[migrate-layout] $*"; }
 
+# Note: $DATA/mysql/db (the actual datadir) is intentionally not created here —
+# mysql/utils.sh's migrate_mysql_datadir needs that path absent or already
+# populated to do its atomic mv; see that file for details.
 mkdir -p "$SERVICES/mysql" "$SERVICES/redis" \
-    "$DATA/ssl" "$DATA/log/system" "$HIDDIFY_DIR/generated"
+    "$DATA/ssl" "$DATA/log/system" "$DATA/mysql" "$DATA/redis" \
+    "$DATA/hiddify-panel" "$HIDDIFY_DIR/generated"
 
 install_hiddify_cli() {
     chmod +x "$SCRIPTS/hiddify" 2>/dev/null || true
@@ -87,52 +91,69 @@ fi
 
 log "singbox/ found; migrating leftover old-layout folders to old/"
 
+# Reuse service helpers when available (same create-once paths under data/)
+if [ -f "$SCRIPTS/common/utils.sh" ]; then
+    # shellcheck source=/dev/null
+    source "$SCRIPTS/common/utils.sh"
+fi
+if [ -f "$SERVICES/mysql/utils.sh" ]; then
+    # shellcheck source=/dev/null
+    source "$SERVICES/mysql/utils.sh"
+fi
+if [ -f "$SERVICES/redis/utils.sh" ]; then
+    # shellcheck source=/dev/null
+    source "$SERVICES/redis/utils.sh"
+fi
+
 preserve_mysql_pass() {
-    local dest="$SERVICES/mysql/mysql_pass"
+    local dest="${HIDDIFY_MYSQL_PASS_FILE:-${HIDDIFY_DATA:-$DATA}/mysql/mysql_pass}"
     local src
+    mkdir -p "$(dirname "$dest")"
+    if [ -f "$dest" ]; then
+        return 0
+    fi
     for src in \
+        "$SERVICES/mysql/mysql_pass" \
         "$HIDDIFY_DIR/other/mysql/mysql_pass" \
         "$HIDDIFY_DIR/mysql/mysql_pass"
     do
         if [ -f "$src" ]; then
             cp -a "$src" "$dest"
             chmod 600 "$dest"
-            log "kept MySQL password from $src"
+            log "kept MySQL password from $src -> $dest"
             return 0
         fi
     done
 }
 
-redis_pass_from_conf() {
-    local conf="$1"
-    local pass=""
-    [ -f "$conf" ] || return 1
-    pass="$(grep '^requirepass ' "$conf" 2>/dev/null | awk '{print $2}' | tail -n1 || true)"
-    [ -n "$pass" ] || return 1
-    printf '%s\n' "$pass"
-}
-
 preserve_redis_pass() {
-    local dest_conf="$SERVICES/redis/redis.conf"
+    local dest_pass="${HIDDIFY_REDIS_PASS_FILE:-${HIDDIFY_DATA:-$DATA}/redis/redis_pass}"
     local src pass=""
+    mkdir -p "$(dirname "$dest_pass")"
+    if [ -f "$dest_pass" ]; then
+        return 0
+    fi
     for src in \
+        "${HIDDIFY_REDIS_LIVE_CONF:-${HIDDIFY_DATA:-$DATA}/redis/redis.conf}" \
+        "$SERVICES/redis/redis.conf" \
         "$HIDDIFY_DIR/other/redis/redis.conf" \
         "$HIDDIFY_DIR/redis/redis.conf"
     do
-        pass="$(redis_pass_from_conf "$src" || true)"
+        if type redis_pass_from_conf >/dev/null 2>&1; then
+            pass="$(redis_pass_from_conf "$src" || true)"
+        else
+            pass="$(grep '^requirepass ' "$src" 2>/dev/null | awk '{print $2}' | tail -n1 || true)"
+        fi
         if [ -n "$pass" ]; then
             log "kept Redis password from $src"
             break
         fi
     done
     [ -n "$pass" ] || return 0
-    mkdir -p "$(dirname "$dest_conf")"
-    if [ -f "$dest_conf" ]; then
-        sed -i '/^requirepass /d' "$dest_conf"
-        echo "requirepass $pass" >>"$dest_conf"
-    else
-        echo "requirepass $pass" >"$dest_conf"
-        chmod 600 "$dest_conf"
+    echo "$pass" >"$dest_pass"
+    chmod 600 "$dest_pass"
+    if type ensure_redis_data >/dev/null 2>&1; then
+        ensure_redis_data --sync "$SERVICES/redis/redis.conf"
     fi
 }
 

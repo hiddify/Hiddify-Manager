@@ -3,6 +3,9 @@ export HIDDIFY_SCRIPTS="$HIDDIFY_DIR/scripts"
 export HIDDIFY_SERVICES="$HIDDIFY_DIR/services"
 export HIDDIFY_DATA="$HIDDIFY_DIR/data"
 export HIDDIFY_GENERATED="$HIDDIFY_DIR/generated"
+# Single source of truth for the panel's durable config — must match the default
+# baked into hiddifypanel/__init__.py, base.py and celery.py.
+export HIDDIFY_PANEL_CFG_PATH="$HIDDIFY_DATA/hiddify-panel/app.cfg"
 export venv_path="/opt/hiddify-manager/.venv313"
 
 # Filenames written by `hiddifypanel dump-server-configs`.
@@ -16,19 +19,10 @@ HIDDIFY_SERVER_CONFIG_FILES=(
 )
 
 function ensure_hiddify_data_dirs() {
-    # Permanent storage only: certs, logs, databases, runtime-writable snippets.
+    # Shared permanent paths only. Each service creates its own data dirs.
     mkdir -p \
         "$HIDDIFY_DATA/ssl" \
         "$HIDDIFY_DATA/log/system" \
-        "$HIDDIFY_DATA/mysql" \
-        "$HIDDIFY_DATA/redis" \
-        "$HIDDIFY_DATA/hiddify-core" \
-        "$HIDDIFY_DATA/hiddify-panel" \
-        "$HIDDIFY_DATA/services/nginx/parts" \
-        "$HIDDIFY_DATA/services/acme.sh/www" \
-        "$HIDDIFY_DATA/services/hiddify-panel" \
-        "$HIDDIFY_DATA/services/mysql" \
-        "$HIDDIFY_DATA/services/redis" \
         "$HIDDIFY_GENERATED/client" \
         "$HIDDIFY_GENERATED/include"
     if getent group hiddify-common >/dev/null 2>&1; then
@@ -40,9 +34,14 @@ function ensure_hiddify_data_dirs() {
             chown -R root:hiddify-common "$HIDDIFY_GENERATED" 2>/dev/null || true
         fi
     fi
-    
 }
 
+# Usage: hiddify_random_password [length]  (default 49)
+function hiddify_random_password() {
+    local len="${1:-49}"
+    < /dev/urandom tr -dc 'a-zA-Z0-9' | head -c "$len"
+    echo
+}
 
 function get_commit_version() {
     json_data=$(curl -sL -H "Accept: application/json" "https://github.com/hiddify/$1/commits/main.atom")
@@ -561,7 +560,7 @@ function hconfig() {
 #TODO: check functionality when not using the venv
 function hiddify-panel-run() {
     local user=$(whoami)
-    local base_command="cd /opt/hiddify-manager/services/hiddify-panel/; source ${venv_path}/bin/activate && $@"
+    local base_command="export HIDDIFY_CFG_PATH='$HIDDIFY_PANEL_CFG_PATH'; cd /opt/hiddify-manager/services/hiddify-panel/; source ${venv_path}/bin/activate && $@"
     local command=""
 
     if [ "$user" == "hiddify-panel" ]; then
@@ -715,12 +714,27 @@ function reload_all_configs(){
     hiddify-http-api admin/all-configs/ > /opt/hiddify-manager/data/current.json
     if [ "$?" != 0 ];then
         hiddify-panel-cli all-configs > /opt/hiddify-manager/data/current.json
-        if [ $? != 0 ]; then 
+        if [ $? != 0 ]; then
             return $?
         fi
     fi
     chmod 600 /opt/hiddify-manager/data/current.json
     cat /opt/hiddify-manager/data/current.json
+}
+
+# Render xray/hiddify-core/haproxy/nginx/dns_proxy configs into $HIDDIFY_GENERATED.
+# Prefers the running panel's HTTP API (no extra Python/module load); falls
+# back to the CLI (spawns its own interpreter) only if the panel isn't reachable.
+function dump_server_configs() {
+    local query=""
+    [ "$MODE" = "apply_users" ] && query="?no_invalidate_cache=1"
+    if hiddify-http-api "admin/dump-server-configs/$query" >/dev/null; then
+        return 0
+    fi
+
+    local flags=()
+    [ "$MODE" = "apply_users" ] && flags+=(--no-invalidate-cache)
+    hiddify-panel-cli dump-server-configs "$HIDDIFY_GENERATED" "${flags[@]}"
 }
 
 

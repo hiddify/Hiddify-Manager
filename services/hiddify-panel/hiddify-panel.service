@@ -8,6 +8,7 @@ Type=simple
 User=hiddify-panel
 WorkingDirectory=/opt/hiddify-manager/services/hiddify-panel/
 Environment="LANG=C.UTF-8"
+Environment="HIDDIFY_CFG_PATH=/opt/hiddify-manager/data/hiddify-panel/app.cfg"
 ExecStart=/opt/hiddify-manager/.venv313/bin/python -m granian --interface wsgi hiddifypanel.apps.wsgi_app:app --port 9000 --blocking-threads 10 
 ExecReload=/bin/kill -HUP $MAINPID
 #RestartSec=1

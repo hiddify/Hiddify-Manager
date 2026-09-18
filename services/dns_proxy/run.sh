@@ -2,70 +2,11 @@
 # Enable/disable per-domain DNS tunnel units from generated/dns_proxy/{proto}/.
 set -euo pipefail
 source /opt/hiddify-manager/scripts/common/utils.sh
+source /opt/hiddify-manager/services/dns_proxy/utils.sh
 
 BASE="$(cd "$(dirname "$0")" && pwd)"
 GEN="${HIDDIFY_GENERATED}/dns_proxy"
 PROTOS=(dnstt slipstream masterdns)
-
-# docker-systemctl-replacement ignores list-unit-files globs and returns every
-# unit — always filter client-side to hiddify-<proto>@<instance>.service only.
-list_proto_instances() {
-    local unit="$1"
-    local unit_file
-    while IFS= read -r unit_file; do
-        [[ -n "$unit_file" ]] || continue
-        case "$unit_file" in
-            ${unit}*.service) ;;
-            *) continue ;;
-        esac
-        # Skip the template unit itself (hiddify-dnstt@.service).
-        [[ "$unit_file" == "${unit}.service" ]] && continue
-        instance="${unit_file#${unit}}"
-        printf '%s\n' "${instance%.service}"
-    done < <(
-        {
-            find /etc/systemd/system /run/systemd/system \
-                -maxdepth 2 \( -type f -o -type l \) -name "${unit}*.service" 2>/dev/null \
-                | xargs -r -n1 basename
-            systemctl list-unit-files --no-legend 2>/dev/null | awk '{print $1}'
-        } | sort -u
-    )
-}
-
-sync_proto_instances() {
-    local proto="$1"
-    local unit="hiddify-${proto}@"
-    local dir="${GEN}/${proto}"
-    local desired=()
-    local instance path
-
-    if [[ -d "$dir" ]]; then
-        while IFS= read -r -d '' path; do
-            instance="$(basename "$(dirname "$path")")"
-            [[ -n "$instance" && "$instance" != "." ]] || continue
-            desired+=("$instance")
-        done < <(find "$dir" -mindepth 2 -maxdepth 2 \( -name 'args' -o -name 'config.json' -o -name 'server_config.toml' \) -print0 2>/dev/null || true)
-    fi
-
-    # Disable instances that are no longer generated.
-    while IFS= read -r instance; do
-        [[ -n "$instance" ]] || continue
-        local keep=0
-        for d in "${desired[@]+"${desired[@]}"}"; do
-            if [[ "$d" == "$instance" ]]; then
-                keep=1
-                break
-            fi
-        done
-        if [[ $keep -eq 0 ]]; then
-            systemctl disable --now "${unit}${instance}.service" >/dev/null 2>&1 || true
-        fi
-    done < <(list_proto_instances "$unit")
-
-    for instance in "${desired[@]+"${desired[@]}"}"; do
-        systemctl enable --now "${unit}${instance}.service" >/dev/null 2>&1 || systemctl restart "${unit}${instance}.service" || true
-    done
-}
 
 mkdir -p "$GEN"/{dnstt,slipstream,masterdns}
 chown -R dns_proxy:dns_proxy "$GEN" 2>/dev/null || true
@@ -73,7 +14,7 @@ chown -R dns_proxy:dns_proxy "$GEN" 2>/dev/null || true
 chown dns_proxy:dns_proxy "${HIDDIFY_GENERATED}/dnstm.json" 2>/dev/null || true
 
 for proto in "${PROTOS[@]}"; do
-    sync_proto_instances "$proto"
+    dns_proxy_sync_proto_instances "$proto" "$GEN"
 done
 
 # DNSTM multi-tunnel router on :53
