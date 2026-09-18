@@ -48,7 +48,7 @@ function main() {
 
     update_script="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/main/scripts/common/download.sh"
     case "$package_mode" in
-    develop)
+    dev|develop)
         # Use the latest commit from GitHub
         latest_panel=$(get_commit_version Hiddify-Panel)
         latest_manager=$(get_commit_version hiddify-manager)

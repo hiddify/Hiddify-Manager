@@ -39,7 +39,7 @@ elif [[ "$branch" == "beta" ]]; then
     base_url="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/beta/"
 elif [[ "$branch" == "dev" ]]; then
     # If input is 'release' or empty, use main
-    base_url="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/dev/"
+    base_url="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/dev/scripts"
 else
     # Otherwise, use the input as a branch name
     base_url="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/main/"
