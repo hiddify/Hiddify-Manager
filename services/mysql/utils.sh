@@ -1,5 +1,6 @@
 # MySQL/MariaDB helpers — source after scripts/common/utils.sh
 
+source /opt/hiddify-manager/scripts/common/utils.sh
 HIDDIFY_MYSQL_DATA="$HIDDIFY_DATA/mysql"
 # Do not pre-create this as an empty dir — it blocks the atomic mv in migrate_mysql_datadir.
 HIDDIFY_MYSQL_DATADIR="$HIDDIFY_MYSQL_DATA/db"
