@@ -86,7 +86,7 @@ fi
 
 update-locale LANG=C.UTF-8
 
-echo "Defaults:hiddify-panel !requiretty" >/etc/sudoers.d/hiddify
+#echo "Defaults:hiddify-panel !requiretty" >/etc/sudoers.d/hiddify
 echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/scripts/common/commander.py" >>/etc/sudoers.d/hiddify
 chmod 440 /etc/sudoers.d/hiddify
 
