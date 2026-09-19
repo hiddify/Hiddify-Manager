@@ -73,12 +73,27 @@ function free_mysql_listen_port() {
 
     local i
     for i in $(seq 1 40); do
-        mysql_tcp_port_busy || return 0
+        mysql_tcp_port_busy || break
         sleep 0.25
     done
     if mysql_tcp_port_busy; then
         echo "WARNING: port 3306 still in use; MariaDB may fail to start" >&2
         ss -lptn 'sport = :3306' 2>/dev/null || true
+        return 1
+    fi
+
+    # Closing the listen socket happens early in shutdown; the process can keep
+    # flushing InnoDB/Aria pages (and holding the datadir's exclusive locks) for a
+    # while after that, longer on slower disks or larger databases. Starting a new
+    # mariadbd while the old one still holds those locks fails with misleading
+    # "Can't lock aria control file" / permission-denied errors, so wait for the
+    # process itself to fully exit too.
+    for i in $(seq 1 60); do
+        pgrep -x mysqld >/dev/null 2>&1 || pgrep -x mariadbd >/dev/null 2>&1 || return 0
+        sleep 0.5
+    done
+    if pgrep -x mysqld >/dev/null 2>&1 || pgrep -x mariadbd >/dev/null 2>&1; then
+        echo "WARNING: a mysqld/mariadbd process is still running; MariaDB may fail to start" >&2
         return 1
     fi
 }
