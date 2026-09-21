@@ -50,6 +50,7 @@ function main() {
             install_run services/mysql &
         fi    
         wait
+        [ "$DOCKER_MODE" != "true" ] && install_run services/mysql #for making sure mysql is running
         # Because we need to generate reality pair in panel
         # is_installed xray || bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.4
         
