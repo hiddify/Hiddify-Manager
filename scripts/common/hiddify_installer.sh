@@ -201,6 +201,8 @@ function update_config() {
             export HIDDIFY_DISABLE_UPDATE=true
             #update_from_github "hiddify-manager.tar.gz" "https://github.com/hiddify/Hiddify-Manager/archive/refs/tags/${package_mode}.tar.gz" $latest
             update_from_github "hiddify-manager.zip" "https://github.com/hiddify/Hiddify-Manager/releases/download/${package_mode}/hiddify-manager.zip" $latest
+            local update_code=$?
+            [[ $update_code == 0 ]] || return $update_code
             update_progress "Updated..." "Hiddify Config to $latest" 100
             return 0
         ;;
@@ -210,7 +212,8 @@ function update_config() {
             if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
                 update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
                 update_from_github "hiddify-manager.tar.gz" "https://github.com/hiddify/hiddify-manager/archive/refs/heads/dev.tar.gz" $latest
-                
+                local update_code=$?
+                [[ $update_code == 0 ]] || return $update_code
                 update_progress "Updated..." "Hiddify Config to $latest" 100
                 return 0
             fi
@@ -221,6 +224,8 @@ function update_config() {
             if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
                 update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
                 update_from_github "hiddify-manager.zip" "https://github.com/hiddify/hiddify-manager/releases/download/v$latest/hiddify-manager.zip"
+                local update_code=$?
+                [[ $update_code == 0 ]] || return $update_code
                 update_progress "Updated..." "Hiddify Config to $latest" 100
                 return 0
             fi
@@ -233,10 +238,12 @@ function update_config() {
             if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
                 update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
                 update_from_github "hiddify-manager.zip" "https://github.com/hiddify/hiddify-manager/releases/latest/download/hiddify-manager.zip"
+                local update_code=$?
+                [[ $update_code == 0 ]] || return $update_code
                 update_progress "Updated..." "Hiddify Config to $latest" 100
                 return 0
             fi
-            
+
         ;;
         *)
             echo "Unknown package mode: $package_mode"
@@ -305,6 +312,11 @@ function update_from_github() {
     rm "$file_name"
 
     bash scripts/install.sh --no-gui --no-log
+    local install_code=$?
+    if [[ $install_code != 0 ]]; then
+        echo "ERROR: scripts/install.sh exited with code $install_code (config files were updated but not applied)" >&2
+    fi
+    return $install_code
 }
 
 function custom_version_installer(){

@@ -71,9 +71,9 @@ endif
 	@echo "$${TAG}" > VERSION 
 	@make -C ./services/hiddify-panel/src release TAG=$${TAG}
 	@git tag $${TAG} > /dev/null
-	@gitchangelog > HISTORY.md || { git tag -d $${TAG}; echo "Please run pip install gitchangelog pystache mustache markdown"; exit 2; } 
+	@gitchangelog > docs/HISTORY.md || { git tag -d $${TAG}; echo "Please run pip install gitchangelog pystache mustache markdown"; exit 2; } 
 	@git tag -d $${TAG} > /dev/null
-	@git add VERSION HISTORY.md services/hiddify-panel/src
+	@git add VERSION docs/HISTORY.md services/hiddify-panel/src
 	@git commit -m "release: version $${TAG} 🚀" 
 	@echo "creating git tag : v$${TAG}" 
 	@git tag v$${TAG} 

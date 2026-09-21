@@ -25,6 +25,8 @@ if [ -z "$SQLALCHEMY_DATABASE_URI" ]; then
  
 fi
 
+source .venv313/bin/activate
+uv pip install -e services/hiddify-panel/src 
 
 DO_NOT_INSTALL=true /opt/hiddify-manager/scripts/install.sh docker --no-gui $@
 /opt/hiddify-manager/scripts/status.sh --no-gui
