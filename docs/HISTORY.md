@@ -1,6 +1,107 @@
 # Changelog
 
 
+## (unreleased)
+
+### New
+
+* Multi-node, installation speed up,fix:bug. [hiddify-com]
+
+* Add masterdns,slipstream and vaydns multidomain multi protocols. [hiddify-com]
+
+* Add docker working. [hiddify-com]
+
+### Fix
+
+* Ensure MySQL service is running in non-Docker mode. [hiddify-com]
+
+* Enhance MySQL user setup by directly applying security measures via SQL commands. [hiddify-com]
+
+* Ensure MySQL panel user synchronization after service restart. [hiddify-com]
+
+* Improve port freeing logic and add wait for mysqld/mariadbd shutdown. [hiddify-com]
+
+* Sudo issue in ubuntu 26. [hiddify-com]
+
+* Allow 'develop' branch in download script. [hiddify-com]
+
+* Update script. [hiddify-com]
+
+* Installer issue rm data. [hiddify-com]
+
+* Apply config. [hiddify-com]
+
+* Bug. [hiddify-com]
+
+* Name. [hiddify-com]
+
+* Sudoer docker. [hiddify-com]
+
+* Haproxy installation. [hiddify-com]
+
+### Other
+
+* Use flock  for locks. [hiddify-com]
+
+* Chore: update subproject commit reference in hiddify-panel. [hiddify-com]
+
+* Restructure. [hiddify-com]
+
+* Update. [hiddify-com]
+
+* Update for more concurrent requests. [hiddify-com]
+
+* Refactor: remove background tasks service and update hiddify-panel service configuration. [hiddify-com]
+
+* FixL mysql. [hiddify-com]
+
+* Chore: update configuration paths and improve data directory management for services. [hiddify-com]
+
+* Upgrade nginx to 1.30. [hiddify-com]
+
+* Refactor: update certificate synchronization logic in acme scripts. [hiddify-com]
+
+* Timeout if there is an error. [hiddify-com]
+
+* Update warp to 2.2.31. [hiddify-com]
+
+* Refactor: improve hiddify panel restart logic and update install script. [hiddify-com]
+
+* Working version. [hiddify-com]
+
+* Add sync config and all proxy supports. [hiddify-com]
+
+* Remove not needed errors. [hiddify-com]
+
+* Revert http proxy. [hiddify-com]
+
+* Add vless encryption, flow, insecure, http tcp none reality tcp, and much more. [hiddify-com]
+
+* Update. [hiddify-com]
+
+* Better docker support. [hiddify-com]
+
+* Add reset password and admin link. [hiddify-com]
+
+* Fix bug. [hiddify-com]
+
+* Fix need account for letsencrypt. [hiddify-com]
+
+* Fix install issue. [hiddify-com]
+
+* Update. [hiddify-com]
+
+* Early beta. [hiddify-com]
+
+* Feat: add rust-rpxy-l4 SNI proxy support and update installation scripts. [hiddify-com]
+
+* Update. [hiddify-com]
+
+* Update. [hiddify-com]
+
+* Update. [hiddify-com]
+
+
 ## v12.3.2 (2026-05-29)
 
 ### Other
