@@ -221,16 +221,21 @@ function start_mysql_server() {
 
 function setup_mysql_panel_user() {
     local pass="$1"
-    sudo mysql_secure_installation <<EOF || true
-y
-$pass
-$pass
-y
-y
-y
-y
-EOF
-
+    # mysql_secure_installation's prompt order/count depends on the installed
+    # MariaDB version (e.g. whether root already uses unix_socket auth), so a
+    # blind heredoc of answers can misalign and end up answering "current
+    # root password" with something other than empty. That corrupts root's
+    # auth, which then makes the "sudo mysql -u root" call inside
+    # sync_mysql_panel_user fail silently (its output is redirected to
+    # /dev/null), leaving the hiddifypanel DB user never created. Apply the
+    # same hardening directly via SQL instead, which only relies on root's
+    # unix_socket auth (true on a fresh install) and never modifies it.
+    sudo mysql -u root -e "DELETE FROM mysql.user WHERE User='';" >/dev/null 2>&1 || true
+    sudo mysql -u root -e "DROP DATABASE IF EXISTS test;" >/dev/null 2>&1 || true
+    sudo mysql -u root -e "DELETE FROM mysql.db WHERE Db='test' OR Db LIKE 'test\\\\_%';" >/dev/null 2>&1 || true
+    sudo mysql -u root -e "DELETE FROM mysql.user WHERE User='root' AND Host!='localhost';" >/dev/null 2>&1 || true
+    sudo mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED VIA unix_socket;" >/dev/null 2>&1 || true
+    sudo mysql -u root -e "FLUSH PRIVILEGES;" >/dev/null 2>&1 || true
     sync_mysql_panel_user "$pass"
 }
 

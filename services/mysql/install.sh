@@ -13,6 +13,6 @@ start_mysql_server
 # Secure root only on first password generation; always sync panel user to password file
 if [ "${HIDDIFY_MYSQL_PASS_IS_NEW:-0}" = "1" ]; then
     setup_mysql_panel_user "$MYSQL_PASS"
-    systemctl restart mariadb
+    start_mysql_server
 fi
 sync_mysql_panel_user "$MYSQL_PASS"
