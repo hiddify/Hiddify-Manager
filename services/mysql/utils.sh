@@ -230,6 +230,7 @@ y
 y
 y
 EOF
+
     sync_mysql_panel_user "$pass"
 }
 
