@@ -15,4 +15,9 @@ if [ "${HIDDIFY_MYSQL_PASS_IS_NEW:-0}" = "1" ]; then
     setup_mysql_panel_user "$MYSQL_PASS"
     start_mysql_server
 fi
-sync_mysql_panel_user "$MYSQL_PASS"
+# The installer continues on to services/hiddify-panel, which can only
+# connect with these credentials — fail here rather than there.
+if ! sync_mysql_panel_user "$MYSQL_PASS"; then
+    error "MySQL is not usable by the panel. Aborting so the panel is not installed against an unreachable database."
+    exit 1
+fi

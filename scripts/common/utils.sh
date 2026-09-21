@@ -3,6 +3,7 @@ export HIDDIFY_SCRIPTS="$HIDDIFY_DIR/scripts"
 export HIDDIFY_SERVICES="$HIDDIFY_DIR/services"
 export HIDDIFY_DATA="$HIDDIFY_DIR/data"
 export HIDDIFY_GENERATED="$HIDDIFY_DIR/generated"
+export HIDDIFY_LOCKS="$HIDDIFY_DATA/locks"
 # Single source of truth for the panel's durable config — must match the default
 # baked into hiddifypanel/__init__.py and base.py.
 export HIDDIFY_PANEL_CFG_PATH="$HIDDIFY_DATA/hiddify-panel/app.cfg"
@@ -218,34 +219,46 @@ function is_installed_package() {
     fi
 }
 install_package() {
-    local not_installed_packages=""
-    local package
+    # scripts/install.sh installs scripts/common, services/redis and
+    # services/mysql in parallel, so several apt runs would otherwise start at
+    # once and all but one fail on the dpkg lock. The failure path below then
+    # repairs them out of order, which can leave a package unpacked but
+    # unconfigured and run its postinst long after the service's own install
+    # script finished — for mariadb-server that postinst re-initializes the
+    # datadir and wipes the panel DB user services/mysql/install.sh just
+    # created. The lock also covers the is-installed check, so a second run
+    # cannot decide to install what the first one is already installing.
+    (
+        flock 9
+        local not_installed_packages=""
+        local package
 
-    for package in "$@"; do
-        if ! is_installed_package "$package"; then
-            # The package is not installed, add it to the list
-            not_installed_packages+=" $package"
+        for package in "$@"; do
+            if ! is_installed_package "$package"; then
+                # The package is not installed, add it to the list
+                not_installed_packages+=" $package"
+            fi
+        done
+
+        if [ -n "$not_installed_packages" ]; then
+            apt install -y --no-install-recommends $not_installed_packages
+
+            # Check if installation failed
+            if [ $? -ne 0 ]; then
+                apt --fix-broken install -y
+                apt update
+                #retries for 3 times
+                apt install -y $not_installed_packages ||apt install -y $not_installed_packages||apt install -y $not_installed_packages
+
+            fi
         fi
-    done
-
-    if [ -n "$not_installed_packages" ]; then
-        apt install -y --no-install-recommends $not_installed_packages
-
-        # Check if installation failed
-        if [ $? -ne 0 ]; then
-            apt --fix-broken install -y
-            apt update
-            #retries for 3 times
-            apt install -y $not_installed_packages ||apt install -y $not_installed_packages||apt install -y $not_installed_packages
-            
-        fi
-    fi
+    ) 9>"$(lock_file apt)"
 }
 
 function remove_package() {
     for package in $@; do
         if dpkg -l | grep -q "^ii  $package"; then
-            apt remove -y --auto-remove "$package"
+            with_lock apt apt remove -y --auto-remove "$package"
         fi
     done
 }
@@ -521,21 +534,38 @@ function log_file() {
     echo "$(log_dir)/${1}.log"
 }
 
+# Every mutex in hiddify is an flock on a file under $HIDDIFY_LOCKS. The kernel
+# ties the lock to the open file descriptor, so it is released the moment the
+# owning process goes away — clean exit, kill -9, crash or power loss alike.
+# The .lock files carry no state, so one left behind after a crash never blocks
+# a later run: there is nothing to clean up and no staleness timeout to tune.
+function lock_file() {
+    mkdir -p "$HIDDIFY_LOCKS" >/dev/null 2>&1
+    echo "$HIDDIFY_LOCKS/${1}.lock"
+}
+
+# Run a command while holding a named lock, waiting for it to become free.
+# -o keeps the command from passing the lock on to anything it spawns.
+function with_lock() {
+    local name="$1"
+    shift
+    flock -o "$(lock_file "$name")" "$@"
+}
+
+# Take a named lock for the lifetime of this shell, or fail fast if it is held.
 function set_lock() {
-    LOCK_DIR="/opt/hiddify-manager/data/log"
-    mkdir -p "$LOCK_DIR" >/dev/null 2>&1
-    LOCK_FILE=$LOCK_DIR/$1.lock
-    if [[ -f $LOCK_FILE && $(($(date +%s) - $(cat $LOCK_FILE))) -lt 120 ]]; then
-        error "Another installation is running.... Please wait until it finishes or wait 5 minutes or execute 'rm $LOCK_FILE'"
+    exec {HIDDIFY_LOCK_FD}>"$(lock_file "$1")"
+    if ! flock -n "$HIDDIFY_LOCK_FD"; then
+        error "Another installation is running.... Please wait until it finishes."
         exit 12
     fi
-    echo "$(date +%s)" >$LOCK_FILE
 }
 
 function remove_lock() {
-    LOCK_DIR="/opt/hiddify-manager/data/log"
-    LOCK_FILE=$LOCK_DIR/$1.lock
-    rm -f $LOCK_FILE >/dev/null 2>&1
+    [ -n "$HIDDIFY_LOCK_FD" ] || return 0
+    # Closing the descriptor is what releases the lock.
+    exec {HIDDIFY_LOCK_FD}>&-
+    unset HIDDIFY_LOCK_FD
 }
 
 
