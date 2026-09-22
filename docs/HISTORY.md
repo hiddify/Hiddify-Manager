@@ -13,6 +13,8 @@
 
 ### Fix
 
+* Update base URL for beta branch and improve post-update task handling. [hiddify-com]
+
 * Ensure MySQL service is running in non-Docker mode. [hiddify-com]
 
 * Enhance MySQL user setup by directly applying security measures via SQL commands. [hiddify-com]
@@ -40,6 +42,12 @@
 * Haproxy installation. [hiddify-com]
 
 ### Other
+
+* Chore: rename services/hiddify-panel to services/panel. [hiddify-com]
+
+  Update all references to the panel's service directory across
+  scripts, CI workflows, the Makefile, .gitmodules, and editor configs
+  to match.
 
 * Use flock  for locks. [hiddify-com]
 
