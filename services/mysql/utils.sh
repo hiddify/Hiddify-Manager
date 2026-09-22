@@ -49,15 +49,17 @@ function current_mysql_datadir() {
 
 # MariaDB's own unit (mariadb.service) is package-owned; alias it under our
 # naming convention the same way the package itself aliases mysql.service,
-# instead of forking the unit definition.
+# instead of forking the unit definition. Leave mariadb's own enablement
+# alone: "systemctl disable mariadb" removes it via a SysV-compat shim that
+# also deletes any *other* symlink pointing at mariadb.service (including
+# this alias) as a side effect, and it's unnecessary anyway since this alias
+# and "mariadb" both resolve to the exact same unit.
 function ensure_hiddify_mysql_alias() {
     local real_unit
     real_unit="$(systemctl show -p FragmentPath --value mariadb 2>/dev/null)"
     [ -n "$real_unit" ] || real_unit="/usr/lib/systemd/system/mariadb.service"
     ln -sf "$real_unit" /etc/systemd/system/hiddify-mysql.service
     systemctl daemon-reload >/dev/null 2>&1 || true
-    systemctl disable mariadb >/dev/null 2>&1 || true
-    systemctl enable hiddify-mysql >/dev/null 2>&1 || true
 }
 
 function mysql_tcp_port_busy() {
