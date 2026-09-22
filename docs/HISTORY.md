@@ -13,6 +13,8 @@
 
 ### Fix
 
+* Mysql. [hiddify-com]
+
 * Update base URL for beta branch and improve post-update task handling. [hiddify-com]
 
 * Ensure MySQL service is running in non-Docker mode. [hiddify-com]
@@ -42,6 +44,8 @@
 * Haproxy installation. [hiddify-com]
 
 ### Other
+
+* Chore: update subproject commit reference in panel service. [hiddify-com]
 
 * Chore: rename services/hiddify-panel to services/panel. [hiddify-com]
 
