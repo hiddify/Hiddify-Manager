@@ -428,7 +428,7 @@ function check_hiddify_panel() {
 
         # (cd hiddify-panel && python3 -m hiddifypanel admin-links)
         
-        for s in hiddify-xray hiddify-core hiddify-nginx hiddify-haproxy mysql; do
+        for s in hiddify-xray hiddify-core hiddify-nginx hiddify-haproxy hiddify-mysql; do
             [ $s == "hiddify-xray" ] && [ "$(hconfig 'core_type')" != "xray" ] && continue
             [ $s == "mysql" ] && [ "$DOCKER_MODE" == "true" ] && continue
             s=${s##*/}
