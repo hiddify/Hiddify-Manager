@@ -5,7 +5,10 @@ HIDDIFY_MYSQL_DATA="$HIDDIFY_DATA/mysql"
 # Do not pre-create this as an empty dir — it blocks the atomic mv in migrate_mysql_datadir.
 HIDDIFY_MYSQL_DATADIR="$HIDDIFY_MYSQL_DATA/db"
 HIDDIFY_MYSQL_PASS_FILE="$HIDDIFY_MYSQL_DATA/mysql_pass"
-HIDDIFY_MYSQL_DROPIN="/etc/mysql/mariadb.conf.d/99-hiddify.cnf"
+# Live, permanent server config (copied once from services/mysql/my.cnf).
+# hiddify-mysql.service loads this exclusively via --defaults-file; it never
+# reads /etc/mysql.
+HIDDIFY_MYSQL_CONF="$HIDDIFY_MYSQL_DATA/my.cnf"
 
 function get_mysql_password() {
     cat "$HIDDIFY_MYSQL_PASS_FILE"
@@ -47,19 +50,63 @@ function current_mysql_datadir() {
     printf '%s\n' "$dir"
 }
 
-# MariaDB's own unit (mariadb.service) is package-owned; alias it under our
-# naming convention the same way the package itself aliases mysql.service,
-# instead of forking the unit definition. Leave mariadb's own enablement
-# alone: "systemctl disable mariadb" removes it via a SysV-compat shim that
-# also deletes any *other* symlink pointing at mariadb.service (including
-# this alias) as a side effect, and it's unnecessary anyway since this alias
-# and "mariadb" both resolve to the exact same unit.
-function ensure_hiddify_mysql_alias() {
-    local real_unit
-    real_unit="$(systemctl show -p FragmentPath --value mariadb 2>/dev/null)"
-    [ -n "$real_unit" ] || real_unit="/usr/lib/systemd/system/mariadb.service"
-    ln -sf "$real_unit" /etc/systemd/system/hiddify-mysql.service
+# hiddify-mysql.service is Hiddify's own unit (services/mysql/hiddify-mysql.service),
+# not an alias of the package's mariadb.service — the package unit's
+# sandboxing/config assumptions vary across distro/MariaDB versions and have
+# been observed to reject writes to a relocated datadir outright (e.g. an
+# AppArmor profile shipped by newer mariadb-server packages that confines
+# mariadbd to /var/lib/mysql regardless of which systemd unit starts it).
+# Owning the unit keeps every persistent path under our control.
+#
+# The package's own mariadb.service is disabled (not removed) so apt's
+# postinst can still use it for its one-shot init/upgrade steps without it
+# fighting hiddify-mysql.service for port 3306 / the datadir lock.
+function install_hiddify_mysql_unit() {
+    systemctl disable --now mariadb >/dev/null 2>&1 || true
+
+    ln -sf "$HIDDIFY_SERVICES/mysql/hiddify-mysql.service" /etc/systemd/system/hiddify-mysql.service
     systemctl daemon-reload >/dev/null 2>&1 || true
+    systemctl enable hiddify-mysql >/dev/null 2>&1 || true
+
+    ensure_mysql_apparmor_override
+}
+
+# Newer mariadb-server packages (observed starting with MariaDB 11.x on
+# Ubuntu 24.04+) ship an AppArmor profile for /usr/sbin/mariadbd that only
+# permits /var/lib/mysql. AppArmor confines by executable path, so it applies
+# no matter which systemd unit launches mariadbd — without this override the
+# server gets "Permission denied" writing to the relocated datadir even
+# though Unix ownership is correct. Debian/Ubuntu AppArmor profiles are
+# written to #include local/<profile> for exactly this kind of site-local
+# customization, so this only ever adds permissions, never forks the profile.
+function ensure_mysql_apparmor_override() {
+    local profile=/etc/apparmor.d/usr.sbin.mysqld
+    command -v apparmor_parser >/dev/null 2>&1 || return 0
+    [ -f "$profile" ] || return 0
+
+    mkdir -p /etc/apparmor.d/local
+    cat >/etc/apparmor.d/local/usr.sbin.mysqld <<'EOF'
+# Managed by hiddify-manager (services/mysql/utils.sh). Grants mariadbd
+# access to Hiddify's relocated, permanent datadir.
+/opt/hiddify-manager/data/mysql/ r,
+/opt/hiddify-manager/data/mysql/** rwk,
+EOF
+    apparmor_parser -r "$profile" 2>/dev/null || true
+}
+
+function ensure_mysql_data_dirs() {
+    mkdir -p "$HIDDIFY_MYSQL_DATA"
+    chown mysql:mysql "$HIDDIFY_MYSQL_DATA" 2>/dev/null || true
+}
+
+# Live my.cnf: copied from the package template once, so local edits survive
+# upgrades (mirrors services/redis/utils.sh's ensure_redis_data).
+function ensure_mysql_conf() {
+    ensure_mysql_data_dirs
+    if [ ! -f "$HIDDIFY_MYSQL_CONF" ]; then
+        cp "$HIDDIFY_SERVICES/mysql/my.cnf" "$HIDDIFY_MYSQL_CONF"
+    fi
+    chown mysql:mysql "$HIDDIFY_MYSQL_CONF" 2>/dev/null || true
 }
 
 function mysql_tcp_port_busy() {
@@ -127,20 +174,8 @@ function migrate_mysql_datadir() {
     [ "$src" = "$dst" ] && return 0
     [ -d "$src/mysql" ] || return 0
 
-    if [ -d "$dst/mysql" ]; then
-        # Already migrated; ensure legacy path is a symlink for package compatibility
-        if [ ! -L /var/lib/mysql ] && [ /var/lib/mysql != "$dst" ]; then
-            :
-        fi
-        if [ ! -e /var/lib/mysql ]; then
-            ln -sfn "$dst" /var/lib/mysql
-            chown -h mysql:mysql /var/lib/mysql
-        elif [ -L /var/lib/mysql ]; then
-            ln -sfn "$dst" /var/lib/mysql
-            chown -h mysql:mysql /var/lib/mysql
-        fi
-        return 0
-    fi
+    # Already migrated.
+    [ -d "$dst/mysql" ] && return 0
 
     echo "Moving MariaDB databases from $src to $dst ..."
     free_mysql_listen_port || true
@@ -161,17 +196,14 @@ function migrate_mysql_datadir() {
     fi
 
     chown -R mysql:mysql "$dst"
-    rm -rf /var/lib/mysql
-    ln -sfn "$dst" /var/lib/mysql
-    chown -h mysql:mysql /var/lib/mysql
     echo "MariaDB datadir move complete."
 }
 
 # Initialize the datadir's system tables if they don't exist yet.
 # Needed because migrate_mysql_datadir only relocates an already-initialized
 # datadir; it does nothing when the source datadir is itself empty (e.g. after
-# the data dir was wiped, or on a host where the package postinst skipped
-# initialization because /var/lib/mysql was already a symlink).
+# the data dir was wiped, or on a fresh host where the package postinst never
+# got to initialize a default datadir at all).
 function ensure_mysql_initialized() {
     local datadir="$1"
     [ -d "$datadir/mysql" ] && return 0
@@ -188,34 +220,27 @@ function ensure_mysql_initialized() {
 
 function configure_mysql_server() {
     local datadir="$HIDDIFY_MYSQL_DATADIR"
-    local conf="/etc/mysql/mariadb.conf.d/50-server.cnf"
 
     mkdir -p "$datadir"
     chown -R mysql:mysql "$datadir"
     ensure_mysql_initialized "$datadir"
+    ensure_mysql_conf
+    cleanup_legacy_mysql_paths
+}
 
-    cat >"$HIDDIFY_MYSQL_DROPIN" <<EOF
-[mysqld]
-datadir = $datadir
-bind-address = 127.0.0.1
-EOF
+# Removes artifacts from the pre-hiddify-mysql-service layout (the
+# /etc/mysql dropin and the /var/lib/mysql symlink) now that the server
+# never reads /etc/mysql or /var/lib/mysql. Never touches a real directory —
+# only a symlink already resolving to our own datadir is removed — so this
+# cannot lose data.
+function cleanup_legacy_mysql_paths() {
+    rm -f /etc/mysql/mariadb.conf.d/99-hiddify.cnf
 
-    if [ -f "$conf" ]; then
-        if grep -q "^#\+bind-address" "$conf"; then
-            sed -i "s/^#\+bind-address\s*=\s*[0-9.]*/bind-address = 127.0.0.1/" "$conf"
-        elif grep -q "^[^#]*bind-address" "$conf"; then
-            sed -i "s/^bind-address\s*=.*/bind-address = 127.0.0.1/" "$conf"
-        elif grep -q "^\[mysqld\]" "$conf"; then
-            sed -i "/\[mysqld\]/a bind-address = 127.0.0.1" "$conf"
-        fi
-    fi
-
-    if [ ! -e /var/lib/mysql ]; then
-        ln -sfn "$datadir" /var/lib/mysql
-        chown -h mysql:mysql /var/lib/mysql
-    elif [ -L /var/lib/mysql ]; then
-        ln -sfn "$datadir" /var/lib/mysql
-        chown -h mysql:mysql /var/lib/mysql
+    if [ -L /var/lib/mysql ]; then
+        local target real_datadir
+        target="$(readlink -f /var/lib/mysql 2>/dev/null)"
+        real_datadir="$(readlink -f "$HIDDIFY_MYSQL_DATADIR" 2>/dev/null)"
+        [ -n "$target" ] && [ "$target" = "$real_datadir" ] && rm -f /var/lib/mysql
     fi
 }
 

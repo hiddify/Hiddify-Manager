@@ -4,11 +4,11 @@ source /opt/hiddify-manager/services/mysql/utils.sh
 cd "$(dirname -- "$0")"
 
 install_package mariadb-server
-ensure_hiddify_mysql_alias
 
 MYSQL_PASS="$(ensure_mysql_password)"
 migrate_mysql_datadir "$(current_mysql_datadir)" "$HIDDIFY_MYSQL_DATADIR"
 configure_mysql_server
+install_hiddify_mysql_unit
 start_mysql_server
 
 # Secure root only on first password generation; always sync panel user to password file
