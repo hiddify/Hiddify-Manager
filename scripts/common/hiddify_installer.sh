@@ -266,7 +266,7 @@ function post_update_tasks() {
 
     if [ "$package_mode" != "docker" ];then
       if [[ $panel_update == 0 && $config_update != 0 ]]; then
-          bash /opt/hiddify-manager/scripts/apply_configs.sh --no-gui --no-log
+          hiddify apply || bash /opt/hiddify-manager/scripts/apply_configs.sh --no-gui --no-log
       elif [[ $panel_update == 0 ]]; then
           restart_hiddify_panel restart
       else
