@@ -63,35 +63,60 @@ function current_mysql_datadir() {
 # fighting hiddify-mysql.service for port 3306 / the datadir lock.
 function install_hiddify_mysql_unit() {
     systemctl disable --now mariadb >/dev/null 2>&1 || true
+    # Clear any "failed" status left over from the package's own postinst
+    # trying (and possibly failing) to start mariadb.service before we got a
+    # chance to fix ownership/config — cosmetic only, does not affect data.
+    systemctl reset-failed mariadb >/dev/null 2>&1 || true
 
     ln -sf "$HIDDIFY_SERVICES/mysql/hiddify-mysql.service" /etc/systemd/system/hiddify-mysql.service
     systemctl daemon-reload >/dev/null 2>&1 || true
     systemctl enable hiddify-mysql >/dev/null 2>&1 || true
-
-    ensure_mysql_apparmor_override
 }
 
 # Newer mariadb-server packages (observed starting with MariaDB 11.x on
-# Ubuntu 24.04+) ship an AppArmor profile for /usr/sbin/mariadbd that only
+# Ubuntu 24.04+) ship an AppArmor profile for the mariadbd binary that only
 # permits /var/lib/mysql. AppArmor confines by executable path, so it applies
 # no matter which systemd unit launches mariadbd — without this override the
-# server gets "Permission denied" writing to the relocated datadir even
-# though Unix ownership is correct. Debian/Ubuntu AppArmor profiles are
-# written to #include local/<profile> for exactly this kind of site-local
-# customization, so this only ever adds permissions, never forks the profile.
+# server gets "Permission denied" (surfaced by mariadbd as a generic "Could
+# not open" for any file under the relocated datadir, including my.cnf
+# itself) even though Unix ownership is correct.
+#
+# The profile's filename isn't standardized across packaging generations
+# (older packages used usr.sbin.mysqld; newer ones use usr.sbin.mariadbd, or
+# possibly something else) — so instead of guessing a name, search every
+# apparmor.d profile for one that actually confines /usr/sbin/mariadbd and
+# patch that one. Debian/Ubuntu profiles are written to #include
+# local/<profile> for exactly this kind of site-local customization, so this
+# only ever adds permissions, never forks the profile.
 function ensure_mysql_apparmor_override() {
-    local profile=/etc/apparmor.d/usr.sbin.mysqld
     command -v apparmor_parser >/dev/null 2>&1 || return 0
-    [ -f "$profile" ] || return 0
+    [ -d /etc/apparmor.d ] || return 0
 
-    mkdir -p /etc/apparmor.d/local
-    cat >/etc/apparmor.d/local/usr.sbin.mysqld <<'EOF'
+    # Profile filenames are not standardized across packaging generations
+    # (usr.sbin.mysqld, usr.sbin.mariadbd, or something else entirely), so scan
+    # every top-level profile rather than guessing a name. Subdirectories are
+    # skipped on purpose: abstractions/, tunables/, local/ and disable/ are
+    # includes and overrides, not profiles.
+    local profile local_name
+    for profile in /etc/apparmor.d/*; do
+        [ -f "$profile" ] || continue
+        grep -qE '(^|[[:space:]])/usr/sbin/(mariadbd|mysqld)([[:space:],{]|$)' "$profile" 2>/dev/null || continue
+        local_name="$(basename "$profile")"
+        # A profile the package deliberately disabled (symlinked into
+        # /etc/apparmor.d/disable) confines nothing; reloading it here would
+        # start enforcing a profile the system opted out of. Note that current
+        # mariadb-server packages instead ship an *empty* stub profile, which
+        # never matches the grep above and so is skipped already.
+        [ -e "/etc/apparmor.d/disable/$local_name" ] && continue
+        mkdir -p /etc/apparmor.d/local
+        cat >"/etc/apparmor.d/local/$local_name" <<'EOF'
 # Managed by hiddify-manager (services/mysql/utils.sh). Grants mariadbd
 # access to Hiddify's relocated, permanent datadir.
 /opt/hiddify-manager/data/mysql/ r,
 /opt/hiddify-manager/data/mysql/** rwk,
 EOF
-    apparmor_parser -r "$profile" 2>/dev/null || true
+        apparmor_parser -r "$profile" 2>/dev/null || true
+    done
 }
 
 function ensure_mysql_data_dirs() {
@@ -104,9 +129,18 @@ function ensure_mysql_data_dirs() {
 function ensure_mysql_conf() {
     ensure_mysql_data_dirs
     if [ ! -f "$HIDDIFY_MYSQL_CONF" ]; then
-        cp "$HIDDIFY_SERVICES/mysql/my.cnf" "$HIDDIFY_MYSQL_CONF"
+        local template="$HIDDIFY_SERVICES/mysql/my.cnf"
+        if [ ! -f "$template" ]; then
+            echo "ERROR: $template is missing — hiddify-mysql.service has no config to start with. Re-deploy services/mysql/ before retrying." >&2
+            return 1
+        fi
+        cp "$template" "$HIDDIFY_MYSQL_CONF"
     fi
     chown mysql:mysql "$HIDDIFY_MYSQL_CONF" 2>/dev/null || true
+    # mariadbd opens --defaults-file after systemd has already dropped it to
+    # User=mysql, and an unreadable mode surfaces only as the opaque
+    # "Could not open required defaults file" — same message as a missing file.
+    chmod 0644 "$HIDDIFY_MYSQL_CONF" 2>/dev/null || true
 }
 
 function mysql_tcp_port_busy() {
@@ -221,6 +255,11 @@ function ensure_mysql_initialized() {
 function configure_mysql_server() {
     local datadir="$HIDDIFY_MYSQL_DATADIR"
 
+    # Before anything writes to the relocated datadir: mariadb-install-db runs
+    # the confined mariadbd binary too, so the override has to be in place
+    # first or a fresh install fails while initializing system tables.
+    ensure_mysql_apparmor_override
+
     mkdir -p "$datadir"
     chown -R mysql:mysql "$datadir"
     ensure_mysql_initialized "$datadir"
@@ -244,7 +283,36 @@ function cleanup_legacy_mysql_paths() {
     fi
 }
 
+# mariadbd aborts during defaults handling when it cannot open the file named
+# by --defaults-file, and prints the same "Could not open required defaults
+# file" whether the file is missing, unreadable, or blocked by a directory
+# above it. The unit hardcodes that path, so check the exact path the unit
+# uses (not just $HIDDIFY_MYSQL_CONF) and report which of those it is.
+function assert_mysql_conf_ready() {
+    local unit="$HIDDIFY_SERVICES/mysql/hiddify-mysql.service"
+    local conf
+    conf="$(sed -n 's/^ExecStart=.*--defaults-file=\([^ ]*\).*/\1/p' "$unit" 2>/dev/null | head -1)"
+    [ -n "$conf" ] || conf="$HIDDIFY_MYSQL_CONF"
+
+    ensure_mysql_conf || return 1
+    if [ "$conf" != "$HIDDIFY_MYSQL_CONF" ]; then
+        echo "WARNING: $unit starts mariadbd with --defaults-file=$conf, but these scripts manage $HIDDIFY_MYSQL_CONF" >&2
+    fi
+
+    if [ ! -f "$conf" ]; then
+        echo "ERROR: $conf does not exist — mariadbd cannot start without it." >&2
+        namei -l "$conf" >&2 2>/dev/null || true
+        return 1
+    fi
+    if ! sudo -u mysql test -r "$conf"; then
+        echo "ERROR: user mysql cannot read $conf — check its mode/ownership and every directory above it." >&2
+        namei -l "$conf" >&2 2>/dev/null || true
+        return 1
+    fi
+}
+
 function start_mysql_server() {
+    assert_mysql_conf_ready || return 1
     free_mysql_listen_port || true
     systemctl restart hiddify-mysql || systemctl start hiddify-mysql
     local i
@@ -256,6 +324,9 @@ function start_mysql_server() {
     done
     echo "ERROR: MariaDB failed to become ready" >&2
     systemctl status hiddify-mysql --no-pager -l 2>&1 | tail -20 >&2 || true
+    # status shows only the last few lines; mariadbd's own startup errors
+    # (datadir permissions, corrupt tablespace, port in use) are in the journal.
+    journalctl -u hiddify-mysql --no-pager -n 40 2>/dev/null | tail -40 >&2 || true
     return 1
 }
 

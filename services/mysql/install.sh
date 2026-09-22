@@ -7,7 +7,10 @@ install_package mariadb-server
 
 MYSQL_PASS="$(ensure_mysql_password)"
 migrate_mysql_datadir "$(current_mysql_datadir)" "$HIDDIFY_MYSQL_DATADIR"
-configure_mysql_server
+configure_mysql_server || {
+    error "Failed to configure MariaDB (see above). Aborting before starting the service."
+    exit 1
+}
 install_hiddify_mysql_unit
 start_mysql_server
 
