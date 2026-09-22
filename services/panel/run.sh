@@ -5,7 +5,7 @@ activate_python_venv
 
 mkdir -p "$HIDDIFY_DATA/hiddify-panel" "$HIDDIFY_DATA/log/system"
 
-PANEL_DIR="/opt/hiddify-manager/services/hiddify-panel"
+PANEL_DIR="/opt/hiddify-manager/services/panel"
 APP_CFG="$HIDDIFY_PANEL_CFG_PATH"
 TEMPLATE_CFG="$PANEL_DIR/app.cfg"
 
@@ -47,7 +47,7 @@ echo "REDIS_URI_MAIN = '$REDIS_URI_MAIN'" >>"$APP_CFG"
 chown hiddify-panel:hiddify-panel "$APP_CFG"
 
 if [ -f "/opt/hiddify-manager/config.env" ]; then
-    # systemctl restart --now mariadb
+    # systemctl restart --now hiddify-mysql
     # sleep 4
 
     hiddify-panel-cli import-config -c /opt/hiddify-manager/config.env

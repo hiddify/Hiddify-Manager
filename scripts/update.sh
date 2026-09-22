@@ -44,7 +44,7 @@ function main() {
     rm -rf sniproxy caddy
     update_progress "Hiddify Updater" "Creating a backup" 5
     echo "Creating a backup ..."
-    ./services/hiddify-panel/backup.sh
+    ./services/panel/backup.sh
 
     update_script="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/main/scripts/common/download.sh"
     case "$package_mode" in

@@ -54,7 +54,7 @@ function main() {
         # Because we need to generate reality pair in panel
         # is_installed xray || bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.4
         
-        install_run services/hiddify-panel
+        install_run services/panel
     fi
     
     # source /opt/hiddify-manager/scripts/common/set_config_from_hpanel.sh

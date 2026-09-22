@@ -1,0 +1,11 @@
+# This is not a standalone unit definition. MariaDB's real systemd unit
+# (mariadb.service) is owned and upgraded by the mariadb-server package, so
+# forking it here would drift out of sync. install.sh instead symlinks
+# /etc/systemd/system/hiddify-mysql.service straight to the installed
+# mariadb.service unit — the same alias mechanism the package itself uses
+# for mysql.service — so systemctl operations on "hiddify-mysql" act on the
+# real MariaDB service.
+#
+# This file exists so scripts/restart.sh and scripts/status.sh, which
+# discover services via `services/**/*.service`, pick up "hiddify-mysql"
+# like every other service.

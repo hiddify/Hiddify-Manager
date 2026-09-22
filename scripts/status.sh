@@ -36,7 +36,7 @@ function main(){
         s=${s%%.*}
         [ $s == "wg-quick@warp" ] && [ $(hconfig "warp_mode") == "disable" ] && continue
         
-        [ $s == "mysql" ] && [ "$DOCKER_MODE" == "true" ] && continue
+        [ $s == "hiddify-mysql" ] && [ "$DOCKER_MODE" == "true" ] && continue
         
         (if systemctl is-enabled $s >/dev/null 2>&1 ; then
             status=$(get_pretty_service_status $s 2>&1)

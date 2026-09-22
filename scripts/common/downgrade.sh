@@ -1,4 +1,4 @@
-cd /opt/hiddify-manager/services/hiddify-panel
+cd /opt/hiddify-manager/services/panel
 
 source /opt/hiddify-manager/scripts/common/utils.sh
 activate_python_venv

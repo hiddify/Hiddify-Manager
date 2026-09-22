@@ -6,7 +6,7 @@ Wants=network-online.target
 [Service]
 Type=simple
 User=hiddify-panel
-WorkingDirectory=/opt/hiddify-manager/services/hiddify-panel/
+WorkingDirectory=/opt/hiddify-manager/services/panel/
 Environment="LANG=C.UTF-8"
 Environment="HIDDIFY_CFG_PATH=/opt/hiddify-manager/data/hiddify-panel/app.cfg"
 # Cap glibc's per-thread malloc arenas; with multiple threads this otherwise

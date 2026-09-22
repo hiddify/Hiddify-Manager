@@ -47,13 +47,26 @@ function current_mysql_datadir() {
     printf '%s\n' "$dir"
 }
 
+# MariaDB's own unit (mariadb.service) is package-owned; alias it under our
+# naming convention the same way the package itself aliases mysql.service,
+# instead of forking the unit definition.
+function ensure_hiddify_mysql_alias() {
+    local real_unit
+    real_unit="$(systemctl show -p FragmentPath --value mariadb 2>/dev/null)"
+    [ -n "$real_unit" ] || real_unit="/usr/lib/systemd/system/mariadb.service"
+    ln -sf "$real_unit" /etc/systemd/system/hiddify-mysql.service
+    systemctl daemon-reload >/dev/null 2>&1 || true
+    systemctl disable mariadb >/dev/null 2>&1 || true
+    systemctl enable hiddify-mysql >/dev/null 2>&1 || true
+}
+
 function mysql_tcp_port_busy() {
     ss -lptn 'sport = :3306' 2>/dev/null | grep -q ':3306'
 }
 
 # Stop host MariaDB and anything else holding 127.0.0.1:3306 (e.g. docker mariadb).
 function free_mysql_listen_port() {
-    systemctl stop mariadb 2>/dev/null || true
+    systemctl stop hiddify-mysql 2>/dev/null || true
 
     local pid
     for pid in $(pgrep -x mysqld 2>/dev/null; pgrep -x mariadbd 2>/dev/null); do
@@ -206,7 +219,7 @@ EOF
 
 function start_mysql_server() {
     free_mysql_listen_port || true
-    systemctl restart mariadb || systemctl start mariadb
+    systemctl restart hiddify-mysql || systemctl start hiddify-mysql
     local i
     for i in $(seq 1 30); do
         if [ -S /var/run/mysqld/mysqld.sock ] || mysqladmin ping --silent 2>/dev/null; then
@@ -215,7 +228,7 @@ function start_mysql_server() {
         sleep 0.5
     done
     echo "ERROR: MariaDB failed to become ready" >&2
-    systemctl status mariadb --no-pager -l 2>&1 | tail -20 >&2 || true
+    systemctl status hiddify-mysql --no-pager -l 2>&1 | tail -20 >&2 || true
     return 1
 }
 

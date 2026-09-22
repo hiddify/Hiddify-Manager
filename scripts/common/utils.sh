@@ -590,7 +590,7 @@ function hconfig() {
 #TODO: check functionality when not using the venv
 function hiddify-panel-run() {
     local user=$(whoami)
-    local base_command="export HIDDIFY_CFG_PATH='$HIDDIFY_PANEL_CFG_PATH'; cd /opt/hiddify-manager/services/hiddify-panel/; source ${venv_path}/bin/activate && $@"
+    local base_command="export HIDDIFY_CFG_PATH='$HIDDIFY_PANEL_CFG_PATH'; cd /opt/hiddify-manager/services/panel/; source ${venv_path}/bin/activate && $@"
     local command=""
 
     if [ "$user" == "hiddify-panel" ]; then
@@ -644,7 +644,7 @@ function disable_panel_services() {
     # rm /etc/cron.d/hiddify_auto_backup
     # service cron reload >/dev/null 2>&1
     # kill -9 $(pgrep -f 'hiddifypanel update-usage')
-    # systemctl restart mariadb
+    # systemctl restart hiddify-mysql
     echo ""
 }
 

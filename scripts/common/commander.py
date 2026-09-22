@@ -20,8 +20,8 @@ class Command(StrEnum):
     status = os.path.join(HIDDIFY_DIR, "scripts/status.sh")
     restart_services = os.path.join(HIDDIFY_DIR, "scripts/restart.sh")
     temporary_short_link = os.path.join(HIDDIFY_DIR, "services/nginx/add2shortlink.sh")
-    temporary_access = os.path.join(HIDDIFY_DIR, "services/hiddify-panel/temporary_access.sh")
-    update_usage = os.path.join(HIDDIFY_DIR, "services/hiddify-panel/update_usage.sh")
+    temporary_access = os.path.join(HIDDIFY_DIR, "services/panel/temporary_access.sh")
+    update_usage = os.path.join(HIDDIFY_DIR, "services/panel/update_usage.sh")
     get_cert = os.path.join(HIDDIFY_DIR, "services/acme.sh/get_cert.sh")
     # apply-users command is actually "install.sh apply_users"
     apply_users = os.path.join(HIDDIFY_DIR, "scripts/install.sh")

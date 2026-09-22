@@ -12,7 +12,7 @@ if [ "$MODE" != "docker" ];then
   if [[ "$CURRENT_TZ" != "$TIMEZONE" ]]; then
       echo "Current timezone is $CURRENT_TZ. Changing to $TIMEZONE..."
       sudo timedatectl set-timezone "$TIMEZONE"
-      sudo systemctl restart mariadb
+      sudo systemctl restart hiddify-mysql
   fi
 fi
 

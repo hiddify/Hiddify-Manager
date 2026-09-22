@@ -1,6 +1,6 @@
 #!/bin/bash
 # Regenerate server configs from the panel (no service restart).
-cd /opt/hiddify-manager/services/hiddify-panel
+cd /opt/hiddify-manager/services/panel
 source /opt/hiddify-manager/scripts/common/utils.sh
 ensure_hiddify_data_dirs
 activate_python_venv

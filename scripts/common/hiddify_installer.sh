@@ -91,7 +91,7 @@ function update_panel() {
             activate_python_venv
             # install_python310
             # uv pip install -U --no-deps --force-reinstall hiddify-panel/src
-            uv pip install /opt/hiddify-manager/services/hiddify-panel/src 
+            uv pip install /opt/hiddify-manager/services/panel/src 
             # pip install -U hiddifypanel
         ;;
         v*)

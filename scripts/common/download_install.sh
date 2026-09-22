@@ -80,7 +80,7 @@ sed -i \
     ~/.bashrc
 echo "hiddify" >>~/.bashrc
 if [ "$CREATE_EASYSETUP_LINK" == "true" ];then
-    cd /opt/$GITHUB_REPOSITORY/services/hiddify-panel
+    cd /opt/$GITHUB_REPOSITORY/services/panel
     hiddify-panel-cli set-setting --key create_easysetup_link --val True
 fi
 
