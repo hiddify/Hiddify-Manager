@@ -13,6 +13,16 @@
 
 ### Fix
 
+* Update hiddify-mysql service reference in utility functions. [hiddify-com]
+
+  - Added hiddify-mysql to the list of services in the check_hiddify_panel function to ensure proper handling during panel checks.
+
+* Improve MySQL installation script and utility functions. [hiddify-com]
+
+  - Added error handling to the MySQL configuration step to abort if configuration fails.
+  - Included a command to reset the status of the MariaDB service to clear any failed states.
+  - Enhanced the MySQL configuration function to check for the existence of the configuration template before copying, providing a clearer error message if missing.
+
 * Mysql. [hiddify-com]
 
 * Update base URL for beta branch and improve post-update task handling. [hiddify-com]
@@ -44,6 +54,13 @@
 * Haproxy installation. [hiddify-com]
 
 ### Other
+
+* Feat: implement hiddify-mysql service and configuration. [hiddify-com]
+
+  - Added a new systemd service unit for Hiddify's MariaDB, ensuring proper management and isolation of the database service.
+  - Created a dedicated MySQL configuration file to handle database settings independently from the default MariaDB configuration.
+  - Updated installation script to include the new service setup and ensure proper initialization of the MySQL data directory.
+  - Enhanced utility functions to manage AppArmor profiles and legacy paths for improved security and compatibility.
 
 * Chore: update subproject commit reference in panel service. [hiddify-com]
 
