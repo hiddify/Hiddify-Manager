@@ -13,6 +13,17 @@
 
 ### Fix
 
+* Enhance nginx installation script for better distro detection. [hiddify-com]
+
+  - Improved the logic for determining the distribution codename to prevent malformed sources.list entries on minimal images.
+  - Added error handling to skip adding the nginx repository if the distro codename cannot be detected, ensuring smoother installation processes.
+
+* Refactor TLS store synchronization in ACME scripts. [hiddify-com]
+
+  - Replaced direct calls to hiddify-panel-cli sync-tls-store with a new sync_tls_store function for improved consistency and maintainability.
+  - Updated relevant scripts to source the new utils.sh file, ensuring all necessary functions are available.
+  - Enhanced the get_cert and run scripts to utilize the new synchronization method, streamlining the certificate installation process.
+
 * Update hiddify-mysql service reference in utility functions. [hiddify-com]
 
   - Added hiddify-mysql to the list of services in the check_hiddify_panel function to ensure proper handling during panel checks.
