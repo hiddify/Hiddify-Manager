@@ -3,6 +3,7 @@ shopt -s expand_aliases
 
 source /opt/hiddify-manager/data/services/acme.sh/acme.sh.env
 source /opt/hiddify-manager/scripts/common/utils.sh
+source /opt/hiddify-manager/services/acme.sh/utils.sh
 # Function to check if a domain is restricted
 is_ok_domain_zerossl() {
     domain="$1"
@@ -124,7 +125,7 @@ function get_cert() {
             acme.sh --installcert -d $DOMAIN \
                 --fullchainpath $ssl_cert_path/$DOMAIN.crt \
                 --keypath $ssl_cert_path/$DOMAIN.crt.key \
-                --reloadcmd "bash -c 'source /opt/hiddify-manager/scripts/common/utils.sh && hiddify-panel-cli sync-tls-store -d \"$DOMAIN\"'"
+                --reloadcmd "bash -c 'source /opt/hiddify-manager/scripts/common/utils.sh && source /opt/hiddify-manager/services/acme.sh/utils.sh && sync_tls_store \"$DOMAIN\"'"
             err=$?
             if [[ $err == 0 ]] && ! is_valid_x509 "$ssl_cert_path/$DOMAIN.crt"; then
                 error "Installed certificate for $DOMAIN is missing or invalid"
@@ -145,7 +146,7 @@ function get_cert() {
 
     set_files_in_folder_readable_to_hiddify_common_group "$ssl_cert_path"
     # Always re-import after ACME/self-signed so tls_store cannot keep a stale/wrong cert.
-    hiddify-panel-cli sync-tls-store -d "$DOMAIN" || true
+    sync_tls_store "$DOMAIN" || true
 }
 
 
@@ -200,5 +201,5 @@ function get_self_signed_cert() {
         set_files_in_folder_readable_to_hiddify_common_group /opt/hiddify-manager/data/ssl
     fi
     set_files_in_folder_readable_to_hiddify_common_group /opt/hiddify-manager/data/ssl
-    hiddify-panel-cli sync-tls-store -d "$d" || true
+    sync_tls_store "$d" || true
 }

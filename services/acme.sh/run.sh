@@ -36,7 +36,7 @@ done
 wait
 set_files_in_folder_readable_to_hiddify_common_group /opt/hiddify-manager/data/ssl
 # Refresh tls_store after batch ACME / self-signed so DB matches installed files.
-hiddify-panel-cli sync-tls-store || true
+sync_tls_store || true
 systemctl reload hiddify-haproxy
 systemctl reload hiddify-core
 # systemctl reload hiddify-xray

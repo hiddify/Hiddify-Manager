@@ -86,3 +86,17 @@ function fix_acme_legacy_webroot_paths() {
     find "$ACME_CONFIG_HOME" "$ACME_CERT_HOME" -type f -name '*.conf' 2>/dev/null -exec \
         sed -i 's|/opt/hiddify-manager/acme.sh/www/|/opt/hiddify-manager/data/services/acme.sh/www/|g' {} +
 }
+
+# Import TLS certificates from data/ssl/ into tls_store: all domains, or just "$1".
+function sync_tls_store() {
+    local domain="$1"
+    local query=""
+    [ -n "$domain" ] && query="?domain=$(jq -rn --arg d "$domain" '$d|@uri')"
+    if hiddify-http-api "admin/sync-tls-store/$query" >/dev/null; then
+        return 0
+    fi
+
+    local flags=()
+    [ -n "$domain" ] && flags+=(-d "$domain")
+    hiddify-panel-cli sync-tls-store "${flags[@]}"
+}
