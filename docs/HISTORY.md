@@ -66,6 +66,12 @@
 
 ### Other
 
+* Chore: update docker-compose and installation scripts for improved functionality. [hiddify-com]
+
+  - Updated docker-compose.yml to include persistent data volume and restart policy for the Hiddify Manager service.
+  - Added error handling and improved installation logic in masterdns scripts to ensure proper binary management and permissions.
+  - Enhanced rust-rpxy-l4 service management to enable it immediately while ensuring it only restarts when necessary, preventing connection drops.
+
 * Feat: implement hiddify-mysql service and configuration. [hiddify-com]
 
   - Added a new systemd service unit for Hiddify's MariaDB, ensuring proper management and isolation of the database service.
