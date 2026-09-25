@@ -4,9 +4,16 @@ services:
     build: . 
     #image: ghcr.io/hiddify/hiddify-manager:latest #latest 
     #image: ghcr.io/hiddify/hiddify-manager:beta 
-    #image: ghcr.io/hiddify/hiddify-manager:dev #specific version #image: ghcr.io/hiddify/hiddify-manager:v10.80.0 ports: - "80:80" - "443:443" privileged: true cap_add: - NET_ADMIN volumes: - ./docker-data/:/opt/hiddify-manager/data/ env_file: - path: ./docker.env
+    #image: ghcr.io/hiddify/hiddify-manager:dev
+    #image: ghcr.io/hiddify/hiddify-manager:v13.0.0 #specific version
 
-    network_mode: host
+    restart: always
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./docker-data/:/opt/hiddify-manager/data/   # Persistent panel data: SSL, logs, backups, generated state
+    network_mode: host                               # Binds 80/443 and all proxy ports directly
     env_file:
       - path: ./docker.env
     depends_on:
