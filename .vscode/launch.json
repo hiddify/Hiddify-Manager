@@ -1,6 +1,16 @@
 {
     "configurations": [
         {
+            "name": "Debug current file",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "python": "/opt/hiddify-manager/.venv313/bin/python",
+            "args": [],
+            "jinja": true,
+            "justMyCode": true
+        },
+        {
             "type": "bashdb",
             "request": "launch",
             "name": "Bash-Debug (select script from list of sh files)",
@@ -14,17 +24,15 @@
             "request": "launch",
             "module": "flask",
             "preLaunchTask": "build-hiddify-manager",
-            "cwd": "${workspaceFolder}/hiddify-panel/src/",
+            "cwd": "${workspaceFolder}/services/panel/src/",
             "env": {
                 "FLASK_APP": "wsgi.py",
                 "FLASK_DEBUG": "1",
-                "HIDDIFY_CFG_PATH": "/opt/hiddify-manager/hiddify-panel/app.cfg",
+                "HIDDIFY_CFG_PATH": "/opt/hiddify-manager/data/hiddify-panel/app.cfg",
             },
             "python": "/opt/hiddify-manager/.venv313/bin/python",
             "args": [
                 "run",
-                // "--no-debugger",
-                // "--no-reload",
                 "--host",
                 "0.0.0.0",
                 "--port",
@@ -35,22 +43,44 @@
             "justMyCode": true
         },
         {
+            "name": "Admin V2 Dev: Flask (backend)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "hiddifypanel",
+            "preLaunchTask": "stop panel service",
+            "cwd": "${workspaceFolder}/services/panel/src/",
+            "env": {
+                "FLASK_APP": "wsgi.py",
+                "FLASK_DEBUG": "1",
+                "HIDDIFY_CFG_PATH": "/opt/hiddify-manager/data/hiddify-panel/app.cfg",
+            },
+            "python": "/opt/hiddify-manager/.venv313/bin/python",
+            "args": [
+                "run",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "9001",
+                // "--reload"
+            ],
+            "jinja": true,
+            "justMyCode": true
+        },
+        {
             "name": "Run HiddifyPanel Only (make sure to apply config before)",
             "type": "debugpy",
             "request": "launch",
             "module": "flask",
             "preLaunchTask": "stop panel service",
-            "cwd": "${workspaceFolder}/hiddify-panel/src/",
+            "cwd": "${workspaceFolder}/services/panel/src/",
             "env": {
                 "FLASK_APP": "wsgi.py",
                 "FLASK_DEBUG": "1",
-                "HIDDIFY_CFG_PATH": "/opt/hiddify-manager/hiddify-panel/app.cfg",
+                "HIDDIFY_CFG_PATH": "/opt/hiddify-manager/data/hiddify-panel/app.cfg",
             },
             "python": "/opt/hiddify-manager/.venv313/bin/python",
             "args": [
                 "run",
-                // "--no-debugger",
-                // "--no-reload",
                 "--host",
                 "0.0.0.0",
                 "--port",
@@ -68,7 +98,83 @@
             "args": [
                 "-c",
                 "print('build complete')"
+            ]
+        },
+        {
+            "name": "Admin V2: Vite Dev",
+            "type": "node-terminal",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/services/panel/src/hiddifypanel/admin_v2",
+            "command": "npm run dev",
+            "env": {
+                "VITE_DEV_PORT": "9000",
+                "VITE_API_TARGET": "http://127.0.0.1:9001",
+                "VITE_HOST": "0.0.0.0"
+            }
+        },
+        {
+            "name": "Admin V2: Build",
+            "type": "node-terminal",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/services/panel/src/hiddifypanel/admin_v2",
+            "command": "bash scripts/build.sh"
+        },
+        {
+            "name": "Dump server configs",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "hiddifypanel",
+            "cwd": "${workspaceFolder}/services/panel/src/",
+            "env": {
+                "FLASK_APP": "wsgi.py",
+                "FLASK_DEBUG": "1",
+                "HIDDIFY_CFG_PATH": "/opt/hiddify-manager/data/hiddify-panel/app.cfg",
+            },
+            "python": "/opt/hiddify-manager/.venv313/bin/python",
+            "args": [
+                "dump-server-configs",
+                "examples/t1",
+                "--refresh-db"
+            ]
+        },
+        {
+            "name": "Dump client configs",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "hiddifypanel",
+            "cwd": "${workspaceFolder}/services/panel/src/",
+            "env": {
+                "FLASK_APP": "wsgi.py",
+                "FLASK_DEBUG": "1",
+                "HIDDIFY_CFG_PATH": "/opt/hiddify-manager/data/hiddify-panel/app.cfg",
+            },
+            "python": "/opt/hiddify-manager/.venv313/bin/python",
+            "args": [
+                "dump-client-configs",
+                "examples/t2",
+                "--refresh-db"
+            ]
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Admin V2 Dev (Flask + Vite)",
+            "configurations": [
+                "Admin V2 Dev: Flask (backend)",
+                "Admin V2: Vite Dev"
             ],
+            "stopAll": true,
+            "presentation": {
+                "order": 1
+            }
+        },
+        {
+            "name": "Admin V2 (Flask + Vite)",
+            "configurations": [
+                "Run HiddifyPanel Only (make sure to apply config before)",
+                "Admin V2: Vite Dev"
+            ],
+            "stopAll": true
         }
     ]
 }

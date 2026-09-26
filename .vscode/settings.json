@@ -1,11 +1,20 @@
 {
     "python.analysis.extraPaths": [
-        "./hiddify-panel/src"
+        "./services/panel/src"
     ],
-    
     "python.envFile": "/opt/hiddify-manager/.venv313",
     "autopep8.args": [
-        "--max-line-length", "200",
+        "--max-line-length",
+        "200",
     ],
-
+    "ruff.configuration": "${workspaceFolder}/services/panel/src/pyproject.toml",
+    "ruff.lineLength": 240,
+    "editor.formatOnSave": true,
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll.ruff": "explicit",
+            "source.organizeImports.ruff": "explicit"
+        }
+    }
 }
