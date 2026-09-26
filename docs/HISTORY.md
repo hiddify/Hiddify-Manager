@@ -1,7 +1,7 @@
 # Changelog
 
 
-## (unreleased)
+## v13.0.0 (2026-09-26)
 
 ### New
 
@@ -65,6 +65,25 @@
 * Haproxy installation. [hiddify-com]
 
 ### Other
+
+* Chore: update .gitignore to include additional files and directories. [hiddify-com]
+
+  - Added 'tests', 'common/__pycache__', and '*.pyc' to .gitignore for better management of generated files and directories.
+  - Ensured 'node_modules' remains ignored to prevent unnecessary clutter in the repository.
+
+* Chore: update VSCode configuration for improved development workflow. [hiddify-com]
+
+  - Added new debug configurations for "Debug current file" and "Admin V2 Dev: Flask (backend)".
+  - Updated paths in existing configurations to reflect the new project structure.
+  - Introduced new tasks for building and developing the Admin V2 frontend.
+  - Enhanced settings for Python linting and formatting with Ruff integration.
+
+* Refactor: update download and installation scripts for improved compatibility and structure. [hiddify-com]
+
+  - Simplified the download.sh script to enhance backward compatibility with versioning.
+  - Adjusted the base URL logic for downloading scripts based on branch and version.
+  - Improved error handling during script downloads and execution.
+  - Updated hiddify_installer.sh to accommodate changes in script locations and ensure proper installation flow.
 
 * Chore: update docker-compose and installation scripts for improved functionality. [hiddify-com]
 
