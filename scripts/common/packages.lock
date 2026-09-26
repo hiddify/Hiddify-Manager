@@ -45,6 +45,8 @@ vaydns|0.2.0|arm64|https://github.com/net2share/vaydns/releases/download/v0.2.0/
 vaydns|0.2.0|amd64|https://github.com/net2share/vaydns/releases/download/v0.2.0/vaydns-server-linux-amd64|2e50a8ea286dcf4299d5aa485a501d079d3ee2dd7b6388315d6eb4131ac9e2c8
 telemt|3.3.31|arm64|https://github.com/telemt/telemt/releases/download/3.3.31/telemt-aarch64-linux-gnu.tar.gz|a52c6577b69c536a716eb86a389a5baff8eb98e616074aad118d82bc3ea98029
 telemt|3.3.31|amd64|https://github.com/telemt/telemt/releases/download/3.3.31/telemt-x86_64-linux-gnu.tar.gz|2e3acac4db63b61653c9026ff42af8733cb37c95dce738331c414dcc78226bcd
+telego|0.5.4|arm64|https://github.com/Scratch-net/telego/releases/download/v0.5.4/telego_0.5.4_linux_arm64.tar.gz|827bccdbba3f414ff365e2c31d276a991c857bebd7f107741270d622e5ac20d6
+telego|0.5.4|amd64|https://github.com/Scratch-net/telego/releases/download/v0.5.4/telego_0.5.4_linux_amd64.tar.gz|e0dc07bb6e9b5a701e4feb3821bce3579e62639663459c3d69d275988ddb9a79
 vaydns|0.2.4|arm64|https://github.com/net2share/vaydns/releases/download/v0.2.4/vaydns-server-linux-arm64|97218d73f3256877770eae80acd746b982fc2a65c511fb59de7a7e48298c5168
 vaydns|0.2.4|amd64|https://github.com/net2share/vaydns/releases/download/v0.2.4/vaydns-server-linux-amd64|8fb10c1ead71d46dbc23e92b15675c993a10d5678948e2fc133599782e69a6d6
 vaydns|0.2.5|arm64|https://github.com/net2share/vaydns/releases/download/v0.2.5/vaydns-server-linux-arm64|f74e9b27bb87b2d777288a4eb0ac5b2676a0052c7109d7ed0b861ab895159a32
