@@ -19,7 +19,7 @@ NAME="installer"
 LOG_FILE="$(log_file $NAME)"
 export USE_VENV=true
 
-if [ ! -f /opt/hiddify-manager/common/scripts/install.sh ] && [ ! -f /opt/hiddify-manager/scripts/install.sh ]; then
+if [ ! -f /opt/hiddify-manager/common/install.sh ] && [ ! -f /opt/hiddify-manager/scripts/install.sh ]; then
     rm -rf /opt/hiddify-manager
 fi
 
@@ -311,10 +311,13 @@ function update_from_github() {
     fi
     rm "$file_name"
 
-    bash scripts/install.sh --no-gui --no-log
+    # v12 and older tags keep install.sh in the repository root.
+    local install_script=scripts/install.sh
+    [ -f "$install_script" ] || install_script=install.sh
+    bash "$install_script" --no-gui --no-log
     local install_code=$?
     if [[ $install_code != 0 ]]; then
-        echo "ERROR: scripts/install.sh exited with code $install_code (config files were updated but not applied)" >&2
+        echo "ERROR: $install_script exited with code $install_code (config files were updated but not applied)" >&2
     fi
     return $install_code
 }
@@ -380,6 +383,11 @@ else
         check_hiddify_panel $@ |& tee -a $LOG_FILE
         read -p "Press any key to go  to menu" -n 1 key
     fi
-    bash /opt/hiddify-manager/scripts/hiddify
+    if [ -f /opt/hiddify-manager/scripts/hiddify ]; then
+        bash /opt/hiddify-manager/scripts/hiddify
+    else
+        # v12 and older layout
+        bash /opt/hiddify-manager/menu.sh
+    fi
 fi
 exit $error_code

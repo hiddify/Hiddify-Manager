@@ -1,10 +1,6 @@
 #!/bin/bash
 cd /opt/hiddify-manager
 source /opt/hiddify-manager/scripts/common/utils.sh
-if [ -f /opt/hiddify-manager/scripts/migrate_layout.sh ]; then
-    bash /opt/hiddify-manager/scripts/migrate_layout.sh
-fi
-PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # Create necessary directories and define constants
 
@@ -46,7 +42,6 @@ function main() {
     echo "Creating a backup ..."
     ./services/panel/backup.sh
 
-    update_script="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/main/scripts/common/download.sh"
     case "$package_mode" in
     dev|develop)
         # Use the latest commit from GitHub
@@ -62,6 +57,9 @@ function main() {
     release)
         latest_panel=$(get_release_version hiddify-panel)
         latest_manager=$(get_release_version hiddify-manager)
+        update_script="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/main/scripts/common/download.sh"
+        ;;
+    *)
         update_script="https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/main/scripts/common/download.sh"
         ;;
     esac
