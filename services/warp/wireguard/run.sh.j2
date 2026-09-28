@@ -1,7 +1,7 @@
 #!/bin/bash
 #ln -sf $(pwd)/hiddify-warp.service /etc/systemd/system/hiddify-warp.service
 source /opt/hiddify-manager/scripts/common/utils.sh
-source /opt/hiddify-manager/services/warp/utils.sh
+source /opt/hiddify-manager/services/warp/wireguard/utils.sh
 ensure_warp_data_links wireguard "$(pwd)"
 systemctl disable hiddify-warp.service >/dev/null 2>&1
 

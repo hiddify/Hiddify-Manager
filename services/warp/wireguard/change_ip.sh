@@ -3,7 +3,7 @@
 # Change to the directory of the script
 cd "$(dirname -- "$0")"
 source /opt/hiddify-manager/scripts/common/utils.sh
-source /opt/hiddify-manager/services/warp/utils.sh
+source /opt/hiddify-manager/services/warp/wireguard/utils.sh
 ensure_warp_data_links wireguard "$(pwd)"
 
 # Function to get current WARP IP
