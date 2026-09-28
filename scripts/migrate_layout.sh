@@ -41,7 +41,7 @@ install_hiddify_cli() {
     fi
 }
 disable_all_services() {
-    find /opt/hiddify-manager/ -type d -name "services" -prune -o -type f -name "*.service" -print |
+    find /opt/hiddify-manager/ -type d -name "services" -prune -o -type d -name "old" -prune -o -type f -name "*.service" -print |
     xargs -r -n1 basename |
     tee /dev/stderr |
     xargs -r -I{} systemctl disable --now {}
