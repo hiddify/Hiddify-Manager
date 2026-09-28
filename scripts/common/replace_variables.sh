@@ -9,22 +9,23 @@ if ! is_valid_current_json /opt/hiddify-manager/data/current.json; then
 fi
 domains=$(jq -r '.domains[] | .domain' /opt/hiddify-manager/data/current.json | tr '\n' ' ')
 
-# Never wipe certificates based on an empty domain list.
-if [ -n "${domains// /}" ]; then
-    # Loop over the .crt files
-    for f in /opt/hiddify-manager/data/ssl/*.crt; do
-        [ -e "$f" ] || continue
-        # Get the basename without the .crt extension
-        d=$(basename "$f" .crt)
-        # Check if $d is not in the list of domains
-        if [[ ! " ${domains[@]} " =~ " ${d} " ]]; then
-            # If $d is not in domains, remove the file
-            rm -f "/opt/hiddify-manager/data/ssl/$d.crt"
-            rm -f "/opt/hiddify-manager/data/ssl/$d.crt.key"
-        fi
-    done
-else
+# Remove certificates only for domains deleted from the panel since the last
+# apply. Certificates the panel never listed (manual, wildcard, …) are kept.
+known_domains_file=/opt/hiddify-manager/data/services/acme.sh/panel_domains
+if [ -z "${domains// /}" ]; then
     warning "No domains in current.json; keeping existing certificates"
+else
+    if [ -f "$known_domains_file" ]; then
+        while read -r d; do
+            [ -n "$d" ] || continue
+            if [[ ! " ${domains} " =~ " ${d} " ]]; then
+                echo "Domain $d was removed; deleting its certificate"
+                rm -f "/opt/hiddify-manager/data/ssl/$d.crt" "/opt/hiddify-manager/data/ssl/$d.crt.key"
+            fi
+        done <"$known_domains_file"
+    fi
+    mkdir -p "$(dirname "$known_domains_file")"
+    printf '%s\n' $domains >"$known_domains_file"
 fi
 
 # we need at least one ssl certificate to be able to run haproxy

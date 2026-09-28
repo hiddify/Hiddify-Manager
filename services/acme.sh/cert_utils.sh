@@ -55,6 +55,41 @@ is_valid_private_key() {
     openssl ec -check -noout -in "$key" >/dev/null 2>&1
 }
 
+# Renew this long before expiry: IP certs are short-lived (~6 days), domain certs ~90 days.
+ACME_RENEW_BEFORE_IP=${ACME_RENEW_BEFORE_IP:-$((3 * 86400))}
+ACME_RENEW_BEFORE_DOMAIN=${ACME_RENEW_BEFORE_DOMAIN:-$((14 * 86400))}
+
+renew_before_seconds() {
+    if isipv4 "$1" || isipv6 "$1"; then
+        echo "$ACME_RENEW_BEFORE_IP"
+    else
+        echo "$ACME_RENEW_BEFORE_DOMAIN"
+    fi
+}
+
+is_self_signed_cert() {
+    local cert=$1
+    [ "$(openssl x509 -noout -issuer -nameopt RFC2253 -in "$cert" 2>/dev/null | cut -d= -f2-)" = \
+      "$(openssl x509 -noout -subject -nameopt RFC2253 -in "$cert" 2>/dev/null | cut -d= -f2-)" ]
+}
+
+cert_covers() {
+    local cert=$1 domain=$2
+    if isipv4 "$domain" || isipv6 "$domain"; then
+        openssl x509 -noout -checkip "$domain" -in "$cert" 2>/dev/null | grep -q "does match"
+    else
+        openssl x509 -noout -checkhost "$domain" -in "$cert" 2>/dev/null | grep -q "does match"
+    fi
+}
+
+# True when $cert is a CA-issued cert for $domain that is not yet due for renewal.
+cert_is_current() {
+    local cert=$1 key=$2 domain=$3
+    is_valid_x509 "$cert" && is_valid_private_key "$key" &&
+        ! is_self_signed_cert "$cert" && cert_covers "$cert" "$domain" &&
+        openssl x509 -checkend "$(renew_before_seconds "$domain")" -noout -in "$cert" >/dev/null 2>&1
+}
+
 # Return the acme.sh domain dir that has a parseable, unexpired fullchain + key.
 acme_issued_dir() {
     local domain="$1"
@@ -91,6 +126,11 @@ function get_cert() {
     set_files_in_folder_readable_to_hiddify_common_group "$ssl_cert_path"
     rm -f $ssl_cert_path/$DOMAIN.key
 
+    if cert_is_current "$ssl_cert_path/$DOMAIN.crt" "$ssl_cert_path/$DOMAIN.crt.key" "$DOMAIN"; then
+        echo "Certificate for $DOMAIN is valid until $(openssl x509 -enddate -noout -in "$ssl_cert_path/$DOMAIN.crt" | cut -d= -f2); skip renewal"
+        return 0
+    fi
+
     if [ ${#DOMAIN} -le 64 ]; then
         
         
@@ -103,13 +143,13 @@ function get_cert() {
             #sleep 10
         fi
 
-        flags=
-        # if [ "$SERVER_IPv6" != "" ]; then
-        #     flags="--listen-v6"
-        # fi
-        
-        if isipv4 "$DOMAIN"; then
-            acmecmd -d $DOMAIN --server letsencrypt --certificate-profile shortlived --days 6 
+        # Issue only when neither the installed cert nor acme.sh's copy is still current;
+        # --force because the renewal window is decided here, not by acme.sh's schedule.
+        acme_dir=$(acme_issued_dir "$DOMAIN")
+        if [ -n "$acme_dir" ] && cert_is_current "$acme_dir/fullchain.cer" "$acme_dir/$DOMAIN.key" "$DOMAIN"; then
+            echo "ACME certificate for $DOMAIN is not due for renewal; reinstalling it"
+        elif isipv4 "$DOMAIN"; then
+            acmecmd -d $DOMAIN --server letsencrypt --certificate-profile shortlived --days 6
         elif isipv6 "$DOMAIN"; then
             acmecmd -d [$DOMAIN] --server letsencrypt --certificate-profile shortlived --days 6 --listen-v6
         else
