@@ -3,20 +3,29 @@ source ./utils.sh
 activate_python_venv
 ensure_hiddify_data_dirs
 
-domains=$(cat /opt/hiddify-manager/data/current.json | jq -r '.domains[] | .domain' | tr '\n' ' ')
+if ! is_valid_current_json /opt/hiddify-manager/data/current.json; then
+    error "Invalid /opt/hiddify-manager/data/current.json; not applying configs"
+    exit 1
+fi
+domains=$(jq -r '.domains[] | .domain' /opt/hiddify-manager/data/current.json | tr '\n' ' ')
 
-
-# Loop over the .crt files
-for f in /opt/hiddify-manager/data/ssl/*.crt; do
-    # Get the basename without the .crt extension
-    d=$(basename "$f" .crt)
-    # Check if $d is not in the list of domains
-    if [[ ! " ${domains[@]} " =~ " ${d} " ]]; then
-        # If $d is not in domains, remove the file
-        rm "/opt/hiddify-manager/data/ssl/$d.crt"
-        rm "/opt/hiddify-manager/data/ssl/$d.crt.key"
-    fi
-done
+# Never wipe certificates based on an empty domain list.
+if [ -n "${domains// /}" ]; then
+    # Loop over the .crt files
+    for f in /opt/hiddify-manager/data/ssl/*.crt; do
+        [ -e "$f" ] || continue
+        # Get the basename without the .crt extension
+        d=$(basename "$f" .crt)
+        # Check if $d is not in the list of domains
+        if [[ ! " ${domains[@]} " =~ " ${d} " ]]; then
+            # If $d is not in domains, remove the file
+            rm -f "/opt/hiddify-manager/data/ssl/$d.crt"
+            rm -f "/opt/hiddify-manager/data/ssl/$d.crt.key"
+        fi
+    done
+else
+    warning "No domains in current.json; keeping existing certificates"
+fi
 
 # we need at least one ssl certificate to be able to run haproxy
 for d in $domains; do

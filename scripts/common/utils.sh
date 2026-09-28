@@ -721,8 +721,8 @@ function check_venv_compatibility() {
 }
 
 function hiddify-http-api(){
-    api_path=$(jq -r '.api_path' /opt/hiddify-manager/data/current.json)
-    api_key=$(jq -r '.api_key' /opt/hiddify-manager/data/current.json)
+    api_path=$(jq -r '.api_path // empty' /opt/hiddify-manager/data/current.json 2>/dev/null)
+    api_key=$(jq -r '.api_key // empty' /opt/hiddify-manager/data/current.json 2>/dev/null)
     
 
     if [ -z "$api_path" ] || [ -z "$api_key" ]; then
@@ -740,16 +740,27 @@ function hiddify-http-api(){
     return 0
 }
 
+function is_valid_current_json() {
+    jq -e '(.chconfigs["0"] | type == "object") and (.domains | type == "array")' "$1" >/dev/null 2>&1
+}
+
 function reload_all_configs(){
-    hiddify-http-api admin/all-configs/ > /opt/hiddify-manager/data/current.json
-    if [ "$?" != 0 ];then
-        hiddify-panel-cli all-configs > /opt/hiddify-manager/data/current.json
-        if [ $? != 0 ]; then
-            return $?
+    # Fetch into a temp file and replace current.json only when the result is
+    # valid: the API reads its credentials from the current copy, and every
+    # service script depends on it.
+    local cfg=/opt/hiddify-manager/data/current.json
+    local tmp
+    tmp=$(mktemp "$cfg.XXXXXX") || return 1
+    if ! hiddify-http-api admin/all-configs/ >"$tmp" || ! is_valid_current_json "$tmp"; then
+        if ! hiddify-panel-cli all-configs >"$tmp" || ! is_valid_current_json "$tmp"; then
+            error "Failed to read configs from Hiddify Panel; keeping the previous $cfg"
+            rm -f "$tmp"
+            return 1
         fi
     fi
-    chmod 600 /opt/hiddify-manager/data/current.json
-    cat /opt/hiddify-manager/data/current.json
+    chmod 600 "$tmp"
+    mv -f "$tmp" "$cfg" || { rm -f "$tmp"; return 1; }
+    cat "$cfg"
 }
 
 # Render xray/hiddify-core/haproxy/nginx/dns_proxy configs into $HIDDIFY_GENERATED.
