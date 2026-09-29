@@ -310,6 +310,51 @@ function ensure_nodejs() {
     [ "$(_node_major)" -ge 18 ] && command -v npm >/dev/null 2>&1
 }
 
+# The UI build needs ~1.4 GB of RAM (Node heap capped at HIDDIFY_UI_BUILD_HEAP_MB). Small
+# VPSes get the build OOM-killed, so add a temporary swap file for the build when
+# free RAM + swap is below HIDDIFY_UI_BUILD_MIN_MEM_MB; it is removed right after.
+HIDDIFY_UI_BUILD_HEAP_MB="${HIDDIFY_UI_BUILD_HEAP_MB:-1280}"
+HIDDIFY_UI_BUILD_MIN_MEM_MB="${HIDDIFY_UI_BUILD_MIN_MEM_MB:-2200}"
+_HIDDIFY_UI_SWAPFILE="/var/tmp/hiddify-ui-build.swap"
+
+function _mem_available_mb() {
+    awk '/^(MemAvailable|SwapFree):/ {sum += $2} END {print int(sum / 1024)}' /proc/meminfo
+}
+
+function _add_build_swap() {
+    local have need size_mb disk_mb
+    have=$(_mem_available_mb)
+    need=$HIDDIFY_UI_BUILD_MIN_MEM_MB
+    [ "$have" -ge "$need" ] && return 0
+    size_mb=$(( need - have ))
+    [ "$size_mb" -lt 1024 ] && size_mb=1024
+    [ "$size_mb" -gt 2048 ] && size_mb=2048
+    disk_mb=$(df -Pm /var/tmp | awk 'NR==2 {print $4}')
+    if [ "${disk_mb:-0}" -lt $(( size_mb + 512 )) ]; then
+        warning "Only ${have} MB of memory free and not enough disk for temporary swap; the admin UI build may fail"
+        return 0
+    fi
+    warning "Only ${have} MB of memory free: adding ${size_mb} MB of temporary swap for the admin UI build"
+    swapoff "$_HIDDIFY_UI_SWAPFILE" >/dev/null 2>&1
+    rm -f "$_HIDDIFY_UI_SWAPFILE"
+    if ! { fallocate -l "${size_mb}M" "$_HIDDIFY_UI_SWAPFILE" 2>/dev/null || dd if=/dev/zero of="$_HIDDIFY_UI_SWAPFILE" bs=1M count="$size_mb" status=none; }; then
+        rm -f "$_HIDDIFY_UI_SWAPFILE"
+        return 0
+    fi
+    chmod 600 "$_HIDDIFY_UI_SWAPFILE"
+    if ! { mkswap "$_HIDDIFY_UI_SWAPFILE" >/dev/null && swapon "$_HIDDIFY_UI_SWAPFILE"; }; then
+        # e.g. containers or filesystems that cannot swap: build without it
+        rm -f "$_HIDDIFY_UI_SWAPFILE"
+    fi
+    return 0
+}
+
+function _remove_build_swap() {
+    [ -f "$_HIDDIFY_UI_SWAPFILE" ] || return 0
+    swapoff "$_HIDDIFY_UI_SWAPFILE" >/dev/null 2>&1
+    rm -f "$_HIDDIFY_UI_SWAPFILE"
+}
+
 # build_panel_ui <panel source dir> [--force]
 # Builds the admin UI into <dir>/hiddifypanel/static/admin-v2/ when it is missing
 # or older than its sources. No-op for trees without the UI source (e.g. a wheel).
@@ -329,8 +374,17 @@ function build_panel_ui() {
     # Only clean up node_modules we created: a developer's own checkout keeps theirs.
     local had_node_modules=0
     [ -d "$ui/node_modules" ] && had_node_modules=1
-    if ! (cd "$ui" && npm ci --no-audit --no-fund --loglevel=error && npm run build); then
-        error "Building the admin UI failed (see the npm output above)"
+    _add_build_swap
+    local rc=0
+    (cd "$ui" && npm ci --no-audit --no-fund --loglevel=error &&
+        NODE_OPTIONS="--max-old-space-size=$HIDDIFY_UI_BUILD_HEAP_MB ${NODE_OPTIONS:-}" npm run build) || rc=$?
+    _remove_build_swap
+    if [ "$rc" != 0 ]; then
+        if [ "$rc" = 137 ] || dmesg 2>/dev/null | tail -n 20 | grep -qi "killed process.*node"; then
+            error "Building the admin UI ran out of memory (needs ~1.5 GB free RAM or swap)"
+        else
+            error "Building the admin UI failed (see the npm output above)"
+        fi
         return 1
     fi
     if [ "$had_node_modules" = 0 ] && [ -z "${HIDDIFY_KEEP_NODE_MODULES:-}" ]; then
@@ -344,17 +398,21 @@ function build_panel_ui() {
 # `pip install git+...` cannot be used any more: it would install without the UI.
 function install_panel_from_git() {
     local ref="${1:-}" pip_cmd="${2:-uv pip}"
-    local dir="$HIDDIFY_DIR/.cache/hiddify-panel-src"
     install_package git
-    rm -rf "$dir"
-    mkdir -p "$(dirname "$dir")"
-    if ! git clone --quiet --depth 1 ${ref:+--branch "$ref"} "$HIDDIFY_PANEL_GIT_URL" "$dir"; then
+    # Outside $HIDDIFY_DIR on purpose: the config renderer (scripts/common/jinja.py) walks
+    # $HIDDIFY_DIR for *.j2 and would try to render the panel's own templates.
+    local dir
+    dir=$(mktemp -d /var/tmp/hiddify-panel-src.XXXXXX) || return 1
+    local rc=0
+    if ! git clone --quiet --depth 1 ${ref:+--branch "$ref"} "$HIDDIFY_PANEL_GIT_URL" "$dir/src"; then
         error "Could not download the panel source (${ref:-default branch})"
-        return 1
+        rc=1
+    elif ! build_panel_ui "$dir/src" --force; then
+        rc=1
+    else
+        { $pip_cmd install -U --no-deps --force-reinstall "$dir/src" && $pip_cmd install "$dir/src"; } || rc=$?
     fi
-    build_panel_ui "$dir" --force || return 1
-    $pip_cmd install -U --no-deps --force-reinstall "$dir" && $pip_cmd install "$dir"
-    local rc=$?
+    # Always clean up, also when the download or the UI build failed.
     rm -rf "$dir"
     return $rc
 }
