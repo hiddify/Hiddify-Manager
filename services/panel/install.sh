@@ -34,6 +34,7 @@ fi
 if [ -n "$HIDDIFY_PANLE_SOURCE_DIR" ]; then
     echo "NOTICE: building hiddifypanel package from source..."
     echo "NOTICE: the source dir $HIDDIFY_PANLE_SOURCE_DIR"
+    build_panel_ui "$HIDDIFY_PANLE_SOURCE_DIR" || exit 1
     uv pip install -e "$HIDDIFY_PANLE_SOURCE_DIR"
 fi
 

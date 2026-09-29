@@ -20,6 +20,7 @@ apply:
 		rm -rf /opt/hiddify-manager/services/panel/src/; \
 		export HIDDIFY_DEBUG=1 && \
 		export HIDDIFY_PANLE_SOURCE_DIR="$(PWD)/services/panel/src/" &&\
+		export HIDDIFY_KEEP_NODE_MODULES=1 &&\
 		(cd /opt/hiddify-manager/services/panel && bash install.sh && bash run.sh && bash /opt/hiddify-manager/scripts/common/replace_variables.sh); 	
 	fi
 .PHONY: apply

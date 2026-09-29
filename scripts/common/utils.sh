@@ -263,6 +263,88 @@ function remove_package() {
     done
 }
 
+# --- Admin V2 UI (Vue) -------------------------------------------------------
+# The built UI (hiddifypanel/static/admin-v2/) is not in git. Release/beta wheels
+# ship it prebuilt (release workflow); every install from source builds it here.
+
+HIDDIFY_PANEL_GIT_URL="https://github.com/hiddify/HiddifyPanel"
+
+function _node_major() {
+    command -v node >/dev/null 2>&1 || { echo 0; return; }
+    node -p 'process.versions.node.split(".")[0]' 2>/dev/null || echo 0
+}
+
+function ensure_nodejs() {
+    # Docker images get the UI from the Dockerfile's build stage and must not carry Node.js.
+    if [ "${DOCKER_MODE:-}" = "true" ]; then
+        error "Not installing Node.js in Docker: the admin UI is built in the Dockerfile's panel-ui stage"
+        return 1
+    fi
+    # vite needs Node >= 18. Ubuntu 24.04's own package is new enough; 22.04's is not.
+    if [ "$(_node_major)" -ge 18 ] && command -v npm >/dev/null 2>&1; then
+        return 0
+    fi
+    install_package nodejs npm >/dev/null 2>&1
+    if [ "$(_node_major)" -ge 18 ] && command -v npm >/dev/null 2>&1; then
+        return 0
+    fi
+    warning "Installing Node.js 20 (NodeSource) to build the admin UI..."
+    install_package ca-certificates curl gnupg
+    remove_package npm
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - || return 1
+    with_lock apt apt install -y nodejs || return 1
+    [ "$(_node_major)" -ge 18 ] && command -v npm >/dev/null 2>&1
+}
+
+# build_panel_ui <panel source dir> [--force]
+# Builds the admin UI into <dir>/hiddifypanel/static/admin-v2/ when it is missing
+# or older than its sources. No-op for trees without the UI source (e.g. a wheel).
+function build_panel_ui() {
+    local src="${1%/}" force="${2:-}"
+    local ui="$src/hiddifypanel/admin_v2"
+    local out="$src/hiddifypanel/static/admin-v2/index.html"
+    if [ ! -f "$ui/package.json" ]; then
+        return 0
+    fi
+    if [ "$force" != "--force" ] && [ -f "$out" ] &&
+        [ -z "$(find "$ui/src" "$ui/index.html" "$ui/package-lock.json" "$ui/vite.config.ts" "$src/hiddifypanel/translations.i18n" -newer "$out" -print -quit 2>/dev/null)" ]; then
+        return 0
+    fi
+    update_progress "Building..." "Hiddify Panel admin UI (this can take a few minutes)" 30
+    ensure_nodejs || { error "Node.js >= 18 is required to build the admin UI"; return 1; }
+    # Only clean up node_modules we created: a developer's own checkout keeps theirs.
+    local had_node_modules=0
+    [ -d "$ui/node_modules" ] && had_node_modules=1
+    if ! (cd "$ui" && npm ci --no-audit --no-fund --loglevel=error && npm run build); then
+        error "Building the admin UI failed (see the npm output above)"
+        return 1
+    fi
+    if [ "$had_node_modules" = 0 ] && [ -z "${HIDDIFY_KEEP_NODE_MODULES:-}" ]; then
+        rm -rf "$ui/node_modules"
+    fi
+    success "Admin UI built"
+}
+
+# install_panel_from_git [ref] [pip command]
+# Installs the panel from GitHub (develop / tags): clone, build the UI, install.
+# `pip install git+...` cannot be used any more: it would install without the UI.
+function install_panel_from_git() {
+    local ref="${1:-}" pip_cmd="${2:-uv pip}"
+    local dir="$HIDDIFY_DIR/.cache/hiddify-panel-src"
+    install_package git
+    rm -rf "$dir"
+    mkdir -p "$(dirname "$dir")"
+    if ! git clone --quiet --depth 1 ${ref:+--branch "$ref"} "$HIDDIFY_PANEL_GIT_URL" "$dir"; then
+        error "Could not download the panel source (${ref:-default branch})"
+        return 1
+    fi
+    build_panel_ui "$dir" --force || return 1
+    $pip_cmd install -U --no-deps --force-reinstall "$dir" && $pip_cmd install "$dir"
+    local rc=$?
+    rm -rf "$dir"
+    return $rc
+}
+
 function is_installed() {
     if ! command -v "$1" >/dev/null 2>&1; then
         return 1

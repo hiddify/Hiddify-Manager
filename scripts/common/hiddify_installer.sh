@@ -91,6 +91,11 @@ function update_panel() {
             activate_python_venv
             # install_python310
             # uv pip install -U --no-deps --force-reinstall hiddify-panel/src
+            # The Dockerfile's panel-ui stage provides the built UI; the image has no Node.js.
+            if [ ! -f /opt/hiddify-manager/services/panel/src/hiddifypanel/static/admin-v2/index.html ]; then
+                error "Admin UI bundle missing: build the image with the Dockerfile (panel-ui stage)"
+                exit 1
+            fi
             uv pip install /opt/hiddify-manager/services/panel/src 
             # pip install -U hiddifypanel
         ;;
@@ -102,16 +107,13 @@ function update_panel() {
                 activate_python_venv
                 if [ "$USE_VENV" == "310" ];then
                     install_python310
-                    pip install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel@${package_mode}
-                    pip install git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+                    install_panel_from_git "${package_mode}" pip || return 1
                 else
-                    uv pip install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel@${package_mode}
-                    uv pip install git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+                    install_panel_from_git "${package_mode}" "uv pip" || return 1
                 fi
             else 
                install_python310
-               pip3 install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel@${package_mode}
-               pip3 install git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+               install_panel_from_git "${package_mode}" pip3 || return 1
             fi
             update_progress "Updated..." "Hiddify Panel to ${package_mode}" 50
             return 0
@@ -129,8 +131,7 @@ function update_panel() {
                
                 disable_panel_services
                 
-                uv pip install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel
-                uv pip install git+https://github.com/hiddify/HiddifyPanel
+                install_panel_from_git "" "uv pip" || return 1
                 panel_path=$(hiddifypanel_path)
                 echo "setting $latest in $panel_path/VERSION"
                 echo $latest > $panel_path/VERSION
