@@ -288,10 +288,13 @@ function _node_major() {
     node -p 'process.versions.node.split(".")[0]' 2>/dev/null || echo 0
 }
 
+
 # Node.js for building the admin UI only. The system's node is used when it is new
 # enough; otherwise the official prebuilt Node goes into a private directory (no apt
 # packages: Ubuntu 22.04's nodejs 12/libnode conflicts with newer node packages).
 HIDDIFY_NODE_VERSION="${HIDDIFY_NODE_VERSION:-22.23.3}"
+# npm for that private Node (newer than the one bundled with it); needs node ^22.22.2.
+HIDDIFY_NPM_VERSION="${HIDDIFY_NPM_VERSION:-12.1.0}"
 HIDDIFY_NODE_MIRRORS="${HIDDIFY_NODE_MIRRORS:-https://nodejs.org/dist https://npmmirror.com/mirrors/node}"
 
 function _node_arch() {
@@ -351,14 +354,23 @@ function ensure_nodejs() {
     fi
     # Only this shell (the installer) sees it; nothing is installed system-wide.
     export PATH="$dir/bin:$PATH"
-    [ "$(_node_major)" -ge 18 ] && command -v npm >/dev/null 2>&1
+    [ "$(_node_major)" -ge 18 ] && command -v npm >/dev/null 2>&1 || return 1
+    # Upgrade the private copy's npm once; `-g` installs into $dir (Node's own prefix), not the system.
+    if [ -n "$HIDDIFY_NPM_VERSION" ] && [ "$(npm -v 2>/dev/null)" != "$HIDDIFY_NPM_VERSION" ]; then
+        warning "Updating npm $(npm -v) -> $HIDDIFY_NPM_VERSION (private Node only)..." >&2
+        if ! npm install -g --no-audit --no-fund --loglevel=error "npm@$HIDDIFY_NPM_VERSION"; then
+            warning "Could not update npm; building with npm $(npm -v)" >&2
+        fi
+    fi
+    return 0
 }
 
-# The UI build needs ~1.4 GB of RAM (Node heap capped at HIDDIFY_UI_BUILD_HEAP_MB). Small
+# The UI build needs ~1.2 GB of RAM (Node heap capped at HIDDIFY_UI_BUILD_HEAP_MB; it fails
+# below ~900 MB). Small
 # VPSes get the build OOM-killed, so add a temporary swap file for the build when
 # free RAM + swap is below HIDDIFY_UI_BUILD_MIN_MEM_MB; it is removed right after.
-HIDDIFY_UI_BUILD_HEAP_MB="${HIDDIFY_UI_BUILD_HEAP_MB:-1280}"
-HIDDIFY_UI_BUILD_MIN_MEM_MB="${HIDDIFY_UI_BUILD_MIN_MEM_MB:-2200}"
+HIDDIFY_UI_BUILD_HEAP_MB="${HIDDIFY_UI_BUILD_HEAP_MB:-2048}"
+HIDDIFY_UI_BUILD_MIN_MEM_MB="${HIDDIFY_UI_BUILD_MIN_MEM_MB:-1600}"
 _HIDDIFY_UI_SWAPFILE="/var/tmp/hiddify-ui-build.swap"
 
 function _mem_available_mb() {
@@ -425,7 +437,7 @@ function build_panel_ui() {
     _remove_build_swap
     if [ "$rc" != 0 ]; then
         if [ "$rc" = 137 ] || dmesg 2>/dev/null | tail -n 20 | grep -qi "killed process.*node"; then
-            error "Building the admin UI ran out of memory (needs ~1.5 GB free RAM or swap)"
+            error "Building the admin UI ran out of memory (needs ~1.2 GB free RAM or swap)"
         else
             error "Building the admin UI failed (see the npm output above)"
         fi

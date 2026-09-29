@@ -24,7 +24,13 @@ apply:
 		(cd /opt/hiddify-manager/services/panel && bash install.sh && bash run.sh && bash /opt/hiddify-manager/scripts/common/replace_variables.sh); 	
 	fi
 .PHONY: apply
-build:
+# The admin UI (services/panel/src/hiddifypanel/static/admin-v2/) is not in git: build it from
+# this checkout (skipped when already up to date; keeps your node_modules).
+ui:
+	@HIDDIFY_KEEP_NODE_MODULES=1 bash -c 'source ./scripts/common/utils.sh && build_panel_ui "$(PWD)/services/panel/src"'
+.PHONY: ui
+
+build: ui
 	@if [ "$(PWD)" = "/opt/hiddify-manager" -o "$(PWD)" = "/opt/hiddify-config" ]; then \
 		echo "You cannot build from /opt/hiddify-manager. Clone the repository outside this folder."; \
 		exit 2; \
