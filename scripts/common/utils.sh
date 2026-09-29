@@ -19,6 +19,19 @@ HIDDIFY_SERVER_CONFIG_FILES=(
     "dnstm.json"
 )
 
+# Backups are full database dumps (secrets, user ids): owned by the panel user, not world-readable.
+# hiddify-panel-cli backup runs as hiddify-panel, so a root-owned dir (e.g. left by a panel run
+# as root) makes every backup fail with "Permission denied".
+function ensure_panel_backup_dir() {
+    local dir="$HIDDIFY_DATA/backup"
+    mkdir -p "$dir"
+    if id -u hiddify-panel >/dev/null 2>&1; then
+        chown -R hiddify-panel:hiddify-panel "$dir"
+    fi
+    chmod 750 "$dir"
+    find "$dir" -type f -exec chmod 640 {} + 2>/dev/null || true
+}
+
 function ensure_hiddify_data_dirs() {
     # Shared permanent paths only. Each service creates its own data dirs.
     mkdir -p \
@@ -26,6 +39,7 @@ function ensure_hiddify_data_dirs() {
         "$HIDDIFY_DATA/log/system" \
         "$HIDDIFY_GENERATED/client" \
         "$HIDDIFY_GENERATED/include"
+    ensure_panel_backup_dir
     if getent group hiddify-common >/dev/null 2>&1; then
         chmod 775 "$HIDDIFY_GENERATED" "$HIDDIFY_GENERATED/client" "$HIDDIFY_GENERATED/include" 2>/dev/null || true
         if id -u hiddify-panel >/dev/null 2>&1; then
