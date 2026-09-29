@@ -288,25 +288,69 @@ function _node_major() {
     node -p 'process.versions.node.split(".")[0]' 2>/dev/null || echo 0
 }
 
+# Node.js for building the admin UI only. The system's node is used when it is new
+# enough; otherwise the official prebuilt Node goes into a private directory (no apt
+# packages: Ubuntu 22.04's nodejs 12/libnode conflicts with newer node packages).
+HIDDIFY_NODE_VERSION="${HIDDIFY_NODE_VERSION:-22.23.3}"
+HIDDIFY_NODE_MIRRORS="${HIDDIFY_NODE_MIRRORS:-https://nodejs.org/dist https://npmmirror.com/mirrors/node}"
+
+function _node_arch() {
+    case "$(uname -m)" in
+        x86_64 | amd64) echo x64 ;;
+        aarch64 | arm64) echo arm64 ;;
+        armv7l) echo armv7l ;;
+        *) return 1 ;;
+    esac
+}
+
+function _download_nodejs() {
+    local arch dir name mirror tmp
+    arch=$(_node_arch) || { error "No prebuilt Node.js for CPU $(uname -m)" >&2; return 1; }
+    name="node-v${HIDDIFY_NODE_VERSION}-linux-${arch}"
+    dir="$HIDDIFY_DIR/.cache/nodejs/$name"
+    if [ -x "$dir/bin/node" ]; then
+        echo "$dir"
+        return 0
+    fi
+    install_package curl xz-utils ca-certificates >/dev/null 2>&1
+    tmp=$(mktemp -d /var/tmp/hiddify-node.XXXXXX) || return 1
+    for mirror in $HIDDIFY_NODE_MIRRORS; do
+        warning "Downloading Node.js v${HIDDIFY_NODE_VERSION} from ${mirror} (only to build the admin UI)..." >&2
+        if curl -fsSL --retry 2 --connect-timeout 15 -o "$tmp/$name.tar.xz" "$mirror/v${HIDDIFY_NODE_VERSION}/$name.tar.xz" &&
+            curl -fsSL --retry 2 --connect-timeout 15 -o "$tmp/SHASUMS256.txt" "$mirror/v${HIDDIFY_NODE_VERSION}/SHASUMS256.txt" &&
+            (cd "$tmp" && grep " $name.tar.xz\$" SHASUMS256.txt | sha256sum -c --status); then
+            mkdir -p "$(dirname "$dir")"
+            rm -rf "$dir"
+            if tar -xJf "$tmp/$name.tar.xz" -C "$(dirname "$dir")"; then
+                rm -rf "$tmp"
+                echo "$dir"
+                return 0
+            fi
+        fi
+        warning "Node.js download from ${mirror} failed or did not verify" >&2
+        rm -f "$tmp/$name.tar.xz" "$tmp/SHASUMS256.txt"
+    done
+    rm -rf "$tmp"
+    return 1
+}
+
 function ensure_nodejs() {
     # Docker images get the UI from the Dockerfile's build stage and must not carry Node.js.
     if [ "${DOCKER_MODE:-}" = "true" ]; then
         error "Not installing Node.js in Docker: the admin UI is built in the Dockerfile's panel-ui stage"
         return 1
     fi
-    # vite needs Node >= 18. Ubuntu 24.04's own package is new enough; 22.04's is not.
+    # vite needs Node >= 18.
     if [ "$(_node_major)" -ge 18 ] && command -v npm >/dev/null 2>&1; then
         return 0
     fi
-    install_package nodejs npm >/dev/null 2>&1
-    if [ "$(_node_major)" -ge 18 ] && command -v npm >/dev/null 2>&1; then
-        return 0
+    local dir
+    if ! dir=$(_download_nodejs); then
+        error "Could not get Node.js v${HIDDIFY_NODE_VERSION} (tried: ${HIDDIFY_NODE_MIRRORS}). Set HIDDIFY_NODE_MIRRORS to a reachable mirror."
+        return 1
     fi
-    warning "Installing Node.js 20 (NodeSource) to build the admin UI..."
-    install_package ca-certificates curl gnupg
-    remove_package npm
-    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - || return 1
-    with_lock apt apt install -y nodejs || return 1
+    # Only this shell (the installer) sees it; nothing is installed system-wide.
+    export PATH="$dir/bin:$PATH"
     [ "$(_node_major)" -ge 18 ] && command -v npm >/dev/null 2>&1
 }
 
