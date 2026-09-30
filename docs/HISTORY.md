@@ -1,6 +1,59 @@
 # Changelog
 
 
+## (unreleased)
+
+### Fix
+
+* Enhance error handling and validation in replace_variables.sh and utils.sh. [hiddify-com]
+
+  - Added validation for current.json to ensure it contains valid domain and configuration data before applying changes.
+  - Improved handling of SSL certificate removal to prevent accidental deletion when no domains are present.
+  - Updated hiddify-http-api function to handle missing API path and key gracefully.
+  - Introduced a temporary file mechanism in reload_all_configs to ensure safe updates to current.json.
+
+* Update disable_all_services function to exclude 'old' directories from service disabling. [hiddify-com]
+
+### Other
+
+* Feat: enhance UI build process and memory management. [hiddify-com]
+
+* Feat: add Node.js download and installation logic for Admin UI builds. [hiddify-com]
+
+* Feat: add temporary swap file management for UI builds. [hiddify-com]
+
+  - Introduced functions to create and remove a temporary swap file during the Admin UI build process to prevent out-of-memory errors on low-resource systems.
+  - Updated the build process to check available memory and add swap as needed, enhancing reliability during UI builds.
+  - Modified the installation script to ensure proper cleanup of temporary resources after the build.
+
+* Feat: implement backup directory management for hiddify-panel. [hiddify-com]
+
+  - Added a new function to ensure the backup directory for hiddify-panel is created with appropriate ownership and permissions.
+  - Integrated the backup directory setup into the main backup script to prevent permission issues during backup operations.
+
+* Feat: integrate Admin V2 UI build process into Docker setup. [hiddify-com]
+
+  - Added a new Docker build stage for the Admin V2 UI, ensuring it is built and included in the final image without Node.js.
+  - Updated .dockerignore to exclude local build artifacts and unnecessary directories.
+  - Enhanced the Makefile to retain node_modules during the build process if specified.
+  - Implemented checks in the installer script to ensure the Admin UI bundle is present after building the image.
+  - Introduced utility functions for building the Admin UI and installing the panel from GitHub, streamlining the installation process.
+
+* Refactor: improve SSL certificate management in replace_variables.sh. [hiddify-com]
+
+  - Updated logic to remove certificates for domains no longer present in the panel, ensuring only valid certificates are retained.
+  - Introduced handling for self-signed certificates with names longer than 64 characters.
+  - Cleaned up the known domains file after processing to maintain a tidy environment.
+
+* Feat: add certificate validation and renewal logic in cert_utils.sh. [hiddify-com]
+
+  - Introduced functions to determine if a certificate is self-signed, covers a domain, and is current for renewal.
+  - Added logic to skip renewal if the existing certificate is still valid.
+  - Defined renewal timeframes for IP and domain certificates to enhance management of SSL certificates.
+
+* Enhanced generate_warp_wireguard_config function to include temporary file handling for safer configuration updates. [hiddify-com]
+
+
 ## v13.0.2 (2026-09-26)
 
 ### Other
