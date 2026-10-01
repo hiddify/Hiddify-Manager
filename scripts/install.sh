@@ -22,6 +22,72 @@ if [ "$(id -u)" -ne 0 ]; then
     echo 'This script must be run by root' >&2
     exit 1
 fi
+# ---------------------------------------------------------------------------------------------
+# Parallel steps with honest progress.
+#
+#   add_task [-n UNITS] "Label" command args...   queue a step (UNITS: how many progress_tick calls
+#                                                  it makes in total, default 1; the last one is
+#                                                  made for it when the command returns)
+#   run_parallel FROM TO "Group"                  run everything queued at once; the bar moves from
+#                                                  FROM% to TO% by one unit each time a step ends
+#   progress_tick "Label"                         one unit done (for steps made of several parts)
+# ---------------------------------------------------------------------------------------------
+declare -a _TASK_LABELS=() _TASK_CMDS=() _TASK_UNITS=()
+
+function add_task() {
+    local units=1
+    if [ "$1" == "-n" ]; then units=$2; shift 2; fi
+    local label="$1"; shift
+    _TASK_LABELS+=("$label")
+    _TASK_UNITS+=("$units")
+    _TASK_CMDS+=("$(printf '%q ' "$@")")
+}
+
+function progress_tick() {
+    (
+        flock 9
+        local finished=$(( $(<"$PROGRESS_DIR/finished") + 1 ))
+        echo "$finished" >"$PROGRESS_DIR/finished"
+        local percent=$(( PROGRESS_FROM + (PROGRESS_TO - PROGRESS_FROM) * finished / PROGRESS_TOTAL ))
+        update_progress "${PROGRESS_GROUP}" "$1 ($finished/$PROGRESS_TOTAL)" "$percent"
+    ) 9>"$PROGRESS_DIR/lock"
+}
+
+function run_parallel() {
+    local total=0 units i
+    for units in "${_TASK_UNITS[@]}"; do total=$((total + units)); done
+    if [ "$total" -eq 0 ]; then return 0; fi
+
+    export PROGRESS_FROM=$1 PROGRESS_TO=$2 PROGRESS_GROUP="$3" PROGRESS_TOTAL=$total
+    export PROGRESS_DIR="$(mktemp -d)"
+    echo 0 >"$PROGRESS_DIR/finished"
+    : >"$PROGRESS_DIR/failed"
+    update_progress "${PROGRESS_GROUP}" "Starting ${#_TASK_LABELS[@]} steps in parallel" "$PROGRESS_FROM"
+
+    for i in "${!_TASK_LABELS[@]}"; do
+        (
+            eval "${_TASK_CMDS[$i]}"
+            local rc=$?
+            [ "$rc" != 0 ] && echo "${_TASK_LABELS[$i]}" >>"$PROGRESS_DIR/failed"
+            progress_tick "${_TASK_LABELS[$i]}"
+        ) &
+    done
+    wait
+
+    if [ -s "$PROGRESS_DIR/failed" ]; then
+        error "These steps reported an error: $(paste -sd, "$PROGRESS_DIR/failed")"
+    fi
+    rm -rf "$PROGRESS_DIR"
+    _TASK_LABELS=() _TASK_CMDS=() _TASK_UNITS=()
+}
+
+# Certificates need haproxy first.
+function install_haproxy_then_certificates() {
+    install_run services/haproxy
+    progress_tick "Haproxy"
+    install_run services/acme.sh
+}
+
 function main() {
     update_progress "Please wait..." "We are going to install Hiddify..." 0
     export ERROR=0
@@ -43,98 +109,51 @@ function main() {
     
     if [ "$MODE" != "apply_users" ]; then
         clean_files
-        update_progress "${PROGRESS_ACTION}" "Common Tools and Requirements" 2
-        runsh install.sh scripts/common &
-        if [ "$DOCKER_MODE" != "true" ];then
-            install_run services/redis &
-            install_run services/mysql &
-        fi    
-        wait
-        [ "$DOCKER_MODE" != "true" ] && install_run services/mysql #for making sure mysql is running
-        # Because we need to generate reality pair in panel
-        # is_installed xray || bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version 1.8.4
-        
+
+        # 1) Common tools, redis and mysql (independent of each other)
+        add_task "Common tools and requirements" runsh install.sh scripts/common
+        if [ "$DOCKER_MODE" != "true" ]; then
+            add_task "Redis" install_run services/redis
+            add_task "MySQL" install_run services/mysql
+        fi
+        run_parallel 2 6 "Common Tools and Requirements"
+
+        [ "$DOCKER_MODE" != "true" ] && install_run services/mysql # make sure mysql is running
+        # The panel needs them all (it generates the reality pair, ...)
+        update_progress "${PROGRESS_ACTION}" "Hiddify Panel" 7
         install_run services/panel
     fi
-    
-    # source /opt/hiddify-manager/scripts/common/set_config_from_hpanel.sh
-    if [ "$DO_NOT_RUN" != "true" ];then
-      update_progress "HiddifyPanel" "Reading Configs from Panel..." 5
-      set_config_from_hpanel
 
-      update_progress "Applying Configs" "..." 8
+    # 2) Read the panel's configs
+    if [ "$DO_NOT_RUN" != "true" ]; then
+        update_progress "HiddifyPanel" "Reading Configs from Panel..." 9
+        set_config_from_hpanel
 
-      bash scripts/common/replace_variables.sh
+        update_progress "Applying Configs" "..." 11
+        bash scripts/common/replace_variables.sh
     fi
-    
+
+    # 3) All the services at once; the bar moves each time one of them finishes
     if [ "$MODE" != "apply_users" ]; then
         bash ./services/deprecated/remove_deprecated.sh
-        update_progress "Configuring..." "System settings" 10
-        runsh run.sh scripts/common &
-
-        update_progress "Configuring..." "Firewall" 12
-        install_run services/firewall &
-        
-        update_progress "${PROGRESS_ACTION}" "Nginx" 15
-        install_run services/nginx &
-        
-        install_run services/rust-rpxy-l4 &
-        (
-            update_progress "${PROGRESS_ACTION}" "Haproxy for Spliting Traffic" 20
-            install_run services/haproxy
-        
-            update_progress "${PROGRESS_ACTION}" "Getting Certificates" 30
-            install_run services/acme.sh 
-        )&
-        
-        update_progress "${PROGRESS_ACTION}" "Personal SpeedTest" 35
-        install_run services/speedtest $(hconfig "speed_test") &
-        
-        update_progress "${PROGRESS_ACTION}" "DNS Proxy" 40
-        install_run services/dns_proxy $(hconfig "dnstt_enable") &
-
-        update_progress "${PROGRESS_ACTION}" "Telegram Proxy" 40
-        install_run services/telegram $(hconfig "telegram_enable") &
-        
-        update_progress "${PROGRESS_ACTION}" "FakeTlS Proxy" 45
-        install_run services/ssfaketls $(hconfig "ssfaketls_enable") &
-        
-        # update_progress "${PROGRESS_ACTION}" "V2ray WS Proxy" 50
-        # install_run services/v2ray $ENABLE_V2RAY
-        
-        #update_progress "${PROGRESS_ACTION}" "SSH Proxy" 55
-        #install_run services/ssh 0 &
-        
-        #update_progress "${PROGRESS_ACTION}" "ShadowTLS" 60
-        #install_run services/shadowtls $(hconfig "shadowtls_enable")
-        
-        update_progress "${PROGRESS_ACTION}" "Warp" 70
-        
-        if [[ $(hconfig "warp_mode") != "disable" ]];then
-            install_run services/warp 1 &
-        else   
-            install_run services/warp 0 &
-        fi
-
-        update_progress "${PROGRESS_ACTION}" "Xray" 75
-        
-        install_run services/xray 1 &
-        
-        
-        update_progress "${PROGRESS_ACTION}" "HiddifyCli" 80
-        install_run services/hiddify-cli $(hconfig "hiddifycli_enable") &
-        
+        add_task "System settings" runsh run.sh scripts/common
+        add_task "Firewall" install_run services/firewall
+        add_task "Nginx" install_run services/nginx
+        add_task "Rpxy L4 (traffic splitting)" install_run services/rust-rpxy-l4
+        add_task -n 2 "Haproxy and certificates" install_haproxy_then_certificates
+        add_task "Personal SpeedTest" install_run services/speedtest "$(hconfig "speed_test")"
+        add_task "DNS Proxy" install_run services/dns_proxy "$(hconfig "dnstt_enable")"
+        add_task "Telegram Proxy" install_run services/telegram "$(hconfig "telegram_enable")"
+        add_task "FakeTLS Proxy" install_run services/ssfaketls "$(hconfig "ssfaketls_enable")"
+        add_task "Warp" install_run services/warp "$([[ $(hconfig "warp_mode") != "disable" ]] && echo 1 || echo 0)"
+        add_task "Xray" install_run services/xray 1
+        add_task "HiddifyCli" install_run services/hiddify-cli "$(hconfig "hiddifycli_enable")"
     fi
+    add_task "Wireguard" install_run services/wireguard "$(hconfig "wireguard_enable")"
+    add_task "Hiddify Core" install_run services/hiddify-core
+    run_parallel 11 98 "${PROGRESS_ACTION}"
 
-
-    update_progress "${PROGRESS_ACTION}" "Wireguard" 85
-    install_run services/wireguard $(hconfig "wireguard_enable") &
-    
-    update_progress "${PROGRESS_ACTION}" "Hiddify Core" 95
-    install_run services/hiddify-core &
-    
     update_progress "${PROGRESS_ACTION}" "Almost Finished" 98
-    wait 
     echo "---------------------Finished!------------------------"
     remove_lock $NAME
     update_progress "${PROGRESS_ACTION}" "Done" 100
