@@ -662,65 +662,6 @@ function check_hiddify_panel() {
     fi
 }
 
-function add2iptables46(){
-    add2iptables "$1"
-    add2ip6tables "$1"
-}
-
-function add2iptables() {
-    iptables -C $1 >/dev/null 2>&1 || echo "adding rule $1" && iptables -I $1
-
-}
-function add2ip6tables() {
-    ip6tables -C $1 >/dev/null 2>&1 || echo "adding rule $1" && ip6tables -I $1
-}
-function allow_port() { #allow_port "tcp" "80"
-    add2iptables46 "INPUT -p $1 --dport $2 -j ACCEPT"
-    
-    # if [[ $1 == 'udp' ]]; then
-    add2iptables46 "INPUT -p $1 -m $1 --dport $2 -m conntrack --ctstate NEW -j ACCEPT"
-    # fi
-}
-
-function block_port() { #allow_port "tcp" "80"
-    add2iptables46 "INPUT -p $1 --dport $2 -j DROP"
-}
-
-function remove_port() { #allow_port "tcp" "80"
-    iptables -D INPUT -p "$1" --dport "$2" -j ACCEPT
-    ip6tables -D INPUT -p "$1" --dport "$2" -j ACCEPT
-}
-
-function allow_apps_ports() {
-    local service_name=$1
-
-    # Get ports and paths for the service
-    local ports=$(ss -tulpn | grep "$service_name" | awk '{print $5}' | cut -d':' -f2)
-    local paths=$(pgrep -f "$service_name" | while read -r pid; do readlink -f /proc/"$pid"/exe; done | awk '!seen[$0]++')
-
-    if [[ -z $ports ]]; then
-        echo "Service $service_name not found or not running"
-    else
-        IFS=' ' read -ra portArray <<<"$ports"
-        for p in "${portArray[@]}"; do
-            for path in $paths; do
-                echo "Service $service_name is running on port $p and path $path"
-                allow_port "tcp" "$p"
-            done
-        done
-    fi
-}
-function save_firewall() {
-    mkdir -p /etc/iptables/
-    iptables-save >/etc/iptables/rules.v4
-    awk -i inplace '!seen[$0]++' /etc/iptables/rules.v4
-    echo "COMMIT" >> /etc/iptables/rules.v4
-    ip6tables-save >/etc/iptables/rules.v6
-    awk -i inplace '!seen[$0]++' /etc/iptables/rules.v6
-    echo "COMMIT" >> /etc/iptables/rules.v6
-    ip6tables-restore </etc/iptables/rules.v6
-    iptables-restore </etc/iptables/rules.v4
-}
 
 function show_progress_window() {
     disable_ansii_modes
@@ -731,7 +672,6 @@ function show_progress_window() {
     disable_ansii_modes
     return $exit_code
 }
-
 
 
 function log_dir() {
@@ -987,8 +927,6 @@ function dump_server_configs() {
     [ "$MODE" = "apply_users" ] && flags+=(--no-invalidate-cache)
     hiddify-panel-cli dump-server-configs "$HIDDIFY_GENERATED" "${flags[@]}"
 }
-
-
 
 
 set_files_in_folder_readable_to_hiddify_common_group() {
