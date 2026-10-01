@@ -189,6 +189,15 @@ def get_cert(domain: str):
     run(cmd)
 
 
+@cli.command("port-owner")
+@click.option("--port", "-p", type=click.IntRange(1, 65535), help="The TCP port to look up", required=True)
+def port_owner(port: int):
+    """Print the name of each process listening on PORT (one per line; nothing when the port is free)."""
+    out = subprocess.run(["lsof", "-nP", f"-iTCP:{port}", "-sTCP:LISTEN", "-Fc"], capture_output=True, text=True, check=False).stdout
+    for name in sorted({line[1:] for line in out.splitlines() if line.startswith("c")}):
+        print(name)
+
+
 @cli.command("update-usage")
 def update_usage():
     cmd = [Command.update_usage.value]
