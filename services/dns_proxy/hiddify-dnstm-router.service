@@ -1,0 +1,32 @@
+[Unit]
+Description=DNSTM DNS Router (dns_proxy)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=dns_proxy
+Group=dns_proxy
+ExecStart=/opt/hiddify-manager/services/dns_proxy/dnstt/dnstm dnsrouter serve -C /opt/hiddify-manager/generated/dnstm.json
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadOnlyPaths=/opt/hiddify-manager/generated/dnstm.json
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+MemoryDenyWriteExecute=yes
+LockPersonality=yes
+
+[Install]
+WantedBy=multi-user.target

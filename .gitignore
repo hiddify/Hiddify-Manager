@@ -5,8 +5,12 @@ data/ssl
 data/current.json
 data/**
 generated/**
-
+scripts/common/packages.db
+docker-compose.override.yaml
+tests
 dump.rdb
 hiddify_usages.json
 docker-data
 node_modules
+common/__pycache__
+*.pyc

@@ -1,3 +1,6 @@
+source /opt/hiddify-manager/scripts/common/utils.sh
+source /opt/hiddify-manager/services/warp/utils.sh
+ensure_warp_data_links singbox "$(pwd)"
 
 if ! [ -f "wgcf-account.toml" ];then
     # mv wgcf-account.toml wgcf-account.toml.backup

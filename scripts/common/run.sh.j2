@@ -12,7 +12,7 @@ if [ "$MODE" != "docker" ];then
   if [[ "$CURRENT_TZ" != "$TIMEZONE" ]]; then
       echo "Current timezone is $CURRENT_TZ. Changing to $TIMEZONE..."
       sudo timedatectl set-timezone "$TIMEZONE"
-      sudo systemctl restart mariadb
+      sudo systemctl restart hiddify-mysql
   fi
 fi
 
@@ -28,9 +28,6 @@ else
   sed -i "/Your server is vulnerable/d" /etc/motd
 fi
 
-# Restart sshd/ssh
-sudo systemctl restart sshd.service
-sudo systemctl restart ssh.service
 
 {% if hconfigs['auto_update'] %}
 echo "0 3 * * * root $(pwd)/../update.sh --no-gui --no-log" >/etc/cron.d/hiddify_auto_update

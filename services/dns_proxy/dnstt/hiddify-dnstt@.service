@@ -1,0 +1,31 @@
+[Unit]
+Description=DNS proxy DNSTT/VayDNS tunnel (%i)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=dns_proxy
+Group=dns_proxy
+ExecStart=/opt/hiddify-manager/services/dns_proxy/dnstt/run-instance.sh %i
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadOnlyPaths=/opt/hiddify-manager/generated/dns_proxy/dnstt
+ReadOnlyPaths=/opt/hiddify-manager/services/dns_proxy/dnstt/server.key
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+MemoryDenyWriteExecute=yes
+LockPersonality=yes
+
+[Install]
+WantedBy=multi-user.target

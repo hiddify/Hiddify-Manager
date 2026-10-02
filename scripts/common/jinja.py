@@ -116,7 +116,9 @@ def render_j2_templates(*start_paths):
     # Dirs to ignore from Jinja2 rendering
     exclude_dirs = [
         "/opt/hiddify-manager/.venv",
-        "/opt/hiddify-manager/services/hiddify-panel/src/",
+        "/opt/hiddify-manager/services/panel/src/",
+        # Scratch space (e.g. old panel source checkouts): never manager templates.
+        "/opt/hiddify-manager/.cache/",
         "/opt/hiddify-manager/data/",
         "/opt/hiddify-manager/generated/",
         "/opt/hiddify-manager/old/",

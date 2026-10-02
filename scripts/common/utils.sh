@@ -3,6 +3,10 @@ export HIDDIFY_SCRIPTS="$HIDDIFY_DIR/scripts"
 export HIDDIFY_SERVICES="$HIDDIFY_DIR/services"
 export HIDDIFY_DATA="$HIDDIFY_DIR/data"
 export HIDDIFY_GENERATED="$HIDDIFY_DIR/generated"
+export HIDDIFY_LOCKS="$HIDDIFY_DATA/locks"
+# Single source of truth for the panel's durable config — must match the default
+# baked into hiddifypanel/__init__.py and base.py.
+export HIDDIFY_PANEL_CFG_PATH="$HIDDIFY_DATA/hiddify-panel/app.cfg"
 export venv_path="/opt/hiddify-manager/.venv313"
 
 # Filenames written by `hiddifypanel dump-server-configs`.
@@ -12,24 +16,30 @@ HIDDIFY_SERVER_CONFIG_FILES=(
     "haproxy.cfg"
     "nginx.cfg"
     "rust-rpxy-l4.toml"
+    "dnstm.json"
 )
 
+# Backups are full database dumps (secrets, user ids): owned by the panel user, not world-readable.
+# hiddify-panel-cli backup runs as hiddify-panel, so a root-owned dir (e.g. left by a panel run
+# as root) makes every backup fail with "Permission denied".
+function ensure_panel_backup_dir() {
+    local dir="$HIDDIFY_DATA/backup"
+    mkdir -p "$dir"
+    if id -u hiddify-panel >/dev/null 2>&1; then
+        chown -R hiddify-panel:hiddify-panel "$dir"
+    fi
+    chmod 750 "$dir"
+    find "$dir" -type f -exec chmod 640 {} + 2>/dev/null || true
+}
+
 function ensure_hiddify_data_dirs() {
-    # Permanent storage only: certs, logs, databases, runtime-writable snippets.
+    # Shared permanent paths only. Each service creates its own data dirs.
     mkdir -p \
         "$HIDDIFY_DATA/ssl" \
         "$HIDDIFY_DATA/log/system" \
-        "$HIDDIFY_DATA/mysql" \
-        "$HIDDIFY_DATA/redis" \
-        "$HIDDIFY_DATA/hiddify-core" \
-        "$HIDDIFY_DATA/hiddify-panel" \
-        "$HIDDIFY_DATA/services/nginx/parts" \
-        "$HIDDIFY_DATA/services/acme.sh/www" \
-        "$HIDDIFY_DATA/services/hiddify-panel" \
-        "$HIDDIFY_DATA/services/mysql" \
-        "$HIDDIFY_DATA/services/redis" \
         "$HIDDIFY_GENERATED/client" \
         "$HIDDIFY_GENERATED/include"
+    ensure_panel_backup_dir
     if getent group hiddify-common >/dev/null 2>&1; then
         chmod 775 "$HIDDIFY_GENERATED" "$HIDDIFY_GENERATED/client" "$HIDDIFY_GENERATED/include" 2>/dev/null || true
         if id -u hiddify-panel >/dev/null 2>&1; then
@@ -39,16 +49,13 @@ function ensure_hiddify_data_dirs() {
             chown -R root:hiddify-common "$HIDDIFY_GENERATED" 2>/dev/null || true
         fi
     fi
-    link_generated_server_configs
 }
 
-function link_generated_server_configs() {
-    mkdir -p "$HIDDIFY_GENERATED"
-    ln -sfn "$HIDDIFY_GENERATED/hiddify-core.json" "$HIDDIFY_SERVICES/hiddify-core/hiddify-core.json"
-    ln -sfn "$HIDDIFY_GENERATED/xray.json" "$HIDDIFY_SERVICES/xray/xray.json"
-    ln -sfn "$HIDDIFY_GENERATED/haproxy.cfg" "$HIDDIFY_SERVICES/haproxy/haproxy.cfg"
-    ln -sfn "$HIDDIFY_GENERATED/nginx.cfg" "$HIDDIFY_SERVICES/nginx/nginx.cfg"
-    ln -sfn "$HIDDIFY_GENERATED/rust-rpxy-l4.toml" "$HIDDIFY_SERVICES/rust-rpxy-l4/rust-rpxy-l4.toml"
+# Usage: hiddify_random_password [length]  (default 49)
+function hiddify_random_password() {
+    local len="${1:-49}"
+    < /dev/urandom tr -dc 'a-zA-Z0-9' | head -c "$len"
+    echo
 }
 
 function get_commit_version() {
@@ -87,7 +94,7 @@ function get_release_version() {
 
 function hiddifypanel_path() {
     activate_python_venv
-    /opt/hiddify-manager/.venv313/bin/python -c "import os,hiddifypanel;print(os.path.dirname(hiddifypanel.__file__),end='')" 2>&1 || echo "panel is not installed yet."
+    timeout 15 /opt/hiddify-manager/.venv313/bin/python -c "import os,hiddifypanel;print(os.path.dirname(hiddifypanel.__file__),end='')" 2>&1 || echo "panel is not installed yet."
 }
 function get_installed_panel_version() {
     activate_python_venv
@@ -164,6 +171,22 @@ function update_progress() {
     echo -e "####$percentage####$title####$text####"
 }
 
+function restart_hiddify_panel() {
+    # Finish apply/install work (including progress 100) before calling this.
+    # ``systemctl kill`` / a blocking restart SIGTERMs every process in the
+    # hiddify-panel cgroup. apply must run outside that cgroup (commander.py
+    # uses systemd-run) and restart here must be --no-block.
+    if ! command -v systemctl >/dev/null 2>&1; then
+        return 0
+    fi
+    local mode="${1:-restart}"
+    if [ "$mode" = "start" ]; then
+        systemctl start --no-block hiddify-panel
+    else
+        systemctl restart --no-block hiddify-panel
+    fi
+}
+
 function is_installed_pypi_package() {
     activate_python_venv
     package_name="$1"
@@ -210,36 +233,244 @@ function is_installed_package() {
     fi
 }
 install_package() {
-    local not_installed_packages=""
-    local package
+    # scripts/install.sh installs scripts/common, services/redis and
+    # services/mysql in parallel, so several apt runs would otherwise start at
+    # once and all but one fail on the dpkg lock. The failure path below then
+    # repairs them out of order, which can leave a package unpacked but
+    # unconfigured and run its postinst long after the service's own install
+    # script finished — for mariadb-server that postinst re-initializes the
+    # datadir and wipes the panel DB user services/mysql/install.sh just
+    # created. The lock also covers the is-installed check, so a second run
+    # cannot decide to install what the first one is already installing.
+    (
+        flock 9
+        local not_installed_packages=""
+        local package
 
-    for package in "$@"; do
-        if ! is_installed_package "$package"; then
-            # The package is not installed, add it to the list
-            not_installed_packages+=" $package"
+        for package in "$@"; do
+            if ! is_installed_package "$package"; then
+                # The package is not installed, add it to the list
+                not_installed_packages+=" $package"
+            fi
+        done
+
+        if [ -n "$not_installed_packages" ]; then
+            apt install -y --no-install-recommends $not_installed_packages
+
+            # Check if installation failed
+            if [ $? -ne 0 ]; then
+                apt --fix-broken install -y
+                apt update
+                #retries for 3 times
+                apt install -y $not_installed_packages ||apt install -y $not_installed_packages||apt install -y $not_installed_packages
+
+            fi
         fi
-    done
-
-    if [ -n "$not_installed_packages" ]; then
-        apt install -y --no-install-recommends $not_installed_packages
-
-        # Check if installation failed
-        if [ $? -ne 0 ]; then
-            apt --fix-broken install -y
-            apt update
-            #retries for 3 times
-            apt install -y $not_installed_packages ||apt install -y $not_installed_packages||apt install -y $not_installed_packages
-            
-        fi
-    fi
+    ) 9>"$(lock_file apt)"
 }
 
 function remove_package() {
     for package in $@; do
         if dpkg -l | grep -q "^ii  $package"; then
-            apt remove -y --auto-remove "$package"
+            with_lock apt apt remove -y --auto-remove "$package"
         fi
     done
+}
+
+# --- Admin V2 UI (Vue) -------------------------------------------------------
+# The built UI (hiddifypanel/static/admin-v2/) is not in git. Release/beta wheels
+# ship it prebuilt (release workflow); every install from source builds it here.
+
+HIDDIFY_PANEL_GIT_URL="https://github.com/hiddify/HiddifyPanel"
+
+function _node_major() {
+    command -v node >/dev/null 2>&1 || { echo 0; return; }
+    node -p 'process.versions.node.split(".")[0]' 2>/dev/null || echo 0
+}
+
+
+# Node.js for building the admin UI only. The system's node is used when it is new
+# enough; otherwise the official prebuilt Node goes into a private directory (no apt
+# packages: Ubuntu 22.04's nodejs 12/libnode conflicts with newer node packages).
+HIDDIFY_NODE_VERSION="${HIDDIFY_NODE_VERSION:-22.23.3}"
+# npm for that private Node (newer than the one bundled with it); needs node ^22.22.2.
+HIDDIFY_NPM_VERSION="${HIDDIFY_NPM_VERSION:-12.1.0}"
+HIDDIFY_NODE_MIRRORS="${HIDDIFY_NODE_MIRRORS:-https://nodejs.org/dist https://npmmirror.com/mirrors/node}"
+
+function _node_arch() {
+    case "$(uname -m)" in
+        x86_64 | amd64) echo x64 ;;
+        aarch64 | arm64) echo arm64 ;;
+        armv7l) echo armv7l ;;
+        *) return 1 ;;
+    esac
+}
+
+function _download_nodejs() {
+    local arch dir name mirror tmp
+    arch=$(_node_arch) || { error "No prebuilt Node.js for CPU $(uname -m)" >&2; return 1; }
+    name="node-v${HIDDIFY_NODE_VERSION}-linux-${arch}"
+    dir="$HIDDIFY_DIR/.cache/nodejs/$name"
+    if [ -x "$dir/bin/node" ]; then
+        echo "$dir"
+        return 0
+    fi
+    install_package curl xz-utils ca-certificates >/dev/null 2>&1
+    tmp=$(mktemp -d /var/tmp/hiddify-node.XXXXXX) || return 1
+    for mirror in $HIDDIFY_NODE_MIRRORS; do
+        warning "Downloading Node.js v${HIDDIFY_NODE_VERSION} from ${mirror} (only to build the admin UI)..." >&2
+        if curl -fsSL --retry 2 --connect-timeout 15 -o "$tmp/$name.tar.xz" "$mirror/v${HIDDIFY_NODE_VERSION}/$name.tar.xz" &&
+            curl -fsSL --retry 2 --connect-timeout 15 -o "$tmp/SHASUMS256.txt" "$mirror/v${HIDDIFY_NODE_VERSION}/SHASUMS256.txt" &&
+            (cd "$tmp" && grep " $name.tar.xz\$" SHASUMS256.txt | sha256sum -c --status); then
+            mkdir -p "$(dirname "$dir")"
+            rm -rf "$dir"
+            if tar -xJf "$tmp/$name.tar.xz" -C "$(dirname "$dir")"; then
+                rm -rf "$tmp"
+                echo "$dir"
+                return 0
+            fi
+        fi
+        warning "Node.js download from ${mirror} failed or did not verify" >&2
+        rm -f "$tmp/$name.tar.xz" "$tmp/SHASUMS256.txt"
+    done
+    rm -rf "$tmp"
+    return 1
+}
+
+function ensure_nodejs() {
+    # Docker images get the UI from the Dockerfile's build stage and must not carry Node.js.
+    if [ "${DOCKER_MODE:-}" = "true" ]; then
+        error "Not installing Node.js in Docker: the admin UI is built in the Dockerfile's panel-ui stage"
+        return 1
+    fi
+    # vite needs Node >= 18.
+    if [ "$(_node_major)" -ge 18 ] && command -v npm >/dev/null 2>&1; then
+        return 0
+    fi
+    local dir
+    if ! dir=$(_download_nodejs); then
+        error "Could not get Node.js v${HIDDIFY_NODE_VERSION} (tried: ${HIDDIFY_NODE_MIRRORS}). Set HIDDIFY_NODE_MIRRORS to a reachable mirror."
+        return 1
+    fi
+    # Only this shell (the installer) sees it; nothing is installed system-wide.
+    export PATH="$dir/bin:$PATH"
+    [ "$(_node_major)" -ge 18 ] && command -v npm >/dev/null 2>&1 || return 1
+    # Upgrade the private copy's npm once; `-g` installs into $dir (Node's own prefix), not the system.
+    if [ -n "$HIDDIFY_NPM_VERSION" ] && [ "$(npm -v 2>/dev/null)" != "$HIDDIFY_NPM_VERSION" ]; then
+        warning "Updating npm $(npm -v) -> $HIDDIFY_NPM_VERSION (private Node only)..." >&2
+        if ! npm install -g --no-audit --no-fund --loglevel=error "npm@$HIDDIFY_NPM_VERSION"; then
+            warning "Could not update npm; building with npm $(npm -v)" >&2
+        fi
+    fi
+    return 0
+}
+
+# The UI build needs ~1.2 GB of RAM (Node heap capped at HIDDIFY_UI_BUILD_HEAP_MB; it fails
+# below ~900 MB). Small
+# VPSes get the build OOM-killed, so add a temporary swap file for the build when
+# free RAM + swap is below HIDDIFY_UI_BUILD_MIN_MEM_MB; it is removed right after.
+HIDDIFY_UI_BUILD_HEAP_MB="${HIDDIFY_UI_BUILD_HEAP_MB:-2048}"
+HIDDIFY_UI_BUILD_MIN_MEM_MB="${HIDDIFY_UI_BUILD_MIN_MEM_MB:-1600}"
+_HIDDIFY_UI_SWAPFILE="/var/tmp/hiddify-ui-build.swap"
+
+function _mem_available_mb() {
+    awk '/^(MemAvailable|SwapFree):/ {sum += $2} END {print int(sum / 1024)}' /proc/meminfo
+}
+
+function _add_build_swap() {
+    local have need size_mb disk_mb
+    have=$(_mem_available_mb)
+    need=$HIDDIFY_UI_BUILD_MIN_MEM_MB
+    [ "$have" -ge "$need" ] && return 0
+    size_mb=$(( need - have ))
+    [ "$size_mb" -lt 1024 ] && size_mb=1024
+    [ "$size_mb" -gt 2048 ] && size_mb=2048
+    disk_mb=$(df -Pm /var/tmp | awk 'NR==2 {print $4}')
+    if [ "${disk_mb:-0}" -lt $(( size_mb + 512 )) ]; then
+        warning "Only ${have} MB of memory free and not enough disk for temporary swap; the admin UI build may fail"
+        return 0
+    fi
+    warning "Only ${have} MB of memory free: adding ${size_mb} MB of temporary swap for the admin UI build"
+    swapoff "$_HIDDIFY_UI_SWAPFILE" >/dev/null 2>&1
+    rm -f "$_HIDDIFY_UI_SWAPFILE"
+    if ! { fallocate -l "${size_mb}M" "$_HIDDIFY_UI_SWAPFILE" 2>/dev/null || dd if=/dev/zero of="$_HIDDIFY_UI_SWAPFILE" bs=1M count="$size_mb" status=none; }; then
+        rm -f "$_HIDDIFY_UI_SWAPFILE"
+        return 0
+    fi
+    chmod 600 "$_HIDDIFY_UI_SWAPFILE"
+    if ! { mkswap "$_HIDDIFY_UI_SWAPFILE" >/dev/null && swapon "$_HIDDIFY_UI_SWAPFILE"; }; then
+        # e.g. containers or filesystems that cannot swap: build without it
+        rm -f "$_HIDDIFY_UI_SWAPFILE"
+    fi
+    return 0
+}
+
+function _remove_build_swap() {
+    [ -f "$_HIDDIFY_UI_SWAPFILE" ] || return 0
+    swapoff "$_HIDDIFY_UI_SWAPFILE" >/dev/null 2>&1
+    rm -f "$_HIDDIFY_UI_SWAPFILE"
+}
+
+# build_panel_ui <panel source dir> [--force]
+# Builds the admin UI into <dir>/hiddifypanel/static/admin-v2/ when it is missing
+# or older than its sources. No-op for trees without the UI source (e.g. a wheel).
+function build_panel_ui() {
+    local src="${1%/}" force="${2:-}"
+    local ui="$src/hiddifypanel/admin_v2"
+    local out="$src/hiddifypanel/static/admin-v2/index.html"
+    if [ ! -f "$ui/package.json" ]; then
+        return 0
+    fi
+    if [ "$force" != "--force" ] && [ -f "$out" ] &&
+        [ -z "$(find "$ui/src" "$ui/index.html" "$ui/package-lock.json" "$ui/vite.config.ts" "$src/hiddifypanel/translations.i18n" -newer "$out" -print -quit 2>/dev/null)" ]; then
+        return 0
+    fi
+    update_progress "Building..." "Hiddify Panel admin UI (this can take a few minutes)" 30
+    ensure_nodejs || { error "Node.js >= 18 is required to build the admin UI"; return 1; }
+    # Only clean up node_modules we created: a developer's own checkout keeps theirs.
+    local had_node_modules=0
+    [ -d "$ui/node_modules" ] && had_node_modules=1
+    _add_build_swap
+    local rc=0
+    (cd "$ui" && npm ci --no-audit --no-fund --loglevel=error &&
+        NODE_OPTIONS="--max-old-space-size=$HIDDIFY_UI_BUILD_HEAP_MB ${NODE_OPTIONS:-}" npm run build) || rc=$?
+    _remove_build_swap
+    if [ "$rc" != 0 ]; then
+        if [ "$rc" = 137 ] || dmesg 2>/dev/null | tail -n 20 | grep -qi "killed process.*node"; then
+            error "Building the admin UI ran out of memory (needs ~1.2 GB free RAM or swap)"
+        else
+            error "Building the admin UI failed (see the npm output above)"
+        fi
+        return 1
+    fi
+    if [ "$had_node_modules" = 0 ] && [ -z "${HIDDIFY_KEEP_NODE_MODULES:-}" ]; then
+        rm -rf "$ui/node_modules"
+    fi
+    success "Admin UI built"
+}
+
+# install_panel_from_git [ref] [pip command]
+# Installs the panel from GitHub (develop / tags): clone, build the UI, install.
+# `pip install git+...` cannot be used any more: it would install without the UI.
+function install_panel_from_git() {
+    local ref="${1:-}" pip_cmd="${2:-uv pip}"
+    install_package git
+    # Outside $HIDDIFY_DIR on purpose: the config renderer (scripts/common/jinja.py) walks
+    # $HIDDIFY_DIR for *.j2 and would try to render the panel's own templates.
+    local dir
+    dir=$(mktemp -d /var/tmp/hiddify-panel-src.XXXXXX) || return 1
+    local rc=0
+    if ! git clone --quiet --depth 1 ${ref:+--branch "$ref"} "$HIDDIFY_PANEL_GIT_URL" "$dir/src"; then
+        error "Could not download the panel source (${ref:-default branch})"
+        rc=1
+    elif ! build_panel_ui "$dir/src" --force; then
+        rc=1
+    else
+        { $pip_cmd install -U --no-deps --force-reinstall "$dir/src" && $pip_cmd install "$dir/src"; } || rc=$?
+    fi
+    # Always clean up, also when the download or the UI build failed.
+    rm -rf "$dir"
+    return $rc
 }
 
 function is_installed() {
@@ -407,8 +638,9 @@ function check_hiddify_panel() {
 
         # (cd hiddify-panel && python3 -m hiddifypanel admin-links)
         
-        for s in hiddify-xray hiddify-core hiddify-nginx hiddify-haproxy mysql; do
+        for s in hiddify-xray hiddify-core hiddify-nginx hiddify-haproxy hiddify-mysql; do
             [ $s == "hiddify-xray" ] && [ "$(hconfig 'core_type')" != "xray" ] && continue
+            [ $s == "hiddify-mysql" ] && [ "$DOCKER_MODE" == "true" ] && continue
             s=${s##*/}
             s=${s%%.*}
             for i in $(seq 1 10); do
@@ -430,65 +662,6 @@ function check_hiddify_panel() {
     fi
 }
 
-function add2iptables46(){
-    add2iptables "$1"
-    add2ip6tables "$1"
-}
-
-function add2iptables() {
-    iptables -C $1 >/dev/null 2>&1 || echo "adding rule $1" && iptables -I $1
-
-}
-function add2ip6tables() {
-    ip6tables -C $1 >/dev/null 2>&1 || echo "adding rule $1" && ip6tables -I $1
-}
-function allow_port() { #allow_port "tcp" "80"
-    add2iptables46 "INPUT -p $1 --dport $2 -j ACCEPT"
-    
-    # if [[ $1 == 'udp' ]]; then
-    add2iptables46 "INPUT -p $1 -m $1 --dport $2 -m conntrack --ctstate NEW -j ACCEPT"
-    # fi
-}
-
-function block_port() { #allow_port "tcp" "80"
-    add2iptables46 "INPUT -p $1 --dport $2 -j DROP"
-}
-
-function remove_port() { #allow_port "tcp" "80"
-    iptables -D INPUT -p "$1" --dport "$2" -j ACCEPT
-    ip6tables -D INPUT -p "$1" --dport "$2" -j ACCEPT
-}
-
-function allow_apps_ports() {
-    local service_name=$1
-
-    # Get ports and paths for the service
-    local ports=$(ss -tulpn | grep "$service_name" | awk '{print $5}' | cut -d':' -f2)
-    local paths=$(pgrep -f "$service_name" | while read -r pid; do readlink -f /proc/"$pid"/exe; done | awk '!seen[$0]++')
-
-    if [[ -z $ports ]]; then
-        echo "Service $service_name not found or not running"
-    else
-        IFS=' ' read -ra portArray <<<"$ports"
-        for p in "${portArray[@]}"; do
-            for path in $paths; do
-                echo "Service $service_name is running on port $p and path $path"
-                allow_port "tcp" "$p"
-            done
-        done
-    fi
-}
-function save_firewall() {
-    mkdir -p /etc/iptables/
-    iptables-save >/etc/iptables/rules.v4
-    awk -i inplace '!seen[$0]++' /etc/iptables/rules.v4
-    echo "COMMIT" >> /etc/iptables/rules.v4
-    ip6tables-save >/etc/iptables/rules.v6
-    awk -i inplace '!seen[$0]++' /etc/iptables/rules.v6
-    echo "COMMIT" >> /etc/iptables/rules.v6
-    ip6tables-restore </etc/iptables/rules.v6
-    iptables-restore </etc/iptables/rules.v4
-}
 
 function show_progress_window() {
     disable_ansii_modes
@@ -501,7 +674,6 @@ function show_progress_window() {
 }
 
 
-
 function log_dir() {
     LOG_DIR="/opt/hiddify-manager/data/log/system"
     mkdir -p "$LOG_DIR" >/dev/null 2>&1
@@ -512,21 +684,38 @@ function log_file() {
     echo "$(log_dir)/${1}.log"
 }
 
+# Every mutex in hiddify is an flock on a file under $HIDDIFY_LOCKS. The kernel
+# ties the lock to the open file descriptor, so it is released the moment the
+# owning process goes away — clean exit, kill -9, crash or power loss alike.
+# The .lock files carry no state, so one left behind after a crash never blocks
+# a later run: there is nothing to clean up and no staleness timeout to tune.
+function lock_file() {
+    mkdir -p "$HIDDIFY_LOCKS" >/dev/null 2>&1
+    echo "$HIDDIFY_LOCKS/${1}.lock"
+}
+
+# Run a command while holding a named lock, waiting for it to become free.
+# -o keeps the command from passing the lock on to anything it spawns.
+function with_lock() {
+    local name="$1"
+    shift
+    flock -o "$(lock_file "$name")" "$@"
+}
+
+# Take a named lock for the lifetime of this shell, or fail fast if it is held.
 function set_lock() {
-    LOCK_DIR="/opt/hiddify-manager/data/log"
-    mkdir -p "$LOCK_DIR" >/dev/null 2>&1
-    LOCK_FILE=$LOCK_DIR/$1.lock
-    if [[ -f $LOCK_FILE && $(($(date +%s) - $(cat $LOCK_FILE))) -lt 120 ]]; then
-        error "Another installation is running.... Please wait until it finishes or wait 5 minutes or execute 'rm $LOCK_FILE'"
+    exec {HIDDIFY_LOCK_FD}>"$(lock_file "$1")"
+    if ! flock -n "$HIDDIFY_LOCK_FD"; then
+        error "Another installation is running.... Please wait until it finishes."
         exit 12
     fi
-    echo "$(date +%s)" >$LOCK_FILE
 }
 
 function remove_lock() {
-    LOCK_DIR="/opt/hiddify-manager/data/log"
-    LOCK_FILE=$LOCK_DIR/$1.lock
-    rm -f $LOCK_FILE >/dev/null 2>&1
+    [ -n "$HIDDIFY_LOCK_FD" ] || return 0
+    # Closing the descriptor is what releases the lock.
+    exec {HIDDIFY_LOCK_FD}>&-
+    unset HIDDIFY_LOCK_FD
 }
 
 
@@ -551,7 +740,7 @@ function hconfig() {
 #TODO: check functionality when not using the venv
 function hiddify-panel-run() {
     local user=$(whoami)
-    local base_command="cd /opt/hiddify-manager/services/hiddify-panel/; source ${venv_path}/bin/activate && $@"
+    local base_command="export HIDDIFY_CFG_PATH='$HIDDIFY_PANEL_CFG_PATH'; cd /opt/hiddify-manager/services/panel/; source ${venv_path}/bin/activate && $@"
     local command=""
 
     if [ "$user" == "hiddify-panel" ]; then
@@ -605,7 +794,7 @@ function disable_panel_services() {
     # rm /etc/cron.d/hiddify_auto_backup
     # service cron reload >/dev/null 2>&1
     # kill -9 $(pgrep -f 'hiddifypanel update-usage')
-    # systemctl restart mariadb
+    # systemctl restart hiddify-mysql
     echo ""
 }
 
@@ -682,8 +871,8 @@ function check_venv_compatibility() {
 }
 
 function hiddify-http-api(){
-    api_path=$(jq -r '.api_path' /opt/hiddify-manager/data/current.json)
-    api_key=$(jq -r '.api_key' /opt/hiddify-manager/data/current.json)
+    api_path=$(jq -r '.api_path // empty' /opt/hiddify-manager/data/current.json 2>/dev/null)
+    api_key=$(jq -r '.api_key // empty' /opt/hiddify-manager/data/current.json 2>/dev/null)
     
 
     if [ -z "$api_path" ] || [ -z "$api_key" ]; then
@@ -701,19 +890,43 @@ function hiddify-http-api(){
     return 0
 }
 
-function reload_all_configs(){
-    hiddify-http-api admin/all-configs/ > /opt/hiddify-manager/data/current.json
-    if [ "$?" != 0 ];then
-        hiddify-panel-cli all-configs > /opt/hiddify-manager/data/current.json
-        if [ $? != 0 ]; then 
-            return $?
-        fi
-    fi
-    chmod 600 /opt/hiddify-manager/data/current.json
-    cat /opt/hiddify-manager/data/current.json
+function is_valid_current_json() {
+    jq -e '(.chconfigs["0"] | type == "object") and (.domains | type == "array")' "$1" >/dev/null 2>&1
 }
 
+function reload_all_configs(){
+    # Fetch into a temp file and replace current.json only when the result is
+    # valid: the API reads its credentials from the current copy, and every
+    # service script depends on it.
+    local cfg=/opt/hiddify-manager/data/current.json
+    local tmp
+    tmp=$(mktemp "$cfg.XXXXXX") || return 1
+    if ! hiddify-http-api admin/all-configs/ >"$tmp" || ! is_valid_current_json "$tmp"; then
+        if ! hiddify-panel-cli all-configs >"$tmp" || ! is_valid_current_json "$tmp"; then
+            error "Failed to read configs from Hiddify Panel; keeping the previous $cfg"
+            rm -f "$tmp"
+            return 1
+        fi
+    fi
+    chmod 600 "$tmp"
+    mv -f "$tmp" "$cfg" || { rm -f "$tmp"; return 1; }
+    cat "$cfg"
+}
 
+# Render xray/hiddify-core/haproxy/nginx/dns_proxy configs into $HIDDIFY_GENERATED.
+# Prefers the running panel's HTTP API (no extra Python/module load); falls
+# back to the CLI (spawns its own interpreter) only if the panel isn't reachable.
+function dump_server_configs() {
+    local query=""
+    [ "$MODE" = "apply_users" ] && query="?no_invalidate_cache=1"
+    if hiddify-http-api "admin/dump-server-configs/$query" >/dev/null; then
+        return 0
+    fi
+
+    local flags=()
+    [ "$MODE" = "apply_users" ] && flags+=(--no-invalidate-cache)
+    hiddify-panel-cli dump-server-configs "$HIDDIFY_GENERATED" "${flags[@]}"
+}
 
 
 set_files_in_folder_readable_to_hiddify_common_group() {

@@ -19,7 +19,7 @@ NAME="installer"
 LOG_FILE="$(log_file $NAME)"
 export USE_VENV=true
 
-if [ ! -f /opt/hiddify-manager/scripts/install.sh ]; then
+if [ ! -f /opt/hiddify-manager/common/install.sh ] && [ ! -f /opt/hiddify-manager/scripts/install.sh ]; then
     rm -rf /opt/hiddify-manager
 fi
 
@@ -91,7 +91,12 @@ function update_panel() {
             activate_python_venv
             # install_python310
             # uv pip install -U --no-deps --force-reinstall hiddify-panel/src
-            uv pip install /opt/hiddify-manager/services/hiddify-panel/src 
+            # The Dockerfile's panel-ui stage provides the built UI; the image has no Node.js.
+            if [ ! -f /opt/hiddify-manager/services/panel/src/hiddifypanel/static/admin-v2/index.html ]; then
+                error "Admin UI bundle missing: build the image with the Dockerfile (panel-ui stage)"
+                exit 1
+            fi
+            uv pip install /opt/hiddify-manager/services/panel/src 
             # pip install -U hiddifypanel
         ;;
         v*)
@@ -102,16 +107,13 @@ function update_panel() {
                 activate_python_venv
                 if [ "$USE_VENV" == "310" ];then
                     install_python310
-                    pip install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel@${package_mode}
-                    pip install git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+                    install_panel_from_git "${package_mode}" pip || return 1
                 else
-                    uv pip install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel@${package_mode}
-                    uv pip install git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+                    install_panel_from_git "${package_mode}" "uv pip" || return 1
                 fi
             else 
                install_python310
-               pip3 install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel@${package_mode}
-               pip3 install git+https://github.com/hiddify/HiddifyPanel@${package_mode}
+               install_panel_from_git "${package_mode}" pip3 || return 1
             fi
             update_progress "Updated..." "Hiddify Panel to ${package_mode}" 50
             return 0
@@ -129,8 +131,7 @@ function update_panel() {
                
                 disable_panel_services
                 
-                uv pip install -U --no-deps --force-reinstall git+https://github.com/hiddify/HiddifyPanel
-                uv pip install git+https://github.com/hiddify/HiddifyPanel
+                install_panel_from_git "" "uv pip" || return 1
                 panel_path=$(hiddifypanel_path)
                 echo "setting $latest in $panel_path/VERSION"
                 echo $latest > $panel_path/VERSION
@@ -201,6 +202,8 @@ function update_config() {
             export HIDDIFY_DISABLE_UPDATE=true
             #update_from_github "hiddify-manager.tar.gz" "https://github.com/hiddify/Hiddify-Manager/archive/refs/tags/${package_mode}.tar.gz" $latest
             update_from_github "hiddify-manager.zip" "https://github.com/hiddify/Hiddify-Manager/releases/download/${package_mode}/hiddify-manager.zip" $latest
+            local update_code=$?
+            [[ $update_code == 0 ]] || return $update_code
             update_progress "Updated..." "Hiddify Config to $latest" 100
             return 0
         ;;
@@ -210,7 +213,8 @@ function update_config() {
             if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
                 update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
                 update_from_github "hiddify-manager.tar.gz" "https://github.com/hiddify/hiddify-manager/archive/refs/heads/dev.tar.gz" $latest
-                
+                local update_code=$?
+                [[ $update_code == 0 ]] || return $update_code
                 update_progress "Updated..." "Hiddify Config to $latest" 100
                 return 0
             fi
@@ -221,6 +225,8 @@ function update_config() {
             if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
                 update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
                 update_from_github "hiddify-manager.zip" "https://github.com/hiddify/hiddify-manager/releases/download/v$latest/hiddify-manager.zip"
+                local update_code=$?
+                [[ $update_code == 0 ]] || return $update_code
                 update_progress "Updated..." "Hiddify Config to $latest" 100
                 return 0
             fi
@@ -233,10 +239,12 @@ function update_config() {
             if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
                 update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60
                 update_from_github "hiddify-manager.zip" "https://github.com/hiddify/hiddify-manager/releases/latest/download/hiddify-manager.zip"
+                local update_code=$?
+                [[ $update_code == 0 ]] || return $update_code
                 update_progress "Updated..." "Hiddify Config to $latest" 100
                 return 0
             fi
-            
+
         ;;
         *)
             echo "Unknown package mode: $package_mode"
@@ -258,15 +266,13 @@ function post_update_tasks() {
     remove_lock $NAME
 
     if [ "$package_mode" != "docker" ];then
-      if [[ $panel_update == 0 ]]; then
-              systemctl kill -s SIGTERM hiddify-panel
-      fi
-
       if [[ $panel_update == 0 && $config_update != 0 ]]; then
-          bash /opt/hiddify-manager/scripts/apply_configs.sh --no-gui --no-log
+          hiddify apply || bash /opt/hiddify-manager/scripts/apply_configs.sh --no-gui --no-log
+      elif [[ $panel_update == 0 ]]; then
+          restart_hiddify_panel restart
+      else
+          restart_hiddify_panel start
       fi
-      systemctl start hiddify-panel
-      cd /opt/hiddify-manager/services/hiddify-panel
       if [ "$CREATE_EASYSETUP_LINK" == "true" ];then
           hiddify-panel-cli set-setting --key create_easysetup_link --val True
       fi
@@ -306,8 +312,15 @@ function update_from_github() {
     fi
     rm "$file_name"
 
-    bash scripts/install.sh --no-gui --no-log
-#    bash scripts/install.sh --no-gui --no-log #temporary fix
+    # v12 and older tags keep install.sh in the repository root.
+    local install_script=scripts/install.sh
+    [ -f "$install_script" ] || install_script=install.sh
+    bash "$install_script" --no-gui --no-log
+    local install_code=$?
+    if [[ $install_code != 0 ]]; then
+        echo "ERROR: $install_script exited with code $install_code (config files were updated but not applied)" >&2
+    fi
+    return $install_code
 }
 
 function custom_version_installer(){
@@ -371,6 +384,11 @@ else
         check_hiddify_panel $@ |& tee -a $LOG_FILE
         read -p "Press any key to go  to menu" -n 1 key
     fi
-    bash /opt/hiddify-manager/scripts/hiddify
+    if [ -f /opt/hiddify-manager/scripts/hiddify ]; then
+        bash /opt/hiddify-manager/scripts/hiddify
+    else
+        # v12 and older layout
+        bash /opt/hiddify-manager/menu.sh
+    fi
 fi
 exit $error_code

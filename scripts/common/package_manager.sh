@@ -5,10 +5,16 @@ if [[ "$SCRIPT_DIR" != *develop* ]]; then
 fi
 
 source $SCRIPT_DIR/utils.sh
-# File to store package information
+# Shipped catalog of available package versions/hashes — stays with the code.
 PACKAGES_LOCK="$SCRIPT_DIR/packages.lock"
-CURRENT_PACKAGES="$SCRIPT_DIR/packages.db"
-touch $CURRENT_PACKAGES
+# Record of which version is currently installed — permanent runtime state,
+# must survive a release unzip replacing scripts/, so it lives under data/.
+CURRENT_PACKAGES="$HIDDIFY_DATA/packages.db"
+mkdir -p "$HIDDIFY_DATA"
+if [ ! -f "$CURRENT_PACKAGES" ] && [ -f "$SCRIPT_DIR/packages.db" ]; then
+    mv "$SCRIPT_DIR/packages.db" "$CURRENT_PACKAGES"
+fi
+touch "$CURRENT_PACKAGES"
 
 # Function to calculate file hash
 generate_hash() {

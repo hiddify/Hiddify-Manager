@@ -2,13 +2,18 @@
 ln -sf $(pwd)/hiddify-warp.service /etc/systemd/system/hiddify-warp.service
 systemctl enable hiddify-warp.service
 
+source /opt/hiddify-manager/scripts/common/utils.sh
+source /opt/hiddify-manager/services/warp/utils.sh
+ensure_warp_data_links singbox "$(pwd)"
+
 # if [[ $warp_mode == 'disabled' ]];then
 #   bash disable.sh
 # else
 
 if ! [ -f "wgcf-account.toml" ];then
-    mv wgcf-account.toml wgcf-account.toml.backup
-    wgcf register --accept-tos && wgcf generate   
+    mv wgcf-account.toml wgcf-account.toml.backup 2>/dev/null || true
+    wgcf register --accept-tos && wgcf generate
+    ensure_warp_data_links singbox "$(pwd)"
 fi
 
 #api.zeroteam.top/warp?format=wgcf for change warp
@@ -16,8 +21,9 @@ export WGCF_LICENSE_KEY=$WARP_PLUS_CODE
 wgcf update
 if [ $? != 0 ];then
   mv wgcf-account.toml wgcf-account.toml.backup
+  ensure_warp_data_links singbox "$(pwd)"
   wgcf update
-fi 
+fi
 
 
 #!/bin/bash
@@ -42,6 +48,7 @@ MTU        = 1420
 
 # Write the new TOML content to a file
 echo "$new_toml" > warp.conf
+ensure_warp_data_links singbox "$(pwd)"
 
 ./warp-go --config=warp.conf --export-singbox=warp-singbox.json
 

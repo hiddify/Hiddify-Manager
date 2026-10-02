@@ -31,7 +31,7 @@ jobs:
           sudo bash scripts/install.sh
       - name: check working
         env:
-          SQLALCHEMY_DATABASE_URI: sqlite:////opt/hiddify-manager/services/hiddify-panel/database.db
+          SQLALCHEMY_DATABASE_URI: sqlite:////opt/hiddify-manager/data/panel/database.db
         run: |
           cd /opt/hiddify-manager/
           grep -q -e '-----Finished!-----' data/log/system/0-install.log 

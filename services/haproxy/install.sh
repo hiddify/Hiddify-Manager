@@ -8,7 +8,7 @@ if is_installed sniproxy; then
 fi
 
 HAPROXY_VERSION=3.4
-if ! is_installed_package "haproxy-awslc"; then
+if ! is_installed_package "haproxy-awslc=${HAPROXY_VERSION}"; then
     CODENAME=$(. /etc/os-release && echo "$VERSION_CODENAME")
     REPO_TAG="ha${HAPROXY_VERSION//./}"
 

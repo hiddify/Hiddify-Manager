@@ -1,4 +1,5 @@
 source /opt/hiddify-manager/scripts/common/utils.sh
+source /opt/hiddify-manager/services/firewall/utils.sh
 
 # open essential ports
 allow_port "tcp" 22
@@ -83,6 +84,11 @@ allow_port "tcp" {{port}} #panel ports
 {% for port in (hconfigs['tls_ports']).split(',') if port %}
   allow_port "udp" {{port}}
 {%endfor%}
+
+{# Domains' own TLS / HTTP ports are redirected to 443 / 80 (they need no ACCEPT rule: it is checked after the redirect). #}
+{% set domain_tls_ports = domains|map(attribute='tls_port')|select|map('string')|unique|reject('in',['443'])|list %}
+{% set domain_http_ports = domains|map(attribute='http_port')|select|map('string')|unique|reject('in',['80'])|list %}
+redirect_domain_ports "{{domain_tls_ports|join(' ')}}" "{{domain_http_ports|join(' ')}}"
 
 {% if hconfigs['firewall'] %}
 iptables -P INPUT DROP

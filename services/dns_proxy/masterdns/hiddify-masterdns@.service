@@ -1,0 +1,31 @@
+[Unit]
+Description=DNS proxy MasterDnsVPN tunnel (%i)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=dns_proxy
+Group=dns_proxy
+WorkingDirectory=/opt/hiddify-manager/generated/dns_proxy/masterdns/%i
+ExecStart=/opt/hiddify-manager/services/dns_proxy/masterdns/run-instance.sh %i
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadWritePaths=/opt/hiddify-manager/generated/dns_proxy/masterdns
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+MemoryDenyWriteExecute=yes
+LockPersonality=yes
+
+[Install]
+WantedBy=multi-user.target

@@ -1,3 +1,14 @@
+# The panel source is part of the image (installed from it); leave out what is
+# local, generated or rebuilt. The admin UI bundle comes from the panel-ui stage.
+**/node_modules
+services/panel/src/.git
+services/panel/src/hiddifypanel/static/admin-v2
+services/panel/src/build
+services/panel/src/dist
+services/panel/src/backup
+services/panel/src/instance
+docker-compose.override.yaml
+docker-data/
 **/.idea
 **/.github
 **/.gith

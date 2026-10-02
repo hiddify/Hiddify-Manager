@@ -15,7 +15,7 @@
             }
         },
         {
-            "label": "stop panel service", // Define the build task
+            "label": "stop panel service",
             "type": "shell",
             "command": "bash",
             "args": [
@@ -25,6 +25,43 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
+            }
+        },
+        {
+            "label": "build-admin-v2",
+            "type": "shell",
+            "command": "bash",
+            "options": {
+                "cwd": "${workspaceFolder}/services/panel/src/hiddifypanel/admin_v2"
+            },
+            "args": [
+                "-c",
+                "bash scripts/build.sh"
+            ],
+            "group": "build"
+        },
+        {
+            "label": "admin-v2-vite-dev",
+            "type": "shell",
+            "command": "bash",
+            "options": {
+                "cwd": "${workspaceFolder}/services/panel/src/hiddifypanel/admin_v2"
+            },
+            "args": [
+                "-c",
+                "bash scripts/dev.sh"
+            ],
+            "isBackground": true,
+            "problemMatcher": {
+                "owner": "vite",
+                "pattern": {
+                    "regexp": "^$"
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "VITE",
+                    "endsPattern": "ready in|Local:"
+                }
             }
         }
     ]

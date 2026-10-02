@@ -1,0 +1,45 @@
+[Unit]
+Description=Hiddify MariaDB
+Documentation=man:mariadbd(8)
+After=network.target
+
+[Service]
+Type=notify
+User=mysql
+Group=mysql
+
+ExecStart=/usr/sbin/mariadbd --defaults-file=/opt/hiddify-manager/data/mysql/my.cnf --user=mysql
+
+Restart=on-abnormal
+RestartSec=5s
+TimeoutStartSec=900
+TimeoutStopSec=900
+
+# Socket/pid dir: systemd-managed runtime directory, recreated on every
+# start — not persistent state.
+RuntimeDirectory=mysqld
+RuntimeDirectoryMode=0755
+
+UMask=007
+LimitNOFILE=32768
+LimitMEMLOCK=524288
+
+# To allow memlock to be used as a non-root user.
+AmbientCapabilities=CAP_IPC_LOCK
+
+# All persistent state (data files, config) lives under
+# /opt/hiddify-manager/data/mysql. Nothing under /var/lib or /etc is
+# required or writable by this unit.
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=-/opt/hiddify-manager/data/mysql
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictRealtime=true
+RestrictNamespaces=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+[Install]
+WantedBy=multi-user.target
