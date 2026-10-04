@@ -26,7 +26,7 @@ else
   mkdir hiddify-manager
   cd hiddify-manager
   wget https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/main/docker-compose.yml
-  wget https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/main/docke.env
+  wget https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/main/docker.env
   # Update docker-compose.yml with the specified tag and passwords
   sed -i "s/hiddify-manager:latest/hiddify-manager:$TAG/g" docker-compose.yml  
   docker compose pull
