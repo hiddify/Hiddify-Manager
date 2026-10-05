@@ -2,6 +2,7 @@
 import os
 import re
 import subprocess
+import time
 from urllib.parse import urlparse
 
 import click
@@ -40,7 +41,7 @@ def _run_direct(cmd: list[str]) -> None:
     subprocess.run(cmd, shell=False, check=True)
 
 
-def run_isolated(cmd: list[str], unit: str) -> None:
+def run_isolated(cmd: list[str], unit: str, wait_if_active: bool = False) -> None:
     """Run *cmd* in a transient systemd unit so it is not in the panel cgroup.
 
     ``systemctl kill`` / ``systemctl restart hiddify-panel`` SIGTERMs every
@@ -54,7 +55,15 @@ def run_isolated(cmd: list[str], unit: str) -> None:
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )
-    if subprocess.run(["systemctl", "is-active", "--quiet", service], check=False).returncode == 0:
+    def active() -> bool:
+        return subprocess.run(["systemctl", "is-active", "--quiet", service], check=False).returncode == 0
+
+    if wait_if_active:
+        # A change made while the previous run was working may not be in it: run again once it is done.
+        deadline = time.monotonic() + 900
+        while active() and time.monotonic() < deadline:
+            time.sleep(1)
+    if active():
         return
     isolated = [
         "systemd-run",
@@ -70,9 +79,9 @@ def run_isolated(cmd: list[str], unit: str) -> None:
         _run_direct(cmd)
 
 
-def run(cmd: list[str], unit: str | None = None):
+def run(cmd: list[str], unit: str | None = None, wait_if_active: bool = False):
     if unit and systemd_available():
-        run_isolated(cmd, unit)
+        run_isolated(cmd, unit, wait_if_active)
         return
     _run_direct(cmd)
 
@@ -207,7 +216,7 @@ def update_usage():
 @cli.command("apply-users")
 def apply_users():
     cmd = [Command.apply_users.value, "apply_users", "--no-gui"]
-    run(cmd, unit="hiddify-apply-users")
+    run(cmd, unit="hiddify-apply-users", wait_if_active=True)
 
 
 @cli.command("update-wg-usage")
