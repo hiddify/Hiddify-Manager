@@ -145,7 +145,7 @@ function main() {
         add_task "DNS Proxy" install_run services/dns_proxy "$(hconfig "dnstt_enable")"
         add_task "Telegram Proxy" install_run services/telegram "$(hconfig "telegram_enable")"
         add_task "FakeTLS Proxy" install_run services/ssfaketls "$(hconfig "ssfaketls_enable")"
-        add_task "Warp" install_run services/warp "$([[ $(hconfig "warp_mode") != "disable" ]] && echo 1 || echo 0)"
+        add_task "Warp" install_run services/warp 1
         add_task "Xray" install_run services/xray 1
         add_task "HiddifyCli" install_run services/hiddify-cli "$(hconfig "hiddifycli_enable")"
     fi

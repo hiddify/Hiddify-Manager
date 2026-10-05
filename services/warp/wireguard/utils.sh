@@ -29,6 +29,7 @@ function generate_warp_wireguard_config() {
         return 1
     fi
     sed -i 's/\[Peer\]/Table = off\n\[Peer\]/g' "$tmp"
+    sed -i 's/MTU = 1280/MTU = 1320/g' "$tmp"
     curl --connect-timeout 1 -s https://v6.ident.me/ 2>&1 >/dev/null
     if [ $? != 0 ] || [ "$(cat /proc/sys/net/ipv6/conf/all/disable_ipv6)" = 1 ]; then
         echo "Removing IPV6 from WARP..."
