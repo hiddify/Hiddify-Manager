@@ -1,0 +1,22 @@
+[general]
+bind-to = "127.0.0.1:1001"
+log-level = "info"
+proxy-protocol = true
+
+[secrets]
+default = "{{ hconfigs['shared_secret'].replace("-", "") }}"
+{% for u in users %}
+{{ u['uuid'].replace("-", "") }} = "{{ u['uuid'].replace("-", "") }}"
+{% endfor %}
+
+[tls-fronting]
+mask-host = "{{ hconfigs['telegram_fakedomain'] }}"
+
+[performance]
+prefer-ip = "prefer-ipv4"
+idle-timeout = "5m"
+num-event-loops = 0
+
+[metrics]
+bind-to = "127.0.0.1:10087"
+path = "/metrics"
