@@ -16,6 +16,28 @@
 
 ### Other
 
+* Feat: enhance run_isolated function to support waiting for active services. [hiddify-com]
+
+  - Added a wait_if_active parameter to the run_isolated function, allowing it to wait for an active service to finish before executing the command.
+  - Updated the run function to pass the new parameter when calling run_isolated.
+  - Modified the apply_users command to utilize the wait_if_active feature for better command execution management.
+
+* Change warp mtu to 1320. [hiddify-com]
+
+* Feat: refactor firewall management and introduce domain port redirection. [hiddify-com]
+
+  - Moved firewall-related functions to a new utility script for better organization and maintainability.
+  - Added functionality to redirect domain-specific TLS and HTTP ports to standard ports (443 and 80).
+  - Updated the main firewall script to utilize the new utility functions, enhancing clarity and separation of concerns.
+
+* Feat: implement parallel task execution in installation script. [hiddify-com]
+
+  - Added functions to manage parallel execution of installation tasks, improving efficiency during setup.
+  - Introduced progress tracking for each task, providing real-time feedback on installation status.
+  - Refactored existing installation steps to utilize the new parallel execution framework, enhancing overall performance.
+
+* Feat: add port owner command to retrieve processes listening on a specified TCP port. [hiddify-com]
+
 * Feat: enhance UI build process and memory management. [hiddify-com]
 
 * Feat: add Node.js download and installation logic for Admin UI builds. [hiddify-com]
