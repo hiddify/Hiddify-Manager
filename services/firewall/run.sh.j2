@@ -10,9 +10,6 @@ allow_port "udp" 53
 allow_port "tcp" 53
 # allow_port "udp" 3478
 
-allow_port "udp" {{hconfigs['wireguard_port']}} #wireguard
-
-
 add2iptables46 "INPUT -p udp -m conntrack --ctstatus SEEN_REPLY,ASSURED,CONFIRMED -j ACCEPT"
 
 
@@ -20,36 +17,27 @@ add2iptables46 "OUTPUT -p udp -j ACCEPT"
 add2iptables46 "OUTPUT -p tcp -j ACCEPT"
 add2iptables46 "INPUT -i lo -j ACCEPT"
 
-{% if hconfigs['shadowsocks2022_enable'] %}
-  allow_port "udp" {{hconfigs['shadowsocks2022_port']}} #shadowsocks
-  allow_port "tcp" {{hconfigs['shadowsocks2022_port']}} #shadowsocks
+{# The firewall opens exactly the panel's public ports (the same list the Public ports page shows), read from current.json:
+   the gateway's TLS / HTTP ports, WireGuard and the custom proxies' own ports (hysteria, tuic, naive, mieru, shadowsocks, ssh, ...),
+   each for the protocols it uses. A current.json from before that list existed (or an empty one) has none: then only the
+   settings' ports are opened, so the server is never locked out by the DROP policy below. #}
+{% if public_ports and (public_ports['tcp'] or public_ports['udp']) %}
+{% for port, name in public_ports['tcp'].items() %}
+allow_port "tcp" {{port}} #{{name}}
+{% endfor %}
+{% for port, name in public_ports['udp'].items() %}
+allow_port "udp" {{port}} #{{name}}
+{% endfor %}
+{% else %}
+allow_port "udp" {{hconfigs['wireguard_port']}} #wireguard
+{% for port in (hconfigs['tls_ports']+","+ hconfigs['http_ports']).split(',') if port %}
+allow_port "tcp" {{port}} #panel ports
+{% endfor %}
+{% for port in (hconfigs['tls_ports']).split(',') if port %}
+allow_port "udp" {{port}}
+{% endfor %}
 {% endif %}
 
-{% for d in domains if d['internal_port_hysteria2'] or d['internal_port_tuic'] or d['internal_port_naive']  %}
-  {% if d['internal_port_hysteria2']>0 %}
-  allow_port "udp" {{d['internal_port_hysteria2']}} #hysteria2
-  {%endif%}
-  {% if d['internal_port_tuic']>0 %}
-  allow_port "udp" {{d['internal_port_tuic']}} #tuic
-  {%endif%}
-
-  {% if d['internal_port_naive']>0 %}
-  allow_port "udp" {{d['internal_port_naive']}} #naive_quic
-  {%endif%}
-{%endfor%}
-
-{% if hconfigs['mieru_enable'] %}
-  {% for port in hconfigs["mieru_tcp_ports"].split(",") %}
-    {%if port %}
-    allow_port "tcp" {{port}} #tcp_mieru
-    {%endif%}
-  {%endfor%}
-  {% for port in hconfigs["mieru_udp_ports"].split(",") %}
-    {%if port %}
-    allow_port "udp" {{port}} #udp_mieru
-    {%endif%}
-  {%endfor%}
-{%endif%}
 # ICMP for ipv4
 add2iptables "INPUT -p icmp -j ACCEPT"
 # add2iptables "INPUT -p icmp -m icmp --icmp-type 0 -m conntrack --ctstate NEW -j ACCEPT"
@@ -71,19 +59,7 @@ allow_apps_ports "x-ui"
 add2iptables46 "INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT"
 add2iptables46 "INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT"
 
-# Check if SSH server should be enabled
-{% if hconfigs['ssh_server_enable'] %}
-allow_port "tcp" {{hconfigs['ssh_server_port']}} #ssh_server
-{%else%}
-remove_port "tcp" {{hconfigs['ssh_server_port']}}  #ssh_server
-{%endif%}
-
-{% for port in (hconfigs['tls_ports']+","+ hconfigs['http_ports']).split(',') if port %}
-allow_port "tcp" {{port}} #panel ports
-{%endfor%}
-{% for port in (hconfigs['tls_ports']).split(',') if port %}
-  allow_port "udp" {{port}}
-{%endfor%}
+# The SSH server is a hiddify-core custom proxy now: its port is one of public_ports above (the old ssh_server_port setting is deprecated).
 
 {# Domains' own TLS / HTTP ports are redirected to 443 / 80 (they need no ACCEPT rule: it is checked after the redirect). #}
 {% set domain_tls_ports = domains|map(attribute='tls_port')|select|map('string')|unique|reject('in',['443'])|list %}
