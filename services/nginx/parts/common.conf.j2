@@ -56,10 +56,15 @@ location /{{ hconfigs['proxy_path_client'] }}/dns/dns-query {
   proxy_pass $upstream$is_args$args;
   
 }
+# The built-in speed test page is gone (it answered "not found"): send users to Cloudflare's.
 location /{{ hconfigs['proxy_path_client'] }}/speedtest/ {
-  client_max_body_size 10000M;
-  proxy_pass          http://localhost:438/;
+  return 302 https://speed.cloudflare.com/;
 }
+{% if hconfigs['proxy_path'] != hconfigs['proxy_path_client'] %}
+location /{{ hconfigs['proxy_path'] }}/speedtest/ {
+  return 302 https://speed.cloudflare.com/;
+}
+{% endif %}
 location /{{ hconfigs['proxy_path'] }}/static {
   include /opt/hiddify-manager/data/services/nginx/parts/proxy_to_static.conf;
 }

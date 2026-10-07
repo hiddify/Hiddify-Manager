@@ -2,7 +2,7 @@
 # Generated from panel domains/proxy settings (same data as haproxy/maps/sni.j2).
 
 listen_port = {{ (hconfigs.get('tls_ports', '443') or '443').split(',') | map('trim') | list | first }}
-listen_ipv6 = true
+listen_ipv6 = {{ 'false' if hconfigs.get('only_ipv4') else 'true' }}
 tcp_backlog = 4096
 tcp_max_connections = 8192
 udp_max_connections = 2048

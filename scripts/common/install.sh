@@ -37,14 +37,27 @@ if [ "${MODE}" != "docker" ];then
   sysctl --system > /dev/null
 fi
 
+# IPv4 only comes from the panel setting (the env var overrides it).
+if [[ -z "$ONLY_IPV4" ]]; then
+    ONLY_IPV4=$(hconfig only_ipv4 2>/dev/null)
+fi
+
+# The kernel may have IPv6 off (ipv6.disable=1, or sysctl disable_ipv6=1): then there is nothing to switch, and it must stay off.
+if [[ ! -d /proc/sys/net/ipv6 ]] || [[ "$(cat /proc/sys/net/ipv6/conf/all/disable_ipv6 2>/dev/null)" == 1 ]]; then
+    ONLY_IPV4=true
+    KERNEL_IPV6=false
+else
+    KERNEL_IPV6=true
+fi
+
 if [[ "$ONLY_IPV4" != true ]]; then
     sysctl -w net.ipv6.conf.all.disable_ipv6=0
     sysctl -w net.ipv6.conf.default.disable_ipv6=0
     sysctl -w net.ipv6.conf.lo.disable_ipv6=0
-    
+
     curl --connect-timeout 1 -s http://ipv6.google.com 2>&1 >/dev/null
     if [ $? != 0 ]; then
-        ONLY_IPV4=true1
+        ONLY_IPV4=true
     fi
 fi
 
@@ -57,20 +70,22 @@ fi
 
 declare -a excluded_interfaces=("warp" "lo")
 
+if [[ "$KERNEL_IPV6" == true ]]; then
 for interface_name in $(ip link | awk -F': ' '$2 ~ /^[[:alnum:]]+$/ {print $2}'); do
     if [[ " ${excluded_interfaces[@]} " =~ " ${interface_name} " ]]; then
         continue
     fi
-    
+
     # Disable IPv6 for the current interface
     sysctl -q -w "net.ipv6.conf.$interface_name.disable_ipv6=$INT_STAT"
-    
+
     if [ $? -eq 0 ]; then
         echo "IPv6 ${INT_STAT_STR}d for $interface_name"
     else
         echo "Failed to $INT_STAT_STR IPv6 for $interface_name"
     fi
 done
+fi
 
 bash google-bbr.sh > /dev/null
 

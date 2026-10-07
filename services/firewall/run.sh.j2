@@ -69,13 +69,13 @@ redirect_domain_ports "{{domain_tls_ports|join(' ')}}" "{{domain_http_ports|join
 {% if hconfigs['firewall'] %}
 iptables -P INPUT DROP
 iptables -P FORWARD DROP
-ip6tables -P INPUT DROP
-ip6tables -P FORWARD DROP
+has_ipv6 && ip6tables -P INPUT DROP
+has_ipv6 && ip6tables -P FORWARD DROP
 {%else%}
 iptables -P INPUT ACCEPT
 iptables -P FORWARD ACCEPT
-ip6tables -P FORWARD ACCEPT
-ip6tables -P INPUT ACCEPT
+has_ipv6 && ip6tables -P FORWARD ACCEPT
+has_ipv6 && ip6tables -P INPUT ACCEPT
 {%endif%}
 
 

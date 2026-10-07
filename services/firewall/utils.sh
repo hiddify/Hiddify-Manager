@@ -3,6 +3,11 @@
 # add2iptables*/allow_port/... add rules, redirect_domain_ports redirects the domains' own gateway ports,
 # save_firewall makes the rules survive a reboot.
 
+# False when the kernel has IPv6 off (ipv6.disable=1): ip6tables then only fails.
+function has_ipv6(){
+    [ -d /proc/sys/net/ipv6 ] && command -v ip6tables >/dev/null 2>&1
+}
+
 function add2iptables46(){
     add2iptables "$1"
     add2ip6tables "$1"
@@ -14,6 +19,7 @@ function add2iptables() {
 }
 
 function add2ip6tables() {
+    has_ipv6 || return 0
     ip6tables -C $1 >/dev/null 2>&1 || echo "adding rule $1" && ip6tables -I $1
 }
 
@@ -31,7 +37,7 @@ function block_port() { #allow_port "tcp" "80"
 
 function remove_port() { #allow_port "tcp" "80"
     iptables -D INPUT -p "$1" --dport "$2" -j ACCEPT
-    ip6tables -D INPUT -p "$1" --dport "$2" -j ACCEPT
+    has_ipv6 && ip6tables -D INPUT -p "$1" --dport "$2" -j ACCEPT
 }
 
 function allow_apps_ports() {
@@ -60,6 +66,7 @@ function allow_apps_ports() {
 function redirect_domain_ports() { # redirect_domain_ports "9443 8443" "8080"
     local tool port chain=HIDDIFY_DOMAIN_PORTS
     for tool in iptables ip6tables; do
+        [ "$tool" = ip6tables ] && ! has_ipv6 && continue
         {
             $tool -t nat -N $chain 2>/dev/null || $tool -t nat -F $chain
             $tool -t nat -C PREROUTING -j $chain 2>/dev/null || $tool -t nat -I PREROUTING -j $chain
@@ -78,7 +85,9 @@ function save_firewall() {
     mkdir -p /etc/iptables/
     # Drop repeated rules, but keep every table's header and COMMIT (filter and nat have their own).
     iptables-save | awk '/^(\*|COMMIT)/ || !seen[$0]++' >/etc/iptables/rules.v4
-    ip6tables-save | awk '/^(\*|COMMIT)/ || !seen[$0]++' >/etc/iptables/rules.v6
-    ip6tables-restore </etc/iptables/rules.v6
+    if has_ipv6; then
+        ip6tables-save | awk '/^(\*|COMMIT)/ || !seen[$0]++' >/etc/iptables/rules.v6
+        ip6tables-restore </etc/iptables/rules.v6
+    fi
     iptables-restore </etc/iptables/rules.v4
 }
