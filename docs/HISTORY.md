@@ -16,6 +16,14 @@
 
 ### Other
 
+* Feat: enhance IPv6 management in firewall and installation scripts. [hiddify-com]
+
+* Refactor: update firewall script to dynamically manage public ports. [hiddify-com]
+
+  - Removed hardcoded port allowances for WireGuard and Shadowsocks, replacing them with a dynamic approach that reads from public_ports.
+  - Deprecated the old ssh_server_port setting, integrating SSH server functionality into the public_ports management.
+  - Enhanced clarity and maintainability of the firewall configuration by consolidating port management logic.
+
 * Feat: enhance run_isolated function to support waiting for active services. [hiddify-com]
 
   - Added a wait_if_active parameter to the run_isolated function, allowing it to wait for an active service to finish before executing the command.
