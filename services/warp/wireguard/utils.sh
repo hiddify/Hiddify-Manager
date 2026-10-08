@@ -44,9 +44,20 @@ function generate_warp_wireguard_config() {
     chmod 600 "$tmp"
     mv -f "$tmp" "$profile" || { rm -f "$tmp"; return 1; }
     ensure_warp_data_links wireguard "$svc_dir"
-    mkdir -p /etc/wireguard/
-    ln -sf "$svc_dir/wgcf-profile.conf" /etc/wireguard/warp.conf
+    install_warp_wireguard_profile "$profile"
     systemctl enable wg-quick@warp
+}
+
+function install_warp_wireguard_profile() {
+    # wg-quick is confined by AppArmor to /etc/wireguard. readlink -f follows
+    # a symlink into data/, and that open is denied. 660 is enough because the
+    # file stays in the same group as the directory.
+    local profile="$1"
+    mkdir -p /etc/wireguard
+    rm -f /etc/wireguard/warp.conf
+    cp -f "$profile" /etc/wireguard/warp.conf
+    chgrp --reference=/etc/wireguard /etc/wireguard/warp.conf
+    chmod 660 /etc/wireguard/warp.conf
 }
 
 function check_warp_wireguard_connection() {

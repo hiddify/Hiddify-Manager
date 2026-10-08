@@ -53,6 +53,8 @@ PostDown = iptables -D FORWARD -i ${SERVER_WG_NIC} -j ACCEPT
 PostDown = iptables -t nat -D POSTROUTING -o ${SERVER_PUB_NIC} -j MASQUERADE
 PostDown = ip6tables -D FORWARD -i ${SERVER_WG_NIC} -j ACCEPT
 PostDown = ip6tables -t nat -D POSTROUTING -o ${SERVER_PUB_NIC} -j MASQUERADE" >>"/etc/wireguard/${SERVER_WG_NIC}.conf"
+chgrp --reference=/etc/wireguard "/etc/wireguard/${SERVER_WG_NIC}.conf" "/etc/wireguard/params"
+chmod 660 "/etc/wireguard/${SERVER_WG_NIC}.conf"
 	# fi
 
 	# Enable routing on the server
