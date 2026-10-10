@@ -697,6 +697,50 @@ function log_file() {
     echo "$(log_dir)/${1}.log"
 }
 
+# Keep a log to its last 3000 lines once it passes 6000.
+function trim_log() {
+    if [ -f "$1" ] && [ "$(wc -l <"$1")" -gt 6000 ]; then
+        tail -n 3000 "$1" >"$1.tmp" && mv "$1.tmp" "$1"
+    fi
+}
+
+# Put the time in front of every line read from stdin.
+function add_time() {
+    while IFS= read -r line; do echo "$(date +%T) $line"; done
+}
+
+# run_timed LABEL COMMAND...: run a command, saying when it starts and ends (seconds, exit code); a failure is also said on stderr.
+function run_timed() {
+    local label="$1" start=$SECONDS rc
+    shift
+    echo "$label: start"
+    "$@"
+    rc=$?
+    echo "$label: end in $((SECONDS - start))s (exit $rc)"
+    [ "$rc" -eq 0 ] || echo "$label: failed (exit $rc)" >&2
+    return $rc
+}
+
+# run_logged NAME COMMAND...: run a command and keep what it prints in $(log_dir)/NAME.out.log and its errors in
+# NAME.err.log (one header line per run, then the lines with their time). Also prints them. Returns the command's exit code.
+function run_logged() {
+    local name="$1" out err tmp_out tmp_err rc
+    shift
+    out="$(log_file "$name.out")"
+    err="$(log_file "$name.err")"
+    trim_log "$out"
+    trim_log "$err"
+    tmp_out="$(mktemp)"
+    tmp_err="$(mktemp)"
+    "$@" >"$tmp_out" 2>"$tmp_err"
+    rc=$?
+    echo "===== $(date '+%F %T') $name: exit $rc =====" | tee -a "$out" >>"$err"
+    add_time <"$tmp_out" | tee -a "$out"
+    add_time <"$tmp_err" | tee -a "$err" >&2
+    rm -f "$tmp_out" "$tmp_err"
+    return $rc
+}
+
 # Every mutex in hiddify is an flock on a file under $HIDDIFY_LOCKS. The kernel
 # ties the lock to the open file descriptor, so it is released the moment the
 # owning process goes away — clean exit, kill -9, crash or power loss alike.

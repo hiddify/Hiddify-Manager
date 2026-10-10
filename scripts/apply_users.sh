@@ -1,5 +1,6 @@
 #!/bin/bash
 # Regenerate the configs that change with the user list, then reload those services.
+# Output and errors are kept in the log dir: apply-users.out.log and apply-users.err.log.
 cd /opt/hiddify-manager
 source /opt/hiddify-manager/scripts/common/utils.sh
 
@@ -8,18 +9,22 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-CORES="xray,hiddify-core,wireguard,telemt"
-
-ensure_generated_permissions
-dump_server_configs "$CORES" || {
-    echo "Failed to dump user configs into $HIDDIFY_GENERATED" >&2
-    exit 1
+apply_users() {
+    ensure_generated_permissions
+    echo "Dumping user configs into $HIDDIFY_GENERATED"
+    dump_server_configs "xray,hiddify-core,wireguard,telemt" || {
+        echo "Failed to dump user configs into $HIDDIFY_GENERATED" >&2
+        return 1
+    }
+    echo "Reloading services"
+    ensure_generated_permissions
+    for svc in xray hiddify-core wireguard telegram/telemt; do 
+        echo "Reloading $svc"
+        run_timed "$svc" bash "$HIDDIFY_SERVICES/$svc/reload.sh" & 
+    done
+    echo "Waiting for services to reload"
+    wait
+    echo "Services reloaded"
 }
-ensure_generated_permissions
 
-
-bash "$HIDDIFY_SERVICES/xray/reload.sh" &
-bash "$HIDDIFY_SERVICES/hiddify-core/reload.sh" &
-bash "$HIDDIFY_SERVICES/wireguard/reload.sh" &
-bash "$HIDDIFY_SERVICES/telegram/telemt/reload.sh" &
-wait
+run_logged apply-users apply_users
