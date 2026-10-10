@@ -10,19 +10,12 @@ fi
 
 CORES="xray,hiddify-core,wireguard,telemt"
 
+ensure_generated_permissions
 dump_server_configs "$CORES" || {
     echo "Failed to dump user configs into $HIDDIFY_GENERATED" >&2
     exit 1
 }
-
-if getent group hiddify-common >/dev/null 2>&1; then
-    
-    
-        chmod -R 640 "$HIDDIFY_GENERATED/"
-        chown -R hiddify-panel:hiddify-common "$HIDDIFY_GENERATED/"
-    
-    
-fi
+ensure_generated_permissions
 
 
 bash "$HIDDIFY_SERVICES/xray/reload.sh" &

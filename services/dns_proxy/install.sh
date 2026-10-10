@@ -4,6 +4,7 @@ source /opt/hiddify-manager/scripts/common/package_manager.sh
 BASE="$(cd "$(dirname "$0")" && pwd)"
 
 useradd --system --no-create-home dns_proxy 2>/dev/null || true
+usermod -aG hiddify-common dns_proxy 2>/dev/null || true
 
 source /opt/hiddify-manager/scripts/common/utils.sh
 source /opt/hiddify-manager/scripts/common/package_manager.sh

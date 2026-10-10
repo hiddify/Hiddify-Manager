@@ -34,6 +34,25 @@ function ensure_panel_backup_dir() {
     find "$dir" -type f -exec chmod 640 {} + 2>/dev/null || true
 }
 
+function ensure_service_group() {
+    groupadd -f hiddify-common
+    local user
+    for user in root hiddify-panel nginx dns_proxy hiddify-cli tgproxy; do
+        id -u "$user" >/dev/null 2>&1 && usermod -aG hiddify-common "$user"
+    done
+}
+
+# generated/ is owned by hiddify-panel and group hiddify-common.
+# Directories stay searchable (setgid 2770). Config files are 660 so the panel
+# can rewrite them and every service account in the group can read them.
+function ensure_generated_permissions() {
+    ensure_service_group
+    mkdir -p "$HIDDIFY_GENERATED/client" "$HIDDIFY_GENERATED/include"
+    chown -R $USER:hiddify-common "$HIDDIFY_GENERATED"
+    find "$HIDDIFY_GENERATED" -type d -exec chmod 2770 {} \;
+    find "$HIDDIFY_GENERATED" -type f -exec chmod 660 {} \;
+}
+
 function ensure_hiddify_data_dirs() {
     # Shared permanent paths only. Each service creates its own data dirs.
     mkdir -p \
@@ -42,15 +61,7 @@ function ensure_hiddify_data_dirs() {
         "$HIDDIFY_GENERATED/client" \
         "$HIDDIFY_GENERATED/include"
     ensure_panel_backup_dir
-    if getent group hiddify-common >/dev/null 2>&1; then
-        chmod 775 "$HIDDIFY_GENERATED" "$HIDDIFY_GENERATED/client" "$HIDDIFY_GENERATED/include" 2>/dev/null || true
-        if id -u hiddify-panel >/dev/null 2>&1; then
-            chown -R hiddify-panel:hiddify-common "$HIDDIFY_GENERATED"
-            find "$HIDDIFY_GENERATED" -type d -exec chmod 775 {} \;
-        else
-            chown -R root:hiddify-common "$HIDDIFY_GENERATED" 2>/dev/null || true
-        fi
-    fi
+    ensure_generated_permissions
 }
 
 # Usage: hiddify_random_password [length]  (default 49)

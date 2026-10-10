@@ -2,6 +2,7 @@
 source /opt/hiddify-manager/scripts/common/utils.sh
 
 useradd -m hiddify-cli -s /bin/bash >/dev/null 2>&1
+usermod -aG hiddify-common hiddify-cli
 
 latest=$(get_release_version hiddify-core)
 

@@ -37,24 +37,12 @@ for d in $domains; do
     (bash /opt/hiddify-manager/services/acme.sh/generate_self_signed_cert.sh $d >/dev/null 2>&1)
 done
 
+ensure_generated_permissions
 dump_server_configs || {
     echo "Failed to dump server configs into $HIDDIFY_GENERATED" >&2
     exit 1
 }
-
-if getent group hiddify-common >/dev/null 2>&1; then
-    for f in "${HIDDIFY_SERVER_CONFIG_FILES[@]}"; do
-        if [ -f "$HIDDIFY_GENERATED/$f" ]; then
-            chmod 640 "$HIDDIFY_GENERATED/$f"
-            chown hiddify-panel:hiddify-common "$HIDDIFY_GENERATED/$f"
-        fi
-    done
-    if [ -d "$HIDDIFY_GENERATED/include" ]; then
-        chown -R hiddify-panel:hiddify-common "$HIDDIFY_GENERATED/include"
-        find "$HIDDIFY_GENERATED/include" -type d -exec chmod 775 {} \;
-        find "$HIDDIFY_GENERATED/include" -type f -exec chmod 640 {} \;
-    fi
-fi
+ensure_generated_permissions
 
 # Remaining .j2 templates (run.sh, firewall, ssh, …) — not dump-server-configs output.
 /opt/hiddify-manager/scripts/common/jinja.py $MODE
