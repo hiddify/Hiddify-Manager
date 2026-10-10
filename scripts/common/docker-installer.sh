@@ -26,19 +26,34 @@ else
   mkdir hiddify-manager
   cd hiddify-manager
   wget https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/main/docker-compose.yml
+  wget https://raw.githubusercontent.com/hiddify/Hiddify-Manager/refs/heads/main/docker.env
+  # Update docker-compose.yml with the specified tag and passwords
+  sed -i "s/hiddify-manager:latest/hiddify-manager:$TAG/g" docker-compose.yml  
+  docker compose pull
 fi
 
 # Generate random passwords for MySQL and Redis
 mysqlpassword=$(< /dev/urandom tr -dc 'a-zA-Z0-9' | head -c49; echo)
 redispassword=$(< /dev/urandom tr -dc 'a-zA-Z0-9' | head -c49; echo)
 
-# Update docker-compose.yml with the specified tag and passwords
-sed -i "s/hiddify-manager:latest/hiddify-manager:$TAG/g" docker-compose.yml
-echo "REDIS_PASSWORD=$redispassword"> docker.env
-echo "MYSQL_PASSWORD=$mysqlpassword">> docker.env
+# Create an empty docker.env if not existing
+touch docker.env
+
+# Lookup variable name for redis password and update its value or append the whole line when required 
+if grep -q "^REDIS_PASSWORD=" docker.env; then
+    sed -i "s|^REDIS_PASSWORD=.*|REDIS_PASSWORD=$redispassword|" docker.env
+else
+    echo "REDIS_PASSWORD=$redispassword" >> docker.env
+fi
+
+# Lookup variable name for MySql password and update its value or append the whole line when required
+if grep -q "^MYSQL_PASSWORD=" docker.env; then
+    sed -i "s|^MYSQL_PASSWORD=.*|MYSQL_PASSWORD=$mysqlpassword|" docker.env
+else
+    echo "MYSQL_PASSWORD=$mysqlpassword" >> docker.env
+fi
 
 # Start the containers using Docker Compose
-docker compose pull
 docker compose up -d 
 
 # Follow the logs from the containers
