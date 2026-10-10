@@ -18,3 +18,7 @@ if [ "$?" == "0"  ] || ! is_installed ./hiddify-core; then
     rm geosite.db 2>/dev/null 
     set_installed_version singbox $version
 fi
+
+# hiddify-core starts this program itself for the Tor outbound.
+install_package tor
+systemctl disable --now tor
