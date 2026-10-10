@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 WorkingDirectory=/opt/hiddify-manager/services/telegram/telemt/
-ExecStart=/opt/hiddify-manager/services/telegram/telemt/telemt ./config.toml
+ExecStart=/opt/hiddify-manager/services/telegram/telemt/telemt /opt/hiddify-manager/generated/telemt.toml
 Restart=on-failure
 LimitNOFILE=65536
 

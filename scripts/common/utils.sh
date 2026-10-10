@@ -17,6 +17,8 @@ HIDDIFY_SERVER_CONFIG_FILES=(
     "nginx.cfg"
     "rust-rpxy-l4.toml"
     "dnstm.json"
+    "wireguard.conf"
+    "telemt.toml"
 )
 
 # Backups are full database dumps (secrets, user ids): owned by the panel user, not world-readable.
@@ -917,14 +919,23 @@ function reload_all_configs(){
 # Prefers the running panel's HTTP API (no extra Python/module load); falls
 # back to the CLI (spawns its own interpreter) only if the panel isn't reachable.
 function dump_server_configs() {
+    # Optional comma-separated cores (xray,hiddify-core,wireguard,telemt). Empty means all.
+    local cores="${1:-}"
     local query=""
-    [ "$MODE" = "apply_users" ] && query="?no_invalidate_cache=1"
-    if hiddify-http-api "admin/dump-server-configs/$query" >/dev/null; then
+    [ "$MODE" = "apply_users" ] && query="no_invalidate_cache=1"
+    if [ -n "$cores" ]; then
+        local enc
+        enc=$(printf '%s' "$cores" | jq -sRr @uri)
+        query="${query:+$query&}cores=${enc}"
+    fi
+    [ -n "$query" ] && query="?${query}"
+    if hiddify-http-api "admin/dump-server-configs/${query}" >/dev/null; then
         return 0
     fi
 
     local flags=()
     [ "$MODE" = "apply_users" ] && flags+=(--no-invalidate-cache)
+    [ -n "$cores" ] && flags+=(--cores "$cores")
     hiddify-panel-cli dump-server-configs "$HIDDIFY_GENERATED" "${flags[@]}"
 }
 

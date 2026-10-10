@@ -15,6 +15,7 @@ class Command(StrEnum):
     """The value of each command refers to the command shell file"""
 
     apply = os.path.join(HIDDIFY_DIR, "scripts/apply_configs.sh")
+
     install = os.path.join(HIDDIFY_DIR, "scripts/install.sh")
     # reinstall = os.path.join(HIDDIFY_DIR,'reinstall.sh')
     update = os.path.join(HIDDIFY_DIR, "scripts/update.sh")
@@ -25,7 +26,7 @@ class Command(StrEnum):
     update_usage = os.path.join(HIDDIFY_DIR, "services/panel/update_usage.sh")
     get_cert = os.path.join(HIDDIFY_DIR, "services/acme.sh/get_cert.sh")
     # apply-users command is actually "install.sh apply_users"
-    apply_users = os.path.join(HIDDIFY_DIR, "scripts/install.sh")
+    apply_users = os.path.join(HIDDIFY_DIR, "scripts/apply_users.sh")
     id = "id"
 
 
@@ -55,6 +56,7 @@ def run_isolated(cmd: list[str], unit: str, wait_if_active: bool = False) -> Non
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )
+
     def active() -> bool:
         return subprocess.run(["systemctl", "is-active", "--quiet", service], check=False).returncode == 0
 
@@ -215,7 +217,7 @@ def update_usage():
 
 @cli.command("apply-users")
 def apply_users():
-    cmd = [Command.apply_users.value, "apply_users", "--no-gui"]
+    cmd = [Command.apply_users.value]
     run(cmd, unit="hiddify-apply-users", wait_if_active=True)
 
 
