@@ -3,6 +3,12 @@
 
 ## (unreleased)
 
+### New
+
+* Add latest version of hiddify-core. [hiddify-com]
+
+* Add wiregaurd proxy generator. [hiddify-com]
+
 ### Fix
 
 * Enhance error handling and validation in replace_variables.sh and utils.sh. [hiddify-com]
@@ -15,6 +21,29 @@
 * Update disable_all_services function to exclude 'old' directories from service disabling. [hiddify-com]
 
 ### Other
+
+* Refactor: enhance apply_users script for improved logging and service management. [hiddify-com]
+
+  - Added logging for output and errors in apply_users.sh, directing them to apply-users.out.log and apply-users.err.log.
+  - Refactored the apply_users function to streamline user config dumping and service reloading.
+  - Introduced run_logged function to encapsulate logging behavior for command execution.
+
+* Feat: update hiddify-core installation script to include Tor package management. [hiddify-com]
+
+  - Added installation of the Tor package to the hiddify-core installation script.
+  - Included a command to disable the Tor service immediately after installation.
+
+* Refactor: streamline user permission management across scripts. [hiddify-com]
+
+* Faster apply users. [hiddify-com]
+
+* Move  telemt configuration to core. [hiddify-com]
+
+* Feat: improve WireGuard profile installation and permissions management. [hiddify-com]
+
+  - Introduced a new function to handle the installation of the WireGuard profile, ensuring proper permissions and group ownership.
+  - Updated the installation script to set appropriate permissions for the WireGuard configuration file, enhancing security and compliance with AppArmor restrictions.
+  - Removed redundant symlink creation in favor of direct file copying for better clarity and reliability.
 
 * Feat: enhance IPv6 management in firewall and installation scripts. [hiddify-com]
 
