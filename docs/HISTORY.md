@@ -11,6 +11,10 @@
 
 ### Fix
 
+* Enable logging for hiddify-core service output and errors. [hiddify-com]
+
+* Update permissions for apply_users.sh script. [hiddify-com]
+
 * Enhance error handling and validation in replace_variables.sh and utils.sh. [hiddify-com]
 
   - Added validation for current.json to ensure it contains valid domain and configuration data before applying changes.
