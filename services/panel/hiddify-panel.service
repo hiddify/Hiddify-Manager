@@ -12,10 +12,15 @@ Environment="HIDDIFY_CFG_PATH=/opt/hiddify-manager/data/hiddify-panel/app.cfg"
 # Cap glibc's per-thread malloc arenas; with multiple threads this otherwise
 # reserves several extra ~arenas worth of RSS that Python/glibc never gives back.
 Environment="MALLOC_ARENA_MAX=2"
-# This is a low-traffic admin panel, not a public API; a handful of blocking
+# This is a low-traffic admin panel, not a public API; a handful of request
 # threads is enough concurrency and each idle thread still costs real RSS.
+# ASGI: the Flask app runs on HIDDIFY_PANEL_THREADS threads (a2wsgi) and the
+# nodes' WebSocket (/<admin path>/api/v2/node/ws/) on the same port.
 # workers-max-rss is a safety net that respawns the worker if it ever balloons.
-ExecStart=/opt/hiddify-manager/.venv313/bin/python -m granian --interface wsgi hiddifypanel.apps.wsgi_app:app --port 9000 --blocking-threads 10 --workers-max-rss 500
+Environment="HIDDIFY_PANEL_THREADS=10"
+# --http defaults to auto: HTTP/1.1 and cleartext HTTP/2 (HAProxy `proto h2`). Do not pass --http 2:
+# that mode refuses HTTP/1 and disables WebSockets.
+ExecStart=/opt/hiddify-manager/.venv313/bin/python -m granian --interface asgi hiddifypanel.apps.asgi_app:app --port 9000 --workers-max-rss 500
 ExecReload=/bin/kill -HUP $MAINPID
 #RestartSec=1
 #ExecStop=/bin/bash -c "/bin/kill -INT $(/usr/bin/pgrep -f 'hiddifypanel')||echo 'nothing to kill'"
