@@ -9,20 +9,21 @@ GEN="${HIDDIFY_GENERATED}/dns_proxy"
 PROTOS=(dnstt slipstream masterdns)
 
 mkdir -p "$GEN"/{dnstt,slipstream,masterdns}
-chown -R dns_proxy:dns_proxy "$GEN" 2>/dev/null || true
-# dnstm.json lives at generated/ (not under dns_proxy/)
-chown dns_proxy:dns_proxy "${HIDDIFY_GENERATED}/dnstm.json" 2>/dev/null || true
+dns_proxy_normalize_layout "$GEN"
+dns_proxy_write_masterdns_keys "$GEN"
+dns_proxy_fix_permissions "$GEN"
 
 for proto in "${PROTOS[@]}"; do
     dns_proxy_sync_proto_instances "$proto" "$GEN"
 done
 
 # DNSTM multi-tunnel router on :53
-DNSTM_CFG="${HIDDIFY_GENERATED}/dnstm.json"
-if [[ -f "$DNSTM_CFG" ]] && grep -q '"domain"' "$DNSTM_CFG" 2>/dev/null; then
+if dns_proxy_write_router_config "${HIDDIFY_GENERATED}/dnstm.json" "${HIDDIFY_GENERATED}/dnstm"; then
     ln -sfn "$BASE/hiddify-dnstm-router.service" /etc/systemd/system/hiddify-dnstm-router.service
     systemctl daemon-reload
-    systemctl enable --now hiddify-dnstm-router.service || systemctl restart hiddify-dnstm-router.service || true
+    systemctl enable hiddify-dnstm-router.service >/dev/null 2>&1 || true
+    # Always restart: dnstm only reads its routes at startup.
+    systemctl restart hiddify-dnstm-router.service || true
 else
     systemctl disable --now hiddify-dnstm-router.service >/dev/null 2>&1 || true
 fi

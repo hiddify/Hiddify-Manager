@@ -55,7 +55,69 @@ function dns_proxy_sync_proto_instances() {
         fi
     done < <(dns_proxy_list_proto_instances "$unit")
 
+    # Restart, not just enable --now: a running instance must pick up new args/keys.
     for instance in "${desired[@]+"${desired[@]}"}"; do
-        systemctl enable --now "${unit}${instance}.service" >/dev/null 2>&1 || systemctl restart "${unit}${instance}.service" || true
+        systemctl enable "${unit}${instance}.service" >/dev/null 2>&1 || true
+        systemctl restart "${unit}${instance}.service" || true
     done
+}
+
+# hiddifypanel's include_path() writes each sidecar to <proto>/<slug> as a plain
+# file, while the units read <proto>/<slug>/args (server_config.toml for masterdns).
+function dns_proxy_normalize_layout() {
+    local gen_root="$1"
+    local f
+    for f in "$gen_root"/dnstt/* "$gen_root"/slipstream/*; do
+        [[ -f "$f" ]] || continue
+        mv "$f" "$f.tmp" && mkdir -p "$f" && mv "$f.tmp" "$f/args"
+    done
+    for f in "$gen_root"/masterdns/*; do
+        [[ -f "$f" ]] || continue
+        mv "$f" "$f.tmp" && mkdir -p "$f" && mv "$f.tmp" "$f/server_config.toml"
+    done
+}
+
+# MasterDnsVPN ignores a key whose length does not fit DATA_ENCRYPTION_METHOD and
+# generates a random one instead, so clients could never match it. The panel key
+# is 64 hex chars; write the prefix the configured method expects.
+function dns_proxy_write_masterdns_keys() {
+    local gen_root="$1"
+    local key dir method len
+    key="$(hconfig master_dns_encrypt_key 2>/dev/null)" || true
+    [[ -n "$key" && "$key" != "null" ]] || return 0
+    for dir in "$gen_root"/masterdns/*/; do
+        [[ -f "$dir/server_config.toml" ]] || continue
+        method="$(sed -nE 's/^[[:space:]]*DATA_ENCRYPTION_METHOD[[:space:]]*=[[:space:]]*([0-9]+).*/\1/p' "$dir/server_config.toml" | head -n1)"
+        case "$method" in
+            3) len=16 ;;
+            4) len=24 ;;
+            *) len=32 ;;
+        esac
+        printf '%s' "${key:0:len}" >"$dir/encrypt_key.txt"
+    done
+}
+
+# The panel (hiddify-panel) wipes and rewrites this tree on every dump, so it must
+# stay the owner; the tunnel units run as dns_proxy and only need group access.
+function dns_proxy_fix_permissions() {
+    local gen_root="$1"
+    chown -R hiddify-panel:dns_proxy "$gen_root" 2>/dev/null || true
+    chmod -R g+rwX,o-rwx "$gen_root" 2>/dev/null || true
+}
+
+# Render the router's config dir (dnstm reads <dir>/config.json) from the panel's
+# dnstm.json. Returns 1 when there is no tunnel to route.
+function dns_proxy_write_router_config() {
+    local src="$1"
+    local dir="$2"
+    [[ -f "$src" ]] && jq -e '(.tunnels // []) | length > 0' "$src" >/dev/null 2>&1 || return 1
+    mkdir -p "$dir"
+    # The panel's base template sets has_domains inside a Jinja loop, where the
+    # assignment does not escape the loop scope, so it always emits 127.0.0.1:53.
+    jq 'if (.listen.address // "") | startswith("127.") then .listen.address = "0.0.0.0:53" else . end' \
+        "$src" >"$dir/config.json.tmp" || return 1
+    mv -f "$dir/config.json.tmp" "$dir/config.json"
+    chown -R root:dns_proxy "$dir" 2>/dev/null || true
+    chmod 750 "$dir"
+    chmod 640 "$dir/config.json"
 }
