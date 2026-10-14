@@ -7,25 +7,9 @@ function hiddify_bashrc_has_autostart() {
     grep -qE '/opt/hiddify-(manager|config|server)/(scripts/)?menu\.sh|^[[:space:]]*hiddify[[:space:]]*$' ~/.bashrc 2>/dev/null
 }
 
-function hiddify_bashrc_clean() {
-    [ -f ~/.bashrc ] || return 0
-    sed -i \
-        -e 's|/opt/hiddify-config/menu.sh||g' \
-        -e 's|/opt/hiddify-server/menu.sh||g' \
-        -e 's|/opt/hiddify-manager/menu.sh||g' \
-        -e 's|/opt/hiddify-manager/scripts/menu.sh||g' \
-        -e 's|cd /opt/hiddify-manager/||g' \
-        -e '/^[[:space:]]*hiddify[[:space:]]*$/d' \
-        ~/.bashrc
-}
-
-function hiddify_bashrc_enable() {
-    hiddify_bashrc_clean
-    echo "hiddify" >>~/.bashrc
-}
-
-if hiddify_bashrc_has_autostart; then
-    hiddify_bashrc_enable
+# A commented `# hiddify` line means the user turned the menu off. Do not rewrite it.
+if hiddify_bashrc_has_autostart && ! hiddify_bashrc_menu_disabled; then
+    hiddify_bashrc_enable_menu
 fi
 
 
@@ -122,11 +106,11 @@ function menu() {
         CHOICE=$(whiptail --clear --backtitle "$BACKTITLE" --title "$TITLE" --menu "$MENU" $HEIGHT $WIDTH $CHOICE_HEIGHT "${OPTIONS[@]}" 3>&1 1>&2 2>&3)
         case $CHOICE in
         "enable")
-            hiddify_bashrc_enable
+            hiddify_bashrc_enable_menu
             NEED_KEY=0
             ;;
         "disable")
-            hiddify_bashrc_clean
+            hiddify_bashrc_disable_menu
             NEED_KEY=0
             ;;
         "uninstall")

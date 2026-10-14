@@ -72,13 +72,7 @@ bash scripts/install.sh --no-gui
 # exit 0
 # fi
 
-sed -i \
-    -e "s|/opt/$GITHUB_REPOSITORY/menu.sh||g" \
-    -e "s|/opt/$GITHUB_REPOSITORY/scripts/menu.sh||g" \
-    -e "s|cd /opt/$GITHUB_REPOSITORY/||g" \
-    -e '/^[[:space:]]*hiddify[[:space:]]*$/d' \
-    ~/.bashrc
-echo "hiddify" >>~/.bashrc
+hiddify_bashrc_install_menu
 if [ "$CREATE_EASYSETUP_LINK" == "true" ];then
     cd /opt/$GITHUB_REPOSITORY/services/panel
     hiddify-panel-cli set-setting --key create_easysetup_link --val True

@@ -64,6 +64,63 @@ function ensure_hiddify_data_dirs() {
     ensure_generated_permissions
 }
 
+# The startup menu is one line in bashrc. Turning it off comments that line
+# (`# hiddify`). Installation must leave the comment in place and not append
+# `hiddify` again.
+
+function hiddify_bashrc_menu_disabled() {
+    local bashrc="${1:-$HOME/.bashrc}"
+    [ -f "$bashrc" ] && grep -qE '^[[:space:]]*#[[:space:]]*hiddify[[:space:]]*$' "$bashrc"
+}
+
+function hiddify_bashrc_strip_legacy_menu() {
+    local bashrc="${1:-$HOME/.bashrc}"
+    [ -f "$bashrc" ] || return 0
+    sed -i \
+        -e 's|/opt/hiddify-config/menu.sh||g' \
+        -e 's|/opt/hiddify-server/menu.sh||g' \
+        -e 's|/opt/hiddify-manager/menu.sh||g' \
+        -e 's|/opt/hiddify-manager/scripts/menu.sh||g' \
+        -e 's|cd /opt/hiddify-manager/||g' \
+        "$bashrc"
+}
+
+function hiddify_bashrc_disable_menu() {
+    local bashrc="${1:-$HOME/.bashrc}"
+    touch "$bashrc"
+    hiddify_bashrc_strip_legacy_menu "$bashrc"
+    if grep -qE '^[[:space:]]*hiddify[[:space:]]*$' "$bashrc"; then
+        sed -i -E 's/^[[:space:]]*hiddify[[:space:]]*$/# hiddify/' "$bashrc"
+    elif ! hiddify_bashrc_menu_disabled "$bashrc"; then
+        echo "# hiddify" >>"$bashrc"
+    fi
+}
+
+function hiddify_bashrc_enable_menu() {
+    local bashrc="${1:-$HOME/.bashrc}"
+    touch "$bashrc"
+    hiddify_bashrc_strip_legacy_menu "$bashrc"
+    if hiddify_bashrc_menu_disabled "$bashrc"; then
+        sed -i -E 's/^[[:space:]]*#[[:space:]]*hiddify[[:space:]]*$/hiddify/' "$bashrc"
+    fi
+    if ! grep -qE '^[[:space:]]*hiddify[[:space:]]*$' "$bashrc"; then
+        echo "hiddify" >>"$bashrc"
+    fi
+}
+
+# Append the startup line only when the user has not commented it out.
+function hiddify_bashrc_install_menu() {
+    local bashrc="${1:-$HOME/.bashrc}"
+    touch "$bashrc"
+    hiddify_bashrc_strip_legacy_menu "$bashrc"
+    if hiddify_bashrc_menu_disabled "$bashrc"; then
+        return 0
+    fi
+    if ! grep -qE '^[[:space:]]*hiddify[[:space:]]*$' "$bashrc"; then
+        echo "hiddify" >>"$bashrc"
+    fi
+}
+
 # Usage: hiddify_random_password [length]  (default 49)
 function hiddify_random_password() {
     local len="${1:-49}"

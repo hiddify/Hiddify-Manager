@@ -49,13 +49,7 @@ function install_panel() {
     # apt dist-upgrade -y
     
     if ! is_installed hiddifypanel; then
-        sed -i \
-            -e 's|/opt/hiddify-manager/scripts/menu.sh||g' \
-            -e 's|/opt/hiddify-manager/menu.sh||g' \
-            -e 's|cd /opt/hiddify-manager/||g' \
-            -e '/^[[:space:]]*hiddify[[:space:]]*$/d' \
-            ~/.bashrc
-        echo "hiddify" >>~/.bashrc
+        hiddify_bashrc_install_menu
     fi
 
     
