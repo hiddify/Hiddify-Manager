@@ -10,16 +10,20 @@ source /opt/hiddify-manager/scripts/common/utils.sh
 source /opt/hiddify-manager/scripts/common/package_manager.sh
 
 # dnstm router binary (shared by dns_proxy)
-download_package dnstm dnstm
-if [ "$?" == "0" ] || ! is_installed ./dnstm; then
+# Force the download when the binary is gone: packages.db (data/) outlives services/.
+force=""
+[[ -x ./dnstm ]] || force=force
+if download_package dnstm dnstm "" $force; then
     chmod +x dnstm
     set_installed_version dnstm
+elif [[ ! -x ./dnstm ]]; then
+    echo "WARN: dnstm binary not installed" >&2
 fi
 
-
-bash "$BASE/dnstt/install.sh"
-bash "$BASE/slipstream/install.sh"
-bash "$BASE/masterdns/install.sh"
+# Each installer downloads into its cwd, and run-instance.sh looks next to itself.
+for proto in dnstt slipstream masterdns; do
+    (cd "$BASE/$proto" && bash install.sh)
+done
 
 # Symlink root; protocol/instance dirs are created by panel dump (dns_proxy_dump).
 mkdir -p "$HIDDIFY_GENERATED"
