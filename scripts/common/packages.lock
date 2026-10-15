@@ -65,3 +65,5 @@ wgcf|2.2.31|arm64|https://github.com/ViRb3/wgcf/releases/download/v2.2.31/wgcf_2
 wgcf|2.2.31|amd64|https://github.com/ViRb3/wgcf/releases/download/v2.2.31/wgcf_2.2.31_linux_amd64|69147e1a517c66129edd8ac8cb60484d6c9515178d7b4a2f95e3c925f225572a
 hiddify-core|5.0.0|arm64|https://github.com/hiddify/hiddify-core/releases/download/v5.0.0/hiddify-core-linux-arm64-glibc.tar.gz|698d48b841caca532bccaadf433bbacbe64fbf715abe3e9473040698c807a26d
 hiddify-core|5.0.0|amd64|https://github.com/hiddify/hiddify-core/releases/download/v5.0.0/hiddify-core-linux-amd64-glibc.tar.gz|862d6a2172f48e348cd4be3d9ef2ad51b3310f551304285613909d475fc0b815
+telemt|3.5.14|amd64|https://github.com/telemt/telemt/releases/download/3.5.14/telemt-x86_64-linux-gnu.tar.gz|b10f86c6851f5c422a49d98deea55e8ef4aea7879605e59c1d4aa43c8f4c70ce
+telemt|3.5.14|arm64|https://github.com/telemt/telemt/releases/download/3.5.14/telemt-aarch64-linux-gnu.tar.gz|d2e3ca6a3f407aecb190c4a73db74ec581d56b5dd6ab469cb0e1d0f2c3d31c57
