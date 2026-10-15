@@ -9,5 +9,6 @@ ARGS_FILE="${CFG_DIR}/args"
 [[ -f "$ARGS_FILE" ]] || { echo "missing $ARGS_FILE" >&2; exit 1; }
 [[ -x "$BASE/vaydns-server" ]] || { echo "vaydns-server not installed" >&2; exit 1; }
 
-mapfile -t ARGS < "$ARGS_FILE"
+# One argv token per line; skip blank lines and template comments.
+mapfile -t ARGS < <(grep -vE '^[[:space:]]*(#|$)' "$ARGS_FILE")
 exec "$BASE/vaydns-server" "${ARGS[@]}"
