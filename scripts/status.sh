@@ -22,10 +22,7 @@ function main(){
     
     echo "----------------------------------------------------------------"
     warning "- Global IP:"
-    proxy_port=1234 # xray local socks5 port
-    if [[ $(hconfig "core_type") == "singbox" ]];then
-        proxy_port=2000 # singbox local socks5 port
-    fi
+    proxy_port=2000 # hiddify-core local socks5 port
     curl -s -x socks://127.0.0.1:$proxy_port --connect-timeout 1 http://ip-api.com?fields=country,city,org,query | sed 's|^|  |; /[{}]/d'
     echo "----------------------------------------------------------------"
     
