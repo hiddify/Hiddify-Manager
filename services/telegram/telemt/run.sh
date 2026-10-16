@@ -1,12 +1,5 @@
-ln -sf $(pwd)/mtproxy.service /etc/systemd/system/mtproxy.service
-systemctl enable mtproxy.service
+ln -sf $(pwd)/hiddify-telegram-proxy.service /etc/systemd/system/hiddify-telegram-proxy.service
+systemctl enable hiddify-telegram-proxy.service
 
-generated="/opt/hiddify-manager/generated/telemt.toml"
-if [ ! -s "$generated" ]; then
-    echo "Missing $generated"
-    exit 1
-fi
-ln -sfn "$generated" "$(pwd)/config.toml"
-
-systemctl restart mtproxy.service
-systemctl status mtproxy --no-pager
+systemctl restart hiddify-telegram-proxy.service
+systemctl status hiddify-telegram-proxy --no-pager

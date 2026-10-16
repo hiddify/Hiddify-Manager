@@ -26,7 +26,13 @@ if [ -z "$SQLALCHEMY_DATABASE_URI" ]; then
 fi
 
 source .venv313/bin/activate
-uv pip install -e services/hiddify-panel/src 
+# The image has the UI built; a source tree mounted over it (docker-compose.override)
+# must bring its own: build it on the host, the container has no Node.js.
+if [ ! -f services/panel/src/hiddifypanel/static/admin-v2/index.html ]; then
+    echo "WARNING: admin UI is not built in the mounted panel source. On the host run:"
+    echo "    cd services/panel/src/hiddifypanel/admin_v2 && npm ci && npm run build"
+fi
+uv pip install -e services/panel/src 
 
 DO_NOT_INSTALL=true /opt/hiddify-manager/scripts/install.sh docker --no-gui $@
 /opt/hiddify-manager/scripts/status.sh --no-gui

@@ -147,7 +147,6 @@ function main() {
         add_task "FakeTLS Proxy" install_run services/ssfaketls "$(hconfig "ssfaketls_enable")"
         add_task "Warp" install_run services/warp 1
         add_task "Xray" install_run services/xray 1
-        add_task "HiddifyCli" install_run services/hiddify-cli "$(hconfig "hiddifycli_enable")"
     fi
     add_task "Wireguard" install_run services/wireguard "$(hconfig "wireguard_enable")"
     add_task "Hiddify Core" install_run services/hiddify-core

@@ -3,6 +3,22 @@ source ./utils.sh
 activate_python_venv
 ensure_hiddify_data_dirs
 
+
+# nginx / haproxy / xray / hiddify-core / rust-rpxy-l4 configs live only in the database now (dump-server-configs →
+# generated/). Remove the old templates from before, and what they rendered, so nothing stale is left next to them.
+remove_old_server_templates() {
+    rm -rf /opt/hiddify-manager/services/telegram/telemt/config.toml*  /opt/hiddify-manager/services/wireguard/*.j2
+    local t
+    while IFS= read -r -d '' t; do
+        rm -f -- "$t" "${t%.j2}"
+    done < <(find /opt/hiddify-manager/services/nginx /opt/hiddify-manager/services/haproxy \
+        /opt/hiddify-manager/services/xray/configs /opt/hiddify-manager/services/hiddify-core/configs \
+        -name '*.j2' -type f -print0 2>/dev/null)
+    rm -f /opt/hiddify-manager/services/rust-rpxy-l4/config.toml.j2 /opt/hiddify-manager/services/rust-rpxy-l4/config.toml
+}
+remove_old_server_templates
+
+
 if ! is_valid_current_json /opt/hiddify-manager/data/current.json; then
     error "Invalid /opt/hiddify-manager/data/current.json; not applying configs"
     exit 1

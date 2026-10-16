@@ -7,5 +7,3 @@ if [ "$?" == "0"  ] || ! is_installed ./telemt; then
     set_installed_version telemt
 fi
 
-
-

@@ -31,7 +31,7 @@ function main(){
     
     warning "- Services Status:"
     
-    for s in services/**/*.service wg-quick@warp mtproto-proxy.service mtproxy.service;do
+    for s in services/**/*.service wg-quick@warp mtproto-proxy.service;do
         s=${s##*/}
         s=${s%%.*}
         [ $s == "wg-quick@warp" ] && [ $(hconfig "warp_mode") == "disable" ] && continue

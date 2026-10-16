@@ -122,6 +122,8 @@ def render_j2_templates(*start_paths):
         "/opt/hiddify-manager/data/",
         "/opt/hiddify-manager/generated/",
         "/opt/hiddify-manager/old/",
+        # Deprecated services are not installed (and read data current.json no longer has, e.g. users).
+        "/opt/hiddify-manager/services/deprecated/",
     ]
 
     # Collect all the template paths to render

@@ -34,7 +34,7 @@ function main() {
     warning "$(printf "%-30s %-20s %s \n" "Name" "Old Status" "New Status")"
     
     # Restart services and get their status (except hiddify-panel)
-    for ss in services/**/*.service wg-quick@warp mtproto-proxy.service mtproxy.service;do
+    for ss in services/**/*.service wg-quick@warp mtproto-proxy.service;do
         case "$ss" in
             *hiddify-panel*|*hiddify-cli*)
                 continue
@@ -52,10 +52,6 @@ function main() {
     done
     wait
 
-    for ss in hiddify-cli;do
-        restart_service $ss &
-    done
-    wait
     echo -e "----------------------------------------------------------------\n"
 }
 mkdir -p /opt/hiddify-manager/data/log/system/

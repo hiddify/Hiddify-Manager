@@ -1,8 +1,8 @@
 source /opt/hiddify-manager/scripts/common/package_manager.sh
 
 echo "telegram proxy install.sh $*"
-systemctl kill mtproxy.service >/dev/null 2>&1
-systemctl disable mtproxy.service >/dev/null 2>&1
+systemctl kill hiddify-telegram-proxy.service >/dev/null 2>&1
+systemctl disable hiddify-telegram-proxy.service >/dev/null 2>&1
 
 # sudo add-apt-repository -y ppa:longsleep/golang-backports
 # sudo apt update
