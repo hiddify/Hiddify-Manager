@@ -26,6 +26,109 @@
 
 ### Other
 
+* Merge branch 'dev' of github.com:hiddify/Hiddify-Manager into dev. [hiddify-com]
+
+* Merge pull request #5598 from allanchan339/fix/migrate-layout-stop-old-services. [Hiddify]
+
+  fix: stop old-layout services during migration so hiddify-core can start
+
+* Fix(status): probe hiddify-core socks port for the Global IP check. [Allan Chan]
+
+  The server-side local socks5 listener lives in hiddify-core
+  (127.0.0.1:2000, see hiddify-core/server/base/builtin_inbounds.j2;
+  services/hiddify-core is installed unconditionally). xray has no server-side
+  socks inbound in v13+, so with core_type=xray the Global IP check probed
+  127.0.0.1:1234 where nothing listens and printed nothing.
+
+* Fix(migrate_layout): stop old-layout services before moving their directories. [Allan Chan]
+
+  The migration moves singbox/, hiddify-panel/, other/, ... to old/ before
+  stopping their services, so the unit symlinks in /etc/systemd/system become
+  dangling. After that systemctl can no longer load the old units and
+  [ -e .../hiddify-singbox.service ] is false for a dangling symlink, so the
+  old processes stay alive while no unit can manage them anymore.
+
+  On a host that has not rebooted since the old layout was installed, the
+  leftover hiddify-singbox process keeps 127.0.0.1:2000/2001 bound, so the new
+  hiddify-core fails with "listen tcp 127.0.0.1:2000: bind: address already in
+  use" and enters a Restart=always loop (systemctl shows "activating
+  (auto-restart)"). The old dnstm router and panel background-tasks units are
+  left orphaned the same way.
+
+  stop_old_units() now runs before anything is moved. It walks the unit symlinks
+  we own: canonical target inside the hiddify tree (including the legacy
+  /opt/hiddify-server and /opt/hiddify-config install dirs) but not under
+  services/, plus stale multi-user.target.wants entries for the same paths.
+  They are disable --nowed while they can still be resolved and their leftover
+  links are removed. readlink -m is used so already-dangling links are still
+  recognized, and rename_singbox_unit() now also matches dangling symlinks.
+  Features that no longer exist in the new layout stop cleanly instead of being
+  left as unmanageable zombie processes; everything else is reinstalled and
+  re-enabled by install.sh right after.
+
+* Speed up apply config and remove deprecated telegram proxies. [hiddify-com]
+
+* Refactor: update firewall service by removing old template and adding new run script. [hiddify-com]
+
+* Remove old templates and depricate hiddify-cli. [hiddify-com]
+
+* Merge branch 'dev' of github.com:hiddify/Hiddify-Manager into dev. [hiddify-com]
+
+* Merge pull request #5584 from fakoor/patch-2. [Hiddify]
+
+  Enhance docker-installer.sh to manage docker.env and build/pull
+
+* Fix typo in docker installer script. [Al]
+
+  Fix typo correct file name is docker.env
+
+* Enhance docker-installer.sh to manage docker.env and build/pull. [Al]
+
+  Added logic to create and update docker.env with random passwords for MySQL and Redis while keeping the pre-existing connection string URIs intact
+
+* Merge pull request #5597 from hajilouali/claude/stoic-cerf-tjx5ul. [Hiddify]
+
+  fix(dns_proxy): make DNSTT/Slipstream/MasterDNS tunnels actually start
+
+* Fix(dns_proxy): make DNSTT/Slipstream/MasterDNS tunnels actually start. [Claude]
+
+  Found while bringing up DNS tunnels on a 13.0.3 server; none of them
+  could start with the shipped scripts.
+
+  - installers: run each sub-installer from its own directory, so the
+    binaries land where run-instance.sh looks for them (they were all
+    downloaded into services/dns_proxy/).
+  - installers: force the download when the binary is missing. packages.db
+    lives in data/ and survives a release upgrade that replaces services/,
+    so download_package kept answering "already downloaded".
+  - router unit: dnstm's -C takes a config directory (<dir>/config.json),
+    not the dnstm.json file, and the binary lives in services/dns_proxy/,
+    not dnstt/. run.sh now renders generated/dnstm/config.json and always
+    restarts the router, since dnstm only reads its routes at startup.
+  - router config: work around the panel base template always emitting
+    listen 127.0.0.1:53 (has_domains is set inside a Jinja loop and never
+    escapes it), which made the router unreachable from outside.
+  - run.sh: stop chowning generated/dns_proxy and dnstm.json to dns_proxy.
+    That locked hiddify-panel out of the tree it rewrites on every dump.
+    Keep hiddify-panel as owner with group dns_proxy for the tunnels.
+  - run.sh: move sidecars the panel writes as <proto>/<slug> files into
+    <proto>/<slug>/args (server_config.toml for masterdns), the layout the
+    units read.
+  - masterdns: write encrypt_key.txt from master_dns_encrypt_key, cut to
+    the length DATA_ENCRYPTION_METHOD needs. The 64-char panel key is
+    rejected and replaced by a random one, so clients could never match.
+  - masterdns: pin the amd64 server build; amd64 pointed at the 32-bit
+    X86 zip.
+  - run-instance.sh: skip blank and comment lines in args.
+  - instances: restart on every run so new args and keys apply.
+  - dnstt unit: make the unused server.key ReadOnlyPaths optional.
+
+* Feat: add telemt package version 3.5.14 for amd64 and arm64 architectures. [hiddify-com]
+
+* Refactor: streamline bashrc menu management functions. [hiddify-com]
+
+* Feat: enhance stream support and update service configuration. [hiddify-com]
+
 * Refactor: enhance apply_users script for improved logging and service management. [hiddify-com]
 
   - Added logging for output and errors in apply_users.sh, directing them to apply-users.out.log and apply-users.err.log.
