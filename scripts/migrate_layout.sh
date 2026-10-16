@@ -46,8 +46,44 @@ disable_all_services() {
     tee /dev/stderr |
     xargs -r -I{} systemctl disable --now {}
 }
+stop_old_units() {
+    local link unit target
+    local services_real hid_dir_real
+    services_real="$(readlink -m "$SERVICES")"
+    hid_dir_real="$(readlink -m "$HIDDIFY_DIR")"
+    for link in /etc/systemd/system/*.service; do
+        [ -L "$link" ] || continue
+        unit="$(basename "$link")"
+        # -m also canonicalizes dangling links, whose target no longer exists
+        target="$(readlink -m "$link" 2>/dev/null || true)"
+        case "$target" in
+            "$services_real"/*) continue ;; # current-layout unit: leave it alone
+            "$hid_dir_real"/*|/opt/hiddify-server/*|/opt/hiddify-config/*) ;;
+            *) continue ;;                  # not managed by hiddify
+        esac
+        # Stop while the unit can still be resolved: once its file/target is
+        # gone, systemd can no longer load it and the old process would keep
+        # running (and holding its ports) until the next reboot.
+        log "stopping leftover unit $unit"
+        systemctl disable --now "$unit" >/dev/null 2>&1 || systemctl stop "$unit" >/dev/null 2>&1 || true
+        rm -f "/etc/systemd/system/multi-user.target.wants/$unit" "$link"
+    done
+    # stale enable links whose unit file is already gone
+    for link in /etc/systemd/system/multi-user.target.wants/*.service; do
+        [ -L "$link" ] || continue
+        target="$(readlink -m "$link" 2>/dev/null || true)"
+        case "$target" in
+            "$services_real"/*) ;;
+            "$hid_dir_real"/*|/opt/hiddify-server/*|/opt/hiddify-config/*)
+                log "removing stale enable link $(basename "$link")"
+                rm -f "$link"
+                ;;
+        esac
+    done
+}
+
 rename_singbox_unit() {
-    if [ -e /etc/systemd/system/hiddify-singbox.service ]; then
+    if [ -e /etc/systemd/system/hiddify-singbox.service ] || [ -L /etc/systemd/system/hiddify-singbox.service ]; then
         log "replacing hiddify-singbox.service with hiddify-core.service"
         systemctl disable --now hiddify-singbox.service 2>/dev/null || true
         rm -f /etc/systemd/system/hiddify-singbox.service
@@ -79,6 +115,12 @@ move_to_old() {
     log "mv $path -> $dest"
     mv "$path" "$dest"
 }
+
+# Stop leftover old-layout services before their directories are moved away;
+# otherwise their unit files turn into dangling symlinks, systemd cannot load
+# them anymore, and the old processes keep running with their ports bound
+# (which blocks the new-layout services from starting).
+stop_old_units
 
 # Clean install or already migrated: no leftover singbox/ directory.
 if [ ! -d "$HIDDIFY_DIR/singbox" ] || [ -L "$HIDDIFY_DIR/singbox" ]; then
