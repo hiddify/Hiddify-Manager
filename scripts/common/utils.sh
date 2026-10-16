@@ -735,6 +735,12 @@ function check_hiddify_panel() {
 
 
 function show_progress_window() {
+    # The full-screen progress window needs a real terminal: without one (a web terminal, ssh without -t, a pipe or
+    # cron) setting it up fails with "termios.error: (22, 'Invalid argument')". Then run the command as it is.
+    if ! [ -t 0 ] || ! [ -t 1 ] || ! stty -g >/dev/null 2>&1; then
+        run_without_progress_window "$@"
+        return $?
+    fi
     disable_ansii_modes
     activate_python_venv
     install_pypi_package cli-progress
@@ -742,6 +748,24 @@ function show_progress_window() {
     exit_code=$?
     disable_ansii_modes
     return $exit_code
+}
+
+# show_progress_window's arguments ([--title T] [--subtitle S] [--log FILE] COMMAND...): run COMMAND, its output on the
+# screen and in FILE (the window shows and keeps the log the same way).
+function run_without_progress_window() {
+    local log=""
+    while [ $# -gt 0 ]; do
+        case "$1" in
+        --title | --subtitle) shift 2 ;;
+        --log) log="$2"; shift 2 ;;
+        *) break ;;
+        esac
+    done
+    if [ -n "$log" ]; then
+        "$@" 2>&1 | tee "$log"
+        return "${PIPESTATUS[0]}"
+    fi
+    "$@"
 }
 
 
