@@ -19,6 +19,7 @@ HIDDIFY_SERVER_CONFIG_FILES=(
     "dnstm.json"
     "wireguard.conf"
     "telemt.toml"
+    "firewall.sh"
 )
 
 # Backups are full database dumps (secrets, user ids): owned by the panel user, not world-readable.

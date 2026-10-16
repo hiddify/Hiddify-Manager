@@ -4,18 +4,29 @@ activate_python_venv
 ensure_hiddify_data_dirs
 
 
-# nginx / haproxy / xray / hiddify-core / rust-rpxy-l4 configs live only in the database now (dump-server-configs →
-# generated/). Remove the old templates from before, and what they rendered, so nothing stale is left next to them.
 remove_old_server_templates() {
-    rm -rf /opt/hiddify-manager/services/telegram/telemt/config.toml*  /opt/hiddify-manager/services/wireguard/*.j2
+    local base=/opt/hiddify-manager/services
     local t
+
+    # Remove a template together with its rendered output (foo.conf.j2 -> foo.conf)
+    remove_template_pair() { rm -f -- "$1" "${1%.j2}"; }
+
+    # Every *.j2 (and its rendered file) under these directories
+    local -a dirs=(
+        "$base/nginx"
+        "$base/haproxy"
+        "$base/firewall"
+        "$base/wireguard"
+        "$base/telegram/telemt"
+        "$base/rust-rpxy-l4"
+        "$base/xray/configs"
+        "$base/hiddify-core/configs"
+    )
     while IFS= read -r -d '' t; do
-        rm -f -- "$t" "${t%.j2}"
-    done < <(find /opt/hiddify-manager/services/nginx /opt/hiddify-manager/services/haproxy \
-        /opt/hiddify-manager/services/xray/configs /opt/hiddify-manager/services/hiddify-core/configs \
-        -name '*.j2' -type f -print0 2>/dev/null)
-    rm -f /opt/hiddify-manager/services/rust-rpxy-l4/config.toml.j2 /opt/hiddify-manager/services/rust-rpxy-l4/config.toml
+        remove_template_pair "$t"
+    done < <(find "${dirs[@]}" -type f -name '*.j2' -print0 2>/dev/null)
 }
+
 remove_old_server_templates
 
 
