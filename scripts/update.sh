@@ -68,6 +68,9 @@ function main() {
     [[ "$latest_manager" != "$current_config_version" ]] && manager_update=1
     echo "$package_mode Latest panel version: $latest_panel Installed: $current_panel_version Lastest manager version: $latest_manager Installed: $current_config_version"
     if [[ "$force" == "true" || $panel_update == 1 || $manager_update == 1 ]]; then
+        # The running panel stays the old code until install.sh restarts it at the end: install.sh must read the configs
+        # and dump them with the CLI (the new code), not through the panel's HTTP API (reload_all_configs, dump_server_configs).
+        export HIDDIFY_NO_HTTP_API=true
         bash <(curl -sSL $update_script) "$package_mode" "$force" "--no-gui" "--no-log"
     else
         echo "Nothing to update"

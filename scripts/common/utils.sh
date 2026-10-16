@@ -1016,7 +1016,8 @@ function reload_all_configs(){
     local cfg=/opt/hiddify-manager/data/current.json
     local tmp
     tmp=$(mktemp "$cfg.XXXXXX") || return 1
-    if ! hiddify-http-api admin/all-configs/ >"$tmp" || ! is_valid_current_json "$tmp"; then
+    # HIDDIFY_NO_HTTP_API: the running panel is the old one (an upgrade restarts it only at the end), ask the new code.
+    if [ "$HIDDIFY_NO_HTTP_API" = "true" ] || ! hiddify-http-api admin/all-configs/ >"$tmp" || ! is_valid_current_json "$tmp"; then
         if ! hiddify-panel-cli all-configs >"$tmp" || ! is_valid_current_json "$tmp"; then
             error "Failed to read configs from Hiddify Panel; keeping the previous $cfg"
             rm -f "$tmp"
@@ -1042,7 +1043,8 @@ function dump_server_configs() {
         query="${query:+$query&}cores=${enc}"
     fi
     [ -n "$query" ] && query="?${query}"
-    if hiddify-http-api "admin/dump-server-configs/${query}" >/dev/null; then
+    # HIDDIFY_NO_HTTP_API: the running panel is the old one (an upgrade restarts it only at the end), use the new code.
+    if [ "$HIDDIFY_NO_HTTP_API" != "true" ] && hiddify-http-api "admin/dump-server-configs/${query}" >/dev/null; then
         return 0
     fi
 
