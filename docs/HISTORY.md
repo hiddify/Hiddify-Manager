@@ -30,6 +30,31 @@
 
 ### Other
 
+* Enhance documentation and scripts for user UI integration. [hiddify-com]
+
+  - Updated AGENTS.md to specify the location for user UI changes.
+  - Revised DEVELOPMENT.md to clarify the build process for both admin and user UIs.
+  - Added a new function in utils.sh for building the user UI, alongside the existing admin UI build function.
+  - Modified the install_panel_from_git function to ensure it clones submodules correctly.
+
+* Add Clash Meta installation and package management. [hiddify-com]
+
+  - Updated .gitignore to include Clash Meta files.
+  - Modified install.sh to add Clash Meta as an installation task.
+  - Added package lock entries for Clash Meta binaries.
+  - Created add_version.sh for managing Clash package versions.
+  - Implemented install.sh for Clash Meta to handle binary downloads and setup.
+
+* Services/hiddify-core/install.sh always exits with code 3 after a download: version is never recorded, tor is never installed. [hiddify-com]
+
+* Firewall/utils.sh add2iptables / add2ip6tables insert the rule even when it already exists (A || B && C precedence) [hiddify-com]
+
+* Installer hides failures: step exit codes are lost in install.sh, and update_from_github treats a failed download as a successful update. [hiddify-com]
+
+* Restart.sh / status.sh / uninstall.sh: services/**/*.service without globstar misses nested units (telemt, warp) and wg-quick@hiddifywg. [hiddify-com]
+
+* Service install scripts: mysql loses the "new password" flag in a subshell. [hiddify-com]
+
 * Refactor: standardize package management commands across scripts. [hiddify-com]
 
   - Replaced `apt` with `apt-get` in various scripts for consistency.
