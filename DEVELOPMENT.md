@@ -54,7 +54,7 @@ git pull --recurse-submodules && make build
 | Restart the installed panel | `systemctl restart hiddify-panel` (it runs the editable source) |
 | Apply configs after a template or setting change | the panel's *Apply* button, or `make apply` |
 | Full reinstall of every service | `make build` |
-| Build the admin UI for production | `make ui` (output in `hiddifypanel/static/admin-v2/`, not in git) |
+| Build the admin + user UIs for production | `make ui` (admin → `static/admin-v2/`, user → `static/user-front/`; not in git) |
 | Dump the server configs to look at them | VS Code *Dump server configs*, or `hiddify-panel-cli dump-server-configs /tmp/out` |
 | Panel CLI | `source scripts/common/utils.sh && hiddify-panel-cli --help` (runs as the `hiddify-panel` user) |
 
@@ -65,6 +65,7 @@ database: keep a backup (`data/backup`) when you work on migrations.
 
 - **Admin UI**: `services/panel/src/hiddifypanel/admin_v2` (Vue 3 + PrimeVue). The old Flask-Admin pages are legacy:
   do not change them.
+- **User UI**: `services/panel/src/hiddifypanel/user_front` ([hiddify-user-front](https://github.com/hiddify/hiddify-user-front) submodule; React) — same model as `admin_v2`: Vite builds into `static/user-front/`, Flask serves `panel/user/templates/user_front.html` via the Vite manifest. Installers default to prebuilt `gh-pages`; CI / `make build-user-front` compile from source.
 - **Admin API**: `hiddifypanel/panel/commercial/restapi/v2/admin/`.
 - **Config templates** (HAProxy, xray, hiddify-core, sing-box, subscription links, ...):
   `hiddifypanel/proxy_v3/proxy_templates/<core>/<server|client>/`. The builtin ones are copied into the database when
@@ -101,5 +102,5 @@ Commit messages follow [Conventional Commits](https://www.conventionalcommits.or
 ## Notes for AI assistants
 
 - Follow this file. Work in `/opt/hiddify-manager`; never edit `data/` or `generated/` by hand (they are regenerated).
-- UI changes go in `admin_v2` only.
+- Admin UI changes go in `admin_v2`; user UI changes go in `user_front`.
 - Ask before restarting services on a server someone uses: a panel restart migrates its database.

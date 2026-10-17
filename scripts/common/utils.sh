@@ -513,10 +513,10 @@ function _remove_build_swap() {
     rm -f "$_HIDDIFY_UI_SWAPFILE"
 }
 
-# build_panel_ui <panel source dir> [--force]
+# build_panel_admin_ui <panel source dir> [--force]
 # Builds the admin UI into <dir>/hiddifypanel/static/admin-v2/ when it is missing
 # or older than its sources. No-op for trees without the UI source (e.g. a wheel).
-function build_panel_ui() {
+function build_panel_admin_ui() {
     local src="${1%/}" force="${2:-}"
     local ui="$src/hiddifypanel/admin_v2"
     local out="$src/hiddifypanel/static/admin-v2/index.html"
@@ -551,6 +551,59 @@ function build_panel_ui() {
     success "Admin UI built"
 }
 
+# build_panel_user_ui <panel source dir> [--force]
+# Builds user_front into <dir>/hiddifypanel/static/user-front/ (same model as admin_v2).
+# Default: prebuilt gh-pages (safe on small VPS). Set HIDDIFY_USER_FRONT_FROM_SOURCE=1 to compile.
+function build_panel_user_ui() {
+    local src="${1%/}" force="${2:-}"
+    local ui="$src/hiddifypanel/user_front"
+    local out="$src/hiddifypanel/static/user-front/manifest.json"
+    local build_sh="$ui/scripts/build.sh"
+    local prebuilt_sh="$ui/scripts/install_prebuilt.sh"
+    if [ ! -f "$ui/package.json" ]; then
+        return 0
+    fi
+    if [ "$force" != "--force" ] && [ -f "$out" ] &&
+        [ -z "$(find "$ui/src" "$ui/index.html" "$ui/package-lock.json" "$ui/vite.config.ts" "$ui/public" -newer "$out" -print -quit 2>/dev/null)" ]; then
+        return 0
+    fi
+    update_progress "Building..." "Hiddify Panel user UI" 32
+    local rc=0
+    if [ "${HIDDIFY_USER_FRONT_FROM_SOURCE:-}" = "1" ] && [ -f "$build_sh" ]; then
+        ensure_nodejs || { error "Node.js >= 18 is required to build the user UI from source"; return 1; }
+        local had_node_modules=0
+        [ -d "$ui/node_modules" ] && had_node_modules=1
+        _add_build_swap
+        NODE_OPTIONS="--max-old-space-size=${HIDDIFY_USER_FRONT_HEAP_MB:-1024} ${NODE_OPTIONS:-}" \
+            bash "$build_sh" || rc=$?
+        _remove_build_swap
+        if [ "$had_node_modules" = 0 ] && [ -z "${HIDDIFY_KEEP_NODE_MODULES:-}" ]; then
+            rm -rf "$ui/node_modules"
+        fi
+        # OOM / failed compile → still ship a working UI from gh-pages.
+        if [ "$rc" != 0 ] && [ -f "$prebuilt_sh" ]; then
+            warning "user_front source build failed; installing prebuilt gh-pages"
+            bash "$prebuilt_sh" || rc=$?
+        fi
+    elif [ -f "$prebuilt_sh" ]; then
+        bash "$prebuilt_sh" || rc=$?
+    else
+        return 0
+    fi
+    if [ "$rc" != 0 ]; then
+        error "Installing the user UI failed (see the output above)"
+        return 1
+    fi
+    success "User UI ready"
+}
+
+# build_panel_ui <panel source dir> [--force]
+# Builds admin + user frontends for a panel source tree (no-op when sources are absent).
+function build_panel_ui() {
+    build_panel_admin_ui "$@" || return $?
+    build_panel_user_ui "$@" || return $?
+}
+
 # install_panel_from_git [ref] [pip command]
 # Installs the panel from GitHub (develop / tags): clone, build the UI, install.
 # `pip install git+...` cannot be used any more: it would install without the UI.
@@ -566,7 +619,7 @@ function install_panel_from_git() {
     local dir
     dir=$(mktemp -d /var/tmp/hiddify-panel-src.XXXXXX) || return 1
     local rc=0
-    if ! git clone --quiet --depth 1 ${ref:+--branch "$ref"} "$HIDDIFY_PANEL_GIT_URL" "$dir/src"; then
+    if ! git clone --quiet --depth 1 --recurse-submodules ${ref:+--branch "$ref"} "$HIDDIFY_PANEL_GIT_URL" "$dir/src"; then
         error "Could not download the panel source (${ref:-default branch})"
         rc=1
     elif ! build_panel_ui "$dir/src" --force; then
