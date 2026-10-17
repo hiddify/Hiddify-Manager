@@ -787,7 +787,7 @@ function print_logo() {
 function show_progress_window() {
     # Without a usable terminal (a pipe, cron, ssh without -t) cli_progress prints the output as it comes instead
     activate_python_venv
-    uv pip install -q "cli-progress>=3.0.1"
+    uv pip install -q "cli-progress>=3.0.2"
     disable_ansii_modes
     # The logo and the progress; the output behind L (and always in the --log file)
     python -m cli_progress --title "Hiddify Manager" --logo "$HIDDIFY_LOGO" "$@"
