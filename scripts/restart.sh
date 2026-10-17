@@ -11,8 +11,6 @@ stop) LOG_NAME="stop" ;;
 esac
 function restart_service() {
     local s=$1
-    s=${s##*/}
-    s=${s%%.*}
     if systemctl is-enabled $s >/dev/null 2>&1 ; then
         before_stat=$(get_pretty_service_status $s 2>&1)
         systemctl "$ACTION" $s &
@@ -34,7 +32,7 @@ function main() {
     warning "$(printf "%-30s %-20s %s \n" "Name" "Old Status" "New Status")"
     
     # Restart services and get their status (except hiddify-panel)
-    for ss in services/**/*.service wg-quick@warp mtproto-proxy.service;do
+    for ss in $(hiddify_service_units); do
         case "$ss" in
             *hiddify-panel*|*hiddify-cli*)
                 continue

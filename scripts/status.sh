@@ -28,9 +28,7 @@ function main(){
     
     warning "- Services Status:"
     
-    for s in services/**/*.service wg-quick@warp mtproto-proxy.service;do
-        s=${s##*/}
-        s=${s%%.*}
+    for s in $(hiddify_service_units); do
         [ $s == "wg-quick@warp" ] && [ $(hconfig "warp_mode") == "disable" ] && continue
         
         [ $s == "hiddify-mysql" ] && [ "$DOCKER_MODE" == "true" ] && continue

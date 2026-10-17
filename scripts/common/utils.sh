@@ -943,6 +943,26 @@ function hconfig() {
     return 1
 }
 #TODO: check functionality when not using the venv
+# Hiddify's systemd units, one name per line (no ".service"): the unit files one and two levels under services/ (not
+# services/deprecated; ** without globstar is only one level), the running / enabled instances of the template units
+# (hiddify-*@*), and the WireGuard interfaces. For stop / restart / status / uninstall.
+function hiddify_service_units() {
+    (
+        shopt -s nullglob # in this subshell only
+        local f name
+        for f in "$HIDDIFY_SERVICES"/*/*.service "$HIDDIFY_SERVICES"/*/*/*.service; do
+            [[ "$f" == "$HIDDIFY_SERVICES/deprecated/"* ]] && continue
+            name=${f##*/}
+            name=${name%.service}
+            [[ "$name" == *@ ]] && continue # a template: its instances come from systemd below
+            echo "$name"
+        done
+        systemctl list-units --all --plain --no-legend 'hiddify-*@*.service' 2>/dev/null | awk '{print $1}' | sed 's/\.service$//'
+        echo wg-quick@warp
+        echo wg-quick@hiddifywg
+    ) | sort -u
+}
+
 function hiddify-panel-run() {
     local user=$(whoami)
     local base_command="export HIDDIFY_CFG_PATH='$HIDDIFY_PANEL_CFG_PATH'; cd /opt/hiddify-manager/services/panel/; source ${venv_path}/bin/activate && $@"
