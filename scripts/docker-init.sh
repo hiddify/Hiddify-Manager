@@ -27,9 +27,11 @@ fi
 source .venv313/bin/activate
 # The image has the UI built; a source tree mounted over it (docker-compose.override)
 # must bring its own: build it on the host, the container has no Node.js.
-if [ ! -f services/panel/src/hiddifypanel/static/admin-v2/index.html ]; then
-    echo "WARNING: admin UI is not built in the mounted panel source. On the host run:"
-    echo "    cd services/panel/src/hiddifypanel/admin_v2 && npm ci && npm run build"
+if [ ! -f services/panel/src/hiddifypanel/static/admin-v2/index.html ] ||
+   [ ! -f services/panel/src/hiddifypanel/static/user-front/manifest.json ]; then
+    echo "WARNING: panel UIs are not built in the mounted panel source. On the host run:"
+    echo "    make ui"
+    echo "  (or: cd services/panel/src && make build-ui)"
 fi
 uv pip install -e services/panel/src 
 

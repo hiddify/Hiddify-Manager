@@ -102,7 +102,7 @@ fi
 update-locale LANG=C.UTF-8
 
 #echo "Defaults:hiddify-panel !requiretty" >/etc/sudoers.d/hiddify
-echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/scripts/common/commander.py" >>/etc/sudoers.d/hiddify
+echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/scripts/common/commander.py" >/etc/sudoers.d/hiddify
 chmod 440 /etc/sudoers.d/hiddify
 
 chmod +x /opt/hiddify-manager/scripts/hiddify
@@ -114,5 +114,10 @@ if [ -f "$HOME/.bashrc" ] && ! grep -qF 'hiddify-completion.bash' "$HOME/.bashrc
     echo '[ -f /opt/hiddify-manager/scripts/hiddify-completion.bash ] && . /opt/hiddify-manager/scripts/hiddify-completion.bash' >>"$HOME/.bashrc"
 fi
 
-systemctl disable --now rpcbind.socket >/dev/null 2>&1
-systemctl disable --now rpcbind >/dev/null 2>&1
+# Missing rpcbind must not fail Common tools (script exit = last command).
+if systemctl cat rpcbind.socket >/dev/null 2>&1; then
+  systemctl disable --now rpcbind.socket >/dev/null 2>&1 || true
+fi
+if systemctl cat rpcbind.service >/dev/null 2>&1; then
+  systemctl disable --now rpcbind >/dev/null 2>&1 || true
+fi
