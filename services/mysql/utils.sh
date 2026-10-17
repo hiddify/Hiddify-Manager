@@ -15,7 +15,8 @@ function get_mysql_password() {
 }
 
 # Create durable MySQL password once (migrates legacy services/mysql/mysql_pass).
-# Prints the password. Sets HIDDIFY_MYSQL_PASS_IS_NEW=1 when newly generated.
+# Sets HIDDIFY_MYSQL_PASS_IS_NEW=1 when newly generated: call it directly, not in $( ) (a subshell loses the flag),
+# and read the password with get_mysql_password.
 function ensure_mysql_password() {
     mkdir -p "$HIDDIFY_MYSQL_DATA"
     local legacy="$HIDDIFY_SERVICES/mysql/mysql_pass"
@@ -29,12 +30,11 @@ function ensure_mysql_password() {
     fi
 
     if [ ! -f "$HIDDIFY_MYSQL_PASS_FILE" ]; then
-        echo "Generating a random MySQL password..."
+        echo "Generating a random MySQL password..." >&2
         hiddify_random_password >"$HIDDIFY_MYSQL_PASS_FILE"
         chmod 600 "$HIDDIFY_MYSQL_PASS_FILE"
         HIDDIFY_MYSQL_PASS_IS_NEW=1
     fi
-    cat "$HIDDIFY_MYSQL_PASS_FILE"
 }
 
 function current_mysql_datadir() {

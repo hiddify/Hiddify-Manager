@@ -5,7 +5,8 @@ cd "$(dirname -- "$0")"
 
 install_package mariadb-server
 
-MYSQL_PASS="$(ensure_mysql_password)"
+ensure_mysql_password  # not in $( ): it sets HIDDIFY_MYSQL_PASS_IS_NEW for the first-install hardening below
+MYSQL_PASS="$(get_mysql_password)"
 migrate_mysql_datadir "$(current_mysql_datadir)" "$HIDDIFY_MYSQL_DATADIR"
 configure_mysql_server || {
     error "Failed to configure MariaDB (see above). Aborting before starting the service."
