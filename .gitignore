@@ -32,6 +32,9 @@ services/hiddify-core/lib/
 services/hiddify-core/*.so
 services/hiddify-core/*.tar.gz*
 services/hiddify-core/LICENSE.md
+services/clash/mihomo
+services/clash/mihomo-linux-*
+services/clash/*.gz
 services/dns_proxy/dnstm
 services/dns_proxy/*-server
 services/dns_proxy/*.zip

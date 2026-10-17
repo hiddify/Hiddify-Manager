@@ -163,6 +163,7 @@ function main() {
     fi
     add_task "Wireguard" install_run services/wireguard "$(hconfig "wireguard_enable")"
     add_task "Hiddify Core" install_run services/hiddify-core
+    add_task "Clash Meta" install_run services/clash
     run_parallel 11 98 "${PROGRESS_ACTION}"
     if [ "$MODE" != "apply_users" ] && [ "$DO_NOT_RUN" != "true" ]; then
         wait_for_certificates
