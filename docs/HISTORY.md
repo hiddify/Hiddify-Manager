@@ -30,6 +30,24 @@
 
 ### Other
 
+* Refactor: standardize package management commands across scripts. [hiddify-com]
+
+  - Replaced `apt` with `apt-get` in various scripts for consistency.
+  - Updated uninstall and installation scripts to ensure uniformity in package management commands.
+  - Enhanced error handling and connectivity checks in the warp and xray service scripts.
+
+* Chore: update cli-progress dependency to version 3.0.2. [hiddify-com]
+
+* Refactor: cli progress. [hiddify-com]
+
+* Refactor(redis): streamline log file management in installation scripts. [hiddify-com]
+
+* Refactor: update lock file management and clean up deprecated logs. [hiddify-com]
+
+  - Moved lock files from data directory to runtime directory at /run/hiddify/locks.
+  - Removed old error lock files and logs from the data directory to streamline file management.
+  - Updated scripts to reflect new lock file location and permissions.
+
 * Refactor: update certificate management and remove deprecated nginx and acme.sh services. [hiddify-com]
 
   - Changed directory structure for SSL certificates from `/opt/hiddify-manager/data/ssl` to `/opt/hiddify-manager/data/cert`.
