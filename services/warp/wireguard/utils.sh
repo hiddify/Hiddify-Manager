@@ -61,16 +61,33 @@ function install_warp_wireguard_profile() {
     chmod 660 /etc/wireguard/warp.conf
 }
 
+function reset_warp_wireguard_account() {
+    # Broken / banned wgcf accounts stay on disk forever otherwise: update fails and we never register again.
+    local svc_dir="${1:-.}"
+    echo "Resetting WARP account..."
+    mv "$svc_dir/wgcf-account.toml" "$svc_dir/wgcf-account.toml.backup" 2>/dev/null || true
+    rm -f "$svc_dir/wgcf-account.toml"
+    (cd "$svc_dir" && ./wgcf register --accept-tos -m hiddify -n "$(hostname)") || return $?
+    ensure_warp_data_links wireguard "$svc_dir"
+}
+
 function check_warp_wireguard_connection() {
     local svc_dir="${1:-.}"
     echo "Checking WARP ..."
     if ! [ -f "$svc_dir/wgcf-account.toml" ]; then
-        mv "$svc_dir/wgcf-account.toml" "$svc_dir/wgcf-account.toml.backup" 2>/dev/null || true
-        (cd "$svc_dir" && ./wgcf register --accept-tos -m hiddify -n "$(hostname)")
-        ensure_warp_data_links wireguard "$svc_dir"
+        reset_warp_wireguard_account "$svc_dir" || return $?
     fi
-    (cd "$svc_dir" && ./wgcf update >/dev/null 2>&1) || return $?
-    generate_warp_wireguard_config "$svc_dir" || return $?
+    if ! (cd "$svc_dir" && ./wgcf update >/dev/null 2>&1); then
+        warning "WARP account update failed; registering a new account"
+        reset_warp_wireguard_account "$svc_dir" || return $?
+        (cd "$svc_dir" && ./wgcf update >/dev/null 2>&1) || return $?
+    fi
+    if ! generate_warp_wireguard_config "$svc_dir"; then
+        warning "WARP config generate failed; registering a new account"
+        reset_warp_wireguard_account "$svc_dir" || return $?
+        (cd "$svc_dir" && ./wgcf update >/dev/null 2>&1) || return $?
+        generate_warp_wireguard_config "$svc_dir" || return $?
+    fi
     # A warp interface left from an earlier try (not owned by the unit) makes wg-quick fail with "already exists"
     systemctl stop wg-quick@warp >/dev/null 2>&1
     ip link show warp >/dev/null 2>&1 && ip link delete warp
