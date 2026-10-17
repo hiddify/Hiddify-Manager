@@ -30,6 +30,14 @@
 
 ### Other
 
+* Update docker-init.sh and install.sh scripts for improved UI build checks and systemctl commands. [hiddify-com]
+
+  - Enhanced docker-init.sh to check for both admin and user UI builds, updating the warning message accordingly.
+  - Modified install.sh to ensure that disabling rpcbind services does not fail if they are missing, improving script robustness.
+  - Updated submodule reference in services/panel/src.
+
+* Enhance WARP WireGuard account management in utils.sh. [hiddify-com]
+
 * Enhance documentation and scripts for user UI integration. [hiddify-com]
 
   - Updated AGENTS.md to specify the location for user UI changes.
