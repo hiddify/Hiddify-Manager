@@ -11,6 +11,10 @@
 
 ### Fix
 
+* Dev upgrade. [hiddify-com]
+
+* Improve version handling in hiddify_installer.sh and get_commit_version function. [hiddify-com]
+
 * Enable logging for hiddify-core service output and errors. [hiddify-com]
 
 * Update permissions for apply_users.sh script. [hiddify-com]
@@ -25,6 +29,22 @@
 * Update disable_all_services function to exclude 'old' directories from service disabling. [hiddify-com]
 
 ### Other
+
+* Refactor: update certificate management and remove deprecated nginx and acme.sh services. [hiddify-com]
+
+  - Changed directory structure for SSL certificates from `/opt/hiddify-manager/data/ssl` to `/opt/hiddify-manager/data/cert`.
+  - Updated installation scripts to handle certificate issuance directly through the panel, removing reliance on deprecated acme.sh.
+  - Removed old nginx service configurations and scripts, streamlining the service management process.
+  - Enhanced the handling of certificate renewals and ensured proper permissions for new directories.
+  - Cleaned up legacy code and improved overall script organization.
+
+* Fix(haproxy): replace stop/start with restart for improved service management. [hiddify-com]
+
+* Fix(firewall): add OUTPUT chain rule for local connections in redirect_domain_ports function. [hiddify-com]
+
+* Feat(acme.sh): add function to merge legacy account configuration and ensure data directory migration. [hiddify-com]
+
+* Enhance panel reload on apply, Telegram Proxy installation logic and improve DNS Proxy configuration. [hiddify-com]
 
 * Merge branch 'dev' of github.com:hiddify/Hiddify-Manager into dev. [hiddify-com]
 
