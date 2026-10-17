@@ -105,6 +105,11 @@ function dns_proxy_fix_permissions() {
     chmod -R g+rwX,o-rwx "$gen_root" 2>/dev/null || true
 }
 
+# IPv4 address of the interface the default route uses (the server's own address, as the kernel would send from).
+function dns_proxy_listen_ip() {
+    ip -4 route get 1.1.1.1 2>/dev/null | awk '{for (i = 1; i < NF; i++) if ($i == "src") { print $(i + 1); exit }}'
+}
+
 # Render the router's config dir (dnstm reads <dir>/config.json) from the panel's
 # dnstm.json. Returns 1 when there is no tunnel to route.
 function dns_proxy_write_router_config() {
@@ -112,9 +117,13 @@ function dns_proxy_write_router_config() {
     local dir="$2"
     [[ -f "$src" ]] && jq -e '(.tunnels // []) | length > 0' "$src" >/dev/null 2>&1 || return 1
     mkdir -p "$dir"
-    # The panel's base template sets has_domains inside a Jinja loop, where the
-    # assignment does not escape the loop scope, so it always emits 127.0.0.1:53.
-    jq 'if (.listen.address // "") | startswith("127.") then .listen.address = "0.0.0.0:53" else . end' \
+    # The panel asks for 0.0.0.0:53 when there are tunnels (127.0.0.1:53 from panels before the template fix). A
+    # wildcard :53 clashes with a local resolver (systemd-resolved holds 127.0.0.53:53 / 127.0.0.54:53), so listen on
+    # the default-route interface address instead: reachable from outside (behind NAT, the address it is forwarded to).
+    local ip
+    ip=$(dns_proxy_listen_ip)
+    jq --arg addr "${ip:-0.0.0.0}:53" \
+        'if (.listen.address // "") | test("^(0\\.0\\.0\\.0|127\\.)") then .listen.address = $addr else . end' \
         "$src" >"$dir/config.json.tmp" || return 1
     mv -f "$dir/config.json.tmp" "$dir/config.json"
     chown -R root:dns_proxy "$dir" 2>/dev/null || true

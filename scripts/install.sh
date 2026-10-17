@@ -143,7 +143,10 @@ function main() {
         add_task -n 2 "Haproxy and certificates" install_haproxy_then_certificates
         add_task "Personal SpeedTest" install_run services/speedtest "$(hconfig "speed_test")"
         add_task "DNS Proxy" install_run services/dns_proxy "$(hconfig "dnstt_enable")"
-        add_task "Telegram Proxy" install_run services/telegram "$(hconfig "telegram_enable")"
+        # telemt serves MTProxy FakeTLS (telegram_enable) and the Telegram web proxy (telegram_webproxy_enable)
+        telegram_on=false
+        [ "$(hconfig telegram_enable)" = "true" ] || [ "$(hconfig telegram_webproxy_enable)" = "true" ] && telegram_on=true
+        add_task "Telegram Proxy" install_run services/telegram "$telegram_on"
         add_task "FakeTLS Proxy" install_run services/ssfaketls "$(hconfig "ssfaketls_enable")"
         add_task "Warp" install_run services/warp 1
         add_task "Xray" install_run services/xray 1
@@ -156,7 +159,9 @@ function main() {
     echo "---------------------Finished!------------------------"
     remove_lock $NAME
     update_progress "${PROGRESS_ACTION}" "Done" 100
-    if [ "$MODE" != "apply_users" ]; then
+    # Restart the panel only when its code was (re)installed (install / update). Applying configs or users does not
+    # change the panel: it reads the new settings from the database (the caches are cleared when they change).
+    if [ "$DO_NOT_INSTALL" != "true" ]; then
         restart_hiddify_panel restart
     else
         restart_hiddify_panel start
