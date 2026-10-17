@@ -33,6 +33,8 @@ fi
 #   progress_tick "Label"                         one unit done (for steps made of several parts)
 # ---------------------------------------------------------------------------------------------
 declare -a _TASK_LABELS=() _TASK_CMDS=() _TASK_UNITS=()
+# The steps that failed in any run_parallel: the install then ends with an error (after finishing the rest)
+declare -a FAILED_STEPS=()
 
 function add_task() {
     local units=1
@@ -76,6 +78,7 @@ function run_parallel() {
 
     if [ -s "$PROGRESS_DIR/failed" ]; then
         error "These steps reported an error: $(paste -sd, "$PROGRESS_DIR/failed")"
+        mapfile -t -O "${#FAILED_STEPS[@]}" FAILED_STEPS <"$PROGRESS_DIR/failed"
     fi
     rm -rf "$PROGRESS_DIR"
     _TASK_LABELS=() _TASK_CMDS=() _TASK_UNITS=()
@@ -176,7 +179,10 @@ function main() {
     else
         restart_hiddify_panel start
     fi
-    
+    if [ ${#FAILED_STEPS[@]} -gt 0 ]; then
+        error "Finished with errors in: $(IFS=,; echo "${FAILED_STEPS[*]}") (see the log above)"
+        return 1
+    fi
 }
 
 function clean_files() {
@@ -213,39 +219,41 @@ function set_config_from_hpanel() {
     export SERVER_IPv6=$(curl --connect-timeout 1 -s https://v6.ident.me/)
 }
 
+# Install and run a service; returns non-zero when its install.sh or run.sh failed (run_parallel reports it).
 function install_run() {
     echo "======================$1====================================={"
-    local start_time=$(date +%s)
+    local start_time=$(date +%s) rc=0
 
     if [ "$DO_NOT_INSTALL" != "true" ];then
-            runsh install.sh $@
+        runsh install.sh "$@" || rc=$?
         if [ "$MODE" != "apply_users" ] && [ "$DOCKER_MODE" != "true"  ]; then
             systemctl daemon-reload
         fi
     fi
     if [ "$DO_NOT_RUN" != "true" ];then
-         runsh run.sh $@
+        runsh run.sh "$@" || rc=$?
     fi
 
     local end_time=$(date +%s)
     local duration=$((end_time - start_time))
+    [ "$rc" != 0 ] && error "$1 failed (exit code $rc)"
     echo "}========================$1 (took ${duration}s)=============================="
+    return $rc
 }
 
+# Run a service's install.sh / run.sh (disable.sh when its setting is off); its exit code is returned.
 function runsh() {
-    command=$1
+    local command=$1 rc=0
     if [[ $3 == "false" || $3 == "0" ]]; then
         command=disable.sh
     fi
-    pushd $2 >>/dev/null
-    # if [[ $? != 0]];then
-    #         echo "$2 not found"
-    # fi
-    if [[ $? == 0 && -f $command ]]; then
+    pushd "$2" >>/dev/null || return 1
+    if [[ -f $command ]]; then
         echo "===$command $2"
-        bash $command
+        bash "$command" || rc=$?
     fi
     popd >>/dev/null
+    return $rc
 }
 
 if [[ " $@ " == *" --no-gui "* ]]; then
@@ -255,10 +263,11 @@ if [[ " $@ " == *" --no-gui "* ]]; then
     if [[ " $@ " == *" --no-log "* ]]; then
         set -- "${@/--no-log/}"
         main
+        error_code=$?
     else
         main |& tee $LOG_FILE
+        error_code=${PIPESTATUS[0]} # main's, not tee's
     fi
-    error_code=$?
     remove_lock $NAME
 else
     show_progress_window --subtitle $(get_installed_config_version) --log $LOG_FILE /opt/hiddify-manager/scripts/install.sh $@ --no-gui --no-log

@@ -299,22 +299,44 @@ function update_from_github() {
     
     local file_type=${file_name##*.}
     mkdir -p /opt/hiddify-manager
-    cd /opt/hiddify-manager
-    curl -sL -o "$file_name" "$url"
-    
-    if [[ "$file_type" == "zip" ]]; then
-        install_package unzip
-        unzip -q -o "$file_name"
-    elif [[ "$file_type" == "gz" ]]; then
-        tar xzf "$file_name" --strip-components=1
-    else
-        echo "Unsupported file type: $file_type"
+    cd /opt/hiddify-manager || return 1
+
+    # Downloaded and unpacked aside first: a 404 / captive page / cut connection never touches the installed tree, and
+    # VERSION is only written once the new files are in place (else update.sh would think it is already updated).
+    local work
+    work=$(mktemp -d) || return 1
+    if ! curl -fsSL --retry 2 --connect-timeout 20 -o "$work/$file_name" "$url"; then
+        echo "ERROR: could not download $url" >&2
+        rm -rf "$work"
         return 1
     fi
-    if [[ ! -z "$override_version" ]]; then
+    mkdir -p "$work/tree"
+    case "$file_type" in
+    zip)
+        install_package unzip
+        unzip -tq "$work/$file_name" >/dev/null && unzip -q -o "$work/$file_name" -d "$work/tree"
+        ;;
+    gz)
+        gzip -t "$work/$file_name" && tar xzf "$work/$file_name" --strip-components=1 -C "$work/tree"
+        ;;
+    *)
+        echo "Unsupported file type: $file_type" >&2
+        false
+        ;;
+    esac
+    if [ $? -ne 0 ] || [ -z "$(ls -A "$work/tree")" ]; then
+        echo "ERROR: the downloaded $file_name is not a valid archive; nothing was changed" >&2
+        rm -rf "$work"
+        return 1
+    fi
+    cp -a "$work/tree/." /opt/hiddify-manager/ || {
+        rm -rf "$work"
+        return 1
+    }
+    rm -rf "$work"
+    if [[ -n "$override_version" ]]; then
         echo "$override_version" >VERSION
     fi
-    rm "$file_name"
 
     # v12 and older tags keep install.sh in the repository root.
     local install_script=scripts/install.sh
