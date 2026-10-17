@@ -127,9 +127,13 @@ function update_panel() {
                 
                 install_panel_from_git "" "uv pip" || return 1
                 panel_path=$(hiddifypanel_path)
-                echo "setting $latest in $panel_path/VERSION"
-                echo $latest > $panel_path/VERSION
-                sed -i "s/__version__='[^']*'/__version__='$latest'/" $panel_path/VERSION.py
+                if [ -n "$latest" ]; then
+                    echo "setting $latest in $panel_path/VERSION"
+                    echo $latest > $panel_path/VERSION
+                    sed -i "s/__version__='[^']*'/__version__='$latest'/" $panel_path/VERSION.py
+                else
+                    warning "Could not read the latest panel commit from GitHub: VERSION left as it is"
+                fi
                 update_progress "Updated..." "Hiddify Panel to $latest" 50
                 return 0
             fi
@@ -203,6 +207,8 @@ function update_config() {
         ;;
         develop|dev)
             local latest=$(get_commit_version hiddify-manager)
+            # GitHub not readable: keep the installed version rather than writing an empty VERSION
+            [ -n "$latest" ] || latest="$current_config_version"
             echo "DEVELOP: Current Config Version=$current_config_version -- Latest=$latest"
             if [[ "$force" == "true" || "$latest" != "$current_config_version" ]]; then
                 update_progress "Updating..." "Hiddify Config from $current_config_version to $latest" 60

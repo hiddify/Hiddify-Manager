@@ -129,14 +129,28 @@ function hiddify_random_password() {
     echo
 }
 
+# The version of a dev install: the date of the newest commit on main, as MM-DDTHH:MM (UTC). GitHub's commits page changes
+# its JSON (the commits moved under .payload.commitsRefRoute), and a path that no longer exists gave "null" and an
+# empty VERSION. So try that page, its Atom feed and the API in turn, and only take a value that is a date.
 function get_commit_version() {
-    json_data=$(curl -sL -H "Accept: application/json" "https://github.com/hiddify/$1/commits/main.atom")
-    latest_commit_date=$(echo "$json_data" | jq -r '.payload.commitGroups[0].commits[0].committedDate')
-    # xml_data=$(curl -sl "https://github.com/hiddify/$1/commits/main.atom")
-    # latest_commit_date=$(echo "$xml_data" | grep -m 1 '<updated>' | awk -F'>|<' '{print $3}')
-    # COMMIT_URL=$(curl -s https://api.github.com/repos/hiddify/$1/git/refs/heads/main | jq -r .object.url)
-    # latest_commit_date=$(curl -s $COMMIT_URL | jq -r .committer.date)
-    echo "${latest_commit_date:5:11}"
+    local repo="$1" date="" page
+    page=$(curl -sL -m 20 -H "Accept: application/json" "https://github.com/hiddify/$repo/commits/main.atom")
+    date=$(echo "$page" | jq -r '(.payload.commitsRefRoute.commitGroups // .payload.commitGroups // [])[0].commits[0].committedDate // empty' 2>/dev/null)
+    if ! [[ "$date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}T ]]; then
+        date=$(curl -sL -m 20 "https://github.com/hiddify/$repo/commits/main.atom" | grep -m 1 -o '<updated>[^<]*</updated>' | sed -E 's#</?updated>##g')
+    fi
+    if ! [[ "$date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}T ]]; then
+        date=$(curl -sL -m 20 "https://api.github.com/repos/hiddify/$repo/commits/main" | jq -r '.commit.committer.date // empty' 2>/dev/null)
+    fi
+    if ! [[ "$date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}T ]]; then
+        echo "Could not read the latest commit date of $repo from GitHub" >&2
+        return 1
+    fi
+    # In UTC: the page gives the committer's offset (+03:30), the feed and the API give Z; update.sh compares this with
+    # the installed VERSION, so every source must give the same text for the same commit.
+    local utc
+    utc=$(date -u -d "$date" +%Y-%m-%dT%H:%M 2>/dev/null) && date="$utc"
+    echo "${date:5:11}"
 }
 
 function get_pre_release_version() {
