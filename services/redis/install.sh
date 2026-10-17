@@ -25,6 +25,3 @@ ln -sf "$(pwd)/hiddify-redis.service" /etc/systemd/system/hiddify-redis.service 
 systemctl daemon-reload >/dev/null 2>&1 || true
 systemctl enable hiddify-redis
 
-mkdir -p "$HIDDIFY_DATA/log"
-touch "$HIDDIFY_DATA/log/redis-server.log"
-chown redis:redis "$HIDDIFY_DATA/log/redis-server.log"

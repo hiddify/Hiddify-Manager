@@ -22,6 +22,22 @@ function get_redis_password() {
     cat "$HIDDIFY_REDIS_PASS_FILE"
 }
 
+# The log file of the template's "logfile" (the live conf follows it: the log folder moved from data/log/system to
+# data/log in v14, and a live conf still naming the old one stops Redis from starting). Owned by redis.
+function ensure_redis_log() {
+    local template="$1" logfile
+    logfile="$(awk '$1 == "logfile" {print $2}' "$template" | tail -n1)"
+    [ -n "$logfile" ] || return 0
+    if grep -q '^logfile ' "$HIDDIFY_REDIS_LIVE_CONF"; then
+        sed -i "s#^logfile .*#logfile $logfile#" "$HIDDIFY_REDIS_LIVE_CONF"
+    else
+        echo "logfile $logfile" >>"$HIDDIFY_REDIS_LIVE_CONF"
+    fi
+    mkdir -p "$(dirname "$logfile")"
+    touch "$logfile"
+    chown redis:redis "$logfile" 2>/dev/null || true
+}
+
 # Idempotent Redis durable state under data/.
 # - Password file: created once (migrate from conf requirepass, else generate)
 # - Live conf: copied from package template once; requirepass injected only when
@@ -55,6 +71,7 @@ function ensure_redis_data() {
         sed -i '/^requirepass /d' "$HIDDIFY_REDIS_LIVE_CONF"
         echo "requirepass $(cat "$HIDDIFY_REDIS_PASS_FILE")" >>"$HIDDIFY_REDIS_LIVE_CONF"
     fi
+    ensure_redis_log "$template"
     chmod 600 "$HIDDIFY_REDIS_LIVE_CONF" "$HIDDIFY_REDIS_PASS_FILE"
     chown redis:redis "$HIDDIFY_REDIS_LIVE_CONF" "$HIDDIFY_REDIS_PASS_FILE" 2>/dev/null || true
 }
