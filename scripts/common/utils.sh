@@ -718,7 +718,7 @@ function check_hiddify_panel() {
         echo -e "\n\n"
 
         bash /opt/hiddify-manager/scripts/status.sh
-        bash /opt/hiddify-manager/scripts/common/logo.ico
+        print_logo
 
         install_package qrencode
         center_text "$(qrencode -t utf8 -m 2 $(cat /opt/hiddify-manager/data/current.json | jq -r '.panel_links[]' | tail -n 1))"
@@ -767,40 +767,34 @@ function check_hiddify_panel() {
 }
 
 
+# The Hiddify logo: a plain text drawing (also shown by the progress window, cli_progress --logo)
+export HIDDIFY_LOGO="$HIDDIFY_SCRIPTS/common/logo.ico"
+
+# The logo centered, in blue
+function print_logo() {
+    local LC_ALL=C.UTF-8 width longest=0 line
+    width="$(tput cols 2>/dev/null || echo 80)"
+    while IFS= read -r line; do
+        [ "${#line}" -gt "$longest" ] && longest=${#line}  # characters, not bytes (▓ is 3 bytes)
+    done <"$HIDDIFY_LOGO"
+    local pad=$(((width - longest) / 2))
+    [ "$pad" -lt 0 ] && pad=0
+    while IFS= read -r line; do
+        printf "%*s\033[0;34m%s\033[0m\n" "$pad" "" "$line"
+    done <"$HIDDIFY_LOGO"
+}
+
 function show_progress_window() {
-    # The full-screen progress window needs a real terminal: without one (a web terminal, ssh without -t, a pipe or
-    # cron) setting it up fails with "termios.error: (22, 'Invalid argument')". Then run the command as it is.
-    if ! [ -t 0 ] || ! [ -t 1 ] || ! stty -g >/dev/null 2>&1; then
-        run_without_progress_window "$@"
-        return $?
-    fi
-    disable_ansii_modes
+    # Without a usable terminal (a pipe, cron, ssh without -t) cli_progress prints the output as it comes instead
     activate_python_venv
-    install_pypi_package cli-progress
-    python -m cli_progress --title "Hiddify Manager" "$@"
+    uv pip install -q "cli-progress>=3.0.1"
+    disable_ansii_modes
+    # The logo and the progress; the output behind L (and always in the --log file)
+    python -m cli_progress --title "Hiddify Manager" --logo "$HIDDIFY_LOGO" "$@"
     exit_code=$?
     disable_ansii_modes
     return $exit_code
 }
-
-# show_progress_window's arguments ([--title T] [--subtitle S] [--log FILE] COMMAND...): run COMMAND, its output on the
-# screen and in FILE (the window shows and keeps the log the same way).
-function run_without_progress_window() {
-    local log=""
-    while [ $# -gt 0 ]; do
-        case "$1" in
-        --title | --subtitle) shift 2 ;;
-        --log) log="$2"; shift 2 ;;
-        *) break ;;
-        esac
-    done
-    if [ -n "$log" ]; then
-        "$@" 2>&1 | tee "$log"
-        return "${PIPESTATUS[0]}"
-    fi
-    "$@"
-}
-
 
 function log_dir() {
     LOG_DIR="/opt/hiddify-manager/data/log"
