@@ -8,5 +8,4 @@ source /opt/hiddify-manager/scripts/common/utils.sh
 systemctl daemon-reload
 
 # systemctl reload hiddify-haproxy
-systemctl stop hiddify-haproxy
-systemctl start hiddify-haproxy
+systemctl restart hiddify-haproxy
