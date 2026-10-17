@@ -1,9 +1,7 @@
 #!/opt/hiddify-manager/.venv313/bin/python
 import os
-import re
 import subprocess
 import time
-from urllib.parse import urlparse
 
 import click
 from strenum import StrEnum
@@ -21,10 +19,8 @@ class Command(StrEnum):
     update = os.path.join(HIDDIFY_DIR, "scripts/update.sh")
     status = os.path.join(HIDDIFY_DIR, "scripts/status.sh")
     restart_services = os.path.join(HIDDIFY_DIR, "scripts/restart.sh")
-    temporary_short_link = os.path.join(HIDDIFY_DIR, "services/nginx/add2shortlink.sh")
     temporary_access = os.path.join(HIDDIFY_DIR, "services/panel/temporary_access.sh")
     update_usage = os.path.join(HIDDIFY_DIR, "services/panel/update_usage.sh")
-    get_cert = os.path.join(HIDDIFY_DIR, "services/acme.sh/get_cert.sh")
     # apply-users command is actually "install.sh apply_users"
     apply_users = os.path.join(HIDDIFY_DIR, "scripts/apply_users.sh")
     id = "id"
@@ -81,7 +77,13 @@ def run_isolated(cmd: list[str], unit: str, wait_if_active: bool = False) -> Non
         _run_direct(cmd)
 
 
+def _with_interpreter(cmd: list[str]) -> list[str]:
+    """Shell scripts run through bash: a copy that lost its executable bit (an update, a manual copy) still runs."""
+    return ["/bin/bash", *cmd] if cmd and cmd[0].endswith(".sh") else cmd
+
+
 def run(cmd: list[str], unit: str | None = None, wait_if_active: bool = False):
+    cmd = _with_interpreter(cmd)
     if unit and systemd_available():
         run_isolated(cmd, unit, wait_if_active)
         return
@@ -135,69 +137,11 @@ def status():
     run(cmd)
 
 
-def add_temporary_short_link_assert_input(url: str, slug: str) -> None:
-    """Returns None if everything is valid otherwise returns an error"""
-
-    assert url, "Error: Invalid value for '--url' / '-u': \"\" is not a valid url"
-
-    assert urlparse(url), f"Error: Invalid value for '--url' / '-u': {url} is an invalid url"
-
-    assert slug, "Error: Invalid value for '-slug' / '-s': \"\" is not a valid slug"
-
-    assert slug.isalnum(), "Error: Invalid value for '-slug' / '-s': \"\" is not a alphanumeric"
-
-    assert is_valid_url(url), f"Error: Invalid character in url: {url}"
-
-    # don't need to sanitize slug but we do for good (we are not lucky)
-    assert is_valid_slug(slug), f"Error: Invalid character in slug: {slug}"
-
-
-def is_valid_url(url) -> bool:
-    if not urlparse(url):
-        return False
-
-    pattern = r"^[a-zA-Z0-9:/@.-]+$"
-    return bool(re.match(pattern, url))
-
-
-def is_valid_slug(slug) -> bool:
-    pattern = r"^[a-zA-Z0-9\-]+$"
-    return bool(re.match(pattern, slug))
-
-
-@cli.command("temporary-short-link")
-@click.option("--url", "-u", type=str, help="The url that is going to be short", required=True)
-@click.option("--slug", "-s", type=str, help="The secret code", required=True)
-@click.option("--period", "-p", type=int, help="The time period that link remains active", required=False)
-def add_temporary_short_link(url: str, slug: str, period: int):
-    # validate inputs
-    add_temporary_short_link_assert_input(url, slug)
-
-    cmd = [Command.temporary_short_link.value, url, slug, str(period)]
-
-    run(cmd)
-
-
 # @cli.command('temporary-access')
 # @click.option('--port', '-p', type=int, help='The port that is going to be open', required=True)
 # def add_temporary_access(port: int):
 #     cmd = [Command.temporary_access.value, str(port)]
 #     run(cmd)
-
-
-def is_domain_valid(d):
-    pattern = r"^[a-zA-Z0-9\-.]+$"
-    return bool(re.match(pattern, d))
-
-
-@cli.command("get-cert")
-@click.option("--domain", "-d", type=str, help="The domain that needs certificate", required=True)
-def get_cert(domain: str):
-    if not domain:
-        return
-    assert is_domain_valid(domain), f"Error: Invalid domain passed to the get_cert command: {domain}"
-    cmd = [Command.get_cert.value, domain]
-    run(cmd)
 
 
 @cli.command("port-owner")

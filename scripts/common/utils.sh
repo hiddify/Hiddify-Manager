@@ -9,19 +9,6 @@ export HIDDIFY_LOCKS="$HIDDIFY_DATA/locks"
 export HIDDIFY_PANEL_CFG_PATH="$HIDDIFY_DATA/hiddify-panel/app.cfg"
 export venv_path="/opt/hiddify-manager/.venv313"
 
-# Filenames written by `hiddifypanel dump-server-configs`.
-HIDDIFY_SERVER_CONFIG_FILES=(
-    "hiddify-core.json"
-    "xray.json"
-    "haproxy.cfg"
-    "nginx.cfg"
-    "rust-rpxy-l4.toml"
-    "dnstm.json"
-    "wireguard.conf"
-    "telemt.toml"
-    "firewall.sh"
-)
-
 # Backups are full database dumps (secrets, user ids): owned by the panel user, not world-readable.
 # hiddify-panel-cli backup runs as hiddify-panel, so a root-owned dir (e.g. left by a panel run
 # as root) makes every backup fail with "Permission denied".
@@ -38,7 +25,7 @@ function ensure_panel_backup_dir() {
 function ensure_service_group() {
     groupadd -f hiddify-common
     local user
-    for user in root hiddify-panel nginx dns_proxy hiddify-cli tgproxy; do
+    for user in root hiddify-panel dns_proxy hiddify-cli tgproxy; do
         id -u "$user" >/dev/null 2>&1 && usermod -aG hiddify-common "$user"
     done
 }
@@ -54,14 +41,27 @@ function ensure_generated_permissions() {
     find "$HIDDIFY_GENERATED" -type f -exec chmod 660 {} \;
 }
 
+# data/cert: the certificates HAProxy serves. The panel writes them from its database (hiddifypanel/acme/store.py):
+# owned by hiddify-panel, group hiddify-common (setgid, so new files get it), files 640.
+function ensure_cert_dir() {
+    local dir="$HIDDIFY_DATA/cert"
+    mkdir -p "$dir"
+    ensure_service_group
+    if id -u hiddify-panel >/dev/null 2>&1; then
+        chown -R hiddify-panel:hiddify-common "$dir"
+    fi
+    chmod 2750 "$dir"
+    find "$dir" -type f -exec chmod 640 {} + 2>/dev/null || true
+}
+
 function ensure_hiddify_data_dirs() {
     # Shared permanent paths only. Each service creates its own data dirs.
     mkdir -p \
-        "$HIDDIFY_DATA/ssl" \
         "$HIDDIFY_DATA/log/system" \
         "$HIDDIFY_GENERATED/client" \
         "$HIDDIFY_GENERATED/include"
     ensure_panel_backup_dir
+    ensure_cert_dir
     ensure_generated_permissions
 }
 
@@ -723,7 +723,7 @@ function check_hiddify_panel() {
 
         # (cd hiddify-panel && python3 -m hiddifypanel admin-links)
         
-        for s in hiddify-xray hiddify-core hiddify-nginx hiddify-haproxy hiddify-mysql; do
+        for s in hiddify-xray hiddify-core hiddify-haproxy hiddify-mysql; do
             [ $s == "hiddify-xray" ] && [ "$(hconfig 'core_type')" != "xray" ] && continue
             [ $s == "hiddify-mysql" ] && [ "$DOCKER_MODE" == "true" ] && continue
             s=${s##*/}
@@ -1067,7 +1067,7 @@ function reload_all_configs(){
     cat "$cfg"
 }
 
-# Render xray/hiddify-core/haproxy/nginx/dns_proxy configs into $HIDDIFY_GENERATED.
+# Render xray/hiddify-core/haproxy/dns_proxy configs into $HIDDIFY_GENERATED.
 # Prefers the running panel's HTTP API (no extra Python/module load); falls
 # back to the CLI (spawns its own interpreter) only if the panel isn't reachable.
 function dump_server_configs() {

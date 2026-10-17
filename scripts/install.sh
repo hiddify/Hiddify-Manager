@@ -81,11 +81,19 @@ function run_parallel() {
     _TASK_LABELS=() _TASK_CMDS=() _TASK_UNITS=()
 }
 
-# Certificates need haproxy first.
-function install_haproxy_then_certificates() {
-    install_run services/haproxy
-    progress_tick "Haproxy"
-    install_run services/acme.sh
+# Certificates: the panel gets them (Let's Encrypt, then ZeroSSL; HAProxy answers the challenges) and renews them by
+# itself. A server with no real certificate yet (a new install, a new domain) waits for it here; when one changed, the
+# cores' configs are rebuilt (hiddify-core has the certificates inline).
+function wait_for_certificates() {
+    update_progress "${PROGRESS_ACTION}" "Getting certificates (Let's Encrypt / ZeroSSL)" 98
+    hiddify-panel-cli issue-certificates --first --no-apply
+    local rc=$?
+    if [ "$rc" == 3 ]; then
+        bash scripts/common/replace_variables.sh
+        DO_NOT_INSTALL=true install_run services/hiddify-core
+    elif [ "$rc" != 0 ]; then
+        warning "Certificates could not be issued now; the panel keeps trying (Domains page)"
+    fi
 }
 
 function main() {
@@ -138,9 +146,8 @@ function main() {
         bash ./services/deprecated/remove_deprecated.sh
         add_task "System settings" runsh run.sh scripts/common
         add_task "Firewall" install_run services/firewall
-        add_task "Nginx" install_run services/nginx
         add_task "Rpxy L4 (traffic splitting)" install_run services/rust-rpxy-l4
-        add_task -n 2 "Haproxy and certificates" install_haproxy_then_certificates
+        add_task "Haproxy" install_run services/haproxy
         add_task "Personal SpeedTest" install_run services/speedtest "$(hconfig "speed_test")"
         add_task "DNS Proxy" install_run services/dns_proxy "$(hconfig "dnstt_enable")"
         # telemt serves MTProxy FakeTLS (telegram_enable) and the Telegram web proxy (telegram_webproxy_enable)
@@ -154,6 +161,9 @@ function main() {
     add_task "Wireguard" install_run services/wireguard "$(hconfig "wireguard_enable")"
     add_task "Hiddify Core" install_run services/hiddify-core
     run_parallel 11 98 "${PROGRESS_ACTION}"
+    if [ "$MODE" != "apply_users" ] && [ "$DO_NOT_RUN" != "true" ]; then
+        wait_for_certificates
+    fi
 
     update_progress "${PROGRESS_ACTION}" "Almost Finished" 98
     echo "---------------------Finished!------------------------"
@@ -178,7 +188,6 @@ function clean_files() {
     find /opt/hiddify-manager/services/xray/configs /opt/hiddify-manager/services/hiddify-core/configs \
         -type f -name '*.json' ! -name '*.j2' -delete 2>/dev/null || true
     # leftover in-tree files (not the generated/ symlinks)
-    rm -f /opt/hiddify-manager/services/nginx/nginx.conf
     rm -f /opt/hiddify-manager/services/rust-rpxy-l4/config.toml
     find ./ -type f -name "*.template" -exec rm -f {} \;
 }

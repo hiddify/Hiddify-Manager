@@ -13,7 +13,7 @@ function main(){
     # SINGBOX_NEW_CONFIG_ERROR=$?
     
     
-    # systemctl status --no-pager hiddify-nginx hiddify-xray hiddify-core hiddify-haproxy|cat
+    # systemctl status --no-pager hiddify-xray hiddify-core hiddify-haproxy|cat
     
     if [[ $(hconfig "warp_mode") != "disable" ]];then
         echo -e "\n----------------------------------------------------------------"

@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-mkdir -p /opt/hiddify-manager/data/ssl /opt/hiddify-manager/data/log/system
+mkdir -p /opt/hiddify-manager/data/cert /opt/hiddify-manager/data/log/system
 rm -f /opt/hiddify-manager/data/log/*.lock /opt/hiddify-manager/data/log/system/*.lock
 
 
