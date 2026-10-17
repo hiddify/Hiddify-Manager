@@ -12,10 +12,35 @@ function ensure_acme_data_dirs() {
     mkdir -p "$ACME_LIB_DIR" "$ACME_CONFIG_HOME" "$ACME_CERT_HOME" "$ACME_DATA_DIR/www"
 }
 
+# Older layouts ran acme.sh with only --home, so its account.conf (with what it saved: SAVED_CF_Token /
+# SAVED_CF_Account_ID for a Cloudflare DNS-01 cert, the account email, ...) sat at the top of the program dir, which an
+# update replaces (and install.sh deletes the old /opt/hiddify-manager/acme.sh). Merge those lines into the durable
+# account.conf under data/, never overwriting a key it already has.
+function merge_acme_account_conf() {
+    local src="$1" dest="$ACME_CONFIG_HOME/account.conf" line key
+    [ -f "$src" ] && [ "$src" != "$dest" ] || return 0
+    touch "$dest"
+    chmod 600 "$dest"
+    while IFS= read -r line || [ -n "$line" ]; do
+        [[ "$line" =~ ^([A-Za-z_][A-Za-z0-9_]*)= ]] || continue
+        key="${BASH_REMATCH[1]}"
+        case "$key" in
+        # paths of the old layout: the durable config has its own
+        LOG_FILE | CERT_HOME | LE_WORKING_DIR | LE_CONFIG_HOME | USER_PATH | UPGRADE_HASH) continue ;;
+        esac
+        grep -q "^${key}=" "$dest" || printf '%s\n' "$line" >>"$dest"
+    done <"$src"
+}
+
 function migrate_acme_durable_state() {
     local wrong_lib="$ACME_DATA_DIR/lib"
 
     ensure_acme_data_dirs
+    # Before anything below replaces or deletes an old program dir.
+    local old
+    for old in "$ACME_LIB_DIR/account.conf" "$wrong_lib/account.conf" /opt/hiddify-manager/acme.sh/account.conf "$HOME/.acme.sh/account.conf"; do
+        merge_acme_account_conf "$old"
+    done
 
     if [ -L "$ACME_LIB_DIR" ]; then
         rm -f "$ACME_LIB_DIR"
