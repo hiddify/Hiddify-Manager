@@ -70,6 +70,9 @@ function redirect_domain_ports() { # redirect_domain_ports "9443 8443" "8080"
         {
             $tool -t nat -N $chain 2>/dev/null || $tool -t nat -F $chain
             $tool -t nat -C PREROUTING -j $chain 2>/dev/null || $tool -t nat -I PREROUTING -j $chain
+            # Connections made on this server to its own address (127.0.0.1:<domain port>, e.g. a tunnel that ends here)
+            # do not pass PREROUTING: send them through the same chain from OUTPUT, only to a local destination.
+            $tool -t nat -C OUTPUT -m addrtype --dst-type LOCAL -j $chain 2>/dev/null || $tool -t nat -I OUTPUT -m addrtype --dst-type LOCAL -j $chain
             for port in $1; do
                 $tool -t nat -A $chain -p tcp --dport "$port" -j REDIRECT --to-ports 443
                 $tool -t nat -A $chain -p udp --dport "$port" -j REDIRECT --to-ports 443
