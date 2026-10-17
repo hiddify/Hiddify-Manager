@@ -11,7 +11,7 @@ ExecReload=/bin/kill -HUP $MAINPID
 Restart=always
 RestartSec=5
 LimitNOFILE=infinity
-StandardOutput=file:/opt/hiddify-manager/data/log/system/hiddify-core.out.log
-StandardError=file:/opt/hiddify-manager/data/log/system/hiddify-core.err.log
+StandardOutput=file:/opt/hiddify-manager/data/log/hiddify-core.out.log
+StandardError=file:/opt/hiddify-manager/data/log/hiddify-core.err.log
 [Install]
 WantedBy=multi-user.target

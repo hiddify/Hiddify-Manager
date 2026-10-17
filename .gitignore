@@ -12,5 +12,44 @@ dump.rdb
 hiddify_usages.json
 docker-data
 node_modules
-common/__pycache__
+scripts/common/__pycache__
 *.pyc
+.pyc
+__pycache__
+# ---- Runtime files the installer writes inside the tree (a development checkout is /opt/hiddify-manager itself) ----
+/.venv*/
+/log/
+/release
+/docker-data/
+*.log
+.pytest_cache/
+.ruff_cache/
+__pycache__/
+# downloaded binaries and archives
+services/*/bin/
+services/hiddify-core/hiddify-core
+services/hiddify-core/lib/
+services/hiddify-core/*.so
+services/hiddify-core/*.tar.gz*
+services/hiddify-core/LICENSE.md
+services/dns_proxy/dnstm
+services/dns_proxy/*-server
+services/dns_proxy/*.zip
+services/telegram/telemt/telemt
+services/warp/wireguard/wgcf
+services/speedtest/downloading
+# runtime state
+services/telegram/telemt/cache/
+services/telegram/telemt/tlsfront/
+services/telegram/telemt/proxy-secret
+services/telegram/telemt/beobachten.txt
+services/telegram/telemt/telemt.limit.json
+services/telegram/telemt/config.toml
+services/panel/backup/
+services/panel/GeoLite2-*.mmdb
+services/panel/celerybeat-schedule
+# rendered from a .j2 next to it
+scripts/common/run.sh
+services/ssfaketls/hiddify-ss-faketls.service
+scripts/common/__pycache__/commander.cpython-313.pyc
+scripts/common/__pycache__/jinja.cpython-313.pyc

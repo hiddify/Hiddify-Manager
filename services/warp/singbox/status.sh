@@ -7,5 +7,5 @@ wgcf status
 curl -s -x socks://127.0.0.1:3000 --connect-timeout 1 http://ip-api.com?fields=message,country,countryCode,city,isp,org,as,query
 
 }
-mkdir -p /opt/hiddify-manager/data/log/system/
-main |& tee /opt/hiddify-manager/data/log/system/warp.log
+mkdir -p /opt/hiddify-manager/data/log/
+main |& tee /opt/hiddify-manager/data/log/warp.log

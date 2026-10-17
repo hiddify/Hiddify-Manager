@@ -8,4 +8,4 @@ function main(){
     ensure_panel_backup_dir
     hiddify-panel-cli backup
 }
-main |& tee -a /opt/hiddify-manager/data/log/system/backup.log
+main |& tee -a /opt/hiddify-manager/data/log/backup.log

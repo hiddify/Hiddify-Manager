@@ -153,6 +153,27 @@ def port_owner(port: int):
         print(name)
 
 
+LOG_DIR = os.path.join(HIDDIFY_DIR, "data", "log")
+
+
+def log_path(name: str) -> str:
+    """A log file directly in data/log, by its bare name: no path, no symlink, nothing outside it."""
+    if not name or name != os.path.basename(name) or name.startswith(".") or not all(c.isalnum() or c in "._-" for c in name):
+        raise click.BadParameter(f"invalid log name: {name!r}")
+    path = os.path.join(LOG_DIR, name)
+    if os.path.islink(path) or not os.path.isfile(path) or os.path.dirname(os.path.realpath(path)) != os.path.realpath(LOG_DIR):
+        raise click.BadParameter(f"no such log: {name}")
+    return path
+
+
+@cli.command("clear-log")
+@click.option("--name", "-n", type=str, help="The log file in data/log, e.g. 0-install.log", required=True)
+def clear_log(name: str):
+    """Empty a log in place (its writers keep their file): the panel's user can not write the root-owned ones."""
+    with open(log_path(name), "r+b") as fh:
+        fh.truncate(0)
+
+
 @cli.command("update-usage")
 def update_usage():
     cmd = [Command.update_usage.value]

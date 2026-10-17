@@ -6,6 +6,7 @@
             "request": "launch",
             "program": "${file}",
             "python": "/opt/hiddify-manager/.venv313/bin/python",
+            "debugAdapterPython": "/opt/hiddify-manager/.venv313/bin/python",
             "args": [],
             "jinja": true,
             "justMyCode": true
@@ -22,7 +23,8 @@
             "name": "Run HiddifyPanel and Server (apply config and run flask)",
             "type": "debugpy",
             "request": "launch",
-            "module": "flask",
+            "module": "hiddifypanel.apps.asgi_dev",
+            "pythonArgs": ["-Xfrozen_modules=off"],
             "preLaunchTask": "build-hiddify-manager",
             "cwd": "${workspaceFolder}/services/panel/src/",
             "env": {
@@ -31,13 +33,13 @@
                 "HIDDIFY_CFG_PATH": "/opt/hiddify-manager/data/hiddify-panel/app.cfg",
             },
             "python": "/opt/hiddify-manager/.venv313/bin/python",
+            "debugAdapterPython": "/opt/hiddify-manager/.venv313/bin/python",
+            // ASGI (Flask + the nodes' WebSocket) in this process; no reload on changes: restart the session
             "args": [
-                "run",
                 "--host",
                 "0.0.0.0",
                 "--port",
-                "9000",
-                "--reload"
+                "9000"
             ],
             "jinja": true,
             "justMyCode": true
@@ -46,22 +48,25 @@
             "name": "Admin V2 Dev: Flask (backend)",
             "type": "debugpy",
             "request": "launch",
-            "module": "hiddifypanel",
+            "module": "hiddifypanel.apps.asgi_dev",
+            "pythonArgs": ["-Xfrozen_modules=off"],
             "preLaunchTask": "stop panel service",
             "cwd": "${workspaceFolder}/services/panel/src/",
             "env": {
                 "FLASK_APP": "wsgi.py",
                 "FLASK_DEBUG": "1",
                 "HIDDIFY_CFG_PATH": "/opt/hiddify-manager/data/hiddify-panel/app.cfg",
+                // HAProxy's panel backend is 127.0.0.1:9000. Vite serves the Admin V2 frontend on 9001.
+                "HIDDIFY_ADMIN_V2_DEV": "http://127.0.0.1:9001"
             },
             "python": "/opt/hiddify-manager/.venv313/bin/python",
+            "debugAdapterPython": "/opt/hiddify-manager/.venv313/bin/python",
+            // ASGI (Flask + the nodes' WebSocket) in this process; no reload on changes: restart the session
             "args": [
-                "run",
                 "--host",
                 "0.0.0.0",
                 "--port",
-                "9001",
-                // "--reload"
+                "9000"
             ],
             "jinja": true,
             "justMyCode": true
@@ -70,22 +75,25 @@
             "name": "Run HiddifyPanel Only (make sure to apply config before)",
             "type": "debugpy",
             "request": "launch",
-            "module": "flask",
+            "module": "hiddifypanel.apps.asgi_dev",
+            "pythonArgs": ["-Xfrozen_modules=off"],
             "preLaunchTask": "stop panel service",
             "cwd": "${workspaceFolder}/services/panel/src/",
             "env": {
                 "FLASK_APP": "wsgi.py",
                 "FLASK_DEBUG": "1",
                 "HIDDIFY_CFG_PATH": "/opt/hiddify-manager/data/hiddify-panel/app.cfg",
+                // Vite serves the Admin V2 frontend on 9001. This panel stays on 9000, where HAProxy connects.
+                "HIDDIFY_ADMIN_V2_DEV": "http://127.0.0.1:9001"
             },
             "python": "/opt/hiddify-manager/.venv313/bin/python",
+            "debugAdapterPython": "/opt/hiddify-manager/.venv313/bin/python",
+            // ASGI (Flask + the nodes' WebSocket) in this process; no reload on changes: restart the session
             "args": [
-                "run",
                 "--host",
                 "0.0.0.0",
                 "--port",
-                "9000",
-                "--reload"
+                "9000"
             ],
             "jinja": true,
             "justMyCode": true
@@ -95,6 +103,8 @@
             "type": "debugpy",
             "preLaunchTask": "build-hiddify-manager",
             "request": "launch",
+            "python": "/opt/hiddify-manager/.venv313/bin/python",
+            "debugAdapterPython": "/opt/hiddify-manager/.venv313/bin/python",
             "args": [
                 "-c",
                 "print('build complete')"
@@ -107,9 +117,8 @@
             "cwd": "${workspaceFolder}/services/panel/src/hiddifypanel/admin_v2",
             "command": "npm run dev",
             "env": {
-                "VITE_DEV_PORT": "9000",
-                "VITE_API_TARGET": "http://127.0.0.1:9001",
-                "VITE_HOST": "0.0.0.0"
+                "VITE_DEV_PORT": "9001",
+                "VITE_DEV_HOST": "127.0.0.1"
             }
         },
         {
@@ -131,6 +140,7 @@
                 "HIDDIFY_CFG_PATH": "/opt/hiddify-manager/data/hiddify-panel/app.cfg",
             },
             "python": "/opt/hiddify-manager/.venv313/bin/python",
+            "debugAdapterPython": "/opt/hiddify-manager/.venv313/bin/python",
             "args": [
                 "dump-server-configs",
                 "examples/t1",
@@ -149,6 +159,7 @@
                 "HIDDIFY_CFG_PATH": "/opt/hiddify-manager/data/hiddify-panel/app.cfg",
             },
             "python": "/opt/hiddify-manager/.venv313/bin/python",
+            "debugAdapterPython": "/opt/hiddify-manager/.venv313/bin/python",
             "args": [
                 "dump-client-configs",
                 "examples/t2",

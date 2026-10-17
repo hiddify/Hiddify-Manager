@@ -289,6 +289,10 @@ function post_update_tasks() {
 }
 
 function update_from_github() {
+    if [ -e /opt/hiddify-manager/.git ]; then
+        echo "/opt/hiddify-manager is a git checkout (development): not overwriting it. Use git pull --recurse-submodules && make build"
+        return 0
+    fi
     local file_name=$1
     local url=$2
     local override_version=$3

@@ -26,8 +26,8 @@ ExecReload=/bin/kill -HUP $MAINPID
 #ExecStop=/bin/bash -c "/bin/kill -INT $(/usr/bin/pgrep -f 'hiddifypanel')||echo 'nothing to kill'"
 ExecStop=/bin/kill -INT $MAINPID
 Restart=always
-StandardOutput=file:/opt/hiddify-manager/data/log/system/hiddify_panel.out.log
-StandardError=file:/opt/hiddify-manager/data/log/system/hiddify_panel.err.log
+StandardOutput=file:/opt/hiddify-manager/data/log/hiddify_panel.out.log
+StandardError=file:/opt/hiddify-manager/data/log/hiddify_panel.err.log
 [Install]
 WantedBy=multi-user.target
 

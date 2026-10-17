@@ -75,9 +75,9 @@ function menu() {
     'log')
         W=()
         while read -r line; do
-            size=$(ls -lah data/log/system/"$line" | awk -F " " '{print $5}')
+            size=$(ls -lah data/log/"$line" | awk -F " " '{print $5}')
             W+=("$line" "$size")
-        done < <(ls -1 data/log/system)
+        done < <(ls -1 data/log)
         LOG=$(whiptail --clear \
             --backtitle "$BACKTITLE" \
             --title "$TITLE" \
@@ -88,7 +88,7 @@ function menu() {
         clear
         echo -e "\033[0m"
         if [[ $LOG != "" ]]; then
-            less -r -P"Press q to exit" +G "data/log/system/$LOG"
+            less -r -P"Press q to exit" +G "data/log/$LOG"
         fi
         NEED_KEY=0
         ;;

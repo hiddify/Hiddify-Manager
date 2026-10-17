@@ -54,5 +54,5 @@ function main() {
 
     echo -e "----------------------------------------------------------------\n"
 }
-mkdir -p /opt/hiddify-manager/data/log/system/
-main $@|& tee /opt/hiddify-manager/data/log/system/${LOG_NAME}.log
+mkdir -p /opt/hiddify-manager/data/log/
+main $@|& tee /opt/hiddify-manager/data/log/${LOG_NAME}.log

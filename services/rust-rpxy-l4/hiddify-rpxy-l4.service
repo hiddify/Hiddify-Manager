@@ -7,7 +7,7 @@ Wants=network-online.target
 [Service]
 Type=simple
 User=root
-ExecStart=/opt/hiddify-manager/services/rust-rpxy-l4/bin/rpxy-l4 --config /opt/hiddify-manager/generated/rust-rpxy-l4.toml --log-dir /opt/hiddify-manager/data/log/system/rpxy-l4
+ExecStart=/opt/hiddify-manager/services/rust-rpxy-l4/bin/rpxy-l4 --config /opt/hiddify-manager/generated/rust-rpxy-l4.toml --log-dir /opt/hiddify-manager/data/log/rpxy-l4
 Restart=always
 RestartSec=3
 LimitNOFILE=infinity

@@ -57,5 +57,5 @@ function main(){
     # fi
 }
 
-mkdir -p /opt/hiddify-manager/data/log/system/
-main |& tee /opt/hiddify-manager/data/log/system/status.log
+mkdir -p /opt/hiddify-manager/data/log/
+main |& tee /opt/hiddify-manager/data/log/status.log

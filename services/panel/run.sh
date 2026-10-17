@@ -3,14 +3,14 @@ source /opt/hiddify-manager/services/mysql/utils.sh
 source /opt/hiddify-manager/services/redis/utils.sh
 activate_python_venv
 
-mkdir -p "$HIDDIFY_DATA/hiddify-panel" "$HIDDIFY_DATA/log/system"
+mkdir -p "$HIDDIFY_DATA/hiddify-panel" "$HIDDIFY_DATA/log"
 
 PANEL_DIR="/opt/hiddify-manager/services/panel"
 APP_CFG="$HIDDIFY_PANEL_CFG_PATH"
 TEMPLATE_CFG="$PANEL_DIR/app.cfg"
 
-echo -n "" >> /opt/hiddify-manager/data/log/system/panel.log
-chown hiddify-panel /opt/hiddify-manager/data/log/system/panel.log
+echo -n "" >> /opt/hiddify-manager/data/log/panel.log
+chown hiddify-panel /opt/hiddify-manager/data/log/panel.log
 
 chown -R hiddify-panel:hiddify-panel "$PANEL_DIR" >/dev/null 2>&1
 

@@ -18,5 +18,5 @@ function main(){
     fi
 }
 
-mkdir -p /opt/hiddify-manager/data/log/system/
-main $@|& tee /opt/hiddify-manager/data/log/system/uninstall.log
+mkdir -p /opt/hiddify-manager/data/log/
+main $@|& tee /opt/hiddify-manager/data/log/uninstall.log

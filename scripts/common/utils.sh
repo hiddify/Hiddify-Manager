@@ -3,7 +3,8 @@ export HIDDIFY_SCRIPTS="$HIDDIFY_DIR/scripts"
 export HIDDIFY_SERVICES="$HIDDIFY_DIR/services"
 export HIDDIFY_DATA="$HIDDIFY_DIR/data"
 export HIDDIFY_GENERATED="$HIDDIFY_DIR/generated"
-export HIDDIFY_LOCKS="$HIDDIFY_DATA/locks"
+# Locks are runtime state: tmpfs (/run), never in data/ (backups, restores, a copied server)
+export HIDDIFY_LOCKS="/run/hiddify/locks"
 # Single source of truth for the panel's durable config — must match the default
 # baked into hiddifypanel/__init__.py and base.py.
 export HIDDIFY_PANEL_CFG_PATH="$HIDDIFY_DATA/hiddify-panel/app.cfg"
@@ -54,12 +55,27 @@ function ensure_cert_dir() {
     find "$dir" -type f -exec chmod 640 {} + 2>/dev/null || true
 }
 
+# Logs were in data/log/system (before v14): move them up to data/log. A running service keeps writing to its moved file
+# (same file system) until its unit, now pointing to data/log, is restarted.
+function migrate_log_dir() {
+    local old="$HIDDIFY_DATA/log/system"
+    [ -d "$old" ] && [ ! -L "$old" ] || return 0
+    local entry
+    for entry in "$old"/* "$old"/.[!.]*; do
+        [ -e "$entry" ] || continue
+        # mv keeps the inode: writers holding it open go on writing to it at its new place
+        [ -e "$HIDDIFY_DATA/log/${entry##*/}" ] || mv "$entry" "$HIDDIFY_DATA/log/"
+    done
+    rm -rf "$old"
+}
+
 function ensure_hiddify_data_dirs() {
     # Shared permanent paths only. Each service creates its own data dirs.
     mkdir -p \
-        "$HIDDIFY_DATA/log/system" \
+        "$HIDDIFY_DATA/log" \
         "$HIDDIFY_GENERATED/client" \
         "$HIDDIFY_GENERATED/include"
+    migrate_log_dir
     ensure_panel_backup_dir
     ensure_cert_dir
     ensure_generated_permissions
@@ -540,6 +556,10 @@ function build_panel_ui() {
 # `pip install git+...` cannot be used any more: it would install without the UI.
 function install_panel_from_git() {
     local ref="${1:-}" pip_cmd="${2:-uv pip}"
+    if is_dev_checkout; then
+        warning "Development checkout: the panel stays installed from $HIDDIFY_DIR/services/panel/src (git pull to update it)"
+        return 0
+    fi
     install_package git
     # Outside $HIDDIFY_DIR on purpose: the config renderer (scripts/common/jinja.py) walks
     # $HIDDIFY_DIR for *.j2 and would try to render the panel's own templates.
@@ -693,7 +713,6 @@ function check_hiddify_panel() {
         
         if [[ $? != 0 ]]; then
             error "Exception in Hiddify Panel. Please send the log to hiddify@gmail.com"
-            echo "4" >log/error.lock
             exit 4
         fi
         echo -e "\n\n"
@@ -736,7 +755,6 @@ function check_hiddify_panel() {
                     if [ $i -eq 10 ]; then
                         error "important service $s is not activated after 10 seconds"
                         error "Installation Failed!"
-                        echo "32" >/opt/hiddify-manager/data/log/error.lock
                         exit 32
                     fi
                     warning "an important service $s is not activating yet"
@@ -785,7 +803,7 @@ function run_without_progress_window() {
 
 
 function log_dir() {
-    LOG_DIR="/opt/hiddify-manager/data/log/system"
+    LOG_DIR="/opt/hiddify-manager/data/log"
     mkdir -p "$LOG_DIR" >/dev/null 2>&1
     echo $LOG_DIR
 }
@@ -843,8 +861,15 @@ function run_logged() {
 # owning process goes away — clean exit, kill -9, crash or power loss alike.
 # The .lock files carry no state, so one left behind after a crash never blocks
 # a later run: there is nothing to clean up and no staleness timeout to tune.
+# A development checkout: /opt/hiddify-manager is the git clone itself (DEVELOPMENT.md). The panel is then installed
+# editable from services/panel/src, and the updater never overwrites the tree (git pull instead).
+function is_dev_checkout() {
+    [ -d "$HIDDIFY_DIR/.git" ] || [ -f "$HIDDIFY_DIR/.git" ]
+}
+
 function lock_file() {
-    mkdir -p "$HIDDIFY_LOCKS" >/dev/null 2>&1
+    # 755: the panel (hiddify-panel) opens them read-only to see whether an install runs (apply_api.py)
+    mkdir -p -m 755 "$HIDDIFY_LOCKS" >/dev/null 2>&1
     echo "$HIDDIFY_LOCKS/${1}.lock"
 }
 

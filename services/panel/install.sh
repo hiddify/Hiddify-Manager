@@ -5,8 +5,8 @@ install_package wireguard libev-dev libevdev2 default-libmysqlclient-dev build-e
 useradd -m hiddify-panel -s /bin/bash >/dev/null 2>&1
 usermod -aG hiddify-common hiddify-panel
 
-echo -n "" >> /opt/hiddify-manager/data/log/system/panel.log
-chown hiddify-panel /opt/hiddify-manager/data/log/system/panel.log
+echo -n "" >> /opt/hiddify-manager/data/log/panel.log
+chown hiddify-panel /opt/hiddify-manager/data/log/panel.log
 chsh hiddify-panel -s /bin/bash
 
 chown -R hiddify-panel:hiddify-panel /home/hiddify-panel/ >/dev/null 2>&1
@@ -31,6 +31,10 @@ if [ -e /etc/systemd/system/hiddify-panel-background-tasks.service ]; then
     rm -f /etc/systemd/system/hiddify-panel-background-tasks.service
 fi
 
+# A development checkout installs the panel from its own submodule (editable: code changes need only a panel restart)
+if [ -z "$HIDDIFY_PANLE_SOURCE_DIR" ] && is_dev_checkout && [ -f "$HIDDIFY_DIR/services/panel/src/pyproject.toml" ]; then
+    export HIDDIFY_PANLE_SOURCE_DIR="$HIDDIFY_DIR/services/panel/src"
+fi
 if [ -n "$HIDDIFY_PANLE_SOURCE_DIR" ]; then
     echo "NOTICE: building hiddifypanel package from source..."
     echo "NOTICE: the source dir $HIDDIFY_PANLE_SOURCE_DIR"

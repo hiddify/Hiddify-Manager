@@ -16,5 +16,5 @@ function main() {
 }
 
 set_lock $NAME
-main |& tee -a /opt/hiddify-manager/data/log/system/update_usage.log
+main |& tee -a /opt/hiddify-manager/data/log/update_usage.log
 remove_lock $NAME

@@ -1,8 +1,7 @@
 #!/bin/bash
 set -e
 
-mkdir -p /opt/hiddify-manager/data/cert /opt/hiddify-manager/data/log/system
-rm -f /opt/hiddify-manager/data/log/*.lock /opt/hiddify-manager/data/log/system/*.lock
+mkdir -p /opt/hiddify-manager/data/cert /opt/hiddify-manager/data/log
 
 
 chmod +x /opt/hiddify-manager/services/docker/systemctl /opt/hiddify-manager/services/docker/journalctl 
@@ -40,4 +39,4 @@ DO_NOT_INSTALL=true /opt/hiddify-manager/scripts/install.sh docker --no-gui $@
 echo Hiddify is started!!!! in 5 seconds you will see the system logs
 hiddify admin
 sleep 5
-tail -f /opt/hiddify-manager/data/log/system/*
+tail -f /opt/hiddify-manager/data/log/*

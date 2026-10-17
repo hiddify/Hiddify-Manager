@@ -180,7 +180,7 @@ function main() {
 }
 
 function clean_files() {
-    rm -rf data/log/system/xray*
+    rm -rf data/log/xray*
     # leftover jinja output from the old data/services layout
     rm -rf /opt/hiddify-manager/data/services/xray/json/*.json
     rm -rf /opt/hiddify-manager/data/services/hiddify-core/json/*.json

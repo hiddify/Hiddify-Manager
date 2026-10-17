@@ -32,3 +32,7 @@ if [ -d /opt/hiddify-manager/services/acme.sh ]; then
     crontab -l 2>/dev/null | grep -v "acme.sh" | crontab - 2>/dev/null
     rm -rf /opt/hiddify-manager/services/acme.sh/
 fi
+
+# Locks moved from data/locks to /run/hiddify/locks (runtime state; flock files carry nothing). Old error markers too.
+rm -rf /opt/hiddify-manager/data/locks
+rm -f /opt/hiddify-manager/data/log/error.lock /opt/hiddify-manager/data/log/*.lock /opt/hiddify-manager/data/log/system/*.lock

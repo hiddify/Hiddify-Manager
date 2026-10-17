@@ -10,19 +10,14 @@ debug-panel:
 	FLASK_DEBUG=1 \
 	python -m flask run --host=0.0.0.0 --port=9000 --reload\
 
+# In /opt/hiddify-manager (the git clone itself, DEVELOPMENT.md): reinstall the panel from services/panel/src and apply
+# the configs in place. From a clone elsewhere: copy it over /opt/hiddify-manager first (the older way).
 apply:
-	@if [ "$(PWD)" = "/opt/hiddify-manager" -o "$(PWD)" = "/opt/hiddify-config" ]; then \
-		echo "You cannot build from /opt/hiddify-manager. Clone the repository outside this folder."; \
-		exit 2; \
-	else \
-		mkdir -p /opt/hiddify-manager && \
-		cp -r ./* /opt/hiddify-manager/ && \
-		rm -rf /opt/hiddify-manager/services/panel/src/; \
-		export HIDDIFY_DEBUG=1 && \
-		export HIDDIFY_PANLE_SOURCE_DIR="$(PWD)/services/panel/src/" &&\
-		export HIDDIFY_KEEP_NODE_MODULES=1 &&\
-		(cd /opt/hiddify-manager/services/panel && bash install.sh && bash run.sh && bash /opt/hiddify-manager/scripts/common/replace_variables.sh); 	
-	fi
+	@export HIDDIFY_DEBUG=1 HIDDIFY_KEEP_NODE_MODULES=1 HIDDIFY_PANLE_SOURCE_DIR="$(PWD)/services/panel/src/"; \
+	if [ "$(PWD)" != "/opt/hiddify-manager" ]; then \
+		mkdir -p /opt/hiddify-manager && cp -r ./* /opt/hiddify-manager/ && rm -rf /opt/hiddify-manager/services/panel/src/; \
+	fi; \
+	(cd /opt/hiddify-manager/services/panel && bash install.sh && bash run.sh && bash /opt/hiddify-manager/scripts/common/replace_variables.sh)
 .PHONY: apply
 # The admin UI (services/panel/src/hiddifypanel/static/admin-v2/) is not in git: build it from
 # this checkout (skipped when already up to date; keeps your node_modules).
@@ -30,15 +25,12 @@ ui:
 	@HIDDIFY_KEEP_NODE_MODULES=1 bash -c 'source ./scripts/common/utils.sh && build_panel_ui "$(PWD)/services/panel/src"'
 .PHONY: ui
 
+# Install / apply everything. In /opt/hiddify-manager it runs in place; from a clone elsewhere it is copied there first.
 build: ui
-	@if [ "$(PWD)" = "/opt/hiddify-manager" -o "$(PWD)" = "/opt/hiddify-config" ]; then \
-		echo "You cannot build from /opt/hiddify-manager. Clone the repository outside this folder."; \
-		exit 2; \
-	else \
-		mkdir -p /opt/hiddify-manager && \
-		cp -r ./* /opt/hiddify-manager/ && \
-		(cd /opt/hiddify-manager/ && bash scripts/install.sh --no-gui); \
-	fi 
+	@if [ "$(PWD)" != "/opt/hiddify-manager" ]; then \
+		mkdir -p /opt/hiddify-manager && cp -r ./* /opt/hiddify-manager/; \
+	fi; \
+	(cd /opt/hiddify-manager/ && bash scripts/install.sh --no-gui)
 
 
 # sync_panel:

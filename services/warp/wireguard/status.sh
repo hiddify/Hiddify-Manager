@@ -19,5 +19,5 @@ curl -s --interface warp --connect-timeout 1 http://ip-api.com?fields=country,ci
 # curl -s --interface warp https://cloudflare.com/cdn-cgi/trace --connect-timeout 1 | sed 's|^|\t|'
 }
 
-mkdir -p /opt/hiddify-manager/data/log/system/
-main |& tee /opt/hiddify-manager/data/log/system/warp.log
+mkdir -p /opt/hiddify-manager/data/log/
+main |& tee /opt/hiddify-manager/data/log/warp.log

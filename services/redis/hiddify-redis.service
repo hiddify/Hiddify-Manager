@@ -24,7 +24,7 @@ ReadWritePaths=-/var/lib/redis
 ReadWritePaths=-/var/log/redis
 ReadWritePaths=-/var/run/redis
 ReadWritePaths=-/opt/hiddify-manager/data/redis
-ReadWritePaths=-/opt/hiddify-manager/data/log/system
+ReadWritePaths=-/opt/hiddify-manager/data/log
 
 NoNewPrivileges=true
 CapabilityBoundingSet=CAP_SETGID CAP_SETUID CAP_SYS_RESOURCE

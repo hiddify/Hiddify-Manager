@@ -1,10 +1,8 @@
 
 # Before Anything Else...
 We are looking for contributors for this project. Please send email to hiddify@gmail.com
-```
-git clone --recurse-submodules -j8 git://github.com/hiddify/hiddify-manager.git
-
-```
+To set up a development server, see **[DEVELOPMENT.md](DEVELOPMENT.md)** (clone into `/opt/hiddify-manager` with its
+submodule, `make build`, open it in VS Code).
 Basic tutorial on how to contibute to HiddifyManager is [here](https://hiddify.com/manager/contribution/How-to-contribute-to-this-project/)
 
 We need several type of helps:
@@ -30,13 +28,9 @@ The Hiddify utilizes HAProxy as its primary traffic load balancer and routing to
 
 There are several Jinja2 (.j2) files, which are HAProxy configuration files. These files are used based on the panel configuration settings.
 
-#### ```/nginx/```
-This directory contains installation/initialization/configuration scripts of the [Nginx](https://nginx.org/en/) project.
-
-The Hiddify utilizes Nginx as its secondary load balancer and reverse proxy, alongside HAProxy.
-
-#### ```/acme.sh/```
-This directory contains installation scripts for the acme.sh project and additional scripts responsible for issuing SSL certificates for panel domains.
+#### Certificates
+The panel issues the domains' certificates itself (Let's Encrypt, then ZeroSSL) and keeps them in its database
+(`hiddifypanel/acme`); HAProxy answers the ACME challenges. nginx and acme.sh are deprecated (`services/deprecated/`).
 
 #### ```/xray/```
 This directory contains installation/initialization scripts of the [Xray-core](https://github.com/XTLS/Xray-core).

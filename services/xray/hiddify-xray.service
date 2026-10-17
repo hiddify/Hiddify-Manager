@@ -15,8 +15,8 @@ RestartSec=3
 #ExecReload=/bin/sh -c "/opt/hiddify-manager/services/xray/bin/xray run -test -c /opt/hiddify-manager/generated/xray.json && systemctl restart hiddify-xray"
 Restart=always
 #RestartPreventExitStatus=23
-#StandardOutput=file:/opt/hiddify-manager/data/log/system/xray.out.log
-#StandardError=file:/opt/hiddify-manager/data/log/system/xray.err.log
+#StandardOutput=file:/opt/hiddify-manager/data/log/xray.out.log
+#StandardError=file:/opt/hiddify-manager/data/log/xray.err.log
 LimitNOFILE=infinity
 OOMScoreAdjust=100
 

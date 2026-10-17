@@ -2,7 +2,7 @@
     "python.analysis.extraPaths": [
         "./services/panel/src"
     ],
-    "python.envFile": "/opt/hiddify-manager/.venv313",
+    "python.defaultInterpreterPath": "/opt/hiddify-manager/.venv313/bin/python",
     "autopep8.args": [
         "--max-line-length",
         "200",

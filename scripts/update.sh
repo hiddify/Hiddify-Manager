@@ -17,6 +17,11 @@ function cleanup() {
 trap cleanup SIGINT
 
 function main() {
+    if is_dev_checkout; then
+        warning "$HIDDIFY_DIR is a git checkout (development): not overwriting it with a download."
+        warning "Update it with: cd $HIDDIFY_DIR && git pull --recurse-submodules && make build"
+        return 0
+    fi
     update_progress "Hiddify Updater" "Checking for update" 1
     echo "Checking for update..."
     local force=false

@@ -1,0 +1,11 @@
+{
+  // VS Code's format ("servers"); Claude Code and Cursor read .agents/mcp.json (through .mcp.json / .cursor/mcp.json).
+  // Keep the two lists the same.
+  "servers": {
+    "primevue": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@primevue/mcp"]
+    }
+  }
+}
