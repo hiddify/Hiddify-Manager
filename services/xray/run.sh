@@ -31,6 +31,7 @@ if [ "$MODE" != "apply_users" ]; then
     # xray run -test -confdir configs
     echo "Ignoring xray test"
     if [[ $? == 0 ]]; then
+        systemctl daemon-reload  # other parallel steps change unit files: reload right before the restart
         systemctl restart hiddify-xray.service
         systemctl start hiddify-xray.service
         #systemctl status hiddify-xray.service --no-pager
@@ -39,6 +40,7 @@ if [ "$MODE" != "apply_users" ]; then
         sleep 60
         xray run -test -c /opt/hiddify-manager/generated/xray.json
         if [[ $? == 0 ]]; then
+            systemctl daemon-reload  # other parallel steps change unit files: reload right before the restart
             systemctl restart hiddify-xray.service
             systemctl start hiddify-xray.service
             #systemctl status hiddify-xray.service --no-pager

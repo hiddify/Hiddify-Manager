@@ -357,14 +357,14 @@ install_package() {
         done
 
         if [ -n "$not_installed_packages" ]; then
-            apt install -y --no-install-recommends $not_installed_packages
+            apt-get install -y --no-install-recommends $not_installed_packages
 
             # Check if installation failed
             if [ $? -ne 0 ]; then
                 apt --fix-broken install -y
-                apt update
+                apt-get update
                 #retries for 3 times
-                apt install -y $not_installed_packages ||apt install -y $not_installed_packages||apt install -y $not_installed_packages
+                apt-get install -y $not_installed_packages ||apt-get install -y $not_installed_packages||apt-get install -y $not_installed_packages
 
             fi
         fi
@@ -374,7 +374,7 @@ install_package() {
 function remove_package() {
     for package in $@; do
         if dpkg -l | grep -q "^ii  $package"; then
-            with_lock apt apt remove -y --auto-remove "$package"
+            with_lock apt apt-get remove -y --auto-remove "$package"
         fi
     done
 }
@@ -707,6 +707,51 @@ function install_python310() {
     # endregion
 
 }
+# How a panel link's certificate looks to a browser: trusted, self_signed (or otherwise not trusted) or insecure (http).
+# Asks this server itself (--connect-to), so a domain behind a CDN or not resolving yet is still checked.
+function link_cert_state() {
+    local url="$1"
+    [[ "$url" == http://* ]] && { echo insecure; return; }
+    curl -s -o /dev/null --head --connect-timeout 3 --max-time 6 --connect-to "::127.0.0.1:443" "$url"
+    case $? in
+    0 | 22) echo trusted ;;  # 22: an HTTP error status, the TLS handshake (and so the certificate) was fine
+    *) echo self_signed ;;
+    esac
+}
+
+# The panel's links, grouped by how safe they are to open: a trusted certificate (green), self-signed (yellow: the
+# browser warns), plain http (red). Clickable in terminals that support links.
+function print_panel_links() {
+    local -a trusted=() self_signed=() insecure=()
+    local link
+    while read -r link; do
+        [ -n "$link" ] || continue
+        case "$(link_cert_state "$link")" in
+        trusted) trusted+=("$link") ;;
+        self_signed) self_signed+=("$link") ;;
+        *) insecure+=("$link") ;;
+        esac
+    done < <(jq -r '.panel_links[]' /opt/hiddify-manager/data/current.json | awk '!seen[$0]++')
+
+    local reset=$'\e[0m' dim=$'\e[2m' bold=$'\e[1m'
+    _panel_link_group() {  # color icon title note links...
+        local color="$1" icon="$2" title="$3" note="$4"
+        shift 4
+        [ $# -gt 0 ] || return 0
+        printf "%s%s %s%s%s  %s%s%s\n" "$color$bold" "$icon" "$title" "$reset" "" "$dim" "$note" "$reset"
+        for link in "$@"; do
+            printf "%s\e]8;;%s\e\\%s\e]8;;\e\\%s\n" "$color" "$link" "$link" "$reset"
+        done
+        echo
+    }
+    echo
+    printf "  %sOpen your panel%s\n\n" "$bold" "$reset"
+    # The best last: right above the prompt, where the eye lands
+    _panel_link_group $'\e[91m' "✖" "Insecure" "not encrypted (http): avoid" "${insecure[@]}"
+    _panel_link_group $'\e[93m' "⚠" "Self-signed" "the browser warns; use these only if the secure ones do not open" "${self_signed[@]}"
+    _panel_link_group $'\e[92m' "✔" "Secure" "a trusted certificate" "${trusted[@]}"
+}
+
 function check_hiddify_panel() {
     if [ "$MODE" != "apply_users" ]; then
         reload_all_configs >/dev/null
@@ -726,20 +771,7 @@ function check_hiddify_panel() {
         center_text $'\t\033[92mFinished! Thank you for helping to skip filternet.\033[0m'
         
         echo -e "\n"
-        echo "Please open the following link in the browser for client setup:"
-        cat /opt/hiddify-manager/data/current.json | jq -r '.panel_links[]' | while read -r link; do
-            if [[ $link == http://* ]]; then
-                link="[insecure] $link"
-                error "  $link"
-            elif [[ $link =~ ^https://(.+@)?[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/ ]]; then
-                link="[HTTPS] $link"
-                warning "  $link"
-            else
-                success "  \e]8;;$link\e\\$link\e]8;;\e\\ "
-                # success "  $link"
-            fi
-
-        done
+        print_panel_links
 
         # (cd hiddify-panel && python3 -m hiddifypanel admin-links)
         

@@ -12,7 +12,7 @@ function main(){
     service cron reload
     if [[ "$1" == "purge" ]];then
         rm -rf services/panel
-        apt purge -y nginx gunicorn mariadb-* #python3-pip python3
+        apt-get purge -y nginx gunicorn mariadb-* #python3-pip python3
         rm -rf *
         echo "We have completely removed hiddify panel"
     fi

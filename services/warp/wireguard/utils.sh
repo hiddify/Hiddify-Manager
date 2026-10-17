@@ -2,7 +2,8 @@
 source /opt/hiddify-manager/services/warp/utils.sh
 
 function warp_wireguard_real_test() {
-    curl -s --interface warp --connect-timeout .5 http://ip-api.com?fields=message,country,org,query
+    # curl 8.18 refuses ".5" ("expected a proper numerical parameter"): WARP looked broken every time
+    curl -s --interface warp --connect-timeout 3 --max-time 8 "http://ip-api.com?fields=message,country,org,query"
     local error=$?
     if [ "$error" = 0 ]; then
         success "WARP is WORKING!"
@@ -70,12 +71,15 @@ function check_warp_wireguard_connection() {
     fi
     (cd "$svc_dir" && ./wgcf update >/dev/null 2>&1) || return $?
     generate_warp_wireguard_config "$svc_dir" || return $?
-    systemctl restart wg-quick@warp
-    echo "Starting WARP.... checking real connectivitiy"
-    sleep .5
+    # A warp interface left from an earlier try (not owned by the unit) makes wg-quick fail with "already exists"
+    systemctl stop wg-quick@warp >/dev/null 2>&1
+    ip link show warp >/dev/null 2>&1 && ip link delete warp
+    systemctl start wg-quick@warp
+    echo "Starting WARP... checking real connectivity"
+    sleep 2  # the first WireGuard handshake
     if ! warp_wireguard_real_test; then
-        sleep .5
-        echo "Checking real connectivitiy again!"
+        sleep 3
+        echo "Checking real connectivity again"
         warp_wireguard_real_test || return $?
     fi
 }
