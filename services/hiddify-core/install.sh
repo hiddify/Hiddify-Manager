@@ -11,7 +11,9 @@ download_package hiddify-core sb.tar.gz $version
 if [ "$?" == "0"  ] || ! is_installed ./hiddify-core; then
     tar -xzf sb.tar.gz  || exit 1
     cp -rf hiddify-core-*/. . || exit 2  # -r: the archive has a lib/ folder too
-    rm -rf hiddify-core-*/ || exit 3      # (it removed a nonexistent sb.zip and failed on every run)
+    # The archive too (~29 MB): the recorded version (set_installed_version below), not the file, skips the next download.
+    # (This line removed a nonexistent sb.zip and failed on every run: no symlink, no recorded version, no tor.)
+    rm -rf sb.tar.gz hiddify-core-*/ || exit 3
     chown root:root hiddify-core || exit 4
     chmod +x hiddify-core || exit 5
     ln -sf /opt/hiddify-manager/services/hiddify-core/hiddify-core /usr/bin/hiddify-core || exit 6
