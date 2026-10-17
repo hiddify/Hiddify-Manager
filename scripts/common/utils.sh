@@ -129,21 +129,22 @@ function hiddify_random_password() {
     echo
 }
 
-# The version of a dev install: the date of the newest commit on main, as MM-DDTHH:MM (UTC). GitHub's commits page changes
-# its JSON (the commits moved under .payload.commitsRefRoute), and a path that no longer exists gave "null" and an
-# empty VERSION. So try that page, its Atom feed and the API in turn, and only take a value that is a date.
+# The version of a dev install: the date of the newest commit of a branch, as MM-DDTHH:MM (UTC). The branch is dev by
+# default: what dev/develop installs (the panel is cloned from its default branch dev, the manager from refs/heads/dev).
+# GitHub's commits page changes its JSON (the commits moved under .payload.commitsRefRoute), and a path that no longer
+# exists gave "null" and an empty VERSION. So try that page, its Atom feed and the API in turn, and only take a date.
 function get_commit_version() {
-    local repo="$1" date="" page
-    page=$(curl -sL -m 20 -H "Accept: application/json" "https://github.com/hiddify/$repo/commits/main.atom")
+    local repo="$1" branch="${2:-dev}" date="" page
+    page=$(curl -sL -m 20 -H "Accept: application/json" "https://github.com/hiddify/$repo/commits/$branch.atom")
     date=$(echo "$page" | jq -r '(.payload.commitsRefRoute.commitGroups // .payload.commitGroups // [])[0].commits[0].committedDate // empty' 2>/dev/null)
     if ! [[ "$date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}T ]]; then
-        date=$(curl -sL -m 20 "https://github.com/hiddify/$repo/commits/main.atom" | grep -m 1 -o '<updated>[^<]*</updated>' | sed -E 's#</?updated>##g')
+        date=$(curl -sL -m 20 "https://github.com/hiddify/$repo/commits/$branch.atom" | grep -m 1 -o '<updated>[^<]*</updated>' | sed -E 's#</?updated>##g')
     fi
     if ! [[ "$date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}T ]]; then
-        date=$(curl -sL -m 20 "https://api.github.com/repos/hiddify/$repo/commits/main" | jq -r '.commit.committer.date // empty' 2>/dev/null)
+        date=$(curl -sL -m 20 "https://api.github.com/repos/hiddify/$repo/commits/$branch" | jq -r '.commit.committer.date // empty' 2>/dev/null)
     fi
     if ! [[ "$date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}T ]]; then
-        echo "Could not read the latest commit date of $repo from GitHub" >&2
+        echo "Could not read the latest commit date of $repo ($branch) from GitHub" >&2
         return 1
     fi
     # In UTC: the page gives the committer's offset (+03:30), the feed and the API give Z; update.sh compares this with
