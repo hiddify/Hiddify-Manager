@@ -14,13 +14,15 @@ function add2iptables46(){
 }
 
 function add2iptables() {
-    iptables -C $1 >/dev/null 2>&1 || echo "adding rule $1" && iptables -I $1
+    # A || { B; C; }: "A || B && C" ran C (a second copy on top) even when the rule was there
+    iptables -C $1 >/dev/null 2>&1 || { echo "adding rule $1"; iptables -I $1; }
 
 }
 
 function add2ip6tables() {
     has_ipv6 || return 0
-    ip6tables -C $1 >/dev/null 2>&1 || echo "adding rule $1" && ip6tables -I $1
+    # A || { B; C; }: "A || B && C" ran C (a second copy on top) even when the rule was there
+    ip6tables -C $1 >/dev/null 2>&1 || { echo "adding rule $1"; ip6tables -I $1; }
 }
 
 function allow_port() { #allow_port "tcp" "80"
