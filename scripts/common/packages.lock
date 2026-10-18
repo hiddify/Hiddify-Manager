@@ -69,3 +69,5 @@ telemt|3.5.14|amd64|https://github.com/telemt/telemt/releases/download/3.5.14/te
 telemt|3.5.14|arm64|https://github.com/telemt/telemt/releases/download/3.5.14/telemt-aarch64-linux-gnu.tar.gz|d2e3ca6a3f407aecb190c4a73db74ec581d56b5dd6ab469cb0e1d0f2c3d31c57
 clash|1.19.32|amd64|https://github.com/MetaCubeX/mihomo/releases/download/v1.19.32/mihomo-linux-amd64-v1.19.32.gz|8451100836c9eda194331c2babfad490b2faf30cebc1a04b0e76fd8ac2d35d10
 clash|1.19.32|arm64|https://github.com/MetaCubeX/mihomo/releases/download/v1.19.32/mihomo-linux-arm64-v1.19.32.gz|9dd862e28b46ff7d775f169cceebc28deccaa0a9e804237d421cd2571e0caba0
+hiddify-core|5.0.2|arm64|https://github.com/hiddify/hiddify-core/releases/download/v5.0.2/hiddify-core-linux-arm64-glibc.tar.gz|2239ade8ee621734a274f4c4f83a2615371ed49a701f0d342ccc77ea20be17a3
+hiddify-core|5.0.2|amd64|https://github.com/hiddify/hiddify-core/releases/download/v5.0.2/hiddify-core-linux-amd64-glibc.tar.gz|5be252ec93f5d4cf852b0569f26e9a97fa99a57ed0c82711cb12d9a697a9cf30
