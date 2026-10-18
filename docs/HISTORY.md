@@ -3,6 +3,13 @@
 
 ## (unreleased)
 
+### Other
+
+* Improve update script stability and enhance file copying mechanism. [hiddify-com]
+
+
+## v14.0.0 (2026-10-18)
+
 ### New
 
 * Add latest version of hiddify-core. [hiddify-com]
