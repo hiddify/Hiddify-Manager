@@ -85,17 +85,34 @@ function run_parallel() {
 }
 
 # Certificates: the panel gets them (Let's Encrypt, then ZeroSSL; HAProxy answers the challenges) and renews them by
-# itself. A server with no real certificate yet (a new install, a new domain) waits for it here; when one changed, the
-# cores' configs are rebuilt (hiddify-core has the certificates inline).
+# itself. Install / reinstall (including quick setup) waits here for every domain that needs a real certificate — not
+# only the first one — so all admin links can be HTTPS before "Finished!". Each issued cert is stored and loaded into
+# HAProxy immediately; cores are rebuilt via apply-users. Domains that fail stay self-signed and the Domains page
+# keeps retrying.
 function wait_for_certificates() {
     update_progress "${PROGRESS_ACTION}" "Getting certificates (Let's Encrypt / ZeroSSL)" 98
-    hiddify-panel-cli issue-certificates --first --no-apply
-    local rc=$?
+    # No --first: that skipped the whole run once any domain already had a real cert, so new quick-setup domains
+    # never got one. With no flag, only domains that are still due are issued; already-valid ones are left alone.
+    local out rc=0
+    # stdout is the RenewSummary JSON; ACME logs go to stderr and stay visible in the install log
+    out=$(hiddify-panel-cli issue-certificates) || rc=$?
+    echo "$out"
     if [ "$rc" == 3 ]; then
+        # Exit 3 = at least one certificate changed (already in HAProxy + apply-users). Refresh generated configs and
+        # hiddify-core once more through the installer path so a mid-install race cannot leave it stale.
         bash scripts/common/replace_variables.sh
         DO_NOT_INSTALL=true install_run services/hiddify-core
-    elif [ "$rc" != 0 ]; then
+        rc=0
+    fi
+    if [ "$rc" != 0 ]; then
         warning "Certificates could not be issued now; the panel keeps trying (Domains page)"
+        return
+    fi
+    # Partial ACME failures still exit 0 (or 3 when something was issued): surface them so the log is clear.
+    local failed
+    failed=$(echo "$out" | python3 -c 'import json,sys; d=json.load(sys.stdin); print(int(d.get("failed") or 0))' 2>/dev/null) || failed=0
+    if [ "${failed:-0}" -gt 0 ]; then
+        warning "$failed domain certificate(s) could not be issued now; those stay self-signed until the Domains page retries"
     fi
 }
 

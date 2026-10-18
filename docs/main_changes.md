@@ -20,9 +20,10 @@
 - **Utils page** (runs in the browser only): share-link decoder and editor, plus Base64 and URL encoders.
 - **Full Persian support**: RTL layout, dark mode and a mobile-friendly layout.
 - **Security fixes**: node authentication, admin permissions, and no shell commands from templates.
-- **Supported systems**: Ubuntu 22.04, 24.04 and 26.04, and Docker.
-- Docker support:  install via : bash <(curl https://i.hiddify.com/docker/beta)
-- Direct installation:  bash <(curl https://i.hiddify.com/beta)
+- **Supported systems**: Ubuntu 22.04, 24.04 and 26.04, and Docker (**experimental** — see [docs/DOCKER.md](DOCKER.md)).
+- Docker (beta image): `bash <(curl -fsSL https://raw.githubusercontent.com/hiddify/Hiddify-Manager/main/scripts/common/docker-installer.sh) beta`
+- Direct installation: `bash <(curl https://i.hiddify.com/beta)`
+
 
 > ⚠️ **Before upgrading**: take a full backup, and see [section 2](#2-breaking-changes--upgrade-notes-read-before-upgrading).
 
@@ -270,6 +271,7 @@ Key commits: f219b2179, e2b5d3fb0, e967d269d, 5db33be44; manager repo: 44c2390, 
 - **Certificates**:
   - acme.sh registers with Let's Encrypt and ZeroSSL using a real email.
   - Certificates are synced into the panel's new TLS store, which validates subject alternative names and hostnames.
+  - Panel ACME (from **14.0.0b16**) uses **only** `data/cert`. `tls_store` (DB) is the source of truth and re-exports files there. On upgrade, leftovers in the old acme.sh folder `data/ssl` are imported into the DB and moved into `data/cert`; HAProxy must not load `data/ssl`. Rendered HAProxy configs rewrite any leftover `data/ssl` binds to `data/cert`. Stale builtin template overrides that still equal the previous catalog default are auto-reset on sync.
 - **Version bumps**: nginx 1.30, HAProxy 3.4 (aws-lc), WARP (wgcf) 2.2.31, and telemt 3.3.31 added to the package lock.
 - **Other**:
   - Ubuntu 26 sudo fix.
@@ -319,7 +321,8 @@ Key commits: f219b2179, e2b5d3fb0, e967d269d, 5db33be44; manager repo: 44c2390, 
   - Admins cannot grant a higher role than their own, or change their own role or `can_add_admin`.
   - Only a super admin can create super admins.
   - Admins who are not super admins always become the parent of the admins they create (6bb68a00e).
-- **User limits**: creating a user through the API now enforces the admin's `max_users` and `max_active_users`.
+- **User limits**: creating a user through the API now enforces the admin's `max_users` and `max_active_users`. An admin who has hit `max_users` can still edit existing users; turning a disabled user back on is gated only by `max_active_users` (and total traffic), not by the total-user ceiling.
+- **Clash / Mihomo client limits**: Mihomo cannot mirror every Xray tag. Stream VLESS against an Xray server is omitted when panel `vless_encryption` is set (Mihomo fails; Xray clients work). Xray `httpupgrade` is omitted for the same reason; **HC** (hiddify-core) httpupgrade is included. VMess over `xhttp` is omitted because Mihomo xhttp is VLESS-only. Clash preview/example dialogs show Clash configs as JSON (YAML remains available via the format toggle).
 - **MySQL hardening**: MySQL listens on localhost only, runs with systemd hardening and AppArmor, and the panel database user is re-synced on every install.
 - **No shell commands from templates**: the Jinja `exec` helper, which ran shell commands, was removed.
   - The two built-in templates that used it now use `panel_static_dir`, `now()` and `timedelta`.

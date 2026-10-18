@@ -116,13 +116,13 @@ function update_panel() {
             # Use the latest commit from GitHub
             latest=$(get_commit_version Hiddify-Panel)
             activate_python_venv
-            warning "DEVLEOP: hiddify panel version current=$current_panel_version latest=$latest"
+            echo "DEVELOP: hiddify panel version current=$current_panel_version latest=$latest"
             if [[ "$current_panel_version" != "$latest" ]]; then
-                error "The current develop version is outdated! Updating..."
+                echo "A newer develop panel is available. Updating..."
             fi
             if [[ $force == "true" || "$latest" != "$current_panel_version" ]]; then
                 update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
-               
+                
                 disable_panel_services
                 
                 install_panel_from_git "" "uv pip" || return 1
@@ -141,9 +141,9 @@ function update_panel() {
         beta)
             activate_python_venv
             latest=$(get_pre_release_version hiddify-panel)
-            warning "BETA: hiddify panel version current=$current_panel_version latest=$latest"
+            echo "BETA: hiddify panel version current=$current_panel_version latest=$latest"
             if [[ "$current_panel_version" != "$latest" ]]; then
-                error "The current beta version is outdated! Updating..."
+                echo "A newer beta panel is available. Updating..."
             fi
             if [[ $force == "true" || "$current_panel_version" != "$latest" ]]; then
                 update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
@@ -161,10 +161,10 @@ function update_panel() {
             # error "you can not install release version 8 using this script"
             # exit 1
             latest=$(get_release_version hiddify-panel)
+            echo "RELEASE: hiddify panel version current=$current_panel_version latest=$latest"
             if [[ "$current_panel_version" != "$latest" ]]; then
-                error "The current beta version is outdated! Updating..."
+                echo "A newer release panel is available. Updating..."
             fi
-            warning "hiddify panel version current=$current_panel_version latest=$latest"
             if [[ $force == "true" || "$current_panel_version" != "$latest" ]]; then
                 update_progress "Updating..." "Hiddify Panel from $current_panel_version to $latest" 10
                 # pip3 install -U hiddifypanel==$latest
