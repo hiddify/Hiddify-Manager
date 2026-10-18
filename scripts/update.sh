@@ -6,6 +6,17 @@ source /opt/hiddify-manager/scripts/common/utils.sh
 
 NAME="update"
 LOG_FILE="$(log_file $NAME)"
+
+# Install may replace this file while we are still reading it. Re-exec from a private copy so the
+# running bash keeps a stable script (avoids "syntax error near unexpected token fi" after Finished!).
+if [[ -z "${HIDDIFY_UPDATE_COPIED:-}" && -f "$0" && "$0" == */scripts/update.sh ]]; then
+    _upd_tmp=$(mktemp /tmp/hiddify-update.XXXXXX) || exit 1
+    cp -a "$0" "$_upd_tmp"
+    chmod 700 "$_upd_tmp"
+    export HIDDIFY_UPDATE_COPIED=1
+    exec bash "$_upd_tmp" "$@"
+fi
+
 function cleanup() {
     error "Script interrupted. Exiting..."
     # disable_ansii_modes

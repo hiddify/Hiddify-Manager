@@ -329,7 +329,11 @@ function update_from_github() {
         rm -rf "$work"
         return 1
     fi
-    cp -a "$work/tree/." /opt/hiddify-manager/ || {
+    # rsync writes each file to a temp name then renames. Plain `cp -a` truncates in place, so a
+    # still-running update.sh (same inode) reads shifted bytes and dies with
+    # "syntax error near unexpected token fi" right after "Finished!".
+    install_package rsync
+    rsync -a "$work/tree/" /opt/hiddify-manager/ || {
         rm -rf "$work"
         return 1
     }
