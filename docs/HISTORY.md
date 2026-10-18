@@ -30,6 +30,24 @@
 
 ### Other
 
+* Add experimental Docker installation documentation and update main changes. [hiddify-com]
+
+  - Introduced a new `DOCKER.md` file detailing the experimental Docker support for Hiddify Manager, including installation instructions and runtime limitations.
+  - Updated `main_changes.md` to reflect Docker support as experimental and provide quick installation commands.
+  - Enhanced error handling in `install.sh` for certificate issuance during installation.
+  - Updated submodule reference in `services/panel/src`.
+
+* Refactor WARP WireGuard account management and enhance data handling. [hiddify-com]
+
+  - Updated `ensure_warp_data_links` to prevent overwriting valid accounts with broken ones.
+  - Introduced `reset_warp_wireguard_account` to manage account resets more effectively.
+  - Improved error handling and account registration logic in `run.sh` and `run.sh.j2`.
+  - Added a new helper function `_restart_warp_wireguard` for cleaner service management.
+
+* Add hiddify-core package entries to packages.lock and update submodule reference in panel/src. [hiddify-com]
+
+* Enhance service management scripts for robustness. [hiddify-com]
+
 * Update docker-init.sh and install.sh scripts for improved UI build checks and systemctl commands. [hiddify-com]
 
   - Enhanced docker-init.sh to check for both admin and user UI builds, updating the warning message accordingly.
