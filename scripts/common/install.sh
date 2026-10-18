@@ -21,7 +21,7 @@ usermod -aG hiddify-common root
 #echo "nameserver 1.1.1.1" >>/etc/resolvconf/resolv.conf.d/base
 #resolvconf -u
 sudo systemctl unmask --now systemd-resolved.service
-systemctl enable --now systemd-resolved >/dev/null 2>&1
+systemctl enable --now systemd-resolved >/dev/null 2>&1 || true
 
 # install requirements for change_dns.py
 install_pypi_package pyyaml > /dev/null
@@ -91,17 +91,17 @@ bash google-bbr.sh > /dev/null
 
 
 echo "@reboot root /opt/hiddify-manager/scripts/install.sh --no-gui --no-log >> /opt/hiddify-manager/data/log/reboot.log 2>&1" >/etc/cron.d/hiddify_reinstall_on_reboot
-mv /etc/cron.d/hiddify_daily_memory_release /etc/cron.d/hiddify_daily > /dev/null 2>&1
+mv /etc/cron.d/hiddify_daily_memory_release /etc/cron.d/hiddify_daily > /dev/null 2>&1 || true
 echo "@daily root /opt/hiddify-manager/scripts/common/daily_actions.sh >> /opt/hiddify-manager/data/log/daily_actions.log 2>&1" >/etc/cron.d/hiddify_daily
-service cron reload
+service cron reload >/dev/null 2>&1 || true
 
 if [ "${MODE}" != "docker" ];then
-  localectl set-locale LANG=C.UTF-8
+  localectl set-locale LANG=C.UTF-8 >/dev/null 2>&1 || true
 fi
 
-update-locale LANG=C.UTF-8
+update-locale LANG=C.UTF-8 >/dev/null 2>&1 || true
 
-#echo "Defaults:hiddify-panel !requiretty" >/etc/sudoers.d/hiddify
+# Overwrite (do not append) so repeated installs do not duplicate the sudoers line.
 echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/scripts/common/commander.py" >/etc/sudoers.d/hiddify
 chmod 440 /etc/sudoers.d/hiddify
 
@@ -114,10 +114,12 @@ if [ -f "$HOME/.bashrc" ] && ! grep -qF 'hiddify-completion.bash' "$HOME/.bashrc
     echo '[ -f /opt/hiddify-manager/scripts/hiddify-completion.bash ] && . /opt/hiddify-manager/scripts/hiddify-completion.bash' >>"$HOME/.bashrc"
 fi
 
-# Missing rpcbind must not fail Common tools (script exit = last command).
+# Ubuntu 24 often has no rpcbind: a bare `systemctl disable` exits 1 and painted
+# "Common tools" red even though the install is fine. Only touch units that exist.
 if systemctl cat rpcbind.socket >/dev/null 2>&1; then
   systemctl disable --now rpcbind.socket >/dev/null 2>&1 || true
 fi
 if systemctl cat rpcbind.service >/dev/null 2>&1; then
   systemctl disable --now rpcbind >/dev/null 2>&1 || true
 fi
+
