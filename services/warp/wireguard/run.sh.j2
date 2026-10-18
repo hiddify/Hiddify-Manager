@@ -8,11 +8,10 @@ systemctl disable hiddify-warp.service >/dev/null 2>&1
 #api.zeroteam.top/warp?format=./wgcf for change warp
 export WGCF_LICENSE_KEY="{{hconfigs['warp_plus_code']}}"
 if ! check_warp_wireguard_connection "$(pwd)"; then
-  mv wgcf-account.toml wgcf-account.toml.backup
-  ensure_warp_data_links wireguard "$(pwd)"
+  # Do not mv+relink: that restores the same broken account from data/.
+  reset_warp_wireguard_account "$(pwd)"
   if ! check_warp_wireguard_connection "$(pwd)"; then
-    mv wgcf-account.toml wgcf-account.toml.backup
-    ensure_warp_data_links wireguard "$(pwd)"
+    reset_warp_wireguard_account "$(pwd)"
     export WGCF_LICENSE_KEY=
     if ! check_warp_wireguard_connection "$(pwd)"; then
       error "!!!!!!!!!!!!!!! WARP ERROR"

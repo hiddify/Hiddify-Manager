@@ -62,13 +62,27 @@ function install_warp_wireguard_profile() {
 }
 
 function reset_warp_wireguard_account() {
-    # Broken / banned wgcf accounts stay on disk forever otherwise: update fails and we never register again.
+    # Broken / banned wgcf accounts stay in data/ forever if we only mv the svc_dir
+    # symlink: ensure_warp_data_links would restore the old file and drop a new register.
     local svc_dir="${1:-.}"
+    local data="$HIDDIFY_DATA/services/warp/wireguard"
     echo "Resetting WARP account..."
-    mv "$svc_dir/wgcf-account.toml" "$svc_dir/wgcf-account.toml.backup" 2>/dev/null || true
-    rm -f "$svc_dir/wgcf-account.toml"
+    mkdir -p "$data"
+    if [ -e "$data/wgcf-account.toml" ]; then
+        mv -f "$data/wgcf-account.toml" "$data/wgcf-account.toml.backup" 2>/dev/null || true
+    elif [ -e "$svc_dir/wgcf-account.toml" ]; then
+        # Not yet linked into data/: archive whatever is in the service dir.
+        mv -f "$svc_dir/wgcf-account.toml" "$data/wgcf-account.toml.backup" 2>/dev/null || true
+    fi
+    rm -f "$svc_dir/wgcf-account.toml" "$data/wgcf-account.toml"
     (cd "$svc_dir" && ./wgcf register --accept-tos -m hiddify -n "$(hostname)") || return $?
     ensure_warp_data_links wireguard "$svc_dir"
+}
+
+function _restart_warp_wireguard() {
+    systemctl stop wg-quick@warp >/dev/null 2>&1
+    ip link show warp >/dev/null 2>&1 && ip link delete warp
+    systemctl start wg-quick@warp
 }
 
 function check_warp_wireguard_connection() {
@@ -89,14 +103,23 @@ function check_warp_wireguard_connection() {
         generate_warp_wireguard_config "$svc_dir" || return $?
     fi
     # A warp interface left from an earlier try (not owned by the unit) makes wg-quick fail with "already exists"
-    systemctl stop wg-quick@warp >/dev/null 2>&1
-    ip link show warp >/dev/null 2>&1 && ip link delete warp
-    systemctl start wg-quick@warp
+    _restart_warp_wireguard
     echo "Starting WARP... checking real connectivity"
     sleep 2  # the first WireGuard handshake
-    if ! warp_wireguard_real_test; then
-        sleep 3
-        echo "Checking real connectivity again"
-        warp_wireguard_real_test || return $?
+    if warp_wireguard_real_test; then
+        return 0
     fi
+    sleep 3
+    echo "Checking real connectivity again"
+    if warp_wireguard_real_test; then
+        return 0
+    fi
+    # Account still "valid" for wgcf update but dead on the wire — recreate and try once more.
+    warning "WARP connectivity failed; registering a new account"
+    reset_warp_wireguard_account "$svc_dir" || return $?
+    (cd "$svc_dir" && ./wgcf update >/dev/null 2>&1) || return $?
+    generate_warp_wireguard_config "$svc_dir" || return $?
+    _restart_warp_wireguard
+    sleep 2
+    warp_wireguard_real_test || return $?
 }

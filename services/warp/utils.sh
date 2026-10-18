@@ -2,6 +2,8 @@
 
 function ensure_warp_data_links() {
     # Move permanent WARP account/config files into data/ and symlink them back.
+    # A fresh real file in svc_dir (e.g. after wgcf register) replaces the data/ copy —
+    # otherwise a broken account in data/ is kept forever and the new register is deleted.
     local kind="${1:?}"
     local svc_dir="${2:-.}"
     local data="$HIDDIFY_DATA/services/warp/$kind"
@@ -11,11 +13,7 @@ function ensure_warp_data_links() {
         src="$svc_dir/$f"
         dst="$data/$f"
         if [ -f "$src" ] && [ ! -L "$src" ]; then
-            if [ ! -e "$dst" ]; then
-                mv "$src" "$dst"
-            else
-                rm -f "$src"
-            fi
+            mv -f "$src" "$dst"
         fi
         if [ -e "$dst" ]; then
             ln -sfn "$dst" "$src"
