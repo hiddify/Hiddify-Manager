@@ -54,8 +54,7 @@ ensure_warp_data_links singbox "$(pwd)"
 
 
 sed -i "s|2000|3000|g" warp-singbox.json
-curl --connect-timeout 1 -s http://ipv6.google.com 2>&1 >/dev/null
-if [ $? != 0 ]; then
+if ! warp_host_has_ipv6; then
 sed -i 's/"local_address":\[[^]]*\]/"local_address":["172.16.0.2\/32"]/' warp-singbox.json
 
 fi

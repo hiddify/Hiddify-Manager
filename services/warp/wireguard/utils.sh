@@ -13,13 +13,6 @@ function warp_wireguard_real_test() {
     return $error
 }
 
-# True when the kernel has IPv6 on and it reaches the internet.
-function warp_host_has_ipv6() {
-    [ -d /proc/sys/net/ipv6 ] || return 1
-    [ "$(cat /proc/sys/net/ipv6/conf/all/disable_ipv6 2>/dev/null)" = 1 ] && return 1
-    curl --connect-timeout 1 -s https://v6.ident.me/ >/dev/null 2>&1
-}
-
 # wgcf writes "Address = 172.16.0.2/32, 2606:4700:...:91df/128": keep the IPv4 entry, drop the IPv6 one.
 # wg-quick fails the whole interface with "ipv6: IPv6 is disabled on this device" otherwise.
 function strip_warp_ipv6_address() {
