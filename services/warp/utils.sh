@@ -20,3 +20,10 @@ function ensure_warp_data_links() {
         fi
     done
 }
+
+# True when the kernel has IPv6 on and it reaches the internet.
+function warp_host_has_ipv6() {
+    [ -d /proc/sys/net/ipv6 ] || return 1
+    [ "$(cat /proc/sys/net/ipv6/conf/all/disable_ipv6 2>/dev/null)" = 1 ] && return 1
+    curl --connect-timeout 1 -s https://v6.ident.me/ >/dev/null 2>&1
+}

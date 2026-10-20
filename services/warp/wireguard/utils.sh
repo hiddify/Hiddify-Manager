@@ -13,6 +13,12 @@ function warp_wireguard_real_test() {
     return $error
 }
 
+# wgcf writes "Address = 172.16.0.2/32, 2606:4700:...:91df/128": keep the IPv4 entry, drop the IPv6 one.
+# wg-quick fails the whole interface with "ipv6: IPv6 is disabled on this device" otherwise.
+function strip_warp_ipv6_address() {
+    sed -i -E '/^Address[[:space:]]*=/{s/[[:space:]]*,?[[:space:]]*[0-9a-fA-F]*:[0-9a-fA-F:]*\/[0-9]+//g;s/=[[:space:]]*,[[:space:]]*/= /;s/=[[:space:]]+/= /}' "$1"
+}
+
 function generate_warp_wireguard_config() {
     # Generate into a temp file and only replace the live profile after
     # post-processing succeeded; without "Table = off" wg-quick hijacks the
@@ -31,10 +37,9 @@ function generate_warp_wireguard_config() {
     fi
     sed -i 's/\[Peer\]/Table = off\n\[Peer\]/g' "$tmp"
     sed -i 's/MTU = 1280/MTU = 1320/g' "$tmp"
-    curl --connect-timeout 1 -s https://v6.ident.me/ 2>&1 >/dev/null
-    if [ $? != 0 ] || [ "$(cat /proc/sys/net/ipv6/conf/all/disable_ipv6)" = 1 ]; then
+    if ! warp_host_has_ipv6; then
         echo "Removing IPV6 from WARP..."
-        sed -i '/Address = [0-9a-fA-F:]\{4,\}/s/^/# /' "$tmp"
+        strip_warp_ipv6_address "$tmp"
     fi
     sed -i '/DNS = 1.1.1.1/s/^/# /' "$tmp"
     if ! grep -q '^Table = off$' "$tmp" || ! grep -q '^PrivateKey = ' "$tmp"; then
@@ -75,7 +80,14 @@ function reset_warp_wireguard_account() {
         mv -f "$svc_dir/wgcf-account.toml" "$data/wgcf-account.toml.backup" 2>/dev/null || true
     fi
     rm -f "$svc_dir/wgcf-account.toml" "$data/wgcf-account.toml"
-    (cd "$svc_dir" && ./wgcf register --accept-tos -m hiddify -n "$(hostname)") || return $?
+    local rc=0
+    (cd "$svc_dir" && ./wgcf register --accept-tos -m hiddify -n "$(hostname)") || rc=$?
+    if [ "$rc" != 0 ]; then
+        # Cloudflare answers 429 when registering too often: keep the old account instead of ending with none.
+        [ -e "$data/wgcf-account.toml.backup" ] && cp -f "$data/wgcf-account.toml.backup" "$data/wgcf-account.toml"
+        ensure_warp_data_links wireguard "$svc_dir"
+        return $rc
+    fi
     ensure_warp_data_links wireguard "$svc_dir"
 }
 
