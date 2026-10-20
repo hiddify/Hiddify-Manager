@@ -5,6 +5,13 @@
 
 ### Other
 
+* Update subproject commit reference to c7684e1. [hiddify-com]
+
+
+## v14.0.4 (2026-10-20)
+
+### Other
+
 * Add journald and logrotate configuration to manage log sizes. [hiddify-com]
 
   - Introduced journald.conf to limit journal log size to 500M and individual file size to 100M.
