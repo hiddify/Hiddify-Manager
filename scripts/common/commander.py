@@ -181,8 +181,11 @@ def update_usage():
 
 
 @cli.command("apply-users")
-def apply_users():
+@click.option("--domain", is_flag=True, help="Domains changed: also restart the services that cannot hot-reload them.")
+def apply_users(domain):
     cmd = [Command.apply_users.value]
+    if domain:
+        cmd.append("domain")
     run(cmd, unit="hiddify-apply-users", wait_if_active=True)
 
 

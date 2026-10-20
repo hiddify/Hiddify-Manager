@@ -1,5 +1,6 @@
 #!/bin/bash
 # Regenerate the configs that change with the user list, then reload those services.
+# Pass "domain" when domains changed: telemt then restarts instead of hot-reloading.
 # Output and errors are kept in the log dir: apply-users.out.log and apply-users.err.log.
 cd /opt/hiddify-manager
 source /opt/hiddify-manager/scripts/common/utils.sh
@@ -20,11 +21,11 @@ apply_users() {
     ensure_generated_permissions
     for svc in xray hiddify-core wireguard telegram/telemt; do 
         echo "Reloading $svc"
-        run_timed "$svc" bash "$HIDDIFY_SERVICES/$svc/reload.sh" & 
+        run_timed "$svc" bash "$HIDDIFY_SERVICES/$svc/reload.sh" "$1" &
     done
     echo "Waiting for services to reload"
     wait
     echo "Services reloaded"
 }
 
-run_logged apply-users apply_users
+run_logged apply-users apply_users "$1"

@@ -6,6 +6,7 @@ After=network.target
 Type=simple
 WorkingDirectory=/opt/hiddify-manager/services/telegram/telemt/
 ExecStart=/opt/hiddify-manager/services/telegram/telemt/telemt /opt/hiddify-manager/generated/telemt.toml
+ExecReload=/bin/kill -HUP $MAINPID
 Restart=on-failure
 LimitNOFILE=65536
 
