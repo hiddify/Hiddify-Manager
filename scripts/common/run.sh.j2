@@ -16,6 +16,18 @@ if [ "$MODE" != "docker" ];then
   fi
 fi
 
+# Logs must not fill the disk: cap the journal, empty a file log once it passes 100M.
+if [ "$MODE" != "docker" ];then
+  mkdir -p /etc/systemd/journald.conf.d
+  if ! cmp -s journald.conf /etc/systemd/journald.conf.d/hiddify.conf; then
+    cp journald.conf /etc/systemd/journald.conf.d/hiddify.conf
+    systemctl restart systemd-journald
+  fi
+  cp logrotate.conf /etc/logrotate.d/hiddify
+  chmod 644 /etc/logrotate.d/hiddify
+  echo "17 * * * * root /usr/sbin/logrotate /etc/logrotate.d/hiddify >/dev/null 2>&1" >/etc/cron.d/hiddify_logrotate
+fi
+
 # Check if PasswordAuthentication is enabled
 if ! grep -rxq "PasswordAuthentication.*no" /etc/ssh/sshd*; then
   chmod a+r /etc/ssh/sshd*
