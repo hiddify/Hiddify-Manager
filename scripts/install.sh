@@ -234,7 +234,11 @@ function set_config_from_hpanel() {
     fi
     
     export SERVER_IP=$(curl --connect-timeout 1 -s https://v4.ident.me/)
-    export SERVER_IPv6=$(curl --connect-timeout 1 -s https://v6.ident.me/)
+    # No probe when the kernel has IPv6 off: it cannot succeed.
+    export SERVER_IPv6=
+    if [ -d /proc/sys/net/ipv6 ] && [ "$(cat /proc/sys/net/ipv6/conf/all/disable_ipv6 2>/dev/null)" != 1 ]; then
+        SERVER_IPv6=$(curl --connect-timeout 1 -s https://v6.ident.me/)
+    fi
 }
 
 # Install and run a service; returns non-zero when its install.sh or run.sh failed (run_parallel reports it).

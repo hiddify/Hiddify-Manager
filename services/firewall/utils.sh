@@ -3,9 +3,9 @@
 # add2iptables*/allow_port/... add rules, redirect_domain_ports redirects the domains' own gateway ports,
 # save_firewall makes the rules survive a reboot.
 
-# False when the kernel has IPv6 off (ipv6.disable=1): ip6tables then only fails.
+# False when the kernel has IPv6 off (ipv6.disable=1 or sysctl disable_ipv6=1): ip6tables then only fails.
 function has_ipv6(){
-    [ -d /proc/sys/net/ipv6 ] && command -v ip6tables >/dev/null 2>&1
+    [ -d /proc/sys/net/ipv6 ] && [ "$(cat /proc/sys/net/ipv6/conf/all/disable_ipv6 2>/dev/null)" != 1 ] && command -v ip6tables >/dev/null 2>&1
 }
 
 function add2iptables46(){

@@ -1,3 +1,11 @@
+# Build the user page alongside Admin V2; neither runtime bundle needs Node.js.
+FROM --platform=$BUILDPLATFORM node:20-bookworm-slim AS user-ui
+WORKDIR /panel/hiddifypanel/user_front
+COPY services/panel/src/hiddifypanel/user_front/package.json services/panel/src/hiddifypanel/user_front/package-lock.json ./
+RUN npm ci --no-audit --no-fund --loglevel=error --maxsockets=2
+COPY services/panel/src/hiddifypanel/user_front/ ./
+RUN HIDDIFY_USER_FRONT_HEAP_MB=1024 bash scripts/build.sh
+
 # --- Admin V2 UI -------------------------------------------------------------
 # Built in a throwaway stage: only its output reaches the final image, which has
 # no Node.js. The output is plain JS/CSS, so build it on the build machine's own
@@ -26,6 +34,9 @@ WORKDIR /opt/hiddify-manager/
 
 COPY . .
 COPY --from=panel-ui /panel/hiddifypanel/static/admin-v2/ ./services/panel/src/hiddifypanel/static/admin-v2/
+COPY --from=user-ui /panel/hiddifypanel/static/user-front/ ./services/panel/src/hiddifypanel/static/user-front/
+RUN test -f services/panel/src/hiddifypanel/static/user-front/manifest.json || \
+    test -f services/panel/src/hiddifypanel/static/user-front/.vite/manifest.json
 
 # python-systemctl must be a real file in /usr/bin (a relative symlink from
 
