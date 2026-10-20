@@ -5,6 +5,17 @@
 
 ### Other
 
+* Add journald and logrotate configuration to manage log sizes. [hiddify-com]
+
+  - Introduced journald.conf to limit journal log size to 500M and individual file size to 100M.
+  - Added logrotate.conf to rotate logs exceeding 100M, ensuring they do not fill the disk.
+  - Updated run.sh.j2 to copy these configurations and set up a cron job for log rotation.
+
+
+## v14.0.3 (2026-10-20)
+
+### Other
+
 * Merge branch 'dev' of github.com:hiddify/Hiddify-Manager into dev. [hiddify-com]
 
 * Merge pull request #5634 from davodm/fix/warp-ipv4-only. [Hiddify]
