@@ -33,6 +33,7 @@ RUN mkdir -p /etc/sudoers.d/ && \
     apt-get update && apt-get install -y --no-install-recommends python3 ca-certificates && \
     mkdir -p /opt/hiddify-manager/data && \
     bash ./scripts/common/hiddify_installer.sh docker --no-gui --no-log && \
+    (cd services/telegram/telemt && bash install.sh && test -x ./telemt && ./telemt --version) && \
     rm -rf /var/cache/apt/archives /var/lib/apt/lists/* && \
     echo "Defaults:hiddify-panel !requiretty" >/etc/sudoers.d/hiddify && \
     echo "hiddify-panel ALL=(root) NOPASSWD: /opt/hiddify-manager/scripts/common/commander.py" >>/etc/sudoers.d/hiddify && \
