@@ -4100,12 +4100,12 @@ class Systemctl:
             logg.info(" reload-or-try-restart unit %s => %s", conf.name(), strQ(conf.filename()))
             return self.do_reload_or_try_restart_unit_from(conf)
     def do_reload_or_try_restart_unit_from(self, conf):
+        # Neither spelling should reload or start an inactive service.
+        if not self.is_active_from(conf):
+            return True
         if conf.getlist(Service, "ExecReload", []):
             return self.do_reload_unit_from(conf)
-        elif not self.is_active_from(conf):
-            return True
-        else:
-            return self.do_restart_unit_from(conf)
+        return self.do_restart_unit_from(conf)
     def kill_modules(self, *modules):
         """ [UNIT]... -- kill these units """
         found_all = True
@@ -6588,7 +6588,7 @@ def run(command, *modules):
         exitcode = is_not_ok(systemctl.reload_modules(*modules))
     elif command in ["reload-or-restart"]:
         exitcode = is_not_ok(systemctl.reload_or_restart_modules(*modules))
-    elif command in ["reload-or-try-restart"]:
+    elif command in ["reload-or-try-restart", "try-reload-or-restart"]:
         exitcode = is_not_ok(systemctl.reload_or_try_restart_modules(*modules))
     elif command in ["reset-failed"]:
         exitcode = is_not_ok(systemctl.reset_failed_modules(*modules))
