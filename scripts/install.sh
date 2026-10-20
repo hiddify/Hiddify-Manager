@@ -243,7 +243,13 @@ function install_run() {
     local start_time=$(date +%s) rc=0
 
     if [ "$DO_NOT_INSTALL" != "true" ];then
-        runsh install.sh "$@" || rc=$?
+        if [ "$DOCKER_MODE" == "true" ]; then
+            # Docker installs at image build, before the settings exist: install every service; the container start
+            # enables or disables each one.
+            runsh install.sh "$1" || rc=$?
+        else
+            runsh install.sh "$@" || rc=$?
+        fi
         if [ "$MODE" != "apply_users" ] && [ "$DOCKER_MODE" != "true"  ]; then
             systemctl daemon-reload
         fi
