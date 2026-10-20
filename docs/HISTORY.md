@@ -1,6 +1,51 @@
 # Changelog
 
 
+## (unreleased)
+
+### Other
+
+* Merge branch 'dev' of github.com:hiddify/Hiddify-Manager into dev. [hiddify-com]
+
+* Merge pull request #5634 from davodm/fix/warp-ipv4-only. [Hiddify]
+
+  fix(warp): drop the IPv6 address from the WARP profile on IPv4-only hosts
+
+* Fix(install): skip the IPv6 address probe when the kernel has IPv6 off. [davodm]
+
+* Fix(ipv6): one IPv6 check for WARP and the firewall. [davodm]
+
+  - Move warp_host_has_ipv6 to services/warp/utils.sh and use it in the sing-box
+    WARP too: it only probed ipv6.google.com and ignored disable_ipv6=1.
+  - firewall has_ipv6(): /proc/sys/net/ipv6 exists even with disable_ipv6=1, so
+    ip6tables rules were still attempted on IPv4-only servers.
+
+* Fix(warp): drop the IPv6 address from the WARP profile on IPv4-only hosts. [davodm]
+
+  wgcf writes 'Address = 172.16.0.2/32, 2606:...' on one line; the old sed needed
+  4+ hex chars right after 'Address = ' so it never matched, and wg-quick@warp
+  failed with 'IPv6 is disabled on this device'. Strip only the IPv6 entry.
+
+  Also keep the previous account when wgcf register fails (429), instead of
+  ending with no account at all.
+
+* Merge pull request #5637 from 2Grey/fix/docker-user-front-assets. [Hiddify]
+
+  fix(docker): build and ship the user frontend
+
+* Fix(docker): include the built user frontend in the image. [Sergey Ryazanov]
+
+* Merge pull request #5639 from 2Grey/fix/docker-systemctl-try-reload. [Hiddify]
+
+  fix(docker): support try-reload-or-restart in systemctl
+
+* Fix(docker): support try-reload-or-restart in systemctl. [Sergey Ryazanov]
+
+* Enhance installation script to support Docker mode. [hiddify-com]
+
+* Enhance domain change handling. [hiddify-com]
+
+
 ## v14.0.1 (2026-10-18)
 
 ### Other
