@@ -1,6 +1,6 @@
 #!/bin/bash
 # Regenerate the configs that change with the user list, then reload those services.
-# Pass "domain" when domains changed: telemt then restarts instead of hot-reloading.
+# $1: "domain" (domains changed: telemt restarts) or "users" (only users changed: xray gets them from the panel live).
 # Output and errors are kept in the log dir: apply-users.out.log and apply-users.err.log.
 cd /opt/hiddify-manager
 source /opt/hiddify-manager/scripts/common/utils.sh

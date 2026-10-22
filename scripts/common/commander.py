@@ -182,10 +182,13 @@ def update_usage():
 
 @cli.command("apply-users")
 @click.option("--domain", is_flag=True, help="Domains changed: also restart the services that cannot hot-reload them.")
-def apply_users(domain):
+@click.option("--users-only", is_flag=True, help="Only users changed, already given to xray through its API: do not reload xray.")
+def apply_users(domain, users_only):
     cmd = [Command.apply_users.value]
     if domain:
         cmd.append("domain")
+    elif users_only:
+        cmd.append("users")
     run(cmd, unit="hiddify-apply-users", wait_if_active=True)
 
 
