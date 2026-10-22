@@ -5,6 +5,19 @@
 
 ### Other
 
+* Refactor reload.sh to improve service management: start hiddify-telegram-proxy.service if inactive, and reload instead of try-reload-or-restart for user changes. [hiddify-com]
+
+* Update hiddify-ss-faketls.service.j2 to use decoy_domain for failover configuration. [hiddify-com]
+
+* Enhance apply_users script to support users-only option and update related documentation. Modify reload.sh to prevent service restart when only user changes are applied. [hiddify-com]
+
+* Add hiddify-dev skill documentation. [hiddify-com]
+
+
+## v14.0.5 (2026-10-20)
+
+### Other
+
 * Update subproject commit reference to c7684e1. [hiddify-com]
 
 
