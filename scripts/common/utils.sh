@@ -761,15 +761,23 @@ function install_python310() {
 
 }
 # How a panel link's certificate looks to a browser: trusted, self_signed (or otherwise not trusted) or insecure (http).
-# Asks this server itself (--connect-to), so a domain behind a CDN or not resolving yet is still checked.
+# Asks this server itself, so a domain behind a CDN or not resolving yet is still checked.
 function link_cert_state() {
-    local url="$1"
+    local url="$1" host
     [[ "$url" == http://* ]] && { echo insecure; return; }
-    curl -s -o /dev/null --head --connect-timeout 3 --max-time 6 --connect-to "::127.0.0.1:443" "$url"
-    case $? in
-    0 | 22) echo trusted ;;  # 22: an HTTP error status, the TLS handshake (and so the certificate) was fine
-    *) echo self_signed ;;
-    esac
+    # Ask this server itself, so a domain behind a CDN or not resolving yet is still checked.
+    host="${url#https://}"
+    host="${host%%/*}"
+    [[ "$host" == \[* ]] || host="${host%%:*}"  # strip :port, keep [IPv6] intact
+    # openssl sends the ClientHello immediately; curl loads the whole CA bundle first, which on slow
+    # boards takes longer than the 100ms rpxy-l4 waits for the SNI of a new connection. The probe then
+    # fails and a perfectly valid certificate is reported as self-signed.
+    if timeout 8 openssl s_client -connect 127.0.0.1:443 -servername "$host" \
+        -verify_return_error -verify_hostname "$host" </dev/null >/dev/null 2>&1; then
+        echo trusted
+    else
+        echo self_signed
+    fi
 }
 
 # The panel's links, grouped by how safe they are to open: a trusted certificate (green), self-signed (yellow: the
