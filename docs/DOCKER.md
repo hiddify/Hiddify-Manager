@@ -5,10 +5,23 @@ Docker support in Hiddify Manager is **experimental**. Prefer a bare-metal insta
 ## Quick start (published image)
 
 ```bash
+bash <(curl -fsSL https://i.hiddify.com/docker/release)   # ghcr …:latest
+bash <(curl -fsSL https://i.hiddify.com/docker/beta)      # ghcr …:beta
+bash <(curl -fsSL https://i.hiddify.com/docker/dev)       # ghcr …:dev
+```
+
+Those URLs curl `main/common/docker-installer.sh` (a shim) which runs
+`scripts/common/docker-installer.sh`. Direct form:
+
+```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/hiddify/Hiddify-Manager/main/scripts/common/docker-installer.sh) beta
 ```
 
-Legacy redirects that still fetch `common/docker-installer.sh` are shimmed to the script above.
+| One-liner arg | Image tag |
+|---|---|
+| `release` / `stable` / `latest` | `:latest` |
+| `beta` | `:beta` |
+| `dev` / `develop` | `:dev` (set `HIDDIFY_DOCKER_BUILD=1` to clone `dev` and build instead) |
 
 The installer:
 
