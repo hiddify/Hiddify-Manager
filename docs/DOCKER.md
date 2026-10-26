@@ -32,6 +32,10 @@ REDIS_URI_MAIN="redis://:PASS@redis:6379/1"
 
 Host mode keeps `127.0.0.1` (MariaDB/Redis published on localhost only).
 
+For remote MySQL/MariaDB or Redis servers instead of the built-in containers, see
+[EXTERNAL_DATABASE.md](EXTERNAL_DATABASE.md) (override file:
+`docker-compose.external-db.yml`).
+
 ## Runtime limitations (not “stable” yet)
 
 - Process model still uses a **python-systemctl** shim (not a dedicated container PID 1/supervisor).
