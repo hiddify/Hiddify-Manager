@@ -11,7 +11,8 @@ env:
 jobs:
   make-upload-docker:
     permissions: write-all
-    timeout-minutes: 10
+    # ARM cross-build via QEMU is much slower than amd64; 10m always timed out.
+    timeout-minutes: 60
 
     runs-on: ubuntu-latest
     strategy:
@@ -20,8 +21,9 @@ jobs:
         platform:
           - linux/amd64
           - linux/arm64
-        exclude:
-          - platform: ${{ github.ref != 'tag' && 'linux/arm64' }}
+        # Do not use ``exclude`` with ``github.ref`` expressions: ``github.ref`` is
+        # the full ref (refs/heads/main, refs/tags/v…) and never equals ``tag``,
+        # so arm64 was excluded on every run (#5429).
     steps:
       - name: Checkout
         uses: actions/checkout@v3
