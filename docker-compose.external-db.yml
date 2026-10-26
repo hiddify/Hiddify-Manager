@@ -1,0 +1,13 @@
+# Use external (remote) MySQL/MariaDB and Redis servers instead of the built-in
+# containers. Set the connection URIs in docker.env
+# (SQLALCHEMY_DATABASE_URI / REDIS_URI_MAIN — see docs/EXTERNAL_DATABASE.md), then:
+#
+#   docker compose -f docker-compose.yml -f docker-compose.external-db.yml up -d
+#
+# This drops only the hiddifymanager -> mariadb/redis startup dependencies
+# (`!reset` needs Docker Compose v2.24+; on older versions edit
+# docker-compose.yml directly and remove the mariadb/redis services there).
+# The built-in containers from docker-compose.yml keep running but are unused.
+services:
+  hiddifymanager:
+    depends_on: !reset []

@@ -21,6 +21,7 @@
 - **Full Persian support**: RTL layout, dark mode and a mobile-friendly layout.
 - **Security fixes**: node authentication, admin permissions, and no shell commands from templates.
 - **Supported systems**: Ubuntu 22.04, 24.04 and 26.04, and Docker (**experimental** — see [docs/DOCKER.md](DOCKER.md)).
+- **External database**: the panel can use a remote MySQL/MariaDB or Redis instead of the installed local ones — see [docs/EXTERNAL_DATABASE.md](EXTERNAL_DATABASE.md).
 - Docker (beta image): `bash <(curl -fsSL https://raw.githubusercontent.com/hiddify/Hiddify-Manager/main/scripts/common/docker-installer.sh) beta`
 - Direct installation: `bash <(curl https://i.hiddify.com/beta)`
 
