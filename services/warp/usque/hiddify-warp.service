@@ -1,0 +1,21 @@
+[Unit]
+Description=Hiddify WARP (usque MASQUE)
+After=network-online.target nss-lookup.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/hiddify-manager/services/warp/usque
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW
+ExecStart=/opt/hiddify-manager/services/warp/usque/run-instance.sh
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=5
+LimitNOFILE=infinity
+StandardOutput=append:/opt/hiddify-manager/data/log/system/warp.out.log
+StandardError=append:/opt/hiddify-manager/data/log/system/warp.err.log
+
+[Install]
+WantedBy=multi-user.target

@@ -37,7 +37,7 @@ function main() {
             *hiddify-panel*|*hiddify-cli*)
                 continue
                 ;;
-            wg-quick@warp)
+            wg-quick@warp|hiddify-warp)
                 [ "$(hconfig warp_mode)" == "disable" ] && continue
                 ;;
         esac

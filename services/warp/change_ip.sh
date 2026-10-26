@@ -1,1 +1,1 @@
-cd wireguard&&bash change_ip.sh
+cd usque && bash change_ip.sh

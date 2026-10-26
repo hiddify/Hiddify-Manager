@@ -9,7 +9,7 @@ function ensure_warp_data_links() {
     local data="$HIDDIFY_DATA/services/warp/$kind"
     mkdir -p "$data"
     local f src dst
-    for f in wgcf-account.toml wgcf-account.toml.backup warp.conf wgcf-profile.conf; do
+    for f in wgcf-account.toml wgcf-account.toml.backup warp.conf wgcf-profile.conf config.json config.json.backup; do
         src="$svc_dir/$f"
         dst="$data/$f"
         if [ -f "$src" ] && [ ! -L "$src" ]; then

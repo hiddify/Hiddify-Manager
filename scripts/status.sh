@@ -29,7 +29,7 @@ function main(){
     warning "- Services Status:"
     
     for s in $(hiddify_service_units); do
-        [ $s == "wg-quick@warp" ] && [ $(hconfig "warp_mode") == "disable" ] && continue
+        { [ $s == "wg-quick@warp" ] || [ $s == "hiddify-warp" ]; } && [ $(hconfig "warp_mode") == "disable" ] && continue
         
         [ $s == "hiddify-mysql" ] && [ "$DOCKER_MODE" == "true" ] && continue
         

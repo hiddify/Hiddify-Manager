@@ -1,1 +1,1 @@
-cd wireguard&&bash install.sh
+cd usque && bash install.sh

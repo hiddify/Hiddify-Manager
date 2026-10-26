@@ -1,1 +1,1 @@
-cd wireguard&&bash run.sh
+cd usque && bash run.sh

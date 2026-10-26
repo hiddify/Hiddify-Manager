@@ -1,2 +1,2 @@
 cd $( dirname -- "$0"; )
-cd wireguard&&bash status.sh
+cd usque && bash status.sh

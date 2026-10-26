@@ -73,3 +73,5 @@ hiddify-core|5.0.2|arm64|https://github.com/hiddify/hiddify-core/releases/downlo
 hiddify-core|5.0.2|amd64|https://github.com/hiddify/hiddify-core/releases/download/v5.0.2/hiddify-core-linux-amd64-glibc.tar.gz|5be252ec93f5d4cf852b0569f26e9a97fa99a57ed0c82711cb12d9a697a9cf30
 rpxy-l4|0.2.5|amd64|https://github.com/junkurihara/rust-rpxy-l4/releases/download/0.2.5/rpxy-l4-x86_64-unknown-linux-musl.tar.gz|38076d8ec4987e3cabd71fc309036a62647650b80aad1bab58b383be488b3130
 rpxy-l4|0.2.5|arm64|https://github.com/junkurihara/rust-rpxy-l4/releases/download/0.2.5/rpxy-l4-aarch64-unknown-linux-musl.tar.gz|7cfbb1436c22b00491dd4e5c7b7475a58506625b0abee2197167781d5ca76a17
+usque|4.2.1|amd64|https://github.com/Diniboy1123/usque/releases/download/v4.2.1/usque_4.2.1_linux_amd64.zip|4117e20695078af9c11edecd1a826c009bbc7ea0b7f64458612b4198910bc313
+usque|4.2.1|arm64|https://github.com/Diniboy1123/usque/releases/download/v4.2.1/usque_4.2.1_linux_arm64.zip|c88b061c2a567f30813d7505637d1fb6fe7ec5898b5b61fd05122409fa5ad925

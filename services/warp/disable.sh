@@ -1,1 +1,1 @@
-cd wireguard&&bash disable.sh
+cd usque && bash disable.sh
