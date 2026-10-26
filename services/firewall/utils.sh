@@ -88,10 +88,13 @@ function redirect_domain_ports() { # redirect_domain_ports "9443 8443" "8080"
 
 function save_firewall() {
     mkdir -p /etc/iptables/
-    # Drop repeated rules, but keep every table's header and COMMIT (filter and nat have their own).
-    iptables-save | awk '/^(\*|COMMIT)/ || !seen[$0]++' >/etc/iptables/rules.v4
+    # Drop repeated rules within a table only. Chain names like :DOCKER appear in both
+    # filter and nat; a global seen[] would drop the second definition and break
+    # iptables-restore when Docker is installed (#5649).
+    local dedupe='/^\*/ {delete seen; print; next} /^COMMIT$/ {print; next} !seen[$0]++'
+    iptables-save | awk "$dedupe" >/etc/iptables/rules.v4
     if has_ipv6; then
-        ip6tables-save | awk '/^(\*|COMMIT)/ || !seen[$0]++' >/etc/iptables/rules.v6
+        ip6tables-save | awk "$dedupe" >/etc/iptables/rules.v6
         ip6tables-restore </etc/iptables/rules.v6
     fi
     iptables-restore </etc/iptables/rules.v4
