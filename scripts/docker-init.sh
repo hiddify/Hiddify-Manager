@@ -9,19 +9,22 @@ cp /opt/hiddify-manager/services/docker/systemctl /usr/bin/systemctl
 cp /opt/hiddify-manager/services/docker/journalctl /usr/bin/journalctl 
 
 
-# Check and set REDIS_URI_MAIN
-if [ -z "$REDIS_URI_MAIN" ]; then
-    echo "env variables REDIS_URI_MAIN must be set"
-    exit 1
- 
+# Build URIs from passwords when only passwords are set (installer / custom .env).
+if [ -z "${REDIS_URI_MAIN:-}" ] && [ -n "${REDIS_PASSWORD:-}" ]; then
+    export REDIS_URI_MAIN="redis://:${REDIS_PASSWORD}@127.0.0.1:6379/1"
+fi
+if [ -z "${SQLALCHEMY_DATABASE_URI:-}" ] && [ -n "${MYSQL_PASSWORD:-}" ]; then
+    export SQLALCHEMY_DATABASE_URI="mysql+mysqldb://hiddifypanel:${MYSQL_PASSWORD}@127.0.0.1:3306/hiddifypanel?charset=utf8mb4"
 fi
 
-
-# Check and set SQLALCHEMY_DATABASE_URI
-if [ -z "$SQLALCHEMY_DATABASE_URI" ]; then
-    echo "env variables SQLALCHEMY_DATABASE_URI must be set"
+if [ -z "${REDIS_URI_MAIN:-}" ]; then
+    echo "env variables REDIS_URI_MAIN (or REDIS_PASSWORD) must be set"
     exit 1
- 
+fi
+
+if [ -z "${SQLALCHEMY_DATABASE_URI:-}" ]; then
+    echo "env variables SQLALCHEMY_DATABASE_URI (or MYSQL_PASSWORD) must be set"
+    exit 1
 fi
 
 source .venv313/bin/activate

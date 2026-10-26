@@ -1,11 +1,13 @@
 
 services:
   hiddifymanager:
-    build: . 
-    #image: ghcr.io/hiddify/hiddify-manager:latest #latest 
-    #image: ghcr.io/hiddify/hiddify-manager:beta 
+    # Prebuilt image (stable / beta / tagged installs). For a local source build,
+    # comment out ``image`` and uncomment ``build``.
+    image: ghcr.io/hiddify/hiddify-manager:latest
+    #build: .
+    #image: ghcr.io/hiddify/hiddify-manager:beta
     #image: ghcr.io/hiddify/hiddify-manager:dev
-    #image: ghcr.io/hiddify/hiddify-manager:v13.0.0 #specific version
+    #image: ghcr.io/hiddify/hiddify-manager:v13.0.0
 
     restart: always
     privileged: true
@@ -33,8 +35,9 @@ services:
       - path: ./docker.env
     environment:
       MARIADB_RANDOM_ROOT_PASSWORD: 1       # Root user password
-      MYSQL_DATABASE: hiddifypanel             
-      MYSQL_USER: hiddifypanel                     
+      MYSQL_DATABASE: hiddifypanel
+      MYSQL_USER: hiddifypanel
+      # MYSQL_PASSWORD comes from docker.env (must match SQLALCHEMY_DATABASE_URI)
     volumes:
       - ./docker-data/mariadb_data:/var/lib/mysql          # Persistent storage for database files
     healthcheck:
@@ -53,7 +56,7 @@ services:
     command: sh -c "redis-server --requirepass \"$$REDIS_PASSWORD\""
     volumes:
       - ./docker-data/redis_data:/data                # Persistent storage for Redis data
-    
+
     healthcheck:
       test: ["CMD", "redis-cli", "-a", "$$REDIS_PASSWORD", "ping"]
       interval: 5s
