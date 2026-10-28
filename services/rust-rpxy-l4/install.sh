@@ -3,7 +3,7 @@ source /opt/hiddify-manager/scripts/common/package_manager.sh
 
 mkdir -p bin 
 
-download_package rpxy-l4 rpxy-l4.tar.gz "0.2.4"
+download_package rpxy-l4 rpxy-l4.tar.gz 
 if [ "$?" == "0" ] || [ ! -x ./bin/rpxy-l4 ]; then
     systemctl stop hiddify-rpxy-l4.service >/dev/null 2>&1
     rm -rf bin/*

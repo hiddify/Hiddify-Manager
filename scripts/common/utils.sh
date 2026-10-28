@@ -389,15 +389,17 @@ install_package() {
         done
 
         if [ -n "$not_installed_packages" ]; then
-            apt-get install -y --no-install-recommends $not_installed_packages
+            # On a fresh server unattended-upgrades usually holds the dpkg lock
+            # for minutes; wait for it instead of failing every retry on it.
+            local apt_wait="-o DPkg::Lock::Timeout=900"
+            apt-get $apt_wait install -y --no-install-recommends $not_installed_packages
 
             # Check if installation failed
             if [ $? -ne 0 ]; then
-                apt --fix-broken install -y
-                apt-get update
+                apt-get $apt_wait --fix-broken install -y
+                apt-get $apt_wait update
                 #retries for 3 times
-                apt-get install -y $not_installed_packages ||apt-get install -y $not_installed_packages||apt-get install -y $not_installed_packages
-
+                apt-get $apt_wait install -y $not_installed_packages ||apt-get $apt_wait install -y $not_installed_packages||apt-get $apt_wait install -y $not_installed_packages
             fi
         fi
     ) 9>"$(lock_file apt)"

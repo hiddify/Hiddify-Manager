@@ -4,6 +4,10 @@ source /opt/hiddify-manager/services/mysql/utils.sh
 cd "$(dirname -- "$0")"
 
 install_package mariadb-server
+if ! is_installed_package mariadb-server >/dev/null; then
+    error "mariadb-server could not be installed (see apt output above). Aborting."
+    exit 1
+fi
 
 ensure_mysql_password  # not in $( ): it sets HIDDIFY_MYSQL_PASS_IS_NEW for the first-install hardening below
 MYSQL_PASS="$(get_mysql_password)"
