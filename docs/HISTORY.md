@@ -5,6 +5,90 @@
 
 ### Other
 
+* Fix(install): update installation scripts for hiddify-core and mariadb-server. [hiddify-com]
+
+  - Marked the FakeTLS Proxy task as deprecated in install.sh, indicating that hiddify-core now serves it with its own server.
+  - Added a check in mysql/install.sh to abort if mariadb-server installation fails.
+  - Enhanced package installation in utils.sh to handle dpkg lock issues more gracefully.
+  - Restart hiddify-core service if the running binary is deleted after an update.
+
+* Fix(haproxy): upgrade haproxy-awslc to >= 3.4.7 (#5576) [hiddify-com]
+
+  Require a minimum patch so installs leave the 3.4.5 mux_quic crash
+  (RESET_STREAM / upstream #3505) instead of treating any 3.4.x as done.
+
+* Fix(firewall): keep per-table chain defs when saving iptables (#5649) [hiddify-com]
+
+  Dedupe iptables-save lines within each table only so Docker's :DOCKER
+  in filter and nat both survive restore on hosts that also run Docker.
+
+* Fix(ci): build linux/arm64 docker images (#5429) [hiddify-com]
+
+  Remove the matrix exclude that always dropped arm64 (github.ref never
+  equals "tag") and raise the job timeout for QEMU cross-builds.
+
+* Fix(docker): make i.hiddify.com/docker/{release,beta,dev} installable (#5134) [hiddify-com]
+
+  Add common/docker-installer.sh shim, map release→latest / pull :beta/:dev,
+  and rewrite compose+env so stable installs use the ghcr image without a
+  local Dockerfile and keep DB/Redis URIs in sync with passwords.
+
+* Fix(docker): pull prebuilt image for stable install (#5134) [hiddify-com]
+
+  Compose no longer requires a local Dockerfile; the installer tags the
+  ghcr image and keeps DB/Redis URIs in sync with randomized passwords.
+
+* Merge branch 'dev' of github.com:hiddify/Hiddify-Manager into dev. [hiddify-com]
+
+* Merge pull request #5651 from devnullstdout/feat/external-database. [Hiddify]
+
+  feat: support an external MySQL/MariaDB and Redis server
+
+* Feat: support an external MySQL/MariaDB and Redis server. [devnullstdout]
+
+  The panel's database URI (SQLALCHEMY_DATABASE_URI) and Redis URI
+  (REDIS_URI_MAIN) were already read from the environment / app.cfg, but:
+
+  - services/panel/run.sh regenerated both URIs on every install/apply run,
+    clobbering any hand-configured external server back to the local MariaDB;
+  - scripts/install.sh always installed the local MariaDB and Redis services,
+    so pointing the panel elsewhere still left a heavier local stack running.
+
+  Now:
+
+  - services/panel/run.sh resolves the URIs in three steps: env var >
+    URI persisted with a HIDDIFY_EXTERNAL_* marker in app.cfg > the built-in
+    local MariaDB/Redis with the durable generated passwords. The markers are
+    rewritten together with the URIs, and the marker without any URI is a
+    loud error instead of a silent fallback to a database that was never
+    installed.
+  - scripts/install.sh skips the local MySQL/Redis install when an external
+    server is configured (is_panel_db_external / is_panel_redis_external in
+    scripts/common/utils.sh) and prints the reason.
+  - docker.env documents the external URIs and a
+    docker-compose.external-db.yml drops the forced depends_on on the built-in
+    containers for those who deploy with them.
+  - docs/EXTERNAL_DATABASE.md covers the remote user provisioning, both
+    install modes, the persistence behavior and how to go back to local.
+
+* Enhance WARP service integration by introducing 'masque' support. Update scripts to manage 'hiddify-warp' and 'wg-quick@warp' services, add new utility functions, and implement configuration handling for 'usque'. Include installation, status, and management scripts for 'usque' service. [hiddify-com]
+
+* Merge pull request #5644 from allanchan339/fix/panel-link-cert-check. [Hiddify]
+
+  fix(links): verify panel link certificates with openssl, not curl
+
+* Fix(links): verify panel link certificates with openssl, not curl. [Allan Chan]
+
+  curl loads the whole CA bundle before sending the TLS ClientHello. On slow
+  boards that takes longer than the 100ms rpxy-l4 waits for the SNI of a new
+  connection, so the probe is dropped and every valid certificate is reported
+  as self-signed in the 'Open your panel' summary.
+
+  openssl s_client sends the ClientHello immediately and still verifies the
+  chain and hostname, so the trusted/self-signed split is correct again.
+
+* Update rpxy-l4 to version 0.2.5 and modify add_version.sh to accept version as an argument. [hiddify-com]
+
 * Refactor reload.sh to improve service management: start hiddify-telegram-proxy.service if inactive, and reload instead of try-reload-or-restart for user changes. [hiddify-com]
 
 * Update hiddify-ss-faketls.service.j2 to use decoy_domain for failover configuration. [hiddify-com]
