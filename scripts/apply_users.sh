@@ -13,13 +13,13 @@ fi
 apply_users() {
     ensure_generated_permissions
     echo "Dumping user configs into $HIDDIFY_GENERATED"
-    dump_server_configs "xray,hiddify-core,wireguard,telemt" || {
+    dump_server_configs "xray,hiddify-core,wireguard,amneziawg,telemt" || {
         echo "Failed to dump user configs into $HIDDIFY_GENERATED" >&2
         return 1
     }
     echo "Reloading services"
     ensure_generated_permissions
-    for svc in xray hiddify-core wireguard telegram/telemt; do 
+    for svc in xray hiddify-core wireguard amneziawg telegram/telemt; do 
         echo "Reloading $svc"
         run_timed "$svc" bash "$HIDDIFY_SERVICES/$svc/reload.sh" "$1" &
     done

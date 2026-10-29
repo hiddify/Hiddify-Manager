@@ -1040,7 +1040,7 @@ function hconfig() {
 #TODO: check functionality when not using the venv
 # Hiddify's systemd units, one name per line (no ".service"): the unit files one and two levels under services/ (not
 # services/deprecated; ** without globstar is only one level), the running / enabled instances of the template units
-# (hiddify-*@*), and the WireGuard interfaces. For stop / restart / status / uninstall.
+# (hiddify-*@*), and the WireGuard / AmneziaWG interfaces. For stop / restart / status / uninstall.
 function hiddify_service_units() {
     (
         shopt -s nullglob # in this subshell only
@@ -1055,6 +1055,7 @@ function hiddify_service_units() {
         systemctl list-units --all --plain --no-legend 'hiddify-*@*.service' 2>/dev/null | awk '{print $1}' | sed 's/\.service$//'
         echo wg-quick@warp
         echo wg-quick@hiddifywg
+        echo awg-quick@hiddifyawg
     ) | sort -u
 }
 
@@ -1238,7 +1239,7 @@ function reload_all_configs(){
 # Prefers the running panel's HTTP API (no extra Python/module load); falls
 # back to the CLI (spawns its own interpreter) only if the panel isn't reachable.
 function dump_server_configs() {
-    # Optional comma-separated cores (xray,hiddify-core,wireguard,telemt). Empty means all.
+    # Optional comma-separated cores (xray,hiddify-core,wireguard,amneziawg,telemt). Empty means all.
     local cores="${1:-}"
     local query=""
     [ "$MODE" = "apply_users" ] && query="no_invalidate_cache=1"

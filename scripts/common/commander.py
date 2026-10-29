@@ -205,5 +205,19 @@ def update_wg_usage():
         pass
 
 
+@cli.command("update-awg-usage")
+def update_awg_usage():
+    """Per-peer transfer of the AmneziaWG interface, in the `wg show <if> transfer` format."""
+    try:
+        awg_raw_output = subprocess.check_output(
+            ["awg", "show", "hiddifyawg", "transfer"],
+            stderr=subprocess.DEVNULL,
+        )
+        print(awg_raw_output.decode())
+    except (FileNotFoundError, subprocess.CalledProcessError):
+        # AmneziaWG not installed or the interface not up yet.
+        pass
+
+
 if __name__ == "__main__":
     cli()
