@@ -28,6 +28,32 @@ if [ "$MODE" != "docker" ];then
   echo "17 * * * * root /usr/sbin/logrotate /etc/logrotate.d/hiddify >/dev/null 2>&1" >/etc/cron.d/hiddify_logrotate
 fi
 
+# The server's own DNS (the panel's "DNS server" setting, one or more IPs separated by commas): a systemd-resolved
+# drop-in, restarted only when it changes (no netplan apply: the network does not go down). Anything that is not an IP
+# is left out; with none left, the drop-in goes and the server's own DNS is used again.
+if [ "$MODE" != "docker" ];then
+  DNS_IPS=""
+  for ip in $(echo '{{ (hconfigs['dns_server'] or '') | replace("'", "") }}' | tr ',;' '  '); do
+    if [[ "$ip" =~ ^[0-9]{1,3}(\.[0-9]{1,3}){3}$ || "$ip" =~ ^[0-9a-fA-F:]+:[0-9a-fA-F:]*$ ]]; then
+      DNS_IPS="$DNS_IPS $ip"
+    fi
+  done
+  DNS_DROPIN=/etc/systemd/resolved.conf.d/hiddify-dns.conf
+  if [ -n "$DNS_IPS" ]; then
+    mkdir -p /etc/systemd/resolved.conf.d
+    printf '[Resolve]\nDNS=%s\nDomains=~.\n' "${DNS_IPS# }" >"$DNS_DROPIN.new"
+    if ! cmp -s "$DNS_DROPIN.new" "$DNS_DROPIN"; then
+      mv "$DNS_DROPIN.new" "$DNS_DROPIN"
+      systemctl restart systemd-resolved
+    else
+      rm -f "$DNS_DROPIN.new"
+    fi
+  elif [ -f "$DNS_DROPIN" ]; then
+    rm -f "$DNS_DROPIN"
+    systemctl restart systemd-resolved
+  fi
+fi
+
 # Check if PasswordAuthentication is enabled
 if ! grep -rxq "PasswordAuthentication.*no" /etc/ssh/sshd*; then
   chmod a+r /etc/ssh/sshd*
