@@ -3576,6 +3576,10 @@ class Systemctl:
             sys.exit(1)
         env = self.extend_exec_env(env)
         env.update(envs) # set $HOME to ~$USER
+        # A service gets no open files from whoever started it, as under systemd. Otherwise every daemon keeps the
+        # caller's descriptors, e.g. the install lock of set_lock (scripts/common/utils.sh), and hiddify apply stays
+        # blocked until the container restarts (#5655). stdin/stdout/stderr (the journal log above) stay.
+        os.closerange(3, os.sysconf("SC_OPEN_MAX"))
         try:
             if EXEC_SPAWN:
                 cmd_args = [arg for arg in cmd] # satisfy mypy
