@@ -77,3 +77,9 @@ usque|4.2.1|amd64|https://github.com/Diniboy1123/usque/releases/download/v4.2.1/
 usque|4.2.1|arm64|https://github.com/Diniboy1123/usque/releases/download/v4.2.1/usque_4.2.1_linux_arm64.zip|c88b061c2a567f30813d7505637d1fb6fe7ec5898b5b61fd05122409fa5ad925
 hiddify-core|5.1.0|arm64|https://github.com/hiddify/hiddify-core/releases/download/v5.1.0/hiddify-core-linux-arm64-glibc.tar.gz|65f148a8231398a545f6dfcf7fd6dd81c3fd0182d8ab624cf470c863d1d3c13c
 hiddify-core|5.1.0|amd64|https://github.com/hiddify/hiddify-core/releases/download/v5.1.0/hiddify-core-linux-amd64-glibc.tar.gz|1b6dfca925fbc943d10fccaa451bfd32802693989a56a334537a6718048cd475
+hiddify-core|5.3.0|arm64|https://github.com/hiddify/hiddify-core/releases/download/v5.3.0/hiddify-core-linux-arm64-glibc.tar.gz|ec7c08c59b070fb81fbc2966c8360303b0a3fe1cb1c8532e44318d513cb31c99
+hiddify-core|5.3.0|amd64|https://github.com/hiddify/hiddify-core/releases/download/v5.3.0/hiddify-core-linux-amd64-glibc.tar.gz|54de0af90f8bac7bd5fcfaf440bd4a5e35432603d12dec9e4d575d460fa56922
+xray|26.10.31|arm64|https://github.com/XTLS/Xray-core/releases/download/v26.10.31/Xray-linux-arm64-v8a.zip|1811c8f1da0c3b6dc707ebaf1c8390e987ba39859a8f0a7aadd8526157f2ec8d
+xray|26.10.31|amd64|https://github.com/XTLS/Xray-core/releases/download/v26.10.31/Xray-linux-64.zip|e4bd9119f50ae7c41658b1abd0679ae06f98bd864a2907ff33f2f2cf7081b214
+telemt|3.5.16|arm64|https://github.com/telemt/telemt/releases/download/3.5.16/telemt-aarch64-linux-gnu.tar.gz|1e1bc87f05923b9673cbbaf34a3e50f7fdcf7d496cd24efcdb34c278ed18a659
+telemt|3.5.16|amd64|https://github.com/telemt/telemt/releases/download/3.5.16/telemt-x86_64-linux-gnu.tar.gz|e6f46b2f3becf29bfd555cec8a059e429f7c082c1af402499b3a7940cf8ebd34

@@ -165,6 +165,14 @@ function main() {
         install_run services/panel
     fi
 
+    # The configs are rendered for the installed hiddify-core version (hiddifycore_version in the templates): install
+    # it first, or an upgrade renders for the old core and the new one refuses the config (crash loop). Step 3 then
+    # finds it installed and only runs it.
+    if [ "$MODE" != "apply_users" ] && [ "$DO_NOT_INSTALL" != "true" ]; then
+        update_progress "${PROGRESS_ACTION}" "Hiddify Core" 8
+        DO_NOT_RUN=true install_run services/hiddify-core
+    fi
+
     # 2) Read the panel's configs
     if [ "$DO_NOT_RUN" != "true" ]; then
         update_progress "HiddifyPanel" "Reading Configs from Panel..." 9
