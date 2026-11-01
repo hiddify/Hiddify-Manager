@@ -5,6 +5,27 @@
 
 ### Other
 
+* Fix(install): cli-progress 3.0.5 (no leftover progress window at full CPU, hiddify/cli_progress#6) [hiddify-com]
+
+* Chore(panel): sublink fixes for xray 26.10 / hiddify-core 5.3 / mihomo 1.19.32, no https redirect loop behind a CDN on :80. [hiddify-com]
+
+* Feat: update xray to 26.10.31, hiddify-core to 5.3.0 and telemt to 3.5.16. [hiddify-com]
+
+  install.sh installs hiddify-core before the panel renders the configs: they are made for the installed version (hiddifycore_version), so an older binary crash-looped on the new config.
+
+* Merge pull request #5656 from DrvpnTM/fix/docker-lock-fd-5655. [Hiddify]
+
+  fix(docker): do not pass the caller's open files to services (#5655)
+
+* Fix(docker): do not pass the caller's open files to services (#5655) [DR VPN | فیلتر شکن قوی]
+
+  The systemctl shim started services with fork + execve and kept every
+  inherited descriptor, so each daemon kept the 0-install.lock that
+  set_lock holds during the apply. The flock was never released: hiddify
+  apply and the panel's Apply Changes failed with "Another installation is
+  running" until the container restarted. Close descriptors above stderr
+  before the exec, as systemd does.
+
 * Fix(install): update installation scripts for hiddify-core and mariadb-server. [hiddify-com]
 
   - Marked the FakeTLS Proxy task as deprecated in install.sh, indicating that hiddify-core now serves it with its own server.
