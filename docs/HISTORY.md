@@ -5,6 +5,8 @@
 
 ### Other
 
+* Chore(panel): users page and bulk actions fast with thousands of users, bulk create up to 10 000. [hiddify-com]
+
 * Fix(install): cli-progress 3.0.5 (no leftover progress window at full CPU, hiddify/cli_progress#6) [hiddify-com]
 
 * Chore(panel): sublink fixes for xray 26.10 / hiddify-core 5.3 / mihomo 1.19.32, no https redirect loop behind a CDN on :80. [hiddify-com]
