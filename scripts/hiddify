@@ -103,6 +103,11 @@ reset-password)
     source "$SCRIPTS/common/utils.sh"
     echo "resetting owner password..."
     hiddify-panel-cli reset-owner-password
+    # The panel CLI prints nothing on its own; show the follow-up right here,
+    # so the user can immediately sign in (empty password) and set a new one.
+    echo
+    echo "The owner admin password has been reset. Sign in on one of the links below with an EMPTY password, then set a new password on the Admins page."
+    print_panel_links
     ;;
 *)
     echo "Unknown command: $cmd" >&2

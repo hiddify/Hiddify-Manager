@@ -166,8 +166,12 @@ function menu() {
         read -p "Press 'r' to reset admin password or press any other key to return to the main menu: " -n 1 key
         echo  # This adds a newline for better output readability
         if [[ "$key" == 'r' ]]; then
-            echo "reseting owner password..."
+            echo "resetting owner password..."
             hiddify-panel-cli reset-owner-password
+            # The reset looks silent otherwise: the password is stored empty and the user must
+            # sign in on an admin link above with an empty password, then set a new one.
+            success "The owner password has been reset. Sign in on one of the links above with an EMPTY password, then set a new password on the Admins page."
+            NEED_KEY=1
         fi
         NEED_KEY=0
         ;;
