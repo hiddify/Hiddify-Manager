@@ -3,7 +3,42 @@
 
 ## (unreleased)
 
+### Fix
+
+* Guide the user after the owner password reset. [devnullstdout]
+
+  hiddify-panel-cli reset-owner-password prints nothing (click discards the
+  command's return value), so both 'hiddify reset-password' and the menu's
+  'Press r' flow looked broken: the password really was reset, but the
+  terminal showed no confirmation, no next steps, and the menu bounced
+  straight back over the output.
+
+  - scripts/hiddify: after the reset print one line of guidance plus the
+    panel links, so the user can immediately sign in (empty password) and
+    set a new password on the Admins page.
+  - scripts/menu.sh: hold in the admin submenu after the reset
+    (NEED_KEY=1) instead of instantly redrawing the main menu over the
+    output, with the same one-line guidance.
+
 ### Other
+
+* Merge branch 'dev' of github.com:hiddify/Hiddify-Manager into dev. [hiddify-com]
+
+* Merge pull request #5663 from devnullstdout/fix/reset-password-feedback. [Hiddify]
+
+  fix: guide the user after the owner password reset
+
+* Feat(haproxy): enhance HAProxy management with reload functionality and certificate handling. [hiddify-com]
+
+* Feat(admins): filter the admins page by any permission. [hiddify-com]
+
+* Feat(admins): each admin counts its users' traffic with a reset period like users. [hiddify-com]
+
+* Fix(mieru): give Hiddify <= 5.5.5 the server IP, it fails when it cannot resolve the name. [hiddify-com]
+
+* Fix(utils): enhance certificate validation to support IP SANs and improve hostname checks. [hiddify-com]
+
+* Chore(packages): add hiddify-core version 5.5.5 for arm64 and amd64 architectures. [hiddify-com]
 
 * Chore(panel): users page and bulk actions fast with thousands of users, bulk create up to 10 000. [hiddify-com]
 
