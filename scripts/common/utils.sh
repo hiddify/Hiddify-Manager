@@ -806,8 +806,15 @@ function link_cert_state() {
     # openssl sends the ClientHello immediately; curl loads the whole CA bundle first, which on slow
     # boards takes longer than the 100ms rpxy-l4 waits for the SNI of a new connection. The probe then
     # fails and a perfectly valid certificate is reported as self-signed.
-    if timeout 8 openssl s_client -connect 127.0.0.1:443 -servername "$host" \
-        -verify_return_error -verify_hostname "$host" </dev/null >/dev/null 2>&1; then
+    # An IP is checked against the certificate's IP SANs (-verify_hostname only matches DNS names, so a valid IP
+    # certificate would look self-signed) and, like a browser, without SNI.
+    local -a check=(-servername "$host" -verify_hostname "$host")
+    if [[ "$host" == \[* || "$host" =~ ^[0-9.]+$ ]]; then
+        host="${host#[}"
+        check=(-noservername -verify_ip "${host%]}")
+    fi
+    if timeout 8 openssl s_client -connect 127.0.0.1:443 "${check[@]}" \
+        -verify_return_error </dev/null >/dev/null 2>&1; then
         echo trusted
     else
         echo self_signed
