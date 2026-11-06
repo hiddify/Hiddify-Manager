@@ -22,6 +22,8 @@
 
 ### Other
 
+* Feat(openvpn): add OpenVPN UDP and TCP (panel) [hiddify-com]
+
 * Merge branch 'dev' of github.com:hiddify/Hiddify-Manager into dev. [hiddify-com]
 
 * Merge pull request #5663 from devnullstdout/fix/reset-password-feedback. [Hiddify]
