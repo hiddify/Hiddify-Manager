@@ -1044,6 +1044,16 @@ function hconfig() {
     error "Error: Key not found: $key"
     return 1
 }
+
+# Same rule as the panel's warp_may_route: WARP is on and warp_tos_accepted is the JSON boolean true.
+# A missing key (panel not migrated, or terms never accepted) is off.
+function warp_in_use() {
+    local mode accepted
+    mode=$(hconfig warp_mode 2>/dev/null) || mode=disable
+    [[ "$mode" == "disable" ]] && return 1
+    accepted=$(hconfig warp_tos_accepted 2>/dev/null) || return 1
+    [[ "$accepted" == "true" ]]
+}
 #TODO: check functionality when not using the venv
 # Hiddify's systemd units, one name per line (no ".service"): the unit files one and two levels under services/ (not
 # services/deprecated; ** without globstar is only one level), the running / enabled instances of the template units

@@ -4,6 +4,11 @@ systemctl enable hiddify-warp.service
 
 source /opt/hiddify-manager/scripts/common/utils.sh
 source /opt/hiddify-manager/services/warp/utils.sh
+# Do not register a Cloudflare account, or keep the tunnel up, until an admin accepted the terms in the panel.
+if ! warp_in_use; then
+    bash disable.sh
+    exit 0
+fi
 ensure_warp_data_links singbox "$(pwd)"
 
 # if [[ $warp_mode == 'disabled' ]];then
@@ -12,6 +17,7 @@ ensure_warp_data_links singbox "$(pwd)"
 
 if ! [ -f "wgcf-account.toml" ];then
     mv wgcf-account.toml wgcf-account.toml.backup 2>/dev/null || true
+    # --accept-tos is wgcf's register flag. This service is started only after an admin accepted the terms in the panel.
     wgcf register --accept-tos && wgcf generate
     ensure_warp_data_links singbox "$(pwd)"
 fi

@@ -2,6 +2,11 @@
 #ln -sf $(pwd)/hiddify-warp.service /etc/systemd/system/hiddify-warp.service
 source /opt/hiddify-manager/scripts/common/utils.sh
 source /opt/hiddify-manager/services/warp/wireguard/utils.sh
+# Do not register a Cloudflare account, or keep the tunnel up, until an admin accepted the terms in the panel.
+if ! warp_in_use; then
+    bash disable.sh
+    exit 0
+fi
 ensure_warp_data_links wireguard "$(pwd)"
 systemctl disable hiddify-warp.service >/dev/null 2>&1
 

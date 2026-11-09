@@ -38,7 +38,7 @@ function main() {
                 continue
                 ;;
             wg-quick@warp|hiddify-warp)
-                [ "$(hconfig warp_mode)" == "disable" ] && continue
+                warp_in_use || continue
                 ;;
         esac
         restart_service $ss &

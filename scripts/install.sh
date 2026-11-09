@@ -197,7 +197,10 @@ function main() {
         add_task "Telegram Proxy" install_run services/telegram "$telegram_on"
         # Deprecated: hiddify-core serves SS FakeTLS with its own simple-obfs server; this only removes obfs-server
         add_task "FakeTLS Proxy" install_run services/ssfaketls false
-        add_task "Warp" install_run services/warp 1
+        # Off until WARP is enabled and an admin has accepted Cloudflare's terms (otherwise register -a would accept them unseen).
+        warp_on=false
+        warp_in_use && warp_on=true
+        add_task "Warp" install_run services/warp "$warp_on"
         add_task "Xray" install_run services/xray 1
     fi
     add_task "Wireguard" install_run services/wireguard "$(hconfig "wireguard_enable")"

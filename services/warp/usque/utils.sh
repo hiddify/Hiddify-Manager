@@ -76,6 +76,7 @@ function reset_warp_usque_account() {
     fi
     rm -f "$svc_dir/config.json" "$cfg"
     local rc=0
+    # -a is Cloudflare's register flag. This service is started only after an admin accepted the terms in the panel.
     (cd "$svc_dir" && ./usque register -a -m hiddify -n "$(hostname)" -c "$cfg") || rc=$?
     if [ "$rc" != 0 ]; then
         [ -e "$data/config.json.backup" ] && cp -f "$data/config.json.backup" "$cfg"

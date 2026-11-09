@@ -81,6 +81,7 @@ function reset_warp_wireguard_account() {
     fi
     rm -f "$svc_dir/wgcf-account.toml" "$data/wgcf-account.toml"
     local rc=0
+    # --accept-tos is wgcf's register flag. This service is started only after an admin accepted the terms in the panel.
     (cd "$svc_dir" && ./wgcf register --accept-tos -m hiddify -n "$(hostname)") || rc=$?
     if [ "$rc" != 0 ]; then
         # Cloudflare answers 429 when registering too often: keep the old account instead of ending with none.

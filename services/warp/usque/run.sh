@@ -1,6 +1,11 @@
 #!/bin/bash
 source /opt/hiddify-manager/scripts/common/utils.sh
 source /opt/hiddify-manager/services/warp/usque/utils.sh
+# Do not register a Cloudflare account, or keep the tunnel up, until an admin accepted the terms in the panel.
+if ! warp_in_use; then
+    bash disable.sh
+    exit 0
+fi
 ensure_warp_data_links usque "$(pwd)"
 stop_other_warp_backends
 

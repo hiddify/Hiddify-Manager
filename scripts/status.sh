@@ -15,7 +15,7 @@ function main(){
     
     # systemctl status --no-pager hiddify-xray hiddify-core hiddify-haproxy|cat
     
-    if [[ $(hconfig "warp_mode") != "disable" ]];then
+    if warp_in_use; then
         echo -e "\n----------------------------------------------------------------"
         bash services/warp/status.sh
     fi
@@ -29,7 +29,7 @@ function main(){
     warning "- Services Status:"
     
     for s in $(hiddify_service_units); do
-        { [ $s == "wg-quick@warp" ] || [ $s == "hiddify-warp" ]; } && [ $(hconfig "warp_mode") == "disable" ] && continue
+        { [ $s == "wg-quick@warp" ] || [ $s == "hiddify-warp" ]; } && ! warp_in_use && continue
         
         [ $s == "hiddify-mysql" ] && [ "$DOCKER_MODE" == "true" ] && continue
         
