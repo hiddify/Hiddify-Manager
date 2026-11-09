@@ -195,9 +195,15 @@ function get_commit_version() {
         echo "Could not read the latest commit date of $repo ($branch) from GitHub" >&2
         return 1
     fi
-    # In UTC: the page gives the committer's offset (+03:30), the feed and the API give Z; update.sh compares this with
-    # the installed VERSION, so every source must give the same text for the same commit.
-    local utc
+    commit_version "$date"
+}
+
+# commit_version <commit date (ISO 8601)>
+# The development version of a commit: MM-DDTHH:MM of its commit date. In UTC: the page gives the committer's
+# offset (+03:30), the feed and the API give Z; update.sh compares this with the installed VERSION, and the panel
+# shows it (write_panel_commit), so every source must give the same text for the same commit.
+function commit_version() {
+    local date="$1" utc
     utc=$(date -u -d "$date" +%Y-%m-%dT%H:%M 2>/dev/null) && date="$utc"
     echo "${date:5:11}"
 }
@@ -638,6 +644,20 @@ function build_panel_ui() {
     build_panel_user_ui "$@" || return $?
 }
 
+# write_panel_commit <panel source dir>
+# Records the source's commit in hiddifypanel/COMMIT (untracked): its hash, then its version as get_commit_version
+# gives it (commit_version), so a panel installed from it shows "DEV <version> · <hash>" instead of only "DEV":
+# the installed package has no .git.
+# Only from the panel's own checkout: without its .git, git would answer with the manager's commit.
+function write_panel_commit() {
+    local src="$1" top commit date
+    top=$(git -C "$src" rev-parse --show-toplevel 2>/dev/null) || return 0
+    [ "$(realpath "$top")" = "$(realpath "$src")" ] || return 0
+    commit=$(git -C "$src" rev-parse HEAD 2>/dev/null) || return 0
+    date=$(git -C "$src" show -s --format=%cI HEAD 2>/dev/null) || return 0
+    printf '%s\n%s\n' "$commit" "$(commit_version "$date")" >"$src/hiddifypanel/COMMIT"
+}
+
 # install_panel_from_git [ref] [pip command]
 # Installs the panel from GitHub (develop / tags): clone, build the UI, install.
 # `pip install git+...` cannot be used any more: it would install without the UI.
@@ -659,6 +679,7 @@ function install_panel_from_git() {
     elif ! build_panel_ui "$dir/src" --force; then
         rc=1
     else
+        write_panel_commit "$dir/src"
         { $pip_cmd install -U --no-deps --force-reinstall "$dir/src" && $pip_cmd install "$dir/src"; } || rc=$?
     fi
     # Always clean up, also when the download or the UI build failed.
