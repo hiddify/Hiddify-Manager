@@ -3,6 +3,47 @@
 
 ## (unreleased)
 
+### Other
+
+* Merge branch 'dev' of github.com:hiddify/Hiddify-Manager into dev. [hiddify-com]
+
+* Merge pull request #5677 from Hiddify-Official/feat/version-commit. [Hiddify]
+
+  feat(install): record the panel's commit and version from git
+
+* Feat(install): record the panel's commit and version when installing it from git. [Hiddify-Official]
+
+  The dev channel installs the panel from a fresh clone, so the installed
+  package has no .git and the admin UI could only show "DEV". Write the
+  clone's commit and its version to hiddifypanel/COMMIT before installing;
+  the panel shows them as "DEV <version> · <short commit>". The version
+  text comes from commit_version, split out of get_commit_version, so it
+  is the same text the dev update check compares.
+
+* Chore(panel): update the panel (passwords kept as salted hashes) [hiddify-com]
+
+* Chore(panel): update the panel (passkey sign-in, send messages from the inbox) [hiddify-com]
+
+* Chore(panel): update the panel (usage reports applied once, kept until answered) [hiddify-com]
+
+* Chore(panel): merge the panel's dev (config health, migrations _v201 and _v202) [hiddify-com]
+
+* Feat(warp): start WARP only after an admin accepts Cloudflare's terms. [hiddify-com]
+
+  warp_in_use (scripts/common/utils.sh) follows the panel's rule: WARP is on and warp_tos_accepted is true. Install,
+  restart and status use it, and the WARP services (wireguard, usque, sing-box) disable themselves instead of
+  registering a Cloudflare account until then.
+
+* Ci(panel): remove the Ninja i18n workflow. [hiddify-com]
+
+* Fix(config-health): make the automatic config checks opt-in and lighter (#5672) [hiddify-com]
+
+  Panel: the scheduled config health check is off unless an admin turns it on; it no longer starts Xray's Auto balancer
+  and retries only the configs that failed.
+
+
+## v14.2.0 (2026-11-06)
+
 ### Fix
 
 * Guide the user after the owner password reset. [devnullstdout]
