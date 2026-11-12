@@ -18,6 +18,7 @@ scripts/common/__pycache__
 __pycache__
 # ---- Runtime files the installer writes inside the tree (a development checkout is /opt/hiddify-manager itself) ----
 /.venv*/
+/.cache/
 /log/
 /release
 /docker-data/
