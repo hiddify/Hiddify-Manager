@@ -27,7 +27,7 @@
 Hiddify Manager 是一款免费开源的反审查面板，安装在您自己的服务器上。它可以运行一个多用户 VPN 和代理服务器，支持**超过 20 种协议**，包括 **Reality** 和 **Telegram 代理**，并提供现代化的 Web 面板来管理用户、域名和设置。它针对**伊朗、中国和俄罗斯**的严格网络过滤进行了优化，并被 [Xray](https://github.com/XTLS/Xray-core#installation) 列入面板列表。
 
 <div align=center>
-<img alt="Hiddify Manager panel" width=100% src="https://raw.githubusercontent.com/hiddify/hiddify.com/main/docs/assets/hiddify-manager.webp">
+<img alt="Hiddify Manager panel" width=90% src="demo-en.webp">
 </div>
 
 ### 目录

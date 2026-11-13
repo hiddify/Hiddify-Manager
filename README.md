@@ -27,7 +27,7 @@
 Hiddify Manager is a free and open-source anti-censorship panel that you install on your own server. It runs a multi-user VPN and proxy server with **more than 20 protocols**, including **Reality** and a **Telegram proxy**, and gives you a modern web panel to manage your users, domains and settings. It is tuned for heavy filtering in **Iran, China and Russia**, and is listed by [Xray](https://github.com/XTLS/Xray-core#installation).
 
 <div align=center>
-<img alt="Hiddify Manager panel" width=100% src="https://raw.githubusercontent.com/hiddify/hiddify.com/main/docs/assets/hiddify-manager.webp">
+<img alt="Hiddify Manager panel" width=90% src="docs/demo-en.webp">
 </div>
 
 ### Table of contents

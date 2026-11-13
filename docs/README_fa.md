@@ -27,7 +27,7 @@
 هیدیفای‌منیجر یک پنل رایگان و متن‌باز ضدسانسور است که روی سرور خودتان نصب می‌کنید. یک سرور VPN و پروکسی چندکاربره با **بیش از ۲۰ پروتکل**، از جمله **ریالتی (Reality)** و **پروکسی تلگرام**، راه می‌اندازد و یک پنل وب مدرن برای مدیریت کاربران، دامنه‌ها و تنظیمات به شما می‌دهد. برای فیلترینگ شدید در **ایران، چین و روسیه** بهینه شده و در فهرست [Xray](https://github.com/XTLS/Xray-core#installation) آمده است.
 
 <div align=center>
-<img alt="پنل هیدیفای‌منیجر" width=100% src="https://raw.githubusercontent.com/hiddify/hiddify.com/main/docs/assets/hiddify-manager-fa.webp">
+<img alt="پنل هیدیفای‌منیجر" width=90% src="demo-fa.webp">
 </div>
 
 ### فهرست مطالب

@@ -27,7 +27,7 @@
 Hiddify Manager — это бесплатная панель с открытым исходным кодом для обхода цензуры, которую вы устанавливаете на свой собственный сервер. Она запускает многопользовательский VPN- и прокси-сервер с **более чем 20 протоколами**, включая **Reality** и **Telegram-прокси**, и даёт вам современную веб-панель для управления пользователями, доменами и настройками. Панель оптимизирована для работы в условиях жёсткой фильтрации в **Иране, Китае и России** и указана в списке панелей [Xray](https://github.com/XTLS/Xray-core#installation).
 
 <div align=center>
-<img alt="Hiddify Manager panel" width=100% src="https://raw.githubusercontent.com/hiddify/hiddify.com/main/docs/assets/hiddify-manager.webp">
+<img alt="Hiddify Manager panel" width=90% src="demo-en.webp">
 </div>
 
 ### Содержание
