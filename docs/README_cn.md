@@ -1,201 +1,147 @@
 <base target="_blank">
 
-<div dir="ltr">
- 
+<div dir="ltr" align=center>
 
- 
-[**![Lang_farsi](https://user-images.githubusercontent.com/125398461/234186932-52f1fa82-52c6-417f-8b37-08fe9250a55f.png) &nbsp;فارسی**](README_fa.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[**🇷🇺 Русский**](README_ru.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[**English 🇺🇸**](https://github.com/hiddify/hiddify-manager/blob/main/README.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/%20Wiki-Page-808080?style=flat-square)](https://github.com/hiddify/hiddify-manager/wiki)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/FAQ-Here-512DA8?style=flat-square&logo=Favro)](https://github.com/hiddify/hiddify-manager/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![](https://img.shields.io/badge/Report-Bugs-F67909?style=flat-square&logo=Open-Bug-Bounty)](https://github.com/hiddify/hiddify-manager/issues)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</div>
-<br>
-<div align=center markdown="1">
-
-![Hiddify Manager logo](https://github.com/hiddify/Hiddify-Manager/assets/125398461/eeac9916-f57e-4eaf-96dd-f4ea029a8389)
-<!--
-![Hiddify Logo](https://user-images.githubusercontent.com/125398461/227777845-a4d0f86b-faa2-4f2b-a410-4aa5f68bfe19.png)
-![Hiddify Manager logo](https://github.com/hiddify/Hiddify-Manager/assets/125398461/4831e4ab-fe8a-4741-81e4-472e4ee7351a)
-
--->
+[**English 🇬🇧**](../README.md) / [**فارسی 🇮🇷**](README_fa.md) / [**Русский 🇷🇺**](README_ru.md) &nbsp;&nbsp; [![](https://img.shields.io/badge/Tutorials-hiddify.com-808080?style=flat-square)](https://hiddify.com/manager/) [![](https://img.shields.io/badge/FAQ-Here-512DA8?style=flat-square&logo=Favro)](https://github.com/hiddify/hiddify-manager/discussions/categories/q-a-%D8%B3%D9%88%D8%A7%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7%DB%8C%D8%AC) [![](https://img.shields.io/badge/Report-Bugs-F67909?style=flat-square&logo=Open-Bug-Bounty)](https://github.com/hiddify/hiddify-manager/issues)
 
 </div>
 <br>
+
 <div align=center>
 
+<img src="https://raw.githubusercontent.com/hiddify/hiddify.com/main/docs/assets/hiddify-manager-logo.svg" width=60% alt="Hiddify Manager" />
 
-<!--[![Total Downloads](https://img.shields.io/github/downloads/hiddify/hiddify-manager/total?label=downloads%20after%202023%2F03%2F27%2011%3A00%20&style=flat-square)](https://github.com/hiddify/hiddify-manager/)
-[![Downloads](https://img.shields.io/pypi/dm/hiddifypanel?style=flat-square)](https://pypistats.org/packages/hiddifypanel)-->
- [![Downloads](https://static.pepy.tech/badge/hiddifypanel?style=flat-square&v3)](https://github.com/hiddify/hiddify-manager/releases)[![Last Version](https://img.shields.io/github/release/hiddify/hiddify-manager/all.svg?style=flat-square)](https://github.com/hiddify/hiddify-manager/)[![Last Release Date](https://img.shields.io/github/release-date/hiddify/hiddify-manager.svg?style=flat-square)](https://github.com/hiddify/hiddify-manager/)![commits](https://img.shields.io/github/commit-activity/m/hiddify/hiddify-manager?style=flat-square)[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square&logo=youtube)](https://www.youtube.com/@hiddify)[![Telegram Channel](https://img.shields.io/endpoint?label=Channel&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify&color=blue)](https://telegram.dog/hiddify)[![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
-<!--
-[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square)](https://www.youtube.com/@hiddify/videos)
-[![Telegram Channel](https://img.shields.io/endpoint?label=Telegram&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify)](https://telegram.dog/hiddify)
-[![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
-[![GitHub Stars](https://img.shields.io/tokei/lines/github/hiddify/hiddify-manager.svg)](https://github.com/hiddify/hiddify-manager/)
-[![GitHub Stars](https://img.shields.io/github/stars/hiddify/hiddify-manager.svg)](https://github.com/hiddify/hiddify-manager/)
-[![GitHub Forks](https://img.shields.io/github/forks/hiddify/hiddify-manager.svg)](https://github.com/hiddify/hiddify-manager/)
-[![Telegram Channel](https://img.shields.io/endpoint?style=social&url=https%3A%2F%2Frunkit.io%2Fdamiankrawczyk%2Ftelegram-badge%2Fbranches%2Fmaster%3Furl%3Dhttps%3A%2F%2Ft.me%2Fhiddify&label=Telegram
-)](https://telegram.com/hiddify/)
+</div>
+<br>
 
+<div align=center>
 
-[![Telegram Channel](https://img.shields.io/endpoint?label=Telegram&style=plastic&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify)](https://telegram.dog/hiddify)
-[![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=plastic&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
-[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=plastic)](https://www.youtube.com/@hiddify)
-[![Twitter](https://img.shields.io/twitter/follow/hiddify_com?label=Twitter&style=plastic)](https://twitter.com/intent/follow?screen_name=hiddify_com)
--->
+[![Downloads](https://static.pepy.tech/badge/hiddifypanel?style=flat-square)](https://www.pepy.tech/projects/hiddifypanel) [![Last Version](https://img.shields.io/github/release/hiddify/hiddify-manager/all.svg?style=flat-square)](https://github.com/hiddify/hiddify-manager/releases) [![Last Release Date](https://img.shields.io/github/release-date/hiddify/hiddify-manager.svg?style=flat-square)](https://github.com/hiddify/hiddify-manager/releases) [![commits](https://img.shields.io/github/commit-activity/m/hiddify/hiddify-manager?style=flat-square)](https://github.com/hiddify/hiddify-manager/commits/) [![YouTube](https://img.shields.io/badge/YouTube-@hiddify-FF0000?style=flat-square&logo=youtube)](https://www.youtube.com/@hiddify) [![Telegram Channel](https://img.shields.io/endpoint?label=Channel&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify&color=blue)](https://telegram.dog/hiddify) [![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board/5) [![Gurubase](https://img.shields.io/badge/Gurubase-Ask%20Hiddify--Manager%20Guru-006BFF?style=flat-square)](https://gurubase.io/g/hiddify-manager)
 
 </div>
 
+<div dir="ltr" markdown="1">
 
-## 欢迎来到 Hiddify-Manager 项目
-Hiddify-Manager 是一个强大而专业的反网络审查工具箱，Hiddify-Manager 面板支持多用户，安装简单，<b>支持超过 20 种协议</b>，包括 <b>Reality</b> 和 <b>Telegram 代理</b> 以绕过网络审查和封锁。它针对<b>中国</b>、<b>俄罗斯</b>和<b>伊朗</b>的网络审查和封锁进行了规避优化，并得到了<a href="https://github.com/XTLS/Xray-core#installation" target="_blank"> <b>Xray</b> </a>的推荐。总的来说，它是 X-UI 面板的一个绝佳替代品。
+## 欢迎使用 Hiddify Manager
 
-![Chinese](https://user-images.githubusercontent.com/125398461/236637780-5795c30f-f8a9-4b1a-ac0d-90774fff50b8.png)
+Hiddify Manager 是一款免费开源的反审查面板，安装在您自己的服务器上。它可以运行一个多用户 VPN 和代理服务器，支持**超过 20 种协议**，包括 **Reality** 和 **Telegram 代理**，并提供现代化的 Web 面板来管理用户、域名和设置。它针对**伊朗、中国和俄罗斯**的严格网络过滤进行了优化，并被 [Xray](https://github.com/XTLS/Xray-core#installation) 列入面板列表。
 
-
-***
+<div align=center>
+<img alt="Hiddify Manager panel" width=100% src="https://raw.githubusercontent.com/hiddify/hiddify.com/main/docs/assets/hiddify-manager.webp">
+</div>
 
 ### 目录
-- [Hiddify-Manager 是什么？](#%E4%B8%BA%E4%BB%80%E4%B9%88-hiddify)
-  - [有吸引力的功能](#%E5%90%B8%E5%BC%95%E4%BA%BA%E7%9A%84%E7%89%B9%E7%82%B9)
-  - [支持的协议](#%E6%94%AF%E6%8C%81%E7%9A%84%E5%8D%8F%E8%AE%AE)
-  - [智能代理国内和被墙网站](#%E5%9B%BD%E5%86%85%E5%92%8C%E8%BF%87%E6%BB%A4%E7%BD%91%E7%AB%99%E7%9A%84%E6%99%BA%E8%83%BD%E4%BB%A3%E7%90%86)
-  - [其他出色的功能](#%E5%85%B6%E4%BB%96%E5%A5%87%E5%A6%99%E7%9A%84%E5%8A%9F%E8%83%BD)
-- [安装和教程](#%E5%AE%89%E8%A3%85%E5%92%8C%E6%95%99%E7%A8%8B)
-- [捐赠与支持](#%E6%8D%90%E8%B5%A0%E4%B8%8E%E6%94%AF%E6%8C%81)
-- [协作和联系信息](#%E5%8D%8F%E4%BD%9C%E5%92%8C%E8%81%94%E7%B3%BB%E4%BF%A1%E6%81%AF)
 
+- [快速安装](#快速安装)
+- [为什么选择 Hiddify Manager？](#为什么选择-hiddify-manager)
+  - [主要功能](#主要功能)
+  - [支持的协议](#支持的协议)
+- [安装与教程](#安装与教程)
+- [致谢](#致谢)
+- [捐赠与支持](#捐赠与支持)
+- [合作与联系](#合作与联系)
 
+## 快速安装
 
+您需要一台运行 **Ubuntu 22.04、24.04 或 26.04**（amd64 或 arm64）的服务器（VPS），配置至少为 **1 GB 内存、1 个 CPU 核心和 10 GB 存储空间**。通过 SSH 连接到服务器并运行：
 
-## Hiddify-Manager 是什么？
-Hiddify 的名称是 Hidden （隐藏） 和 Simplify （简化） 的合并而来。我们的目标是在 Hiddify-Manager 中纳入一切有助于将翻墙变得简单和具有隐蔽性的方法。换句话说，这是一个帮助您无忧且安全地浏览互联网的多特性、多功能面板。作为一个对用户十分友好的 VPN 解决方案，Hiddify-Manager 确保您可以轻松、安心地访问自由互联网。
+```bash
+bash <(curl https://i.hiddify.com/release)
+```
 
-### 有吸引力的功能
-- **快速安装**
-- **Xray 和 SingBox 多核心支持**
-- **智能代理** （Hiddify 和 Clash 客户端）
-- **自动更新**
-- **自动备份** （每6小时一次）
-- 自动连接到 Cloudflare
-- 支持**多域名**
-- **自动配置 CDN IP**
-- **活动配置**管理
-- **丰富的管理员权限**
-- **目前唯一具有多用户管理功能的 SingBox 面板**
-- 为每个用户配置**时间和流量限制**
-- 为每个用户提供**查看消耗情况和节点配置的专属页面**
-- 专用且**智能的配置**
-- **专用客户端软件**
-- 使用不同库的**Telegram 代理**
-- **内置 DNS over HTTPS 服务端** （DoH）
-- 支持使用 **Telegram Bot** 进行用户管理
-- 使用专用 **WARP** 来绕过一些限制
+安装结束时，安装程序会显示您的管理员链接。打开它，完成快速设置，然后添加您的第一个用户。[安装指南](https://hiddify.com/manager/installation-and-setup/guide/)详细说明了每一步；另外还有 [Hetzner](https://hiddify.com/manager/installation-and-setup/Quick-installation-on-Hetzner-Servers/)、[Oracle Cloud](https://hiddify.com/manager/installation-and-setup/Quick-Installation-on-Oracle-Cloud/)、[Azure](https://hiddify.com/manager/installation-and-setup/Quick-Installation-on-Microsoft-Azure/) 和 [cloud-init](https://hiddify.com/manager/installation-and-setup/Cloud-init-installation/) 的一键安装指南。
 
-以及安装后您会注意到的许多其他功能。
+在手机和电脑上连接时，我们推荐使用 [Hiddify 应用](https://github.com/hiddify/hiddify-app)。
 
-<details markdown="1"> <summary><h3>支持的协议</h3>（点击这里）</summary> 
+## 为什么选择 Hiddify Manager？
 
-| 支持的配置 | 支持的配置 | 支持的配置 |
-| - | - | - |
-| **直连** | **CDN** | **域名前置** |
-|- Reality XTLS vless<br>- Reality gRPC vless<br>- SSH<br>- Hysteria2<br>- TUICv5 | 
-|Trojan:<br>- TLS WS<br>- TLS TCP<br>- TLS gRPC<br>- TLS H2 WS<br>- TLS H2 TCP<br>- TLS H2 gRPC<br> |  Trojan:<br>- TLS WS<br>- TLS gRPC<br>- TLS H2 WS<br>- TLS H2 gRPC<br><br><br>| Trojan:<br>- TLS WS Fake<br><br><br><br><br><br> |
-| Vless:<br>- TLS WS<br>- HTTP WS<br>- TLS XTLS<br>- TLS gRPC<br>- TLS H2 TLS<br>- TLS H2 WS<br>- TLS H2 gRPC| Vless:<br>- TLS WS<br>- TLS gRPC<br>- HTTP WS<br>- TLS H2 WS<br>- TLS H2 gRPC<br><br><br><br><br>| Vless:<br>- TLS WS Fake<br>- HTTP WS Fake<br><br><br><br><br><br><br><br> |
-| Vmess:<br>- TLS WS<br>- TLS TCP<br>- HTTP WS<br>- HTTP TCP<br>- TLS gRPC<br>- TLS H2 WS<br>- TLS H2 TCP<br> | Vmess:<br>- TLS WS<br>- TLS gRPC<br>- HTTP WS<br>- TLS H2 WS<br>- TLS H2 gRPC<br><br><br> | Vmess:<br>- TLS WS Fake<br>- HTTP WS Fake<br><br><br><br><br><br> |
-| V2ray:<br>- TLS WS<br>- HTTP WS<br>- TLS H2 |  V2ray:<br>- TLS WS<br>- HTTP WS<br>- TLS H2 | |
-| Shadowsocks:<br>- TLS Shadowtls<br>- HTTP Shadowtls<br>- TLS H2 Shadowtls<br>- TLS H3 Shadowtls | | |
+*Hiddify* 这个名字由 **hidden**（隐藏）和 **simplify**（简化）组合而成：我们的目标是打造一台难以被检测、又易于运行的服务器。
 
-</details>
+### 主要功能
 
-<details markdown="1"> <summary><h3>智能代理国内和被墙网站</h3>（点击这里）</summary>
- 
-您可以使用 Hiddify-Next 客户端，或者直接在 Hiddify-Manager 面板中，使用以下 3 种模式连接到互联网。
-1. 仅通过代理连接被封锁的网站。
-2. 通过代理连接除中国、俄罗斯、伊朗等国内网站外的所有网站。这样就可以不用代理打开国内网站了（推荐）
-3. 通过代理连接所有网站。
+- 🖥 **现代化管理面板（Admin V2）**，支持 28 种语言，提供浅色和深色主题，在手机上也能使用。
+- ⚡ **快速安装**和引导式初始设置；**自动更新**和**自动备份**（备份也会通过 Telegram 发送给您）。
+- 🧠 **Xray 和 sing-box 双核心**同时运行，并带有**智能路由**，让国内网站不走代理。
+- 🌐 **支持各类域名**：直连、CDN（Cloudflare 等）、中转（relay）、仅订阅、Reality、伪装（fake）和通配符域名；自动申请证书。
+- 👥 **用户管理**：为每个用户设置流量和时间限制、续期、标签，以及**三种管理员角色**（超级管理员、管理员、代理商），每个管理员都可单独设置限额。
+- 📱 每个用户都有**个人用户页面**：用量、配置、二维码，以及一键导入 Hiddify 应用和其他客户端。
+- 🤖 面向您和您的用户的 **Telegram 机器人**：创建和管理用户、查看服务器状态、免费试用账号、提醒和客服消息。
+- ✈️ **Telegram 代理**（MTProxy FakeTLS）和**通过 Cloudflare 的 Telegram 网页版代理**。
+- 🛰 **多服务器**：将多台服务器（节点）连接到同一个父面板。
+- 🧰 **工具**：配置测试器、干净 IP 扫描器、Reality 域名扫描器、WARP、防火墙、DNS over HTTPS、自定义出站和配置模板。
 
-同时，以上解决方案也可以抵抗 Internet 过滤实体的检测，并防止对服务器的常见攻击，即检测的可能性很小，但是，不要忘记了禁用除 22、80 和 443 之外的其他端口。  
+### 支持的协议
 
-</details>
-  
-<details markdown="1"><summary><h3>其他出色的功能</h3>（点击这里）</summary>
+**VLESS, VMess, Trojan, Reality, Shadowsocks (2022, ShadowTLS), Hysteria2, TUIC, WireGuard, AnyTLS, Snell, Naive, Mieru, SSH, xHTTP, gRPC, WebSocket, HTTPUpgrade,** DNS 隧道（**VayDNS, Slipstream, MasterDnsVPN**）以及 **Telegram proxy**，可通过直连、CDN 和中转域名使用。
 
-<details  markdown="1"> <summary>支持的操作系统</summary>
-  Hiddify-Manager 已经在 Ubuntu 22.04 上进行了测试。支持 Ubuntu arm64 和 amd64 。
-</details>
+## 安装与教程
 
-<details  markdown="1"> <summary>网速检测</summary>
-  通过这个功能，您可以检测有代理和无代理下的服务器网速。
-  ![speed_test](https://user-images.githubusercontent.com/114227601/210183115-4e1f4186-421e-4316-8082-3ce53275adc7.png)
-</details>
+所有带图片和视频的教程都在我们的网站上：
 
-<details markdown="1"> <summary>DNS over HTTPS （CDN 支持）</summary>
-  要通过 HTTPS 使用 DNS，只需在浏览器中使用以下 DNS。
-  `https://yourdomain.com/yoursecret/dns/dns-query{?dns}`
-</details>
+- [安装指南](https://hiddify.com/manager/installation-and-setup/guide/)
+- [如何正确配置面板](https://hiddify.com/manager/configuration-and-advanced-settings/How-to-configure-Hiddify-panel-properly/)
+- [域名、CDN 和 Cloudflare](https://hiddify.com/manager/domain-worker-cdn-and-tunneling/How-to-use-Cloudflare-CDN/)
+- [Hiddify Manager 全部教程和视频](https://hiddify.com/manager/)
 
-<details markdown="1"> <summary>Redirector （CDN 支持）</summary> 
-  当你想要通过其他程序分享 Telegram 代理或 Shadowsocks 代理时，可以使用 CDN 进行重定向。例如，如果你在"fullURL"的位置放置 Shadowsocks 的配置，点击这个链接会打开 Shadowsocks 应用并在上面激活代理。例如：
-  
- `https://yourdomain.com/yoursecret/redirect/fullURL`
-  
-  记得把"fullURL"替换成 Shadowsocks 的配置。 
-  
-  `https://yourdomain.com/yoursecret/redirect/ss://secret/`
-</details>
-</details>
-
-## 安装和教程
-**请单击下面的图片，在我们的维基页面上找到相关信息。**
-
-<div align=center>
- 
-<a href="https://hiddify.com/manager/"><img width="100%" alt="Wiki 上的所有教程" src="https://github.com/hiddify/Hiddify-Manager/assets/125398461/3746dfbe-6cf6-42bb-9b25-cf07cf9873ab" /></a>
-
-
- </div>
-
- ## 致谢
-我们谨向以下项目的贡献者表示诚挚的谢意，他们坚实的基础和创新的功能显着增强了该项目的成功和功能。
-- [Sing-box](https://github.com/SagerNet/sing-box)
-- [Xray](https://github.com/XTLS/Xray-core#installation)
-- [Linux 作者 Linus Torvalds](https://github.com/torvalds/linux)
-- 字体：[Vazirmatn 作者 Saber Rastikerdar](https://github.com/rastikerdar/vazirmatn)
-
-## 捐赠与支持
-支持我们的最简单方法是单击此页面顶部的 Star （⭐）。
-
-<div align=center>
-    
-<img alt="Star History Chart" width=50% src="https://api.star-history.com/svg?repos=Hiddify/hiddify-manager&type=Date)](https://star-history.com/#Hiddify/hiddify-manager&Date" />
-
+<div align="center">
+ <a href="https://hiddify.com/manager/"><img width="100%" alt="hiddify.com" src="tutorials-cn.webp" /></a>
 </div>
 
-我们的服务也需要资金支持。我们所有的活动都是自愿进行的，资金支持将用于项目的开发和维护。您可以在 [此处](https://github.com/hiddify/hiddify-manager/wiki/support) 查看我们的支持地址。
+## 致谢
 
-## 协作和联系信息
-我们需要您的协作才能继续开发并维护此项目。如果您是这些领域的专家，请随时与我们联系，并提及你的技能。
-* 视频制作
-* Python 开发
-* Kotlin 开发
-* Flutter 开发
+我们衷心感谢以下项目的贡献者，正是他们坚实的基础和丰富的功能让本项目成为可能：
+
+- [sing-box](https://github.com/SagerNet/sing-box)
+- [Xray](https://github.com/XTLS/Xray-core)
+- [Linux，作者 Linus Torvalds](https://github.com/torvalds/linux)
+- 字体：[Vazirmatn，作者 Saber Rastikerdar](https://github.com/rastikerdar/vazirmatn)
+
+## 捐赠与支持
+
+支持我们最简单的方式，是在本页顶部为这个仓库点一个 Star（⭐）。
 
 <div align=center>
+<a href="https://next.ossinsight.io/widgets/official/analyze-repo-stars-history?repo_id=541755332" target="_blank" style="display: block" align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://next.ossinsight.io/widgets/official/analyze-repo-stars-history/thumbnail.png?repo_id=541755332&image_size=auto&color_scheme=dark" width="721" height="auto">
+    <img alt="Star History of hiddify/Hiddify-Manager" src="https://next.ossinsight.io/widgets/official/analyze-repo-stars-history/thumbnail.png?repo_id=541755332&image_size=auto&color_scheme=light" width="721" height="auto">
+  </picture>
+</a>
+</div>
 
-[![Email](https://img.shields.io/badge/Gmail-hiddify@gmail.com-green?style=flat-square&logo=gmail)](mailto:hiddify@gmail.com)
+我们的服务也需要资金支持。我们的所有工作都是志愿进行的，每一笔捐赠都将用于项目的开发。请查看我们的[捐赠页面](https://hiddify.com/donation-and-support/)。
+
+## 合作与联系
+
+Hiddify 是一个由社区推动的项目，我们需要您的帮助。如果您擅长以下任一领域，请联系我们并说明您的技能：
+
+- Python 开发
+- Vue / TypeScript 开发
+- Go 开发
+- 媒体制作
+
+<div align=center>
+<br>
+
+[![Email](https://img.shields.io/badge/Email-contribute@hiddify.com-005FF9?style=flat-square&logo=gmail)](mailto:contribute@hiddify.com)
 [![Telegram Channel](https://img.shields.io/endpoint?label=Channel&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify&color=blue)](https://telegram.dog/hiddify)
 [![Telegram Group](https://img.shields.io/endpoint?color=neon&label=Support%20Group&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fhiddify_board)](https://telegram.dog/hiddify_board)
-[![Youtube](https://img.shields.io/youtube/channel/views/UCxrmeMvVryNfB4XL35lXQNg?label=Youtube&style=flat-square&logo=youtube)](https://www.youtube.com/@hiddify)
-[![Twitter](https://img.shields.io/twitter/follow/hiddify_com?color=%231DA1F2&logo=twitter&logoColor=1DA1F2&style=flat-square)](https://twitter.com/intent/follow?screen_name=hiddify_com)
+[![YouTube](https://img.shields.io/badge/YouTube-@hiddify-FF0000?style=flat-square&logo=youtube)](https://www.youtube.com/@hiddify)
+[![X](https://img.shields.io/twitter/follow/hiddify_com?color=%231DA1F2&logo=x&logoColor=white&style=flat-square)](https://twitter.com/intent/follow?screen_name=hiddify_com)
 
 </div>
 
 <p align=center>
-感谢所有参与该项目的人。包括以下列出的人，和其他更多来自 Github 的人。你们对我们的意义非常重大。 ♥ </p>
- 
-<p align=center> 
+感谢所有参与这个项目的人，无论是在 GitHub 上，还是在 GitHub 之外的更多朋友。这对我们意义重大。♥
+</p>
+
+<p align=center>
 <a href="https://github.com/hiddify/hiddify-manager/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=hiddify/hiddify-manager" />
+  <img src="https://contrib.rocks/image?repo=hiddify/hiddify-manager" alt="Contributors" />
 </a>
 </p>
 <p align=center>
- 使用 <a rel="" target="_blank" href="https://contrib.rocks">Contrib.Rocks</a> 制作
+使用 <a target="_blank" href="https://contrib.rocks">Contrib.Rocks</a> 制作
 </p>
+
+</div>
