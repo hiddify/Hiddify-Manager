@@ -87,3 +87,5 @@ hiddify-core|5.5.5|arm64|https://github.com/hiddify/hiddify-core/releases/downlo
 hiddify-core|5.5.5|amd64|https://github.com/hiddify/hiddify-core/releases/download/v5.5.5/hiddify-core-linux-amd64-glibc.tar.gz|9e5f1b98a4490d8d7bdb2f74456e6ab1dcaa809ea0bc99bcc8bc4c3a97fe1e8c
 hiddify-core|5.9.9|arm64|https://github.com/hiddify/hiddify-core/releases/download/v5.9.9/hiddify-core-linux-arm64-glibc.tar.gz|e1d80ee82b0ec3d9de9c21fb20b8ab9dc3b06fd1d47d99076decad5c3ff23169
 hiddify-core|5.9.9|amd64|https://github.com/hiddify/hiddify-core/releases/download/v5.9.9/hiddify-core-linux-amd64-glibc.tar.gz|4f48b21acea4d3a6678e6a357d80553d1047f9bd716d1c4de90c07186964d0c9
+hiddify-core|5.9.11|arm64|https://github.com/hiddify/hiddify-core/releases/download/v5.9.11/hiddify-core-linux-arm64-glibc.tar.gz|51e38c7c0a692752eb2e8829ebb9e1a0d8b60d9a1158fd37d5ad973c7c314036
+hiddify-core|5.9.11|amd64|https://github.com/hiddify/hiddify-core/releases/download/v5.9.11/hiddify-core-linux-amd64-glibc.tar.gz|d0d32944323bd160f52c825d217bdab4a28023374f06f168f0c769d1cd9ba718
