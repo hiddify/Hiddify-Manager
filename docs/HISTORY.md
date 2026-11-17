@@ -5,6 +5,27 @@
 
 ### Other
 
+* Chore(packages): add hiddify-core version 5.9.9 for arm64 and amd64 architectures. [hiddify-com]
+
+* Chore(panel): keep the v12 Shadowsocks port and fix the NekoBox download. [hiddify-com]
+
+* Docs: README demo with the admin panel on a MacBook and the user page on an iPhone. [lymanjre]
+
+  docs/readme-demo/make_demo.py builds docs/demo-<lang>.webp from two
+  screenshots: the Admin V2 dashboard in a browser on a MacBook and the user
+  page on an iPhone 6.1", with the Hiddify Manager icon (docs/readme-demo/icon.svg)
+  in the dock. Right-to-left languages get a mirrored layout. The README in
+  all languages now uses this picture; docs/readme-demo/README.md explains how
+  to refresh it for a new release.
+
+* Docs: refresh README in all languages. [lymanjre]
+
+  Rewrite the README (English and every translation) for the current
+  release: new feature list, fixed download links and file names,
+  up-to-date install requirements and protocols, new screenshots from
+  hiddify.com, a per-language tutorials banner linking to hiddify.com,
+  and a working YouTube badge.
+
 * Merge branch 'dev' of github.com:hiddify/Hiddify-Manager into dev. [hiddify-com]
 
 * Merge pull request #5677 from Hiddify-Official/feat/version-commit. [Hiddify]
