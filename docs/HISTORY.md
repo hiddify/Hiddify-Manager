@@ -5,6 +5,8 @@
 
 ### Other
 
+* Chore(packages): add hiddify-core version 5.9.11 for arm64 and amd64 architectures. [hiddify-com]
+
 * Chore(packages): add hiddify-core version 5.9.9 for arm64 and amd64 architectures. [hiddify-com]
 
 * Chore(panel): keep the v12 Shadowsocks port and fix the NekoBox download. [hiddify-com]
