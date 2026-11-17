@@ -85,3 +85,5 @@ telemt|3.5.16|arm64|https://github.com/telemt/telemt/releases/download/3.5.16/te
 telemt|3.5.16|amd64|https://github.com/telemt/telemt/releases/download/3.5.16/telemt-x86_64-linux-gnu.tar.gz|e6f46b2f3becf29bfd555cec8a059e429f7c082c1af402499b3a7940cf8ebd34
 hiddify-core|5.5.5|arm64|https://github.com/hiddify/hiddify-core/releases/download/v5.5.5/hiddify-core-linux-arm64-glibc.tar.gz|459c6e874eb6971ed13fd263fa2646e370e1e618db14b70fd15a333581f7148a
 hiddify-core|5.5.5|amd64|https://github.com/hiddify/hiddify-core/releases/download/v5.5.5/hiddify-core-linux-amd64-glibc.tar.gz|9e5f1b98a4490d8d7bdb2f74456e6ab1dcaa809ea0bc99bcc8bc4c3a97fe1e8c
+hiddify-core|5.9.9|arm64|https://github.com/hiddify/hiddify-core/releases/download/v5.9.9/hiddify-core-linux-arm64-glibc.tar.gz|e1d80ee82b0ec3d9de9c21fb20b8ab9dc3b06fd1d47d99076decad5c3ff23169
+hiddify-core|5.9.9|amd64|https://github.com/hiddify/hiddify-core/releases/download/v5.9.9/hiddify-core-linux-amd64-glibc.tar.gz|4f48b21acea4d3a6678e6a357d80553d1047f9bd716d1c4de90c07186964d0c9
