@@ -1,0 +1,14 @@
+[Unit]
+Description=telEgo - Telegram MTProxy server
+Documentation=https://github.com/Scratch-net/telego
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/hiddify-manager/services/telegram/telego/
+ExecStart=/opt/hiddify-manager/services/telegram/telego/telego run -c ./config.toml
+Restart=on-failure
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
