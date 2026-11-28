@@ -55,9 +55,11 @@ if [[ "$ONLY_IPV4" != true ]]; then
     sysctl -w net.ipv6.conf.default.disable_ipv6=0
     sysctl -w net.ipv6.conf.lo.disable_ipv6=0
 
-    curl --connect-timeout 1 -s http://ipv6.google.com 2>&1 >/dev/null
-    if [ $? != 0 ]; then
-        ONLY_IPV4=true
+    # Only a note: an IPv6 check that fails (a slow network, an outage during the install) must not turn IPv6 off.
+    # Turning it off on an interface deletes the interface's IPv6 addresses, so every later check failed too and IPv6
+    # never came back by itself (a node reached only over IPv6 stayed cut off). Only the panel's setting turns it off.
+    if ! curl --connect-timeout 3 -s http://ipv6.google.com >/dev/null 2>&1; then
+        echo "IPv6 does not reach the internet right now; it stays on (turn on 'IPv4 only' in the panel to switch it off)"
     fi
 fi
 
